@@ -102,6 +102,7 @@ public final class JAXBMarshallerHelperTest
   public void testCloseExternalOnWriteToOutputStream ()
   {
     final MockMarshallerExternal m = new MockMarshallerExternal ();
+    assertNotNull (m.toString ());
     final MutableBoolean aClosed = new MutableBoolean (false);
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ()
     {

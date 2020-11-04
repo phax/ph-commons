@@ -38,6 +38,7 @@ This project was the following modules:
     * Made `MimeTypeParserException` a checked Exception
     * Added `CertificateHelper.getEncodedCertificate()`
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
+    * Fixed potential NPE in `GenericJAXBMarshaller.toString()`
 * v9.5.3 - 2020-10-22
     * Reverting the changes from 9.5.2
     * Made the JAXB DateTime adapter classes more resilient by trimming the input string

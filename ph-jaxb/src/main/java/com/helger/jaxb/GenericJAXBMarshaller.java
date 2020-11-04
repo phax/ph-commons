@@ -598,7 +598,10 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
                                        .append ("FormattedOutput", m_bFormattedOutput)
                                        .append ("NSContext", m_aNSContext)
                                        .append ("Charset", m_aCharset)
-                                       .append ("IndentString", StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
+                                       .append ("IndentString",
+                                                m_sIndentString == null ? null
+                                                                        : StringHelper.getHexEncoded (m_sIndentString,
+                                                                                                      StandardCharsets.ISO_8859_1))
                                        .append ("SchemaLocation", m_sSchemaLocation)
                                        .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                                        .append ("UseContextCache", m_bUseContextCache)
