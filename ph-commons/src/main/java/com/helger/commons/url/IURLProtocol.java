@@ -30,7 +30,10 @@ import com.helger.commons.annotation.Nonempty;
 public interface IURLProtocol
 {
   /**
-   * @return The underlying text representation of the protocol.
+   * Retrieve the URL protocol prefix to be used. May contain "//".
+   *
+   * @return The underlying text representation of the protocol. Never
+   *         <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
@@ -71,7 +74,7 @@ public interface IURLProtocol
 
   /**
    * @return <code>true</code> if this protocol can handle HTTP query parameters
-   *         (?x=y&amp;z=1)
+   *         (<code>?x=y&amp;z=1</code>), <code>false</code> if not.
    */
   boolean allowsForQueryParameters ();
 }

@@ -40,9 +40,6 @@ public class URLProtocol implements IURLProtocol
     m_bAllowsForQueryParameters = bAllowsForQueryParameters;
   }
 
-  /**
-   * @return The underlying text representation of the protocol.
-   */
   @Nonnull
   @Nonempty
   public String getProtocol ()
@@ -50,13 +47,6 @@ public class URLProtocol implements IURLProtocol
     return m_sProtocol;
   }
 
-  /**
-   * Tells if the passed String (URL) belongs to this protocol.
-   *
-   * @param sURL
-   *        The URL to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed URL starts with this protocol
-   */
   public boolean isUsedInURL (@Nullable final String sURL)
   {
     return sURL != null && sURL.startsWith (m_sProtocol);
