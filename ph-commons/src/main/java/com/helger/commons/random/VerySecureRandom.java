@@ -18,6 +18,7 @@ package com.helger.commons.random;
 
 import java.security.ProviderException;
 import java.security.SecureRandom;
+import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnegative;
@@ -29,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.lang.TimeValue;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.timing.StopWatch;
@@ -246,11 +246,11 @@ public final class VerySecureRandom
           LOGGER.debug ("Re-seeding VerySecureRandom started");
 
         // Re-seed
-        final TimeValue aDuration = StopWatch.runMeasured ( () -> s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT)));
-        if (aDuration.getAsMillis () > WARNING_MILLISECONDS_THRESHOLD)
+        final Duration aDuration = StopWatch.runMeasured ( () -> s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT)));
+        if (aDuration.toMillis () > WARNING_MILLISECONDS_THRESHOLD)
           if (LOGGER.isWarnEnabled ())
             LOGGER.warn ("Re-seeding VerySecureRandom took too long (" +
-                         aDuration.getAsMillis () +
+                         aDuration.toMillis () +
                          " milliseconds) - you may consider using '/dev/urandom'");
       }
 

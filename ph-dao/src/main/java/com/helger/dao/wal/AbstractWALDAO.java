@@ -23,11 +23,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
@@ -58,7 +58,6 @@ import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.TimeValue;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -93,7 +92,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @ThreadSafe
 public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
 {
-  public static final TimeValue DEFAULT_WAITING_TIME = new TimeValue (TimeUnit.SECONDS, 10);
+  public static final Duration DEFAULT_WAITING_TIME = Duration.ofSeconds (10);
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractWALDAO.class);
 
   private final IMutableStatisticsHandlerCounter m_aStatsCounterInitTotal = StatisticsManager.getCounterHandler (getClass ().getName () +
@@ -132,7 +131,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   private int m_nWriteCount = 0;
   private LocalDateTime m_aLastWriteDT;
   private boolean m_bCanWriteWAL = true;
-  private TimeValue m_aWaitingTime = DEFAULT_WAITING_TIME;
+  private Duration m_aWaitingTime = DEFAULT_WAITING_TIME;
 
   // Status vars
   private final WALListener m_aWALListener;
@@ -1018,7 +1017,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    *         <code>null</code>. Default value is 10 seconds.
    */
   @Nonnull
-  public TimeValue getWaitingTime ()
+  public Duration getWaitingTime ()
   {
     return m_aWaitingTime;
   }
@@ -1031,7 +1030,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @param aWaitingTime
    *        The waiting time to be used. May not be <code>null</code>.
    */
-  protected void setWaitingTime (@Nonnull final TimeValue aWaitingTime)
+  protected void setWaitingTime (@Nonnull final Duration aWaitingTime)
   {
     ValueEnforcer.notNull (aWaitingTime, "WaitingTime");
     m_aWaitingTime = aWaitingTime;
@@ -1076,7 +1075,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
       // startup!
       // Note: writing a WAL makes no sense, if the waiting time is zero
       if (m_bCanWriteWAL &&
-          m_aWaitingTime.getDuration () > 0 &&
+          m_aWaitingTime.compareTo (Duration.ZERO) > 0 &&
           sWALFilename != null &&
           _writeWALFile (aModifiedElements, eActionType, sWALFilename).isSuccess ())
       {

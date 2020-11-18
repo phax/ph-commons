@@ -16,11 +16,13 @@
  */
 package com.helger.dao.wal;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
@@ -36,7 +38,6 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.BasicThreadFactory;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
-import com.helger.commons.lang.TimeValue;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
 
@@ -132,7 +133,7 @@ public final class WALListener extends AbstractGlobalSingleton
    */
   public void registerForLaterWriting (@Nonnull final AbstractWALDAO <?> aDAO,
                                        @Nonnull final String sWALFilename,
-                                       @Nonnull final TimeValue aWaitingWime)
+                                       @Nonnull final Duration aWaitingWime)
   {
     // In case many DAOs of the same class exist, the filename is also added
     final String sKey = aDAO.getClass ().getName () + "::" + sWALFilename;
@@ -170,7 +171,7 @@ public final class WALListener extends AbstractGlobalSingleton
       };
 
       // Schedule exactly once in the specified waiting time
-      final ScheduledFuture <?> aFuture = m_aES.schedule (r, aWaitingWime.getDuration (), aWaitingWime.getTimeUnit ());
+      final ScheduledFuture <?> aFuture = m_aES.schedule (r, aWaitingWime.toMillis (), TimeUnit.MILLISECONDS);
 
       // Remember the scheduled item and the runnable so that the task can
       // be rescheduled upon shutdown.

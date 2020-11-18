@@ -17,8 +17,6 @@
 package com.helger.commons.timing;
 
 import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -26,7 +24,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.lang.TimeValue;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IStoppable;
 import com.helger.commons.string.ToStringGenerator;
@@ -177,7 +174,7 @@ public class StopWatch implements IStoppable
   @Nonnull
   public Duration getDuration ()
   {
-    return Duration.of (m_nDurationNanos, ChronoUnit.NANOS);
+    return Duration.ofNanos (m_nDurationNanos);
   }
 
   /**
@@ -262,18 +259,18 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * Run the passed runnable and measure the time.
+   * Run the passed runnable and measure the time. In v10 this was changed to
+   * return Duration instead of TimeValue.
    *
    * @param aRunnable
    *        The runnable to be executed. May not be <code>null</code>.
-   * @return The elapsed time. Never <code>null</code>.
+   * @return The elapsed Duration. Never <code>null</code>.
    */
   @Nonnull
-  public static TimeValue runMeasured (@Nonnull final Runnable aRunnable)
+  public static Duration runMeasured (@Nonnull final Runnable aRunnable)
   {
     final StopWatch aSW = createdStarted ();
     aRunnable.run ();
-    final long nNanos = aSW.stopAndGetNanos ();
-    return new TimeValue (TimeUnit.NANOSECONDS, nNanos);
+    return aSW.stopAndGetDuration ();
   }
 }

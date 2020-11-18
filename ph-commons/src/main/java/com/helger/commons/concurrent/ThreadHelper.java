@@ -16,6 +16,7 @@
  */
 package com.helger.commons.concurrent;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnegative;
@@ -24,7 +25,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.lang.TimeValue;
 import com.helger.commons.state.ESuccess;
 
 /**
@@ -71,16 +71,16 @@ public final class ThreadHelper
   /**
    * Sleep the current thread for a certain amount of time
    *
-   * @param aTimeValue
+   * @param aDuration
    *        The time value to use. May not be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
    *         {@link ESuccess#FAILURE} if sleeping was interrupted
    */
   @Nonnull
-  public static ESuccess sleep (@Nonnull final TimeValue aTimeValue)
+  public static ESuccess sleep (@Nonnull final Duration aDuration)
   {
-    ValueEnforcer.notNull (aTimeValue, "TimeValue");
-    return sleep (aTimeValue.getAsMillis ());
+    ValueEnforcer.notNull (aDuration, "Duration");
+    return sleep (aDuration.toMillis ());
   }
 
   /**
