@@ -32,6 +32,7 @@ import com.helger.commons.concurrent.ThreadHelper;
  */
 public final class StopWatchTest
 {
+  @SuppressWarnings ("deprecation")
   @Test
   public void testAll ()
   {
@@ -66,5 +67,17 @@ public final class StopWatchTest
 
     sw = StopWatch.createdStarted ();
     assertTrue (sw.isStarted ());
+  }
+
+  @Test
+  public void testGetLapTime ()
+  {
+    final StopWatch sw = StopWatch.createdStarted ();
+    ThreadHelper.sleep (100);
+    long n = sw.getLapDuration ().toMillis ();
+    assertTrue (n >= 100);
+    ThreadHelper.sleep (100);
+    n = sw.stopAndGetDuration ().toMillis ();
+    assertTrue (n >= 200);
   }
 }

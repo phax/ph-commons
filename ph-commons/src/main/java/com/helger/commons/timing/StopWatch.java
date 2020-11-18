@@ -163,6 +163,7 @@ public class StopWatch implements IStoppable
    * @return The elapsed seconds.
    */
   @Nonnegative
+  @Deprecated
   public long getSeconds ()
   {
     return m_nDurationNanos / CGlobal.NANOSECONDS_PER_SECOND;
@@ -184,6 +185,7 @@ public class StopWatch implements IStoppable
    * @return The elapsed nano seconds or 0 if the stop watch was never started.
    */
   @Nonnegative
+  @Deprecated
   public long stopAndGetNanos ()
   {
     stop ();
@@ -211,6 +213,7 @@ public class StopWatch implements IStoppable
    * @return The elapsed seconds or 0 if the stop watch was never started.
    */
   @Nonnegative
+  @Deprecated
   public long stopAndGetSeconds ()
   {
     stop ();
@@ -228,6 +231,21 @@ public class StopWatch implements IStoppable
   {
     stop ();
     return getDuration ();
+  }
+
+  /**
+   * Create an intermediate time (lap time).
+   *
+   * @return The elapsed duration or 0 if the stop watch was never started.
+   * @since 10.0.0
+   */
+  @Nonnull
+  public Duration getLapDuration ()
+  {
+    stop ();
+    final Duration ret = getDuration ();
+    start ();
+    return ret;
   }
 
   @Override

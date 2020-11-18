@@ -40,6 +40,7 @@ This project was the following modules:
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Fixed potential NPE in `GenericJAXBMarshaller.toString()`
     * Removed `TimeValue` in favour of `Duration`
+    * Added `StopWatch.getLapDuration ()`
 * v9.5.3 - 2020-10-22
     * Reverting the changes from 9.5.2
     * Made the JAXB DateTime adapter classes more resilient by trimming the input string
