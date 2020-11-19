@@ -23,6 +23,7 @@ import java.nio.file.Path;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
@@ -60,19 +61,19 @@ public final class TransformResultFactory
   }
 
   @Nonnull
-  public static ResourceStreamResult create (@Nonnull final IWritableResource aResource)
+  public static StreamResult create (@Nonnull final IWritableResource aResource)
   {
-    return new ResourceStreamResult (aResource);
+    return new StreamResult (aResource.getAsFile ());
   }
 
   @Nonnull
-  public static StreamResult create (@Nullable final OutputStream aOS)
+  public static StreamResult create (@Nullable @WillNotClose final OutputStream aOS)
   {
     return new StreamResult (aOS);
   }
 
   @Nonnull
-  public static StreamResult create (@Nullable final Writer aWriter)
+  public static StreamResult create (@Nullable @WillNotClose final Writer aWriter)
   {
     return new StreamResult (aWriter);
   }

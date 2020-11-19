@@ -41,6 +41,7 @@ This project was the following modules:
     * Fixed potential NPE in `GenericJAXBMarshaller.toString()`
     * Removed `TimeValue` in favour of `Duration`
     * Added `StopWatch.getLapDuration ()`
+    * Removed `ResourceStreamSource` and `ResourceStreamResult` - see https://saxonica.plan.io/issues/4833 for the reasons
 * v9.5.3 - 2020-10-22
     * Reverting the changes from 9.5.2
     * Made the JAXB DateTime adapter classes more resilient by trimming the input string

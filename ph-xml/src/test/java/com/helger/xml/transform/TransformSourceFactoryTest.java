@@ -20,65 +20,38 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.io.InputStream;
+
+import javax.xml.transform.stream.StreamSource;
 
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.xml.mock.MockNullInputStreamProvider;
 
 /**
- * Test class for class {@link ResourceStreamSource}.
+ * Test class for class {@link TransformSourceFactory}.
  *
  * @author Philip Helger
  */
-public final class ResourceStreamSourceTest
+public final class TransformSourceFactoryTest
 {
   @Test
-  public void testBasic ()
+  public void testReadableResource () throws IOException
   {
     final IReadableResource aRes = new ClassPathResource ("xml/test1.xslt");
     assertTrue (aRes.exists ());
-    final ResourceStreamSource src = new ResourceStreamSource (aRes);
-    final InputStream is = src.getInputStream ();
-    assertNotNull (is);
-    StreamHelper.close (is);
+    final StreamSource src = TransformSourceFactory.create (aRes);
+    try (final InputStream is = src.getInputStream ())
+    {
+      assertNotNull (is);
+    }
     assertEquals (aRes.getResourceID (), src.getSystemId ());
     assertNull (src.getPublicId ());
 
     CommonsTestHelper.testToStringImplementation (src);
-  }
-
-  @SuppressWarnings ("unused")
-  @Test
-  public void testCreationError ()
-  {
-    try
-    {
-      new ResourceStreamSource (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      new ResourceStreamSource (null, "systid");
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      // Input stream provider
-      new ResourceStreamSource (new MockNullInputStreamProvider (), "systid").getInputStream ();
-      fail ();
-    }
-    catch (final IllegalStateException ex)
-    {}
   }
 }

@@ -69,13 +69,13 @@ public final class TransformSourceFactory
   }
 
   @Nonnull
-  public static ResourceStreamSource create (@Nonnull final URI aURI)
+  public static StreamSource create (@Nonnull final URI aURI)
   {
     return create (URLHelper.getAsURL (aURI));
   }
 
   @Nonnull
-  public static ResourceStreamSource create (@Nonnull final URL aURL)
+  public static StreamSource create (@Nonnull final URL aURL)
   {
     return create (new URLResource (aURL));
   }
@@ -89,9 +89,10 @@ public final class TransformSourceFactory
   }
 
   @Nonnull
-  public static ResourceStreamSource create (@Nonnull final IReadableResource aResource)
+  public static StreamSource create (@Nonnull final IReadableResource aResource)
   {
-    return new ResourceStreamSource (aResource);
+    // Read into memory
+    return new CachingTransformStreamSource (aResource);
   }
 
   @Nonnull
