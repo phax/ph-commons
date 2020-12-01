@@ -79,7 +79,7 @@ public final class JsonEscapeHelperTest
       final String sEscaped = JsonEscapeHelper.jsonEscape (sTestString);
       // Try to parse escaped string
       assertNotNull (StringHelper.getHexEncoded (sEscaped, StandardCharsets.UTF_8),
-                     JsonReader.builder ().setSource ("\"" + sEscaped + "\"").read ());
+                     JsonReader.builder ().source ("\"" + sEscaped + "\"").read ());
       // Unescape
       final String sUnescaped = JsonEscapeHelper.jsonUnescape (sEscaped);
       // Must be identical to source string

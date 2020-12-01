@@ -90,12 +90,12 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   private static ICommonsOrderedMap <String, String> _load (@Nonnull final IReadableResource aRes, @Nonnull final Charset aCharset)
   {
     final JsonReader.Builder aBuilder = JsonReader.builder ()
-                                                  .setSource (aRes, aCharset)
-                                                  .setCustomizeCallback (aParser -> aParser.setRequireStringQuotes (false)
+                                                  .source (aRes, aCharset)
+                                                  .customizeCallback (aParser -> aParser.setRequireStringQuotes (false)
                                                                                            .setAllowSpecialCharsInStrings (true)
                                                                                            .setAlwaysUseBigNumber (true)
                                                                                            .setTrackPosition (true))
-                                                  .setCustomExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
+                                                  .customExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
                                                                                                    aRes.getPath () +
                                                                                                    "' to JSON: " +
                                                                                                    ex.getMessage ()));

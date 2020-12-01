@@ -46,7 +46,7 @@ public final class EqualsHashcodeFuncTest
     assertNotNull ("Failed: " + aValue, aJson);
     final String sJson = aJson.getAsJsonString ();
     assertNotNull (sJson);
-    final IJson aJsonRead = JsonReader.builder ().setSource (sJson).read ();
+    final IJson aJsonRead = JsonReader.builder ().source (sJson).read ();
     assertNotNull ("Failed to read: " + sJson, aJsonRead);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aJson, aJsonRead);
   }

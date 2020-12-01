@@ -228,7 +228,7 @@ public final class JsonReader
   @Nullable
   public static IJson readFromString (@Nonnull final String sJson)
   {
-    return builder ().setSource (sJson).read ();
+    return builder ().source (sJson).read ();
   }
 
   /**
@@ -244,20 +244,21 @@ public final class JsonReader
   /**
    * @return Create a new {@link Builder} instance that is configured to read
    *         multiple instances. Never <code>null</code>. Use
-   *         {@link Builder#setSource(Reader)} to ensure this works. When using
+   *         {@link Builder#source(Reader)} to ensure this works. When using
    *         {@link InputStream} or the like, there is too much pre read.
    * @since 9.3.8
    */
   @Nonnull
   public static Builder builderMultiObject ()
   {
-    return builder ().setDontCloseSource (true).setUseBufferedReader (false).setCustomizeCallback (p -> p.setCheckForEOI (false));
+    return builder ().dontCloseSource (true).useBufferedReader (false).customizeCallback (p -> p.setCheckForEOI (false));
   }
 
   /**
    * Factory for JSon reader for different sources. Use {@link #isValidJson()}
-   * to check if the JSON is syntactically correct and {@link #read()} to
-   * convert it to a parsed object.
+   * to check if the JSON is syntactically correct and {@link #read()} or
+   * {@link #readAsArray()} or {@link #readAsObject()} or {@link #readAsValue()}
+   * to convert it to a parsed object.
    *
    * @author Philip Helger
    * @since 9.3.3
@@ -288,7 +289,7 @@ public final class JsonReader
      * @since 9.3.8
      */
     @Nonnull
-    public Builder setDontCloseSource (final boolean bDontCloseSource)
+    public Builder dontCloseSource (final boolean bDontCloseSource)
     {
       m_bDontCloseSource = bDontCloseSource;
       return this;
@@ -306,7 +307,7 @@ public final class JsonReader
      * @since 9.3.8
      */
     @Nonnull
-    public Builder setUseBufferedReader (final boolean bUseBufferedReader)
+    public Builder useBufferedReader (final boolean bUseBufferedReader)
     {
       m_bUseBufferedReader = bUseBufferedReader;
       return this;
@@ -320,11 +321,11 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final String sJson)
+    public Builder source (@Nonnull final String sJson)
     {
       ValueEnforcer.notNull (sJson, "Json");
 
-      return setSource (new NonBlockingStringReader (sJson));
+      return source (new NonBlockingStringReader (sJson));
     }
 
     /**
@@ -336,9 +337,9 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final File aFile)
+    public Builder source (@Nonnull final File aFile)
     {
-      return setSource (aFile, JsonReader.DEFAULT_CHARSET);
+      return source (aFile, JsonReader.DEFAULT_CHARSET);
     }
 
     /**
@@ -352,12 +353,12 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
+    public Builder source (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aFile, "File");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
-      return setSource (new FileSystemResource (aFile), aFallbackCharset);
+      return source (new FileSystemResource (aFile), aFallbackCharset);
     }
 
     /**
@@ -369,9 +370,9 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final Path aPath)
+    public Builder source (@Nonnull final Path aPath)
     {
-      return setSource (aPath, JsonReader.DEFAULT_CHARSET);
+      return source (aPath, JsonReader.DEFAULT_CHARSET);
     }
 
     /**
@@ -385,12 +386,12 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
+    public Builder source (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aPath, "Path");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
-      return setSource (new FileSystemResource (aPath), aFallbackCharset);
+      return source (new FileSystemResource (aPath), aFallbackCharset);
     }
 
     /**
@@ -403,9 +404,9 @@ public final class JsonReader
      * @since 9.3.4
      */
     @Nonnull
-    public Builder setSource (@Nonnull final byte [] aBytes)
+    public Builder source (@Nonnull final byte [] aBytes)
     {
-      return setSource (aBytes, JsonReader.DEFAULT_CHARSET);
+      return source (aBytes, JsonReader.DEFAULT_CHARSET);
     }
 
     /**
@@ -420,12 +421,12 @@ public final class JsonReader
      * @since 9.3.4
      */
     @Nonnull
-    public Builder setSource (@Nonnull final byte [] aBytes, @Nonnull final Charset aFallbackCharset)
+    public Builder source (@Nonnull final byte [] aBytes, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aBytes, "Bytes");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
-      return setSource (new NonBlockingByteArrayInputStream (aBytes), aFallbackCharset);
+      return source (new NonBlockingByteArrayInputStream (aBytes), aFallbackCharset);
     }
 
     /**
@@ -437,9 +438,9 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final IHasInputStream aISP)
+    public Builder source (@Nonnull final IHasInputStream aISP)
     {
-      return setSource (aISP, JsonReader.DEFAULT_CHARSET);
+      return source (aISP, JsonReader.DEFAULT_CHARSET);
     }
 
     /**
@@ -453,14 +454,14 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final IHasInputStream aISP, @Nonnull final Charset aFallbackCharset)
+    public Builder source (@Nonnull final IHasInputStream aISP, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aISP, "InputStreamProvider");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
       final InputStream aIS = aISP.getInputStream ();
       if (aIS != null)
-        setSource (aIS, aFallbackCharset);
+        source (aIS, aFallbackCharset);
       return this;
     }
 
@@ -473,9 +474,9 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull @WillClose final InputStream aIS)
+    public Builder source (@Nonnull @WillClose final InputStream aIS)
     {
-      return setSource (aIS, JsonReader.DEFAULT_CHARSET);
+      return source (aIS, JsonReader.DEFAULT_CHARSET);
     }
 
     /**
@@ -488,14 +489,14 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aFallbackCharset)
+    public Builder source (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aIS, "InputStream");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
       final Reader aReader = CharsetHelper.getReaderByBOM (aIS, aFallbackCharset);
       if (aReader != null)
-        return setSource (aReader);
+        return source (aReader);
 
       return this;
     }
@@ -509,21 +510,13 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull @WillClose final Reader aReader)
+    public Builder source (@Nonnull @WillClose final Reader aReader)
     {
       ValueEnforcer.notNull (aReader, "Reader");
       if (m_aReader != null)
         LOGGER.warn ("Another source is already present - this may cause a resource leak, because the old source is not closed automatically");
 
       m_aReader = aReader;
-
-      // Use buffered?
-      if (m_bUseBufferedReader)
-        m_aReader = StreamHelper.getBuffered (m_aReader);
-
-      // Don't close?
-      if (m_bDontCloseSource)
-        m_aReader = new NonClosingReader (m_aReader);
       return this;
     }
 
@@ -535,7 +528,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setCustomizeCallback (@Nullable final IJsonParserCustomizeCallback aCustomizeCallback)
+    public Builder customizeCallback (@Nullable final IJsonParserCustomizeCallback aCustomizeCallback)
     {
       m_aCustomizeCallback = aCustomizeCallback;
       return this;
@@ -549,7 +542,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setCustomExceptionCallback (@Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
+    public Builder customExceptionCallback (@Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
     {
       m_aCustomeExceptionCallback = aCustomExceptionCallback;
       return this;
@@ -565,6 +558,21 @@ public final class JsonReader
       return m_aReader != null;
     }
 
+    @Nonnull
+    private Reader _getEffectiveReader ()
+    {
+      Reader ret = m_aReader;
+
+      // Use buffered?
+      if (m_bUseBufferedReader)
+        ret = StreamHelper.getBuffered (ret);
+
+      // Don't close?
+      if (m_bDontCloseSource)
+        ret = new NonClosingReader (ret);
+      return ret;
+    }
+
     /**
      * Check if the provided source is syntactically correct JSON or not,
      * without building an object structure.
@@ -575,7 +583,10 @@ public final class JsonReader
     {
       if (m_aReader == null)
         throw new IllegalStateException ("No source is set.");
-      return JsonReader.parseJson (m_aReader, new DoNothingJsonParserHandler (), m_aCustomizeCallback, m_aCustomeExceptionCallback)
+      return JsonReader.parseJson (_getEffectiveReader (),
+                                   new DoNothingJsonParserHandler (),
+                                   m_aCustomizeCallback,
+                                   m_aCustomeExceptionCallback)
                        .isSuccess ();
     }
 
@@ -590,7 +601,7 @@ public final class JsonReader
     {
       if (m_aReader == null)
         throw new IllegalStateException ("No source is set.");
-      return JsonReader.readJson (m_aReader, m_aCustomizeCallback, m_aCustomeExceptionCallback);
+      return JsonReader.readJson (_getEffectiveReader (), m_aCustomizeCallback, m_aCustomeExceptionCallback);
     }
 
     /**

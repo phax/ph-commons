@@ -113,7 +113,7 @@ public final class JsonParserTest
       int nCount = 0;
       do
       {
-        aJson = JsonReader.builderMultiObject ().setSource (aReader).read ();
+        aJson = JsonReader.builderMultiObject ().source (aReader).read ();
         if (aJson != null)
           ++nCount;
       } while (aJson != null);
@@ -166,7 +166,7 @@ public final class JsonParserTest
       do
       {
         LOGGER.info ("Run " + nCount);
-        aJson = JsonReader.builderMultiObject ().setSource (aIS).read ();
+        aJson = JsonReader.builderMultiObject ().source (aIS).read ();
         if (aJson != null)
           ++nCount;
       } while (aJson != null);

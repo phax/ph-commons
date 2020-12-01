@@ -160,7 +160,7 @@ public final class JsonWriterTest
     {
       final String sJson = aJson.getAsJsonString ();
       assertNotNull (sJson);
-      final IJson aJsonRead = JsonReader.builder ().setSource (sJson).read ();
+      final IJson aJsonRead = JsonReader.builder ().source (sJson).read ();
       assertNotNull ("Failed to read: " + sJson, aJsonRead);
       final String sJsonRead = aJsonRead.getAsJsonString ();
       assertNotNull (sJsonRead);
@@ -172,7 +172,7 @@ public final class JsonWriterTest
       final Charset aCharset = StandardCharsets.UTF_16BE;
       final byte [] aJsonBytes = new JsonWriter ().writeAsByteArray (aJson, aCharset);
       assertNotNull (aJsonBytes);
-      final IJson aJsonRead = JsonReader.builder ().setSource (aJsonBytes, aCharset).read ();
+      final IJson aJsonRead = JsonReader.builder ().source (aJsonBytes, aCharset).read ();
       assertNotNull ("Failed to read: " + new String (aJsonBytes, aCharset), aJsonRead);
       final byte [] aJsonBytes2 = new JsonWriter ().writeAsByteArray (aJson, aCharset);
       assertNotNull (aJsonBytes2);
