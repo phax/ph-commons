@@ -44,6 +44,7 @@ This project was the following modules:
     * Removed `ResourceStreamSource` and `ResourceStreamResult` - see https://saxonica.plan.io/issues/4833 for the reasons
     * Changed `JsonReader.Builder` method names to not use `set`
     * The calling order of "useBufferedReader" and "dontCloseSource" compared to "source" in `JsonReader.Builder` is not longer of importance
+    * Removed "double locking" in `AbstractCollector`
 * v9.5.3 - 2020-10-22
     * Reverting the changes from 9.5.2
     * Made the JAXB DateTime adapter classes more resilient by trimming the input string
