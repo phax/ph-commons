@@ -18,9 +18,20 @@ package com.helger.commons.concurrent.collector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
+
+import com.helger.commons.state.ESuccess;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -83,13 +94,11 @@ public final class ConcurrentCollectorMultipleTest
     assertNotNull (ccm);
   }
 
-  @Test
-  public void testAny () throws InterruptedException
+  private void _test (@Nonnull final MockConcurrentCollectorMultiple aQueue) throws InterruptedException
   {
-    final int nThreads = 20;
-    final int nPerThreadQueueAdd = 7230;
+    final int nThreads = 10 + ThreadLocalRandom.current ().nextInt (20);
+    final int nPerThreadQueueAdd = 10_000 + ThreadLocalRandom.current ().nextInt (10_000);
 
-    final MockConcurrentCollectorMultiple aQueue = new MockConcurrentCollectorMultiple ();
     final Thread aQueueThread = new Thread (aQueue::collect, "ph-MockConcurrentQueue");
     aQueueThread.start ();
     assertEquals (0, aQueue.getPerformCount ());
@@ -122,7 +131,7 @@ public final class ConcurrentCollectorMultipleTest
     catch (final NullPointerException ex)
     {}
 
-    aQueue.stopQueuingNewObjects ();
+    assertSame (ESuccess.SUCCESS, aQueue.stopQueuingNewObjects ());
 
     try
     {
@@ -133,8 +142,25 @@ public final class ConcurrentCollectorMultipleTest
     catch (final IllegalStateException ex)
     {}
 
+    // Stop again will fail
+    assertSame (ESuccess.FAILURE, aQueue.stopQueuingNewObjects ());
+
     aQueueThread.join ();
     assertEquals (0, aQueue.getQueueLength ());
     assertEquals (nThreads * nPerThreadQueueAdd, aQueue.getPerformCount ());
+  }
+
+  @Test
+  public void testAny () throws InterruptedException
+  {
+    _test (new MockConcurrentCollectorMultiple ());
+    _test (new MockConcurrentCollectorMultiple (new ArrayBlockingQueue <> (10)));
+    _test (new MockConcurrentCollectorMultiple (new LinkedBlockingQueue <> (10)));
+    if (false)
+    {
+      // Does not work with the StopObject
+      _test (new MockConcurrentCollectorMultiple (new PriorityBlockingQueue <> (10)));
+    }
+    _test (new MockConcurrentCollectorMultiple (new SynchronousQueue <> ()));
   }
 }

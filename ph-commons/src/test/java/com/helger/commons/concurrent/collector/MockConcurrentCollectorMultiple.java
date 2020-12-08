@@ -16,16 +16,31 @@
  */
 package com.helger.commons.concurrent.collector;
 
+import java.util.concurrent.BlockingQueue;
+
+import javax.annotation.Nonnull;
+
 final class MockConcurrentCollectorMultiple extends ConcurrentCollectorMultiple <String>
 {
   private int m_nPerformCount = 0;
 
+  private void _init ()
+  {
+    setPerformer (x -> {
+      if (x != null)
+        m_nPerformCount += x.size ();
+    });
+  }
+
   public MockConcurrentCollectorMultiple ()
   {
-    setPerformer (aObjects -> {
-      if (aObjects != null)
-        m_nPerformCount += aObjects.size ();
-    });
+    _init ();
+  }
+
+  public MockConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue)
+  {
+    super (aQueue);
+    _init ();
   }
 
   public int getPerformCount ()
