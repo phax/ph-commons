@@ -29,6 +29,9 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.5.4 - 2020-12-15
+    * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
+    * Removed "double locking" in `AbstractCollector`
 * v9.5.3 - 2020-10-22
     * Reverting the changes from 9.5.2
     * Made the JAXB DateTime adapter classes more resilient by trimming the input string

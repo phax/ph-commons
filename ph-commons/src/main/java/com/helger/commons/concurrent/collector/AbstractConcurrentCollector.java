@@ -18,10 +18,10 @@ package com.helger.commons.concurrent.collector;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
@@ -31,7 +31,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
@@ -51,23 +50,20 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
 
   /**
    * The STOP object that is internally added to the queue to indicate the last
-   * token
+   * token. Should implement Comparable for the priority queue
    */
   public static final Object STOP_QUEUE_OBJECT = new Object ();
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractConcurrentCollector.class);
 
-  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
-
   // It's a list of Object because otherwise we could not use a static
   // STOP_OBJECT that works for every type. But it is ensured that the queue
   // contains only objects of type T
-  @GuardedBy ("m_aRWLock")
+  // All Java BlockingQueues are thread safe
   protected final BlockingQueue <Object> m_aQueue;
 
   // Is the queue stopped?
-  @GuardedBy ("m_aRWLock")
-  private boolean m_bStopTakingNewObjects = false;
+  private final AtomicBoolean m_aStopTakingNewObjects = new AtomicBoolean (false);
 
   /**
    * Constructor creating an {@link ArrayBlockingQueue} internally.
@@ -100,55 +96,58 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     if (isStopped ())
       throw new IllegalStateException ("The queue is already stopped and does not take any more elements");
 
-    return m_aRWLock.writeLockedGet ( () -> {
-      try
-      {
-        m_aQueue.put (aObject);
-        return ESuccess.SUCCESS;
-      }
-      catch (final InterruptedException ex)
-      {
-        LOGGER.error ("Failed to submit object to queue", ex);
-        Thread.currentThread ().interrupt ();
-        return ESuccess.FAILURE;
-      }
-    });
+    try
+    {
+      m_aQueue.put (aObject);
+      return ESuccess.SUCCESS;
+    }
+    catch (final InterruptedException ex)
+    {
+      LOGGER.error ("Failed to submit object to queue", ex);
+      Thread.currentThread ().interrupt ();
+      return ESuccess.FAILURE;
+    }
   }
 
   public boolean isQueueEmpty ()
   {
-    return m_aRWLock.readLockedBoolean (m_aQueue::isEmpty);
+    return m_aQueue.isEmpty ();
   }
 
   @Nonnegative
   public final int getQueueLength ()
   {
-    return m_aRWLock.readLockedInt (m_aQueue::size);
+    return m_aQueue.size ();
   }
 
   @Nonnull
   public final ESuccess stopQueuingNewObjects ()
   {
-    return m_aRWLock.writeLockedGet ( () -> {
-      try
-      {
-        // put specific stop queue object
-        m_aQueue.put (STOP_QUEUE_OBJECT);
-        m_bStopTakingNewObjects = true;
-        return ESuccess.SUCCESS;
-      }
-      catch (final InterruptedException ex)
-      {
-        LOGGER.error ("Error stopping queue", ex);
-        Thread.currentThread ().interrupt ();
-        return ESuccess.FAILURE;
-      }
-    });
+    if (m_aStopTakingNewObjects.getAndSet (true))
+    {
+      // Already stooped
+      return ESuccess.FAILURE;
+    }
+
+    try
+    {
+      // put specific stop queue object
+      m_aQueue.put (STOP_QUEUE_OBJECT);
+      return ESuccess.SUCCESS;
+    }
+    catch (final InterruptedException ex)
+    {
+      LOGGER.error ("Error stopping queue", ex);
+      Thread.currentThread ().interrupt ();
+      // Set to false again
+      m_aStopTakingNewObjects.set (false);
+      return ESuccess.FAILURE;
+    }
   }
 
   public final boolean isStopped ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bStopTakingNewObjects);
+    return m_aStopTakingNewObjects.get ();
   }
 
   @Nonnull
@@ -157,7 +156,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   {
     // Drain all objects to this queue
     final ICommonsList <Object> aDrainedToList = new CommonsArrayList <> ();
-    m_aRWLock.writeLockedInt ( () -> m_aQueue.drainTo (aDrainedToList));
+    m_aQueue.drainTo (aDrainedToList);
 
     // Change data type
     final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
@@ -168,7 +167,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       {
         // Re-add the stop object, because loops in derived classes rely on this
         // object
-        m_aRWLock.writeLockedBoolean ( () -> m_aQueue.add (aObj));
+        m_aQueue.add (aObj);
       }
     return ret;
   }
