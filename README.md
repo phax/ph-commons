@@ -37,13 +37,14 @@ This project was the following modules:
     * `GenericJAXBMarshaller` now has a chaining API
     * Made `MimeTypeParserException` a checked Exception
     * Added `CertificateHelper.getEncodedCertificate()`
-    * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Fixed potential NPE in `GenericJAXBMarshaller.toString()`
     * Removed `TimeValue` in favour of `Duration`
     * Added `StopWatch.getLapDuration ()`
     * Removed `ResourceStreamSource` and `ResourceStreamResult` - see https://saxonica.plan.io/issues/4833 for the reasons
     * Changed `JsonReader.Builder` method names to not use `set`
     * The calling order of "useBufferedReader" and "dontCloseSource" compared to "source" in `JsonReader.Builder` is not longer of importance
+* v9.5.4 - 2020-12-15
+    * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`
 * v9.5.3 - 2020-10-22
     * Reverting the changes from 9.5.2
