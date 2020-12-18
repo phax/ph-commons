@@ -403,7 +403,8 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
                               @Nonnegative final int nStartColumnIndex,
                               @Nonnegative final int nEndColumnIndex)
   {
-    final MatrixInt aNewMatrix = new MatrixInt (nEndRowIndex - nStartRowIndex + 1, nEndColumnIndex - nStartColumnIndex + 1);
+    final MatrixInt aNewMatrix = new MatrixInt (nEndRowIndex - nStartRowIndex + 1,
+                                                nEndColumnIndex - nStartColumnIndex + 1);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
     for (int nRow = nStartRowIndex; nRow <= nEndRowIndex; nRow++)
     {
@@ -458,7 +459,9 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public MatrixInt getMatrix (@Nonnegative final int nStartRowIndex, @Nonnegative final int nEndRowIndex, @Nonnull final int [] aCols)
+  public MatrixInt getMatrix (@Nonnegative final int nStartRowIndex,
+                              @Nonnegative final int nEndRowIndex,
+                              @Nonnull final int [] aCols)
   {
     final MatrixInt aNewMatrix = new MatrixInt (nEndRowIndex - nStartRowIndex + 1, aCols.length);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -486,7 +489,9 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public MatrixInt getMatrix (@Nonnull final int [] aRows, @Nonnegative final int nStartColumnIndex, @Nonnegative final int nEndColumnIndex)
+  public MatrixInt getMatrix (@Nonnull final int [] aRows,
+                              @Nonnegative final int nStartColumnIndex,
+                              @Nonnegative final int nEndColumnIndex)
   {
     final MatrixInt aNewMatrix = new MatrixInt (aRows.length, nEndColumnIndex - nStartColumnIndex + 1);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -1006,7 +1011,7 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
     {
       final int [] aDstRow = m_aData[nRow];
       for (int nCol = 0; nCol < m_nCols; nCol++)
-        aDstRow[nCol] *= s;
+        aDstRow[nCol] = (int) (aDstRow[nCol] * s);
     }
     return this;
   }
@@ -1125,7 +1130,9 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
    * @param nFractionDigits
    *        Number of digits after the decimal.
    */
-  public void print (@Nonnull final PrintWriter aPW, @Nonnegative final int nWidth, @Nonnegative final int nFractionDigits)
+  public void print (@Nonnull final PrintWriter aPW,
+                     @Nonnegative final int nWidth,
+                     @Nonnegative final int nFractionDigits)
   {
     final NumberFormat format = NumberFormat.getInstance (CGlobal.DEFAULT_LOCALE);
     format.setMinimumIntegerDigits (1);

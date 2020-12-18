@@ -43,7 +43,9 @@ public final class MicroSerializerTest
   private static final Logger LOGGER = LoggerFactory.getLogger (MicroSerializerTest.class);
 
   @Nonnull
-  private IMicroDocument _createLargeDoc (@Nonnull final IMicroDocument doc, final boolean bWithText, final boolean bWithAttrs)
+  private IMicroDocument _createLargeDoc (@Nonnull final IMicroDocument doc,
+                                          final boolean bWithText,
+                                          final boolean bWithAttrs)
   {
     final IMicroElement aDocElement = doc.appendElement ("root");
     for (int i = 1; i <= 10; ++i)
@@ -85,7 +87,7 @@ public final class MicroSerializerTest
     final boolean bWithAttrs = false;
     final IMicroDocument doc = _createLargeDoc (new MicroDocument (), bWithText, bWithAttrs);
 
-    int nMilliSecs = 0;
+    long nMilliSecs = 0;
     int nRun = 0;
     int nWarmUpRuns = 0;
     final StopWatch aSW = StopWatch.createdStopped ();
@@ -135,7 +137,8 @@ public final class MicroSerializerTest
     eBody.appendElement ("div");
 
     final String sCRLF = XMLWriterSettings.DEFAULT_XML_SETTINGS.getNewLineString ();
-    final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN));
+    final String s = MicroWriter.getNodeAsString (aDoc,
+                                                  new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN));
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                   sCRLF +
                   "<html>" +
