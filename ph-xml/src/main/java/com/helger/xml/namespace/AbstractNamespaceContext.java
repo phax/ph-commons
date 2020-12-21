@@ -40,7 +40,6 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   @Nullable
   protected abstract Iterator <String> getCustomPrefixes (@Nonnull String sNamespaceURI);
 
-  @SuppressWarnings ("rawtypes")
   @Nonnull
   @DevelopersNote ("Java 8: Iterator; Java 10: Iterator<String>")
   public final Iterator getPrefixes (@Nonnull final String sNamespaceURI)
