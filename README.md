@@ -31,6 +31,7 @@ This project was the following modules:
 
 * v10.0.0 - work in progress
     * Changed Maven groupId from `com.helger` to `com.helger.commons`
+    * Updated to BouncyCastle 1.68 (again with bcprov-ext-jdk15on)
     * Removed deprecated methods
     * Removed `Serializable` from base interfaces
     * Removed the serializable functional specializations (`IFunction`, `ISupplier`, `IConsumer`, `IPredicate`, `IBiConsumer`, `IBiFunction`, `IBiPredicate`, `NamespaceContext`)
