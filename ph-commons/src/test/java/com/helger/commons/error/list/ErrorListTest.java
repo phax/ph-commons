@@ -75,7 +75,7 @@ public final class ErrorListTest
     assertEquals (0, aList.getGroupedByID ().size ());
     assertEquals (0, aList.getGroupedByFieldName ().size ());
 
-    aList.add (SingleError.builderInfo ().setErrorText ("TestInfo").build ());
+    aList.add (SingleError.builderInfo ().errorText ("TestInfo").build ());
     assertFalse (aList.isEmpty ());
     assertEquals (1, aList.size ());
     assertFalse (aList.containsAtLeastOneWarningOrError ());
@@ -96,7 +96,7 @@ public final class ErrorListTest
     assertEquals (1, aList.getGroupedByID ().size ());
     assertEquals (1, aList.getGroupedByFieldName ().size ());
 
-    aList.add (SingleError.builderError ().setErrorText ("TestError").build ());
+    aList.add (SingleError.builderError ().errorText ("TestError").build ());
     assertFalse (aList.isEmpty ());
     assertEquals (2, aList.size ());
     assertTrue (aList.containsAtLeastOneWarningOrError ());
@@ -117,7 +117,7 @@ public final class ErrorListTest
     assertEquals (1, aList.getGroupedByID ().size ());
     assertEquals (1, aList.getGroupedByFieldName ().size ());
 
-    aList.add (SingleError.builderWarn ().setErrorText ("TestWarning").build ());
+    aList.add (SingleError.builderWarn ().errorText ("TestWarning").build ());
     assertFalse (aList.isEmpty ());
     assertEquals (3, aList.size ());
     assertTrue (aList.containsAtLeastOneWarningOrError ());
@@ -167,7 +167,7 @@ public final class ErrorListTest
     assertEquals (0, aList.getGroupedByID ().size ());
     assertEquals (0, aList.getGroupedByFieldName ().size ());
 
-    aList.add (SingleError.builderInfo ().setErrorFieldName ("field1").setErrorText ("TestInfo").build ());
+    aList.add (SingleError.builderInfo ().errorFieldName ("field1").errorText ("TestInfo").build ());
     assertFalse (aList.isEmpty ());
     assertEquals (1, aList.size ());
     assertFalse (aList.containsAtLeastOneWarningOrError ());
@@ -192,7 +192,7 @@ public final class ErrorListTest
     assertEquals (1, aList.getGroupedByID ().size ());
     assertEquals (1, aList.getGroupedByFieldName ().size ());
 
-    aList.add (SingleError.builderError ().setErrorFieldName ("field2").setErrorText ("TestError").build ());
+    aList.add (SingleError.builderError ().errorFieldName ("field2").errorText ("TestError").build ());
     assertFalse (aList.isEmpty ());
     assertEquals (2, aList.size ());
     assertTrue (aList.containsAtLeastOneWarningOrError ());
@@ -217,7 +217,7 @@ public final class ErrorListTest
     assertEquals (1, aList.getGroupedByID ().size ());
     assertEquals (2, aList.getGroupedByFieldName ().size ());
 
-    aList.add (SingleError.builderWarn ().setErrorFieldName ("field1").setErrorText ("TestWarning").build ());
+    aList.add (SingleError.builderWarn ().errorFieldName ("field1").errorText ("TestWarning").build ());
     assertFalse (aList.isEmpty ());
     assertEquals (3, aList.size ());
     assertTrue (aList.containsAtLeastOneWarningOrError ());
@@ -279,12 +279,12 @@ public final class ErrorListTest
     assertFalse (aFEL.containsAtLeastOneWarningOrError ());
     assertEquals (EErrorLevel.SUCCESS, aFEL.getMostSevereErrorLevel ());
 
-    aFEL.add (SingleError.builderInfo ().setErrorFieldName ("f1").setErrorText ("info").build ());
+    aFEL.add (SingleError.builderInfo ().errorFieldName ("f1").errorText ("info").build ());
     assertFalse (aFEL.isEmpty ());
     assertFalse (aFEL.containsAtLeastOneWarningOrError ());
     assertEquals (EErrorLevel.INFO, aFEL.getMostSevereErrorLevel ());
 
-    aFEL.add (SingleError.builderError ().setErrorFieldName ("f2").setErrorText ("error").build ());
+    aFEL.add (SingleError.builderError ().errorFieldName ("f2").errorText ("error").build ());
     assertFalse (aFEL.isEmpty ());
     assertTrue (aFEL.containsAtLeastOneWarningOrError ());
     assertEquals (EErrorLevel.ERROR, aFEL.getMostSevereErrorLevel ());

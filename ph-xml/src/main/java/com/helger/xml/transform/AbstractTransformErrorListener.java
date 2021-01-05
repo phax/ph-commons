@@ -46,10 +46,10 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
   {
     final ILocation aLocation = SimpleLocation.create (ex.getLocator ());
     return SingleError.builder ()
-                      .setErrorLevel (aErrorLevel)
-                      .setErrorLocation (aLocation)
-                      .setErrorText (aErrorMsg)
-                      .setLinkedException (ex)
+                      .errorLevel (aErrorLevel)
+                      .errorLocation (aLocation)
+                      .errorText (aErrorMsg)
+                      .linkedException (ex)
                       .build ();
   }
 

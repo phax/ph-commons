@@ -55,10 +55,10 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
   public static IError getSaxParseError (@Nonnull final IErrorLevel aErrorLevel, @Nonnull final SAXParseException ex)
   {
     return SingleError.builder ()
-                      .setErrorLevel (aErrorLevel)
-                      .setErrorLocation (SimpleLocation.create (ex))
-                      .setErrorText ("[SAX] " + ex.getMessage ())
-                      .setLinkedException (ex)
+                      .errorLevel (aErrorLevel)
+                      .errorLocation (SimpleLocation.create (ex))
+                      .errorText ("[SAX] " + ex.getMessage ())
+                      .linkedException (ex)
                       .build ();
   }
 

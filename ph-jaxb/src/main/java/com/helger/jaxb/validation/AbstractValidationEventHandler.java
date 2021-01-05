@@ -32,7 +32,7 @@ import org.w3c.dom.Node;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.SingleError;
-import com.helger.commons.error.SingleError.SingleErrorBuilder;
+import com.helger.commons.error.SingleError.Builder;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.ILocation;
@@ -145,13 +145,13 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
   public final boolean handleEvent (@Nonnull final ValidationEvent aEvent)
   {
     final IErrorLevel aErrorLevel = getErrorLevel (aEvent.getSeverity ());
-    final SingleErrorBuilder aErrBuilder = SingleError.builder ().setErrorLevel (aErrorLevel);
+    final Builder aErrBuilder = SingleError.builder ().errorLevel (aErrorLevel);
 
     final ValidationEventLocator aLocator = aEvent.getLocator ();
-    aErrBuilder.setErrorLocation (new SimpleLocation (getLocationResourceID (aLocator),
+    aErrBuilder.errorLocation (new SimpleLocation (getLocationResourceID (aLocator),
                                                       aLocator != null ? aLocator.getLineNumber () : ILocation.ILLEGAL_NUMBER,
                                                       aLocator != null ? aLocator.getColumnNumber () : ILocation.ILLEGAL_NUMBER))
-               .setErrorFieldName (getErrorFieldName (aLocator));
+               .errorFieldName (getErrorFieldName (aLocator));
 
     // Message may be null in some cases (e.g. when a linked exception is
     // present), but is not allowed to be null!
@@ -170,7 +170,7 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
         sMsg = "Validation event";
       }
     }
-    aErrBuilder.setErrorText (sMsg).setLinkedException (aEvent.getLinkedException ());
+    aErrBuilder.errorText (sMsg).linkedException (aEvent.getLinkedException ());
 
     // call our callback
     onEvent (aErrBuilder.build ());

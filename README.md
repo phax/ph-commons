@@ -44,6 +44,7 @@ This project was the following modules:
     * Removed `ResourceStreamSource` and `ResourceStreamResult` - see https://saxonica.plan.io/issues/4833 for the reasons
     * Changed `JsonReader.Builder` method names to not use `set`
     * The calling order of "useBufferedReader" and "dontCloseSource" compared to "source" in `JsonReader.Builder` is not longer of importance
+    * Changed the `SingleError.builder()` to use method names without `set`
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`

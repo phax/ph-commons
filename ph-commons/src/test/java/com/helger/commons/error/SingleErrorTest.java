@@ -62,7 +62,7 @@ public final class SingleErrorTest
   public void testID ()
   {
     final Locale aDisplayLocale = Locale.US;
-    final SingleError aErr = SingleError.builder ().setErrorID ("abc").build ();
+    final SingleError aErr = SingleError.builder ().errorID ("abc").build ();
     assertEquals (EErrorLevel.ERROR, aErr.getErrorLevel ());
     assertEquals ("abc", aErr.getErrorID ());
     assertNull (aErr.getErrorFieldName ());
@@ -82,7 +82,7 @@ public final class SingleErrorTest
   public void testFieldName ()
   {
     final Locale aDisplayLocale = Locale.US;
-    final SingleError aErr = SingleError.builder ().setErrorFieldName ("abc").build ();
+    final SingleError aErr = SingleError.builder ().errorFieldName ("abc").build ();
     assertEquals (EErrorLevel.ERROR, aErr.getErrorLevel ());
     assertNull (aErr.getErrorID ());
     assertEquals ("abc", aErr.getErrorFieldName ());
@@ -102,7 +102,7 @@ public final class SingleErrorTest
   public void testLocation ()
   {
     final Locale aDisplayLocale = Locale.US;
-    final SingleError aErr = SingleError.builder ().setErrorLocation (new SimpleLocation ("abc", 4, 17)).build ();
+    final SingleError aErr = SingleError.builder ().errorLocation (new SimpleLocation ("abc", 4, 17)).build ();
     assertEquals (EErrorLevel.ERROR, aErr.getErrorLevel ());
     assertNull (aErr.getErrorID ());
     assertNull (aErr.getErrorFieldName ());
@@ -122,7 +122,7 @@ public final class SingleErrorTest
   public void testText ()
   {
     final Locale aDisplayLocale = Locale.US;
-    final SingleError aErr = SingleError.builder ().setErrorText ("abc").build ();
+    final SingleError aErr = SingleError.builder ().errorText ("abc").build ();
     assertEquals (EErrorLevel.ERROR, aErr.getErrorLevel ());
     assertNull (aErr.getErrorID ());
     assertNull (aErr.getErrorFieldName ());
@@ -143,7 +143,7 @@ public final class SingleErrorTest
   {
     final Locale aDisplayLocale = Locale.US;
     final MockRuntimeException ex = new MockRuntimeException ("msg");
-    final SingleError aErr = SingleError.builder ().setLinkedException (ex).build ();
+    final SingleError aErr = SingleError.builder ().linkedException (ex).build ();
     assertEquals (EErrorLevel.ERROR, aErr.getErrorLevel ());
     assertNull (aErr.getErrorID ());
     assertNull (aErr.getErrorFieldName ());
@@ -165,11 +165,11 @@ public final class SingleErrorTest
     final Locale aDisplayLocale = Locale.US;
     final MockRuntimeException ex = new MockRuntimeException ("exception msg");
     final SingleError aErr = SingleError.builder ()
-                                        .setErrorID ("id1")
-                                        .setErrorFieldName ("field")
-                                        .setErrorLocation (new SimpleLocation ("file.xml", 4, 13))
-                                        .setErrorText ("abc")
-                                        .setLinkedException (ex)
+                                        .errorID ("id1")
+                                        .errorFieldName ("field")
+                                        .errorLocation (new SimpleLocation ("file.xml", 4, 13))
+                                        .errorText ("abc")
+                                        .linkedException (ex)
                                         .build ();
     assertEquals (EErrorLevel.ERROR, aErr.getErrorLevel ());
     assertEquals ("id1", aErr.getErrorID ());
