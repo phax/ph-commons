@@ -149,8 +149,8 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
 
     final ValidationEventLocator aLocator = aEvent.getLocator ();
     aErrBuilder.errorLocation (new SimpleLocation (getLocationResourceID (aLocator),
-                                                      aLocator != null ? aLocator.getLineNumber () : ILocation.ILLEGAL_NUMBER,
-                                                      aLocator != null ? aLocator.getColumnNumber () : ILocation.ILLEGAL_NUMBER))
+                                                   aLocator != null ? aLocator.getLineNumber () : ILocation.ILLEGAL_NUMBER,
+                                                   aLocator != null ? aLocator.getColumnNumber () : ILocation.ILLEGAL_NUMBER))
                .errorFieldName (getErrorFieldName (aLocator));
 
     // Message may be null in some cases (e.g. when a linked exception is

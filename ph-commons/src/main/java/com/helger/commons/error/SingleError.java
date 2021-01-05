@@ -19,6 +19,10 @@ package com.helger.commons.error;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.stream.Location;
+
+import org.xml.sax.Locator;
+import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
@@ -350,6 +354,24 @@ public class SingleError implements IError
     public final IMPLTYPE errorLocation (@Nullable final String sErrorLocation)
     {
       return errorLocation (new SimpleLocation (sErrorLocation));
+    }
+
+    @Nonnull
+    public final IMPLTYPE errorLocation (@Nullable final Locator aLocator)
+    {
+      return errorLocation (SimpleLocation.create (aLocator));
+    }
+
+    @Nonnull
+    public final IMPLTYPE errorLocation (@Nullable final SAXParseException aLocator)
+    {
+      return errorLocation (SimpleLocation.create (aLocator));
+    }
+
+    @Nonnull
+    public final IMPLTYPE errorLocation (@Nullable final Location aLocator)
+    {
+      return errorLocation (SimpleLocation.create (aLocator));
     }
 
     @Nonnull
