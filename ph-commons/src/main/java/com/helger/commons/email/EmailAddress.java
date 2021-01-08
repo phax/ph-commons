@@ -89,7 +89,7 @@ public class EmailAddress implements IEmailAddress
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("address", m_sAddress).appendIfNotNull ("personal", m_sPersonal).getToString ();
+    return new ToStringGenerator (null).append ("Address", m_sAddress).appendIfNotNull ("Personal", m_sPersonal).getToString ();
   }
 
   @Nullable
