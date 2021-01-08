@@ -20,9 +20,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.NamespaceContext;
 
+import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 /**
  * A special namespace prefix mapper for the Sun JAXB2 implementation.<br>
