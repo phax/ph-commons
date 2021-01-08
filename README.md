@@ -46,6 +46,7 @@ This project was the following modules:
     * The calling order of "useBufferedReader" and "dontCloseSource" compared to "source" in `JsonReader.Builder` is not longer of importance
     * Changed the `SingleError.builder()` to use method names without `set`
     * Added more `SingleError` builder `errorLocation` overloads
+    * Removed the class `ScriptHelper` as Nashorn gets removed in JDK 15 (see JEP 335)
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`
