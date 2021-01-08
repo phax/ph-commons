@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.builder.IBuilder;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -51,7 +52,7 @@ import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ConfigFileBuilder
+public class ConfigFileBuilder implements IBuilder <ConfigFile>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFileBuilder.class);
 

@@ -26,6 +26,7 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.builder.IBuilder;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -57,6 +58,16 @@ public class SingleError implements IError
   private final ILocation m_aErrorLocation;
   private final IHasErrorText m_aErrorText;
   private final Throwable m_aLinkedException;
+
+  protected SingleError (@Nonnull final AbstractBuilder <?, ?> aBuilder)
+  {
+    this (aBuilder.m_aErrorLevel,
+          aBuilder.m_sErrorID,
+          aBuilder.m_sErrorFieldName,
+          aBuilder.m_aErrorLocation,
+          aBuilder.m_aErrorText,
+          aBuilder.m_aLinkedException);
+  }
 
   public SingleError (@Nonnull final IErrorLevel aErrorLevel,
                       @Nullable final String sErrorID,
@@ -295,7 +306,8 @@ public class SingleError implements IError
    */
   public abstract static class AbstractBuilder <ERRTYPE extends SingleError, IMPLTYPE extends AbstractBuilder <ERRTYPE, IMPLTYPE>>
                                                implements
-                                               IGenericImplTrait <IMPLTYPE>
+                                               IGenericImplTrait <IMPLTYPE>,
+                                               IBuilder <ERRTYPE>
   {
     public static final IErrorLevel DEFAULT_ERROR_LEVEL = EErrorLevel.ERROR;
 
@@ -419,9 +431,6 @@ public class SingleError implements IError
       m_aLinkedException = aLinkedException;
       return thisAsT ();
     }
-
-    @Nonnull
-    public abstract ERRTYPE build ();
   }
 
   /**
@@ -446,7 +455,7 @@ public class SingleError implements IError
       if (m_aErrorLevel == null)
         throw new IllegalStateException ("The error level must be provided");
 
-      return new SingleError (m_aErrorLevel, m_sErrorID, m_sErrorFieldName, m_aErrorLocation, m_aErrorText, m_aLinkedException);
+      return new SingleError (this);
     }
   }
 }

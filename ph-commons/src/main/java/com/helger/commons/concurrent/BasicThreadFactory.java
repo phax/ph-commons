@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.builder.IResettableBuilder;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -333,6 +334,12 @@ public class BasicThreadFactory implements ThreadFactory
                                        .getToString ();
   }
 
+  @Nonnull
+  public static Builder builder ()
+  {
+    return new Builder ();
+  }
+
   /**
    * <p>
    * A <em>builder</em> class for creating instances of {@code
@@ -348,7 +355,7 @@ public class BasicThreadFactory implements ThreadFactory
    *
    * @version $Id: BasicThreadFactory.java 1583482 2014-03-31 22:54:57Z niallp $
    */
-  public static class Builder
+  public static class Builder implements IResettableBuilder <BasicThreadFactory>
   {
     /** The wrapped factory. */
     private ThreadFactory m_aWrappedFactory;
@@ -382,7 +389,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the passed in {@code ThreadFactory} is <b>null</b>
      */
     @Nonnull
-    public final Builder setWrappedFactory (@Nonnull final ThreadFactory aWrappedFactory)
+    public final Builder wrappedFactory (@Nonnull final ThreadFactory aWrappedFactory)
     {
       ValueEnforcer.notNull (aWrappedFactory, "Factory");
       m_aWrappedFactory = aWrappedFactory;
@@ -391,15 +398,14 @@ public class BasicThreadFactory implements ThreadFactory
 
     /**
      * Sets the {@code ThreadGroup} to be used by the default thread factory. If
-     * {@link #setWrappedFactory(ThreadFactory)} is used, this setting is
-     * useless.
+     * {@link #wrappedFactory(ThreadFactory)} is used, this setting is useless.
      *
      * @param aThreadGroup
      *        the {@code ThreadGroup} to use. May be <code>null</code>.
      * @return this for chaining
      */
     @Nonnull
-    public final Builder setThreadGroup (@Nullable final ThreadGroup aThreadGroup)
+    public final Builder threadGroup (@Nullable final ThreadGroup aThreadGroup)
     {
       m_aThreadGroup = aThreadGroup;
       return this;
@@ -416,7 +422,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the exception handler is <b>null</b>
      */
     @Nonnull
-    public final Builder setUncaughtExceptionHandler (@Nonnull final Thread.UncaughtExceptionHandler aExceptionHandler)
+    public final Builder uncaughtExceptionHandler (@Nonnull final Thread.UncaughtExceptionHandler aExceptionHandler)
     {
       ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
       m_aUncaughtExceptionHandler = aExceptionHandler;
@@ -436,7 +442,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the naming pattern is <b>null</b>
      */
     @Nonnull
-    public final Builder setNamingPattern (@Nonnull final String sNamingPattern)
+    public final Builder namingPattern (@Nonnull final String sNamingPattern)
     {
       ValueEnforcer.notNull (sNamingPattern, "NamingPattern");
       m_sNamingPattern = sNamingPattern;
@@ -452,7 +458,7 @@ public class BasicThreadFactory implements ThreadFactory
      * @return this for chaining
      */
     @Nonnull
-    public final Builder setPriority (final int nPriority)
+    public final Builder priority (final int nPriority)
     {
       m_nPriority = Integer.valueOf (nPriority);
       return this;
@@ -467,7 +473,7 @@ public class BasicThreadFactory implements ThreadFactory
      * @return this for chaining
      */
     @Nonnull
-    public final Builder setDaemon (final boolean bDaemon)
+    public final Builder daemon (final boolean bDaemon)
     {
       m_eDaemon = ETriState.valueOf (bDaemon);
       return this;
@@ -498,24 +504,7 @@ public class BasicThreadFactory implements ThreadFactory
     @Nonnull
     public BasicThreadFactory build ()
     {
-      return build (true);
-    }
-
-    /**
-     * Creates a new {@code BasicThreadFactory} with all configuration options
-     * that have been specified by calling methods on this builder.
-     *
-     * @param bReset
-     *        if true, {@link #reset()} is called after creating the factory
-     * @return the new {@code BasicThreadFactory}
-     */
-    @Nonnull
-    public BasicThreadFactory build (final boolean bReset)
-    {
-      final BasicThreadFactory ret = new BasicThreadFactory (this);
-      if (bReset)
-        reset ();
-      return ret;
+      return new BasicThreadFactory (this);
     }
   }
 }

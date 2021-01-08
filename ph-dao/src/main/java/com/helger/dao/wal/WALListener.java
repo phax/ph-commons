@@ -71,8 +71,9 @@ public final class WALListener extends AbstractGlobalSingleton
   private static final Logger LOGGER = LoggerFactory.getLogger (WALListener.class);
 
   // custom ThreadFactory to give the baby a name
-  private final ScheduledExecutorService m_aES = Executors.newSingleThreadScheduledExecutor (new BasicThreadFactory.Builder ().setNamingPattern ("WAL-Listener-%d")
-                                                                                                                              .build ());
+  private final ScheduledExecutorService m_aES = Executors.newSingleThreadScheduledExecutor (BasicThreadFactory.builder ()
+                                                                                                               .namingPattern ("WAL-Listener-%d")
+                                                                                                               .build ());
   @GuardedBy ("m_aRWLock")
   private final ICommonsSet <String> m_aWaitingDAOs = new CommonsHashSet <> ();
   @GuardedBy ("m_aRWLock")

@@ -39,9 +39,9 @@ public final class BasicThreadFactoryTest
   @SuppressFBWarnings (value = "DLS_DEAD_LOCAL_STORE")
   public void testAll ()
   {
-    final BasicThreadFactory x = new BasicThreadFactory.Builder ().setDaemon (false)
-                                                                  .setPriority (Thread.NORM_PRIORITY)
-                                                                  .setNamingPattern ("pool %d")
+    final BasicThreadFactory x = new BasicThreadFactory.Builder ().daemon (false)
+                                                                  .priority (Thread.NORM_PRIORITY)
+                                                                  .namingPattern ("pool %d")
                                                                   .build ();
     for (int i = 0; i < 2; ++i)
     {
