@@ -170,7 +170,7 @@ public enum EOperatingSystem implements IHasDisplayName
   }
 
   /**
-   * @return Thew newline mode matching this operating system.
+   * @return The newline mode matching this operating system.
    */
   @Nonnull
   public ENewLineMode getNewLineMode ()
