@@ -39,7 +39,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
@@ -556,9 +555,11 @@ public class WSClientConfig
       aRequestContext.put (BindingProvider.SOAPACTION_USE_PROPERTY, Boolean.TRUE);
       aRequestContext.put (BindingProvider.SOAPACTION_URI_PROPERTY, m_sSOAPAction);
     }
-    if (CollectionHelper.isNotEmpty (m_aHTTPHeaders))
+    if (m_aHTTPHeaders.isNotEmpty ())
     {
-      aRequestContext.put (MessageContext.HTTP_REQUEST_HEADERS, m_aHTTPHeaders);
+      // Type must be
+      // java.util.Map<java.lang.String,java.util.List<java.lang.String>>
+      aRequestContext.put (MessageContext.HTTP_REQUEST_HEADERS, m_aHTTPHeaders.getAsMapStringToListString ());
     }
     if (m_eCookiesSupport.isDefined ())
     {

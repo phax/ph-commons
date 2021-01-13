@@ -19,7 +19,10 @@ package com.helger.commons.http;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -779,6 +782,20 @@ public class HttpHeaderMap implements
   public HttpHeaderMap getClone ()
   {
     return new HttpHeaderMap (this);
+  }
+
+  /**
+   * @return The HTTP header map in a different representation. Never
+   *         <code>null</code> but maybe empty.
+   * @since 10.0
+   */
+  @Nonnull
+  public Map <String, List <String>> getAsMapStringToListString ()
+  {
+    final Map <String, List <String>> ret = new HashMap <> ();
+    // Don't unify here
+    forEachSingleHeader ( (k, v) -> ret.computeIfAbsent (k, k2 -> new ArrayList <> ()).add (v), false, false);
+    return ret;
   }
 
   @Override

@@ -48,6 +48,8 @@ This project was the following modules:
     * Added more `SingleError` builder `errorLocation` overloads
     * Removed the class `ScriptHelper` as Nashorn gets removed in JDK 15 (see JEP 335)
     * Added new interfaces `IBuilder` and `IResettableBuilder`
+    * Extended `HTTPHeaderMap` API
+    * Fixed the data type of the custom HTTP headers in `WSClientConfig`
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`
