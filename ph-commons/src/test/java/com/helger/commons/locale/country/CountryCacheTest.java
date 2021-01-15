@@ -92,6 +92,11 @@ public final class CountryCacheTest
     assertFalse (CountryCache.getInstance ().containsCountry ((String) null));
     assertFalse (CountryCache.getInstance ().containsCountry (LocaleHelper.LOCALE_ALL));
     assertFalse (CountryCache.getInstance ().containsCountry ((Locale) null));
+
+    // Kosovo
+    assertNotNull (CountryCache.getInstance ().getCountry ("XK"));
+    // Proposed value for Northern Ireland
+    assertNotNull (CountryCache.getInstance ().getCountry ("XI"));
   }
 
   @Test (expected = NullPointerException.class)
