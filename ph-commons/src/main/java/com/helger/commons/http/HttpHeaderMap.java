@@ -80,8 +80,8 @@ public class HttpHeaderMap implements
   /** The separator between key and value */
   public static final String SEPARATOR_KEY_VALUE = ": ";
 
-  /** Default quote if necessary: true */
-  public static final boolean DEFAULT_QUOTE_IF_NECESSARY = true;
+  /** Default quote if necessary: false (since v10) */
+  public static final boolean DEFAULT_QUOTE_IF_NECESSARY = false;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (HttpHeaderMap.class);
 

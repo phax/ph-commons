@@ -50,6 +50,7 @@ This project was the following modules:
     * Added new interfaces `IBuilder` and `IResettableBuilder`
     * Extended `HTTPHeaderMap` API
     * Fixed the data type of the custom HTTP headers in `WSClientConfig`
+    * Changed the default value `DEFAULT_QUOTE_IF_NECESSARY` from `true` to `false`
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`
