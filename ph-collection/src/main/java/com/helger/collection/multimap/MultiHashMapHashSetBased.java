@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
  *        value type
  */
 @NotThreadSafe
+@Deprecated
 public class MultiHashMapHashSetBased <KEYTYPE, VALUETYPE> extends
                                       AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
 {

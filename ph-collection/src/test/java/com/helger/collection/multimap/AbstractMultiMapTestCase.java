@@ -42,6 +42,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
  *
  * @author Philip Helger
  */
+@Deprecated
 public abstract class AbstractMultiMapTestCase
 {
   @Nonnull

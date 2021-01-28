@@ -31,6 +31,7 @@ This project was the following modules:
 
 * v10.0.0 - work in progress
     * Changed Maven groupId from `com.helger` to `com.helger.commons`
+    * The module `ph-xml` no longer depends on `ph-collection`
     * Updated to BouncyCastle 1.68 (again with bcprov-ext-jdk15on)
     * Removed deprecated methods
     * Removed `Serializable` from base interfaces
@@ -51,6 +52,7 @@ This project was the following modules:
     * Extended `HTTPHeaderMap` API
     * Fixed the data type of the custom HTTP headers in `WSClientConfig`
     * Changed the default value `DEFAULT_QUOTE_IF_NECESSARY` from `true` to `false`
+    * Deprecated all the "multi map" classes in `ph-collection`. With the `computeIfAbsent` functions, most of the simplifications can be achieved with runtime features. They will be removed in the next major verison.
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`

@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @NotThreadSafe
+@Deprecated
 public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE> extends
                                                     AbstractMultiTreeMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>> implements
                                                     IMultiMapListBased <KEYTYPE, VALUETYPE>

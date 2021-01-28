@@ -25,6 +25,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 
+@Deprecated
 public class MultiHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends
                                             AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsOrderedMap <KEYTYPE2, VALUETYPE>>
 {

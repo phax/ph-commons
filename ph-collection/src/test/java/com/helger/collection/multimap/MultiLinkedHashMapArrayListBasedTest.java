@@ -23,6 +23,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class MultiLinkedHashMapArrayListBasedTest extends AbstractMultiMapTestCase
 {
   @Test

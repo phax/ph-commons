@@ -40,6 +40,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
  *        Inner map type
  */
 @NotThreadSafe
+@Deprecated
 public abstract class AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>>
                                                    extends
                                                    CommonsTreeMap <KEYTYPE1, MAPTYPE> implements

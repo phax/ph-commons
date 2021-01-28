@@ -25,6 +25,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class MultiHashMapHashSetBasedTest extends AbstractMultiMapTestCase
 {
   @Test

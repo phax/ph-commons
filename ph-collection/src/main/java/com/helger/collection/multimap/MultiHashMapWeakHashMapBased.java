@@ -25,6 +25,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 
+@Deprecated
 public class MultiHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends
                                           AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsMap <KEYTYPE2, VALUETYPE>>
 {

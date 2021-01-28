@@ -38,6 +38,7 @@ import com.helger.commons.collection.impl.ICommonsNavigableSet;
  *        value type
  */
 @NotThreadSafe
+@Deprecated
 public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> extends
                                                 AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsNavigableSet <VALUETYPE>>
 {

@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @NotThreadSafe
+@Deprecated
 public class MultiHashMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiHashMapVectorBased ()

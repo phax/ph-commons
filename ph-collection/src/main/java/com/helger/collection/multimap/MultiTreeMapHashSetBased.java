@@ -38,6 +38,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
  *        value type
  */
 @NotThreadSafe
+@Deprecated
 public class MultiTreeMapHashSetBased <KEYTYPE, VALUETYPE> extends
                                       AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
 {

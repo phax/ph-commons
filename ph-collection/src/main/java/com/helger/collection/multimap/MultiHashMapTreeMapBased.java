@@ -25,6 +25,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
 
+@Deprecated
 public class MultiHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends
                                       AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsSortedMap <KEYTYPE2, VALUETYPE>>
 {

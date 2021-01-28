@@ -39,6 +39,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @ThreadSafe
+@Deprecated
 public class MultiConcurrentHashMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiConcurrentHashMapArrayListBased ()

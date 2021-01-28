@@ -41,6 +41,7 @@ import com.helger.commons.collection.impl.ICommonsCollection;
  *        contained collection type
  */
 @NotThreadSafe
+@Deprecated
 public abstract class AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsCollection <VALUETYPE>> extends
                                                      CommonsConcurrentHashMap <KEYTYPE, COLLTYPE> implements
                                                      IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>

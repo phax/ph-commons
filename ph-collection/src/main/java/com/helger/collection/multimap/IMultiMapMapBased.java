@@ -40,6 +40,7 @@ import com.helger.commons.state.EChange;
  * @param <MAPTYPE>
  *        Inner map type
  */
+@Deprecated
 public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>> extends
                                    ICommonsMap <KEYTYPE1, MAPTYPE>
 {

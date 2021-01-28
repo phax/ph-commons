@@ -29,6 +29,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
  * @param <COLLTYPE>
  *        Set type containing value types
  */
+@Deprecated
 public interface IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>> extends
                                    IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
 {

@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsNavigableSet;
  *        value type
  */
 @NotThreadSafe
+@Deprecated
 public class MultiWeakHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> extends
                                           AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsNavigableSet <VALUETYPE>>
 {

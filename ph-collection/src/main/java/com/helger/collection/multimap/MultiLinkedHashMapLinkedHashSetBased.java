@@ -38,6 +38,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedSet;
  *        value type
  */
 @NotThreadSafe
+@Deprecated
 public class MultiLinkedHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> extends
                                                   AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsOrderedSet <VALUETYPE>>
 {
