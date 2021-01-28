@@ -475,20 +475,8 @@ public final class StringHelperTest
     assertEquals ("a,true,b,true,c,false", StringHelper.getImploded (",", ",", aMap));
     assertEquals ("a:true,b:true,c:false", StringHelper.getImploded (",", ":", aMap));
 
-    try
-    {
-      StringHelper.getImploded (null, ":", aMap);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      StringHelper.getImploded (",", null, aMap);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    assertEquals ("a:trueb:truec:false", StringHelper.getImploded (null, ":", aMap));
+    assertEquals ("atrue,btrue,cfalse", StringHelper.getImploded (",", null, aMap));
   }
 
   @Test
