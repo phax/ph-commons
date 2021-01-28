@@ -23,11 +23,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.XMLConstants;
 
-import com.helger.collection.iterate.SingleElementIterator;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -71,7 +71,7 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
   @Nullable
   protected Iterator <String> getCustomPrefixes (@Nullable final String sNamespaceURI)
   {
-    return m_sNamespaceURI.equals (sNamespaceURI) ? new SingleElementIterator <> (m_sPrefix) : null;
+    return m_sNamespaceURI.equals (sNamespaceURI) ? new CommonsArrayList <> (m_sPrefix).iterator () : null;
   }
 
   @Override

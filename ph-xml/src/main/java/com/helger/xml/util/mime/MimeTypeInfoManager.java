@@ -25,8 +25,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.collection.multimap.IMultiMapListBased;
-import com.helger.collection.multimap.MultiTreeMapArrayListBased;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -35,7 +33,9 @@ import com.helger.commons.annotation.VisibleForTesting;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -76,9 +76,9 @@ public class MimeTypeInfoManager
   @GuardedBy ("m_aRWLock")
   private final ICommonsList <MimeTypeInfo> m_aList = new CommonsArrayList <> ();
   @GuardedBy ("m_aRWLock")
-  private final IMultiMapListBased <IMimeType, MimeTypeInfo> m_aMapMimeType = new MultiTreeMapArrayListBased <> ();
+  private final ICommonsMap <IMimeType, ICommonsList <MimeTypeInfo>> m_aMapMimeType = new CommonsTreeMap <> ();
   @GuardedBy ("m_aRWLock")
-  private final IMultiMapListBased <String, MimeTypeInfo> m_aMapExt = new MultiTreeMapArrayListBased <> ();
+  private final ICommonsMap <String, ICommonsList <MimeTypeInfo>> m_aMapExt = new CommonsTreeMap <> ();
 
   /**
    * Create a new empty (!!) instance.
@@ -209,9 +209,9 @@ public class MimeTypeInfoManager
     m_aRWLock.writeLocked ( () -> {
       m_aList.add (aInfo);
       for (final MimeTypeWithSource aMimeType : aMimeTypes)
-        m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
+        m_aMapMimeType.computeIfAbsent (aMimeType.getMimeType (), k -> new CommonsArrayList <> ()).add (aInfo);
       for (final ExtensionWithSource aExt : aExtensions)
-        m_aMapExt.putSingle (aExt.getExtension (), aInfo);
+        m_aMapExt.computeIfAbsent (aExt.getExtension (), k -> new CommonsArrayList <> ()).add (aInfo);
     });
   }
 
@@ -222,7 +222,7 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (aExt, "Ext");
 
     m_aRWLock.writeLocked ( () -> {
-      m_aMapExt.putSingle (aExt.getExtension (), aInfo);
+      m_aMapExt.computeIfAbsent (aExt.getExtension (), k -> new CommonsArrayList <> ()).add (aInfo);
       aInfo.addExtension (aExt);
     });
   }
@@ -234,7 +234,7 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (aMimeType, "MimeType");
 
     m_aRWLock.writeLocked ( () -> {
-      m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
+      m_aMapMimeType.computeIfAbsent (aMimeType.getMimeType (), k -> new CommonsArrayList <> ()).add (aInfo);
       aInfo.addMimeType (aMimeType);
     });
   }

@@ -22,8 +22,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 
-import com.helger.collection.iterate.SingleElementIterator;
 import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyIterator;
 
 /**
@@ -34,6 +35,9 @@ import com.helger.commons.collection.iterate.EmptyIterator;
  */
 public abstract class AbstractNamespaceContext implements IIterableNamespaceContext
 {
+  private static final ICommonsList <String> XML_NS = new CommonsArrayList <> (XMLConstants.XML_NS_PREFIX);
+  private static final ICommonsList <String> XMLNS_ATTRIBUTE_NS = new CommonsArrayList <> (XMLConstants.XMLNS_ATTRIBUTE);
+
   @Nullable
   public abstract String getDefaultNamespaceURI ();
 
@@ -48,9 +52,9 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
     if (sNamespaceURI == null)
       throw new IllegalArgumentException ();
     if (sNamespaceURI.equals (XMLConstants.XML_NS_URI))
-      return new SingleElementIterator <> (XMLConstants.XML_NS_PREFIX);
+      return XML_NS.iterator ();
     if (sNamespaceURI.equals (XMLConstants.XMLNS_ATTRIBUTE_NS_URI))
-      return new SingleElementIterator <> (XMLConstants.XMLNS_ATTRIBUTE);
+      return XMLNS_ATTRIBUTE_NS.iterator ();
 
     final Iterator <String> ret = getCustomPrefixes (sNamespaceURI);
     return ret != null ? ret : new EmptyIterator <> ();
