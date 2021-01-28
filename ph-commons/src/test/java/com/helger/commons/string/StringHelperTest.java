@@ -428,13 +428,7 @@ public final class StringHelperTest
     assertEquals ("abc", StringHelper.getImploded ("", aList.toArray (new String [3])));
     assertEquals ("abc", StringHelper.getImploded (aList.toArray (new String [3])));
 
-    try
-    {
-      StringHelper.getImploded (null, aList);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    assertEquals ("abc", StringHelper.getImploded (null, aList));
   }
 
   @Test
@@ -453,82 +447,22 @@ public final class StringHelperTest
     assertEquals ("", StringHelper.getImploded (".", null, 2, 0));
     assertEquals ("", StringHelper.getImploded (null, 2, 0));
 
-    try
-    {
-      // null separator
-      StringHelper.getImploded (null, aArray);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      // null separator
-      StringHelper.getImploded (null, aArray, 2, 2);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      StringHelper.getImploded (".", aArray, -1, 2);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      StringHelper.getImploded (aArray, -1, 2);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      StringHelper.getImploded (".", aArray, 0, -1);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      StringHelper.getImploded (aArray, 0, -1);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      // too long
-      StringHelper.getImploded (".", aArray, 2, 2);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      // too long
-      StringHelper.getImploded (aArray, 2, 2);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      // too long
-      StringHelper.getImploded (".", aArray, 0, 4);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      // too long
-      StringHelper.getImploded (aArray, 0, 4);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    // null separator
+    assertEquals ("abc", StringHelper.getImploded (null, aArray));
+    // null separator
+    assertEquals ("c", StringHelper.getImploded (null, aArray, 2, 2));
+    assertEquals ("a.b", StringHelper.getImploded (".", aArray, -1, 2));
+    assertEquals ("ab", StringHelper.getImploded (aArray, -1, 2));
+    assertEquals ("a.b.c", StringHelper.getImploded (".", aArray, 0, -1));
+    assertEquals ("abc", StringHelper.getImploded (aArray, 0, -1));
+    // too long
+    assertEquals ("c", StringHelper.getImploded (".", aArray, 2, 2));
+    // too long
+    assertEquals ("c", StringHelper.getImploded (aArray, 2, 2));
+    // too long
+    assertEquals ("a.b.c", StringHelper.getImploded (".", aArray, 0, 4));
+    // too long
+    assertEquals ("abc", StringHelper.getImploded (aArray, 0, 4));
   }
 
   @Test
@@ -568,13 +502,7 @@ public final class StringHelperTest
     assertEquals ("a.b.c", StringHelper.getImplodedNonEmpty (".", aList.toArray (new String [3])));
     assertEquals ("abc", StringHelper.getImplodedNonEmpty ("", aList.toArray (new String [3])));
 
-    try
-    {
-      StringHelper.getImplodedNonEmpty (null, aList);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    StringHelper.getImplodedNonEmpty (null, aList);
   }
 
   @Test
@@ -588,50 +516,14 @@ public final class StringHelperTest
     assertEquals ("", StringHelper.getImplodedNonEmpty (".", aArray, 4, 0));
     assertEquals ("", StringHelper.getImplodedNonEmpty (".", null, 4, 0));
 
-    try
-    {
-      StringHelper.getImplodedNonEmpty (null, aArray, 2, 2);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      StringHelper.getImplodedNonEmpty (".", aArray, -1, 2);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      StringHelper.getImplodedNonEmpty (".", aArray, 0, -1);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      // too long
-      StringHelper.getImplodedNonEmpty (".", aArray, 6, 2);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      // too long
-      StringHelper.getImplodedNonEmpty (".", aArray, 0, 8);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      StringHelper.getImplodedNonEmpty (null, aArray);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    StringHelper.getImplodedNonEmpty (null, aArray, 2, 2);
+    StringHelper.getImplodedNonEmpty (".", aArray, -1, 2);
+    StringHelper.getImplodedNonEmpty (".", aArray, 0, -1);
+    // too long
+    StringHelper.getImplodedNonEmpty (".", aArray, 6, 2);
+    // too long
+    StringHelper.getImplodedNonEmpty (".", aArray, 0, 8);
+    StringHelper.getImplodedNonEmpty (null, aArray);
   }
 
   @Test

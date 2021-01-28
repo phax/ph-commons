@@ -35,6 +35,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
+import java.util.function.Predicate;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.CheckReturnValue;
@@ -50,6 +51,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.builder.IBuilder;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -58,6 +60,7 @@ import com.helger.commons.collection.impl.CommonsTreeSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.functional.ICharConsumer;
 import com.helger.commons.functional.ICharPredicate;
+import com.helger.commons.functional.Predicates;
 import com.helger.commons.math.MathHelper;
 
 /**
@@ -867,6 +870,188 @@ public final class StringHelper
   }
 
   /**
+   * A simple builder that allows to implode collections of arguments with a lot
+   * of customization. It used by all the "getImploded*" overloads and fulfills
+   * the requests of other use cases as well.
+   *
+   * @author Philip Helger
+   * @since 10.0.0
+   */
+  public static class ImploderBuilder implements IBuilder <String>
+  {
+    private ICommonsList <String> m_aSource;
+    private String m_sSeparator;
+    private int m_nOffset = 0;
+    private int m_nLength = -1;
+    private Predicate <String> m_aFilter;
+
+    public ImploderBuilder ()
+    {}
+
+    private static String _valueOf (final Object o)
+    {
+      return o == null ? null : o.toString ();
+    }
+
+    @Nonnull
+    public ImploderBuilder source (@Nullable final Iterable <?> a)
+    {
+      return source (a, ImploderBuilder::_valueOf);
+    }
+
+    @Nonnull
+    public <T> ImploderBuilder source (@Nullable final Iterable <T> a, @Nonnull final Function <? super T, String> aMapper)
+    {
+      ValueEnforcer.notNull (aMapper, "Mapper");
+      m_aSource = a == null ? null : new CommonsArrayList <> (a, aMapper);
+      return this;
+    }
+
+    @Nonnull
+    public ImploderBuilder source (@Nullable final String... a)
+    {
+      m_aSource = a == null ? null : new CommonsArrayList <> (a);
+      return this;
+    }
+
+    @Nonnull
+    @SafeVarargs
+    public final <T> ImploderBuilder source (@Nullable final T... a)
+    {
+      return source (a, ImploderBuilder::_valueOf);
+    }
+
+    @Nonnull
+    public <T> ImploderBuilder source (@Nullable final T [] a, @Nonnull final Function <? super T, String> aMapper)
+    {
+      ValueEnforcer.notNull (aMapper, "Mapper");
+      m_aSource = a == null ? null : new CommonsArrayList <> (a, aMapper);
+      return this;
+    }
+
+    @Nonnull
+    public ImploderBuilder separator (final char c)
+    {
+      return separator (Character.toString (c));
+    }
+
+    @Nonnull
+    public ImploderBuilder separator (@Nullable final String s)
+    {
+      m_sSeparator = s;
+      return this;
+    }
+
+    /**
+     * Set an offset of the source from which to start. Only values &gt; 0 have
+     * an effect.
+     *
+     * @param n
+     *        The offset to use
+     * @return this for chaining
+     */
+    @Nonnull
+    public ImploderBuilder offset (final int n)
+    {
+      m_nOffset = n;
+      return this;
+    }
+
+    /**
+     * Set the number of source items to iterate, depending on the source
+     * offset. By default all elements from start to end are used. Only values
+     * &gt; 0 have an effect.
+     *
+     * @param n
+     *        The length to use
+     * @return this for chaining
+     */
+    @Nonnull
+    public ImploderBuilder length (final int n)
+    {
+      m_nLength = n;
+      return this;
+    }
+
+    @Nonnull
+    public ImploderBuilder filterNonEmpty ()
+    {
+      return filter (StringHelper::hasText);
+    }
+
+    @Nonnull
+    public ImploderBuilder filter (@Nullable final Predicate <String> a)
+    {
+      m_aFilter = a;
+      return this;
+    }
+
+    @Nonnull
+    public String build ()
+    {
+      if (m_aSource == null || m_aSource.isEmpty () || m_nLength == 0)
+        return "";
+
+      final StringBuilder aSB = new StringBuilder ();
+
+      // Avoid constant this access for speed
+      final String sSep = m_sSeparator;
+      final Predicate <String> aFilter = m_aFilter == null ? Predicates.all () : m_aFilter;
+
+      if (m_nOffset <= 0 && m_nLength < 0)
+      {
+        // Iterate all
+        int nElementsAdded = 0;
+        for (final String sElement : m_aSource)
+        {
+          if (aFilter.test (sElement))
+          {
+            if (nElementsAdded > 0 && sSep != null)
+              aSB.append (sSep);
+            aSB.append (sElement);
+            nElementsAdded++;
+          }
+        }
+      }
+      else
+      {
+        // Start as early as possible
+        final int nStart = Math.max (0, m_nOffset);
+
+        // End of iteration?
+        int nEnd = m_aSource.size ();
+        if (m_nLength > 0)
+          nEnd = Math.min (nEnd, nStart + m_nLength);
+
+        int nElementsAdded = 0;
+        for (int i = nStart; i < nEnd; ++i)
+        {
+          final String sElement = m_aSource.get (i);
+          if (aFilter.test (sElement))
+          {
+            if (nElementsAdded > 0 && sSep != null)
+              aSB.append (sSep);
+            aSB.append (sElement);
+            nElementsAdded++;
+          }
+        }
+      }
+      return aSB.toString ();
+    }
+
+  }
+
+  /**
+   * @return A new {@link ImploderBuilder}.
+   * @since 10.0.0
+   */
+  @Nonnull
+  public static ImploderBuilder imploder ()
+  {
+    return new ImploderBuilder ();
+  }
+
+  /**
    * Get a concatenated String from all elements of the passed container,
    * without a separator. Even <code>null</code> elements are added.
    *
@@ -877,7 +1062,7 @@ public final class StringHelper
   @Nonnull
   public static String getImploded (@Nullable final Iterable <?> aElements)
   {
-    return getImplodedMapped (aElements, String::valueOf);
+    return imploder ().source (aElements).build ();
   }
 
   /**
@@ -898,13 +1083,7 @@ public final class StringHelper
   public static <ELEMENTTYPE> String getImplodedMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-      for (final ELEMENTTYPE aElement : aElements)
-        aSB.append (aMapper.apply (aElement));
-    return aSB.toString ();
+    return imploder ().source (aElements, aMapper).build ();
   }
 
   /**
@@ -921,7 +1100,7 @@ public final class StringHelper
   @Nonnull
   public static String getImploded (@Nonnull final String sSep, @Nullable final Iterable <?> aElements)
   {
-    return getImplodedMapped (sSep, aElements, String::valueOf);
+    return imploder ().source (aElements).separator (sSep).build ();
   }
 
   /**
@@ -938,7 +1117,7 @@ public final class StringHelper
   @Nonnull
   public static String getImploded (final char cSep, @Nullable final Iterable <?> aElements)
   {
-    return getImplodedMapped (cSep, aElements, String::valueOf);
+    return imploder ().source (aElements).separator (cSep).build ();
   }
 
   /**
@@ -963,22 +1142,7 @@ public final class StringHelper
                                                         @Nullable final Iterable <? extends ELEMENTTYPE> aElements,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-    {
-      int nIndex = 0;
-      for (final ELEMENTTYPE aElement : aElements)
-      {
-        if (nIndex > 0)
-          aSB.append (sSep);
-        aSB.append (aMapper.apply (aElement));
-        nIndex++;
-      }
-    }
-    return aSB.toString ();
+    return imploder ().source (aElements, aMapper).separator (sSep).build ();
   }
 
   /**
@@ -1003,7 +1167,7 @@ public final class StringHelper
                                                         @Nullable final Iterable <? extends ELEMENTTYPE> aElements,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    return getImplodedMapped (Character.toString (cSep), aElements, aMapper);
+    return imploder ().source (aElements, aMapper).separator (cSep).build ();
   }
 
   /**
@@ -1154,7 +1318,7 @@ public final class StringHelper
   @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE... aElements)
   {
-    return getImplodedMapped (aElements, String::valueOf);
+    return imploder ().source (aElements).build ();
   }
 
   /**
@@ -1176,7 +1340,7 @@ public final class StringHelper
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen)
   {
-    return getImplodedMapped (aElements, nOfs, nLen, String::valueOf);
+    return imploder ().source (aElements).offset (nOfs).length (nLen).build ();
   }
 
   /**
@@ -1197,11 +1361,7 @@ public final class StringHelper
   public static <ELEMENTTYPE> String getImplodedMapped (@Nullable final ELEMENTTYPE [] aElements,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    if (ArrayHelper.isEmpty (aElements))
-      return "";
-    return getImplodedMapped (aElements, 0, aElements.length, aMapper);
+    return imploder ().source (aElements, aMapper).build ();
   }
 
   /**
@@ -1228,15 +1388,7 @@ public final class StringHelper
                                                         @Nonnegative final int nLen,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    if (aElements != null)
-      ValueEnforcer.isArrayOfsLen (aElements, nOfs, nLen);
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-      for (int i = nOfs; i < nOfs + nLen; ++i)
-        aSB.append (aMapper.apply (aElements[i]));
-    return aSB.toString ();
+    return imploder ().source (aElements, aMapper).offset (nOfs).length (nLen).build ();
   }
 
   /**
@@ -1255,7 +1407,7 @@ public final class StringHelper
   @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep, @Nullable final ELEMENTTYPE... aElements)
   {
-    return getImplodedMapped (sSep, aElements, String::valueOf);
+    return imploder ().source (aElements).separator (sSep).build ();
   }
 
   /**
@@ -1274,7 +1426,7 @@ public final class StringHelper
   @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (final char cSep, @Nullable final ELEMENTTYPE... aElements)
   {
-    return getImplodedMapped (cSep, aElements, String::valueOf);
+    return imploder ().source (aElements).separator (cSep).build ();
   }
 
   /**
@@ -1299,7 +1451,7 @@ public final class StringHelper
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen)
   {
-    return getImplodedMapped (sSep, aElements, nOfs, nLen, String::valueOf);
+    return imploder ().source (aElements).offset (nOfs).length (nLen).separator (sSep).build ();
   }
 
   /**
@@ -1323,12 +1475,7 @@ public final class StringHelper
                                                         @Nullable final ELEMENTTYPE [] aElements,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    if (ArrayHelper.isEmpty (aElements))
-      return "";
-    return getImplodedMapped (sSep, aElements, 0, aElements.length, aMapper);
+    return imploder ().source (aElements, aMapper).separator (sSep).build ();
   }
 
   /**
@@ -1352,7 +1499,7 @@ public final class StringHelper
                                                         @Nullable final ELEMENTTYPE [] aElements,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    return getImplodedMapped (Character.toString (cSep), aElements, aMapper);
+    return imploder ().source (aElements, aMapper).separator (cSep).build ();
   }
 
   /**
@@ -1382,7 +1529,7 @@ public final class StringHelper
                                                         @Nonnegative final int nLen,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    return getImplodedMapped (Character.toString (cSep), aElements, nOfs, nLen, aMapper);
+    return imploder ().source (aElements, aMapper).offset (nOfs).length (nLen).separator (cSep).build ();
   }
 
   /**
@@ -1412,23 +1559,7 @@ public final class StringHelper
                                                         @Nonnegative final int nLen,
                                                         @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-    if (aElements != null)
-      ValueEnforcer.isArrayOfsLen (aElements, nOfs, nLen);
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-    {
-      for (int i = nOfs; i < nOfs + nLen; ++i)
-      {
-        final ELEMENTTYPE sElement = aElements[i];
-        if (i > nOfs)
-          aSB.append (sSep);
-        aSB.append (aMapper.apply (sElement));
-      }
-    }
-    return aSB.toString ();
+    return imploder ().source (aElements, aMapper).offset (nOfs).length (nLen).separator (sSep).build ();
   }
 
   /**
@@ -1453,7 +1584,7 @@ public final class StringHelper
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen)
   {
-    return getImplodedMapped (Character.toString (cSep), aElements, nOfs, nLen, String::valueOf);
+    return imploder ().source (aElements).offset (nOfs).length (nLen).separator (cSep).build ();
   }
 
   /**
@@ -1469,7 +1600,7 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (@Nullable final Iterable <String> aElements)
   {
-    return getImplodedMappedNonEmpty (aElements, Function.identity ());
+    return imploder ().source (aElements).filterNonEmpty ().build ();
   }
 
   /**
@@ -1492,17 +1623,7 @@ public final class StringHelper
   public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-      for (final ELEMENTTYPE aElement : aElements)
-      {
-        final String sElement = aMapper.apply (aElement);
-        if (hasText (sElement))
-          aSB.append (sElement);
-      }
-    return aSB.toString ();
+    return imploder ().source (aElements, aMapper).filterNonEmpty ().build ();
   }
 
   /**
@@ -1525,17 +1646,7 @@ public final class StringHelper
   public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@Nullable final ELEMENTTYPE [] aElements,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-      for (final ELEMENTTYPE aElement : aElements)
-      {
-        final String sElement = aMapper.apply (aElement);
-        if (hasText (sElement))
-          aSB.append (sElement);
-      }
-    return aSB.toString ();
+    return imploder ().source (aElements, aMapper).filterNonEmpty ().build ();
   }
 
   /**
@@ -1554,7 +1665,7 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (@Nonnull final String sSep, @Nullable final Iterable <String> aElements)
   {
-    return getImplodedMappedNonEmpty (sSep, aElements, Function.identity ());
+    return imploder ().source (aElements).separator (sSep).filterNonEmpty ().build ();
   }
 
   /**
@@ -1573,7 +1684,7 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (final char cSep, @Nullable final Iterable <String> aElements)
   {
-    return getImplodedMappedNonEmpty (cSep, aElements, Function.identity ());
+    return imploder ().source (aElements).separator (cSep).filterNonEmpty ().build ();
   }
 
   /**
@@ -1600,26 +1711,7 @@ public final class StringHelper
                                                                 @Nullable final Iterable <? extends ELEMENTTYPE> aElements,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-    {
-      int nElementsAdded = 0;
-      for (final ELEMENTTYPE aElement : aElements)
-      {
-        final String sElement = aMapper.apply (aElement);
-        if (hasText (sElement))
-        {
-          if (nElementsAdded > 0)
-            aSB.append (sSep);
-          nElementsAdded++;
-          aSB.append (sElement);
-        }
-      }
-    }
-    return aSB.toString ();
+    return imploder ().source (aElements, aMapper).separator (sSep).filterNonEmpty ().build ();
   }
 
   /**
@@ -1646,7 +1738,7 @@ public final class StringHelper
                                                                 @Nullable final Iterable <? extends ELEMENTTYPE> aElements,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    return getImplodedMappedNonEmpty (Character.toString (cSep), aElements, aMapper);
+    return imploder ().source (aElements, aMapper).separator (cSep).filterNonEmpty ().build ();
   }
 
   /**
@@ -1664,7 +1756,7 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (@Nonnull final String sSep, @Nullable final String... aElements)
   {
-    return getImplodedMappedNonEmpty (sSep, aElements, Function.identity ());
+    return imploder ().source (aElements).separator (sSep).filterNonEmpty ().build ();
   }
 
   /**
@@ -1682,7 +1774,7 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (final char cSep, @Nullable final String... aElements)
   {
-    return getImplodedMappedNonEmpty (cSep, aElements, Function.identity ());
+    return imploder ().source (aElements).separator (cSep).filterNonEmpty ().build ();
   }
 
   /**
@@ -1708,12 +1800,7 @@ public final class StringHelper
                                                                 @Nullable final ELEMENTTYPE [] aElements,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    if (ArrayHelper.isEmpty (aElements))
-      return "";
-    return getImplodedMappedNonEmpty (sSep, aElements, 0, aElements.length, aMapper);
+    return imploder ().source (aElements, aMapper).separator (sSep).filterNonEmpty ().build ();
   }
 
   /**
@@ -1739,7 +1826,7 @@ public final class StringHelper
                                                                 @Nullable final ELEMENTTYPE [] aElements,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    return getImplodedMappedNonEmpty (Character.toString (cSep), aElements, aMapper);
+    return imploder ().source (aElements, aMapper).separator (cSep).filterNonEmpty ().build ();
   }
 
   /**
@@ -1764,7 +1851,7 @@ public final class StringHelper
                                             @Nonnegative final int nOfs,
                                             @Nonnegative final int nLen)
   {
-    return getImplodedMappedNonEmpty (sSep, aElements, nOfs, nLen, Function.identity ());
+    return imploder ().source (aElements).separator (sSep).offset (nOfs).length (nLen).filterNonEmpty ().build ();
   }
 
   /**
@@ -1789,7 +1876,7 @@ public final class StringHelper
                                             @Nonnegative final int nOfs,
                                             @Nonnegative final int nLen)
   {
-    return getImplodedMappedNonEmpty (cSep, aElements, nOfs, nLen, Function.identity ());
+    return imploder ().source (aElements).separator (cSep).offset (nOfs).length (nLen).filterNonEmpty ().build ();
   }
 
   /**
@@ -1821,28 +1908,7 @@ public final class StringHelper
                                                                 @Nonnegative final int nLen,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-    if (aElements != null)
-      ValueEnforcer.isArrayOfsLen (aElements, nOfs, nLen);
-    ValueEnforcer.notNull (aMapper, "Mapper");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-    {
-      int nElementsAdded = 0;
-      for (int i = nOfs; i < nOfs + nLen; ++i)
-      {
-        final String sElement = aMapper.apply (aElements[i]);
-        if (hasText (sElement))
-        {
-          if (nElementsAdded > 0)
-            aSB.append (sSep);
-          nElementsAdded++;
-          aSB.append (sElement);
-        }
-      }
-    }
-    return aSB.toString ();
+    return imploder ().source (aElements, aMapper).separator (sSep).offset (nOfs).length (nLen).filterNonEmpty ().build ();
   }
 
   /**
@@ -1874,7 +1940,7 @@ public final class StringHelper
                                                                 @Nonnegative final int nLen,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    return getImplodedMappedNonEmpty (Character.toString (cSep), aElements, nOfs, nLen, aMapper);
+    return imploder ().source (aElements, aMapper).separator (cSep).offset (nOfs).length (nLen).filterNonEmpty ().build ();
   }
 
   /**
