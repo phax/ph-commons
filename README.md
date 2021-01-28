@@ -52,7 +52,9 @@ This project was the following modules:
     * Extended `HTTPHeaderMap` API
     * Fixed the data type of the custom HTTP headers in `WSClientConfig`
     * Changed the default value `DEFAULT_QUOTE_IF_NECESSARY` from `true` to `false`
-    * Deprecated all the "multi map" classes in `ph-collection`. With the `computeIfAbsent` functions, most of the simplifications can be achieved with runtime features. They will be removed in the next major verison.
+    * Deprecated all the "multi map" classes in `ph-collection`. With the `computeIfAbsent` functions, most of the simplifications can be achieved with runtime features. They will be removed in the next major version.
+    * Extended `ILocalDatePeriod` based on issue #23
+    * Added classes `ILocalDateTimePeriod` and `LocalDateTimePeriod`
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`
