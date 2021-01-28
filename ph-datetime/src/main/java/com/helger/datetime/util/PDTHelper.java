@@ -241,29 +241,59 @@ public final class PDTHelper
     return getWeekOfWeekBasedYear (aDT.plusMonths (1).withDayOfMonth (1).minusDays (1), aLocale);
   }
 
+  /**
+   * Get the next week day based on the provided date. If the provided date is a
+   * week day day, the provided date is returned. A week day is determined by
+   * not being a weekend day (usually Saturday or Sunday).
+   *
+   * @param aStart
+   *        The date to start at. May not be <code>null</code>.
+   * @return The next matching date. Never <code>null</code>.
+   */
   @Nonnull
-  public static LocalDate getCurrentOrNextWeekday ()
+  public static LocalDate getCurrentOrNextWeekday (@Nonnull final LocalDate aStart)
   {
-    LocalDate aDT = PDTFactory.getCurrentLocalDate ();
+    LocalDate aDT = aStart;
     while (isWeekend (aDT))
       aDT = aDT.plusDays (1);
     return aDT;
   }
 
+  @Nonnull
+  public static LocalDate getCurrentOrNextWeekday ()
+  {
+    return getCurrentOrNextWeekday (PDTFactory.getCurrentLocalDate ());
+  }
+
   /**
-   * Get the next working day based on the current day. If the current day is a
-   * working day, the current day is returned. A working day is determined by:
-   * it's not a weekend day (usually Saturday or Sunday).
+   * Get the next weekend day based on the provided date. If the provided date
+   * is a weekend day, the provided date is returned. Weekend day are Saturday
+   * or Sunday.
+   *
+   * @param aStart
+   *        The date to start at. May not be <code>null</code>.
+   * @return The next matching date.
+   */
+  @Nonnull
+  public static LocalDate getCurrentOrNextWeekendkDay (@Nonnull final LocalDate aStart)
+  {
+    LocalDate aDT = aStart;
+    while (!isWeekend (aDT))
+      aDT = aDT.plusDays (1);
+    return aDT;
+  }
+
+  /**
+   * Get the next weekend day based on the provided date. If the provided date
+   * is a weekend day, the provided date is returned. Weekend day are Saturday
+   * or Sunday.
    *
    * @return The next matching date.
    */
   @Nonnull
-  public static LocalDate getCurrentOrNextWorkDay ()
+  public static LocalDate getCurrentOrNextWeekendkDay ()
   {
-    LocalDate aDT = PDTFactory.getCurrentLocalDate ();
-    while (isWorkDay (aDT))
-      aDT = aDT.plusDays (1);
-    return aDT;
+    return getCurrentOrNextWeekendkDay (PDTFactory.getCurrentLocalDate ());
   }
 
   /**

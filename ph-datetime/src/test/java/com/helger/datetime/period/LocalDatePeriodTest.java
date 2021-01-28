@@ -27,6 +27,7 @@ import java.time.Month;
 import org.junit.Test;
 
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link LocalDatePeriod}.
@@ -91,6 +92,17 @@ public final class LocalDatePeriodTest
     assertFalse (p.isInPeriodExcl (d1));
     assertFalse (p.isInPeriodExcl (d2));
     assertFalse (p.isInPeriodExcl (aNow));
+
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new LocalDatePeriod (null, null), new LocalDatePeriod (null, null));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new LocalDatePeriod (d1, null), new LocalDatePeriod (d1, null));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new LocalDatePeriod (null, d2), new LocalDatePeriod (null, d2));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new LocalDatePeriod (d1, d2), new LocalDatePeriod (d1, d2));
+
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDatePeriod (d1, d2), new LocalDatePeriod (d1, aNow));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDatePeriod (d1, d2), new LocalDatePeriod (d2, d2));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDatePeriod (d1, d2), new LocalDatePeriod (d1, null));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDatePeriod (d1, d2), new LocalDatePeriod (null, d2));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDatePeriod (d1, d2), new LocalDatePeriod (null, null));
   }
 
   @Test
