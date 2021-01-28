@@ -22,18 +22,16 @@ package com.helger.security.password.hash;
  * size.
  *
  * @author Philip Helger
- * @deprecated Since 10.0.0 because the used SHA1 hash is insecure. Removed in
- *             v11
+ * @since 10.0.0
  */
-@Deprecated
-public final class PasswordHashCreatorPBKDF2_1000_48 extends AbstractPasswordHashCreatorPBKDF2
+public final class PasswordHashCreatorPBKDF2_SHA256_1000_48 extends AbstractPasswordHashCreatorPBKDF2
 {
-  public static final String ALGORITHM = "PBKDF2_1000_48";
+  public static final String ALGORITHM = "PBKDF2_SHA256_1000_48";
   public static final int PBKDF2_ITERATIONS = 1000;
   public static final int HASH_BYTE_SIZE = 48;
 
-  public PasswordHashCreatorPBKDF2_1000_48 ()
+  public PasswordHashCreatorPBKDF2_SHA256_1000_48 ()
   {
-    super (ALGORITHM, "PBKDF2WithHmacSHA1", PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
+    super (ALGORITHM, "PBKDF2WithHmacSHA256", PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
   }
 }

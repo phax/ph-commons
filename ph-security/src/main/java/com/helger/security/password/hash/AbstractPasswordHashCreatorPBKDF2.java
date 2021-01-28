@@ -33,20 +33,20 @@ import com.helger.security.password.salt.IPasswordSalt;
  * Base class for {@link IPasswordHashCreator} using the PBKDF2 algorithm.
  *
  * @author Philip Helger
- * @since 3.8.2
  */
 public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPasswordHashCreator
 {
-  public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
-
+  protected final String m_sPBKDF2AlgorithmName;
   protected final int m_nIterations;
   protected final int m_nHashBytes;
 
-  public AbstractPasswordHashCreatorPBKDF2 (@Nonnull @Nonempty final String sAlgorithm,
+  public AbstractPasswordHashCreatorPBKDF2 (@Nonnull @Nonempty final String sAlgorithmName,
+                                            @Nonnull @Nonempty final String sPBKDF2AlgorithmName,
                                             @Nonnegative final int nIterations,
                                             @Nonnegative final int nBytes)
   {
-    super (sAlgorithm);
+    super (sAlgorithmName);
+    m_sPBKDF2AlgorithmName = ValueEnforcer.notEmpty (sPBKDF2AlgorithmName, "PBKDF2AlgorithmName");
     m_nIterations = ValueEnforcer.isGT0 (nIterations, "Iterations");
     m_nHashBytes = ValueEnforcer.isGT0 (nBytes, "Bytes");
   }
@@ -67,23 +67,34 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
    *        the iteration count (slowness factor)
    * @param nBytes
    *        the length of the hash to compute in bytes
+   * @param sPBKDF2AlgorithmName
+   *        The SecretKeyFactory parameter to use. May neither be
+   *        <code>null</code> nor empty.
    * @return the PBDKF2 hash of the password
    */
   @Nonnull
   protected static final byte [] pbkdf2 (@Nonnull final char [] aPassword,
                                          @Nonnull final byte [] aSalt,
                                          @Nonnegative final int nIterations,
-                                         @Nonnegative final int nBytes)
+                                         @Nonnegative final int nBytes,
+                                         @Nonnull @Nonempty final String sPBKDF2AlgorithmName)
   {
     try
     {
       final PBEKeySpec spec = new PBEKeySpec (aPassword, aSalt, nIterations, nBytes * CGlobal.BITS_PER_BYTE);
-      final SecretKeyFactory skf = SecretKeyFactory.getInstance (PBKDF2_ALGORITHM);
+      final SecretKeyFactory skf = SecretKeyFactory.getInstance (sPBKDF2AlgorithmName);
       return skf.generateSecret (spec).getEncoded ();
     }
     catch (final GeneralSecurityException ex)
     {
-      throw new IllegalStateException ("Failed to apply PBKDF2 algorithm", ex);
+      throw new IllegalStateException ("Failed to apply PBKDF2 algorithm '" +
+                                       sPBKDF2AlgorithmName +
+                                       "' with " +
+                                       nIterations +
+                                       " iterations and " +
+                                       nBytes +
+                                       " bytes",
+                                       ex);
     }
   }
 
@@ -93,7 +104,11 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
     ValueEnforcer.notNull (aSalt, "Salt");
     ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");
 
-    final byte [] aDigest = pbkdf2 (sPlainTextPassword.toCharArray (), aSalt.getSaltBytes (), m_nIterations, m_nHashBytes);
+    final byte [] aDigest = pbkdf2 (sPlainTextPassword.toCharArray (),
+                                    aSalt.getSaltBytes (),
+                                    m_nIterations,
+                                    m_nHashBytes,
+                                    m_sPBKDF2AlgorithmName);
     return StringHelper.getHexEncoded (aDigest);
   }
 }

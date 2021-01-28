@@ -30,7 +30,8 @@ public interface IPasswordHashCreator
 {
   /**
    * @return The name of the algorithm used in this creator. May neither be
-   *         <code>null</code> nor empty.
+   *         <code>null</code> nor empty. This is a self-chosen name and not
+   *         related to a JDK internal name.
    */
   @Nonnull
   @Nonempty

@@ -29,23 +29,23 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public abstract class AbstractPasswordHashCreator implements IPasswordHashCreator
 {
-  private final String m_sAlgorithm;
+  private final String m_sAlgorithmName;
 
-  public AbstractPasswordHashCreator (@Nonnull @Nonempty final String sAlgorithm)
+  public AbstractPasswordHashCreator (@Nonnull @Nonempty final String sAlgorithmName)
   {
-    m_sAlgorithm = ValueEnforcer.notEmpty (sAlgorithm, "Algorithm");
+    m_sAlgorithmName = ValueEnforcer.notEmpty (sAlgorithmName, "Algorithm");
   }
 
   @Nonnull
   @Nonempty
   public final String getAlgorithmName ()
   {
-    return m_sAlgorithm;
+    return m_sAlgorithmName;
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("algorithm", m_sAlgorithm).getToString ();
+    return new ToStringGenerator (this).append ("AlgorithmName", m_sAlgorithmName).getToString ();
   }
 }

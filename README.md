@@ -55,6 +55,8 @@ This project was the following modules:
     * Deprecated all the "multi map" classes in `ph-collection`. With the `computeIfAbsent` functions, most of the simplifications can be achieved with runtime features. They will be removed in the next major version.
     * Extended `ILocalDatePeriod` based on issue #23
     * Added classes `ILocalDateTimePeriod` and `LocalDateTimePeriod`
+    * Added class `PasswordHashCreatorPBKDF2_SHA256_1000_48` for better PBKDF2 usage
+    * Deprecated class `PasswordHashCreatorPBKDF2_1000_48` because it uses the PBKDF2 with the SHA1 hash
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`

@@ -25,19 +25,18 @@ import com.helger.security.password.salt.IPasswordSalt;
 import com.helger.security.password.salt.PasswordSalt;
 
 /**
- * Test class for class {@link PasswordHashCreatorPBKDF2_1000_48}.
+ * Test class for class {@link PasswordHashCreatorPBKDF2_SHA256_1000_48}.
  *
  * @author Philip Helger
  */
-@Deprecated
-public final class PasswordHashCreatorPBKDF2_1000_48Test
+public final class PasswordHashCreatorPBKDF2_SHA256_1000_48Test
 {
   @Test
   public void testBasicSameSalt ()
   {
     final IPasswordSalt aSalt = new PasswordSalt ();
     final String sPlainTextPassword = "123456";
-    final PasswordHashCreatorPBKDF2_1000_48 a = new PasswordHashCreatorPBKDF2_1000_48 ();
+    final PasswordHashCreatorPBKDF2_SHA256_1000_48 a = new PasswordHashCreatorPBKDF2_SHA256_1000_48 ();
     final String sPW1 = a.createPasswordHash (aSalt, sPlainTextPassword);
     final String sPW2 = a.createPasswordHash (aSalt, sPlainTextPassword);
     assertEquals (sPW1, sPW2);
@@ -47,7 +46,7 @@ public final class PasswordHashCreatorPBKDF2_1000_48Test
   public void testBasicDifferentSalt ()
   {
     final String sPlainTextPassword = "123456";
-    final PasswordHashCreatorPBKDF2_1000_48 a = new PasswordHashCreatorPBKDF2_1000_48 ();
+    final PasswordHashCreatorPBKDF2_SHA256_1000_48 a = new PasswordHashCreatorPBKDF2_SHA256_1000_48 ();
     final String sPW1 = a.createPasswordHash (new PasswordSalt (), sPlainTextPassword);
     final String sPW2 = a.createPasswordHash (new PasswordSalt (), sPlainTextPassword);
     assertFalse (sPW1.equals (sPW2));
@@ -58,7 +57,7 @@ public final class PasswordHashCreatorPBKDF2_1000_48Test
   {
     final IPasswordSalt aSalt = new PasswordSalt ();
     final String sPlainTextPassword = "123456";
-    final PasswordHashCreatorPBKDF2_1000_48 a = new PasswordHashCreatorPBKDF2_1000_48 ();
+    final PasswordHashCreatorPBKDF2_SHA256_1000_48 a = new PasswordHashCreatorPBKDF2_SHA256_1000_48 ();
     for (int i = 0; i < 1000; ++i)
       a.createPasswordHash (aSalt, sPlainTextPassword);
   }
