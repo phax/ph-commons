@@ -122,12 +122,13 @@ public class HasInputStream implements IHasInputStream
 
   /**
    * Get a special implementation of {@link IHasInputStream} for
-   * {@link NonBlockingByteArrayOutputStream}.
+   * {@link NonBlockingByteArrayOutputStream}. This input stream can be read
+   * multiple times.
    *
    * @param aBAOS
    *        Source stream. May not be <code>null</code>.
    * @return Never <code>null</code>.
-   * @since .2.1
+   * @since 9.2.1
    */
   @Nonnull
   @ReturnsMutableCopy
