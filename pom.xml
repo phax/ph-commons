@@ -156,6 +156,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-jaxb-adapter</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-jaxb</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -259,6 +264,7 @@
     <module>ph-security</module>
     <module>ph-xml</module>
     <module>ph-wsclient</module>
+    <module>ph-jaxb-adapter</module>
     <module>ph-jaxb</module>
     <module>ph-json</module>
     <module>ph-tree</module>

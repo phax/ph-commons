@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.jaxb;
+package com.helger.jaxb.adapter;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
