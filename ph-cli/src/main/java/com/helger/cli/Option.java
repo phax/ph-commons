@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.builder.IBuilder;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -417,7 +418,7 @@ public class Option implements IOptionBase
    * Option option = Option.builder ("a").required (true).longOpt ("arg-name").build ();
    * </pre>
    */
-  public static class Builder
+  public static class Builder implements IBuilder <Option>
   {
     /** the name of the option */
     private final String m_sShortOpt;

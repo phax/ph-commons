@@ -69,7 +69,7 @@ public final class ConfigFileTest
   @Test
   public void testPropertiesNonExisting ()
   {
-    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceProperties ())
+    final ConfigFile aCF = new ConfigFileBuilder ().settingsPersistence (new SettingsPersistenceProperties ())
                                                    .addPath ("non-existent-file.properties")
                                                    .build ();
     assertFalse (aCF.isRead ());
@@ -82,7 +82,7 @@ public final class ConfigFileTest
   @Test
   public void testXML ()
   {
-    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceXML <> (TrimmedValueSettings::new))
+    final ConfigFile aCF = new ConfigFileBuilder ().settingsPersistence (new SettingsPersistenceXML <> (TrimmedValueSettings::new))
                                                    .addPath ("test.xml")
                                                    .build ();
     assertTrue (aCF.isRead ());
@@ -114,7 +114,7 @@ public final class ConfigFileTest
   public void testXMLOld ()
   {
     // Read the old layout from before 9.3.2
-    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceXML <> (TrimmedValueSettings::new))
+    final ConfigFile aCF = new ConfigFileBuilder ().settingsPersistence (new SettingsPersistenceXML <> (TrimmedValueSettings::new))
                                                    .addPath ("test-old.xml")
                                                    .build ();
     assertTrue (aCF.isRead ());
@@ -145,7 +145,7 @@ public final class ConfigFileTest
   @Test
   public void testXMLNonExisting ()
   {
-    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (SettingsPersistenceXML.createDefault ())
+    final ConfigFile aCF = new ConfigFileBuilder ().settingsPersistence (SettingsPersistenceXML.createDefault ())
                                                    .addPath ("non-existent-file.xml")
                                                    .build ();
     assertFalse (aCF.isRead ());
@@ -158,7 +158,7 @@ public final class ConfigFileTest
   @Test
   public void testJson ()
   {
-    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceJson (TrimmedValueSettings::new))
+    final ConfigFile aCF = new ConfigFileBuilder ().settingsPersistence (new SettingsPersistenceJson (TrimmedValueSettings::new))
                                                    .addPath ("test.json")
                                                    .build ();
     assertTrue (aCF.isRead ());
@@ -195,7 +195,7 @@ public final class ConfigFileTest
   @Test
   public void testJsonNonExisting ()
   {
-    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceJson ())
+    final ConfigFile aCF = new ConfigFileBuilder ().settingsPersistence (new SettingsPersistenceJson ())
                                                    .addPath ("non-existent-file.json")
                                                    .build ();
     assertFalse (aCF.isRead ());
@@ -219,7 +219,7 @@ public final class ConfigFileTest
     try
     {
       // Invalid path
-      new ConfigFileBuilder ().setPaths ((String []) null);
+      new ConfigFileBuilder ().paths ((String []) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -227,7 +227,7 @@ public final class ConfigFileTest
     try
     {
       // Invalid path
-      new ConfigFileBuilder ().setPaths ((Iterable <String>) null);
+      new ConfigFileBuilder ().paths ((Iterable <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -235,7 +235,7 @@ public final class ConfigFileTest
     try
     {
       // Invalid path
-      new ConfigFileBuilder ().setPaths (new String [0]);
+      new ConfigFileBuilder ().paths (new String [0]);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -243,7 +243,7 @@ public final class ConfigFileTest
     try
     {
       // Invalid path
-      new ConfigFileBuilder ().setPaths (null, "bla");
+      new ConfigFileBuilder ().paths (null, "bla");
       fail ();
     }
     catch (final IllegalArgumentException ex)

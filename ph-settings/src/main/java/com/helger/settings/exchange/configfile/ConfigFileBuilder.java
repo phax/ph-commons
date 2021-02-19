@@ -64,7 +64,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   {}
 
   @Nonnull
-  public ConfigFileBuilder setSettingsPersistence (@Nonnull final ISettingsPersistence aSPP)
+  public ConfigFileBuilder settingsPersistence (@Nonnull final ISettingsPersistence aSPP)
   {
     ValueEnforcer.notNull (aSPP, "SPP");
     m_aSPP = aSPP;
@@ -72,13 +72,13 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   }
 
   @Nonnull
-  public ISettingsPersistence getSettingsPersistence ()
+  public ISettingsPersistence settingsPersistence ()
   {
     return m_aSPP;
   }
 
   @Nonnull
-  public ConfigFileBuilder setResourceProvider (@Nonnull final IReadableResourceProvider aResProvider)
+  public ConfigFileBuilder resourceProvider (@Nonnull final IReadableResourceProvider aResProvider)
   {
     ValueEnforcer.notNull (aResProvider, "ResProvider");
     m_aResProvider = aResProvider;
@@ -86,7 +86,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   }
 
   @Nonnull
-  public IReadableResourceProvider getResourceProvider ()
+  public IReadableResourceProvider resourceProvider ()
   {
     return m_aResProvider;
   }
@@ -139,7 +139,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   }
 
   @Nonnull
-  public ConfigFileBuilder setPath (@Nonnull @Nonempty final String sConfigPath)
+  public ConfigFileBuilder path (@Nonnull @Nonempty final String sConfigPath)
   {
     ValueEnforcer.notEmpty (sConfigPath, "ConfigPath");
     m_aPaths.set (sConfigPath);
@@ -147,7 +147,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   }
 
   @Nonnull
-  public ConfigFileBuilder setPaths (@Nonnull @Nonempty final String... aConfigPaths)
+  public ConfigFileBuilder paths (@Nonnull @Nonempty final String... aConfigPaths)
   {
     ValueEnforcer.notEmptyNoNullValue (aConfigPaths, "ConfigPaths");
     m_aPaths.setAll (aConfigPaths);
@@ -155,7 +155,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   }
 
   @Nonnull
-  public ConfigFileBuilder setPaths (@Nonnull @Nonempty final Iterable <String> aConfigPaths)
+  public ConfigFileBuilder paths (@Nonnull @Nonempty final Iterable <String> aConfigPaths)
   {
     ValueEnforcer.notEmptyNoNullValue (aConfigPaths, "ConfigPaths");
     m_aPaths.setAll (aConfigPaths);
@@ -171,7 +171,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
 
   @Nonnull
   @ReturnsImmutableObject
-  public ICommonsIterable <String> getPaths ()
+  public ICommonsIterable <String> paths ()
   {
     return m_aPaths;
   }
