@@ -81,9 +81,9 @@ public final class VerySecureRandom
 
   private static final int SEED_BYTE_COUNT = 64;
   private static final int WARNING_MILLISECONDS_THRESHOLD = 500;
-  private static final SecureRandom s_aSecureRandom;
-  private static final AtomicInteger s_aReSeedInterval = new AtomicInteger (DEFAULT_RE_SEED_INTERVAL);
-  private static final AtomicInteger s_aCounter = new AtomicInteger (0);
+  private static final SecureRandom SECURE_RANDOM;
+  private static final AtomicInteger RE_SEED_INTERVAL = new AtomicInteger (DEFAULT_RE_SEED_INTERVAL);
+  private static final AtomicInteger COUNTER = new AtomicInteger (0);
 
   static
   {
@@ -98,7 +98,7 @@ public final class VerySecureRandom
         // Log only, if a system property is present
         if (LOGGER.isInfoEnabled ())
           LOGGER.info ("VerySecureRandom uses by default re-seed interval " + nReSeedInterval);
-        s_aReSeedInterval.set (nReSeedInterval);
+        RE_SEED_INTERVAL.set (nReSeedInterval);
       }
     }
   }
@@ -179,10 +179,10 @@ public final class VerySecureRandom
       LOGGER.debug ("Finished generating intial seed for VerySecureRandom");
 
     // Initialize main secure random
-    s_aSecureRandom = _createSecureRandomInstance ();
+    SECURE_RANDOM = _createSecureRandomInstance ();
     try
     {
-      s_aSecureRandom.setSeed (aSeed);
+      SECURE_RANDOM.setSeed (aSeed);
     }
     catch (final ProviderException ex)
     {
@@ -215,7 +215,7 @@ public final class VerySecureRandom
   public static void setReSeedInterval (@Nonnegative final int nReseedInterval)
   {
     ValueEnforcer.isGE0 (nReseedInterval, "ReseedInterval");
-    s_aReSeedInterval.set (nReseedInterval);
+    RE_SEED_INTERVAL.set (nReseedInterval);
   }
 
   /**
@@ -228,7 +228,7 @@ public final class VerySecureRandom
   @Nonnegative
   public static int getReSeedInterval ()
   {
-    return s_aReSeedInterval.get ();
+    return RE_SEED_INTERVAL.get ();
   }
 
   /**
@@ -240,13 +240,13 @@ public final class VerySecureRandom
   {
     final int nReSeedInterval = getReSeedInterval ();
     if (nReSeedInterval > 0)
-      if ((s_aCounter.incrementAndGet () % nReSeedInterval) == 0)
+      if ((COUNTER.incrementAndGet () % nReSeedInterval) == 0)
       {
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Re-seeding VerySecureRandom started");
 
         // Re-seed
-        final Duration aDuration = StopWatch.runMeasured ( () -> s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT)));
+        final Duration aDuration = StopWatch.runMeasured ( () -> SECURE_RANDOM.setSeed (SECURE_RANDOM.generateSeed (SEED_BYTE_COUNT)));
         if (aDuration.toMillis () > WARNING_MILLISECONDS_THRESHOLD)
           if (LOGGER.isWarnEnabled ())
             LOGGER.warn ("Re-seeding VerySecureRandom took too long (" +
@@ -254,6 +254,6 @@ public final class VerySecureRandom
                          " milliseconds) - you may consider using '/dev/urandom'");
       }
 
-    return s_aSecureRandom;
+    return SECURE_RANDOM;
   }
 }

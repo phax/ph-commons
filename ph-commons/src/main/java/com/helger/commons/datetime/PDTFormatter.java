@@ -159,7 +159,7 @@ public final class PDTFormatter
 
   /** By default the medium style is used */
   public static final FormatStyle DEFAULT_STYLE = FormatStyle.MEDIUM;
-  private static final LocalizedDateFormatCache s_aParserCache = new LocalizedDateFormatCache ();
+  private static final LocalizedDateFormatCache PARSER_CACHE = new LocalizedDateFormatCache ();
 
   @PresentForCodeCoverage
   private static final PDTFormatter s_aInstance = new PDTFormatter ();
@@ -232,7 +232,7 @@ public final class PDTFormatter
   @Nonnull
   private static DateTimeFormatter _getFormatter (@Nonnull final CacheKey aCacheKey, @Nullable final Locale aDisplayLocale)
   {
-    final DateTimeFormatter aFormatter = s_aParserCache.getFromCache (aCacheKey);
+    final DateTimeFormatter aFormatter = PARSER_CACHE.getFromCache (aCacheKey);
     return getWithLocale (aFormatter, aDisplayLocale);
   }
 

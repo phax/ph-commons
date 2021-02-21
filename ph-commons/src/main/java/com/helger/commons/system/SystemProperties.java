@@ -80,7 +80,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SystemProperties.class);
-  private static final ICommonsSet <String> s_aWarnedPropertyNames = new CommonsCopyOnWriteArraySet <> ();
+  private static final ICommonsSet <String> WARNED_PROP_NAMES = new CommonsCopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage
   private static final SystemProperties s_aInstance = new SystemProperties ();
@@ -101,7 +101,7 @@ public final class SystemProperties
     if (sKey != null)
     {
       ret = getPropertyValueOrNull (sKey);
-      if (ret == null && s_aWarnedPropertyNames.add (sKey))
+      if (ret == null && WARNED_PROP_NAMES.add (sKey))
       {
         // Warn about each property once
         if (LOGGER.isWarnEnabled ())
@@ -117,7 +117,7 @@ public final class SystemProperties
    */
   public static void clearWarnedPropertyNames ()
   {
-    s_aWarnedPropertyNames.clear ();
+    WARNED_PROP_NAMES.clear ();
   }
 
   /**
@@ -129,7 +129,7 @@ public final class SystemProperties
   public static ICommonsSet <String> getAllWarnedPropertyNames ()
   {
     // Convert from CopyOnWrite to regular HashSet
-    return new CommonsHashSet <> (s_aWarnedPropertyNames);
+    return new CommonsHashSet <> (WARNED_PROP_NAMES);
   }
 
   /**

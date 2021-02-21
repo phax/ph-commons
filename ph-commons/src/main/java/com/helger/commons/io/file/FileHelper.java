@@ -32,6 +32,7 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Locale;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -41,7 +42,6 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -572,7 +572,7 @@ public final class FileHelper
     ValueEnforcer.isGE0 (nFileSize, "FileSize");
     ValueEnforcer.isGE0 (nDecimals, "Decimals");
 
-    return SizeHelper.getSizeHelperOfLocale (CGlobal.LOCALE_FIXED_NUMBER_FORMAT).getAsMatching (nFileSize, nDecimals);
+    return SizeHelper.getSizeHelperOfLocale (Locale.ROOT).getAsMatching (nFileSize, nDecimals);
   }
 
   /**

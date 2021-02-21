@@ -35,7 +35,7 @@ public final class MemoryStaticLongIDFactory implements ILongIDFactory
 {
   /** The default start ID to use. */
   public static final long INITIAL_ID = 10000L;
-  private static final AtomicLong s_aID = new AtomicLong (INITIAL_ID);
+  private static final AtomicLong ID = new AtomicLong (INITIAL_ID);
 
   public MemoryStaticLongIDFactory ()
   {}
@@ -49,7 +49,7 @@ public final class MemoryStaticLongIDFactory implements ILongIDFactory
   @Nonnegative
   public static long getNewStaticID ()
   {
-    return s_aID.getAndIncrement ();
+    return ID.getAndIncrement ();
   }
 
   @Override

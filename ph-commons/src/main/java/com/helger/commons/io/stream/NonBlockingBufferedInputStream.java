@@ -48,9 +48,9 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    * closes can be asynchronous. We use nullness of buf[] as primary indicator
    * that this stream is closed. (The "in" field is also nulled out on close.)
    */
-  private static final AtomicReferenceFieldUpdater <NonBlockingBufferedInputStream, byte []> s_aBufUpdater = AtomicReferenceFieldUpdater.newUpdater (NonBlockingBufferedInputStream.class,
-                                                                                                                                                     byte [].class,
-                                                                                                                                                     "m_aBuf");
+  private static final AtomicReferenceFieldUpdater <NonBlockingBufferedInputStream, byte []> BUF_UPDATER = AtomicReferenceFieldUpdater.newUpdater (NonBlockingBufferedInputStream.class,
+                                                                                                                                                   byte [].class,
+                                                                                                                                                   "m_aBuf");
 
   /**
    * The index one greater than the index of the last valid byte in the buffer.
@@ -206,7 +206,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
               nsz = m_nMarkLimit;
             final byte [] nbuf = new byte [nsz];
             System.arraycopy (buffer, 0, nbuf, 0, m_nPos);
-            if (!s_aBufUpdater.compareAndSet (this, buffer, nbuf))
+            if (!BUF_UPDATER.compareAndSet (this, buffer, nbuf))
             {
               // Can't replace buf if there was an async close.
               // Note: This would need to be changed if fill()
@@ -471,7 +471,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
     byte [] aBuffer;
     while ((aBuffer = m_aBuf) != null)
     {
-      if (s_aBufUpdater.compareAndSet (this, aBuffer, null))
+      if (BUF_UPDATER.compareAndSet (this, aBuffer, null))
       {
         final InputStream aIS = in;
         in = null;

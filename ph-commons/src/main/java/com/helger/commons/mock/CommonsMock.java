@@ -269,28 +269,28 @@ public final class CommonsMock
     }
   }
 
-  private static final Map <Class <?>, MockSupplier> s_aStaticSupplier = new WeakHashMap <> ();
+  private static final Map <Class <?>, MockSupplier> STATIC_SUPPLIERS = new WeakHashMap <> ();
   private final Map <Class <?>, MockSupplier> m_aPerInstanceSupplier = new WeakHashMap <> ();
 
   static
   {
     // Create default mappings for primitive types
-    s_aStaticSupplier.put (boolean.class, MockSupplier.createConstant (CGlobal.DEFAULT_BOOLEAN_OBJ));
-    s_aStaticSupplier.put (Boolean.class, MockSupplier.createConstant (CGlobal.DEFAULT_BOOLEAN_OBJ));
-    s_aStaticSupplier.put (byte.class, MockSupplier.createConstant (CGlobal.DEFAULT_BYTE_OBJ));
-    s_aStaticSupplier.put (Byte.class, MockSupplier.createConstant (CGlobal.DEFAULT_BYTE_OBJ));
-    s_aStaticSupplier.put (char.class, MockSupplier.createConstant (CGlobal.DEFAULT_CHAR_OBJ));
-    s_aStaticSupplier.put (Character.class, MockSupplier.createConstant (CGlobal.DEFAULT_CHAR_OBJ));
-    s_aStaticSupplier.put (double.class, MockSupplier.createConstant (CGlobal.DEFAULT_DOUBLE_OBJ));
-    s_aStaticSupplier.put (Double.class, MockSupplier.createConstant (CGlobal.DEFAULT_DOUBLE_OBJ));
-    s_aStaticSupplier.put (float.class, MockSupplier.createConstant (CGlobal.DEFAULT_FLOAT_OBJ));
-    s_aStaticSupplier.put (Float.class, MockSupplier.createConstant (CGlobal.DEFAULT_FLOAT_OBJ));
-    s_aStaticSupplier.put (int.class, MockSupplier.createConstant (CGlobal.DEFAULT_INT_OBJ));
-    s_aStaticSupplier.put (Integer.class, MockSupplier.createConstant (CGlobal.DEFAULT_INT_OBJ));
-    s_aStaticSupplier.put (long.class, MockSupplier.createConstant (CGlobal.DEFAULT_LONG_OBJ));
-    s_aStaticSupplier.put (Long.class, MockSupplier.createConstant (CGlobal.DEFAULT_LONG_OBJ));
-    s_aStaticSupplier.put (short.class, MockSupplier.createConstant (CGlobal.DEFAULT_SHORT_OBJ));
-    s_aStaticSupplier.put (Short.class, MockSupplier.createConstant (CGlobal.DEFAULT_SHORT_OBJ));
+    STATIC_SUPPLIERS.put (boolean.class, MockSupplier.createConstant (CGlobal.DEFAULT_BOOLEAN_OBJ));
+    STATIC_SUPPLIERS.put (Boolean.class, MockSupplier.createConstant (CGlobal.DEFAULT_BOOLEAN_OBJ));
+    STATIC_SUPPLIERS.put (byte.class, MockSupplier.createConstant (CGlobal.DEFAULT_BYTE_OBJ));
+    STATIC_SUPPLIERS.put (Byte.class, MockSupplier.createConstant (CGlobal.DEFAULT_BYTE_OBJ));
+    STATIC_SUPPLIERS.put (char.class, MockSupplier.createConstant (CGlobal.DEFAULT_CHAR_OBJ));
+    STATIC_SUPPLIERS.put (Character.class, MockSupplier.createConstant (CGlobal.DEFAULT_CHAR_OBJ));
+    STATIC_SUPPLIERS.put (double.class, MockSupplier.createConstant (CGlobal.DEFAULT_DOUBLE_OBJ));
+    STATIC_SUPPLIERS.put (Double.class, MockSupplier.createConstant (CGlobal.DEFAULT_DOUBLE_OBJ));
+    STATIC_SUPPLIERS.put (float.class, MockSupplier.createConstant (CGlobal.DEFAULT_FLOAT_OBJ));
+    STATIC_SUPPLIERS.put (Float.class, MockSupplier.createConstant (CGlobal.DEFAULT_FLOAT_OBJ));
+    STATIC_SUPPLIERS.put (int.class, MockSupplier.createConstant (CGlobal.DEFAULT_INT_OBJ));
+    STATIC_SUPPLIERS.put (Integer.class, MockSupplier.createConstant (CGlobal.DEFAULT_INT_OBJ));
+    STATIC_SUPPLIERS.put (long.class, MockSupplier.createConstant (CGlobal.DEFAULT_LONG_OBJ));
+    STATIC_SUPPLIERS.put (Long.class, MockSupplier.createConstant (CGlobal.DEFAULT_LONG_OBJ));
+    STATIC_SUPPLIERS.put (short.class, MockSupplier.createConstant (CGlobal.DEFAULT_SHORT_OBJ));
+    STATIC_SUPPLIERS.put (Short.class, MockSupplier.createConstant (CGlobal.DEFAULT_SHORT_OBJ));
 
     // Create some basic simple type mappings
     {
@@ -426,7 +426,7 @@ public final class CommonsMock
   public static void registerStatic (@Nonnull final MockSupplier aSupplier)
   {
     // Register globally
-    _register (aSupplier, s_aStaticSupplier);
+    _register (aSupplier, STATIC_SUPPLIERS);
   }
 
   /**
@@ -500,7 +500,7 @@ public final class CommonsMock
   private Object _mock (@Nonnull final Class <?> aClass, @Nullable final Object [] aParams, final int nLevel) throws Exception
   {
     // Check for static supplier
-    final MockSupplier aStatic = s_aStaticSupplier.get (aClass);
+    final MockSupplier aStatic = STATIC_SUPPLIERS.get (aClass);
     if (aStatic != null)
       return aStatic.getMockedValue (aParams);
 

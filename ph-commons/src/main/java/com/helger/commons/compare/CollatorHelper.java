@@ -96,7 +96,7 @@ public final class CollatorHelper
     }
   }
 
-  private static final CollatorCache s_aCache = new CollatorCache ();
+  private static final CollatorCache COLLATOR_CACHE = new CollatorCache ();
 
   @PresentForCodeCoverage
   private static final CollatorHelper s_aInstance = new CollatorHelper ();
@@ -123,7 +123,7 @@ public final class CollatorHelper
     final Locale aRealLocale = aLocale == null ? SystemHelper.getSystemLocale () : aLocale;
 
     // Always create a clone!
-    return (Collator) s_aCache.getFromCache (aRealLocale).clone ();
+    return (Collator) COLLATOR_CACHE.getFromCache (aRealLocale).clone ();
   }
 
   /**
@@ -134,6 +134,6 @@ public final class CollatorHelper
   @Nonnull
   public static EChange clearCache ()
   {
-    return s_aCache.clearCache ();
+    return COLLATOR_CACHE.clearCache ();
   }
 }

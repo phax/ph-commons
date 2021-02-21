@@ -36,47 +36,47 @@ import com.helger.commons.collection.impl.ICommonsList;
  */
 public class PDTZoneID
 {
-  private static ICommonsList <PDTZoneID> s_aZIS = new CommonsArrayList <> ();
+  private static final ICommonsList <PDTZoneID> ZONES = new CommonsArrayList <> ();
 
   static
   {
     // Longest strings first!
-    s_aZIS.add (PDTZoneID.of ("UTC"));
-    s_aZIS.add (PDTZoneID.of ("GMT"));
-    s_aZIS.add (PDTZoneID.ofHours ("EST", -5));
-    s_aZIS.add (PDTZoneID.ofHours ("EDT", -4));
-    s_aZIS.add (PDTZoneID.ofHours ("CST", -6));
-    s_aZIS.add (PDTZoneID.ofHours ("CDT", -5));
-    s_aZIS.add (PDTZoneID.ofHours ("MST", -7));
-    s_aZIS.add (PDTZoneID.ofHours ("MDT", -6));
-    s_aZIS.add (PDTZoneID.ofHours ("PST", -8));
-    s_aZIS.add (PDTZoneID.ofHours ("PDT", -7));
-    s_aZIS.add (PDTZoneID.of ("UT"));
-    s_aZIS.add (PDTZoneID.ofHours ("A", -1));
-    s_aZIS.add (PDTZoneID.ofHours ("B", -2));
-    s_aZIS.add (PDTZoneID.ofHours ("C", -3));
-    s_aZIS.add (PDTZoneID.ofHours ("D", -4));
-    s_aZIS.add (PDTZoneID.ofHours ("E", -5));
-    s_aZIS.add (PDTZoneID.ofHours ("F", -6));
-    s_aZIS.add (PDTZoneID.ofHours ("G", -7));
-    s_aZIS.add (PDTZoneID.ofHours ("H", -8));
-    s_aZIS.add (PDTZoneID.ofHours ("I", -9));
-    s_aZIS.add (PDTZoneID.ofHours ("K", -10));
-    s_aZIS.add (PDTZoneID.ofHours ("L", -11));
-    s_aZIS.add (PDTZoneID.ofHours ("M", -12));
-    s_aZIS.add (PDTZoneID.ofHours ("N", +1));
-    s_aZIS.add (PDTZoneID.ofHours ("O", +2));
-    s_aZIS.add (PDTZoneID.ofHours ("P", +3));
-    s_aZIS.add (PDTZoneID.ofHours ("Q", +4));
-    s_aZIS.add (PDTZoneID.ofHours ("R", +5));
-    s_aZIS.add (PDTZoneID.ofHours ("S", +6));
-    s_aZIS.add (PDTZoneID.ofHours ("T", +7));
-    s_aZIS.add (PDTZoneID.ofHours ("U", +8));
-    s_aZIS.add (PDTZoneID.ofHours ("V", +9));
-    s_aZIS.add (PDTZoneID.ofHours ("W", +10));
-    s_aZIS.add (PDTZoneID.ofHours ("X", +11));
-    s_aZIS.add (PDTZoneID.ofHours ("Y", +12));
-    s_aZIS.add (PDTZoneID.of ("Z"));
+    ZONES.add (PDTZoneID.of ("UTC"));
+    ZONES.add (PDTZoneID.of ("GMT"));
+    ZONES.add (PDTZoneID.ofHours ("EST", -5));
+    ZONES.add (PDTZoneID.ofHours ("EDT", -4));
+    ZONES.add (PDTZoneID.ofHours ("CST", -6));
+    ZONES.add (PDTZoneID.ofHours ("CDT", -5));
+    ZONES.add (PDTZoneID.ofHours ("MST", -7));
+    ZONES.add (PDTZoneID.ofHours ("MDT", -6));
+    ZONES.add (PDTZoneID.ofHours ("PST", -8));
+    ZONES.add (PDTZoneID.ofHours ("PDT", -7));
+    ZONES.add (PDTZoneID.of ("UT"));
+    ZONES.add (PDTZoneID.ofHours ("A", -1));
+    ZONES.add (PDTZoneID.ofHours ("B", -2));
+    ZONES.add (PDTZoneID.ofHours ("C", -3));
+    ZONES.add (PDTZoneID.ofHours ("D", -4));
+    ZONES.add (PDTZoneID.ofHours ("E", -5));
+    ZONES.add (PDTZoneID.ofHours ("F", -6));
+    ZONES.add (PDTZoneID.ofHours ("G", -7));
+    ZONES.add (PDTZoneID.ofHours ("H", -8));
+    ZONES.add (PDTZoneID.ofHours ("I", -9));
+    ZONES.add (PDTZoneID.ofHours ("K", -10));
+    ZONES.add (PDTZoneID.ofHours ("L", -11));
+    ZONES.add (PDTZoneID.ofHours ("M", -12));
+    ZONES.add (PDTZoneID.ofHours ("N", +1));
+    ZONES.add (PDTZoneID.ofHours ("O", +2));
+    ZONES.add (PDTZoneID.ofHours ("P", +3));
+    ZONES.add (PDTZoneID.ofHours ("Q", +4));
+    ZONES.add (PDTZoneID.ofHours ("R", +5));
+    ZONES.add (PDTZoneID.ofHours ("S", +6));
+    ZONES.add (PDTZoneID.ofHours ("T", +7));
+    ZONES.add (PDTZoneID.ofHours ("U", +8));
+    ZONES.add (PDTZoneID.ofHours ("V", +9));
+    ZONES.add (PDTZoneID.ofHours ("W", +10));
+    ZONES.add (PDTZoneID.ofHours ("X", +11));
+    ZONES.add (PDTZoneID.ofHours ("Y", +12));
+    ZONES.add (PDTZoneID.of ("Z"));
   }
 
   private final String m_sZoneID;
@@ -116,13 +116,13 @@ public class PDTZoneID
   @Nonnull
   public static ICommonsIterable <PDTZoneID> getDefaultZoneIDs ()
   {
-    return s_aZIS;
+    return ZONES;
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static ICommonsList <PDTZoneID> getAllDefaultZoneIDs ()
   {
-    return s_aZIS.getClone ();
+    return ZONES.getClone ();
   }
 }

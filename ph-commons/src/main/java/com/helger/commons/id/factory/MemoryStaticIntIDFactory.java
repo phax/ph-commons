@@ -35,7 +35,7 @@ public final class MemoryStaticIntIDFactory implements IIntIDFactory
 {
   /** The default start ID to use. */
   public static final int INITIAL_ID = 10000;
-  private static final AtomicInteger s_aID = new AtomicInteger (INITIAL_ID);
+  private static final AtomicInteger ID = new AtomicInteger (INITIAL_ID);
 
   public MemoryStaticIntIDFactory ()
   {}
@@ -49,7 +49,7 @@ public final class MemoryStaticIntIDFactory implements IIntIDFactory
   @Nonnegative
   public static int getNewStaticID ()
   {
-    return s_aID.getAndIncrement ();
+    return ID.getAndIncrement ();
   }
 
   @Override

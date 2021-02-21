@@ -50,7 +50,7 @@ public final class ABNF
   // Hex digit, case insensitive
   private static final int BIT_HEXDIGIT_CI = 0x10000000;
 
-  private static final int [] s_aBits = new int [] { // 0x00-0x0f
+  private static final int [] BITS = new int [] { // 0x00-0x0f
                                                      BIT_CTL,
                                                      BIT_CHAR | BIT_CTL,
                                                      BIT_CHAR | BIT_CTL,
@@ -189,7 +189,7 @@ public final class ABNF
 
   static
   {
-    if (s_aBits.length != 128)
+    if (BITS.length != 128)
       throw new IllegalStateException ("Bits array has an invalid length!");
   }
 
@@ -201,7 +201,7 @@ public final class ABNF
 
   private static boolean _isBitSet (final int nCP, final int nBit)
   {
-    return nCP >= 0x00 && nCP <= 0x7f && (s_aBits[nCP] & nBit) == nBit;
+    return nCP >= 0x00 && nCP <= 0x7f && (BITS[nCP] & nBit) == nBit;
   }
 
   /**

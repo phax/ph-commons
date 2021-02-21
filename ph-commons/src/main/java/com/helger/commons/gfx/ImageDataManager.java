@@ -59,11 +59,11 @@ public final class ImageDataManager
 {
   private static final class SingletonHolder
   {
-    private static final ImageDataManager s_aInstance = new ImageDataManager (1000);
+    private static final ImageDataManager INSTANCE = new ImageDataManager (1000);
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ImageDataManager.class);
-  private static final IMutableStatisticsHandlerCache s_aStatsHdl = StatisticsManager.getCacheHandler (ImageDataManager.class);
+  private static final IMutableStatisticsHandlerCache STATS_COUNTER = StatisticsManager.getCacheHandler (ImageDataManager.class);
   private static boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
@@ -88,7 +88,7 @@ public final class ImageDataManager
   @Nonnull
   public static ImageDataManager getInstance ()
   {
-    final ImageDataManager ret = SingletonHolder.s_aInstance;
+    final ImageDataManager ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }
@@ -168,14 +168,14 @@ public final class ImageDataManager
       final SizeInt aData = m_aImageData.get (aRes);
       if (aData != null)
       {
-        s_aStatsHdl.cacheHit ();
+        STATS_COUNTER.cacheHit ();
         return aData;
       }
 
       // Known non-existing image data?
       if (m_aNonExistingResources.contains (aRes))
       {
-        s_aStatsHdl.cacheHit ();
+        STATS_COUNTER.cacheHit ();
         return null;
       }
     }
@@ -193,7 +193,7 @@ public final class ImageDataManager
         m_aNonExistingResources.add (aRes);
       else
         m_aImageData.put (aRes, aData);
-      s_aStatsHdl.cacheMiss ();
+      STATS_COUNTER.cacheMiss ();
     });
     return aData;
   }

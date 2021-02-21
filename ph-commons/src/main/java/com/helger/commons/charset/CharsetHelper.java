@@ -58,12 +58,12 @@ public final class CharsetHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (CharsetHelper.class);
 
   @CodingStyleguideUnaware
-  private static final SortedMap <String, Charset> s_aAllCharsets;
+  private static final SortedMap <String, Charset> ALL_CHARSETS;
 
   static
   {
     // Returns an immutable object
-    s_aAllCharsets = Charset.availableCharsets ();
+    ALL_CHARSETS = Charset.availableCharsets ();
   }
 
   @PresentForCodeCoverage
@@ -154,7 +154,7 @@ public final class CharsetHelper
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, Charset> getAllCharsets ()
   {
-    return new CommonsLinkedHashMap <> (s_aAllCharsets);
+    return new CommonsLinkedHashMap <> (ALL_CHARSETS);
   }
 
   @Nullable
@@ -243,7 +243,7 @@ public final class CharsetHelper
   /**
    * A wrapper that has an {@link InputStream}, an optional Unicode BOM as
    * {@link EUnicodeBOM} and an optional {@link Charset}.
-   * 
+   *
    * @author Philip Helger
    */
   public static final class InputStreamAndCharset implements IHasInputStream

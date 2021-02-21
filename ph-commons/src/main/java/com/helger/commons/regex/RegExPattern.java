@@ -40,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public final class RegExPattern
 {
-  private static final AtomicBoolean s_aCheckConsistencyEnabled = new AtomicBoolean (false);
+  private static final AtomicBoolean CHECK_CONSISTENCY_ENABLED = new AtomicBoolean (false);
 
   private final String m_sRegEx;
   private final int m_nOptions;
@@ -51,12 +51,12 @@ public final class RegExPattern
 
   public static boolean areDebugConsistencyChecksEnabled ()
   {
-    return s_aCheckConsistencyEnabled.get ();
+    return CHECK_CONSISTENCY_ENABLED.get ();
   }
 
   public static void enableDebugConsistencyChecks (final boolean bEnable)
   {
-    s_aCheckConsistencyEnabled.set (bEnable);
+    CHECK_CONSISTENCY_ENABLED.set (bEnable);
   }
 
   public static void checkPatternConsistency (@Nonnull @RegEx final String sRegEx)

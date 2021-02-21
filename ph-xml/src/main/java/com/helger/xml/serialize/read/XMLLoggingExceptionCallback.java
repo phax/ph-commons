@@ -18,6 +18,7 @@ package com.helger.xml.serialize.read;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,7 +26,6 @@ import javax.annotation.Nullable;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.callback.exception.LoggingExceptionCallback;
@@ -58,7 +58,7 @@ public class XMLLoggingExceptionCallback extends LoggingExceptionCallback
     if (t instanceof SAXParseException)
     {
       final SAXParseException ex = (SAXParseException) t;
-      return AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.ERROR, ex).getAsString (CGlobal.DEFAULT_LOCALE);
+      return AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.ERROR, ex).getAsString (Locale.ROOT);
     }
     if (t instanceof SAXException)
     {

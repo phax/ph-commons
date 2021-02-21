@@ -16,6 +16,8 @@
  */
 package com.helger.xml.transform;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -32,7 +34,6 @@ import javax.xml.transform.URIResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.InitializationException;
@@ -48,12 +49,11 @@ import com.helger.commons.string.StringHelper;
 public final class XMLTransformerFactory
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLTransformerFactory.class);
-  private static final TransformerFactory s_aDefaultFactory;
+  private static final TransformerFactory DEFAULT_FACTORY;
 
   static
   {
-    s_aDefaultFactory = createTransformerFactory (new LoggingTransformErrorListener (CGlobal.DEFAULT_LOCALE),
-                                                  new DefaultTransformURIResolver ());
+    DEFAULT_FACTORY = createTransformerFactory (new LoggingTransformErrorListener (Locale.ROOT), new DefaultTransformURIResolver ());
   }
 
   @PresentForCodeCoverage
@@ -122,7 +122,7 @@ public final class XMLTransformerFactory
   @Nonnull
   public static TransformerFactory getDefaultTransformerFactory ()
   {
-    return s_aDefaultFactory;
+    return DEFAULT_FACTORY;
   }
 
   /**
@@ -134,7 +134,7 @@ public final class XMLTransformerFactory
   @Nullable
   public static Transformer newTransformer ()
   {
-    return newTransformer (s_aDefaultFactory);
+    return newTransformer (DEFAULT_FACTORY);
   }
 
   /**
@@ -171,7 +171,7 @@ public final class XMLTransformerFactory
   @Nullable
   public static Transformer newTransformer (@Nonnull final IReadableResource aResource)
   {
-    return newTransformer (s_aDefaultFactory, aResource);
+    return newTransformer (DEFAULT_FACTORY, aResource);
   }
 
   /**
@@ -203,7 +203,7 @@ public final class XMLTransformerFactory
   @Nullable
   public static Transformer newTransformer (@Nonnull final Source aSource)
   {
-    return newTransformer (s_aDefaultFactory, aSource);
+    return newTransformer (DEFAULT_FACTORY, aSource);
   }
 
   /**
@@ -243,7 +243,7 @@ public final class XMLTransformerFactory
   @Nullable
   public static Templates newTemplates (@Nonnull final IReadableResource aResource)
   {
-    return newTemplates (s_aDefaultFactory, aResource);
+    return newTemplates (DEFAULT_FACTORY, aResource);
   }
 
   /**
@@ -257,7 +257,7 @@ public final class XMLTransformerFactory
   @Nullable
   public static Templates newTemplates (@Nonnull final Source aSource)
   {
-    return newTemplates (s_aDefaultFactory, aSource);
+    return newTemplates (DEFAULT_FACTORY, aSource);
   }
 
   /**

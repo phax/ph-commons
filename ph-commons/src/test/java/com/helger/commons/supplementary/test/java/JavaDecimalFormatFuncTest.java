@@ -26,7 +26,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.EJavaVersion;
@@ -129,7 +128,7 @@ public final class JavaDecimalFormatFuncTest
     else
       assertEquals ("#,##0.00 ", patternWithoutCurSym);
 
-    curFormat = new DecimalFormat (patternWithoutCurSym, DecimalFormatSymbols.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));
+    curFormat = new DecimalFormat (patternWithoutCurSym, DecimalFormatSymbols.getInstance (Locale.ROOT));
     if (EJavaVersion.JDK_9.isSupportedVersion ())
       assertEquals ("3.12\u00A0", curFormat.format (3.1234));
     else

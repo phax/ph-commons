@@ -36,7 +36,7 @@ public final class EmailAddressHelper
   public static final String EMAIL_ADDRESS_PATTERN = "[a-z0-9!#\\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\\$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
   /** Compile this little pattern only once */
-  private static final Pattern s_aPattern = RegExCache.getPattern (EMAIL_ADDRESS_PATTERN);
+  private static final Pattern PATTERN = RegExCache.getPattern (EMAIL_ADDRESS_PATTERN);
 
   private EmailAddressHelper ()
   {}
@@ -75,6 +75,6 @@ public final class EmailAddressHelper
     final String sUnifiedEmail = getUnifiedEmailAddress (sEmailAddress);
 
     // Pattern matching
-    return s_aPattern.matcher (sUnifiedEmail).matches ();
+    return PATTERN.matcher (sUnifiedEmail).matches ();
   }
 }

@@ -60,8 +60,8 @@ public final class GlobalDebug
   public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
   public static final String SYSTEM_PROPERTY_SERIALIZATION_DEBUG = "sun.io.serialization.extendedDebugInfo";
 
-  private static final AtomicBoolean s_aDebugMode = new AtomicBoolean (DEFAULT_DEBUG_MODE);
-  private static final AtomicBoolean s_aProductionMode = new AtomicBoolean (DEFAULT_PRODUCTION_MODE);
+  private static final AtomicBoolean DEBUG_MODE = new AtomicBoolean (DEFAULT_DEBUG_MODE);
+  private static final AtomicBoolean PRODUCTION_MODE = new AtomicBoolean (DEFAULT_PRODUCTION_MODE);
 
   // to set it per dependency injection
   public void setDebugMode (final boolean bDebugMode)
@@ -158,7 +158,7 @@ public final class GlobalDebug
    */
   public static void setDebugModeDirect (final boolean bDebugMode)
   {
-    s_aDebugMode.set (bDebugMode);
+    DEBUG_MODE.set (bDebugMode);
 
     setJavaCommonComponentsDebugMode (bDebugMode);
   }
@@ -172,7 +172,7 @@ public final class GlobalDebug
    */
   public static void setProductionModeDirect (final boolean bProductionMode)
   {
-    s_aProductionMode.set (bProductionMode);
+    PRODUCTION_MODE.set (bProductionMode);
 
     // If enabling production mode, disable debug mode
     if (bProductionMode)
@@ -185,7 +185,7 @@ public final class GlobalDebug
    */
   public static boolean isDebugMode ()
   {
-    return s_aDebugMode.get ();
+    return DEBUG_MODE.get ();
   }
 
   /**
@@ -194,6 +194,6 @@ public final class GlobalDebug
    */
   public static boolean isProductionMode ()
   {
-    return s_aProductionMode.get ();
+    return PRODUCTION_MODE.get ();
   }
 }

@@ -40,10 +40,10 @@ public class CountingFileOutputStream extends FileOutputStream
 {
   /** By default append is enabled */
   public static final EAppend DEFAULT_APPEND = EAppend.DEFAULT;
-  private static final IMutableStatisticsHandlerSize s_aWriteSizeHdl = StatisticsManager.getSizeHandler (CountingFileOutputStream.class.getName () +
-                                                                                                         "$write.bytes");
-  private static final IMutableStatisticsHandlerCounter s_aWriteFilesHdl = StatisticsManager.getCounterHandler (CountingFileOutputStream.class.getName () +
-                                                                                                                "$write.files");
+  private static final IMutableStatisticsHandlerSize STATS_WRITE_SIZE = StatisticsManager.getSizeHandler (CountingFileOutputStream.class.getName () +
+                                                                                                          "$write.bytes");
+  private static final IMutableStatisticsHandlerCounter STATS_WRITE_FILES = StatisticsManager.getCounterHandler (CountingFileOutputStream.class.getName () +
+                                                                                                                 "$write.files");
   private long m_nBytesWritten = 0;
 
   public CountingFileOutputStream (@Nonnull final File aFile) throws FileNotFoundException
@@ -54,7 +54,7 @@ public class CountingFileOutputStream extends FileOutputStream
   public CountingFileOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend) throws FileNotFoundException
   {
     super (aFile, eAppend.isAppend ());
-    s_aWriteFilesHdl.increment ();
+    STATS_WRITE_FILES.increment ();
   }
 
   public CountingFileOutputStream (@Nonnull final String sFilename) throws FileNotFoundException
@@ -65,14 +65,14 @@ public class CountingFileOutputStream extends FileOutputStream
   public CountingFileOutputStream (@Nonnull final String sFilename, @Nonnull final EAppend eAppend) throws FileNotFoundException
   {
     super (sFilename, eAppend.isAppend ());
-    s_aWriteFilesHdl.increment ();
+    STATS_WRITE_FILES.increment ();
   }
 
   @Override
   public void write (final int b) throws IOException
   {
     super.write (b);
-    s_aWriteSizeHdl.addSize (1L);
+    STATS_WRITE_SIZE.addSize (1L);
     m_nBytesWritten++;
   }
 
@@ -80,7 +80,7 @@ public class CountingFileOutputStream extends FileOutputStream
   public void write (final byte [] b) throws IOException
   {
     super.write (b);
-    s_aWriteSizeHdl.addSize (b.length);
+    STATS_WRITE_SIZE.addSize (b.length);
     m_nBytesWritten += b.length;
   }
 
@@ -88,7 +88,7 @@ public class CountingFileOutputStream extends FileOutputStream
   public void write (final byte [] b, final int nOffset, final int nLength) throws IOException
   {
     super.write (b, nOffset, nLength);
-    s_aWriteSizeHdl.addSize (nLength);
+    STATS_WRITE_SIZE.addSize (nLength);
     m_nBytesWritten += nLength;
   }
 

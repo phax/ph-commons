@@ -35,21 +35,21 @@ import com.helger.commons.statistics.StatisticsManager;
  */
 public class CountingFileInputStream extends FileInputStream
 {
-  private static final IMutableStatisticsHandlerSize s_aReadSizeHdl = StatisticsManager.getSizeHandler (CountingFileInputStream.class.getName () +
+  private static final IMutableStatisticsHandlerSize STATS_READ_SIZE = StatisticsManager.getSizeHandler (CountingFileInputStream.class.getName () +
                                                                                                         "$read.bytes");
-  private static final IMutableStatisticsHandlerCounter s_aReadFilesHdl = StatisticsManager.getCounterHandler (CountingFileInputStream.class.getName () +
+  private static final IMutableStatisticsHandlerCounter STATS_READ_FILES = StatisticsManager.getCounterHandler (CountingFileInputStream.class.getName () +
                                                                                                                "$read.files");
 
   public CountingFileInputStream (@Nonnull final File aFile) throws FileNotFoundException
   {
     super (aFile);
-    s_aReadFilesHdl.increment ();
+    STATS_READ_FILES.increment ();
   }
 
   public CountingFileInputStream (@Nonnull final String sFilename) throws FileNotFoundException
   {
     super (sFilename);
-    s_aReadFilesHdl.increment ();
+    STATS_READ_FILES.increment ();
   }
 
   @Override
@@ -57,7 +57,7 @@ public class CountingFileInputStream extends FileInputStream
   {
     final int ret = super.read ();
     if (ret != -1)
-      s_aReadSizeHdl.addSize (1L);
+      STATS_READ_SIZE.addSize (1L);
     return ret;
   }
 
@@ -66,7 +66,7 @@ public class CountingFileInputStream extends FileInputStream
   {
     final int ret = super.read (b);
     if (ret > -1)
-      s_aReadSizeHdl.addSize (ret);
+      STATS_READ_SIZE.addSize (ret);
     return ret;
   }
 
@@ -75,7 +75,7 @@ public class CountingFileInputStream extends FileInputStream
   {
     final int ret = super.read (b, nOffset, nLength);
     if (ret > -1)
-      s_aReadSizeHdl.addSize (ret);
+      STATS_READ_SIZE.addSize (ret);
     return ret;
   }
 }

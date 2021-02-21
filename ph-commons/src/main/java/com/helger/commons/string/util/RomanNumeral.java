@@ -16,11 +16,12 @@
  */
 package com.helger.commons.string.util;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 
 /**
@@ -80,7 +81,7 @@ public final class RomanNumeral
     ValueEnforcer.notEmpty (sRoman, "Roman");
 
     // Convert to upper case letters.
-    final String sRealRoman = sRoman.toUpperCase (CGlobal.DEFAULT_LOCALE);
+    final String sRealRoman = sRoman.toUpperCase (Locale.ROOT);
 
     // A position in the string, roman;
     int nIndex = 0;

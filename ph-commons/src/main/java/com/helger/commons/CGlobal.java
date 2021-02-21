@@ -18,7 +18,6 @@ package com.helger.commons;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Locale;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -366,23 +365,6 @@ public final class CGlobal
 
   /** The BigDecimal representation of 1000 */
   public static final BigDecimal BIGDEC_1000 = new BigDecimal ("1000");
-
-  /**
-   * The very hardcoded default locale that cannot be changed and contains a
-   * language and a country. Equals {@link Locale#US}.
-   */
-  public static final Locale DEFAULT_LOCALE = Locale.US;
-
-  /**
-   * The default language in case no other language is specified. Equals "en".
-   */
-  public static final String DEFAULT_LANGUAGE = DEFAULT_LOCALE.getLanguage ();
-
-  /**
-   * The number for formatting numbers in a machine readable way. This is
-   * {@link Locale#ENGLISH} which has no country part!
-   */
-  public static final Locale LOCALE_FIXED_NUMBER_FORMAT = Locale.ENGLISH;
 
   /** Centimeter per inch (2.54) */
   public static final float CM_PER_INCH = 2.54f;

@@ -17,6 +17,7 @@
 package com.helger.xml.microdom.serialize;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -38,7 +39,6 @@ import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.ext.Locator2;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -411,7 +411,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   @Nonempty
   private static String _getMsg (@Nonnull final IErrorLevel aErrorLevel, @Nonnull final SAXParseException ex)
   {
-    return AbstractSAXErrorHandler.getSaxParseError (aErrorLevel, ex).getAsString (CGlobal.DEFAULT_LOCALE);
+    return AbstractSAXErrorHandler.getSaxParseError (aErrorLevel, ex).getAsString (Locale.ROOT);
   }
 
   public void warning (final SAXParseException ex)

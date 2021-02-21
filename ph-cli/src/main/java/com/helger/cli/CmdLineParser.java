@@ -35,6 +35,11 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.string.StringHelper;
 
+/**
+ * A parser for commandline options. Based on Apache commons-cli
+ *
+ * @author Philip Helger
+ */
 public class CmdLineParser
 {
   public static final String PREFIX_SHORT_OPT = "-";
@@ -69,17 +74,17 @@ public class CmdLineParser
     // Skip prefix (long before first)
     String sText = sToken;
     String sPrefix = "";
-    int nPrefix = 0;
+    int nPrefixChars = 0;
     if (sText.startsWith (PREFIX_LONG_OPT))
-      nPrefix = PREFIX_LONG_OPT.length ();
+      nPrefixChars = PREFIX_LONG_OPT.length ();
     else
       if (sText.startsWith (PREFIX_SHORT_OPT))
-        nPrefix = PREFIX_SHORT_OPT.length ();
+        nPrefixChars = PREFIX_SHORT_OPT.length ();
 
-    if (nPrefix > 0)
+    if (nPrefixChars > 0)
     {
-      sPrefix = sText.substring (0, nPrefix);
-      sText = sText.substring (nPrefix);
+      sPrefix = sText.substring (0, nPrefixChars);
+      sText = sText.substring (nPrefixChars);
     }
 
     if (sText.length () == 0)
@@ -93,18 +98,17 @@ public class CmdLineParser
       return new MatchedOption (aOption, sPrefix + sText);
 
     // No direct match - try something like -Dversion=1.0 or -Xmx512m
+    // Find the longest match left
     while (true)
     {
-      // Remove last char and try
+      // Remove last char and try again
       sText = sText.substring (0, sText.length () - 1);
       if (sText.length () == 0)
         break;
 
       aOption = aStrToOptionMap.get (sText);
       if (aOption != null)
-      {
         return new MatchedOption (aOption, sPrefix + sText);
-      }
     }
     return null;
   }

@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.io.StreamTokenizer;
 import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Random;
 
 import javax.annotation.CheckReturnValue;
@@ -30,7 +31,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.WillNotClose;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -403,8 +403,7 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
                               @Nonnegative final int nStartColumnIndex,
                               @Nonnegative final int nEndColumnIndex)
   {
-    final MatrixInt aNewMatrix = new MatrixInt (nEndRowIndex - nStartRowIndex + 1,
-                                                nEndColumnIndex - nStartColumnIndex + 1);
+    final MatrixInt aNewMatrix = new MatrixInt (nEndRowIndex - nStartRowIndex + 1, nEndColumnIndex - nStartColumnIndex + 1);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
     for (int nRow = nStartRowIndex; nRow <= nEndRowIndex; nRow++)
     {
@@ -459,9 +458,7 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public MatrixInt getMatrix (@Nonnegative final int nStartRowIndex,
-                              @Nonnegative final int nEndRowIndex,
-                              @Nonnull final int [] aCols)
+  public MatrixInt getMatrix (@Nonnegative final int nStartRowIndex, @Nonnegative final int nEndRowIndex, @Nonnull final int [] aCols)
   {
     final MatrixInt aNewMatrix = new MatrixInt (nEndRowIndex - nStartRowIndex + 1, aCols.length);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -489,9 +486,7 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public MatrixInt getMatrix (@Nonnull final int [] aRows,
-                              @Nonnegative final int nStartColumnIndex,
-                              @Nonnegative final int nEndColumnIndex)
+  public MatrixInt getMatrix (@Nonnull final int [] aRows, @Nonnegative final int nStartColumnIndex, @Nonnegative final int nEndColumnIndex)
   {
     final MatrixInt aNewMatrix = new MatrixInt (aRows.length, nEndColumnIndex - nStartColumnIndex + 1);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -1130,11 +1125,9 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
    * @param nFractionDigits
    *        Number of digits after the decimal.
    */
-  public void print (@Nonnull final PrintWriter aPW,
-                     @Nonnegative final int nWidth,
-                     @Nonnegative final int nFractionDigits)
+  public void print (@Nonnull final PrintWriter aPW, @Nonnegative final int nWidth, @Nonnegative final int nFractionDigits)
   {
-    final NumberFormat format = NumberFormat.getInstance (CGlobal.DEFAULT_LOCALE);
+    final NumberFormat format = NumberFormat.getInstance (Locale.US);
     format.setMinimumIntegerDigits (1);
     format.setMaximumFractionDigits (nFractionDigits);
     format.setMinimumFractionDigits (nFractionDigits);

@@ -55,7 +55,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class CryptoPolicy
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CryptoPolicy.class);
-  private static final AtomicBoolean s_aChecked = new AtomicBoolean (false);
+  private static final AtomicBoolean CHECKED = new AtomicBoolean (false);
   private static boolean s_bUnlimitedStrength;
 
   @PresentForCodeCoverage
@@ -122,7 +122,7 @@ public final class CryptoPolicy
    */
   public static boolean isUnlimitedStrengthCryptoAvailable ()
   {
-    if (!s_aChecked.getAndSet (true))
+    if (!CHECKED.getAndSet (true))
     {
       // Double initialisation in case of parallel access is just a minor
       // performance penalty

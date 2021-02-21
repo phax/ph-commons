@@ -30,7 +30,7 @@ import com.helger.commons.lang.GenericReflection;
  */
 public final class TypeConverterProviderBestMatch implements ITypeConverterProvider
 {
-  private static final TypeConverterProviderBestMatch s_aInstance = new TypeConverterProviderBestMatch ();
+  private static final TypeConverterProviderBestMatch INSTANCE = new TypeConverterProviderBestMatch ();
 
   private TypeConverterProviderBestMatch ()
   {}
@@ -38,7 +38,7 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
   @Nonnull
   public static TypeConverterProviderBestMatch getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   @Nullable

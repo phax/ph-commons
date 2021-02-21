@@ -119,7 +119,7 @@ public final class LocaleHelper
 
   private static final String LOCALE_ALL_STR = LOCALE_ALL.toString ();
   private static final String LOCALE_INDEPENDENT_STR = LOCALE_INDEPENDENT.toString ();
-  private static final LocaleListCache s_aLocaleListCache = new LocaleListCache ();
+  private static final LocaleListCache LOCALE_LIST_CACHE = new LocaleListCache ();
   private static final ICommonsMap <String, String> COUNTRY_ISO3TO2 = new CommonsHashMap <> ();
 
   @PresentForCodeCoverage
@@ -227,7 +227,7 @@ public final class LocaleHelper
   {
     ValueEnforcer.notNull (aLocale, "Locale");
 
-    return s_aLocaleListCache.getFromCache (aLocale);
+    return LOCALE_LIST_CACHE.getFromCache (aLocale);
   }
 
   /**
@@ -382,11 +382,19 @@ public final class LocaleHelper
   {
     if (StringHelper.hasText (sCode) && (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2,8}", sCode) || isSpecialLocaleCode (sCode)))
     {
-      return sCode.toLowerCase (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
+      return sCode.toLowerCase (Locale.ROOT);
     }
     return null;
   }
 
+  /**
+   * Ensure a country code is valid by converting it to a 2-character uppercase
+   * code. This method also maps 3 letter codes to 2 letter codes.
+   *
+   * @param sCode
+   *        The country code to check. May be <code>null</code>.
+   * @return <code>null</code> if the source code is not a support country code.
+   */
   @Nullable
   public static String getValidCountryCode (@Nullable final String sCode)
   {
@@ -396,13 +404,13 @@ public final class LocaleHelper
       // Allow for 2 letter codes ("AT")
       if (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2}|[0-9]{3}", sCode))
       {
-        return sCode.toUpperCase (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
+        return sCode.toUpperCase (Locale.ROOT);
       }
 
       // Allow for 3 letter codes ("AUT")
       if (RegExHelper.stringMatchesPattern ("[a-zA-Z]{3}", sCode))
       {
-        final String sAlpha3 = sCode.toUpperCase (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
+        final String sAlpha3 = sCode.toUpperCase (Locale.ROOT);
         final String sAlpha2 = COUNTRY_ISO3TO2.get (sAlpha3);
         return sAlpha2 != null ? sAlpha2 : sAlpha3;
       }
@@ -418,6 +426,6 @@ public final class LocaleHelper
   @Nonnull
   public static EChange clearCache ()
   {
-    return s_aLocaleListCache.clearCache ();
+    return LOCALE_LIST_CACHE.clearCache ();
   }
 }

@@ -26,10 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.annotation.IsSPIInterface;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.CommonsTreeSet;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
@@ -40,6 +37,7 @@ import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ReflectionSecurityManager;
+import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
 
 public final class SPITestHelper
@@ -50,8 +48,6 @@ public final class SPITestHelper
   public static final String MAIN_SERVICES = "src/main/resources/META-INF/services";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SPITestHelper.class);
-  private static final AnnotationUsageCache s_aCacheInterface = new AnnotationUsageCache (IsSPIInterface.class);
-  private static final AnnotationUsageCache s_aCacheImplementation = new AnnotationUsageCache (IsSPIImplementation.class);
 
   private SPITestHelper ()
   {}
@@ -112,7 +108,7 @@ public final class SPITestHelper
             try
             {
               final Class <?> aInterfaceClass = aCL.loadClass (sInterfaceClassName);
-              if (sInterfaceClassName.startsWith ("com.helger.") && !s_aCacheInterface.hasAnnotation (aInterfaceClass))
+              if (sInterfaceClassName.startsWith ("com.helger.") && !ServiceLoaderHelper.CACHE_INTERFACE.hasAnnotation (aInterfaceClass))
                 if (LOGGER.isWarnEnabled ())
                   LOGGER.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
             }
@@ -147,7 +143,7 @@ public final class SPITestHelper
                   try
                   {
                     final Class <?> aImplClass = aCL.loadClass (sImplClassName);
-                    if (!s_aCacheImplementation.hasAnnotation (aImplClass))
+                    if (!ServiceLoaderHelper.CACHE_IMPLEMENTATION.hasAnnotation (aImplClass))
                       if (LOGGER.isWarnEnabled ())
                         LOGGER.warn (aImplClass + " should have the @IsSPIImplementation annotation");
                     ++nCount;

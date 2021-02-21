@@ -39,20 +39,20 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 @ThreadSafe
 public final class StatisticsManager
 {
-  private static final SimpleReadWriteLock s_aRWLockCache = new SimpleReadWriteLock ();
-  private static final SimpleReadWriteLock s_aRWLockTimer = new SimpleReadWriteLock ();
-  private static final SimpleReadWriteLock s_aRWLockKeyedTimer = new SimpleReadWriteLock ();
-  private static final SimpleReadWriteLock s_aRWLockSize = new SimpleReadWriteLock ();
-  private static final SimpleReadWriteLock s_aRWLockKeyedSize = new SimpleReadWriteLock ();
-  private static final SimpleReadWriteLock s_aRWLockCounter = new SimpleReadWriteLock ();
-  private static final SimpleReadWriteLock s_aRWLockKeyedCounter = new SimpleReadWriteLock ();
-  private static final ICommonsMap <String, StatisticsHandlerCache> s_aHdlCache = new CommonsHashMap <> ();
-  private static final ICommonsMap <String, StatisticsHandlerTimer> s_aHdlTimer = new CommonsHashMap <> ();
-  private static final ICommonsMap <String, StatisticsHandlerKeyedTimer> s_aHdlKeyedTimer = new CommonsHashMap <> ();
-  private static final ICommonsMap <String, StatisticsHandlerSize> s_aHdlSize = new CommonsHashMap <> ();
-  private static final ICommonsMap <String, StatisticsHandlerKeyedSize> s_aHdlKeyedSize = new CommonsHashMap <> ();
-  private static final ICommonsMap <String, StatisticsHandlerCounter> s_aHdlCounter = new CommonsHashMap <> ();
-  private static final ICommonsMap <String, StatisticsHandlerKeyedCounter> s_aHdlKeyedCounter = new CommonsHashMap <> ();
+  private static final SimpleReadWriteLock RWL_CACHE = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RWL_TIMER = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RWL_KEYED_TIMER = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RWL_SIZE = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RWL_KEYED_SIZE = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RWL_COUNTER = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RWL_KEYED_COUNTER = new SimpleReadWriteLock ();
+  private static final ICommonsMap <String, StatisticsHandlerCache> HDL_CACHE = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, StatisticsHandlerTimer> HDL_TIMER = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, StatisticsHandlerKeyedTimer> HDL_KEYED_TIMER = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, StatisticsHandlerSize> HDL_SIZE = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, StatisticsHandlerKeyedSize> HDL_KEYED_SIZE = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, StatisticsHandlerCounter> HDL_COUNTER = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, StatisticsHandlerKeyedCounter> HDL_KEYED_COUNTER = new CommonsHashMap <> ();
 
   private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsManager.class);
 
@@ -75,12 +75,12 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerCache aHdl = s_aRWLockCache.readLockedGet ( () -> s_aHdlCache.get (sName));
+    StatisticsHandlerCache aHdl = RWL_CACHE.readLockedGet ( () -> HDL_CACHE.get (sName));
 
     if (aHdl == null)
     {
       // Try again in write lock
-      aHdl = s_aRWLockCache.writeLockedGet ( () -> s_aHdlCache.computeIfAbsent (sName, k -> new StatisticsHandlerCache ()));
+      aHdl = RWL_CACHE.writeLockedGet ( () -> HDL_CACHE.computeIfAbsent (sName, k -> new StatisticsHandlerCache ()));
     }
 
     return aHdl;
@@ -91,7 +91,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCacheHandler ()
   {
-    return s_aRWLockCache.readLockedGet (s_aHdlCache::copyOfKeySet);
+    return RWL_CACHE.readLockedGet (HDL_CACHE::copyOfKeySet);
   }
 
   @Nonnull
@@ -107,10 +107,10 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerTimer aHdl = s_aRWLockTimer.readLockedGet ( () -> s_aHdlTimer.get (sName));
+    StatisticsHandlerTimer aHdl = RWL_TIMER.readLockedGet ( () -> HDL_TIMER.get (sName));
     if (aHdl == null)
     {
-      aHdl = s_aRWLockTimer.writeLockedGet ( () -> s_aHdlTimer.computeIfAbsent (sName, k -> new StatisticsHandlerTimer ()));
+      aHdl = RWL_TIMER.writeLockedGet ( () -> HDL_TIMER.computeIfAbsent (sName, k -> new StatisticsHandlerTimer ()));
     }
 
     return aHdl;
@@ -120,7 +120,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllTimerHandler ()
   {
-    return s_aRWLockTimer.readLockedGet (s_aHdlTimer::copyOfKeySet);
+    return RWL_TIMER.readLockedGet (HDL_TIMER::copyOfKeySet);
   }
 
   @Nonnull
@@ -136,11 +136,11 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedTimer aHdl = s_aRWLockKeyedTimer.readLockedGet ( () -> s_aHdlKeyedTimer.get (sName));
+    StatisticsHandlerKeyedTimer aHdl = RWL_KEYED_TIMER.readLockedGet ( () -> HDL_KEYED_TIMER.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockKeyedTimer.writeLockedGet ( () -> s_aHdlKeyedTimer.computeIfAbsent (sName, k -> new StatisticsHandlerKeyedTimer ()));
+      aHdl = RWL_KEYED_TIMER.writeLockedGet ( () -> HDL_KEYED_TIMER.computeIfAbsent (sName, k -> new StatisticsHandlerKeyedTimer ()));
     }
     return aHdl;
   }
@@ -149,7 +149,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedTimerHandler ()
   {
-    return s_aRWLockKeyedTimer.readLockedGet (s_aHdlKeyedTimer::copyOfKeySet);
+    return RWL_KEYED_TIMER.readLockedGet (HDL_KEYED_TIMER::copyOfKeySet);
   }
 
   @Nonnull
@@ -165,11 +165,11 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerSize aHdl = s_aRWLockSize.readLockedGet ( () -> s_aHdlSize.get (sName));
+    StatisticsHandlerSize aHdl = RWL_SIZE.readLockedGet ( () -> HDL_SIZE.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockSize.writeLockedGet ( () -> s_aHdlSize.computeIfAbsent (sName, k -> new StatisticsHandlerSize ()));
+      aHdl = RWL_SIZE.writeLockedGet ( () -> HDL_SIZE.computeIfAbsent (sName, k -> new StatisticsHandlerSize ()));
     }
     return aHdl;
   }
@@ -178,7 +178,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllSizeHandler ()
   {
-    return s_aRWLockSize.readLockedGet (s_aHdlSize::copyOfKeySet);
+    return RWL_SIZE.readLockedGet (HDL_SIZE::copyOfKeySet);
   }
 
   @Nonnull
@@ -194,11 +194,11 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedSize aHdl = s_aRWLockKeyedSize.readLockedGet ( () -> s_aHdlKeyedSize.get (sName));
+    StatisticsHandlerKeyedSize aHdl = RWL_KEYED_SIZE.readLockedGet ( () -> HDL_KEYED_SIZE.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockKeyedSize.writeLockedGet ( () -> s_aHdlKeyedSize.computeIfAbsent (sName, k -> new StatisticsHandlerKeyedSize ()));
+      aHdl = RWL_KEYED_SIZE.writeLockedGet ( () -> HDL_KEYED_SIZE.computeIfAbsent (sName, k -> new StatisticsHandlerKeyedSize ()));
     }
     return aHdl;
   }
@@ -207,7 +207,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedSizeHandler ()
   {
-    return s_aRWLockKeyedSize.readLockedGet (s_aHdlKeyedSize::copyOfKeySet);
+    return RWL_KEYED_SIZE.readLockedGet (HDL_KEYED_SIZE::copyOfKeySet);
   }
 
   @Nonnull
@@ -223,11 +223,11 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerCounter aHdl = s_aRWLockCounter.readLockedGet ( () -> s_aHdlCounter.get (sName));
+    StatisticsHandlerCounter aHdl = RWL_COUNTER.readLockedGet ( () -> HDL_COUNTER.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockCounter.writeLockedGet ( () -> s_aHdlCounter.computeIfAbsent (sName, k -> new StatisticsHandlerCounter ()));
+      aHdl = RWL_COUNTER.writeLockedGet ( () -> HDL_COUNTER.computeIfAbsent (sName, k -> new StatisticsHandlerCounter ()));
     }
     return aHdl;
   }
@@ -236,7 +236,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCounterHandler ()
   {
-    return s_aRWLockCounter.readLockedGet (s_aHdlCounter::copyOfKeySet);
+    return RWL_COUNTER.readLockedGet (HDL_COUNTER::copyOfKeySet);
   }
 
   @Nonnull
@@ -252,11 +252,11 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedCounter aHdl = s_aRWLockKeyedCounter.readLockedGet ( () -> s_aHdlKeyedCounter.get (sName));
+    StatisticsHandlerKeyedCounter aHdl = RWL_KEYED_COUNTER.readLockedGet ( () -> HDL_KEYED_COUNTER.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockKeyedCounter.writeLockedGet ( () -> s_aHdlKeyedCounter.computeIfAbsent (sName,
+      aHdl = RWL_KEYED_COUNTER.writeLockedGet ( () -> HDL_KEYED_COUNTER.computeIfAbsent (sName,
                                                                                               k -> new StatisticsHandlerKeyedCounter ()));
     }
     return aHdl;
@@ -266,18 +266,18 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedCounterHandler ()
   {
-    return s_aRWLockKeyedCounter.readLockedGet (s_aHdlKeyedCounter::copyOfKeySet);
+    return RWL_KEYED_COUNTER.readLockedGet (HDL_KEYED_COUNTER::copyOfKeySet);
   }
 
   public static void clearCache ()
   {
-    s_aRWLockCache.writeLocked (s_aHdlCache::clear);
-    s_aRWLockTimer.writeLocked (s_aHdlTimer::clear);
-    s_aRWLockKeyedTimer.writeLocked (s_aHdlKeyedTimer::clear);
-    s_aRWLockSize.writeLocked (s_aHdlSize::clear);
-    s_aRWLockKeyedSize.writeLocked (s_aHdlKeyedSize::clear);
-    s_aRWLockCounter.writeLocked (s_aHdlCounter::clear);
-    s_aRWLockKeyedCounter.writeLocked (s_aHdlKeyedCounter::clear);
+    RWL_CACHE.writeLocked (HDL_CACHE::clear);
+    RWL_TIMER.writeLocked (HDL_TIMER::clear);
+    RWL_KEYED_TIMER.writeLocked (HDL_KEYED_TIMER::clear);
+    RWL_SIZE.writeLocked (HDL_SIZE::clear);
+    RWL_KEYED_SIZE.writeLocked (HDL_KEYED_SIZE::clear);
+    RWL_COUNTER.writeLocked (HDL_COUNTER::clear);
+    RWL_KEYED_COUNTER.writeLocked (HDL_KEYED_COUNTER::clear);
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Cache was cleared: " + StatisticsManager.class.getName ());

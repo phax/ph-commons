@@ -79,26 +79,26 @@ public final class StringHelper
    */
   public static final int STRING_NOT_FOUND = -1;
 
-  private static final int [] s_aSizeTableInt = { 9, 99, 999, 9999, 99999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE };
-  private static final long [] s_aSizeTableLong = { 9L,
-                                                    99L,
-                                                    999L,
-                                                    9999L,
-                                                    99999L,
-                                                    999999L,
-                                                    9999999L,
-                                                    99999999L,
-                                                    999999999L,
-                                                    9999999999L,
-                                                    99999999999L,
-                                                    999999999999L,
-                                                    9999999999999L,
-                                                    99999999999999L,
-                                                    999999999999999L,
-                                                    9999999999999999L,
-                                                    99999999999999999L,
-                                                    999999999999999999L,
-                                                    Long.MAX_VALUE };
+  private static final int [] SIZE_TABLE_INT = { 9, 99, 999, 9999, 99999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE };
+  private static final long [] SIZE_TABLE_LONG = { 9L,
+                                                   99L,
+                                                   999L,
+                                                   9999L,
+                                                   99999L,
+                                                   999999L,
+                                                   9999999L,
+                                                   99999999L,
+                                                   999999999L,
+                                                   9999999999L,
+                                                   99999999999L,
+                                                   999999999999L,
+                                                   9999999999999L,
+                                                   99999999999999L,
+                                                   999999999999999L,
+                                                   9999999999999999L,
+                                                   99999999999999999L,
+                                                   999999999999999999L,
+                                                   Long.MAX_VALUE };
   @PresentForCodeCoverage
   private static final StringHelper s_aInstance = new StringHelper ();
 
@@ -3818,7 +3818,7 @@ public final class StringHelper
     final int nRealValue = MathHelper.abs (nValue);
 
     for (int nIndex = 0;; nIndex++)
-      if (nRealValue <= s_aSizeTableInt[nIndex])
+      if (nRealValue <= SIZE_TABLE_INT[nIndex])
         return nPrefix + nIndex;
   }
 
@@ -3839,7 +3839,7 @@ public final class StringHelper
     final long nRealValue = MathHelper.abs (nValue);
 
     for (int nIndex = 0;; nIndex++)
-      if (nRealValue <= s_aSizeTableLong[nIndex])
+      if (nRealValue <= SIZE_TABLE_LONG[nIndex])
         return nPrefix + nIndex;
   }
 

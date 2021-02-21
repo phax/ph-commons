@@ -127,9 +127,9 @@ public final class ClassHierarchyCache
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ClassHierarchyCache.class);
 
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <String, ClassList> s_aClassHierarchy = new LRUMap <> (1000);
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
+  @GuardedBy ("RW_LOCK")
+  private static final ICommonsMap <String, ClassList> CLASS_HIERARCHY = new LRUMap <> (1000);
 
   @PresentForCodeCoverage
   private static final ClassHierarchyCache s_aInstance = new ClassHierarchyCache ();
@@ -147,7 +147,7 @@ public final class ClassHierarchyCache
   @Nonnull
   public static EChange clearCache ()
   {
-    final EChange ret = s_aRWLock.writeLockedGet (s_aClassHierarchy::removeAll);
+    final EChange ret = RW_LOCK.writeLockedGet (CLASS_HIERARCHY::removeAll);
     if (ret.isUnchanged ())
       return EChange.UNCHANGED;
 
@@ -163,12 +163,12 @@ public final class ClassHierarchyCache
     final String sKey = aClass.getName ();
 
     // Get or update from cache
-    ClassList aClassList = s_aRWLock.readLockedGet ( () -> s_aClassHierarchy.get (sKey));
+    ClassList aClassList = RW_LOCK.readLockedGet ( () -> CLASS_HIERARCHY.get (sKey));
 
     if (aClassList == null)
     {
       // try again in write lock
-      aClassList = s_aRWLock.writeLockedGet ( () -> s_aClassHierarchy.computeIfAbsent (sKey, x -> new ClassList (aClass)));
+      aClassList = RW_LOCK.writeLockedGet ( () -> CLASS_HIERARCHY.computeIfAbsent (sKey, x -> new ClassList (aClass)));
     }
     return aClassList;
   }

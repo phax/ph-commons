@@ -65,9 +65,9 @@ public final class StreamHelper
   /** The logger to use. */
   private static final Logger LOGGER = LoggerFactory.getLogger (StreamHelper.class);
 
-  private static final IMutableStatisticsHandlerSize s_aByteSizeHdl = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
+  private static final IMutableStatisticsHandlerSize STATS_COPY_BYTES = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
                                                                                                         "$COPY");
-  private static final IMutableStatisticsHandlerSize s_aCharSizeHdl = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
+  private static final IMutableStatisticsHandlerSize STATS_COPY_CHARS = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
                                                                                                         "$COPYCHARS");
   @PresentForCodeCoverage
   private static final StreamHelper s_aInstance = new StreamHelper ();
@@ -314,7 +314,7 @@ public final class StreamHelper
           nTotalBytesCopied = _copyInputStreamToOutputStreamWithLimit (aIS, aOS, aBuffer, aLimit.longValue ());
 
         // Add to statistics
-        s_aByteSizeHdl.addSize (nTotalBytesCopied);
+        STATS_COPY_BYTES.addSize (nTotalBytesCopied);
 
         // Remember copied bytes?
         if (aCopyByteCount != null)
@@ -754,7 +754,7 @@ public final class StreamHelper
           nTotalCharsCopied = _copyReaderToWriterWithLimit (aReader, aWriter, aBuffer, aLimit.longValue ());
 
         // Add to statistics
-        s_aCharSizeHdl.addSize (nTotalCharsCopied);
+        STATS_COPY_CHARS.addSize (nTotalCharsCopied);
 
         // Remember number of copied characters
         if (aCopyCharCount != null)

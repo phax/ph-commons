@@ -23,13 +23,13 @@ import java.io.Serializable;
 import java.io.StreamTokenizer;
 import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Locale;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.WillNotClose;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -1271,7 +1271,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    */
   public void print (@Nonnull final PrintWriter aPW, @Nonnegative final int nWidth, @Nonnegative final int nFractionDigits)
   {
-    final NumberFormat format = NumberFormat.getInstance (CGlobal.DEFAULT_LOCALE);
+    final NumberFormat format = NumberFormat.getInstance (Locale.US);
     format.setMinimumIntegerDigits (1);
     format.setMaximumFractionDigits (nFractionDigits);
     format.setMinimumFractionDigits (nFractionDigits);

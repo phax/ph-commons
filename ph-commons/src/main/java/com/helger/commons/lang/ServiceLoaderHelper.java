@@ -43,9 +43,9 @@ import com.helger.commons.collection.impl.ICommonsList;
 @Immutable
 public final class ServiceLoaderHelper
 {
+  public static final AnnotationUsageCache CACHE_INTERFACE = new AnnotationUsageCache (IsSPIInterface.class);
+  public static final AnnotationUsageCache CACHE_IMPLEMENTATION = new AnnotationUsageCache (IsSPIImplementation.class);
   private static final Logger LOGGER = LoggerFactory.getLogger (ServiceLoaderHelper.class);
-  private static final AnnotationUsageCache s_aCacheInterface = new AnnotationUsageCache (IsSPIInterface.class);
-  private static final AnnotationUsageCache s_aCacheImplementation = new AnnotationUsageCache (IsSPIImplementation.class);
 
   private ServiceLoaderHelper ()
   {}
@@ -136,7 +136,7 @@ public final class ServiceLoaderHelper
     if (aRealLogger.isTraceEnabled ())
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
-    if (!s_aCacheInterface.hasAnnotation (aSPIClass))
+    if (!CACHE_INTERFACE.hasAnnotation (aSPIClass))
       if (LOGGER.isWarnEnabled ())
         LOGGER.warn (aSPIClass + " should have the @IsSPIInterface annotation");
 
@@ -152,7 +152,7 @@ public final class ServiceLoaderHelper
       try
       {
         final T aInstance = aIterator.next ();
-        if (!s_aCacheImplementation.hasAnnotation (aInstance))
+        if (!CACHE_IMPLEMENTATION.hasAnnotation (aInstance))
           if (LOGGER.isWarnEnabled ())
             LOGGER.warn (aInstance + " should have the @IsSPIImplementation annotation");
         ret.add (aInstance);

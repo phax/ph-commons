@@ -48,7 +48,7 @@ import com.helger.commons.url.URLHelper;
 public class DefaultResourceResolver
 {
   /** Internal debug flag for console debugging */
-  private static final AtomicBoolean s_aDebugResolve = new AtomicBoolean (false);
+  private static final AtomicBoolean DEBUG_RESOLVE = new AtomicBoolean (false);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (DefaultResourceResolver.class);
 
@@ -57,12 +57,12 @@ public class DefaultResourceResolver
 
   public static boolean isDebugResolve ()
   {
-    return s_aDebugResolve.get ();
+    return DEBUG_RESOLVE.get ();
   }
 
   public static void setDebugResolve (final boolean bDebugResolve)
   {
-    s_aDebugResolve.set (bDebugResolve);
+    DEBUG_RESOLVE.set (bDebugResolve);
   }
 
   public static boolean isExplicitJarFileResource (@Nullable final String sName)

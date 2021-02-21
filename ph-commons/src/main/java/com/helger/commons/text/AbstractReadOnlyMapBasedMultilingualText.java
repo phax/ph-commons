@@ -48,7 +48,7 @@ import com.helger.commons.string.ToStringGenerator;
 public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractHasText implements IMultilingualText
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractReadOnlyMapBasedMultilingualText.class);
-  private static final AtomicBoolean s_aConsistencyChecksEnabled = new AtomicBoolean (GlobalDebug.isDebugMode ());
+  private static final AtomicBoolean CONSISTENCY_CHECK_ENABED = new AtomicBoolean (GlobalDebug.isDebugMode ());
 
   private final ICommonsOrderedMap <Locale, String> m_aTexts;
 
@@ -79,7 +79,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
    */
   public static void setPerformConsistencyChecks (final boolean bPerformConsistencyChecks)
   {
-    s_aConsistencyChecksEnabled.set (bPerformConsistencyChecks);
+    CONSISTENCY_CHECK_ENABED.set (bPerformConsistencyChecks);
   }
 
   /**
@@ -89,7 +89,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
    */
   public static boolean isPerformConsistencyChecks ()
   {
-    return s_aConsistencyChecksEnabled.get ();
+    return CONSISTENCY_CHECK_ENABED.get ();
   }
 
   private static void _performConsistencyChecks (@Nonnull final String sValue)
@@ -134,7 +134,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
 
   protected final void internalSetText (@Nonnull final Locale aContentLocale, @Nullable final String sValue)
   {
-    if (sValue != null && s_aConsistencyChecksEnabled.get ())
+    if (sValue != null && CONSISTENCY_CHECK_ENABED.get ())
       _performConsistencyChecks (sValue);
 
     m_aTexts.put (aContentLocale, sValue);

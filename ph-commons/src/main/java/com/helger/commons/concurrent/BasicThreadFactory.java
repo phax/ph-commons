@@ -16,6 +16,7 @@
  */
 package com.helger.commons.concurrent;
 
+import java.util.Locale;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -26,7 +27,6 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.builder.IResettableBuilder;
@@ -105,7 +105,7 @@ public class BasicThreadFactory implements ThreadFactory
    */
   static class ExtendedDefaultThreadFactory implements ThreadFactory
   {
-    private static final AtomicInteger s_aFactoryNumber = new AtomicInteger (1);
+    private static final AtomicInteger FACTORY_ID = new AtomicInteger (1);
     private final ThreadGroup m_aGroup;
     private final AtomicInteger m_aThreadNumber = new AtomicInteger (1);
     private final String m_sNamePrefix;
@@ -114,7 +114,7 @@ public class BasicThreadFactory implements ThreadFactory
     {
       final SecurityManager s = System.getSecurityManager ();
       m_aGroup = s != null ? s.getThreadGroup () : aTG != null ? aTG : Thread.currentThread ().getThreadGroup ();
-      m_sNamePrefix = "factory-" + s_aFactoryNumber.getAndIncrement () + "-thread-";
+      m_sNamePrefix = "factory-" + FACTORY_ID.getAndIncrement () + "-thread-";
     }
 
     @Nonnull
@@ -291,7 +291,7 @@ public class BasicThreadFactory implements ThreadFactory
     if (m_sNamingPattern != null)
     {
       final Long aCount = Long.valueOf (m_aThreadCounter.incrementAndGet ());
-      aThread.setName (String.format (CGlobal.DEFAULT_LOCALE, m_sNamingPattern, aCount));
+      aThread.setName (String.format ((Locale) null, m_sNamingPattern, aCount));
     }
 
     if (m_aUncaughtExceptionHandler != null)

@@ -16,6 +16,8 @@
  */
 package com.helger.xml.sax;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -23,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.error.level.IErrorLevel;
@@ -49,7 +50,7 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   {
     // As the SAX error messages are not localized at the moment, we can use
     // a fixed locale here
-    return getSaxParseError (aErrorLevel, aException).getAsString (CGlobal.DEFAULT_LOCALE);
+    return getSaxParseError (aErrorLevel, aException).getAsString (Locale.ROOT);
   }
 
   @Override

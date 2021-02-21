@@ -59,7 +59,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   public static final boolean DEFAULT_USE_RESOURCE_BUNDLE_CACHE = true;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (EnumTextResolverWithPropertiesOverrideAndFallback.class);
-  private static final IMutableStatisticsHandlerKeyedCounter s_aStatsFailed = StatisticsManager.getKeyedCounterHandler (EnumTextResolverWithPropertiesOverrideAndFallback.class.getName () +
+  private static final IMutableStatisticsHandlerKeyedCounter STATS_FAILED = StatisticsManager.getKeyedCounterHandler (EnumTextResolverWithPropertiesOverrideAndFallback.class.getName () +
                                                                                                                         "$failed");
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
@@ -178,7 +178,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       }
     }
 
-    s_aStatsFailed.increment (PREFIX_FALLBACK + aContentLocale.toString () + ':' + sID);
+    STATS_FAILED.increment (PREFIX_FALLBACK + aContentLocale.toString () + ':' + sID);
     if (GlobalDebug.isDebugMode ())
     {
       if (LOGGER.isWarnEnabled ())

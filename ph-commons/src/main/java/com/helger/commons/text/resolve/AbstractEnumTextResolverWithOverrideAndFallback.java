@@ -40,11 +40,11 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   public static final boolean DEFAULT_CHECK_FOR_OVERRIDE = true;
   public static final boolean DEFAULT_CHECK_FOR_FALLBACK = true;
 
-  private static final IMutableStatisticsHandlerKeyedCounter s_aStatsGetText = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
+  private static final IMutableStatisticsHandlerKeyedCounter STATS_GET_TEXT = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
                                                                                                                          "$getText");
-  private static final IMutableStatisticsHandlerCounter s_aStatsOverride = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
+  private static final IMutableStatisticsHandlerCounter STATS_OVERRIDE = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
                                                                                                                 "$OVERRIDE");
-  private static final IMutableStatisticsHandlerCounter s_aStatsFallback = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
+  private static final IMutableStatisticsHandlerCounter STATS_FALLBACK = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
                                                                                                                 "$FALLBACK");
 
   private boolean m_bCheckForOverride = DEFAULT_CHECK_FOR_OVERRIDE;
@@ -108,7 +108,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
     final String sID = EnumHelper.getEnumID (aEnum);
 
     // Increment the statistics first
-    s_aStatsGetText.increment (sID);
+    STATS_GET_TEXT.increment (sID);
 
     if (m_bCheckForOverride)
     {
@@ -117,7 +117,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
       if (ret != null)
       {
         // An override string was found!
-        s_aStatsOverride.increment ();
+        STATS_OVERRIDE.increment ();
         return ret;
       }
     }
@@ -132,7 +132,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
     {
       // The text was not found -> try the fallback (e.g. for different
       // locale)
-      s_aStatsFallback.increment ();
+      STATS_FALLBACK.increment ();
       return internalGetFallbackString (sID, aContentLocale);
     }
 

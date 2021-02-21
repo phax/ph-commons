@@ -52,9 +52,9 @@ public final class EnumHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (EnumHelper.class);
   private static final Object [] NOT_CACHABLE = ArrayHelper.EMPTY_OBJECT_ARRAY;
-  private static final SimpleReadWriteLock s_aRWLockInt = new SimpleReadWriteLock ();
-  @GuardedBy ("s_aRWLockInt")
-  private static final ICommonsMap <String, Object []> s_aIntCache = new CommonsHashMap <> ();
+  private static final SimpleReadWriteLock RW_LOCK_INTCACHE = new SimpleReadWriteLock ();
+  @GuardedBy ("RW_LOCK_INTCACHE")
+  private static final ICommonsMap <String, Object []> INT_CACHE = new CommonsHashMap <> ();
 
   @PresentForCodeCoverage
   private static final EnumHelper s_aInstance = new EnumHelper ();
@@ -264,12 +264,12 @@ public final class EnumHelper
     ValueEnforcer.notNull (aClass, "Class");
 
     final String sCacheKey = aClass.getName ();
-    Object [] aCachedData = s_aRWLockInt.readLockedGet ( () -> s_aIntCache.get (sCacheKey));
+    Object [] aCachedData = RW_LOCK_INTCACHE.readLockedGet ( () -> INT_CACHE.get (sCacheKey));
     if (aCachedData == null)
     {
-      aCachedData = s_aRWLockInt.writeLockedGet ( () -> {
+      aCachedData = RW_LOCK_INTCACHE.writeLockedGet ( () -> {
         // Try again in write lock
-        Object [] aWLCachedData = s_aIntCache.get (sCacheKey);
+        Object [] aWLCachedData = INT_CACHE.get (sCacheKey);
         if (aWLCachedData == null)
         {
           // Create new cache entry
@@ -295,7 +295,7 @@ public final class EnumHelper
             // Enum not cachable - too many items
             aWLCachedData = NOT_CACHABLE;
           }
-          s_aIntCache.put (sCacheKey, aWLCachedData);
+          INT_CACHE.put (sCacheKey, aWLCachedData);
         }
         return aWLCachedData;
       });
@@ -491,10 +491,10 @@ public final class EnumHelper
   @Nonnull
   public static EChange clearCache ()
   {
-    return s_aRWLockInt.writeLockedGet ( () -> {
-      if (s_aIntCache.isEmpty ())
+    return RW_LOCK_INTCACHE.writeLockedGet ( () -> {
+      if (INT_CACHE.isEmpty ())
         return EChange.UNCHANGED;
-      s_aIntCache.clear ();
+      INT_CACHE.clear ();
 
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Cache was cleared: " + EnumHelper.class.getName ());
