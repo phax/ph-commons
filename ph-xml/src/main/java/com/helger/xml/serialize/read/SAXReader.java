@@ -54,14 +54,14 @@ import com.helger.xml.sax.InputSourceFactory;
 @ThreadSafe
 public final class SAXReader
 {
-  private static final IMutableStatisticsHandlerTimer s_aSaxTimerHdl = StatisticsManager.getTimerHandler (SAXReader.class.getName ());
-  private static final IMutableStatisticsHandlerCounter s_aSaxSuccessCounterHdl = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
+  private static final IMutableStatisticsHandlerTimer STATS_SAX_TIMER = StatisticsManager.getTimerHandler (SAXReader.class.getName ());
+  private static final IMutableStatisticsHandlerCounter STATS_SAX_SUCCESS_COUNTER = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
                                                                                                                        "$success");
-  private static final IMutableStatisticsHandlerCounter s_aSaxErrorCounterHdl = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
+  private static final IMutableStatisticsHandlerCounter STATS_SAX_ERROR_COUNTER = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
                                                                                                                      "$error");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final IMutableObjectPool <org.xml.sax.XMLReader> s_aSAXPool = new ObjectPool <> (5, new SAXReaderFactory ());
+  private static final IMutableObjectPool <org.xml.sax.XMLReader> POOL = new ObjectPool <> (10, new SAXReaderFactory ());
 
   @PresentForCodeCoverage
   private static final SAXReader s_aInstance = new SAXReader ();
@@ -209,7 +209,7 @@ public final class SAXReader
       else
       {
         // use parser from pool
-        aParser = s_aSAXPool.borrowObject ();
+        aParser = POOL.borrowObject ();
         bFromPool = true;
       }
 
@@ -224,8 +224,8 @@ public final class SAXReader
         aParser.parse (aIS);
 
         // Statistics
-        s_aSaxSuccessCounterHdl.increment ();
-        s_aSaxTimerHdl.addTime (aSW.stopAndGetMillis ());
+        STATS_SAX_SUCCESS_COUNTER.increment ();
+        STATS_SAX_TIMER.addTime (aSW.stopAndGetMillis ());
         return ESuccess.SUCCESS;
       }
       finally
@@ -233,7 +233,7 @@ public final class SAXReader
         if (bFromPool)
         {
           // Return parser to pool
-          s_aSAXPool.returnObject (aParser);
+          POOL.returnObject (aParser);
         }
       }
     }
@@ -265,7 +265,7 @@ public final class SAXReader
       StreamHelper.close (aIS.getByteStream ());
       StreamHelper.close (aIS.getCharacterStream ());
     }
-    s_aSaxErrorCounterHdl.increment ();
+    STATS_SAX_ERROR_COUNTER.increment ();
     return ESuccess.FAILURE;
   }
 }

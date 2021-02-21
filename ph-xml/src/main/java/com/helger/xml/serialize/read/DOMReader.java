@@ -57,15 +57,14 @@ import com.helger.xml.sax.InputSourceFactory;
 @ThreadSafe
 public final class DOMReader
 {
-  private static final IMutableStatisticsHandlerTimer s_aDomTimerHdl = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
-                                                                                                          "$DOM");
-  private static final IMutableStatisticsHandlerTimer s_aDomSchemaTimerHdl = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
-                                                                                                                "$DOMwithSchema");
-  private static final IMutableStatisticsHandlerCounter s_aDomErrorCounterHdl = StatisticsManager.getCounterHandler (DOMReader.class.getName () +
-                                                                                                                     "$DOMERRORS");
+  private static final IMutableStatisticsHandlerTimer STARS_DOM_TIMER = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
+                                                                                                           "$DOM");
+  private static final IMutableStatisticsHandlerTimer STATS_DOM_SCHEMA_TIMER = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
+                                                                                                                  "$DOMwithSchema");
+  private static final IMutableStatisticsHandlerCounter STATS_DOM_ERROR_COUNTER = StatisticsManager.getCounterHandler (DOMReader.class.getName () +
+                                                                                                                       "$DOMERRORS");
 
-  // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <> (5, XMLFactory::createDocumentBuilder);
+  private static final ObjectPool <DocumentBuilder> POOL = new ObjectPool <> (20, XMLFactory::createDocumentBuilder);
 
   @PresentForCodeCoverage
   private static final DOMReader s_aInstance = new DOMReader ();
@@ -75,7 +74,7 @@ public final class DOMReader
 
   public static void reinitialize ()
   {
-    s_aDOMPool.clearUnusedItems ();
+    POOL.clearUnusedItems ();
   }
 
   @Nullable
@@ -302,7 +301,7 @@ public final class DOMReader
       else
       {
         // Use one from the pool
-        aDocumentBuilder = s_aDOMPool.borrowObject ();
+        aDocumentBuilder = POOL.borrowObject ();
         bFromPool = true;
       }
 
@@ -327,9 +326,9 @@ public final class DOMReader
 
         // Statistics update
         if (aSettings.getSchema () == null)
-          s_aDomTimerHdl.addTime (aSW.stopAndGetMillis ());
+          STARS_DOM_TIMER.addTime (aSW.stopAndGetMillis ());
         else
-          s_aDomSchemaTimerHdl.addTime (aSW.stopAndGetMillis ());
+          STATS_DOM_SCHEMA_TIMER.addTime (aSW.stopAndGetMillis ());
 
         // By default, a document is returned, even if does not match the schema
         // (if errors occurred), so I'm handling this manually by checking for
@@ -342,14 +341,14 @@ public final class DOMReader
         if (bFromPool)
         {
           // Return to the pool
-          s_aDOMPool.returnObject (aDocumentBuilder);
+          POOL.returnObject (aDocumentBuilder);
         }
       }
     }
     catch (final Exception ex)
     {
       aSettings.exceptionCallbacks ().forEach (x -> x.onException (ex));
-      s_aDomErrorCounterHdl.increment ();
+      STATS_DOM_ERROR_COUNTER.increment ();
     }
     finally
     {
