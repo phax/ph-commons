@@ -28,7 +28,7 @@ import com.helger.commons.lang.GenericReflection;
  */
 public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
 {
-  private static final TypeConverterProviderFuzzy s_aInstance = new TypeConverterProviderFuzzy ();
+  private static final TypeConverterProviderFuzzy INSTANCE = new TypeConverterProviderFuzzy ();
 
   private TypeConverterProviderFuzzy ()
   {}
@@ -36,7 +36,7 @@ public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
   @Nonnull
   public static TypeConverterProviderFuzzy getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   @Nullable

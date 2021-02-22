@@ -53,13 +53,13 @@ import com.helger.commons.string.StringHelper;
 public final class KeyStoreHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (KeyStoreHelper.class);
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
+  @GuardedBy ("RW_LOCK")
   private static IReadableResourceProvider s_aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
                                                                                                     new ClassPathResourceProvider ());
 
   @PresentForCodeCoverage
-  private static final KeyStoreHelper s_aInstance = new KeyStoreHelper ();
+  private static final KeyStoreHelper INSTANCE = new KeyStoreHelper ();
 
   private KeyStoreHelper ()
   {}
@@ -67,13 +67,13 @@ public final class KeyStoreHelper
   @Nonnull
   public static IReadableResourceProvider getResourceProvider ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aResourceProvider);
+    return RW_LOCK.readLockedGet ( () -> s_aResourceProvider);
   }
 
   public static void setResourceProvider (@Nonnull final IReadableResourceProvider aResourceProvider)
   {
     ValueEnforcer.notNull (aResourceProvider, "ResourceProvider");
-    s_aRWLock.writeLockedGet ( () -> s_aResourceProvider = aResourceProvider);
+    RW_LOCK.writeLockedGet ( () -> s_aResourceProvider = aResourceProvider);
   }
 
   @Nonnull

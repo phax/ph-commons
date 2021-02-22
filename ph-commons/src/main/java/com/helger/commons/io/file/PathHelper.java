@@ -72,7 +72,7 @@ public final class PathHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (PathHelper.class);
 
   @PresentForCodeCoverage
-  private static final PathHelper s_aInstance = new PathHelper ();
+  private static final PathHelper INSTANCE = new PathHelper ();
 
   private PathHelper ()
   {}

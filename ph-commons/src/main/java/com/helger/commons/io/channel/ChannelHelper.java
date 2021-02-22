@@ -53,7 +53,7 @@ public final class ChannelHelper
   private static final boolean USE_COPY_V1 = true;
 
   @PresentForCodeCoverage
-  private static final ChannelHelper s_aInstance = new ChannelHelper ();
+  private static final ChannelHelper INSTANCE = new ChannelHelper ();
 
   private ChannelHelper ()
   {}

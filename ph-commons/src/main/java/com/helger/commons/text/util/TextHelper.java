@@ -47,7 +47,7 @@ public final class TextHelper
   public static final Locale EN = LocaleCache.getInstance ().getLocale ("en");
 
   @PresentForCodeCoverage
-  private static final TextHelper s_aInstance = new TextHelper ();
+  private static final TextHelper INSTANCE = new TextHelper ();
 
   private TextHelper ()
   {}

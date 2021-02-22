@@ -53,7 +53,7 @@ public final class GlobalIDFactory
   private static IStringIDFactory s_aPersistentStringIDFactory = new StringIDFromGlobalPersistentIntIDFactory ();
 
   @PresentForCodeCoverage
-  private static final GlobalIDFactory s_aInstance = new GlobalIDFactory ();
+  private static final GlobalIDFactory INSTANCE = new GlobalIDFactory ();
 
   private GlobalIDFactory ()
   {}

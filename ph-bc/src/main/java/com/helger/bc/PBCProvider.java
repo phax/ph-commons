@@ -71,7 +71,7 @@ public final class PBCProvider
   }
 
   @PresentForCodeCoverage
-  private static final PBCProvider s_aInstance = new PBCProvider ();
+  private static final PBCProvider INSTANCE = new PBCProvider ();
 
   private PBCProvider ()
   {}

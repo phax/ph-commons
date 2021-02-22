@@ -75,7 +75,7 @@ public final class XMLMapHandler
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLMapHandler.class);
 
   @PresentForCodeCoverage
-  private static final XMLMapHandler s_aInstance = new XMLMapHandler ();
+  private static final XMLMapHandler INSTANCE = new XMLMapHandler ();
 
   private XMLMapHandler ()
   {}

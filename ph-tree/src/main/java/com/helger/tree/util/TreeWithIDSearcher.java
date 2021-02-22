@@ -38,7 +38,7 @@ import com.helger.tree.withid.ITreeItemWithID;
 public final class TreeWithIDSearcher
 {
   @PresentForCodeCoverage
-  private static final TreeWithIDSearcher s_aInstance = new TreeWithIDSearcher ();
+  private static final TreeWithIDSearcher INSTANCE = new TreeWithIDSearcher ();
 
   private TreeWithIDSearcher ()
   {}

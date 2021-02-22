@@ -38,7 +38,7 @@ public final class CJMX
   public static final String PROPERTY_NAME = "name";
 
   @PresentForCodeCoverage
-  private static final CJMX s_aInstance = new CJMX ();
+  private static final CJMX INSTANCE = new CJMX ();
 
   private CJMX ()
   {}

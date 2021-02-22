@@ -71,7 +71,7 @@ public final class StatisticsExporter
   public static final String ATTR_COUNT = "count";
 
   @PresentForCodeCoverage
-  private static final StatisticsExporter s_aInstance = new StatisticsExporter ();
+  private static final StatisticsExporter INSTANCE = new StatisticsExporter ();
 
   private StatisticsExporter ()
   {}

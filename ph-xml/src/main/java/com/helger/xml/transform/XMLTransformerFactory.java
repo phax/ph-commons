@@ -57,7 +57,7 @@ public final class XMLTransformerFactory
   }
 
   @PresentForCodeCoverage
-  private static final XMLTransformerFactory s_aInstance = new XMLTransformerFactory ();
+  private static final XMLTransformerFactory INSTANCE = new XMLTransformerFactory ();
 
   private XMLTransformerFactory ()
   {}

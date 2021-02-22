@@ -49,7 +49,7 @@ import com.helger.commons.state.ESuccess;
 public final class SimpleFileIO
 {
   @PresentForCodeCoverage
-  private static final SimpleFileIO s_aInstance = new SimpleFileIO ();
+  private static final SimpleFileIO INSTANCE = new SimpleFileIO ();
 
   private SimpleFileIO ()
   {}

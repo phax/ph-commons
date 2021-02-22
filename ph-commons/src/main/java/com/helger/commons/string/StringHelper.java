@@ -100,7 +100,7 @@ public final class StringHelper
                                                    999999999999999999L,
                                                    Long.MAX_VALUE };
   @PresentForCodeCoverage
-  private static final StringHelper s_aInstance = new StringHelper ();
+  private static final StringHelper INSTANCE = new StringHelper ();
 
   private StringHelper ()
   {}

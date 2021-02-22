@@ -45,7 +45,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class XPathExpressionHelper
 {
   @PresentForCodeCoverage
-  private static final XPathExpressionHelper s_aInstance = new XPathExpressionHelper ();
+  private static final XPathExpressionHelper INSTANCE = new XPathExpressionHelper ();
 
   private XPathExpressionHelper ()
   {}

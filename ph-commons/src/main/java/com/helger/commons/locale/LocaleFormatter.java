@@ -37,7 +37,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class LocaleFormatter
 {
   @PresentForCodeCoverage
-  private static final LocaleFormatter s_aInstance = new LocaleFormatter ();
+  private static final LocaleFormatter INSTANCE = new LocaleFormatter ();
 
   private LocaleFormatter ()
   {}

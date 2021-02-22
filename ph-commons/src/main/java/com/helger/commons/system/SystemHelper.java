@@ -41,7 +41,7 @@ public final class SystemHelper
   }
 
   @PresentForCodeCoverage
-  private static final SystemHelper s_aInstance = new SystemHelper ();
+  private static final SystemHelper INSTANCE = new SystemHelper ();
 
   private SystemHelper ()
   {}

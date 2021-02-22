@@ -19,7 +19,7 @@ package com.helger.commons.lang;
 // Note: do not add @Immutable here, because it is usedin cloning tets cases!
 public final class MockNoPublicCtor
 {
-  private static final MockNoPublicCtor s_aInstance = new MockNoPublicCtor ();
+  private static final MockNoPublicCtor INSTANCE = new MockNoPublicCtor ();
 
   private MockNoPublicCtor ()
   {}
@@ -30,6 +30,6 @@ public final class MockNoPublicCtor
 
   public static MockNoPublicCtor getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 }

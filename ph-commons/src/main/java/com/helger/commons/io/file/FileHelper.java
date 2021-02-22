@@ -73,7 +73,7 @@ public final class FileHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (FileHelper.class);
 
   @PresentForCodeCoverage
-  private static final FileHelper s_aInstance = new FileHelper ();
+  private static final FileHelper INSTANCE = new FileHelper ();
 
   private FileHelper ()
   {}

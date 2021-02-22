@@ -50,7 +50,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
 {
   private static final class SingletonHolder
   {
-    private static final SerializationConverterRegistry s_aInstance = new SerializationConverterRegistry ();
+    private static final SerializationConverterRegistry INSTANCE = new SerializationConverterRegistry ();
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SerializationConverterRegistry.class);
@@ -79,7 +79,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nonnull
   public static SerializationConverterRegistry getInstance ()
   {
-    final SerializationConverterRegistry ret = SingletonHolder.s_aInstance;
+    final SerializationConverterRegistry ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

@@ -74,7 +74,7 @@ public final class XMLListHandler
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLListHandler.class);
 
   @PresentForCodeCoverage
-  private static final XMLListHandler s_aInstance = new XMLListHandler ();
+  private static final XMLListHandler INSTANCE = new XMLListHandler ();
 
   private XMLListHandler ()
   {}

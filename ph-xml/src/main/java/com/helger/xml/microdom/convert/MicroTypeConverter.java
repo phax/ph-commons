@@ -41,7 +41,7 @@ import com.helger.xml.microdom.IMicroElement;
 public final class MicroTypeConverter
 {
   @PresentForCodeCoverage
-  private static final MicroTypeConverter s_aInstance = new MicroTypeConverter ();
+  private static final MicroTypeConverter INSTANCE = new MicroTypeConverter ();
 
   private MicroTypeConverter ()
   {}

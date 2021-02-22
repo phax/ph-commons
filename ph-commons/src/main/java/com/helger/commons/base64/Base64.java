@@ -1370,7 +1370,7 @@ public final class Base64
   }
 
   @PresentForCodeCoverage
-  private static final Base64 s_aInstance = new Base64 ();
+  private static final Base64 INSTANCE = new Base64 ();
 
   /** Defeats instantiation. */
   private Base64 ()

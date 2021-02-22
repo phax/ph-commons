@@ -52,7 +52,7 @@ public final class MicroWriter
   private static final Logger LOGGER = LoggerFactory.getLogger (MicroWriter.class);
 
   @PresentForCodeCoverage
-  private static final MicroWriter s_aInstance = new MicroWriter ();
+  private static final MicroWriter INSTANCE = new MicroWriter ();
 
   private MicroWriter ()
   {}

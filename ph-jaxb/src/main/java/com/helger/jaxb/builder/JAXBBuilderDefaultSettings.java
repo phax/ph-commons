@@ -43,22 +43,22 @@ public final class JAXBBuilderDefaultSettings
   public static final boolean DEFAULT_FORMATTED_OUTPUT = false;
   public static final Charset DEFAULT_CHARSET = XMLWriterSettings.DEFAULT_XML_CHARSET_OBJ;
 
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
+  @GuardedBy ("RW_LOCK")
   private static boolean s_bUseContextCache = DEFAULT_USE_CONTEXT_CACHE;
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static ValidationEventHandler s_aEventHandler;
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static NamespaceContext s_aNamespaceContext;
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static boolean s_bFormattedOutput = DEFAULT_FORMATTED_OUTPUT;
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static Charset s_aCharset = DEFAULT_CHARSET;
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static String s_sIndentString;
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static String s_sSchemaLocation;
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static String s_sNoNamespaceSchemaLocation;
 
   private JAXBBuilderDefaultSettings ()
@@ -73,7 +73,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultUseContextCache (final boolean bUseContextCache)
   {
-    s_aRWLock.writeLocked ( () -> s_bUseContextCache = bUseContextCache);
+    RW_LOCK.writeLocked ( () -> s_bUseContextCache = bUseContextCache);
   }
 
   /**
@@ -82,7 +82,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static boolean isDefaultUseContextCache ()
   {
-    return s_aRWLock.readLockedBoolean ( () -> s_bUseContextCache);
+    return RW_LOCK.readLockedBoolean ( () -> s_bUseContextCache);
   }
 
   /**
@@ -96,7 +96,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
   {
-    s_aRWLock.writeLocked ( () -> s_aEventHandler = aEventHandler);
+    RW_LOCK.writeLocked ( () -> s_aEventHandler = aEventHandler);
   }
 
   /**
@@ -107,7 +107,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static ValidationEventHandler getDefaultValidationEventHandler ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aEventHandler);
+    return RW_LOCK.readLockedGet ( () -> s_aEventHandler);
   }
 
   /**
@@ -120,7 +120,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultNamespaceContext (@Nullable final NamespaceContext aNamespaceContext)
   {
-    s_aRWLock.writeLocked ( () -> s_aNamespaceContext = aNamespaceContext);
+    RW_LOCK.writeLocked ( () -> s_aNamespaceContext = aNamespaceContext);
   }
 
   /**
@@ -130,7 +130,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static NamespaceContext getDefaultNamespaceContext ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aNamespaceContext);
+    return RW_LOCK.readLockedGet ( () -> s_aNamespaceContext);
   }
 
   /**
@@ -141,7 +141,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultFormattedOutput (final boolean bFormattedOutput)
   {
-    s_aRWLock.writeLocked ( () -> s_bFormattedOutput = bFormattedOutput);
+    RW_LOCK.writeLocked ( () -> s_bFormattedOutput = bFormattedOutput);
   }
 
   /**
@@ -151,7 +151,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static boolean isDefaultFormattedOutput ()
   {
-    return s_aRWLock.readLockedBoolean ( () -> s_bFormattedOutput);
+    return RW_LOCK.readLockedBoolean ( () -> s_bFormattedOutput);
   }
 
   /**
@@ -162,7 +162,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultCharset (@Nullable final Charset aCharset)
   {
-    s_aRWLock.writeLocked ( () -> s_aCharset = aCharset);
+    RW_LOCK.writeLocked ( () -> s_aCharset = aCharset);
   }
 
   /**
@@ -172,7 +172,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static Charset getDefaultCharset ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aCharset);
+    return RW_LOCK.readLockedGet ( () -> s_aCharset);
   }
 
   /**
@@ -183,7 +183,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultIndentString (@Nullable final String sIndentString)
   {
-    s_aRWLock.writeLocked ( () -> s_sIndentString = sIndentString);
+    RW_LOCK.writeLocked ( () -> s_sIndentString = sIndentString);
   }
 
   /**
@@ -194,7 +194,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static String getDefaultIndentString ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_sIndentString);
+    return RW_LOCK.readLockedGet ( () -> s_sIndentString);
   }
 
   /**
@@ -206,7 +206,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultSchemaLocation (@Nullable final String sSchemaLocation)
   {
-    s_aRWLock.writeLocked ( () -> s_sSchemaLocation = sSchemaLocation);
+    RW_LOCK.writeLocked ( () -> s_sSchemaLocation = sSchemaLocation);
   }
 
   /**
@@ -217,7 +217,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static String getDefaultSchemaLocation ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_sSchemaLocation);
+    return RW_LOCK.readLockedGet ( () -> s_sSchemaLocation);
   }
 
   /**
@@ -230,7 +230,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
   {
-    s_aRWLock.writeLocked ( () -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
+    RW_LOCK.writeLocked ( () -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
   }
 
   /**
@@ -241,6 +241,6 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static String getDefaultNoNamespaceSchemaLocation ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_sNoNamespaceSchemaLocation);
+    return RW_LOCK.readLockedGet ( () -> s_sNoNamespaceSchemaLocation);
   }
 }

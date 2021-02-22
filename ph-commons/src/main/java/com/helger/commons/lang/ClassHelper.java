@@ -67,7 +67,7 @@ public final class ClassHelper
   }
 
   @PresentForCodeCoverage
-  private static final ClassHelper s_aInstance = new ClassHelper ();
+  private static final ClassHelper INSTANCE = new ClassHelper ();
 
   private ClassHelper ()
   {}

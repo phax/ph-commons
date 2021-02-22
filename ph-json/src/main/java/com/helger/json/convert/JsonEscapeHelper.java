@@ -54,7 +54,7 @@ public final class JsonEscapeHelper
   }
 
   @PresentForCodeCoverage
-  private static final JsonEscapeHelper s_aInstance = new JsonEscapeHelper ();
+  private static final JsonEscapeHelper INSTANCE = new JsonEscapeHelper ();
 
   private JsonEscapeHelper ()
   {}

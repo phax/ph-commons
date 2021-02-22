@@ -85,7 +85,7 @@ public final class ArrayHelper
   public static final Class <?> [] EMPTY_CLASS_ARRAY = new Class <?> [0];
 
   @PresentForCodeCoverage
-  private static final ArrayHelper s_aInstance = new ArrayHelper ();
+  private static final ArrayHelper INSTANCE = new ArrayHelper ();
 
   private ArrayHelper ()
   {}

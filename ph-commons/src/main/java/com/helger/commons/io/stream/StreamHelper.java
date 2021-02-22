@@ -70,7 +70,7 @@ public final class StreamHelper
   private static final IMutableStatisticsHandlerSize STATS_COPY_CHARS = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
                                                                                                         "$COPYCHARS");
   @PresentForCodeCoverage
-  private static final StreamHelper s_aInstance = new StreamHelper ();
+  private static final StreamHelper INSTANCE = new StreamHelper ();
 
   private StreamHelper ()
   {}

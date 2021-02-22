@@ -199,7 +199,7 @@ public final class VerySecureRandom
   }
 
   @PresentForCodeCoverage
-  private static final VerySecureRandom s_aInstance = new VerySecureRandom ();
+  private static final VerySecureRandom INSTANCE = new VerySecureRandom ();
 
   private VerySecureRandom ()
   {}

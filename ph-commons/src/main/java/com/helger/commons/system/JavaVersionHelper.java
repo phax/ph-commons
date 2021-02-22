@@ -228,7 +228,7 @@ public final class JavaVersionHelper
   }
 
   @PresentForCodeCoverage
-  private static final JavaVersionHelper s_aInstance = new JavaVersionHelper ();
+  private static final JavaVersionHelper INSTANCE = new JavaVersionHelper ();
 
   private JavaVersionHelper ()
   {}

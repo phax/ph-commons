@@ -31,7 +31,7 @@ import com.helger.scope.spi.ScopeSPIManager;
 public final class ScopeCleanup
 {
   @PresentForCodeCoverage
-  private static final ScopeCleanup s_aInstance = new ScopeCleanup ();
+  private static final ScopeCleanup INSTANCE = new ScopeCleanup ();
 
   private ScopeCleanup ()
   {}

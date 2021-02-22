@@ -194,7 +194,7 @@ public final class ABNF
   }
 
   @PresentForCodeCoverage
-  private static final ABNF s_aInstance = new ABNF ();
+  private static final ABNF INSTANCE = new ABNF ();
 
   private ABNF ()
   {}

@@ -40,12 +40,12 @@ import com.helger.commons.string.StringHelper;
 @ThreadSafe
 public final class ObjectNameHelper
 {
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
+  @GuardedBy ("RW_LOCK")
   private static String s_sDefaultJMXDomain = CJMX.PH_JMX_DOMAIN;
 
   @PresentForCodeCoverage
-  private static final ObjectNameHelper s_aInstance = new ObjectNameHelper ();
+  private static final ObjectNameHelper INSTANCE = new ObjectNameHelper ();
 
   private ObjectNameHelper ()
   {}
@@ -60,10 +60,10 @@ public final class ObjectNameHelper
   public static void setDefaultJMXDomain (@Nonnull @Nonempty final String sDefaultJMXDomain)
   {
     ValueEnforcer.notEmpty (sDefaultJMXDomain, "DefaultJMXDomain");
-    if (sDefaultJMXDomain.indexOf (':') >= 0 || sDefaultJMXDomain.indexOf (' ') >= 0)
-      throw new IllegalArgumentException ("defaultJMXDomain contains invalid chars: " + sDefaultJMXDomain);
+    ValueEnforcer.isFalse (sDefaultJMXDomain.indexOf (':') >= 0 || sDefaultJMXDomain.indexOf (' ') >= 0,
+                           () -> "defaultJMXDomain contains invalid chars: " + sDefaultJMXDomain);
 
-    s_aRWLock.writeLockedGet ( () -> s_sDefaultJMXDomain = sDefaultJMXDomain);
+    RW_LOCK.writeLocked ( () -> s_sDefaultJMXDomain = sDefaultJMXDomain);
   }
 
   /**
@@ -74,7 +74,7 @@ public final class ObjectNameHelper
   @Nonempty
   public static String getDefaultJMXDomain ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_sDefaultJMXDomain);
+    return RW_LOCK.readLockedGet ( () -> s_sDefaultJMXDomain);
   }
 
   @Nonnull

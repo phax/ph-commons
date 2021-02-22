@@ -55,7 +55,7 @@ public final class FileChannelHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (FileChannelHelper.class);
 
   @PresentForCodeCoverage
-  private static final FileChannelHelper s_aInstance = new FileChannelHelper ();
+  private static final FileChannelHelper INSTANCE = new FileChannelHelper ();
 
   private FileChannelHelper ()
   {}

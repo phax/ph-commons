@@ -31,12 +31,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @Immutable
 public final class AuthCredentialValidatorManager
 {
-  private static final ICommonsList <IAuthCredentialValidatorSPI> s_aHdlList;
+  private static final ICommonsList <IAuthCredentialValidatorSPI> HDL_LIST;
 
   static
   {
-    s_aHdlList = ServiceLoaderHelper.getAllSPIImplementations (IAuthCredentialValidatorSPI.class);
-    if (s_aHdlList.isEmpty ())
+    HDL_LIST = ServiceLoaderHelper.getAllSPIImplementations (IAuthCredentialValidatorSPI.class);
+    if (HDL_LIST.isEmpty ())
       throw new InitializationException ("No class implementing " + IAuthCredentialValidatorSPI.class + " was found!");
   }
 
@@ -47,7 +47,7 @@ public final class AuthCredentialValidatorManager
   @ReturnsMutableCopy
   public static ICommonsList <IAuthCredentialValidatorSPI> getAllAuthCredentialValidators ()
   {
-    return s_aHdlList.getClone ();
+    return HDL_LIST.getClone ();
   }
 
   @Nonnull
@@ -60,7 +60,7 @@ public final class AuthCredentialValidatorManager
     final ICommonsList <ICredentialValidationResult> aFailedValidations = new CommonsArrayList <> ();
 
     // Check all credential handlers if the can handle the passed credentials
-    for (final IAuthCredentialValidatorSPI aHdl : s_aHdlList)
+    for (final IAuthCredentialValidatorSPI aHdl : HDL_LIST)
       if (aHdl.supportsCredentials (aCredentials))
       {
         final ICredentialValidationResult aResult = aHdl.validateCredentials (aCredentials);

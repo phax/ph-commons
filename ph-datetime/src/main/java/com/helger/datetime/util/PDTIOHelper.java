@@ -43,7 +43,7 @@ public final class PDTIOHelper
   public static final String PATTERN_DATETIME = PATTERN_DATE + '_' + PATTERN_TIME;
 
   @PresentForCodeCoverage
-  private static final PDTIOHelper s_aInstance = new PDTIOHelper ();
+  private static final PDTIOHelper INSTANCE = new PDTIOHelper ();
 
   private PDTIOHelper ()
   {}

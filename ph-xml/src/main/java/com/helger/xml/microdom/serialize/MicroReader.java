@@ -53,7 +53,7 @@ import com.helger.xml.serialize.read.SAXReaderSettings;
 public final class MicroReader
 {
   @PresentForCodeCoverage
-  private static final MicroReader s_aInstance = new MicroReader ();
+  private static final MicroReader INSTANCE = new MicroReader ();
 
   private MicroReader ()
   {}

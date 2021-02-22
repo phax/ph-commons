@@ -43,7 +43,7 @@ public final class HashCodeCalculator
   public static final int HASHCODE_NULL = 129;
 
   @PresentForCodeCoverage
-  private static final HashCodeCalculator s_aInstance = new HashCodeCalculator ();
+  private static final HashCodeCalculator INSTANCE = new HashCodeCalculator ();
 
   private HashCodeCalculator ()
   {}

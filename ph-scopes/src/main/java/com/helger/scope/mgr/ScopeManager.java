@@ -67,17 +67,17 @@ public final class ScopeManager
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ScopeManager.class);
 
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
 
   /** Global scope */
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static IGlobalScope s_aGlobalScope;
 
   /** Request scope */
-  private static final ThreadLocal <IRequestScope> s_aRequestScopeTL = new ThreadLocal <> ();
+  private static final ThreadLocal <IRequestScope> REQUEST_SCOPE_THREAD_LOCAL = new ThreadLocal <> ();
 
   @PresentForCodeCoverage
-  private static final ScopeManager s_aInstance = new ScopeManager ();
+  private static final ScopeManager INSTANCE = new ScopeManager ();
 
   private ScopeManager ()
   {}
@@ -94,7 +94,7 @@ public final class ScopeManager
   {
     ValueEnforcer.notNull (aGlobalScope, "GlobalScope");
 
-    s_aRWLock.writeLocked ( () -> {
+    RW_LOCK.writeLocked ( () -> {
       if (s_aGlobalScope != null)
         throw new IllegalStateException ("Another global scope with ID '" +
                                          s_aGlobalScope.getID () +
@@ -139,7 +139,7 @@ public final class ScopeManager
   @Nullable
   public static IGlobalScope getGlobalScopeOrNull ()
   {
-    final IGlobalScope ret = s_aRWLock.readLockedGet ( () -> s_aGlobalScope);
+    final IGlobalScope ret = RW_LOCK.readLockedGet ( () -> s_aGlobalScope);
     if (ret != null && ret.isValid ())
       return ret;
     // Return null if it is not set, in destruction or already destroyed
@@ -169,7 +169,7 @@ public final class ScopeManager
      * Global scope variable may be null if onGlobalBegin() was never called or
      * if "onGlobalEnd" was called a second time
      */
-    final IGlobalScope aGlobalScope = s_aRWLock.writeLockedGet ( () -> {
+    final IGlobalScope aGlobalScope = RW_LOCK.writeLockedGet ( () -> {
       // Do only the minimum in writeLock
       final IGlobalScope ret = s_aGlobalScope;
       s_aGlobalScope = null;
@@ -300,7 +300,7 @@ public final class ScopeManager
 
     // Happens if an internal redirect happens in a web-application (e.g. for
     // 404 page)
-    final IRequestScope aExistingRequestScope = s_aRequestScopeTL.get ();
+    final IRequestScope aExistingRequestScope = REQUEST_SCOPE_THREAD_LOCAL.get ();
     if (aExistingRequestScope != null)
     {
       if (LOGGER.isWarnEnabled ())
@@ -315,7 +315,7 @@ public final class ScopeManager
     }
 
     // set request context
-    s_aRequestScopeTL.set (aRequestScope);
+    REQUEST_SCOPE_THREAD_LOCAL.set (aRequestScope);
 
     // Now init the scope
     aRequestScope.initScope ();
@@ -347,7 +347,7 @@ public final class ScopeManager
   @Nullable
   public static IRequestScope getRequestScopeOrNull ()
   {
-    return s_aRequestScopeTL.get ();
+    return REQUEST_SCOPE_THREAD_LOCAL.get ();
   }
 
   /**
@@ -390,7 +390,7 @@ public final class ScopeManager
   public static void internalClearRequestScope ()
   {
     // Remove from ThreadLocal
-    s_aRequestScopeTL.remove ();
+    REQUEST_SCOPE_THREAD_LOCAL.remove ();
   }
 
   /**

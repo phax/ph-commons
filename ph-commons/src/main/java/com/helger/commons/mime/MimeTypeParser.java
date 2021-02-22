@@ -44,7 +44,7 @@ public final class MimeTypeParser
   private static final char [] TSPECIAL = new char [] { '(', ')', '<', '>', '@', ',', ';', ':', '\\', '"', '/', '[', ']', '?', '=' };
 
   @PresentForCodeCoverage
-  private static final MimeTypeParser s_aInstance = new MimeTypeParser ();
+  private static final MimeTypeParser INSTANCE = new MimeTypeParser ();
 
   private MimeTypeParser ()
   {}

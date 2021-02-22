@@ -33,7 +33,7 @@ import com.helger.xml.microdom.MicroElement;
 @Immutable
 public final class StringMicroTypeConverter implements IMicroTypeConverter <String>
 {
-  private static final StringMicroTypeConverter s_aInstance = new StringMicroTypeConverter ();
+  private static final StringMicroTypeConverter INSTANCE = new StringMicroTypeConverter ();
 
   private StringMicroTypeConverter ()
   {}
@@ -41,7 +41,7 @@ public final class StringMicroTypeConverter implements IMicroTypeConverter <Stri
   @Nonnull
   public static StringMicroTypeConverter getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   @Nonnull

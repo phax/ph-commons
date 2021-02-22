@@ -36,11 +36,11 @@ import com.helger.security.authentication.subject.IAuthSubject;
 @Immutable
 public final class AuthCredentialToSubjectResolverManager
 {
-  private static final ICommonsList <IAuthCredentialToSubjectResolverSPI> s_aHdlList;
+  private static final ICommonsList <IAuthCredentialToSubjectResolverSPI> HDL_LIST;
 
   static
   {
-    s_aHdlList = ServiceLoaderHelper.getAllSPIImplementations (IAuthCredentialToSubjectResolverSPI.class);
+    HDL_LIST = ServiceLoaderHelper.getAllSPIImplementations (IAuthCredentialToSubjectResolverSPI.class);
     // list may be empty...
   }
 
@@ -56,7 +56,7 @@ public final class AuthCredentialToSubjectResolverManager
   @ReturnsMutableCopy
   public static ICommonsList <IAuthCredentialToSubjectResolverSPI> getAllAuthCredentialToSubjectResolvers ()
   {
-    return s_aHdlList.getClone ();
+    return HDL_LIST.getClone ();
   }
 
   /**
@@ -65,7 +65,7 @@ public final class AuthCredentialToSubjectResolverManager
   @Nonnegative
   public static int getAuthCredentialToSubjectResolverCount ()
   {
-    return s_aHdlList.size ();
+    return HDL_LIST.size ();
   }
 
   /**
@@ -78,7 +78,7 @@ public final class AuthCredentialToSubjectResolverManager
   @Nullable
   public static IAuthSubject getSubjectFromCredentials (@Nonnull final IAuthCredentials aCredentials)
   {
-    for (final IAuthCredentialToSubjectResolverSPI aHdl : s_aHdlList)
+    for (final IAuthCredentialToSubjectResolverSPI aHdl : HDL_LIST)
       if (aHdl.supportsCredentials (aCredentials))
       {
         final IAuthSubject aSubject = aHdl.getSubjectFromCredentials (aCredentials);

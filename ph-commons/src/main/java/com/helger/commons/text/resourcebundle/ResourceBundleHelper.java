@@ -46,7 +46,7 @@ public final class ResourceBundleHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (ResourceBundleHelper.class);
 
   @PresentForCodeCoverage
-  private static final ResourceBundleHelper s_aInstance = new ResourceBundleHelper ();
+  private static final ResourceBundleHelper INSTANCE = new ResourceBundleHelper ();
 
   private ResourceBundleHelper ()
   {}

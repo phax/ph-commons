@@ -47,7 +47,7 @@ public enum EJavaVersion
   JDK_14 (58.0, 59.0);
 
   /** The current version. */
-  private static EJavaVersion s_aInstance = null;
+  private static EJavaVersion INSTANCE = null;
 
   private final double m_dMinVersionIncl;
   private final double m_dMaxVersionExcl;
@@ -136,7 +136,7 @@ public enum EJavaVersion
   @Nonnull
   public static EJavaVersion getCurrentVersion ()
   {
-    EJavaVersion ret = s_aInstance;
+    EJavaVersion ret = INSTANCE;
     if (ret == null)
     {
       // Note: double initialization doesn't matter here
@@ -148,7 +148,7 @@ public enum EJavaVersion
         }
       if (ret == null)
         ret = UNKNOWN;
-      s_aInstance = ret;
+      INSTANCE = ret;
     }
     return ret;
   }

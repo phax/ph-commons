@@ -41,8 +41,8 @@ import com.helger.security.authentication.subject.IAuthSubject;
 @ThreadSafe
 public final class AuthTokenRegistry
 {
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  private static final ICommonsMap <String, AuthToken> s_aMap = new CommonsHashMap <> ();
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
+  private static final ICommonsMap <String, AuthToken> MAP = new CommonsHashMap <> ();
 
   private AuthTokenRegistry ()
   {}
@@ -53,10 +53,10 @@ public final class AuthTokenRegistry
     final AuthToken aToken = new AuthToken (aIdentification, nExpirationSeconds);
     final String sTokenID = aToken.getID ();
 
-    s_aRWLock.writeLocked ( () -> {
-      if (s_aMap.containsKey (sTokenID))
+    RW_LOCK.writeLocked ( () -> {
+      if (MAP.containsKey (sTokenID))
         throw new IllegalArgumentException ("Token '" + sTokenID + "' already contained");
-      s_aMap.put (sTokenID, aToken);
+      MAP.put (sTokenID, aToken);
     });
 
     return aToken;
@@ -65,8 +65,8 @@ public final class AuthTokenRegistry
   @Nonnull
   public static ESuccess removeToken (@Nonnull final String sTokenID)
   {
-    return s_aRWLock.writeLockedGet ( () -> {
-      final AuthToken aToken = s_aMap.remove (sTokenID);
+    return RW_LOCK.writeLockedGet ( () -> {
+      final AuthToken aToken = MAP.remove (sTokenID);
       if (aToken == null)
         return ESuccess.FAILURE;
 
@@ -83,7 +83,7 @@ public final class AuthTokenRegistry
     if (StringHelper.hasNoText (sTokenID))
       return null;
 
-    final AuthToken aToken = s_aRWLock.readLockedGet ( () -> s_aMap.get (sTokenID));
+    final AuthToken aToken = RW_LOCK.readLockedGet ( () -> MAP.get (sTokenID));
     return aToken != null && !aToken.isExpired () ? aToken : null;
   }
 
@@ -100,7 +100,7 @@ public final class AuthTokenRegistry
     if (aToken == null)
       return null;
 
-    s_aRWLock.writeLocked (aToken::updateLastAccess);
+    RW_LOCK.writeLocked (aToken::updateLastAccess);
     return aToken;
   }
 
@@ -117,7 +117,7 @@ public final class AuthTokenRegistry
   {
     ValueEnforcer.notNull (aSubject, "Subject");
 
-    return s_aRWLock.readLockedGet ( () -> CommonsArrayList.createFiltered (s_aMap.values (),
+    return RW_LOCK.readLockedGet ( () -> CommonsArrayList.createFiltered (MAP.values (),
                                                                             aToken -> aToken.getIdentification ()
                                                                                             .hasAuthSubject (aSubject)));
   }
@@ -137,8 +137,8 @@ public final class AuthTokenRegistry
     // get all token IDs matching a given subject
     // Note: required IAuthSubject to implement equals!
     final ICommonsList <String> aDelTokenIDs = new CommonsArrayList <> ();
-    s_aRWLock.readLocked ( () -> {
-      for (final Map.Entry <String, AuthToken> aEntry : s_aMap.entrySet ())
+    RW_LOCK.readLocked ( () -> {
+      for (final Map.Entry <String, AuthToken> aEntry : MAP.entrySet ())
         if (aEntry.getValue ().getIdentification ().hasAuthSubject (aSubject))
           aDelTokenIDs.add (aEntry.getKey ());
     });

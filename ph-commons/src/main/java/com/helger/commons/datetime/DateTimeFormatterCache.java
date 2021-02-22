@@ -38,7 +38,7 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
 {
   private static final class SingletonHolder
   {
-    private static final DateTimeFormatterCache s_aInstance = new DateTimeFormatterCache ();
+    private static final DateTimeFormatterCache INSTANCE = new DateTimeFormatterCache ();
   }
 
   /** The default number of items to keep in the cache */
@@ -59,7 +59,7 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
   @Nonnull
   public static DateTimeFormatterCache getInstance ()
   {
-    final DateTimeFormatterCache ret = SingletonHolder.s_aInstance;
+    final DateTimeFormatterCache ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

@@ -43,7 +43,7 @@ import com.helger.json.JsonValue;
 public final class JsonConverter
 {
   @PresentForCodeCoverage
-  private static final JsonConverter s_aInstance = new JsonConverter ();
+  private static final JsonConverter INSTANCE = new JsonConverter ();
 
   private JsonConverter ()
   {}

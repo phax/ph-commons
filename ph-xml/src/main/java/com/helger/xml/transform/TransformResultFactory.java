@@ -43,7 +43,7 @@ import com.helger.commons.io.resource.IWritableResource;
 public final class TransformResultFactory
 {
   @PresentForCodeCoverage
-  private static final TransformResultFactory s_aInstance = new TransformResultFactory ();
+  private static final TransformResultFactory INSTANCE = new TransformResultFactory ();
 
   private TransformResultFactory ()
   {}

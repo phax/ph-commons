@@ -35,7 +35,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class Utf8ResourceBundle
 {
   @PresentForCodeCoverage
-  private static final Utf8ResourceBundle s_aInstance = new Utf8ResourceBundle ();
+  private static final Utf8ResourceBundle INSTANCE = new Utf8ResourceBundle ();
 
   private Utf8ResourceBundle ()
   {}

@@ -46,9 +46,12 @@ public class XMLSchemaCache extends SchemaCache
 {
   private static final class SingletonHolder
   {
-    private static final XMLSchemaCache s_aInstance = new XMLSchemaCache ();
+    private static final XMLSchemaCache INSTANCE = new XMLSchemaCache ();
   }
 
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
+  @GuardedBy ("RW_LOCK")
+  private static final ICommonsMap <String, XMLSchemaCache> PER_CL_CACHE = new CommonsHashMap <> ();
   private static boolean s_bDefaultInstantiated = false;
 
   /**
@@ -97,14 +100,10 @@ public class XMLSchemaCache extends SchemaCache
   @Nonnull
   public static XMLSchemaCache getInstance ()
   {
-    final XMLSchemaCache ret = SingletonHolder.s_aInstance;
+    final XMLSchemaCache ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }
-
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <String, XMLSchemaCache> s_aPerClassLoaderCache = new CommonsHashMap <> ();
 
   @Nonnull
   public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final IHasClassLoader aClassLoaderProvider)
@@ -123,13 +122,13 @@ public class XMLSchemaCache extends SchemaCache
 
     final String sKey = String.valueOf (aClassLoader);
 
-    XMLSchemaCache aCache = s_aRWLock.readLockedGet ( () -> s_aPerClassLoaderCache.get (sKey));
+    XMLSchemaCache aCache = RW_LOCK.readLockedGet ( () -> PER_CL_CACHE.get (sKey));
     if (aCache == null)
     {
       // Not found in read-lock
       // Try again in write lock
-      aCache = s_aRWLock.writeLockedGet ( () -> s_aPerClassLoaderCache.computeIfAbsent (sKey,
-                                                                                        x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
+      aCache = RW_LOCK.writeLockedGet ( () -> PER_CL_CACHE.computeIfAbsent (sKey,
+                                                                            x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
     }
     return aCache;
   }
@@ -137,6 +136,6 @@ public class XMLSchemaCache extends SchemaCache
   @Nonnull
   public static EChange clearPerClassLoaderCache ()
   {
-    return s_aRWLock.writeLockedGet (s_aPerClassLoaderCache::removeAll);
+    return RW_LOCK.writeLockedGet (PER_CL_CACHE::removeAll);
   }
 }

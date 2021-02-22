@@ -99,7 +99,7 @@ public final class CollatorHelper
   private static final CollatorCache COLLATOR_CACHE = new CollatorCache ();
 
   @PresentForCodeCoverage
-  private static final CollatorHelper s_aInstance = new CollatorHelper ();
+  private static final CollatorHelper INSTANCE = new CollatorHelper ();
 
   private CollatorHelper ()
   {}

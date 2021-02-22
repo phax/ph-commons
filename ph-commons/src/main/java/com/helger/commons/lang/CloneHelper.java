@@ -41,7 +41,7 @@ public final class CloneHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (CloneHelper.class);
 
   @PresentForCodeCoverage
-  private static final CloneHelper s_aInstance = new CloneHelper ();
+  private static final CloneHelper INSTANCE = new CloneHelper ();
 
   private CloneHelper ()
   {}

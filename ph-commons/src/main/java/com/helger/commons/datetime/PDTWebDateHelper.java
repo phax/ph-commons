@@ -136,7 +136,7 @@ public final class PDTWebDateHelper
   private static final Locale LOCALE_TO_USE = Locale.US;
 
   @PresentForCodeCoverage
-  private static final PDTWebDateHelper s_aInstance = new PDTWebDateHelper ();
+  private static final PDTWebDateHelper INSTANCE = new PDTWebDateHelper ();
 
   private PDTWebDateHelper ()
   {}

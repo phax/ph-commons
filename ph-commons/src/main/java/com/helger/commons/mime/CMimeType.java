@@ -170,7 +170,7 @@ public final class CMimeType
   public static final EMimeQuoting DEFAULT_QUOTING = EMimeQuoting.QUOTED_STRING;
 
   @PresentForCodeCoverage
-  private static final CMimeType s_aInstance = new CMimeType ();
+  private static final CMimeType INSTANCE = new CMimeType ();
 
   private CMimeType ()
   {}

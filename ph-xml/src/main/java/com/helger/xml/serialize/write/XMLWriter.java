@@ -54,10 +54,10 @@ public final class XMLWriter
   public static final NamespaceContext DEFAULT_NAMESPACE_CTX = null;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLWriter.class);
-  private static final IMutableStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (XMLWriter.class);
+  private static final IMutableStatisticsHandlerSize STATS_SIZE = StatisticsManager.getSizeHandler (XMLWriter.class);
 
   @PresentForCodeCoverage
-  private static final XMLWriter s_aInstance = new XMLWriter ();
+  private static final XMLWriter INSTANCE = new XMLWriter ();
 
   private XMLWriter ()
   {}
@@ -207,7 +207,7 @@ public final class XMLWriter
     {
       if (writeToWriter (aNode, aWriter, aSettings).isSuccess ())
       {
-        s_aSizeHdl.addSize (aWriter.size ());
+        STATS_SIZE.addSize (aWriter.size ());
         return aWriter.getAsString ();
       }
     }

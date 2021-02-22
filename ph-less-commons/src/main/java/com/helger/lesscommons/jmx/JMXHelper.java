@@ -40,7 +40,7 @@ public final class JMXHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (JMXHelper.class);
 
   @SuppressWarnings ("unused")
-  private static final JMXHelper s_aInstance = new JMXHelper ();
+  private static final JMXHelper INSTANCE = new JMXHelper ();
 
   private JMXHelper ()
   {}

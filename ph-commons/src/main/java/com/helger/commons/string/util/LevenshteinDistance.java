@@ -34,7 +34,7 @@ import com.helger.commons.string.StringHelper;
 public final class LevenshteinDistance
 {
   @PresentForCodeCoverage
-  private static final LevenshteinDistance s_aInstance = new LevenshteinDistance ();
+  private static final LevenshteinDistance INSTANCE = new LevenshteinDistance ();
 
   private LevenshteinDistance ()
   {}

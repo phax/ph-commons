@@ -448,7 +448,7 @@ public final class XMLMaskHelper
   }
 
   @PresentForCodeCoverage
-  private static final XMLMaskHelper s_aInstance = new XMLMaskHelper ();
+  private static final XMLMaskHelper INSTANCE = new XMLMaskHelper ();
 
   private XMLMaskHelper ()
   {}

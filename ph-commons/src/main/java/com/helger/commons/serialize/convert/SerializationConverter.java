@@ -40,7 +40,7 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
 public final class SerializationConverter
 {
   @PresentForCodeCoverage
-  private static final SerializationConverter s_aInstance = new SerializationConverter ();
+  private static final SerializationConverter INSTANCE = new SerializationConverter ();
 
   private SerializationConverter ()
   {}

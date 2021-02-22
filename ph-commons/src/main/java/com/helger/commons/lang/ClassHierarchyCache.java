@@ -132,7 +132,7 @@ public final class ClassHierarchyCache
   private static final ICommonsMap <String, ClassList> CLASS_HIERARCHY = new LRUMap <> (1000);
 
   @PresentForCodeCoverage
-  private static final ClassHierarchyCache s_aInstance = new ClassHierarchyCache ();
+  private static final ClassHierarchyCache INSTANCE = new ClassHierarchyCache ();
 
   private ClassHierarchyCache ()
   {}

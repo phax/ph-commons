@@ -40,7 +40,7 @@ import com.helger.tree.ITreeItem;
 public final class TreeSorter
 {
   @PresentForCodeCoverage
-  private static final TreeSorter s_aInstance = new TreeSorter ();
+  private static final TreeSorter INSTANCE = new TreeSorter ();
 
   private TreeSorter ()
   {}

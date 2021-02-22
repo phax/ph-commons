@@ -165,7 +165,7 @@ public final class PDTDisplayHelper
   }
 
   @PresentForCodeCoverage
-  private static final PDTDisplayHelper s_aInstance = new PDTDisplayHelper ();
+  private static final PDTDisplayHelper INSTANCE = new PDTDisplayHelper ();
 
   private PDTDisplayHelper ()
   {}

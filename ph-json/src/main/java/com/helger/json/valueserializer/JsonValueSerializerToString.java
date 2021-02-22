@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public final class JsonValueSerializerToString implements IJsonValueSerializer
 {
-  private static final JsonValueSerializerToString s_aInstance = new JsonValueSerializerToString ();
+  private static final JsonValueSerializerToString INSTANCE = new JsonValueSerializerToString ();
 
   private JsonValueSerializerToString ()
   {}
@@ -41,7 +41,7 @@ public final class JsonValueSerializerToString implements IJsonValueSerializer
   @Nonnull
   public static JsonValueSerializerToString getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException

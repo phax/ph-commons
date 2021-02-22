@@ -34,7 +34,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class BitSetHelper
 {
   @PresentForCodeCoverage
-  private static final BitSetHelper s_aInstance = new BitSetHelper ();
+  private static final BitSetHelper INSTANCE = new BitSetHelper ();
 
   private BitSetHelper ()
   {}

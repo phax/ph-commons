@@ -39,7 +39,7 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
 {
   private static final class SingletonHolder
   {
-    private static final RegExCache s_aInstance = new RegExCache ();
+    private static final RegExCache INSTANCE = new RegExCache ();
   }
 
   /** The default number of items to keep in the cache */
@@ -60,7 +60,7 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
   @Nonnull
   public static RegExCache getInstance ()
   {
-    final RegExCache ret = SingletonHolder.s_aInstance;
+    final RegExCache ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

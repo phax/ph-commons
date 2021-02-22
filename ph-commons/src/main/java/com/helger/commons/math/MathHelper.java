@@ -42,7 +42,7 @@ public final class MathHelper
   private static final long LONG_HIGH_BITS = 0xFFFFFFFF80000000L;
 
   @PresentForCodeCoverage
-  private static final MathHelper s_aInstance = new MathHelper ();
+  private static final MathHelper INSTANCE = new MathHelper ();
 
   private MathHelper ()
   {}

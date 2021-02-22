@@ -60,10 +60,10 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   public static final boolean DEFAULT_DESTROY_ALL_SESSIONS_ON_SCOPE_END = true;
   public static final boolean DEFAULT_END_ALL_SESSIONS_ON_SCOPE_END = true;
   private static final Logger LOGGER = LoggerFactory.getLogger (ScopeSessionManager.class);
-  private static final IMutableStatisticsHandlerCounter s_aUniqueSessionCounter = StatisticsManager.getCounterHandler (ScopeSessionManager.class.getName () +
-                                                                                                                       "$UNIQUE_SESSIONS");
+  private static final IMutableStatisticsHandlerCounter STATS_UNIQUE_SESSIONS = StatisticsManager.getCounterHandler (ScopeSessionManager.class.getName () +
+                                                                                                                     "$UNIQUE_SESSIONS");
 
-  private static ScopeSessionManager s_aInstance = null;
+  private static ScopeSessionManager INSTANCE = null;
 
   /** All contained session scopes. */
   @GuardedBy ("m_aRWLock")
@@ -90,9 +90,9 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   {
     // This special handling is needed, because this global singleton is
     // required upon shutdown of the GlobalWebScope!
-    ScopeSessionManager ret = s_aInstance;
+    ScopeSessionManager ret = INSTANCE;
     if (ret == null)
-      ret = s_aInstance = getGlobalSingleton (ScopeSessionManager.class);
+      ret = INSTANCE = getGlobalSingleton (ScopeSessionManager.class);
     return ret;
   }
 
@@ -139,7 +139,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     ScopeSPIManager.getInstance ().onSessionScopeBegin (aSessionScope);
 
     // Increment statistics counter
-    s_aUniqueSessionCounter.increment ();
+    STATS_UNIQUE_SESSIONS.increment ();
   }
 
   /**
@@ -321,6 +321,6 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     else
       if (isEndAllSessionsOnScopeEnd ())
         _endAllSessionScopes ();
-    s_aInstance = null;
+    INSTANCE = null;
   }
 }

@@ -86,7 +86,7 @@ public final class CXML
   public static final String XML_ATTR_XSI_NONAMESPACESCHEMALOCATION = "noNamespaceSchemaLocation";
 
   @PresentForCodeCoverage
-  private static final CXML s_aInstance = new CXML ();
+  private static final CXML INSTANCE = new CXML ();
 
   private CXML ()
   {}

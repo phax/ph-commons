@@ -50,7 +50,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class CommonsTestHelper
 {
   @PresentForCodeCoverage
-  private static final CommonsTestHelper s_aInstance = new CommonsTestHelper ();
+  private static final CommonsTestHelper INSTANCE = new CommonsTestHelper ();
 
   private CommonsTestHelper ()
   {}

@@ -18,6 +18,7 @@ package com.helger.graph.impl;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
@@ -37,11 +38,12 @@ import com.helger.commons.id.factory.IIDFactory;
 @ThreadSafe
 public final class GraphObjectIDFactory
 {
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
+  @GuardedBy ("RW_LOCK")
   private static IIDFactory <String> s_aIDFactory;
 
   @PresentForCodeCoverage
-  private static final GraphObjectIDFactory s_aInstance = new GraphObjectIDFactory ();
+  private static final GraphObjectIDFactory INSTANCE = new GraphObjectIDFactory ();
 
   private GraphObjectIDFactory ()
   {}
@@ -53,7 +55,7 @@ public final class GraphObjectIDFactory
   @Nullable
   public static IIDFactory <String> getIDFactory ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aIDFactory);
+    return RW_LOCK.readLockedGet ( () -> s_aIDFactory);
   }
 
   /**
@@ -65,7 +67,7 @@ public final class GraphObjectIDFactory
    */
   public static void setIDFactory (@Nullable final IIDFactory <String> aIDFactory)
   {
-    s_aRWLock.writeLockedGet ( () -> s_aIDFactory = aIDFactory);
+    RW_LOCK.writeLocked ( () -> s_aIDFactory = aIDFactory);
   }
 
   /**
@@ -79,6 +81,6 @@ public final class GraphObjectIDFactory
   @Nonempty
   public static String createNewGraphObjectID ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aIDFactory != null ? s_aIDFactory.getNewID () : GlobalIDFactory.getNewStringID ());
+    return RW_LOCK.readLockedGet ( () -> s_aIDFactory != null ? s_aIDFactory.getNewID () : GlobalIDFactory.getNewStringID ());
   }
 }

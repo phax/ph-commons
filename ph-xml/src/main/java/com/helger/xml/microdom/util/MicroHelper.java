@@ -57,7 +57,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class MicroHelper
 {
   @PresentForCodeCoverage
-  private static final MicroHelper s_aInstance = new MicroHelper ();
+  private static final MicroHelper INSTANCE = new MicroHelper ();
 
   private MicroHelper ()
   {}

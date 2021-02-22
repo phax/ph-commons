@@ -47,7 +47,7 @@ public final class ScopeSPIManager
 {
   private static final class SingletonHolder
   {
-    private static final ScopeSPIManager s_aInstance = new ScopeSPIManager ();
+    private static final ScopeSPIManager INSTANCE = new ScopeSPIManager ();
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ScopeSPIManager.class);
@@ -75,7 +75,7 @@ public final class ScopeSPIManager
   @Nonnull
   public static ScopeSPIManager getInstance ()
   {
-    final ScopeSPIManager ret = SingletonHolder.s_aInstance;
+    final ScopeSPIManager ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

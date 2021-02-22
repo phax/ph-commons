@@ -50,7 +50,7 @@ import com.helger.commons.url.URLProtocolRegistry;
 public final class CommonsCleanup
 {
   @PresentForCodeCoverage
-  private static final CommonsCleanup s_aInstance = new CommonsCleanup ();
+  private static final CommonsCleanup INSTANCE = new CommonsCleanup ();
 
   private CommonsCleanup ()
   {}

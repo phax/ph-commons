@@ -43,7 +43,7 @@ import com.helger.commons.string.StringHelper;
 public final class RegExHelper
 {
   @PresentForCodeCoverage
-  private static final RegExHelper s_aInstance = new RegExHelper ();
+  private static final RegExHelper INSTANCE = new RegExHelper ();
 
   private RegExHelper ()
   {}

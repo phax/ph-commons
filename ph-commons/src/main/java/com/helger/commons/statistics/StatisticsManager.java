@@ -57,7 +57,7 @@ public final class StatisticsManager
   private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsManager.class);
 
   @PresentForCodeCoverage
-  private static final StatisticsManager s_aInstance = new StatisticsManager ();
+  private static final StatisticsManager INSTANCE = new StatisticsManager ();
 
   private StatisticsManager ()
   {}

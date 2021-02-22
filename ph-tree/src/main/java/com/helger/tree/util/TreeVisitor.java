@@ -102,7 +102,7 @@ public final class TreeVisitor
   }
 
   @PresentForCodeCoverage
-  private static final TreeVisitor s_aInstance = new TreeVisitor ();
+  private static final TreeVisitor INSTANCE = new TreeVisitor ();
 
   private TreeVisitor ()
   {}

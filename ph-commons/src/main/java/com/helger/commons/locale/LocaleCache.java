@@ -80,7 +80,7 @@ public class LocaleCache
 
   private static final class SingletonHolder
   {
-    private static final LocaleCache s_aInstance = new LocaleCache ();
+    private static final LocaleCache INSTANCE = new LocaleCache ();
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LocaleCache.class);
@@ -138,7 +138,7 @@ public class LocaleCache
   @Nonnull
   public static LocaleCache getInstance ()
   {
-    final LocaleCache ret = SingletonHolder.s_aInstance;
+    final LocaleCache ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

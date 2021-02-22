@@ -43,12 +43,12 @@ import com.helger.xml.dom.EXMLDOMNodeType;
 public final class XMLDebug
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLDebug.class);
-  private static final ICommonsMap <EXMLDOMFeatureVersion, ICommonsList <String>> s_aSupportedFeatures = new CommonsEnumMap <> (EXMLDOMFeatureVersion.class);
+  private static final ICommonsMap <EXMLDOMFeatureVersion, ICommonsList <String>> SUPPORTED_FEATURES = new CommonsEnumMap <> (EXMLDOMFeatureVersion.class);
 
   static
   {
     for (final EXMLDOMFeatureVersion eFeatureVersion : EXMLDOMFeatureVersion.values ())
-      s_aSupportedFeatures.put (eFeatureVersion, new CommonsArrayList <> ());
+      SUPPORTED_FEATURES.put (eFeatureVersion, new CommonsArrayList <> ());
 
     // Check features as specified by
     // http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/introduction.html#ID-Conformance
@@ -74,15 +74,15 @@ public final class XMLDebug
     for (final EXMLDOMFeatureVersion eFeatureVersion : EXMLDOMFeatureVersion.values ())
     {
       if (aDOMImplementation.hasFeature (eFeature.getID (), eFeatureVersion.getID ()))
-        s_aSupportedFeatures.get (eFeatureVersion).add (eFeature.getID ());
+        SUPPORTED_FEATURES.get (eFeatureVersion).add (eFeature.getID ());
       else
         if (aDOMImplementation.hasFeature (eFeature.getPlusFeature (), eFeatureVersion.getID ()))
-          s_aSupportedFeatures.get (eFeatureVersion).add (eFeature.getPlusFeature ());
+          SUPPORTED_FEATURES.get (eFeatureVersion).add (eFeature.getPlusFeature ());
     }
   }
 
   @PresentForCodeCoverage
-  private static final XMLDebug s_aInstance = new XMLDebug ();
+  private static final XMLDebug INSTANCE = new XMLDebug ();
 
   private XMLDebug ()
   {}
@@ -91,14 +91,14 @@ public final class XMLDebug
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLDOMFeatureVersion, ICommonsList <String>> getAllSupportedFeatures ()
   {
-    return s_aSupportedFeatures.getClone ();
+    return SUPPORTED_FEATURES.getClone ();
   }
 
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsList <String> getAllSupportedFeatures (@Nonnull final EXMLDOMFeatureVersion eFeatureVersion)
   {
-    final ICommonsList <String> ret = s_aSupportedFeatures.get (eFeatureVersion);
+    final ICommonsList <String> ret = SUPPORTED_FEATURES.get (eFeatureVersion);
     return ret == null ? null : ret.getClone ();
   }
 
@@ -107,7 +107,7 @@ public final class XMLDebug
    */
   public static void debugLogDOMFeatures ()
   {
-    for (final Map.Entry <EXMLDOMFeatureVersion, ICommonsList <String>> aEntry : s_aSupportedFeatures.entrySet ())
+    for (final Map.Entry <EXMLDOMFeatureVersion, ICommonsList <String>> aEntry : SUPPORTED_FEATURES.entrySet ())
       for (final String sFeature : aEntry.getValue ())
         if (LOGGER.isInfoEnabled ())
           LOGGER.info ("DOM " + aEntry.getKey ().getID () + " feature '" + sFeature + "' is present");

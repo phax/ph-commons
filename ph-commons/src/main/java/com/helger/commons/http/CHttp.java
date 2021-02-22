@@ -324,7 +324,7 @@ public final class CHttp
   public static final int HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
 
   @PresentForCodeCoverage
-  private static final CHttp s_aInstance = new CHttp ();
+  private static final CHttp INSTANCE = new CHttp ();
 
   private CHttp ()
   {}

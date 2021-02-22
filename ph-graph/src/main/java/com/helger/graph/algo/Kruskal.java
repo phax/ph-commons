@@ -87,7 +87,7 @@ public final class Kruskal
   private static final Logger LOGGER = LoggerFactory.getLogger (Kruskal.class);
 
   @PresentForCodeCoverage
-  private static final Kruskal s_aInstance = new Kruskal ();
+  private static final Kruskal INSTANCE = new Kruskal ();
 
   private Kruskal ()
   {}

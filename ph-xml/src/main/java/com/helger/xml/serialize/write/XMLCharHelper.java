@@ -625,7 +625,7 @@ public final class XMLCharHelper
   }
 
   @PresentForCodeCoverage
-  private static final XMLCharHelper s_aInstance = new XMLCharHelper ();
+  private static final XMLCharHelper INSTANCE = new XMLCharHelper ();
 
   private XMLCharHelper ()
   {}

@@ -75,7 +75,7 @@ public final class CXMLRegEx
   public static final Pattern PATTERN_QNAME = RegExCache.getPattern (QNAME);
 
   @PresentForCodeCoverage
-  private static final CXMLRegEx s_aInstance = new CXMLRegEx ();
+  private static final CXMLRegEx INSTANCE = new CXMLRegEx ();
 
   private CXMLRegEx ()
   {}

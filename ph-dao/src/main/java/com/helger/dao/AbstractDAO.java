@@ -56,8 +56,8 @@ public abstract class AbstractDAO implements IDAO
    */
   public static final String FILENAME_EXTENSION_NEW = ".new";
 
-  private static final CallbackList <IDAOReadExceptionCallback> s_aExceptionHandlersRead = new CallbackList <> ();
-  private static final CallbackList <IDAOWriteExceptionCallback> s_aExceptionHandlersWrite = new CallbackList <> ();
+  private static final CallbackList <IDAOReadExceptionCallback> EX_HANDLERS_READ = new CallbackList <> ();
+  private static final CallbackList <IDAOWriteExceptionCallback> EX_HANDLERS_WRITE = new CallbackList <> ();
 
   protected static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
@@ -107,7 +107,7 @@ public abstract class AbstractDAO implements IDAO
   @ReturnsMutableObject
   public static final CallbackList <IDAOReadExceptionCallback> exceptionHandlersRead ()
   {
-    return s_aExceptionHandlersRead;
+    return EX_HANDLERS_READ;
   }
 
   /**
@@ -119,7 +119,7 @@ public abstract class AbstractDAO implements IDAO
   @ReturnsMutableObject
   public static final CallbackList <IDAOWriteExceptionCallback> exceptionHandlersWrite ()
   {
-    return s_aExceptionHandlersWrite;
+    return EX_HANDLERS_WRITE;
   }
 
   /**

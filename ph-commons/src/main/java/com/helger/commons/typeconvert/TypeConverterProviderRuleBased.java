@@ -28,7 +28,7 @@ import com.helger.commons.lang.GenericReflection;
  */
 public final class TypeConverterProviderRuleBased implements ITypeConverterProvider
 {
-  private static final TypeConverterProviderRuleBased s_aInstance = new TypeConverterProviderRuleBased ();
+  private static final TypeConverterProviderRuleBased INSTANCE = new TypeConverterProviderRuleBased ();
 
   private TypeConverterProviderRuleBased ()
   {}
@@ -36,7 +36,7 @@ public final class TypeConverterProviderRuleBased implements ITypeConverterProvi
   @Nonnull
   public static TypeConverterProviderRuleBased getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   @Nullable

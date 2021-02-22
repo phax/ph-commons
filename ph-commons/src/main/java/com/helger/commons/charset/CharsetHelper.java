@@ -67,7 +67,7 @@ public final class CharsetHelper
   }
 
   @PresentForCodeCoverage
-  private static final CharsetHelper s_aInstance = new CharsetHelper ();
+  private static final CharsetHelper INSTANCE = new CharsetHelper ();
 
   private CharsetHelper ()
   {}

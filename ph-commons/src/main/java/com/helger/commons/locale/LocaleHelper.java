@@ -123,7 +123,7 @@ public final class LocaleHelper
   private static final ICommonsMap <String, String> COUNTRY_ISO3TO2 = new CommonsHashMap <> ();
 
   @PresentForCodeCoverage
-  private static final LocaleHelper s_aInstance = new LocaleHelper ();
+  private static final LocaleHelper INSTANCE = new LocaleHelper ();
 
   static
   {

@@ -43,7 +43,7 @@ import com.helger.commons.string.ToStringGenerator;
 public final class JsonValueSerializerRegistry implements IJsonValueSerializerRegistry
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JsonValueSerializerRegistry.class);
-  private static final JsonValueSerializerRegistry s_aInstance = new JsonValueSerializerRegistry ();
+  private static final JsonValueSerializerRegistry INSTANCE = new JsonValueSerializerRegistry ();
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
@@ -54,7 +54,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   static
   {
     // Use default class loader
-    s_aInstance.reinitialize ((ClassLoader) null);
+    INSTANCE.reinitialize ((ClassLoader) null);
   }
 
   private JsonValueSerializerRegistry ()
@@ -66,7 +66,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   @Nonnull
   public static JsonValueSerializerRegistry getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   public void registerJsonValueSerializer (@Nonnull final Class <?> aClass, @Nonnull final IJsonValueSerializer aValueSerializer)
@@ -107,7 +107,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
       aSPI.registerJsonValueSerializer (this);
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (s_aInstance.getRegisteredJsonValueSerializerCount () + " JSON value serializers registered");
+      LOGGER.debug (INSTANCE.getRegisteredJsonValueSerializerCount () + " JSON value serializers registered");
   }
 
   @Override

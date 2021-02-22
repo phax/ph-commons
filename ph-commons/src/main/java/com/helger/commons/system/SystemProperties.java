@@ -83,7 +83,7 @@ public final class SystemProperties
   private static final ICommonsSet <String> WARNED_PROP_NAMES = new CommonsCopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage
-  private static final SystemProperties s_aInstance = new SystemProperties ();
+  private static final SystemProperties INSTANCE = new SystemProperties ();
 
   private SystemProperties ()
   {}

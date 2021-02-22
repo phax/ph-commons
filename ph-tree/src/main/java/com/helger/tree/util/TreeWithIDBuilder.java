@@ -44,7 +44,7 @@ import com.helger.tree.withid.DefaultTreeWithID;
 public final class TreeWithIDBuilder
 {
   @PresentForCodeCoverage
-  private static final TreeWithIDBuilder s_aInstance = new TreeWithIDBuilder ();
+  private static final TreeWithIDBuilder INSTANCE = new TreeWithIDBuilder ();
 
   private TreeWithIDBuilder ()
   {}

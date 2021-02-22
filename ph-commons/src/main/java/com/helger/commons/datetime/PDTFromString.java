@@ -49,7 +49,7 @@ public final class PDTFromString
   private static final Logger LOGGER = LoggerFactory.getLogger (PDTFromString.class);
 
   @PresentForCodeCoverage
-  private static final PDTFromString s_aInstance = new PDTFromString ();
+  private static final PDTFromString INSTANCE = new PDTFromString ();
 
   private PDTFromString ()
   {}

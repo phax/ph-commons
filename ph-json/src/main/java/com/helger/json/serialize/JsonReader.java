@@ -69,14 +69,14 @@ public final class JsonReader
   public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (JsonReader.class);
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
 
   // Use the LoggingJsonParseExceptionHandler for maximum backward compatibility
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static IJsonParseExceptionCallback s_aDefaultParseExceptionCallback = new LoggingJsonParseExceptionCallback ();
 
   @PresentForCodeCoverage
-  private static final JsonReader s_aInstance = new JsonReader ();
+  private static final JsonReader INSTANCE = new JsonReader ();
 
   private JsonReader ()
   {}
@@ -89,7 +89,7 @@ public final class JsonReader
   @Nonnull
   public static IJsonParseExceptionCallback getDefaultParseExceptionCallback ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aDefaultParseExceptionCallback);
+    return RW_LOCK.readLockedGet ( () -> s_aDefaultParseExceptionCallback);
   }
 
   /**
@@ -103,7 +103,7 @@ public final class JsonReader
   {
     ValueEnforcer.notNull (aDefaultParseExceptionCallback, "DefaultParseExceptionCallback");
 
-    s_aRWLock.writeLockedGet ( () -> s_aDefaultParseExceptionCallback = aDefaultParseExceptionCallback);
+    RW_LOCK.writeLocked ( () -> s_aDefaultParseExceptionCallback = aDefaultParseExceptionCallback);
   }
 
   /**

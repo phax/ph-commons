@@ -35,7 +35,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  */
 public final class JsonValueSerializerTypeConverterToString implements IJsonValueSerializer
 {
-  private static final JsonValueSerializerTypeConverterToString s_aInstance = new JsonValueSerializerTypeConverterToString ();
+  private static final JsonValueSerializerTypeConverterToString INSTANCE = new JsonValueSerializerTypeConverterToString ();
 
   private JsonValueSerializerTypeConverterToString ()
   {}
@@ -43,7 +43,7 @@ public final class JsonValueSerializerTypeConverterToString implements IJsonValu
   @Nonnull
   public static JsonValueSerializerTypeConverterToString getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException

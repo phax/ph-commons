@@ -34,7 +34,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class ByteBufferHelper
 {
   @PresentForCodeCoverage
-  private static final ByteBufferHelper s_aInstance = new ByteBufferHelper ();
+  private static final ByteBufferHelper INSTANCE = new ByteBufferHelper ();
 
   private ByteBufferHelper ()
   {}

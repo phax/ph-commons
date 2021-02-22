@@ -40,7 +40,7 @@ import com.helger.commons.system.SystemProperties;
 public final class ClassPathHelper
 {
   @PresentForCodeCoverage
-  private static final ClassPathHelper s_aInstance = new ClassPathHelper ();
+  private static final ClassPathHelper INSTANCE = new ClassPathHelper ();
 
   private ClassPathHelper ()
   {}

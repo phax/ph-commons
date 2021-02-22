@@ -46,7 +46,7 @@ public final class PathOperations
   private static volatile boolean s_bExceptionOnDeleteRoot = DEFAULT_EXCEPTION_ON_DELETE_ROOT;
 
   @PresentForCodeCoverage
-  private static final PathOperations s_aInstance = new PathOperations ();
+  private static final PathOperations INSTANCE = new PathOperations ();
 
   private PathOperations ()
   {}

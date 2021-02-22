@@ -67,7 +67,7 @@ public final class DOMReader
   private static final ObjectPool <DocumentBuilder> POOL = new ObjectPool <> (20, XMLFactory::createDocumentBuilder);
 
   @PresentForCodeCoverage
-  private static final DOMReader s_aInstance = new DOMReader ();
+  private static final DOMReader INSTANCE = new DOMReader ();
 
   private DOMReader ()
   {}

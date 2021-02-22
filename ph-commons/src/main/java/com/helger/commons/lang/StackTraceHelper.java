@@ -56,7 +56,7 @@ public final class StackTraceHelper
   }
 
   @PresentForCodeCoverage
-  private static final StackTraceHelper s_aInstance = new StackTraceHelper ();
+  private static final StackTraceHelper INSTANCE = new StackTraceHelper ();
 
   private StackTraceHelper ()
   {}

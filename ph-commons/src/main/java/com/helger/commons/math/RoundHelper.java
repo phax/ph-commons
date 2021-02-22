@@ -58,7 +58,7 @@ public final class RoundHelper
   }
 
   @PresentForCodeCoverage
-  private static final RoundHelper s_aInstance = new RoundHelper ();
+  private static final RoundHelper INSTANCE = new RoundHelper ();
 
   private RoundHelper ()
   {}

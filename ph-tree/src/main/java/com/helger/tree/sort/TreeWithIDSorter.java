@@ -42,7 +42,7 @@ import com.helger.tree.withid.ITreeItemWithID;
 public final class TreeWithIDSorter
 {
   @PresentForCodeCoverage
-  private static final TreeWithIDSorter s_aInstance = new TreeWithIDSorter ();
+  private static final TreeWithIDSorter INSTANCE = new TreeWithIDSorter ();
 
   private TreeWithIDSorter ()
   {}

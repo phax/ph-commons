@@ -59,7 +59,7 @@ public final class CryptoPolicy
   private static boolean s_bUnlimitedStrength;
 
   @PresentForCodeCoverage
-  private static final CryptoPolicy s_aInstance = new CryptoPolicy ();
+  private static final CryptoPolicy INSTANCE = new CryptoPolicy ();
 
   private CryptoPolicy ()
   {}

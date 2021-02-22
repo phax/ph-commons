@@ -60,14 +60,14 @@ public final class XMLFactory
   /** DocumentBuilderFactory is by default not XInclude aware */
   public static final boolean DEFAULT_DOM_XINCLUDE_AWARE = false;
 
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
 
   /** The DOM DocumentBuilderFactory. */
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static DocumentBuilderFactory s_aDefaultDocBuilderFactory;
 
   /** The DOM DocumentBuilder. Lazily inited */
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static DocumentBuilder s_aDefaultDocBuilder;
 
   static
@@ -87,7 +87,7 @@ public final class XMLFactory
    */
   public static void reinitialize ()
   {
-    s_aRWLock.writeLocked ( () -> {
+    RW_LOCK.writeLocked ( () -> {
       // create DOM document builder
       s_aDefaultDocBuilderFactory = createDefaultDocumentBuilderFactory ();
       s_aDefaultDocBuilder = null;
@@ -95,7 +95,7 @@ public final class XMLFactory
   }
 
   @PresentForCodeCoverage
-  private static final XMLFactory s_aInstance = new XMLFactory ();
+  private static final XMLFactory INSTANCE = new XMLFactory ();
 
   private XMLFactory ()
   {}
@@ -163,7 +163,7 @@ public final class XMLFactory
   @Nonnull
   public static DocumentBuilderFactory getDocumentBuilderFactory ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aDefaultDocBuilderFactory);
+    return RW_LOCK.readLockedGet ( () -> s_aDefaultDocBuilderFactory);
   }
 
   /**
@@ -174,11 +174,11 @@ public final class XMLFactory
   public static DocumentBuilder getDocumentBuilder ()
   {
     // Lazily init
-    final DocumentBuilder ret = s_aRWLock.readLockedGet ( () -> s_aDefaultDocBuilder);
+    final DocumentBuilder ret = RW_LOCK.readLockedGet ( () -> s_aDefaultDocBuilder);
     if (ret != null)
       return ret;
 
-    return s_aRWLock.writeLockedGet ( () -> {
+    return RW_LOCK.writeLockedGet ( () -> {
       if (s_aDefaultDocBuilder == null)
         s_aDefaultDocBuilder = createDocumentBuilder (s_aDefaultDocBuilderFactory);
       return s_aDefaultDocBuilder;

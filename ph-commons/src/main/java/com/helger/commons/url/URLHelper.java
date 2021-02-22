@@ -105,7 +105,7 @@ public final class URLHelper
   private static final URLCodec URL_CODEC = new URLCodec ();
 
   @PresentForCodeCoverage
-  private static final URLHelper s_aInstance = new URLHelper ();
+  private static final URLHelper INSTANCE = new URLHelper ();
 
   private URLHelper ()
   {}

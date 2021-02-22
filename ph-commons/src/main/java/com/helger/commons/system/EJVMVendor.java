@@ -93,7 +93,7 @@ public enum EJVMVendor
   }
 
   /** The current vendor. */
-  private static EJVMVendor s_aInstance = null;
+  private static EJVMVendor INSTANCE = null;
 
   private final boolean m_bIsIt;
 
@@ -132,7 +132,7 @@ public enum EJVMVendor
   @Nonnull
   public static EJVMVendor getCurrentVendor ()
   {
-    EJVMVendor ret = s_aInstance;
+    EJVMVendor ret = INSTANCE;
     if (ret == null)
     {
       // Note: double initialization doesn't matter here
@@ -146,7 +146,7 @@ public enum EJVMVendor
         }
       if (ret == null)
         ret = UNKNOWN;
-      s_aInstance = ret;
+      INSTANCE = ret;
     }
     return ret;
   }

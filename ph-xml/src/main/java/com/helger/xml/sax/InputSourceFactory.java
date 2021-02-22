@@ -51,7 +51,7 @@ import com.helger.commons.url.URLHelper;
 public final class InputSourceFactory
 {
   @PresentForCodeCoverage
-  private static final InputSourceFactory s_aInstance = new InputSourceFactory ();
+  private static final InputSourceFactory INSTANCE = new InputSourceFactory ();
 
   private InputSourceFactory ()
   {}

@@ -55,7 +55,7 @@ public final class LanguageCache
 {
   private static final class SingletonHolder
   {
-    private static final LanguageCache s_aInstance = new LanguageCache ();
+    private static final LanguageCache INSTANCE = new LanguageCache ();
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LanguageCache.class);
@@ -106,7 +106,7 @@ public final class LanguageCache
   @Nonnull
   public static LanguageCache getInstance ()
   {
-    final LanguageCache ret = SingletonHolder.s_aInstance;
+    final LanguageCache ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

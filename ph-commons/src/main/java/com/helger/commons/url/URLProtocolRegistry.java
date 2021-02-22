@@ -49,7 +49,7 @@ public final class URLProtocolRegistry
 {
   private static final class SingletonHolder
   {
-    private static final URLProtocolRegistry s_aInstance = new URLProtocolRegistry ();
+    private static final URLProtocolRegistry INSTANCE = new URLProtocolRegistry ();
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (URLProtocolRegistry.class);
@@ -73,7 +73,7 @@ public final class URLProtocolRegistry
   @Nonnull
   public static URLProtocolRegistry getInstance ()
   {
-    final URLProtocolRegistry ret = SingletonHolder.s_aInstance;
+    final URLProtocolRegistry ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

@@ -42,7 +42,7 @@ import com.helger.commons.statistics.StatisticsManager;
 public final class StatisticsVisitor
 {
   @PresentForCodeCoverage
-  private static final StatisticsVisitor s_aInstance = new StatisticsVisitor ();
+  private static final StatisticsVisitor INSTANCE = new StatisticsVisitor ();
 
   private StatisticsVisitor ()
   {}

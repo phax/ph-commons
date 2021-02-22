@@ -37,7 +37,7 @@ import com.helger.commons.regex.RegExHelper;
 public final class CodepointHelper
 {
   @PresentForCodeCoverage
-  private static final CodepointHelper s_aInstance = new CodepointHelper ();
+  private static final CodepointHelper INSTANCE = new CodepointHelper ();
 
   private CodepointHelper ()
   {}

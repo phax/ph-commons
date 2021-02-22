@@ -56,7 +56,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
 {
   private static final class SingletonHolder
   {
-    private static final HashCodeImplementationRegistry s_aInstance = new HashCodeImplementationRegistry ();
+    private static final HashCodeImplementationRegistry INSTANCE = new HashCodeImplementationRegistry ();
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (HashCodeImplementationRegistry.class);
@@ -88,7 +88,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
   @Nonnull
   public static HashCodeImplementationRegistry getInstance ()
   {
-    final HashCodeImplementationRegistry ret = SingletonHolder.s_aInstance;
+    final HashCodeImplementationRegistry ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

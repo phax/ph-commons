@@ -46,7 +46,7 @@ public final class PDTConfig
   private static ZoneId s_aDefaultZoneId = TimeZone.getDefault ().toZoneId ();
 
   @PresentForCodeCoverage
-  private static final PDTConfig s_aInstance = new PDTConfig ();
+  private static final PDTConfig INSTANCE = new PDTConfig ();
 
   private PDTConfig ()
   {}

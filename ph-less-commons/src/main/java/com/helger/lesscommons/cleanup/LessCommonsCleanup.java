@@ -30,7 +30,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class LessCommonsCleanup
 {
   @PresentForCodeCoverage
-  private static final LessCommonsCleanup s_aInstance = new LessCommonsCleanup ();
+  private static final LessCommonsCleanup INSTANCE = new LessCommonsCleanup ();
 
   private LessCommonsCleanup ()
   {}

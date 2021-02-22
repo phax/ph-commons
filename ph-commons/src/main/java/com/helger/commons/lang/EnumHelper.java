@@ -57,7 +57,7 @@ public final class EnumHelper
   private static final ICommonsMap <String, Object []> INT_CACHE = new CommonsHashMap <> ();
 
   @PresentForCodeCoverage
-  private static final EnumHelper s_aInstance = new EnumHelper ();
+  private static final EnumHelper INSTANCE = new EnumHelper ();
 
   private EnumHelper ()
   {}

@@ -71,7 +71,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class CollectionHelper
 {
   @PresentForCodeCoverage
-  private static final CollectionHelper s_aInstance = new CollectionHelper ();
+  private static final CollectionHelper INSTANCE = new CollectionHelper ();
 
   private CollectionHelper ()
   {}

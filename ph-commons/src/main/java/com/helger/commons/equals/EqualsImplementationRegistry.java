@@ -53,7 +53,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 {
   private static final class SingletonHolder
   {
-    private static final EqualsImplementationRegistry s_aInstance = new EqualsImplementationRegistry ();
+    private static final EqualsImplementationRegistry INSTANCE = new EqualsImplementationRegistry ();
   }
 
   private static final class ArrayEqualsImplementation implements IEqualsImplementation <Object []>
@@ -104,7 +104,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
   @Nonnull
   public static EqualsImplementationRegistry getInstance ()
   {
-    final EqualsImplementationRegistry ret = SingletonHolder.s_aInstance;
+    final EqualsImplementationRegistry ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

@@ -42,7 +42,7 @@ public final class StringParser
   public static final int DEFAULT_RADIX = 10;
 
   @PresentForCodeCoverage
-  private static final StringParser s_aInstance = new StringParser ();
+  private static final StringParser INSTANCE = new StringParser ();
 
   private StringParser ()
   {}

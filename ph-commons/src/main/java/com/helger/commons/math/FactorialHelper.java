@@ -60,7 +60,7 @@ public final class FactorialHelper
   public static final int PREDEFINED_MAX_INDEX = PREDEFINED_FACTORIALS_LONG.length - 1;
 
   @PresentForCodeCoverage
-  private static final FactorialHelper s_aInstance = new FactorialHelper ();
+  private static final FactorialHelper INSTANCE = new FactorialHelper ();
 
   private FactorialHelper ()
   {}

@@ -180,7 +180,7 @@ public final class CHttpHeader
   public static final String VALUE_SAMEORIGIN = "SAMEORIGIN";
 
   @PresentForCodeCoverage
-  private static final CHttpHeader s_aInstance = new CHttpHeader ();
+  private static final CHttpHeader INSTANCE = new CHttpHeader ();
 
   private CHttpHeader ()
   {}

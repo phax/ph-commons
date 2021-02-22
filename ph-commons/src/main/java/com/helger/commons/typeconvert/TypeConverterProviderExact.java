@@ -28,7 +28,7 @@ import com.helger.commons.lang.GenericReflection;
  */
 public final class TypeConverterProviderExact implements ITypeConverterProvider
 {
-  private static final TypeConverterProviderExact s_aInstance = new TypeConverterProviderExact ();
+  private static final TypeConverterProviderExact INSTANCE = new TypeConverterProviderExact ();
 
   private TypeConverterProviderExact ()
   {}
@@ -36,7 +36,7 @@ public final class TypeConverterProviderExact implements ITypeConverterProvider
   @Nonnull
   public static TypeConverterProviderExact getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   @Nullable

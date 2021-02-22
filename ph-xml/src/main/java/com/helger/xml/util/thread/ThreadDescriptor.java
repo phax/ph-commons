@@ -50,7 +50,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
   public static final boolean DEFAULT_ENABLE_THREAD_INFO = false;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ThreadDescriptor.class);
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   private static final ThreadMXBean THREAD_MX = ManagementFactory.getThreadMXBean ();
 
   private static boolean s_bEnableThreadInfo = DEFAULT_ENABLE_THREAD_INFO;
@@ -73,12 +73,12 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
    */
   public static void setEnableThreadInfo (final boolean bEnableThreadInfo)
   {
-    s_aRWLock.writeLockedBoolean ( () -> s_bEnableThreadInfo = bEnableThreadInfo);
+    RW_LOCK.writeLocked ( () -> s_bEnableThreadInfo = bEnableThreadInfo);
   }
 
   public static boolean isEnableThreadInfo ()
   {
-    return s_aRWLock.readLockedBoolean ( () -> s_bEnableThreadInfo);
+    return RW_LOCK.readLockedBoolean ( () -> s_bEnableThreadInfo);
   }
 
   public ThreadDescriptor (@Nonnull final Thread aThread, @Nullable final String sStackTrace)

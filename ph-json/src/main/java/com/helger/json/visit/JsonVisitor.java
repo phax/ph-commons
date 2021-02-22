@@ -37,7 +37,7 @@ import com.helger.json.IJsonValue;
 public final class JsonVisitor
 {
   @PresentForCodeCoverage
-  private static final JsonVisitor s_aInstance = new JsonVisitor ();
+  private static final JsonVisitor INSTANCE = new JsonVisitor ();
 
   private JsonVisitor ()
   {}

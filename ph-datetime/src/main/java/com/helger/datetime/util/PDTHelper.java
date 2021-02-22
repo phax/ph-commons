@@ -49,7 +49,7 @@ import com.helger.datetime.CPDT;
 public final class PDTHelper
 {
   @PresentForCodeCoverage
-  private static final PDTHelper s_aInstance = new PDTHelper ();
+  private static final PDTHelper INSTANCE = new PDTHelper ();
 
   private PDTHelper ()
   {}

@@ -36,7 +36,7 @@ public final class CommonsAssert
   public static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.001;
 
   @PresentForCodeCoverage
-  private static final CommonsAssert s_aInstance = new CommonsAssert ();
+  private static final CommonsAssert INSTANCE = new CommonsAssert ();
 
   private CommonsAssert ()
   {}

@@ -137,7 +137,7 @@ public final class FilenameHelper
   }
 
   @PresentForCodeCoverage
-  private static final FilenameHelper s_aInstance = new FilenameHelper ();
+  private static final FilenameHelper INSTANCE = new FilenameHelper ();
 
   private FilenameHelper ()
   {}

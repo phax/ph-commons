@@ -70,7 +70,7 @@ public final class CertificateHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (CertificateHelper.class);
 
   @PresentForCodeCoverage
-  private static final CertificateHelper s_aInstance = new CertificateHelper ();
+  private static final CertificateHelper INSTANCE = new CertificateHelper ();
 
   private CertificateHelper ()
   {}

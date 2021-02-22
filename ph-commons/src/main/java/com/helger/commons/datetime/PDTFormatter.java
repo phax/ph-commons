@@ -162,7 +162,7 @@ public final class PDTFormatter
   private static final LocalizedDateFormatCache PARSER_CACHE = new LocalizedDateFormatCache ();
 
   @PresentForCodeCoverage
-  private static final PDTFormatter s_aInstance = new PDTFormatter ();
+  private static final PDTFormatter INSTANCE = new PDTFormatter ();
 
   private PDTFormatter ()
   {}

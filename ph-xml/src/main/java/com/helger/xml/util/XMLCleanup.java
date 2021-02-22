@@ -33,7 +33,7 @@ import com.helger.xml.util.mime.MimeTypeInfoManager;
 public final class XMLCleanup
 {
   @PresentForCodeCoverage
-  private static final XMLCleanup s_aInstance = new XMLCleanup ();
+  private static final XMLCleanup INSTANCE = new XMLCleanup ();
 
   private XMLCleanup ()
   {}

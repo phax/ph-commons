@@ -49,7 +49,7 @@ public final class CJson
   public static final String KEYWORD_NULL = "null";
 
   @PresentForCodeCoverage
-  private static final CJson s_aInstance = new CJson ();
+  private static final CJson INSTANCE = new CJson ();
 
   private CJson ()
   {}

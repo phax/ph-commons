@@ -36,7 +36,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class PDTFormatPatterns
 {
   @PresentForCodeCoverage
-  private static final PDTFormatPatterns s_aInstance = new PDTFormatPatterns ();
+  private static final PDTFormatPatterns INSTANCE = new PDTFormatPatterns ();
 
   private PDTFormatPatterns ()
   {}

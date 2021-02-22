@@ -55,7 +55,7 @@ public final class TreeXMLConverter
   public static final String ELEMENT_DATA = "data";
 
   @PresentForCodeCoverage
-  private static final TreeXMLConverter s_aInstance = new TreeXMLConverter ();
+  private static final TreeXMLConverter INSTANCE = new TreeXMLConverter ();
 
   private TreeXMLConverter ()
   {}

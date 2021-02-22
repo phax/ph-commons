@@ -45,7 +45,7 @@ public final class ClassLoaderHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (ClassLoaderHelper.class);
 
   @PresentForCodeCoverage
-  private static final ClassLoaderHelper s_aInstance = new ClassLoaderHelper ();
+  private static final ClassLoaderHelper INSTANCE = new ClassLoaderHelper ();
 
   private ClassLoaderHelper ()
   {}

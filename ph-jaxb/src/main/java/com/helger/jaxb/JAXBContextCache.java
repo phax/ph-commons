@@ -45,7 +45,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
 {
   private static final class SingletonHolder
   {
-    static final JAXBContextCache s_aInstance = new JAXBContextCache ();
+    static final JAXBContextCache INSTANCE = new JAXBContextCache ();
   }
 
   private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
@@ -89,7 +89,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
   @Nonnull
   public static JAXBContextCache getInstance ()
   {
-    final JAXBContextCache ret = SingletonHolder.s_aInstance;
+    final JAXBContextCache ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

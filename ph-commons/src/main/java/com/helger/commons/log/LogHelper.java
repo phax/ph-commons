@@ -67,7 +67,7 @@ public final class LogHelper
   }
 
   @PresentForCodeCoverage
-  private static final LogHelper s_aInstance = new LogHelper ();
+  private static final LogHelper INSTANCE = new LogHelper ();
 
   private LogHelper ()
   {}

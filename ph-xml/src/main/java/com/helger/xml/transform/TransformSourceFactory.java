@@ -51,7 +51,7 @@ import com.helger.commons.url.URLHelper;
 public final class TransformSourceFactory
 {
   @PresentForCodeCoverage
-  private static final TransformSourceFactory s_aInstance = new TransformSourceFactory ();
+  private static final TransformSourceFactory INSTANCE = new TransformSourceFactory ();
 
   private TransformSourceFactory ()
   {}

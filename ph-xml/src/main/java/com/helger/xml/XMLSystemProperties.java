@@ -48,7 +48,7 @@ public final class XMLSystemProperties
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLSystemProperties.class);
 
   @PresentForCodeCoverage
-  private static final XMLSystemProperties s_aInstance = new XMLSystemProperties ();
+  private static final XMLSystemProperties INSTANCE = new XMLSystemProperties ();
 
   private XMLSystemProperties ()
   {}

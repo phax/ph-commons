@@ -46,7 +46,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class EqualsHelper
 {
   @PresentForCodeCoverage
-  private static final EqualsHelper s_aInstance = new EqualsHelper ();
+  private static final EqualsHelper INSTANCE = new EqualsHelper ();
 
   private EqualsHelper ()
   {}

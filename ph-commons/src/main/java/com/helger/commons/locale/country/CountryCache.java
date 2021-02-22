@@ -54,7 +54,7 @@ public class CountryCache
 {
   private static final class SingletonHolder
   {
-    private static final CountryCache s_aInstance = new CountryCache ();
+    private static final CountryCache INSTANCE = new CountryCache ();
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CountryCache.class);
@@ -108,7 +108,7 @@ public class CountryCache
   @Nonnull
   public static CountryCache getInstance ()
   {
-    final CountryCache ret = SingletonHolder.s_aInstance;
+    final CountryCache ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

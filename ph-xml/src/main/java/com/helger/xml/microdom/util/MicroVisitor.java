@@ -36,7 +36,7 @@ import com.helger.xml.microdom.IMicroNode;
 public final class MicroVisitor
 {
   @PresentForCodeCoverage
-  private static final MicroVisitor s_aInstance = new MicroVisitor ();
+  private static final MicroVisitor INSTANCE = new MicroVisitor ();
 
   private MicroVisitor ()
   {}

@@ -59,7 +59,7 @@ public final class FileOperations
   private static volatile boolean s_bExceptionOnDeleteRoot = DEFAULT_EXCEPTION_ON_DELETE_ROOT;
 
   @PresentForCodeCoverage
-  private static final FileOperations s_aInstance = new FileOperations ();
+  private static final FileOperations INSTANCE = new FileOperations ();
 
   private FileOperations ()
   {}

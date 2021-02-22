@@ -60,7 +60,7 @@ public final class VendorInfo
   public static final int DEFAULT_INCEPTION_YEAR = 2014;
 
   @PresentForCodeCoverage
-  private static final VendorInfo s_aInstance = new VendorInfo ();
+  private static final VendorInfo INSTANCE = new VendorInfo ();
 
   private static String s_sVendorLocation = DEFAULT_VENDOR_LOCATION;
   private static int s_nInceptionYear = DEFAULT_INCEPTION_YEAR;

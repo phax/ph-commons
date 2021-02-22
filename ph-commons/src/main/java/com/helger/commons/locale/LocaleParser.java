@@ -38,7 +38,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class LocaleParser
 {
   @PresentForCodeCoverage
-  private static final LocaleParser s_aInstance = new LocaleParser ();
+  private static final LocaleParser INSTANCE = new LocaleParser ();
 
   private LocaleParser ()
   {}

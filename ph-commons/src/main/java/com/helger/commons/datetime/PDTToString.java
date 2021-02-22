@@ -39,7 +39,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class PDTToString
 {
   @PresentForCodeCoverage
-  private static final PDTToString s_aInstance = new PDTToString ();
+  private static final PDTToString INSTANCE = new PDTToString ();
 
   private PDTToString ()
   {}

@@ -33,7 +33,7 @@ import com.helger.json.convert.JsonEscapeHelper;
  */
 public final class JsonValueSerializerEscaped implements IJsonValueSerializer
 {
-  private static final JsonValueSerializerEscaped s_aInstance = new JsonValueSerializerEscaped ();
+  private static final JsonValueSerializerEscaped INSTANCE = new JsonValueSerializerEscaped ();
 
   private JsonValueSerializerEscaped ()
   {}
@@ -41,7 +41,7 @@ public final class JsonValueSerializerEscaped implements IJsonValueSerializer
   @Nonnull
   public static JsonValueSerializerEscaped getInstance ()
   {
-    return s_aInstance;
+    return INSTANCE;
   }
 
   public static void appendEscapedJsonString (@Nonnull final String sValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException

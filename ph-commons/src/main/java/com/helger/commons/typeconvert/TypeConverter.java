@@ -49,7 +49,7 @@ public final class TypeConverter
   private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
 
   @PresentForCodeCoverage
-  private static final TypeConverter s_aInstance = new TypeConverter ();
+  private static final TypeConverter INSTANCE = new TypeConverter ();
 
   private TypeConverter ()
   {}

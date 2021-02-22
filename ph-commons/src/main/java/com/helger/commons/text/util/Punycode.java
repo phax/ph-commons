@@ -47,7 +47,7 @@ public final class Punycode
   private static final int DELIMITER = 0x2D; // 0x2D
 
   @PresentForCodeCoverage
-  private static final Punycode s_aInstance = new Punycode ();
+  private static final Punycode INSTANCE = new Punycode ();
 
   private Punycode ()
   {}

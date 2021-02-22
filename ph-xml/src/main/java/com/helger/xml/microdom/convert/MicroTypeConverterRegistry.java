@@ -51,7 +51,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
 {
   private static final class SingletonHolder
   {
-    private static final MicroTypeConverterRegistry s_aInstance = new MicroTypeConverterRegistry ();
+    private static final MicroTypeConverterRegistry INSTANCE = new MicroTypeConverterRegistry ();
   }
 
   public static final boolean DEFAULT_USE_CLASS_HIERARCHY = false;
@@ -81,7 +81,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   @Nonnull
   public static MicroTypeConverterRegistry getInstance ()
   {
-    final MicroTypeConverterRegistry ret = SingletonHolder.s_aInstance;
+    final MicroTypeConverterRegistry ret = SingletonHolder.INSTANCE;
     s_bDefaultInstantiated = true;
     return ret;
   }

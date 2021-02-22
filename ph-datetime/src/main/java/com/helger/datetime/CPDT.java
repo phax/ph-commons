@@ -67,7 +67,7 @@ public final class CPDT
   public static final int LAST_JULIAN_YEAR = 1583;
 
   @PresentForCodeCoverage
-  private static final CPDT s_aInstance = new CPDT ();
+  private static final CPDT INSTANCE = new CPDT ();
 
   private CPDT ()
   {}

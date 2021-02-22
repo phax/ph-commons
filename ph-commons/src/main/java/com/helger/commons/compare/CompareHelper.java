@@ -43,7 +43,7 @@ public final class CompareHelper
   public static final boolean DEFAULT_NULL_VALUES_COME_FIRST = true;
 
   @PresentForCodeCoverage
-  private static final CompareHelper s_aInstance = new CompareHelper ();
+  private static final CompareHelper INSTANCE = new CompareHelper ();
 
   private CompareHelper ()
   {}

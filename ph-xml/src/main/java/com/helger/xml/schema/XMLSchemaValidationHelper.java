@@ -44,7 +44,7 @@ import com.helger.xml.transform.TransformSourceFactory;
 public final class XMLSchemaValidationHelper
 {
   @PresentForCodeCoverage
-  private static final XMLSchemaValidationHelper s_aInstance = new XMLSchemaValidationHelper ();
+  private static final XMLSchemaValidationHelper INSTANCE = new XMLSchemaValidationHelper ();
 
   private XMLSchemaValidationHelper ()
   {}

@@ -64,7 +64,7 @@ public final class SAXReader
   private static final IMutableObjectPool <org.xml.sax.XMLReader> POOL = new ObjectPool <> (10, new SAXReaderFactory ());
 
   @PresentForCodeCoverage
-  private static final SAXReader s_aInstance = new SAXReader ();
+  private static final SAXReader INSTANCE = new SAXReader ();
 
   private SAXReader ()
   {}

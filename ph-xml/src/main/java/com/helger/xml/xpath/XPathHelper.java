@@ -42,16 +42,16 @@ import com.helger.xml.EXMLParserFeature;
 @NotThreadSafe
 public final class XPathHelper
 {
-  private static final XPathFactory s_aXPathFactory;
+  private static final XPathFactory XPATH_FACTORY;
 
   static
   {
-    s_aXPathFactory = XPathFactory.newInstance ();
-    EXMLParserFeature.SECURE_PROCESSING.applyTo (s_aXPathFactory, true);
+    XPATH_FACTORY = XPathFactory.newInstance ();
+    EXMLParserFeature.SECURE_PROCESSING.applyTo (XPATH_FACTORY, true);
   }
 
   @PresentForCodeCoverage
-  private static final XPathHelper s_aInstance = new XPathHelper ();
+  private static final XPathHelper INSTANCE = new XPathHelper ();
 
   private XPathHelper ()
   {}
@@ -63,7 +63,7 @@ public final class XPathHelper
   @Nonnull
   public static XPathFactory getDefaultXPathFactory ()
   {
-    return s_aXPathFactory;
+    return XPATH_FACTORY;
   }
 
   /**
@@ -115,7 +115,7 @@ public final class XPathHelper
   @Nonnull
   public static XPath createNewXPath ()
   {
-    return createNewXPath (s_aXPathFactory, (XPathVariableResolver) null, (XPathFunctionResolver) null, (NamespaceContext) null);
+    return createNewXPath (XPATH_FACTORY, (XPathVariableResolver) null, (XPathFunctionResolver) null, (NamespaceContext) null);
   }
 
   /**
@@ -142,7 +142,7 @@ public final class XPathHelper
   @Nonnull
   public static XPath createNewXPath (@Nullable final XPathVariableResolver aVariableResolver)
   {
-    return createNewXPath (s_aXPathFactory, aVariableResolver, (XPathFunctionResolver) null, (NamespaceContext) null);
+    return createNewXPath (XPATH_FACTORY, aVariableResolver, (XPathFunctionResolver) null, (NamespaceContext) null);
   }
 
   /**
@@ -171,7 +171,7 @@ public final class XPathHelper
   @Nonnull
   public static XPath createNewXPath (@Nullable final XPathFunctionResolver aFunctionResolver)
   {
-    return createNewXPath (s_aXPathFactory, (XPathVariableResolver) null, aFunctionResolver, (NamespaceContext) null);
+    return createNewXPath (XPATH_FACTORY, (XPathVariableResolver) null, aFunctionResolver, (NamespaceContext) null);
   }
 
   /**
@@ -200,7 +200,7 @@ public final class XPathHelper
   @Nonnull
   public static XPath createNewXPath (@Nullable final NamespaceContext aNamespaceContext)
   {
-    return createNewXPath (s_aXPathFactory, (XPathVariableResolver) null, (XPathFunctionResolver) null, aNamespaceContext);
+    return createNewXPath (XPATH_FACTORY, (XPathVariableResolver) null, (XPathFunctionResolver) null, aNamespaceContext);
   }
 
   /**
@@ -232,7 +232,7 @@ public final class XPathHelper
   public static XPath createNewXPath (@Nullable final XPathVariableResolver aVariableResolver,
                                       @Nullable final NamespaceContext aNamespaceContext)
   {
-    return createNewXPath (s_aXPathFactory, aVariableResolver, (XPathFunctionResolver) null, aNamespaceContext);
+    return createNewXPath (XPATH_FACTORY, aVariableResolver, (XPathFunctionResolver) null, aNamespaceContext);
   }
 
   /**
@@ -252,7 +252,7 @@ public final class XPathHelper
                                       @Nullable final XPathFunctionResolver aFunctionResolver,
                                       @Nullable final NamespaceContext aNamespaceContext)
   {
-    return createNewXPath (s_aXPathFactory, aVariableResolver, aFunctionResolver, aNamespaceContext);
+    return createNewXPath (XPATH_FACTORY, aVariableResolver, aFunctionResolver, aNamespaceContext);
   }
 
   /**

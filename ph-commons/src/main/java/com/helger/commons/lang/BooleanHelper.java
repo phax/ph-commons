@@ -30,7 +30,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class BooleanHelper
 {
   @PresentForCodeCoverage
-  private static final BooleanHelper s_aInstance = new BooleanHelper ();
+  private static final BooleanHelper INSTANCE = new BooleanHelper ();
 
   private BooleanHelper ()
   {}

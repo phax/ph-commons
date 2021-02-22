@@ -61,7 +61,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
   private static final int DEFAULT_KEY_LENGTH = 255;
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractSingleton.class);
-  private static final IMutableStatisticsHandlerKeyedCounter s_aStatsCounterInstantiate = StatisticsManager.getKeyedCounterHandler (AbstractSingleton.class);
+  private static final IMutableStatisticsHandlerKeyedCounter STATS_INSTANCE_COUNTER = StatisticsManager.getKeyedCounterHandler (AbstractSingleton.class);
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
@@ -391,8 +392,6 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     return new StringBuilder (DEFAULT_KEY_LENGTH).append ("singleton.").append (aClass.getName ()).toString ();
   }
 
-  private static SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-
   /**
    * Get the singleton object if it is already instantiated inside a scope or
    * <code>null</code> if it is not instantiated.
@@ -416,7 +415,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     if (aScope != null)
     {
       final String sSingletonScopeKey = getSingletonScopeKey (aClass);
-      final Object aObject = s_aRWLock.readLockedGet ( () -> aScope.attrs ().get (sSingletonScopeKey));
+      final Object aObject = RW_LOCK.readLockedGet ( () -> aScope.attrs ().get (sSingletonScopeKey));
       if (aObject != null)
       {
         // Object is in the scope
@@ -532,13 +531,13 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     final String sSingletonScopeKey = getSingletonScopeKey (aClass);
 
     // check if already contained in passed scope
-    T aInstance = s_aRWLock.readLockedGet ( () -> aScope.attrs ().getCastedValue (sSingletonScopeKey));
+    T aInstance = RW_LOCK.readLockedGet ( () -> aScope.attrs ().getCastedValue (sSingletonScopeKey));
     if (aInstance == null || aInstance.isInInstantiation ())
     {
       // Not yet present or just in instantiation
 
       // Safe instantiation check in write lock
-      s_aRWLock.writeLock ().lock ();
+      RW_LOCK.writeLock ().lock ();
       try
       {
         // Check again in write lock
@@ -570,7 +569,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
           }
 
           // And some statistics
-          s_aStatsCounterInstantiate.increment (sSingletonScopeKey);
+          STATS_INSTANCE_COUNTER.increment (sSingletonScopeKey);
         }
         else
         {
@@ -583,7 +582,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       }
       finally
       {
-        s_aRWLock.writeLock ().unlock ();
+        RW_LOCK.writeLock ().unlock ();
       }
     }
 
