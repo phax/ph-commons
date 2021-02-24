@@ -39,6 +39,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.builder.IBuilder;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -66,9 +67,9 @@ public final class StreamHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (StreamHelper.class);
 
   private static final IMutableStatisticsHandlerSize STATS_COPY_BYTES = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
-                                                                                                        "$COPY");
+                                                                                                          "$COPY");
   private static final IMutableStatisticsHandlerSize STATS_COPY_CHARS = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
-                                                                                                        "$COPYCHARS");
+                                                                                                          "$COPYCHARS");
   @PresentForCodeCoverage
   private static final StreamHelper INSTANCE = new StreamHelper ();
 
@@ -206,141 +207,6 @@ public final class StreamHelper
     return ESuccess.FAILURE;
   }
 
-  @Nonnegative
-  private static long _copyInputStreamToOutputStream (@Nonnull @WillNotClose final InputStream aIS,
-                                                      @Nonnull @WillNotClose final OutputStream aOS,
-                                                      @Nonnull final byte [] aBuffer) throws IOException
-  {
-    final int nBufferLength = aBuffer.length;
-    long nTotalBytesWritten = 0;
-    int nBytesRead;
-    // Potentially blocking read
-    while ((nBytesRead = aIS.read (aBuffer, 0, nBufferLength)) > -1)
-    {
-      aOS.write (aBuffer, 0, nBytesRead);
-      nTotalBytesWritten += nBytesRead;
-    }
-    return nTotalBytesWritten;
-  }
-
-  @Nonnegative
-  private static long _copyInputStreamToOutputStreamWithLimit (@Nonnull @WillNotClose final InputStream aIS,
-                                                               @Nonnull @WillNotClose final OutputStream aOS,
-                                                               @Nonnull final byte [] aBuffer,
-                                                               @Nonnegative final long nLimit) throws IOException
-  {
-    final int nBufferLength = aBuffer.length;
-    long nRest = nLimit;
-    long nTotalBytesWritten = 0;
-    while (true)
-    {
-      // if nRest is smaller than aBuffer.length, which is an int, it is safe to
-      // cast nRest also to an int!
-      final int nBytesToRead = nRest >= nBufferLength ? nBufferLength : (int) nRest;
-      if (nBytesToRead == 0)
-        break;
-      // Potentially blocking read
-      final int nBytesRead = aIS.read (aBuffer, 0, nBytesToRead);
-      if (nBytesRead == -1)
-      {
-        // EOF
-        break;
-      }
-      if (nBytesRead > 0)
-      {
-        // At least one byte read
-        aOS.write (aBuffer, 0, nBytesRead);
-        nTotalBytesWritten += nBytesRead;
-        nRest -= nBytesRead;
-      }
-    }
-    return nTotalBytesWritten;
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>.
-   * @param bCloseIS
-   *        <code>true</code> to close the InputStream, <code>false</code> to
-   *        leave it open.
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>.
-   * @param bCloseOS
-   *        <code>true</code> to close the OutputStream, <code>false</code> to
-   *        leave it open.
-   * @param aBuffer
-   *        The buffer to use. May not be <code>null</code>.
-   * @param aLimit
-   *        An optional maximum number of bytes to copied from the input stream
-   *        to the output stream. May be <code>null</code> to indicate no limit,
-   *        meaning all bytes are copied.
-   * @param aExceptionCallback
-   *        The Exception callback to be invoked, if an exception occurs. May
-   *        not be <code>null</code>.
-   * @param aCopyByteCount
-   *        An optional mutable long object that will receive the total number
-   *        of copied bytes. Note: and optional old value is overwritten. Note:
-   *        this is only called, if copying was successful, and not in case of
-   *        an exception.
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   * @since 9.3.6
-   */
-  @Nonnull
-  public static ESuccess copyInputStreamToOutputStream (@Nullable final InputStream aIS,
-                                                        final boolean bCloseIS,
-                                                        @Nullable final OutputStream aOS,
-                                                        final boolean bCloseOS,
-                                                        @Nonnull @Nonempty final byte [] aBuffer,
-                                                        @Nullable final Long aLimit,
-                                                        @Nullable final IExceptionCallback <IOException> aExceptionCallback,
-                                                        @Nullable final MutableLong aCopyByteCount)
-  {
-    try
-    {
-      ValueEnforcer.notEmpty (aBuffer, "Buffer");
-      ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
-
-      if (aIS != null && aOS != null)
-      {
-        // both streams are not null
-        final long nTotalBytesCopied;
-        if (aLimit == null)
-          nTotalBytesCopied = _copyInputStreamToOutputStream (aIS, aOS, aBuffer);
-        else
-          nTotalBytesCopied = _copyInputStreamToOutputStreamWithLimit (aIS, aOS, aBuffer, aLimit.longValue ());
-
-        // Add to statistics
-        STATS_COPY_BYTES.addSize (nTotalBytesCopied);
-
-        // Remember copied bytes?
-        if (aCopyByteCount != null)
-          aCopyByteCount.set (nTotalBytesCopied);
-        return ESuccess.SUCCESS;
-      }
-    }
-    catch (final IOException ex)
-    {
-      if (aExceptionCallback != null)
-        aExceptionCallback.onException (ex);
-      else
-        if (!isKnownEOFException (ex))
-          LOGGER.error ("Failed to copy from InputStream to OutputStream", _propagate (ex));
-    }
-    finally
-    {
-      // Ensure streams are closed under all circumstances
-      if (bCloseIS)
-        close (aIS);
-      if (bCloseOS)
-        close (aOS);
-    }
-    return ESuccess.FAILURE;
-  }
-
   /**
    * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never
    *         <code>null</code>.
@@ -370,7 +236,7 @@ public final class StreamHelper
   public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
                                                         @WillNotClose @Nullable final OutputStream aOS)
   {
-    return copyInputStreamToOutputStream (aIS, true, aOS, false, createDefaultCopyBufferBytes (), (Long) null, null, (MutableLong) null);
+    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (false).build ();
   }
 
   /**
@@ -390,7 +256,7 @@ public final class StreamHelper
   public static ESuccess copyInputStreamToOutputStreamAndCloseOS (@WillClose @Nullable final InputStream aIS,
                                                                   @WillClose @Nullable final OutputStream aOS)
   {
-    return copyInputStreamToOutputStream (aIS, true, aOS, true, createDefaultCopyBufferBytes (), (Long) null, null, (MutableLong) null);
+    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (true).build ();
   }
 
   /**
@@ -414,14 +280,7 @@ public final class StreamHelper
                                                                  @WillNotClose @Nullable final OutputStream aOS,
                                                                  @Nonnegative final long nLimit)
   {
-    return copyInputStreamToOutputStream (aIS,
-                                          true,
-                                          aOS,
-                                          false,
-                                          createDefaultCopyBufferBytes (),
-                                          Long.valueOf (nLimit),
-                                          null,
-                                          (MutableLong) null);
+    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (false).limit (nLimit).build ();
   }
 
   /**
@@ -445,14 +304,7 @@ public final class StreamHelper
                                                                            @WillClose @Nullable final OutputStream aOS,
                                                                            @Nonnegative final long nLimit)
   {
-    return copyInputStreamToOutputStream (aIS,
-                                          true,
-                                          aOS,
-                                          true,
-                                          createDefaultCopyBufferBytes (),
-                                          Long.valueOf (nLimit),
-                                          null,
-                                          (MutableLong) null);
+    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (true).limit (nLimit).build ();
   }
 
   /**
@@ -476,7 +328,7 @@ public final class StreamHelper
                                                         @WillNotClose @Nullable final OutputStream aOS,
                                                         @Nullable final MutableLong aCopyByteCount)
   {
-    return copyInputStreamToOutputStream (aIS, true, aOS, false, createDefaultCopyBufferBytes (), (Long) null, null, aCopyByteCount);
+    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (false).copyByteCount (aCopyByteCount).build ();
   }
 
   /**
@@ -499,7 +351,308 @@ public final class StreamHelper
                                                         @WillNotClose @Nullable final OutputStream aOS,
                                                         @Nonnull final byte [] aBuffer)
   {
-    return copyInputStreamToOutputStream (aIS, true, aOS, false, aBuffer, (Long) null, null, (MutableLong) null);
+    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (false).buffer (aBuffer).build ();
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. The
+   * input stream is automatically closed, whereas the output stream stays open!
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   * @param bCloseIS
+   *        <code>true</code> to close the InputStream, <code>false</code> to
+   *        leave it open.
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>.
+   * @param bCloseOS
+   *        <code>true</code> to close the OutputStream, <code>false</code> to
+   *        leave it open.
+   * @param aBuffer
+   *        The buffer to use. May not be <code>null</code>.
+   * @param aLimit
+   *        An optional maximum number of bytes to copied from the input stream
+   *        to the output stream. May be <code>null</code> to indicate no limit,
+   *        meaning all bytes are copied.
+   * @param aExceptionCallback
+   *        The Exception callback to be invoked, if an exception occurs. May be
+   *        <code>null</code>.
+   * @param aCopyByteCount
+   *        An optional mutable long object that will receive the total number
+   *        of copied bytes. Note: and optional old value is overwritten. Note:
+   *        this is only called, if copying was successful, and not in case of
+   *        an exception.
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   * @since 9.3.6
+   */
+  @Nonnull
+  public static ESuccess copyInputStreamToOutputStream (@Nullable final InputStream aIS,
+                                                        final boolean bCloseIS,
+                                                        @Nullable final OutputStream aOS,
+                                                        final boolean bCloseOS,
+                                                        @Nonnull @Nonempty final byte [] aBuffer,
+                                                        @Nullable final Long aLimit,
+                                                        @Nullable final IExceptionCallback <IOException> aExceptionCallback,
+                                                        @Nullable final MutableLong aCopyByteCount)
+  {
+    return copyStream ().from (aIS)
+                        .closeSource (bCloseIS)
+                        .to (aOS)
+                        .closeDestination (bCloseOS)
+                        .buffer (aBuffer)
+                        .limit (aLimit == null ? -1 : aLimit.longValue ())
+                        .exceptionCallback (aExceptionCallback)
+                        .copyByteCount (aCopyByteCount)
+                        .build ();
+  }
+
+  /**
+   * @return A new {@link CopyStreamBuilder}. Never <code>null</code>.
+   */
+  @Nonnull
+  public static CopyStreamBuilder copyStream ()
+  {
+    return new CopyStreamBuilder ();
+  }
+
+  /**
+   * A simple builder to copy an InputStream ({@link #from(InputStream)}) to an
+   * OutputStream ({@link #to(OutputStream)}) with certain parameters.
+   *
+   * @author Philip Helger
+   * @since 10.0.0
+   */
+  public static class CopyStreamBuilder implements IBuilder <ESuccess>
+  {
+    public static final boolean DEFAULT_CLOSE_SOURCE = false;
+    public static final boolean DEFAULT_CLOSE_DESTINATION = false;
+
+    private InputStream m_aIS;
+    private boolean m_bCloseIS = DEFAULT_CLOSE_SOURCE;
+    private OutputStream m_aOS;
+    private boolean m_bCloseOS = DEFAULT_CLOSE_DESTINATION;
+    private byte [] m_aBuffer;
+    private long m_nLimit = CGlobal.ILLEGAL_ULONG;
+    private IExceptionCallback <IOException> m_aExceptionCallback;
+    private MutableLong m_aCopyByteCount;
+
+    /**
+     * @param a
+     *        The input stream to read from. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyStreamBuilder from (@Nullable final InputStream a)
+    {
+      m_aIS = a;
+      return this;
+    }
+
+    /**
+     * @param b
+     *        <code>true</code> to close the InputStream, <code>false</code> to
+     *        leave it open. Default is {@link #DEFAULT_CLOSE_SOURCE}
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyStreamBuilder closeSource (final boolean b)
+    {
+      m_bCloseIS = b;
+      return this;
+    }
+
+    /**
+     * @param a
+     *        The output stream to write to. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyStreamBuilder to (@Nullable final OutputStream a)
+    {
+      m_aOS = a;
+      return this;
+    }
+
+    /**
+     * @param b
+     *        <code>true</code> to close the OutputStream, <code>false</code> to
+     *        leave it open.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyStreamBuilder closeDestination (final boolean b)
+    {
+      m_bCloseOS = b;
+      return this;
+    }
+
+    /**
+     * @param a
+     *        The buffer to use. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyStreamBuilder buffer (@Nullable final byte [] a)
+    {
+      m_aBuffer = a;
+      return this;
+    }
+
+    /**
+     * @param n
+     *        An optional maximum number of bytes to copied from the input
+     *        stream to the output stream. May be &lt; 0 to indicate no limit,
+     *        meaning all bytes are copied.
+     * @return this for chaining
+     * @see #unlimited()
+     */
+    @Nonnull
+    public CopyStreamBuilder limit (final long n)
+    {
+      m_nLimit = n;
+      return this;
+    }
+
+    /**
+     * Ensure no limit in copying (which is also the default).
+     *
+     * @return this for chaining
+     * @see #limit(long)
+     */
+    @Nonnull
+    public CopyStreamBuilder unlimited ()
+    {
+      return limit (CGlobal.ILLEGAL_ULONG);
+    }
+
+    /**
+     * @param a
+     *        The Exception callback to be invoked, if an exception occurs. May
+     *        be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyStreamBuilder exceptionCallback (@Nullable final IExceptionCallback <IOException> a)
+    {
+      m_aExceptionCallback = a;
+      return this;
+    }
+
+    /**
+     * @param a
+     *        An optional mutable long object that will receive the total number
+     *        of copied bytes. Note: and optional old value is overwritten.
+     *        Note: this is only called, if copying was successful, and not in
+     *        case of an exception.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyStreamBuilder copyByteCount (@Nullable final MutableLong a)
+    {
+      m_aCopyByteCount = a;
+      return this;
+    }
+
+    @Nonnegative
+    private static long _copyInputStreamToOutputStream (@Nonnull @WillNotClose final InputStream aIS,
+                                                        @Nonnull @WillNotClose final OutputStream aOS,
+                                                        @Nonnull final byte [] aBuffer) throws IOException
+    {
+      final int nBufferLength = aBuffer.length;
+      long nTotalBytesWritten = 0;
+      int nBytesRead;
+      // Potentially blocking read
+      while ((nBytesRead = aIS.read (aBuffer, 0, nBufferLength)) > -1)
+      {
+        aOS.write (aBuffer, 0, nBytesRead);
+        nTotalBytesWritten += nBytesRead;
+      }
+      return nTotalBytesWritten;
+    }
+
+    @Nonnegative
+    private static long _copyInputStreamToOutputStreamWithLimit (@Nonnull @WillNotClose final InputStream aIS,
+                                                                 @Nonnull @WillNotClose final OutputStream aOS,
+                                                                 @Nonnull final byte [] aBuffer,
+                                                                 @Nonnegative final long nLimit) throws IOException
+    {
+      final int nBufferLength = aBuffer.length;
+      long nRest = nLimit;
+      long nTotalBytesWritten = 0;
+      while (true)
+      {
+        // if nRest is smaller than aBuffer.length, which is an int, it is safe
+        // to
+        // cast nRest also to an int!
+        final int nBytesToRead = nRest >= nBufferLength ? nBufferLength : (int) nRest;
+        if (nBytesToRead == 0)
+          break;
+        // Potentially blocking read
+        final int nBytesRead = aIS.read (aBuffer, 0, nBytesToRead);
+        if (nBytesRead == -1)
+        {
+          // EOF
+          break;
+        }
+        if (nBytesRead > 0)
+        {
+          // At least one byte read
+          aOS.write (aBuffer, 0, nBytesRead);
+          nTotalBytesWritten += nBytesRead;
+          nRest -= nBytesRead;
+        }
+      }
+      return nTotalBytesWritten;
+    }
+
+    /**
+     * This method performs the main copying
+     */
+    @Nonnull
+    public ESuccess build ()
+    {
+      if (m_aIS == null)
+        return ESuccess.FAILURE;
+      if (m_aOS == null)
+        return ESuccess.FAILURE;
+
+      final byte [] aBuffer = m_aBuffer != null && m_aBuffer.length > 0 ? m_aBuffer : createDefaultCopyBufferBytes ();
+      try
+      {
+        // both streams are not null
+        final long nTotalBytesCopied;
+        if (m_nLimit < 0)
+          nTotalBytesCopied = _copyInputStreamToOutputStream (m_aIS, m_aOS, aBuffer);
+        else
+          nTotalBytesCopied = _copyInputStreamToOutputStreamWithLimit (m_aIS, m_aOS, aBuffer, m_nLimit);
+
+        // Add to statistics
+        STATS_COPY_BYTES.addSize (nTotalBytesCopied);
+
+        // Remember copied bytes?
+        if (m_aCopyByteCount != null)
+          m_aCopyByteCount.set (nTotalBytesCopied);
+        return ESuccess.SUCCESS;
+      }
+      catch (final IOException ex)
+      {
+        if (m_aExceptionCallback != null)
+          m_aExceptionCallback.onException (ex);
+        else
+          if (!isKnownEOFException (ex))
+            LOGGER.error ("Failed to copy from InputStream to OutputStream", _propagate (ex));
+      }
+      finally
+      {
+        // Ensure streams are closed under all circumstances
+        if (m_bCloseIS)
+          close (m_aIS);
+        if (m_bCloseOS)
+          close (m_aOS);
+      }
+      return ESuccess.FAILURE;
+    }
   }
 
   /**

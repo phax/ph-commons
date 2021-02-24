@@ -162,23 +162,11 @@ public final class StreamHelperTest
       }
     }, aBAOS).isFailure ());
 
-    try
-    {
-      // null buffer
-      StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, (byte []) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    // null buffer is handled internally
+    StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, (byte []) null);
 
-    try
-    {
-      // empty buffer
-      StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [0]);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    // empty buffer is handled internally
+    StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [0]);
   }
 
   @Test
@@ -201,14 +189,8 @@ public final class StreamHelperTest
     assertEquals ("Hello12Bytes", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
 
-    try
-    {
-      // Negative limit is not allowed
-      StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput), aBAOS, -1);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    // Negative limit is ignored internally
+    StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput), aBAOS, -1);
   }
 
   @Test
