@@ -18,6 +18,9 @@ package com.helger.commons.collection.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
 
 import org.junit.Test;
 
@@ -106,5 +109,35 @@ public final class CommonsArrayListTest
     assertEquals (3, aTest.findLastIndex (x -> x.equals ("b")));
     assertEquals (2, aTest.findLastIndex (x -> x.equals ("c")));
     assertEquals (-1, aTest.findLastIndex (x -> x.equals ("d")));
+  }
+
+  @Test
+  public void testForEachThrowing ()
+  {
+    final ICommonsList <String> aTest = new CommonsArrayList <> ("a");
+
+    try
+    {
+      aTest.forEachThrowing (s -> {
+        throw new IllegalStateException (s);
+      });
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      assertEquals ("a", ex.getMessage ());
+    }
+
+    try
+    {
+      aTest.forEachThrowing (s -> {
+        throw new IOException (s);
+      });
+      fail ();
+    }
+    catch (final IOException ex)
+    {
+      assertEquals ("a", ex.getMessage ());
+    }
   }
 }

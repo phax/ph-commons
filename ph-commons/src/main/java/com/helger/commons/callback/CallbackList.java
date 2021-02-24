@@ -66,12 +66,28 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackL
       m_aCallbacks.addAll (aOther.m_aCallbacks);
   }
 
+  /**
+   * Clear all elements and add all provided values. If no value is provided,the
+   * collection is empty afterwards.
+   *
+   * @param rhs
+   *        the callback list to set. May not be <code>null</code>.
+   * @return {@link EChange}
+   */
   @Nonnull
   public EChange set (@Nonnull final CallbackList <CALLBACKTYPE> rhs)
   {
+    ValueEnforcer.notNull (rhs, "rhs");
     return m_aRWLock.writeLockedGet ( () -> m_aCallbacks.setAll (rhs.m_aCallbacks));
   }
 
+  /**
+   * Clear all elements and add only the passed value.
+   *
+   * @param aCallback
+   *        The callback to be used. May not be <code>null</code>.
+   * @return {@link EChange}
+   */
   @Nonnull
   public EChange set (@Nonnull final CALLBACKTYPE aCallback)
   {
@@ -94,6 +110,13 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackL
     return m_aRWLock.writeLockedGet ( () -> m_aCallbacks.addObject (aCallback));
   }
 
+  /**
+   * Add an array of elements to this collection.
+   *
+   * @param aCallbacks
+   *        The elements to be added. May be null.
+   * @return {@link EChange}
+   */
   @Nonnull
   @SafeVarargs
   public final EChange addAll (@Nonnull final CALLBACKTYPE... aCallbacks)

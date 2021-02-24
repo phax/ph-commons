@@ -60,6 +60,7 @@ This project was the following modules:
     * Added class `PasswordHashCreatorPBKDF2_SHA256_1000_48` for better PBKDF2 usage
     * Deprecated class `PasswordHashCreatorPBKDF2_1000_48` because it uses the PBKDF2 with the SHA1 hash
     * Added new class `StringHelper.ImploderBuilder` that handles all the `StringHelper.getImploded*` stuff internally
+    * Added new method `ICommonsIterable.forEachThrowing`
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`

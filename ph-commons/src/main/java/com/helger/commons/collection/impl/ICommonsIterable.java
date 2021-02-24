@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.IteratorHelper;
+import com.helger.commons.functional.IThrowingConsumer;
 import com.helger.commons.state.EContinue;
 
 /**
@@ -73,6 +74,24 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
       if (aConsumer.apply (aElement).isBreak ())
         return EContinue.BREAK;
     return EContinue.CONTINUE;
+  }
+
+  /**
+   * A special version of {@link #forEach(Consumer)} where a consumer can throw
+   * an exception.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   * @throws EXTYPE
+   *         If one of the consumer throws this exception
+   * @param <EXTYPE>
+   *        the type of Exception to be thrown
+   * @since 10.0.0
+   */
+  default <EXTYPE extends Throwable> void forEachThrowing (@Nonnull final IThrowingConsumer <? super ELEMENTTYPE, EXTYPE> aConsumer) throws EXTYPE
+  {
+    for (final ELEMENTTYPE aCallback : this)
+      aConsumer.accept (aCallback);
   }
 
   /**
