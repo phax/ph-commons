@@ -204,4 +204,17 @@ public final class URLHelperTest
     final FileSystemResource fs = new FileSystemResource (f);
     assertEquals (new File ("/dir/include.xml").getAbsolutePath (), fs.getPath ());
   }
+
+  @Test
+  public void testIsValidURN ()
+  {
+    assertTrue (URLHelper.isValidURN ("urn:de4a:dba:canonical-evidence:v0.5"));
+    assertFalse (URLHelper.isValidURN ("ur:de4a:dba:canonical-evidence:v0.5"));
+    assertFalse (URLHelper.isValidURN ("urn:de4a"));
+    assertFalse (URLHelper.isValidURN (null));
+    assertFalse (URLHelper.isValidURN (""));
+    assertFalse (URLHelper.isValidURN (" urn:de4a:dba:canonical-evidence:v0.5"));
+    assertFalse (URLHelper.isValidURN ("urn:de4a:dba:canonical-evidence:v0.5 "));
+    assertFalse (URLHelper.isValidURN ("  urn:de4a:dba:canonical-evidence:v0.5  "));
+  }
 }

@@ -38,6 +38,7 @@ import java.util.jar.JarEntry;
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.RegEx;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
@@ -61,6 +62,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.wrapper.IMutableWrapper;
@@ -985,5 +987,29 @@ public final class URLHelper
   public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath, @Nonnull final ClassLoader aClassLoader)
   {
     return ClassLoaderHelper.getResource (aClassLoader, sPath) != null;
+  }
+
+  @RegEx
+  public static final String REGEX_URN = "^\\Qurn:\\E" +
+                                         "[a-zA-Z0-9][a-zA-Z0-9-]{0,31}" +
+                                         "\\Q:\\E" +
+                                         "[a-zA-Z0-9()+,\\-.:=@;$_!*'%/?#]+" +
+                                         "$";
+
+  /**
+   * Check if the provided string is valid according to RFC 2141. Leading and
+   * trailing spaces of the value to check will result in a negative result.
+   *
+   * @param sURN
+   *        the URN to be validated. May be <code>null</code>.
+   * @return <code>true</code> if the provided URN is not empty and matches the
+   *         regular expression {@link #REGEX_URN}.
+   * @since 10.0.0
+   */
+  public static boolean isValidURN (@Nullable final String sURN)
+  {
+    if (StringHelper.hasNoText (sURN))
+      return false;
+    return RegExHelper.stringMatchesPattern (REGEX_URN, sURN);
   }
 }

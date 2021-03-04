@@ -62,6 +62,7 @@ This project was the following modules:
     * Added new class `StringHelper.ImploderBuilder` that handles all the `StringHelper.getImploded*` stuff internally
     * Added new method `ICommonsIterable.forEachThrowing`
     * Added new class `StreamHelper.CopyStreamBuilder`
+    * Added new method `URLHelper.isValidURN` to check RFC 2141 compliance
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`
