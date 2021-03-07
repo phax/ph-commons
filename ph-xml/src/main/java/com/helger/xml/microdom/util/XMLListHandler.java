@@ -136,7 +136,7 @@ public final class XMLListHandler
     {
       // open file
       final IMicroDocument aDoc = MicroReader.readMicroXML (aIS,
-                                                            new SAXReaderSettings ().setFeatureValues (EXMLParserFeature.AVOID_XXE_SETTINGS));
+                                                            new SAXReaderSettings ().setFeatureValues (EXMLParserFeature.AVOID_XML_ATTACKS));
       if (aDoc != null)
       {
         readList (aDoc.getDocumentElement (), aTargetList);
