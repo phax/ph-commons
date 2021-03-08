@@ -236,7 +236,7 @@ public final class StreamHelper
   public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
                                                         @WillNotClose @Nullable final OutputStream aOS)
   {
-    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (false).build ();
+    return copyByteStream ().from (aIS).closeFrom (true).to (aOS).closeTo (false).build ();
   }
 
   /**
@@ -256,7 +256,7 @@ public final class StreamHelper
   public static ESuccess copyInputStreamToOutputStreamAndCloseOS (@WillClose @Nullable final InputStream aIS,
                                                                   @WillClose @Nullable final OutputStream aOS)
   {
-    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (true).build ();
+    return copyByteStream ().from (aIS).closeFrom (true).to (aOS).closeTo (true).build ();
   }
 
   /**
@@ -274,13 +274,15 @@ public final class StreamHelper
    *        be &ge; 0.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
   @Nonnull
+  @Deprecated
   public static ESuccess copyInputStreamToOutputStreamWithLimit (@WillClose @Nullable final InputStream aIS,
                                                                  @WillNotClose @Nullable final OutputStream aOS,
                                                                  @Nonnegative final long nLimit)
   {
-    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (false).limit (nLimit).build ();
+    return copyByteStream ().from (aIS).closeFrom (true).to (aOS).closeTo (false).limit (nLimit).build ();
   }
 
   /**
@@ -298,13 +300,15 @@ public final class StreamHelper
    *        be &ge; 0.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyInputStreamToOutputStreamWithLimitAndCloseOS (@WillClose @Nullable final InputStream aIS,
                                                                            @WillClose @Nullable final OutputStream aOS,
                                                                            @Nonnegative final long nLimit)
   {
-    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (true).limit (nLimit).build ();
+    return copyByteStream ().from (aIS).closeFrom (true).to (aOS).closeTo (true).limit (nLimit).build ();
   }
 
   /**
@@ -322,13 +326,15 @@ public final class StreamHelper
    *        of copied bytes. Note: and optional old value is overwritten!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
                                                         @WillNotClose @Nullable final OutputStream aOS,
                                                         @Nullable final MutableLong aCopyByteCount)
   {
-    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (false).copyByteCount (aCopyByteCount).build ();
+    return copyByteStream ().from (aIS).closeFrom (true).to (aOS).closeTo (false).copyByteCount (aCopyByteCount).build ();
   }
 
   /**
@@ -345,13 +351,15 @@ public final class StreamHelper
    *        The buffer to use. May not be <code>null</code>.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
                                                         @WillNotClose @Nullable final OutputStream aOS,
                                                         @Nonnull final byte [] aBuffer)
   {
-    return copyStream ().from (aIS).closeSource (true).to (aOS).closeDestination (false).buffer (aBuffer).build ();
+    return copyByteStream ().from (aIS).closeFrom (true).to (aOS).closeTo (false).buffer (aBuffer).build ();
   }
 
   /**
@@ -385,7 +393,9 @@ public final class StreamHelper
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    * @since 9.3.6
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyInputStreamToOutputStream (@Nullable final InputStream aIS,
                                                         final boolean bCloseIS,
@@ -396,24 +406,24 @@ public final class StreamHelper
                                                         @Nullable final IExceptionCallback <IOException> aExceptionCallback,
                                                         @Nullable final MutableLong aCopyByteCount)
   {
-    return copyStream ().from (aIS)
-                        .closeSource (bCloseIS)
-                        .to (aOS)
-                        .closeDestination (bCloseOS)
-                        .buffer (aBuffer)
-                        .limit (aLimit == null ? -1 : aLimit.longValue ())
-                        .exceptionCallback (aExceptionCallback)
-                        .copyByteCount (aCopyByteCount)
-                        .build ();
+    return copyByteStream ().from (aIS)
+                            .closeFrom (bCloseIS)
+                            .to (aOS)
+                            .closeTo (bCloseOS)
+                            .buffer (aBuffer)
+                            .limit (aLimit == null ? -1 : aLimit.longValue ())
+                            .exceptionCallback (aExceptionCallback)
+                            .copyByteCount (aCopyByteCount)
+                            .build ();
   }
 
   /**
-   * @return A new {@link CopyStreamBuilder}. Never <code>null</code>.
+   * @return A new {@link CopyByteStreamBuilder}. Never <code>null</code>.
    */
   @Nonnull
-  public static CopyStreamBuilder copyStream ()
+  public static CopyByteStreamBuilder copyByteStream ()
   {
-    return new CopyStreamBuilder ();
+    return new CopyByteStreamBuilder ();
   }
 
   /**
@@ -423,7 +433,7 @@ public final class StreamHelper
    * @author Philip Helger
    * @since 10.0.0
    */
-  public static class CopyStreamBuilder implements IBuilder <ESuccess>
+  public static class CopyByteStreamBuilder implements IBuilder <ESuccess>
   {
     public static final boolean DEFAULT_CLOSE_SOURCE = false;
     public static final boolean DEFAULT_CLOSE_DESTINATION = false;
@@ -439,11 +449,11 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        The input stream to read from. May be <code>null</code>.
+     *        The InputStream to read from. May be <code>null</code>.
      * @return this for chaining
      */
     @Nonnull
-    public CopyStreamBuilder from (@Nullable final InputStream a)
+    public CopyByteStreamBuilder from (@Nullable final InputStream a)
     {
       m_aIS = a;
       return this;
@@ -456,7 +466,7 @@ public final class StreamHelper
      * @return this for chaining
      */
     @Nonnull
-    public CopyStreamBuilder closeSource (final boolean b)
+    public CopyByteStreamBuilder closeFrom (final boolean b)
     {
       m_bCloseIS = b;
       return this;
@@ -464,11 +474,11 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        The output stream to write to. May be <code>null</code>.
+     *        The OutputStream to write to. May be <code>null</code>.
      * @return this for chaining
      */
     @Nonnull
-    public CopyStreamBuilder to (@Nullable final OutputStream a)
+    public CopyByteStreamBuilder to (@Nullable final OutputStream a)
     {
       m_aOS = a;
       return this;
@@ -481,7 +491,7 @@ public final class StreamHelper
      * @return this for chaining
      */
     @Nonnull
-    public CopyStreamBuilder closeDestination (final boolean b)
+    public CopyByteStreamBuilder closeTo (final boolean b)
     {
       m_bCloseOS = b;
       return this;
@@ -493,7 +503,7 @@ public final class StreamHelper
      * @return this for chaining
      */
     @Nonnull
-    public CopyStreamBuilder buffer (@Nullable final byte [] a)
+    public CopyByteStreamBuilder buffer (@Nullable final byte [] a)
     {
       m_aBuffer = a;
       return this;
@@ -501,14 +511,14 @@ public final class StreamHelper
 
     /**
      * @param n
-     *        An optional maximum number of bytes to copied from the input
-     *        stream to the output stream. May be &lt; 0 to indicate no limit,
-     *        meaning all bytes are copied.
+     *        An optional maximum number of bytes to copied from the IputStream
+     *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
+     *        all bytes are copied.
      * @return this for chaining
      * @see #unlimited()
      */
     @Nonnull
-    public CopyStreamBuilder limit (final long n)
+    public CopyByteStreamBuilder limit (final long n)
     {
       m_nLimit = n;
       return this;
@@ -521,7 +531,7 @@ public final class StreamHelper
      * @see #limit(long)
      */
     @Nonnull
-    public CopyStreamBuilder unlimited ()
+    public CopyByteStreamBuilder unlimited ()
     {
       return limit (CGlobal.ILLEGAL_ULONG);
     }
@@ -533,7 +543,7 @@ public final class StreamHelper
      * @return this for chaining
      */
     @Nonnull
-    public CopyStreamBuilder exceptionCallback (@Nullable final IExceptionCallback <IOException> a)
+    public CopyByteStreamBuilder exceptionCallback (@Nullable final IExceptionCallback <IOException> a)
     {
       m_aExceptionCallback = a;
       return this;
@@ -548,7 +558,7 @@ public final class StreamHelper
      * @return this for chaining
      */
     @Nonnull
-    public CopyStreamBuilder copyByteCount (@Nullable final MutableLong a)
+    public CopyByteStreamBuilder copyByteCount (@Nullable final MutableLong a)
     {
       m_aCopyByteCount = a;
       return this;
@@ -612,14 +622,23 @@ public final class StreamHelper
     @Nonnull
     public ESuccess build ()
     {
-      if (m_aIS == null)
-        return ESuccess.FAILURE;
-      if (m_aOS == null)
-        return ESuccess.FAILURE;
-
-      final byte [] aBuffer = m_aBuffer != null && m_aBuffer.length > 0 ? m_aBuffer : createDefaultCopyBufferBytes ();
       try
       {
+        if (m_aIS == null)
+        {
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("The source InputStream is not set - hence no copying is possible");
+          return ESuccess.FAILURE;
+        }
+        if (m_aOS == null)
+        {
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("The target OutputStream is not set - hence no copying is possible");
+          return ESuccess.FAILURE;
+        }
+
+        final byte [] aBuffer = m_aBuffer != null && m_aBuffer.length > 0 ? m_aBuffer : createDefaultCopyBufferBytes ();
+
         // both streams are not null
         final long nTotalBytesCopied;
         if (m_nLimit < 0)
@@ -683,15 +702,16 @@ public final class StreamHelper
    * @param aIS
    *        The source input stream. May not be <code>null</code>.
    * @return A new {@link NonBlockingByteArrayOutputStream} with all available
-   *         content inside. The Outputstream is already closed. Since v9.3.6
-   *         this method returns <code>null</code> if copying fails.
+   *         content inside. The {@link OutputStream} must be closed by the
+   *         caller since v10. Since v9.3.6 this method returns
+   *         <code>null</code> if copying fails.
    */
   @Nullable
   public static NonBlockingByteArrayOutputStream getCopy (@Nonnull @WillClose final InputStream aIS)
   {
     final int nAvailable = Math.max (DEFAULT_BUFSIZE, getAvailable (aIS));
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (nAvailable);
-    if (copyInputStreamToOutputStreamAndCloseOS (aIS, aBAOS).isFailure ())
+    if (copyByteStream ().from (aIS).closeFrom (true).to (aBAOS).closeTo (false).build ().isFailure ())
       return null;
     return aBAOS;
   }
@@ -706,8 +726,9 @@ public final class StreamHelper
    *        The maximum number of bytes to be copied to the output stream. Must
    *        be &ge; 0.
    * @return A new {@link NonBlockingByteArrayOutputStream} with all available
-   *         content inside. Since v9.3.6 this method returns <code>null</code>
-   *         if copying fails.
+   *         content inside. The {@link OutputStream} must be closed by the
+   *         caller since v10. Since v9.3.6 this method returns
+   *         <code>null</code> if copying fails.
    */
   @Nullable
   public static NonBlockingByteArrayOutputStream getCopyWithLimit (@Nonnull @WillClose final InputStream aIS,
@@ -715,7 +736,7 @@ public final class StreamHelper
   {
     final int nAvailable = Math.max (DEFAULT_BUFSIZE, getAvailable (aIS));
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (nAvailable);
-    if (copyInputStreamToOutputStreamWithLimitAndCloseOS (aIS, aBAOS, nLimit).isFailure ())
+    if (copyByteStream ().from (aIS).closeFrom (true).to (aBAOS).closeTo (false).limit (nLimit).build ().isFailure ())
       return null;
     return aBAOS;
   }
@@ -797,60 +818,13 @@ public final class StreamHelper
     if (aIS == null)
       return null;
 
-    final NonBlockingByteArrayOutputStream aBAOS = getCopy (aIS);
-    if (aBAOS == null)
-      return null;
-
-    return aBAOS.getAsString (aCharset);
-  }
-
-  @Nonnegative
-  private static long _copyReaderToWriter (@Nonnull @WillNotClose final Reader aReader,
-                                           @Nonnull @WillNotClose final Writer aWriter,
-                                           @Nonnull final char [] aBuffer) throws IOException
-  {
-    long nTotalCharsWritten = 0;
-    int nCharsRead;
-    // Potentially blocking read
-    while ((nCharsRead = aReader.read (aBuffer, 0, aBuffer.length)) > -1)
+    try (final NonBlockingByteArrayOutputStream aBAOS = getCopy (aIS))
     {
-      aWriter.write (aBuffer, 0, nCharsRead);
-      nTotalCharsWritten += nCharsRead;
-    }
-    return nTotalCharsWritten;
-  }
+      if (aBAOS == null)
+        return null;
 
-  @Nonnegative
-  private static long _copyReaderToWriterWithLimit (@Nonnull @WillNotClose final Reader aReader,
-                                                    @Nonnull @WillNotClose final Writer aWriter,
-                                                    @Nonnull final char [] aBuffer,
-                                                    @Nonnegative final long nLimit) throws IOException
-  {
-    long nRest = nLimit;
-    long nTotalCharsWritten = 0;
-    while (true)
-    {
-      // if nRest is smaller than aBuffer.length, which is an int, it is safe to
-      // cast nRest also to an int!
-      final int nCharsToRead = nRest >= aBuffer.length ? aBuffer.length : (int) nRest;
-      if (nCharsToRead == 0)
-        break;
-      // Potentially blocking read
-      final int nCharsRead = aReader.read (aBuffer, 0, nCharsToRead);
-      if (nCharsRead == -1)
-      {
-        // EOF
-        break;
-      }
-      if (nCharsRead > 0)
-      {
-        // At least one byte read
-        aWriter.write (aBuffer, 0, nCharsRead);
-        nTotalCharsWritten += nCharsRead;
-        nRest -= nCharsRead;
-      }
+      return aBAOS.getAsString (aCharset);
     }
-    return nTotalCharsWritten;
   }
 
   /**
@@ -881,57 +855,28 @@ public final class StreamHelper
    *        of copied characters. Note: and optional old value is overwritten!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyReaderToWriter (@Nullable final Reader aReader,
                                              final boolean bCloseReader,
                                              @Nullable final Writer aWriter,
                                              final boolean bCloseWriter,
-                                             @Nonnull @Nonempty final char [] aBuffer,
+                                             @Nullable final char [] aBuffer,
                                              @Nullable final Long aLimit,
                                              @Nullable final IExceptionCallback <IOException> aExceptionCallback,
                                              @Nullable final MutableLong aCopyCharCount)
   {
-    try
-    {
-      ValueEnforcer.notEmpty (aBuffer, "Buffer");
-      ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
-
-      if (aReader != null && aWriter != null)
-      {
-        // both streams are not null
-        final long nTotalCharsCopied;
-        if (aLimit == null)
-          nTotalCharsCopied = _copyReaderToWriter (aReader, aWriter, aBuffer);
-        else
-          nTotalCharsCopied = _copyReaderToWriterWithLimit (aReader, aWriter, aBuffer, aLimit.longValue ());
-
-        // Add to statistics
-        STATS_COPY_CHARS.addSize (nTotalCharsCopied);
-
-        // Remember number of copied characters
-        if (aCopyCharCount != null)
-          aCopyCharCount.set (nTotalCharsCopied);
-        return ESuccess.SUCCESS;
-      }
-    }
-    catch (final IOException ex)
-    {
-      if (aExceptionCallback != null)
-        aExceptionCallback.onException (ex);
-      else
-        if (!isKnownEOFException (ex))
-          LOGGER.error ("Failed to copy from Reader to Writer", _propagate (ex));
-    }
-    finally
-    {
-      // Ensure reader and writer are always closed
-      if (bCloseReader)
-        close (aReader);
-      if (bCloseWriter)
-        close (aWriter);
-    }
-    return ESuccess.FAILURE;
+    return copyCharStream ().from (aReader)
+                            .closeFrom (bCloseReader)
+                            .to (aWriter)
+                            .closeTo (bCloseWriter)
+                            .buffer (aBuffer)
+                            .limit (aLimit == null ? -1 : aLimit.longValue ())
+                            .exceptionCallback (aExceptionCallback)
+                            .copyCharCount (aCopyCharCount)
+                            .build ();
   }
 
   /**
@@ -967,7 +912,9 @@ public final class StreamHelper
    *        chars are copied.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyReaderToWriter (@Nullable @WillClose final Reader aReader,
                                              @Nullable @WillNotClose final Writer aWriter,
@@ -975,7 +922,14 @@ public final class StreamHelper
                                              @Nullable final MutableLong aCopyCharCount,
                                              @Nullable final Long aLimit)
   {
-    return copyReaderToWriter (aReader, true, aWriter, false, aBuffer, aLimit, null, aCopyCharCount);
+    return copyCharStream ().from (aReader)
+                            .closeFrom (true)
+                            .to (aWriter)
+                            .closeTo (false)
+                            .buffer (aBuffer)
+                            .limit (aLimit == null ? -1 : aLimit.longValue ())
+                            .copyCharCount (aCopyCharCount)
+                            .build ();
   }
 
   /**
@@ -994,7 +948,7 @@ public final class StreamHelper
   @Nonnull
   public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader, @WillNotClose @Nullable final Writer aWriter)
   {
-    return copyReaderToWriter (aReader, true, aWriter, false, createDefaultCopyBufferChars (), (Long) null, null, (MutableLong) null);
+    return copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).build ();
   }
 
   /**
@@ -1014,7 +968,7 @@ public final class StreamHelper
   public static ESuccess copyReaderToWriterAndCloseWriter (@Nullable @WillClose final Reader aReader,
                                                            @Nullable @WillClose final Writer aWriter)
   {
-    return copyReaderToWriter (aReader, true, aWriter, true, createDefaultCopyBufferChars (), (Long) null, null, (MutableLong) null);
+    return copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (true).build ();
   }
 
   /**
@@ -1032,20 +986,15 @@ public final class StreamHelper
    *        0.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyReaderToWriterWithLimit (@WillClose @Nullable final Reader aReader,
                                                       @WillNotClose @Nullable final Writer aWriter,
                                                       final long nLimit)
   {
-    return copyReaderToWriter (aReader,
-                               true,
-                               aWriter,
-                               false,
-                               createDefaultCopyBufferChars (),
-                               Long.valueOf (nLimit),
-                               null,
-                               (MutableLong) null);
+    return copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).limit (nLimit).build ();
   }
 
   /**
@@ -1063,20 +1012,15 @@ public final class StreamHelper
    *        0.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyReaderToWriterWithLimitAndCloseWriter (@Nullable @WillClose final Reader aReader,
                                                                     @Nullable @WillClose final Writer aWriter,
                                                                     @Nonnegative final long nLimit)
   {
-    return copyReaderToWriter (aReader,
-                               true,
-                               aWriter,
-                               true,
-                               createDefaultCopyBufferChars (),
-                               Long.valueOf (nLimit),
-                               null,
-                               (MutableLong) null);
+    return copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (true).limit (nLimit).build ();
   }
 
   /**
@@ -1094,13 +1038,15 @@ public final class StreamHelper
    *        of copied characters. Note: and optional old value is overwritten!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
                                              @WillNotClose @Nullable final Writer aWriter,
                                              @Nullable final MutableLong aCopyCharCount)
   {
-    return copyReaderToWriter (aReader, true, aWriter, false, createDefaultCopyBufferChars (), (Long) null, null, (MutableLong) null);
+    return copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).copyCharCount (aCopyCharCount).build ();
   }
 
   /**
@@ -1117,20 +1063,276 @@ public final class StreamHelper
    *        The buffer to use. May not be <code>null</code>.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Since v10.0. Use the builder instead
    */
+  @Deprecated
   @Nonnull
   public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
                                              @WillNotClose @Nullable final Writer aWriter,
                                              @Nonnull final char [] aBuffer)
   {
-    return copyReaderToWriter (aReader, true, aWriter, false, aBuffer, (Long) null, null, (MutableLong) null);
+    return copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).buffer (aBuffer).build ();
+  }
+
+  /**
+   * @return A new {@link CopyCharStreamBuilder}. Never <code>null</code>.
+   */
+  @Nonnull
+  public static CopyCharStreamBuilder copyCharStream ()
+  {
+    return new CopyCharStreamBuilder ();
+  }
+
+  /**
+   * A simple builder to copy a Reader ({@link #from(Reader)}) to an Writer
+   * ({@link #to(Writer)}) with certain parameters.
+   *
+   * @author Philip Helger
+   * @since 10.0.0
+   */
+  public static class CopyCharStreamBuilder implements IBuilder <ESuccess>
+  {
+    public static final boolean DEFAULT_CLOSE_FROM = false;
+    public static final boolean DEFAULT_CLOSE_TO = false;
+
+    private Reader m_aReader;
+    private boolean m_bCloseReader = DEFAULT_CLOSE_FROM;
+    private Writer m_aWriter;
+    private boolean m_bCloseWriter = DEFAULT_CLOSE_TO;
+    private char [] m_aBuffer;
+    private long m_nLimit = CGlobal.ILLEGAL_ULONG;
+    private IExceptionCallback <IOException> m_aExceptionCallback;
+    private MutableLong m_aCopyCharCount;
+
+    /**
+     * @param a
+     *        The Reader to read from. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyCharStreamBuilder from (@Nullable final Reader a)
+    {
+      m_aReader = a;
+      return this;
+    }
+
+    /**
+     * @param b
+     *        <code>true</code> to close the Reader, <code>false</code> to leave
+     *        it open. Default is {@link #DEFAULT_CLOSE_FROM}
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyCharStreamBuilder closeFrom (final boolean b)
+    {
+      m_bCloseReader = b;
+      return this;
+    }
+
+    /**
+     * @param a
+     *        The Writer to write to. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyCharStreamBuilder to (@Nullable final Writer a)
+    {
+      m_aWriter = a;
+      return this;
+    }
+
+    /**
+     * @param b
+     *        <code>true</code> to close the Writer, <code>false</code> to leave
+     *        it open.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyCharStreamBuilder closeTo (final boolean b)
+    {
+      m_bCloseWriter = b;
+      return this;
+    }
+
+    /**
+     * @param a
+     *        The buffer to use. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyCharStreamBuilder buffer (@Nullable final char [] a)
+    {
+      m_aBuffer = a;
+      return this;
+    }
+
+    /**
+     * @param n
+     *        An optional maximum number of chars to copied from the Reader to
+     *        the Writer. May be &lt; 0 to indicate no limit, meaning all chars
+     *        are copied.
+     * @return this for chaining
+     * @see #unlimited()
+     */
+    @Nonnull
+    public CopyCharStreamBuilder limit (final long n)
+    {
+      m_nLimit = n;
+      return this;
+    }
+
+    /**
+     * Ensure no limit in copying (which is also the default).
+     *
+     * @return this for chaining
+     * @see #limit(long)
+     */
+    @Nonnull
+    public CopyCharStreamBuilder unlimited ()
+    {
+      return limit (CGlobal.ILLEGAL_ULONG);
+    }
+
+    /**
+     * @param a
+     *        The Exception callback to be invoked, if an exception occurs. May
+     *        be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyCharStreamBuilder exceptionCallback (@Nullable final IExceptionCallback <IOException> a)
+    {
+      m_aExceptionCallback = a;
+      return this;
+    }
+
+    /**
+     * @param a
+     *        An optional mutable long object that will receive the total number
+     *        of copied chars. Note: and optional old value is overwritten.
+     *        Note: this is only called, if copying was successful, and not in
+     *        case of an exception.
+     * @return this for chaining
+     */
+    @Nonnull
+    public CopyCharStreamBuilder copyCharCount (@Nullable final MutableLong a)
+    {
+      m_aCopyCharCount = a;
+      return this;
+    }
+
+    @Nonnegative
+    private static long _copyReaderToWriter (@Nonnull @WillNotClose final Reader aReader,
+                                             @Nonnull @WillNotClose final Writer aWriter,
+                                             @Nonnull final char [] aBuffer) throws IOException
+    {
+      long nTotalCharsWritten = 0;
+      int nCharsRead;
+      // Potentially blocking read
+      while ((nCharsRead = aReader.read (aBuffer, 0, aBuffer.length)) > -1)
+      {
+        aWriter.write (aBuffer, 0, nCharsRead);
+        nTotalCharsWritten += nCharsRead;
+      }
+      return nTotalCharsWritten;
+    }
+
+    @Nonnegative
+    private static long _copyReaderToWriterWithLimit (@Nonnull @WillNotClose final Reader aReader,
+                                                      @Nonnull @WillNotClose final Writer aWriter,
+                                                      @Nonnull final char [] aBuffer,
+                                                      @Nonnegative final long nLimit) throws IOException
+    {
+      long nRest = nLimit;
+      long nTotalCharsWritten = 0;
+      while (true)
+      {
+        // if nRest is smaller than aBuffer.length, which is an int, it is safe
+        // to
+        // cast nRest also to an int!
+        final int nCharsToRead = nRest >= aBuffer.length ? aBuffer.length : (int) nRest;
+        if (nCharsToRead == 0)
+          break;
+        // Potentially blocking read
+        final int nCharsRead = aReader.read (aBuffer, 0, nCharsToRead);
+        if (nCharsRead == -1)
+        {
+          // EOF
+          break;
+        }
+        if (nCharsRead > 0)
+        {
+          // At least one byte read
+          aWriter.write (aBuffer, 0, nCharsRead);
+          nTotalCharsWritten += nCharsRead;
+          nRest -= nCharsRead;
+        }
+      }
+      return nTotalCharsWritten;
+    }
+
+    /**
+     * This method performs the main copying
+     */
+    @Nonnull
+    public ESuccess build ()
+    {
+      try
+      {
+        if (m_aReader == null)
+        {
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("The source Reader is not set - hence no copying is possible");
+          return ESuccess.FAILURE;
+        }
+        if (m_aWriter == null)
+        {
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("The target Writer is not set - hence no copying is possible");
+          return ESuccess.FAILURE;
+        }
+
+        final char [] aBuffer = m_aBuffer != null && m_aBuffer.length > 0 ? m_aBuffer : createDefaultCopyBufferChars ();
+        // both streams are not null
+        final long nTotalCharsCopied;
+        if (m_nLimit < 0)
+          nTotalCharsCopied = _copyReaderToWriter (m_aReader, m_aWriter, aBuffer);
+        else
+          nTotalCharsCopied = _copyReaderToWriterWithLimit (m_aReader, m_aWriter, aBuffer, m_nLimit);
+
+        // Add to statistics
+        STATS_COPY_CHARS.addSize (nTotalCharsCopied);
+
+        // Remember copied bytes?
+        if (m_aCopyCharCount != null)
+          m_aCopyCharCount.set (nTotalCharsCopied);
+        return ESuccess.SUCCESS;
+      }
+      catch (final IOException ex)
+      {
+        if (m_aExceptionCallback != null)
+          m_aExceptionCallback.onException (ex);
+        else
+          if (!isKnownEOFException (ex))
+            LOGGER.error ("Failed to copy from Reader to Writer", _propagate (ex));
+      }
+      finally
+      {
+        // Ensure reader/writer are closed under all circumstances
+        if (m_bCloseReader)
+          close (m_aReader);
+        if (m_bCloseWriter)
+          close (m_aWriter);
+      }
+      return ESuccess.FAILURE;
+    }
   }
 
   @Nullable
   public static NonBlockingStringWriter getCopy (@Nonnull @WillClose final Reader aReader)
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (DEFAULT_BUFSIZE);
-    if (copyReaderToWriterAndCloseWriter (aReader, aWriter).isFailure ())
+    if (copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).build ().isFailure ())
       return null;
     return aWriter;
   }
@@ -1139,7 +1341,7 @@ public final class StreamHelper
   public static NonBlockingStringWriter getCopyWithLimit (@Nonnull @WillClose final Reader aReader, @Nonnegative final long nLimit)
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (DEFAULT_BUFSIZE);
-    if (copyReaderToWriterWithLimitAndCloseWriter (aReader, aWriter, nLimit).isFailure ())
+    if (copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).limit (nLimit).build ().isFailure ())
       return null;
     return aWriter;
   }
@@ -1158,11 +1360,13 @@ public final class StreamHelper
     if (aReader == null)
       return null;
 
-    final NonBlockingStringWriter aWriter = getCopy (aReader);
-    if (aWriter == null)
-      return null;
+    try (final NonBlockingStringWriter aWriter = getCopy (aReader))
+    {
+      if (aWriter == null)
+        return null;
 
-    return aWriter.getAsCharArray ();
+      return aWriter.getAsCharArray ();
+    }
   }
 
   /**
@@ -1179,11 +1383,13 @@ public final class StreamHelper
     if (aReader == null)
       return null;
 
-    final NonBlockingStringWriter aWriter = getCopy (aReader);
-    if (aWriter == null)
-      return null;
+    try (final NonBlockingStringWriter aWriter = getCopy (aReader))
+    {
+      if (aWriter == null)
+        return null;
 
-    return aWriter.getAsString ();
+      return aWriter.getAsString ();
+    }
   }
 
   /**

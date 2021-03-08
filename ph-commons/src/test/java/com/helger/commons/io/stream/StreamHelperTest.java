@@ -52,6 +52,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @SuppressFBWarnings ("SE_BAD_FIELD_INNER_CLASS")
+@SuppressWarnings ("deprecation")
 public final class StreamHelperTest
 {
   @Test
@@ -335,23 +336,11 @@ public final class StreamHelperTest
       }
     }, aBAOS).isFailure ());
 
-    try
-    {
-      // null buffer
-      StreamHelper.copyReaderToWriter (aBAIS, aBAOS, (char []) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    // null buffer
+    StreamHelper.copyReaderToWriter (aBAIS, aBAOS, (char []) null);
 
-    try
-    {
-      // empty buffer
-      StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [0]);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    // empty buffer
+    StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [0]);
   }
 
   @Test
@@ -372,14 +361,8 @@ public final class StreamHelperTest
     assertEquals (sSrc, aSW.getAsString ());
     aSW.reset ();
 
-    try
-    {
-      // negative limit is not allowed!
-      StreamHelper.copyReaderToWriterWithLimit (StreamHelper.createReader (sSrc), aSW, -1);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    // negative limit is allowed!
+    StreamHelper.copyReaderToWriterWithLimit (StreamHelper.createReader (sSrc), aSW, -1);
   }
 
   @Test

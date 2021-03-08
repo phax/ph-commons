@@ -61,8 +61,10 @@ This project was the following modules:
     * Deprecated class `PasswordHashCreatorPBKDF2_1000_48` because it uses the PBKDF2 with the SHA1 hash
     * Added new class `StringHelper.ImploderBuilder` that handles all the `StringHelper.getImploded*` stuff internally
     * Added new method `ICommonsIterable.forEachThrowing`
-    * Added new class `StreamHelper.CopyStreamBuilder`
+    * Added new class `StreamHelper.CopyByteStreamBuilder`
+    * Added new class `StreamHelper.CopyCharStreamBuilder`
     * Added new method `URLHelper.isValidURN` to check RFC 2141 compliance
+    * Deprecated some methods in `StreamHelper` that should be replaced with calls to the new builder
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`
