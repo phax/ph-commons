@@ -65,6 +65,7 @@ This project was the following modules:
     * Added new class `StreamHelper.CopyCharStreamBuilder`
     * Added new method `URLHelper.isValidURN` to check RFC 2141 compliance
     * Deprecated some methods in `StreamHelper` that should be replaced with calls to the new builder
+    * Added `CommonsHashSet.createFiltered` factory methods
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`
