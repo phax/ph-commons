@@ -379,13 +379,13 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   @Nonnull
   static Predicate <? super IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
   {
-    return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI);
+    return x -> x.hasNamespaceURI (sNamespaceURI);
   }
 
   @Nonnull
   static Predicate <? super IMicroElement> filterName (@Nullable final String sTagOrLocalName)
   {
-    return aChildElement -> aChildElement.hasTagName (sTagOrLocalName);
+    return x -> x.hasTagName (sTagOrLocalName);
   }
 
   @Nonnull
@@ -395,6 +395,6 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
     if (StringHelper.hasNoText (sNamespaceURI))
       return filterName (sTagOrLocalName);
 
-    return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) && aChildElement.hasLocalName (sTagOrLocalName);
+    return x -> x.hasNamespaceURI (sNamespaceURI) && x.hasLocalName (sTagOrLocalName);
   }
 }

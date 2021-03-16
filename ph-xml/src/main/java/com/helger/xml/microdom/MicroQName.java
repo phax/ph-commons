@@ -63,7 +63,7 @@ public final class MicroQName implements IMicroQName
     m_sNamespaceURI = StringHelper.hasNoText (sNamespaceURI) ? null : sNamespaceURI;
 
     // Store only the local name (cut the prefix) if a namespace is present
-    final int nPrefixEnd = sNamespaceURI != null ? sName.indexOf (CXML.XML_PREFIX_NAMESPACE_SEP) : -1;
+    final int nPrefixEnd = m_sNamespaceURI != null ? sName.indexOf (CXML.XML_PREFIX_NAMESPACE_SEP) : -1;
     if (nPrefixEnd == -1)
       m_sName = sName;
     else
