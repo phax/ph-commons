@@ -49,6 +49,7 @@ public class XMLSchemaCache extends SchemaCache
     private static final XMLSchemaCache INSTANCE = new XMLSchemaCache ();
   }
 
+  public static final String SCHEMA_TYPE_NAME = "XSD";
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK")
   private static final ICommonsMap <String, XMLSchemaCache> PER_CL_CACHE = new CommonsHashMap <> ();
@@ -89,7 +90,7 @@ public class XMLSchemaCache extends SchemaCache
                          @Nullable final ErrorHandler aErrorHandler,
                          @Nullable final LSResourceResolver aResourceResolver)
   {
-    super ("XSD", aSchemaFactory, aErrorHandler, aResourceResolver);
+    super (SCHEMA_TYPE_NAME, aSchemaFactory, aErrorHandler, aResourceResolver);
   }
 
   public static boolean isInstantiated ()
