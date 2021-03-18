@@ -50,7 +50,6 @@ public final class AdapterOffsetDateTimeTest
     assertNull (a.unmarshal ("2020- 01 -01"));
     assertNull (a.unmarshal ("2020-01-01"));
     assertNull (a.unmarshal ("2020-01-01 T10:12:45.654Z"));
-    assertNull (a.unmarshal ("2020-01-01T 10:12:45.654Z"));
 
     OffsetDateTime o = PDTFactory.createOffsetDateTime (2020, Month.JANUARY, 1, 10, 12, 45, ZoneOffset.UTC)
                                  .with (ChronoField.MILLI_OF_SECOND, 654);

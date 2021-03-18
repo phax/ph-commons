@@ -56,7 +56,7 @@ public class AdapterOffsetDateTime extends XmlAdapter <String, OffsetDateTime>
       if (aLDT != null)
         ret = OffsetDateTime.of (aLDT, ZoneOffset.UTC);
       else
-        LOGGER.warn ("Failed to parse '" + sValue + "' to a OffsetDateTime");
+        LOGGER.warn ("Failed to parse '" + sValue + "' to an OffsetDateTime");
     }
     return ret;
   }
