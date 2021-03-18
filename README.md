@@ -34,7 +34,6 @@ This project was the following modules:
     * The submodule `ph-xml` no longer depends on `ph-collection`
     * Separated the JAXB adapter classes and `JAXBHelper` to new submodule `ph-jaxb-adapter` - the goal is to have less dependencies
     * Removed the submodule `ph-charset` - who needs UTF-7 nowadays....
-    * Updated to BouncyCastle 1.68 (again with bcprov-ext-jdk15on)
     * Removed deprecated methods
     * Removed `Serializable` from base interfaces
     * Removed the serializable functional specializations (`IFunction`, `ISupplier`, `IConsumer`, `IPredicate`, `IBiConsumer`, `IBiFunction`, `IBiPredicate`, `NamespaceContext`)
@@ -66,6 +65,8 @@ This project was the following modules:
     * Added new method `URLHelper.isValidURN` to check RFC 2141 compliance
     * Deprecated some methods in `StreamHelper` that should be replaced with calls to the new builder
     * Added `CommonsHashSet.createFiltered` factory methods
+* v9.5.5 - 2021-03-18
+    * Updated to BouncyCastle 1.68 (again with bcprov-ext-jdk15on)
     * Added new class `AdapterOffsetDateTime`
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
