@@ -16,10 +16,17 @@
  */
 package com.helger.jaxb.adapter;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.time.Month;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoField;
+
 import org.junit.Test;
+
+import com.helger.commons.datetime.PDTFactory;
 
 /**
  * Test class for class {@link AdapterZonedDateTime}.
@@ -44,13 +51,29 @@ public final class AdapterZonedDateTimeTest
     assertNull (a.unmarshal ("2020-01-01"));
     assertNull (a.unmarshal ("2020-01-01 T10:12:45.654Z"));
     assertNull (a.unmarshal ("2020-01-01T 10:12:45.654Z"));
-    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654Z"));
-    assertNotNull (a.unmarshal (" 2020-01-01T10:12:45.654Z"));
-    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654Z "));
-    assertNotNull (a.unmarshal (" 2020-01-01T10:12:45.654Z "));
-    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654+01:00"));
-    assertNotNull (a.unmarshal (" 2020-01-01T10:12:45.654+01:00"));
-    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654+01:00 "));
-    assertNotNull (a.unmarshal (" 2020-01-01T10:12:45.654+01:00 "));
+
+    ZonedDateTime o = PDTFactory.createZonedDateTime (2020, Month.JANUARY, 1, 10, 12, 45, ZoneOffset.UTC)
+                                .with (ChronoField.MILLI_OF_SECOND, 654);
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654"));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654"));
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654 "));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654 "));
+
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654Z"));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654Z"));
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654Z "));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654Z "));
+
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+00:00"));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+00:00"));
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+00:00 "));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+00:00 "));
+
+    o = PDTFactory.createZonedDateTime (2020, Month.JANUARY, 1, 10, 12, 45, ZoneOffset.ofHours (1))
+                  .with (ChronoField.MILLI_OF_SECOND, 654);
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+01:00"));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+01:00"));
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+01:00 "));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+01:00 "));
   }
 }

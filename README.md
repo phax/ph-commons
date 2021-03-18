@@ -65,6 +65,9 @@ This project was the following modules:
     * Added new method `URLHelper.isValidURN` to check RFC 2141 compliance
     * Deprecated some methods in `StreamHelper` that should be replaced with calls to the new builder
     * Added `CommonsHashSet.createFiltered` factory methods
+    * Added new class `AdapterOffsetTime`
+    * Added support for `OffsetTime` in PDT* classes
+    * Made the JAXB adapters for `AdapterOffsetDateTime` and `AdapterZonedDateTime` more resilient to read data without time zone offsets as well
 * v9.5.5 - 2021-03-18
     * Updated to BouncyCastle 1.68 (again with bcprov-ext-jdk15on)
     * Added new class `AdapterOffsetDateTime`

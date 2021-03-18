@@ -16,9 +16,9 @@
  */
 package com.helger.jaxb.adapter;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetTime;
 import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
@@ -29,40 +29,40 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
 
 /**
- * XML Adapter between ZonedDateTime and String. Use it in your binding file
- * like this:<br>
- * <code>&lt;xjc:javaType name="java.time.ZonedDateTime" xmlType="xsd:dateTime" adapter="com.helger.jaxb.adapter.AdapterZonedDateTime" /&gt;</code>
+ * XML Adapter between LocalTime and String. Use it in your binding file like
+ * this:<br>
+ * <code>&lt;xjc:javaType name="java.time.OffsetTime" xmlType="xsd:time" adapter="com.helger.jaxb.adapter.AdapterOffsetTime" /&gt;</code>
  *
  * @author Philip Helger
- * @since 9.4.8
+ * @since 10.0.0
  */
-public class AdapterZonedDateTime extends XmlAdapter <String, ZonedDateTime>
+public class AdapterOffsetTime extends XmlAdapter <String, OffsetTime>
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (AdapterZonedDateTime.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AdapterOffsetTime.class);
 
   @Override
-  public ZonedDateTime unmarshal (@Nullable final String sValue)
+  public OffsetTime unmarshal (@Nullable final String sValue)
   {
     if (sValue == null)
       return null;
 
     final String sTrimmed = sValue.trim ();
-    ZonedDateTime ret = PDTWebDateHelper.getDateTimeFromXSD (sTrimmed);
+    OffsetTime ret = PDTWebDateHelper.getOffsetTimeFromXSD (sTrimmed);
     if (ret == null)
     {
-      // ZonedDateTime is only possible if a zone offset is present.
+      // OffsetTime is only possible if a zone offset is present.
       // Check if this would be a valid LocalTime and use UTC as fallback
-      final LocalDateTime aLDT = PDTWebDateHelper.getLocalDateTimeFromXSD (sTrimmed);
-      if (aLDT != null)
-        ret = ZonedDateTime.of (aLDT, ZoneOffset.UTC);
+      final LocalTime aLT = PDTWebDateHelper.getLocalTimeFromXSD (sTrimmed);
+      if (aLT != null)
+        ret = OffsetTime.of (aLT, ZoneOffset.UTC);
       else
-        LOGGER.warn ("Failed to parse '" + sValue + "' to a ZonedDateTime");
+        LOGGER.warn ("Failed to parse '" + sValue + "' to an OffsetTime");
     }
     return ret;
   }
 
   @Override
-  public String marshal (@Nullable final ZonedDateTime aValue)
+  public String marshal (@Nullable final OffsetTime aValue)
   {
     return PDTWebDateHelper.getAsStringXSD (aValue);
   }

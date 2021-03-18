@@ -16,10 +16,14 @@
  */
 package com.helger.jaxb.adapter;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.time.temporal.ChronoField;
+
 import org.junit.Test;
+
+import com.helger.commons.datetime.PDTFactory;
 
 /**
  * Test class for class {@link AdapterLocalTime}.
@@ -43,12 +47,29 @@ public final class AdapterLocalTimeTest
     assertNull (a.unmarshal ("10:12:61"));
     assertNull (a.unmarshal ("10: 12:45"));
     assertNull (a.unmarshal ("10:12: 45"));
-    assertNotNull (a.unmarshal ("10:12:45"));
-    assertNotNull (a.unmarshal (" 10:12:45"));
-    assertNotNull (a.unmarshal ("10:12:45 "));
-    assertNotNull (a.unmarshal (" 10:12:45 "));
-    assertNotNull (a.unmarshal (" 10:12:45.1 "));
-    assertNotNull (a.unmarshal (" 10:12:45.12 "));
-    assertNotNull (a.unmarshal (" 10:12:45.123 "));
+
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45Z"));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45+01:00"));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45-05:30"));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal (" 10:12:45Z"));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45Z "));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal (" 10:12:45Z "));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45).with (ChronoField.MILLI_OF_SECOND, 100),
+                  a.unmarshal (" 10:12:45.1Z "));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45).with (ChronoField.MILLI_OF_SECOND, 120),
+                  a.unmarshal (" 10:12:45.12Z "));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45).with (ChronoField.MILLI_OF_SECOND, 123),
+                  a.unmarshal (" 10:12:45.123Z "));
+
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45"));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal (" 10:12:45"));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45 "));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal (" 10:12:45 "));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45).with (ChronoField.MILLI_OF_SECOND, 100),
+                  a.unmarshal (" 10:12:45.1 "));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45).with (ChronoField.MILLI_OF_SECOND, 120),
+                  a.unmarshal (" 10:12:45.12 "));
+    assertEquals (PDTFactory.createLocalTime (10, 12, 45).with (ChronoField.MILLI_OF_SECOND, 123),
+                  a.unmarshal (" 10:12:45.123 "));
   }
 }
