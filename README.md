@@ -29,6 +29,9 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.5.5 - 2021-03-18
+    * Updated to BouncyCastle 1.68 (again with bcprov-ext-jdk15on)
+    * Added new class AdapterOffsetDateTime
 * v9.5.4 - 2020-12-15
     * Updated to BouncyCastle 1.67 (no more bcprov-ext-jdk15on)
     * Removed "double locking" in `AbstractCollector`

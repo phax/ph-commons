@@ -537,6 +537,12 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
+  public static String getAsStringXSD (@Nullable final OffsetDateTime aODT)
+  {
+    return aODT == null ? null : getXSDFormatterDateTime (null).format (aODT);
+  }
+
+  @Nullable
   public static String getAsStringXSD (@Nullable final ZonedDateTime aZDT)
   {
     return aZDT == null ? null : getAsStringXSD (aZDT.getZone (), aZDT);
