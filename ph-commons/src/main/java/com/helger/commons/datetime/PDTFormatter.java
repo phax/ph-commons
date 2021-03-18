@@ -91,7 +91,11 @@ public final class PDTFormatter
     @Override
     public int hashCode ()
     {
-      return new HashCodeGenerator (this).append (m_eDTType).append (m_aLocale).append (m_eStyle).append (m_eMode).getHashCode ();
+      return new HashCodeGenerator (this).append (m_eDTType)
+                                         .append (m_aLocale)
+                                         .append (m_eStyle)
+                                         .append (m_eMode)
+                                         .getHashCode ();
     }
   }
 
@@ -148,6 +152,7 @@ public final class PDTFormatter
       switch (aKey.m_eDTType)
       {
         case LOCAL_TIME:
+        case OFFSET_TIME:
           return PDTFormatPatterns.getPatternTime (aKey.m_eStyle, aKey.m_aLocale);
         case LOCAL_DATE:
           return PDTFormatPatterns.getPatternDate (aKey.m_eStyle, aKey.m_aLocale);
@@ -221,7 +226,8 @@ public final class PDTFormatter
    * @return The modified date time formatter. Never <code>null</code>.
    */
   @Nonnull
-  public static DateTimeFormatter getWithLocale (@Nonnull final DateTimeFormatter aFormatter, @Nullable final Locale aDisplayLocale)
+  public static DateTimeFormatter getWithLocale (@Nonnull final DateTimeFormatter aFormatter,
+                                                 @Nullable final Locale aDisplayLocale)
   {
     DateTimeFormatter ret = aFormatter;
     if (aDisplayLocale != null)
@@ -230,7 +236,8 @@ public final class PDTFormatter
   }
 
   @Nonnull
-  private static DateTimeFormatter _getFormatter (@Nonnull final CacheKey aCacheKey, @Nullable final Locale aDisplayLocale)
+  private static DateTimeFormatter _getFormatter (@Nonnull final CacheKey aCacheKey,
+                                                  @Nullable final Locale aDisplayLocale)
   {
     final DateTimeFormatter aFormatter = PARSER_CACHE.getFromCache (aCacheKey);
     return getWithLocale (aFormatter, aDisplayLocale);
@@ -274,6 +281,26 @@ public final class PDTFormatter
                                                     @Nonnull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.LOCAL_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
+  }
+
+  /**
+   * Get the time formatter for the passed locale.
+   *
+   * @param eStyle
+   *        The format style to be used. May not be <code>null</code>.
+   * @param aDisplayLocale
+   *        The display locale to be used. May be <code>null</code>.
+   * @param eMode
+   *        Print or parse? May not be <code>null</code>.
+   * @return The created time formatter. Never <code>null</code>.
+   * @since 10.0.0
+   */
+  @Nonnull
+  public static DateTimeFormatter getFormatterOffsetTime (@Nonnull final FormatStyle eStyle,
+                                                          @Nullable final Locale aDisplayLocale,
+                                                          @Nonnull final EDTFormatterMode eMode)
+  {
+    return _getFormatter (new CacheKey (EDTType.OFFSET_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
 
   /**
