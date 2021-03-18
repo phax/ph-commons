@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNull;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.OffsetTime;
 import java.time.Year;
 import java.time.YearMonth;
 import java.util.Date;
@@ -72,5 +73,23 @@ public final class PDTFactoryTest
     assertNull (PDTFactory.createLocalDate ((LocalDateTime) null));
     assertNull (PDTFactory.createLocalDate ((Year) null));
     assertNull (PDTFactory.createLocalDate ((YearMonth) null));
+  }
+
+  @Test
+  public void testCreateLocalTime ()
+  {
+    assertNotNull (PDTFactory.createLocalTime (new Date ()));
+    assertNotNull (PDTFactory.createLocalTime (new GregorianCalendar (TimeZone.getDefault (), Locale.getDefault ())));
+    assertNotNull (PDTFactory.createLocalTime (Instant.ofEpochMilli (1234)));
+    assertNotNull (PDTFactory.createLocalTime (PDTFactory.getCurrentLocalDateTime ()));
+    assertNotNull (PDTFactory.createLocalTime (PDTFactory.getCurrentLocalDateTimeMillisOnly ()));
+    assertNotNull (PDTFactory.createLocalTime (PDTFactory.getCurrentOffsetTime ()));
+    assertNotNull (PDTFactory.createLocalTime (1234));
+
+    assertNull (PDTFactory.createLocalTime ((Date) null));
+    assertNull (PDTFactory.createLocalTime ((GregorianCalendar) null));
+    assertNull (PDTFactory.createLocalTime ((Instant) null));
+    assertNull (PDTFactory.createLocalTime ((LocalDateTime) null));
+    assertNull (PDTFactory.createLocalTime ((OffsetTime) null));
   }
 }

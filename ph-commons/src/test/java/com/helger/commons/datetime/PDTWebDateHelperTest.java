@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
@@ -150,6 +151,25 @@ public final class PDTWebDateHelperTest
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.00-05:00"));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.0-05:00"));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23-05:00"));
+  }
+
+  @Test
+  public void testXSDOffsetTime ()
+  {
+    // Millis only for Java 11+
+    final OffsetTime aDT = PDTFactory.getCurrentOffsetTimeMillisOnly ();
+    final String s = PDTWebDateHelper.getAsStringXSD (aDT);
+    assertNotNull (s);
+    assertEquals (aDT, PDTWebDateHelper.getOffsetTimeFromXSD (s));
+    assertNull (PDTWebDateHelper.getAsStringXSD ((OffsetTime) null));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("11:30:00.0Z"));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.123-05:00"));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.12-05:00"));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.1-05:00"));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.000-05:00"));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.00-05:00"));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.0-05:00"));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23-05:00"));
   }
 
   @Test
