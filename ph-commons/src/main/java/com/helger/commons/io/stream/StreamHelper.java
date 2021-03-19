@@ -334,7 +334,12 @@ public final class StreamHelper
                                                         @WillNotClose @Nullable final OutputStream aOS,
                                                         @Nullable final MutableLong aCopyByteCount)
   {
-    return copyByteStream ().from (aIS).closeFrom (true).to (aOS).closeTo (false).copyByteCount (aCopyByteCount).build ();
+    return copyByteStream ().from (aIS)
+                            .closeFrom (true)
+                            .to (aOS)
+                            .closeTo (false)
+                            .copyByteCount (aCopyByteCount)
+                            .build ();
   }
 
   /**
@@ -428,7 +433,8 @@ public final class StreamHelper
 
   /**
    * A simple builder to copy an InputStream ({@link #from(InputStream)}) to an
-   * OutputStream ({@link #to(OutputStream)}) with certain parameters.
+   * OutputStream ({@link #to(OutputStream)}) with certain parameters. Call
+   * {@link #build()} to execute the copying.
    *
    * @author Philip Helger
    * @since 10.0.0
@@ -792,7 +798,8 @@ public final class StreamHelper
    *         input stream is <code>null</code>.
    */
   @Nullable
-  public static String getAllBytesAsString (@Nullable final IHasInputStream aISP, @Nonnull @Nonempty final Charset aCharset)
+  public static String getAllBytesAsString (@Nullable final IHasInputStream aISP,
+                                            @Nonnull @Nonempty final Charset aCharset)
   {
     if (aISP == null)
       return null;
@@ -811,7 +818,8 @@ public final class StreamHelper
    *         <code>null</code>.
    */
   @Nullable
-  public static String getAllBytesAsString (@Nullable @WillClose final InputStream aIS, @Nonnull @Nonempty final Charset aCharset)
+  public static String getAllBytesAsString (@Nullable @WillClose final InputStream aIS,
+                                            @Nonnull @Nonempty final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
 
@@ -946,7 +954,8 @@ public final class StreamHelper
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
   @Nonnull
-  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader, @WillNotClose @Nullable final Writer aWriter)
+  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
+                                             @WillNotClose @Nullable final Writer aWriter)
   {
     return copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).build ();
   }
@@ -1046,7 +1055,12 @@ public final class StreamHelper
                                              @WillNotClose @Nullable final Writer aWriter,
                                              @Nullable final MutableLong aCopyCharCount)
   {
-    return copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).copyCharCount (aCopyCharCount).build ();
+    return copyCharStream ().from (aReader)
+                            .closeFrom (true)
+                            .to (aWriter)
+                            .closeTo (false)
+                            .copyCharCount (aCopyCharCount)
+                            .build ();
   }
 
   /**
@@ -1085,7 +1099,8 @@ public final class StreamHelper
 
   /**
    * A simple builder to copy a Reader ({@link #from(Reader)}) to an Writer
-   * ({@link #to(Writer)}) with certain parameters.
+   * ({@link #to(Writer)}) with certain parameters. Call {@link #build()} to
+   * execute the copying.
    *
    * @author Philip Helger
    * @since 10.0.0
@@ -1338,10 +1353,17 @@ public final class StreamHelper
   }
 
   @Nullable
-  public static NonBlockingStringWriter getCopyWithLimit (@Nonnull @WillClose final Reader aReader, @Nonnegative final long nLimit)
+  public static NonBlockingStringWriter getCopyWithLimit (@Nonnull @WillClose final Reader aReader,
+                                                          @Nonnegative final long nLimit)
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (DEFAULT_BUFSIZE);
-    if (copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).limit (nLimit).build ().isFailure ())
+    if (copyCharStream ().from (aReader)
+                         .closeFrom (true)
+                         .to (aWriter)
+                         .closeTo (false)
+                         .limit (nLimit)
+                         .build ()
+                         .isFailure ())
       return null;
     return aWriter;
   }
@@ -1405,7 +1427,8 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsList <String> readStreamLines (@Nullable final IHasInputStream aISP, @Nonnull final Charset aCharset)
+  public static ICommonsList <String> readStreamLines (@Nullable final IHasInputStream aISP,
+                                                       @Nonnull final Charset aCharset)
   {
     return readStreamLines (aISP, aCharset, 0, CGlobal.ILLEGAL_UINT);
   }
@@ -1607,7 +1630,8 @@ public final class StreamHelper
       ValueEnforcer.notNull (aCharset, "Charset");
       ValueEnforcer.isGE0 (nLinesToSkip, "LinesToSkip");
       final boolean bReadAllLines = nLinesToRead == CGlobal.ILLEGAL_UINT;
-      ValueEnforcer.isTrue (bReadAllLines || nLinesToRead >= 0, () -> "Line count may not be that negative: " + nLinesToRead);
+      ValueEnforcer.isTrue (bReadAllLines || nLinesToRead >= 0,
+                            () -> "Line count may not be that negative: " + nLinesToRead);
       ValueEnforcer.notNull (aLineCallback, "LineCallback");
 
       // Start the action only if there is something to read
