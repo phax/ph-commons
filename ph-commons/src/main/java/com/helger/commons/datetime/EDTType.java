@@ -23,10 +23,11 @@ package com.helger.commons.datetime;
  */
 public enum EDTType
 {
-  LOCAL_DATE,
   LOCAL_TIME,
-  LOCAL_DATE_TIME,
-  ZONED_DATE_TIME,
   OFFSET_TIME,
-  OFFSET_DATE_TIME;
+  LOCAL_DATE,
+  OFFSET_DATE,
+  LOCAL_DATE_TIME,
+  OFFSET_DATE_TIME,
+  ZONED_DATE_TIME;
 }

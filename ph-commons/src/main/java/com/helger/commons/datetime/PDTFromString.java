@@ -154,6 +154,29 @@ public final class PDTFromString
   }
 
   @Nullable
+  public static OffsetDate getOffsetDateFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
+  {
+    ValueEnforcer.notNull (aDF, "DateTimeFormatter");
+
+    if (StringHelper.hasText (sValue))
+      try
+      {
+        return aDF.parse (sValue, OffsetDate::from);
+      }
+      catch (final DateTimeParseException ex)
+      {
+        _onParseException ("OffsetDate", sValue, aDF, ex);
+      }
+    return null;
+  }
+
+  @Nullable
+  public static OffsetDate getOffsetDateFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  {
+    return getOffsetDateFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
+  }
+
+  @Nullable
   public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue,
                                                           @Nullable final Locale aParseLocale)
   {

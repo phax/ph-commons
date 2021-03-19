@@ -16,10 +16,13 @@
  */
 package com.helger.commons.datetime;
 
+import static java.time.temporal.ChronoField.DAY_OF_MONTH;
 import static java.time.temporal.ChronoField.HOUR_OF_DAY;
 import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
 import static java.time.temporal.ChronoField.MINUTE_OF_HOUR;
+import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
 import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
+import static java.time.temporal.ChronoField.YEAR;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -35,6 +38,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.time.format.SignStyle;
 import java.time.temporal.Temporal;
 import java.util.Locale;
 
@@ -477,45 +481,64 @@ public final class PDTWebDateHelper
     return getAsStringW3C (aNow);
   }
 
-  private static final DateTimeFormatter MY_TIME;
+  public static final DateTimeFormatter XSD_TIME;
+  public static final DateTimeFormatter XSD_DATE;
   public static final DateTimeFormatter XSD_DATE_TIME;
 
   static
   {
     // From the XSD spec:
     // hh ':' mm ':' ss ('.' s+)? (zzzzzz)?
-    MY_TIME = new DateTimeFormatterBuilder ().parseCaseInsensitive ()
-                                             .appendValue (HOUR_OF_DAY, 2)
-                                             .appendLiteral (':')
-                                             .appendValue (MINUTE_OF_HOUR, 2)
-                                             .optionalStart ()
-                                             .appendLiteral (':')
-                                             .appendValue (SECOND_OF_MINUTE, 2)
-                                             .optionalStart ()
-                                             /*
-                                              * This is different compared to
-                                              * ISO_LOCAL_TIME. The maximum is
-                                              * unbounded, but we are limited to
-                                              * 9 here
-                                              */
-                                             .appendFraction (MILLI_OF_SECOND, 1, 9, true)
-                                             .optionalEnd ()
-                                             // Timezone can occur without
-                                             // milliseconds
-                                             .optionalStart ()
-                                             .appendOffsetId ()
-                                             .optionalStart ()
-                                             .appendLiteral ('[')
-                                             .parseCaseSensitive ()
-                                             .appendZoneRegionId ()
-                                             .appendLiteral (']')
-                                             .toFormatter ()
-                                             .withResolverStyle (ResolverStyle.STRICT)
-                                             .withChronology (IsoChronology.INSTANCE);
+    XSD_TIME = new DateTimeFormatterBuilder ().parseCaseInsensitive ()
+                                              .appendValue (HOUR_OF_DAY, 2)
+                                              .appendLiteral (':')
+                                              .appendValue (MINUTE_OF_HOUR, 2)
+                                              .optionalStart ()
+                                              .appendLiteral (':')
+                                              .appendValue (SECOND_OF_MINUTE, 2)
+                                              .optionalStart ()
+                                              /*
+                                               * This is different compared to
+                                               * ISO_LOCAL_TIME. The maximum is
+                                               * unbounded, but we are limited
+                                               * to 9 here
+                                               */
+                                              .appendFraction (MILLI_OF_SECOND, 1, 9, true)
+                                              .optionalEnd ()
+                                              // Timezone can occur without
+                                              // milliseconds
+                                              .optionalStart ()
+                                              .appendOffsetId ()
+                                              .optionalStart ()
+                                              .appendLiteral ('[')
+                                              .parseCaseSensitive ()
+                                              .appendZoneRegionId ()
+                                              .appendLiteral (']')
+                                              .toFormatter ()
+                                              .withResolverStyle (ResolverStyle.STRICT)
+                                              .withChronology (IsoChronology.INSTANCE);
+    // From the XSD spec:
+    // '-'? yyyy '-' mm '-' dd zzzzzz?
+    XSD_DATE = new DateTimeFormatterBuilder ().appendValue (YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+                                              .appendLiteral ('-')
+                                              .appendValue (MONTH_OF_YEAR, 2)
+                                              .appendLiteral ('-')
+                                              .appendValue (DAY_OF_MONTH, 2)
+                                              // Timezone is optional
+                                              .optionalStart ()
+                                              .appendOffsetId ()
+                                              .optionalStart ()
+                                              .appendLiteral ('[')
+                                              .parseCaseSensitive ()
+                                              .appendZoneRegionId ()
+                                              .appendLiteral (']')
+                                              .toFormatter ()
+                                              .withResolverStyle (ResolverStyle.STRICT)
+                                              .withChronology (IsoChronology.INSTANCE);
     XSD_DATE_TIME = new DateTimeFormatterBuilder ().parseCaseInsensitive ()
                                                    .append (DateTimeFormatter.ISO_LOCAL_DATE)
                                                    .appendLiteral ('T')
-                                                   .append (MY_TIME)
+                                                   .append (XSD_TIME)
                                                    .toFormatter ()
                                                    .withResolverStyle (ResolverStyle.STRICT)
                                                    .withChronology (IsoChronology.INSTANCE);
@@ -584,7 +607,7 @@ public final class PDTWebDateHelper
   @Nonnull
   public static DateTimeFormatter getXSDFormatterDate ()
   {
-    return DateTimeFormatter.ISO_DATE;
+    return XSD_DATE;
   }
 
   @Nullable
@@ -594,15 +617,27 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
+  public static OffsetDate getOffsetDateFromXSD (@Nullable final String sValue)
+  {
+    return PDTFromString.getOffsetDateFromString (sValue, getXSDFormatterDate ());
+  }
+
+  @Nullable
   public static String getAsStringXSD (@Nullable final LocalDate aLD)
   {
     return aLD == null ? null : getXSDFormatterDate ().format (aLD);
   }
 
+  @Nullable
+  public static String getAsStringXSD (@Nullable final OffsetDate aOD)
+  {
+    return aOD == null ? null : getXSDFormatterDate ().format (aOD);
+  }
+
   @Nonnull
   public static DateTimeFormatter getXSDFormatterTime ()
   {
-    return MY_TIME;
+    return XSD_TIME;
   }
 
   @Nullable

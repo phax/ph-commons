@@ -190,6 +190,12 @@ public final class PDTFactory
   }
 
   @Nullable
+  public static ZonedDateTime createZonedDateTime (@Nullable final OffsetDate aOD)
+  {
+    return aOD == null ? null : ZonedDateTime.of (aOD.toLocalDate ().atStartOfDay (), aOD.getOffset ());
+  }
+
+  @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final YearMonth aYM)
   {
     return createZonedDateTime (createLocalDateTime (aYM));
@@ -333,6 +339,12 @@ public final class PDTFactory
   public static OffsetDateTime createOffsetDateTime (@Nullable final LocalDate aLD)
   {
     return createOffsetDateTime (createZonedDateTime (aLD));
+  }
+
+  @Nullable
+  public static OffsetDateTime createOffsetDateTime (@Nullable final OffsetDate aOD)
+  {
+    return aOD == null ? null : OffsetDateTime.of (aOD.toLocalDate ().atStartOfDay (), aOD.getOffset ());
   }
 
   @Nullable
@@ -624,6 +636,107 @@ public final class PDTFactory
     return aLDT == null ? null : aLDT.toLocalDate ();
   }
 
+  @Nullable
+  public static LocalDate createLocalDate (@Nullable final OffsetDateTime aODT)
+  {
+    return aODT == null ? null : aODT.toLocalDate ();
+  }
+
+  @Nullable
+  public static LocalDate createLocalDate (@Nullable final ZonedDateTime aZDT)
+  {
+    return aZDT == null ? null : aZDT.toLocalDate ();
+  }
+
+  // To OffsetDate
+
+  @Nonnegative
+  public static OffsetDate getCurrentOffsetDate ()
+  {
+    return OffsetDate.now (_getZoneId ());
+  }
+
+  @Nonnegative
+  public static OffsetDate getCurrentOffsetDateUTC ()
+  {
+    return OffsetDate.now (ZoneOffset.UTC);
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final LocalDate aLD)
+  {
+    return createOffsetDate (aLD, ZoneOffset.UTC);
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final LocalDate aLD, @Nonnull final ZoneOffset aOffset)
+  {
+    return aLD == null ? null : OffsetDate.of (aLD, aOffset);
+  }
+
+  @Nonnull
+  public static OffsetDate createOffsetDate (final int nYear, @Nonnull final Month eMonth, final int nDayOfMonth)
+  {
+    return createOffsetDate (nYear, eMonth, nDayOfMonth, ZoneOffset.UTC);
+  }
+
+  @Nonnull
+  public static OffsetDate createOffsetDate (final int nYear,
+                                             @Nonnull final Month eMonth,
+                                             final int nDayOfMonth,
+                                             @Nonnull final ZoneOffset aOffset)
+  {
+    return OffsetDate.of (nYear, eMonth, nDayOfMonth, aOffset);
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final GregorianCalendar aCalendar)
+  {
+    return aCalendar == null ? null : createOffsetDate (aCalendar.toZonedDateTime ());
+  }
+
+  @Nonnull
+  public static OffsetDate createOffsetDate (final long nMillis)
+  {
+    return createOffsetDate (createOffsetDateTime (nMillis));
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final Instant aInstant, @Nonnull final ZoneOffset aOffset)
+  {
+    return aInstant == null ? null : OffsetDate.ofInstant (aInstant, aOffset);
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final Date aDate)
+  {
+    return createOffsetDate (createOffsetDateTime (aDate));
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final YearMonth aYM)
+  {
+    return aYM == null ? null : createOffsetDate (aYM.atDay (1));
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final Year aYear)
+  {
+    return aYear == null ? null : createOffsetDate (aYear.atDay (1));
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final OffsetDateTime aLDT)
+  {
+    return aLDT == null ? null : OffsetDate.of (aLDT.toLocalDate (), aLDT.getOffset ());
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final ZonedDateTime aLDT)
+  {
+    return aLDT == null ? null : OffsetDate.of (aLDT.toLocalDate (), aLDT.getOffset ());
+  }
+
   // LocalTime
 
   @Nonnegative
@@ -816,6 +929,12 @@ public final class PDTFactory
   }
 
   @Nullable
+  public static Date createDate (@Nullable final OffsetDate aOD)
+  {
+    return createDate (createZonedDateTime (aOD));
+  }
+
+  @Nullable
   public static Date createDate (@Nullable final LocalTime aLT)
   {
     return createDate (createZonedDateTime (aLT));
@@ -920,17 +1039,27 @@ public final class PDTFactory
 
   public static long getMillis (@Nonnull final LocalDate aLD)
   {
-    return createZonedDateTime (aLD).toInstant ().toEpochMilli ();
+    return getMillis (createOffsetDateTime (aLD));
+  }
+
+  public static long getMillis (@Nonnull final OffsetDate aOD)
+  {
+    return getMillis (createOffsetDateTime (aOD));
   }
 
   public static long getMillis (@Nonnull final LocalTime aLT)
   {
-    return createZonedDateTime (aLT).toInstant ().toEpochMilli ();
+    return getMillis (createOffsetDateTime (aLT));
+  }
+
+  public static long getMillis (@Nonnull final OffsetTime aOT)
+  {
+    return getMillis (createOffsetDateTime (aOT));
   }
 
   public static long getMillis (@Nonnull final LocalDateTime aLDT)
   {
-    return createZonedDateTime (aLDT).toInstant ().toEpochMilli ();
+    return getMillis (createOffsetDateTime (aLDT));
   }
 
   public static long getMillis (@Nonnull final OffsetDateTime aODT)
