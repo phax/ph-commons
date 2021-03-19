@@ -53,8 +53,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.Instant;
@@ -84,6 +82,7 @@ import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
@@ -483,7 +482,7 @@ public final class OffsetDateTest
   @Test
   public void factory_parse_formatter ()
   {
-    final DateTimeFormatter f = DateTimeFormatter.ofPattern ("y M d XXX");
+    final DateTimeFormatter f = DateTimeFormatter.ofPattern ("y M d XXX", Locale.US);
     final OffsetDate test = OffsetDate.parse ("2010 12 3 +01:00", f);
     assertEquals (OffsetDate.of (LocalDate.of (2010, 12, 3), ZoneOffset.ofHours (1)), test);
   }
@@ -491,7 +490,7 @@ public final class OffsetDateTest
   @Test
   public void factory_parse_formatter_nullText ()
   {
-    final DateTimeFormatter f = DateTimeFormatter.ofPattern ("y M d");
+    final DateTimeFormatter f = DateTimeFormatter.ofPattern ("y M d", Locale.US);
     assertThrows (NullPointerException.class, () -> OffsetDate.parse ((String) null, f));
   }
 
@@ -507,21 +506,13 @@ public final class OffsetDateTest
   @Test
   public void constructor_nullDate () throws Throwable
   {
-    final Constructor <OffsetDate> con = OffsetDate.class.getDeclaredConstructor (LocalDate.class, ZoneOffset.class);
-    con.setAccessible (true);
-    final InvocationTargetException thrown = assertThrows (InvocationTargetException.class,
-                                                           () -> con.newInstance (null, OFFSET_PONE));
-    assertTrue (thrown.getCause () instanceof NullPointerException);
+    assertThrows (NullPointerException.class, () -> new OffsetDate (null, OFFSET_PONE));
   }
 
   @Test
   public void constructor_nullOffset () throws Throwable
   {
-    final Constructor <OffsetDate> con = OffsetDate.class.getDeclaredConstructor (LocalDate.class, ZoneOffset.class);
-    con.setAccessible (true);
-    final InvocationTargetException thrown = assertThrows (InvocationTargetException.class,
-                                                           () -> con.newInstance (LocalDate.of (2008, 6, 30), null));
-    assertTrue (thrown.getCause () instanceof NullPointerException);
+    assertThrows (NullPointerException.class, () -> new OffsetDate (LocalDate.of (2008, 6, 30), null));
   }
 
   // -----------------------------------------------------------------------
