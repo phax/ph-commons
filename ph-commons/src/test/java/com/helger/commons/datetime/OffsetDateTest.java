@@ -1938,7 +1938,7 @@ public final class OffsetDateTest
   @Test
   public void test_format_formatter ()
   {
-    final DateTimeFormatter f = DateTimeFormatter.ofPattern ("y M d");
+    final DateTimeFormatter f = DateTimeFormatter.ofPattern ("y M d", Locale.US);
     final String t = OffsetDate.of (LocalDate.of (2010, 12, 3), OFFSET_PONE).format (f);
     assertEquals ("2010 12 3", t);
   }
