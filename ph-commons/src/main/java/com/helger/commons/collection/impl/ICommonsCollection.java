@@ -44,7 +44,10 @@ import com.helger.commons.state.EChange;
  * @param <ELEMENTTYPE>
  *        The data type stored in the collection
  */
-public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>, ICommonsIterable <ELEMENTTYPE>, IHasSize
+public interface ICommonsCollection <ELEMENTTYPE> extends
+                                    Collection <ELEMENTTYPE>,
+                                    ICommonsIterable <ELEMENTTYPE>,
+                                    IHasSize
 {
   @Nonnull
   @ReturnsMutableCopy
@@ -114,7 +117,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #getAtIndex(Predicate, int, Object)
    */
   @Nullable
-  default ELEMENTTYPE getAtIndex (@Nullable final Predicate <? super ELEMENTTYPE> aFilter, @Nonnegative final int nIndex)
+  default ELEMENTTYPE getAtIndex (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                  @Nonnegative final int nIndex)
   {
     return getAtIndex (aFilter, nIndex, null);
   }
@@ -400,7 +404,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @since 8.5.2
    */
   @Nonnull
-  default EChange addAll (@Nullable final ELEMENTTYPE [] aElements, @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default EChange addAll (@Nullable final ELEMENTTYPE [] aElements,
+                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return addAll (aElements);
@@ -482,7 +487,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @since 8.5.2
    */
   @Nonnull
-  default EChange addAll (@Nullable final Iterator <? extends ELEMENTTYPE> aIter, @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default EChange addAll (@Nullable final Iterator <? extends ELEMENTTYPE> aIter,
+                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return addAll (aIter);
