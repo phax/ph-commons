@@ -59,7 +59,7 @@ public abstract class AbstractDAO implements IDAO
   private static final CallbackList <IDAOReadExceptionCallback> EX_HANDLERS_READ = new CallbackList <> ();
   private static final CallbackList <IDAOWriteExceptionCallback> EX_HANDLERS_WRITE = new CallbackList <> ();
 
-  protected static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  protected static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
