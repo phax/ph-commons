@@ -517,7 +517,7 @@ public final class StreamHelper
 
     /**
      * @param n
-     *        An optional maximum number of bytes to copied from the IputStream
+     *        An optional maximum number of bytes to copied from the InputStream
      *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
      *        all bytes are copied.
      * @return this for chaining
