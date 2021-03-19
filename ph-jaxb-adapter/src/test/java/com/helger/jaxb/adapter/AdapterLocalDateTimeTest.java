@@ -16,10 +16,16 @@
  */
 package com.helger.jaxb.adapter;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.ChronoField;
+
 import org.junit.Test;
+
+import com.helger.commons.datetime.PDTFactory;
 
 /**
  * Test class for class {@link AdapterLocalDateTime}.
@@ -44,9 +50,28 @@ public final class AdapterLocalDateTimeTest
     assertNull (a.unmarshal ("2020-01-01"));
     assertNull (a.unmarshal ("2020-01-01 T10:12:45.654"));
     assertNull (a.unmarshal ("2020-01-01T 10:12:45.654"));
-    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654"));
-    assertNotNull (a.unmarshal (" 2020-01-01T10:12:45.654"));
-    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654 "));
-    assertNotNull (a.unmarshal (" 2020-01-01T10:12:45.654 "));
+
+    LocalDateTime o = PDTFactory.createLocalDateTime (2020, Month.JANUARY, 1, 10, 12, 45)
+                                .with (ChronoField.MILLI_OF_SECOND, 654);
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654"));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654"));
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654 "));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654 "));
+
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654Z"));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654Z"));
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654Z "));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654Z "));
+
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+00:00"));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+00:00"));
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+00:00 "));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+00:00 "));
+
+    o = PDTFactory.createLocalDateTime (2020, Month.JANUARY, 1, 9, 12, 45).with (ChronoField.MILLI_OF_SECOND, 654);
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+01:00"));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+01:00"));
+    assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+01:00 "));
+    assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+01:00 "));
   }
 }

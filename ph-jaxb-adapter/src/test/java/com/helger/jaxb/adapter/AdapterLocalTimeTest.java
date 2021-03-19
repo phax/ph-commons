@@ -49,8 +49,8 @@ public final class AdapterLocalTimeTest
     assertNull (a.unmarshal ("10:12: 45"));
 
     assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45Z"));
-    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45+01:00"));
-    assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45-05:30"));
+    assertEquals (PDTFactory.createLocalTime (9, 12, 45), a.unmarshal ("10:12:45+01:00"));
+    assertEquals (PDTFactory.createLocalTime (15, 42, 45), a.unmarshal ("10:12:45-05:30"));
     assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal (" 10:12:45Z"));
     assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal ("10:12:45Z "));
     assertEquals (PDTFactory.createLocalTime (10, 12, 45), a.unmarshal (" 10:12:45Z "));

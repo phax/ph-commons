@@ -17,6 +17,7 @@
 package com.helger.jaxb.adapter;
 
 import java.time.LocalTime;
+import java.time.OffsetTime;
 
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
@@ -44,7 +45,17 @@ public class AdapterLocalTime extends XmlAdapter <String, LocalTime>
     if (sValue == null)
       return null;
 
-    final LocalTime ret = PDTWebDateHelper.getLocalTimeFromXSD (sValue.trim ());
+    final String sTrimmed = sValue.trim ();
+    final OffsetTime aOT = PDTWebDateHelper.getOffsetTimeFromXSD (sTrimmed);
+    if (aOT != null)
+    {
+      // A timezone information is present
+      // Get as canonical LocalDateTime
+      return aOT.toLocalTime ().minusSeconds (aOT.getOffset ().getTotalSeconds ());
+    }
+
+    // Parse without Timezone
+    final LocalTime ret = PDTWebDateHelper.getLocalTimeFromXSD (sTrimmed);
     if (ret == null)
       LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalTime");
     return ret;
