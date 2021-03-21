@@ -29,7 +29,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v10.0.0 - work in progress
+* v10.0.0 - 2021-03-21
     * Changed Maven groupId from `com.helger` to `com.helger.commons`
     * The submodule `ph-xml` no longer depends on `ph-collection`
     * Separated the JAXB adapter classes and `JAXBHelper` to new submodule `ph-jaxb-adapter` - the goal is to have less dependencies
