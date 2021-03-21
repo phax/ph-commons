@@ -234,7 +234,8 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * Create an intermediate time (lap time).
+   * Create an intermediate time (lap time). It internally stops, takes the
+   * duration and restarts.
    *
    * @return The elapsed duration or 0 if the stop watch was never started.
    * @since 10.0.0
@@ -251,7 +252,9 @@ public class StopWatch implements IStoppable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("StartDT", m_nStartDT).append ("DurationNanos", m_nDurationNanos).getToString ();
+    return new ToStringGenerator (this).append ("StartDT", m_nStartDT)
+                                       .append ("DurationNanos", m_nDurationNanos)
+                                       .getToString ();
   }
 
   /**

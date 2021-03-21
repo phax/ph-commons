@@ -75,7 +75,7 @@ public final class StopWatchTest
     final StopWatch sw = StopWatch.createdStarted ();
     ThreadHelper.sleep (100);
     long n = sw.getLapDuration ().toMillis ();
-    assertTrue (n >= 100);
+    assertTrue ("Duration of " + n + " was too short", n >= 100);
     ThreadHelper.sleep (100);
     n = sw.stopAndGetDuration ().toMillis ();
     assertTrue (n >= 200);
