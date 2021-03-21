@@ -336,6 +336,12 @@ public final class PDTFactory
   }
 
   @Nullable
+  public static OffsetDateTime createOffsetDateTime (@Nullable final LocalDateTime aLDT, @Nonnull final ZoneOffset aOfs)
+  {
+    return aLDT == null ? null : OffsetDateTime.of (aLDT, aOfs);
+  }
+
+  @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final LocalDate aLD)
   {
     return createOffsetDateTime (createZonedDateTime (aLD));
