@@ -270,7 +270,6 @@ public class BasicThreadFactory implements ThreadFactory
    *
    * @return the number of threads created by this factory
    */
-  @Nonnull
   public long getThreadCount ()
   {
     return m_aThreadCounter.get ();
