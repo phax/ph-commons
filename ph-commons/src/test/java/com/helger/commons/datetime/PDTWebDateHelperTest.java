@@ -116,7 +116,7 @@ public final class PDTWebDateHelperTest
   public void testXSDDateTime ()
   {
     // Millis only for Java 11+
-    final ZonedDateTime aDT = PDTFactory.getCurrentZonedDateTimeUTCMillisOnly ();
+    final ZonedDateTime aDT = PDTFactory.getCurrentZonedDateTimeMillisOnlyUTC ();
     final String s = PDTWebDateHelper.getAsStringXSD (aDT);
     assertNotNull (s);
     assertEquals (aDT, PDTWebDateHelper.getDateTimeFromXSD (s));

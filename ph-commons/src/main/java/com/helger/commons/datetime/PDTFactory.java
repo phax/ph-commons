@@ -143,6 +143,12 @@ public final class PDTFactory
     return ZonedDateTime.now (_getZoneId ());
   }
 
+  @Nonnull
+  public static ZonedDateTime getCurrentZonedDateTimeUTC ()
+  {
+    return ZonedDateTime.now (ZoneOffset.UTC);
+  }
+
   /**
    * Get the passed date time but with micro and nanoseconds set to 0, so that
    * only the milliseconds part is present. This is helpful for XSD
@@ -174,21 +180,14 @@ public final class PDTFactory
     return getWithMillisOnly (getCurrentZonedDateTime ());
   }
 
-  @Nonnull
-  public static ZonedDateTime getCurrentZonedDateTimeUTC ()
-  {
-    return ZonedDateTime.now (ZoneOffset.UTC);
-  }
-
   /**
    * @return The current local date and time but with micro and nanoseconds set
    *         to 0, so that only the milliseconds part is present. This is
    *         helpful for XSD serialization, where only milliseconds granularity
    *         is available.
-   * @since 9.2.0
    */
   @Nonnegative
-  public static ZonedDateTime getCurrentZonedDateTimeUTCMillisOnly ()
+  public static ZonedDateTime getCurrentZonedDateTimeMillisOnlyUTC ()
   {
     return getWithMillisOnly (getCurrentZonedDateTimeUTC ());
   }
@@ -367,6 +366,12 @@ public final class PDTFactory
     return OffsetDateTime.now (_getZoneId ());
   }
 
+  @Nonnegative
+  public static OffsetDateTime getCurrentOffsetDateTimeUTC ()
+  {
+    return OffsetDateTime.now (ZoneOffset.UTC);
+  }
+
   /**
    * Get the passed date time but with micro and nanoseconds set to 0, so that
    * only the milliseconds part is present. This is helpful for XSD
@@ -396,6 +401,18 @@ public final class PDTFactory
   public static OffsetDateTime getCurrentOffsetDateTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentOffsetDateTime ());
+  }
+
+  /**
+   * @return The current local date and time but with micro and nanoseconds set
+   *         to 0, so that only the milliseconds part is present. This is
+   *         helpful for XSD serialization, where only milliseconds granularity
+   *         is available.
+   */
+  @Nonnegative
+  public static OffsetDateTime getCurrentOffsetDateTimeMillisOnlyUTC ()
+  {
+    return getWithMillisOnly (getCurrentOffsetDateTimeUTC ());
   }
 
   @Nullable
@@ -572,6 +589,12 @@ public final class PDTFactory
     return LocalDateTime.now (_getZoneId ());
   }
 
+  @Nonnegative
+  public static LocalDateTime getCurrentLocalDateTimeUTC ()
+  {
+    return LocalDateTime.now (ZoneOffset.UTC);
+  }
+
   /**
    * Get the passed date time but with micro and nanoseconds set to 0, so that
    * only the milliseconds part is present. This is helpful for XSD
@@ -601,6 +624,18 @@ public final class PDTFactory
   public static LocalDateTime getCurrentLocalDateTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentLocalDateTime ());
+  }
+
+  /**
+   * @return The current local date and time but with micro and nanoseconds set
+   *         to 0, so that only the milliseconds part is present. This is
+   *         helpful for XSD serialization, where only milliseconds granularity
+   *         is available.
+   */
+  @Nonnegative
+  public static LocalDateTime getCurrentLocalDateTimeMillisOnlyUTC ()
+  {
+    return getWithMillisOnly (getCurrentLocalDateTimeUTC ());
   }
 
   @Nullable
@@ -714,6 +749,12 @@ public final class PDTFactory
   public static LocalDate getCurrentLocalDate ()
   {
     return LocalDate.now (_getZoneId ());
+  }
+
+  @Nonnegative
+  public static LocalDate getCurrentLocalDateUTC ()
+  {
+    return LocalDate.now (ZoneOffset.UTC);
   }
 
   @Nonnull
@@ -873,6 +914,12 @@ public final class PDTFactory
     return LocalTime.now (_getZoneId ());
   }
 
+  @Nonnegative
+  public static LocalTime getCurrentLocalTimeUTC ()
+  {
+    return LocalTime.now (ZoneOffset.UTC);
+  }
+
   /**
    * Get the passed time but with micro and nanoseconds set to 0, so that only
    * the milliseconds part is present. This is helpful for XSD serialization,
@@ -901,6 +948,17 @@ public final class PDTFactory
   public static LocalTime getCurrentLocalTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentLocalTime ());
+  }
+
+  /**
+   * @return The current local time but with micro and nanoseconds set to 0, so
+   *         that only the milliseconds part is present. This is helpful for XSD
+   *         serialization, where only milliseconds granularity is available.
+   */
+  @Nonnegative
+  public static LocalTime getCurrentLocalTimeMillisOnlyUTC ()
+  {
+    return getWithMillisOnly (getCurrentLocalTimeUTC ());
   }
 
   @Nullable
@@ -953,6 +1011,12 @@ public final class PDTFactory
     return OffsetTime.now (_getZoneId ());
   }
 
+  @Nonnegative
+  public static OffsetTime getCurrentOffsetTimeUTC ()
+  {
+    return OffsetTime.now (ZoneOffset.UTC);
+  }
+
   /**
    * Get the passed time but with micro and nanoseconds set to 0, so that only
    * the milliseconds part is present. This is helpful for XSD serialization,
@@ -981,6 +1045,17 @@ public final class PDTFactory
   public static OffsetTime getCurrentOffsetTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentOffsetTime ());
+  }
+
+  /**
+   * @return The current local time but with micro and nanoseconds set to 0, so
+   *         that only the milliseconds part is present. This is helpful for XSD
+   *         serialization, where only milliseconds granularity is available.
+   */
+  @Nonnegative
+  public static OffsetTime getCurrentOffsetTimeMillisOnlyUTC ()
+  {
+    return getWithMillisOnly (getCurrentOffsetTimeUTC ());
   }
 
   @Nullable
@@ -1118,34 +1193,34 @@ public final class PDTFactory
     return getCurrentLocalDate ().getYear ();
   }
 
+  @Nonnegative
+  public static int getCurrentYearUTC ()
+  {
+    return getCurrentLocalDateUTC ().getYear ();
+  }
+
   @Nonnull
   public static Year getCurrentYearObj ()
   {
     return Year.now (_getZoneId ());
   }
 
-  @Nonnegative
-  public static int getCurrentMonth ()
-  {
-    return getCurrentLocalDate ().getMonthValue ();
-  }
-
   @Nonnull
-  public static Month getCurrentMonthObj ()
+  public static Year getCurrentYearObjUTC ()
   {
-    return getCurrentLocalDate ().getMonth ();
-  }
-
-  @Nonnegative
-  public static int getCurrentDayOfMonth ()
-  {
-    return getCurrentLocalDate ().getDayOfMonth ();
+    return Year.now (ZoneOffset.UTC);
   }
 
   @Nonnull
   public static MonthDay getCurrentMonthDay ()
   {
     return MonthDay.now (_getZoneId ());
+  }
+
+  @Nonnull
+  public static MonthDay getCurrentMonthDayUTC ()
+  {
+    return MonthDay.now (ZoneOffset.UTC);
   }
 
   @Nonnegative
@@ -1155,9 +1230,21 @@ public final class PDTFactory
   }
 
   @Nonnegative
+  public static YearMonth getCurrentYearMonthUTC ()
+  {
+    return YearMonth.now (ZoneOffset.UTC);
+  }
+
+  @Nonnegative
   public static Instant getCurrentInstant ()
   {
     return Instant.now (Clock.system (_getZoneId ()));
+  }
+
+  @Nonnegative
+  public static Instant getCurrentInstantUTC ()
+  {
+    return Instant.now (Clock.system (ZoneOffset.UTC));
   }
 
   public static long getCurrentMillis ()
@@ -1165,29 +1252,34 @@ public final class PDTFactory
     return getCurrentInstant ().toEpochMilli ();
   }
 
+  public static long getCurrentMillisUTC ()
+  {
+    return getCurrentInstantUTC ().toEpochMilli ();
+  }
+
   public static long getMillis (@Nonnull final LocalDate aLD)
   {
-    return getMillis (createOffsetDateTime (aLD));
+    return getMillis (createZonedDateTime (aLD));
   }
 
   public static long getMillis (@Nonnull final OffsetDate aOD)
   {
-    return getMillis (createOffsetDateTime (aOD));
+    return getMillis (createZonedDateTime (aOD));
   }
 
   public static long getMillis (@Nonnull final LocalTime aLT)
   {
-    return getMillis (createOffsetDateTime (aLT));
+    return getMillis (createZonedDateTime (aLT));
   }
 
   public static long getMillis (@Nonnull final OffsetTime aOT)
   {
-    return getMillis (createOffsetDateTime (aOT));
+    return getMillis (createZonedDateTime (aOT));
   }
 
   public static long getMillis (@Nonnull final LocalDateTime aLDT)
   {
-    return getMillis (createOffsetDateTime (aLDT));
+    return getMillis (createZonedDateTime (aLDT));
   }
 
   public static long getMillis (@Nonnull final OffsetDateTime aODT)

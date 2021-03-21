@@ -45,11 +45,21 @@ public final class PDTFactoryTest
     assertNotNull (PDTFactory.getCurrentZonedDateTime ());
     assertNotNull (PDTFactory.getCurrentZonedDateTimeMillisOnly ());
     assertNotNull (PDTFactory.getCurrentZonedDateTimeUTC ());
-    assertNotNull (PDTFactory.getCurrentZonedDateTimeUTCMillisOnly ());
+    assertNotNull (PDTFactory.getCurrentZonedDateTimeMillisOnlyUTC ());
     assertNotNull (PDTFactory.getCurrentOffsetDateTime ());
     assertNotNull (PDTFactory.getCurrentOffsetDateTimeMillisOnly ());
+    assertNotNull (PDTFactory.getCurrentOffsetDateTimeUTC ());
+    assertNotNull (PDTFactory.getCurrentOffsetDateTimeMillisOnlyUTC ());
     assertNotNull (PDTFactory.getCurrentLocalDateTime ());
     assertNotNull (PDTFactory.getCurrentLocalDateTimeMillisOnly ());
+    assertNotNull (PDTFactory.getCurrentLocalDateTimeUTC ());
+    assertNotNull (PDTFactory.getCurrentLocalDateTimeMillisOnlyUTC ());
+    assertNotNull (PDTFactory.getCurrentLocalDate ());
+    assertNotNull (PDTFactory.getCurrentLocalDateUTC ());
+    assertNotNull (PDTFactory.getCurrentLocalTime ());
+    assertNotNull (PDTFactory.getCurrentLocalTimeMillisOnly ());
+    assertNotNull (PDTFactory.getCurrentLocalTimeUTC ());
+    assertNotNull (PDTFactory.getCurrentLocalTimeMillisOnlyUTC ());
     assertNotNull (PDTFactory.getCurrentYearObj ());
     assertNotNull (PDTFactory.getCurrentYearMonth ());
   }
