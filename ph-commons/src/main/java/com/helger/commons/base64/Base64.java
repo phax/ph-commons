@@ -37,8 +37,11 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.stream.NonBlockingBufferedInputStream;
+import com.helger.commons.io.stream.NonBlockingBufferedOutputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.state.ESuccess;
 
 /**
  * <p>
@@ -1775,7 +1778,7 @@ public final class Base64
       try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ())
       {
         try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | nOptions);
-             final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
+            final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
         {
           gzos.write (aSource, nOfs, nLen);
         }
@@ -1934,7 +1937,8 @@ public final class Base64
       // Two ways to do the same thing. Don't know which way I like best.
       // int outBuff = ( ( DECODABET[ source[ srcOffset ] ] << 24 ) >>> 6 )
       // | ( ( DECODABET[ source[ srcOffset + 1] ] << 24 ) >>> 12 );
-      final int outBuff = ((aDecodabet[source[srcOffset]] & 0xFF) << 18) | ((aDecodabet[source[srcOffset + 1]] & 0xFF) << 12);
+      final int outBuff = ((aDecodabet[source[srcOffset]] & 0xFF) << 18) |
+                          ((aDecodabet[source[srcOffset + 1]] & 0xFF) << 12);
 
       destination[destOffset] = (byte) (outBuff >>> 16);
       return 1;
@@ -2045,7 +2049,10 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final byte [] aSource, final int nOfs, final int nLen, final int nOptions) throws IOException
+  public static byte [] decode (@Nonnull final byte [] aSource,
+                                final int nOfs,
+                                final int nLen,
+                                final int nOptions) throws IOException
   {
     // Lots of error checking and exception throwing
     ValueEnforcer.isArrayOfsLen (aSource, nOfs, nLen);
@@ -2053,7 +2060,9 @@ public final class Base64
     if (nLen == 0)
       return ArrayHelper.EMPTY_BYTE_ARRAY;
 
-    ValueEnforcer.isTrue (nLen >= 4, () -> "Base64-encoded string must have at least four characters, but length specified was " + nLen);
+    ValueEnforcer.isTrue (nLen >= 4,
+                          () -> "Base64-encoded string must have at least four characters, but length specified was " +
+                                nLen);
 
     final byte [] aDecodabet = _getDecodabet (nOptions);
 
@@ -2162,8 +2171,8 @@ public final class Base64
       if (GZIPInputStream.GZIP_MAGIC == head)
       {
         try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-             final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
-             final GZIPInputStream gzis = new GZIPInputStream (bais))
+            final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
+            final GZIPInputStream gzis = new GZIPInputStream (bais))
         {
           final byte [] buffer = new byte [2048];
           int length;
@@ -2197,19 +2206,29 @@ public final class Base64
    *        byte array of data to encode in base64 form
    * @param aFile
    *        File for saving encoded data
+   * @return {@link ESuccess}
    * @throws IOException
    *         if there is an error
    * @throws NullPointerException
    *         if dataToEncode is null
    * @since 2.1
    */
-  public static void encodeToFile (@Nonnull final byte [] aDataToEncode, final File aFile) throws IOException
+  @Nonnull
+  public static ESuccess encodeToFile (@Nonnull final byte [] aDataToEncode,
+                                       @Nonnull final File aFile) throws IOException
   {
     ValueEnforcer.notNull (aDataToEncode, "DataToEncode");
+    ValueEnforcer.notNull (aFile, "File");
 
-    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getBufferedOutputStream (aFile), ENCODE))
+    try (final NonBlockingBufferedOutputStream aBOS = FileHelper.getBufferedOutputStream (aFile))
     {
-      bos.write (aDataToEncode);
+      if (aBOS == null)
+        return ESuccess.FAILURE;
+      try (final Base64OutputStream bos = new Base64OutputStream (aBOS, ENCODE))
+      {
+        bos.write (aDataToEncode);
+        return ESuccess.SUCCESS;
+      }
     }
   }
 
@@ -2225,15 +2244,27 @@ public final class Base64
    *        Base64-encoded data as a string
    * @param aFile
    *        File for saving decoded data
+   * @return {@link ESuccess}
    * @throws IOException
    *         if there is an error
    * @since 2.1
    */
-  public static void decodeToFile (@Nonnull final String sDataToDecode, @Nonnull final File aFile) throws IOException
+  @Nonnull
+  public static ESuccess decodeToFile (@Nonnull final String sDataToDecode,
+                                       @Nonnull final File aFile) throws IOException
   {
-    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getBufferedOutputStream (aFile), DECODE))
+    ValueEnforcer.notNull (sDataToDecode, "DataToDecode");
+    ValueEnforcer.notNull (aFile, "File");
+
+    try (final NonBlockingBufferedOutputStream aBOS = FileHelper.getBufferedOutputStream (aFile))
     {
-      bos.write (sDataToDecode.getBytes (PREFERRED_ENCODING));
+      if (aBOS == null)
+        return ESuccess.FAILURE;
+      try (final Base64OutputStream bos = new Base64OutputStream (aBOS, DECODE))
+      {
+        bos.write (sDataToDecode.getBytes (PREFERRED_ENCODING));
+        return ESuccess.SUCCESS;
+      }
     }
   }
 
@@ -2245,7 +2276,7 @@ public final class Base64
    * but in retrospect that's a pretty poor way to handle it.
    * </p>
    *
-   * @param filename
+   * @param sFilename
    *        Filename for reading encoded data
    * @return decoded byte array
    * @throws IOException
@@ -2254,33 +2285,43 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] decodeFromFile (@Nonnull final String filename) throws IOException
+  public static byte [] decodeFromFile (@Nonnull final String sFilename) throws IOException
   {
     // Setup some useful variables
-    final File file = new File (filename);
+    final File aFile = new File (sFilename);
 
     // Check for size of file
-    if (file.length () > Integer.MAX_VALUE)
-      throw new IOException ("File is too big for this convenience method (" + file.length () + " bytes).");
+    if (aFile.length () > Integer.MAX_VALUE)
+      throw new IOException ("File '" +
+                             sFilename +
+                             "' is too big for this convenience method (" +
+                             aFile.length () +
+                             " bytes).");
 
-    final byte [] buffer = new byte [(int) file.length ()];
-
-    // Open a stream
-    try (final Base64InputStream bis = new Base64InputStream (FileHelper.getBufferedInputStream (file), DECODE))
+    try (final NonBlockingBufferedInputStream aIS = FileHelper.getBufferedInputStream (aFile))
     {
-      int nOfs = 0;
-      int numBytes;
+      if (aIS == null)
+        throw new IOException ("Failed to open file '" + aFile.getAbsolutePath () + "'");
 
-      // Read until done
-      while ((numBytes = bis.read (buffer, nOfs, 4096)) >= 0)
+      final byte [] buffer = new byte [(int) aFile.length ()];
+
+      // Open a stream
+      try (final Base64InputStream bis = new Base64InputStream (aIS, DECODE))
       {
-        nOfs += numBytes;
-      }
+        int nOfs = 0;
+        int numBytes;
 
-      // Save in a variable to return
-      final byte [] decodedData = new byte [nOfs];
-      System.arraycopy (buffer, 0, decodedData, 0, nOfs);
-      return decodedData;
+        // Read until done
+        while ((numBytes = bis.read (buffer, nOfs, 4096)) >= 0)
+        {
+          nOfs += numBytes;
+        }
+
+        // Save in a variable to return
+        final byte [] decodedData = new byte [nOfs];
+        System.arraycopy (buffer, 0, decodedData, 0, nOfs);
+        return decodedData;
+      }
     }
   }
 
@@ -2292,7 +2333,7 @@ public final class Base64
    * but in retrospect that's a pretty poor way to handle it.
    * </p>
    *
-   * @param filename
+   * @param sFilename
    *        Filename for reading binary data
    * @return base64-encoded string
    * @throws IOException
@@ -2300,29 +2341,44 @@ public final class Base64
    * @since 2.1
    */
   @Nonnull
-  public static String encodeFromFile (@Nonnull final String filename) throws IOException
+  public static String encodeFromFile (@Nonnull final String sFilename) throws IOException
   {
     // Setup some useful variables
-    final File file = new File (filename);
+    final File aFile = new File (sFilename);
 
-    // Open a stream
-    try (final Base64InputStream bis = new Base64InputStream (FileHelper.getBufferedInputStream (file), ENCODE))
+    // Check for size of file
+    // Need +1 for a few corner cases (v2.3.5)
+    final long nTargetLen = (long) (aFile.length () * 1.4) + 1;
+    if (nTargetLen > Integer.MAX_VALUE)
+      throw new IOException ("File '" +
+                             sFilename +
+                             "' is too big for this convenience method (" +
+                             aFile.length () +
+                             " bytes).");
+
+    try (final NonBlockingBufferedInputStream aIS = FileHelper.getBufferedInputStream (aFile))
     {
-      // Need max() for math on small files (v2.2.1);
-      // Need +1 for a few corner cases (v2.3.5)
-      final byte [] aBuffer = new byte [Math.max ((int) (file.length () * 1.4 + 1), 40)];
+      if (aIS == null)
+        throw new IOException ("Failed to open file '" + aFile.getAbsolutePath () + "'");
 
-      int nLength = 0;
-      int nBytes;
-
-      // Read until done
-      while ((nBytes = bis.read (aBuffer, nLength, 4096)) >= 0)
+      // Open a stream
+      try (final Base64InputStream bis = new Base64InputStream (aIS, ENCODE))
       {
-        nLength += nBytes;
-      }
+        // Need max() for math on small files (v2.2.1);
+        final byte [] aBuffer = new byte [Math.max ((int) nTargetLen, 40)];
 
-      // Save in a variable to return
-      return new String (aBuffer, 0, nLength, PREFERRED_ENCODING);
+        int nLength = 0;
+        int nBytes;
+
+        // Read until done
+        while ((nBytes = bis.read (aBuffer, nLength, 4096)) >= 0)
+        {
+          nLength += nBytes;
+        }
+
+        // Save in a variable to return
+        return new String (aBuffer, 0, nLength, PREFERRED_ENCODING);
+      }
     }
   }
 
@@ -2455,7 +2511,9 @@ public final class Base64
    */
   @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
   {
     return safeDecode (aEncodedBytes, nOfs, nLen, DONT_GUNZIP);
   }
@@ -2586,7 +2644,9 @@ public final class Base64
 
   @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded,
+                                                @Nonnegative final int nOfs,
+                                                @Nonnegative final int nLen)
   {
     return safeEncodeBytesToBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
   }
@@ -2628,7 +2688,9 @@ public final class Base64
 
   @Nullable
   @ReturnsMutableCopy
-  public static String safeEncodeBytes (@Nullable final byte [] aDecoded, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static String safeEncodeBytes (@Nullable final byte [] aDecoded,
+                                        @Nonnegative final int nOfs,
+                                        @Nonnegative final int nLen)
   {
     return safeEncodeBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
   }
