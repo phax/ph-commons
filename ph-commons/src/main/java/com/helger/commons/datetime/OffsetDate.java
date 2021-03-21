@@ -43,7 +43,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento
+ * Copyright (c) 2007-present, Stephen Colebourne &amp; Michael Nascimento
  * Santos.<br>
  * This class is originally from the ThreeTen-Extra project. It is included here
  * to reduce dependencies.
