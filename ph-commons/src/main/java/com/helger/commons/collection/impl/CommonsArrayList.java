@@ -18,6 +18,7 @@ package com.helger.commons.collection.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -83,6 +84,21 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @see #addAll(Iterable)
    */
   public CommonsArrayList (@Nullable final Iterable <? extends ELEMENTTYPE> aValues)
+  {
+    // Uses a special overload of "addAll"!
+    addAll (aValues);
+  }
+
+  /**
+   * Create a new array list with the default initial capacity and add all
+   * provided elements.
+   *
+   * @param aValues
+   *        The iterable from which the elements are copied from. May be
+   *        <code>null</code>.
+   * @see #addAll(Enumeration)
+   */
+  public CommonsArrayList (@Nullable final Enumeration <? extends ELEMENTTYPE> aValues)
   {
     // Uses a special overload of "addAll"!
     addAll (aValues);

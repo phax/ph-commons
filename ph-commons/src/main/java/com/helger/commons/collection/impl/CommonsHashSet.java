@@ -17,6 +17,7 @@
 package com.helger.commons.collection.impl;
 
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -59,6 +60,11 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   }
 
   public CommonsHashSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  {
+    addAll (aIterable);
+  }
+
+  public CommonsHashSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aIterable)
   {
     addAll (aIterable);
   }
