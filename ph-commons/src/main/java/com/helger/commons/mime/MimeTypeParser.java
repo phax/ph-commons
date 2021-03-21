@@ -41,7 +41,21 @@ import com.helger.commons.string.StringHelper;
 public final class MimeTypeParser
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MimeTypeParser.class);
-  private static final char [] TSPECIAL = new char [] { '(', ')', '<', '>', '@', ',', ';', ':', '\\', '"', '/', '[', ']', '?', '=' };
+  private static final char [] TSPECIAL = new char [] { '(',
+                                                        ')',
+                                                        '<',
+                                                        '>',
+                                                        '@',
+                                                        ',',
+                                                        ';',
+                                                        ':',
+                                                        '\\',
+                                                        '"',
+                                                        '/',
+                                                        '[',
+                                                        ']',
+                                                        '?',
+                                                        '=' };
 
   @PresentForCodeCoverage
   private static final MimeTypeParser INSTANCE = new MimeTypeParser ();
@@ -197,7 +211,12 @@ public final class MimeTypeParser
         }
         catch (final Exception ex)
         {
-          throw new MimeTypeParserException ("Failed to add parameter '" + sParameterName + "' with value '" + sParameterValue + "'", ex);
+          throw new MimeTypeParserException ("Failed to add parameter '" +
+                                             sParameterName +
+                                             "' with value '" +
+                                             sParameterValue +
+                                             "'",
+                                             ex);
         }
 
         // Search for separator of next parameter
@@ -233,9 +252,13 @@ public final class MimeTypeParser
         if (sParameter.length () > 0)
         {
           // Split each parameter into name and value
-          final String [] aParamItems = StringHelper.getExplodedArray (CMimeType.SEPARATOR_PARAMETER_NAME_VALUE, sParameter, 2);
+          final String [] aParamItems = StringHelper.getExplodedArray (CMimeType.SEPARATOR_PARAMETER_NAME_VALUE,
+                                                                       sParameter,
+                                                                       2);
           if (aParamItems.length != 2)
-            throw new MimeTypeParserException ("MimeType Parameter without name/value separator found: '" + sParameter + "'");
+            throw new MimeTypeParserException ("MimeType Parameter without name/value separator found: '" +
+                                               sParameter +
+                                               "'");
 
           final String sParameterName = aParamItems[0].trim ();
           String sParameterValue = aParamItems[1].trim ();
@@ -255,7 +278,12 @@ public final class MimeTypeParser
           }
           catch (final Exception ex)
           {
-            throw new MimeTypeParserException ("Failed to add parameter '" + sParameterName + "' with value '" + sParameterValue + "'", ex);
+            throw new MimeTypeParserException ("Failed to add parameter '" +
+                                               sParameterName +
+                                               "' with value '" +
+                                               sParameterValue +
+                                               "'",
+                                               ex);
           }
         }
     }
@@ -321,13 +349,17 @@ public final class MimeTypeParser
     final String sContentType = sRealMimeType.substring (0, nSlashIndex).trim ();
     final EMimeContentType eContentType = EMimeContentType.getFromIDOrNull (sContentType);
     if (eContentType == null)
-      throw new MimeTypeParserException ("MimeType '" + sRealMimeType + "' uses an unknown content type '" + sContentType + "'");
+      throw new MimeTypeParserException ("MimeType '" +
+                                         sRealMimeType +
+                                         "' uses an unknown content type '" +
+                                         sContentType +
+                                         "'");
 
     // Extract the rest (sub type + parameters)
     final String sRest = sRealMimeType.substring (nSlashIndex + 1);
     final int nSemicolonIndex = sRest.indexOf (CMimeType.SEPARATOR_PARAMETER);
-    String sContentSubType;
-    String sParameters;
+    final String sContentSubType;
+    final String sParameters;
     if (nSemicolonIndex >= 0)
     {
       sContentSubType = sRest.substring (0, nSemicolonIndex).trim ();
@@ -341,7 +373,11 @@ public final class MimeTypeParser
     }
 
     if (StringHelper.hasNoText (sContentSubType))
-      throw new MimeTypeParserException ("MimeType '" + sRealMimeType + "' uses an empty content sub type '" + sRealMimeType + "'");
+      throw new MimeTypeParserException ("MimeType '" +
+                                         sRealMimeType +
+                                         "' uses an empty content sub type '" +
+                                         sRealMimeType +
+                                         "'");
 
     final MimeType ret = new MimeType (eContentType, sContentSubType);
     if (StringHelper.hasText (sParameters))
@@ -389,7 +425,8 @@ public final class MimeTypeParser
    * @since 9.4.6
    */
   @Nullable
-  public static MimeType safeParseMimeType (@Nullable final String sMimeType, @Nonnull final EMimeQuoting eQuotingAlgorithm)
+  public static MimeType safeParseMimeType (@Nullable final String sMimeType,
+                                            @Nonnull final EMimeQuoting eQuotingAlgorithm)
   {
     String sRealMimeType = sMimeType;
     if (RFC2616Codec.isMaybeEncoded (sRealMimeType))
