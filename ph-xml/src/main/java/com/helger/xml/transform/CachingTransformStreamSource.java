@@ -55,14 +55,14 @@ public class CachingTransformStreamSource extends StreamSource
     this (aIIS.getInputStream (), sSystemID);
   }
 
-  public CachingTransformStreamSource (@Nonnull @WillClose final InputStream aIS)
+  public CachingTransformStreamSource (@Nullable @WillClose final InputStream aIS)
   {
     this (aIS, null);
   }
 
-  public CachingTransformStreamSource (@Nonnull @WillClose final InputStream aIS, @Nullable final String sSystemID)
+  public CachingTransformStreamSource (@Nullable @WillClose final InputStream aIS, @Nullable final String sSystemID)
   {
-    super (new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS)), sSystemID);
+    super (aIS == null ? null : new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS)), sSystemID);
   }
 
   @Override
