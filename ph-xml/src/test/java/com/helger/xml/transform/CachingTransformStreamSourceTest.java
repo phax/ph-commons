@@ -78,7 +78,6 @@ public final class CachingTransformStreamSourceTest
     CommonsTestHelper.testToStringImplementation (src);
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {
@@ -89,13 +88,7 @@ public final class CachingTransformStreamSourceTest
     }
     catch (final NullPointerException ex)
     {}
-    try
-    {
-      new CachingTransformStreamSource ((InputStream) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    new CachingTransformStreamSource ((InputStream) null);
     try
     {
       new CachingTransformStreamSource ((IHasInputStream) null);
@@ -103,13 +96,7 @@ public final class CachingTransformStreamSourceTest
     }
     catch (final NullPointerException ex)
     {}
-    try
-    {
-      // Input stream provider
-      new CachingTransformStreamSource (new MockNullInputStreamProvider (), "systid").getInputStream ();
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    // Input stream provider
+    new CachingTransformStreamSource (new MockNullInputStreamProvider (), "systid").getInputStream ();
   }
 }
