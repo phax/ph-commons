@@ -36,6 +36,7 @@ import java.time.temporal.ValueRange;
 import java.time.zone.ZoneRules;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -460,7 +461,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    * @return true if the unit can be added/subtracted, false if not
    */
   @Override
-  public boolean isSupported (@Nonnull final TemporalUnit unit)
+  public boolean isSupported (@Nullable final TemporalUnit unit)
   {
     if (unit instanceof ChronoUnit)
     {
