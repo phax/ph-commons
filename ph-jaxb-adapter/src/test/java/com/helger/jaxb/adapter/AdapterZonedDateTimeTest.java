@@ -52,7 +52,7 @@ public final class AdapterZonedDateTimeTest
     assertNull (a.unmarshal ("2020-01-01 T10:12:45.654Z"));
     assertNull (a.unmarshal ("2020-01-01T 10:12:45.654Z"));
 
-    ZonedDateTime o = PDTFactory.createZonedDateTime (2020, Month.JANUARY, 1, 10, 12, 45, ZoneOffset.UTC)
+    ZonedDateTime o = PDTFactory.createZonedDateTimeUTC (2020, Month.JANUARY, 1, 10, 12, 45)
                                 .with (ChronoField.MILLI_OF_SECOND, 654);
     assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654"));
     assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654"));
@@ -69,7 +69,8 @@ public final class AdapterZonedDateTimeTest
     assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+00:00 "));
     assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+00:00 "));
 
-    o = PDTFactory.createZonedDateTime (2020, Month.JANUARY, 1, 10, 12, 45, ZoneOffset.ofHours (1))
+    o = PDTFactory.createZonedDateTime (2020, Month.JANUARY, 1, 10, 12, 45)
+                  .withZoneSameLocal (ZoneOffset.ofHours (1))
                   .with (ChronoField.MILLI_OF_SECOND, 654);
     assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+01:00"));
     assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+01:00"));

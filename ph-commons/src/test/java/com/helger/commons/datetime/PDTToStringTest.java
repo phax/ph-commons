@@ -49,13 +49,8 @@ public final class PDTToStringTest
                   PDTToString.getAsString (PDTFactory.createZonedDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
                                            aDisplayLocale));
     assertEquals ("Feb 3, 2021 10:45:07 AM",
-                  PDTToString.getAsString (PDTFactory.createOffsetDateTime (2021,
-                                                                            Month.FEBRUARY,
-                                                                            3,
-                                                                            10,
-                                                                            45,
-                                                                            7,
-                                                                            ZoneOffset.ofHours (1)),
+                  PDTToString.getAsString (PDTFactory.createLocalDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7)
+                                                     .atOffset (ZoneOffset.ofHours (1)),
                                            aDisplayLocale));
   }
 }
