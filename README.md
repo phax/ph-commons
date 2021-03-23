@@ -69,6 +69,7 @@ This project was the following modules:
     * Added support for `OffsetTime` in PDT* classes
     * Made the JAXB adapters for `AdapterOffsetDateTime` and `AdapterZonedDateTime` more resilient to read data without time zone offsets as well
     * Added class `OffsetDate` from ThreeTen-Extra project for XML parsing
+    * Added new methods in `PDTFactory` that deal with UTC time zones
 * v9.5.5 - 2021-03-18
     * Updated to BouncyCastle 1.68 (again with bcprov-ext-jdk15on)
     * Added new class `AdapterOffsetDateTime`
