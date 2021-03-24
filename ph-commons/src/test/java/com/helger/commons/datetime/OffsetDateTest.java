@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2014-2021 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*
  * Copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
  *
@@ -140,7 +156,7 @@ public final class OffsetDateTest
     return list;
   }
 
-  static interface ISampleWithString
+  interface ISampleWithString
   {
     void accept (final int y, final int m, final int d, final String offsetId, final String parsable);
   }
@@ -316,8 +332,7 @@ public final class OffsetDateTest
   @Test
   public void factory_of_intsMonthOffset_yearTooLow ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Integer.MIN_VALUE, Month.JANUARY, 1), OFFSET_PONE));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Integer.MIN_VALUE, Month.JANUARY, 1), OFFSET_PONE));
   }
 
   @Test
@@ -518,12 +533,12 @@ public final class OffsetDateTest
   // -----------------------------------------------------------------------
   // basics
   // -----------------------------------------------------------------------
-  static interface ISample
+  interface ISample
   {
     void accept (final int y, final int m, final int d, final ZoneOffset offset);
   }
 
-  private static final void data_sampleDates (@Nonnull final ISample aSample)
+  private static void data_sampleDates (@Nonnull final ISample aSample)
   {
     aSample.accept (2008, 7, 5, OFFSET_PTWO);
     aSample.accept (2007, 7, 5, OFFSET_PONE);
@@ -664,29 +679,17 @@ public final class OffsetDateTest
   // -----------------------------------------------------------------------
   // until(Temporal, TemporalUnit)
   // -----------------------------------------------------------------------
-  private static interface IUntil
+  private interface IUntil
   {
     void accept (final long expected, final OffsetDate od1, final OffsetDate od2, final TemporalUnit unit);
   }
 
   private static void data_until (@Nonnull final IUntil aSample)
   {
-    aSample.accept (1,
-                    OffsetDate.of (2007, 6, 30, OFFSET_PONE),
-                    OffsetDate.of (2007, 7, 1, OFFSET_PONE),
-                    ChronoUnit.DAYS);
-    aSample.accept (1,
-                    OffsetDate.of (2007, 6, 30, OFFSET_PONE),
-                    OffsetDate.of (2007, 8, 29, OFFSET_PONE),
-                    ChronoUnit.MONTHS);
-    aSample.accept (2,
-                    OffsetDate.of (2007, 6, 30, OFFSET_PONE),
-                    OffsetDate.of (2007, 8, 30, OFFSET_PONE),
-                    ChronoUnit.MONTHS);
-    aSample.accept (2,
-                    OffsetDate.of (2007, 6, 30, OFFSET_PONE),
-                    OffsetDate.of (2007, 8, 31, OFFSET_PONE),
-                    ChronoUnit.MONTHS);
+    aSample.accept (1, OffsetDate.of (2007, 6, 30, OFFSET_PONE), OffsetDate.of (2007, 7, 1, OFFSET_PONE), ChronoUnit.DAYS);
+    aSample.accept (1, OffsetDate.of (2007, 6, 30, OFFSET_PONE), OffsetDate.of (2007, 8, 29, OFFSET_PONE), ChronoUnit.MONTHS);
+    aSample.accept (2, OffsetDate.of (2007, 6, 30, OFFSET_PONE), OffsetDate.of (2007, 8, 30, OFFSET_PONE), ChronoUnit.MONTHS);
+    aSample.accept (2, OffsetDate.of (2007, 6, 30, OFFSET_PONE), OffsetDate.of (2007, 8, 31, OFFSET_PONE), ChronoUnit.MONTHS);
   }
 
   public void test_until ()
@@ -911,15 +914,13 @@ public final class OffsetDateTest
   @Test
   public void test_withDayOfMonth_invalidForMonth ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (31));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (31));
   }
 
   @Test
   public void test_withDayOfMonth_invalidAlways ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (32));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (32));
   }
 
   // -----------------------------------------------------------------------
@@ -1026,8 +1027,7 @@ public final class OffsetDateTest
   @Test
   public void test_plusYears_long_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 1, 1), OFFSET_PONE).plusYears (1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 1, 1), OFFSET_PONE).plusYears (1));
   }
 
   @Test
@@ -1047,8 +1047,7 @@ public final class OffsetDateTest
   @Test
   public void test_plusYears_long_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusYears (-1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusYears (-1));
   }
 
   // -----------------------------------------------------------------------
@@ -1117,15 +1116,13 @@ public final class OffsetDateTest
   {
     final long months = 20L + Integer.MAX_VALUE;
     final OffsetDate test = OffsetDate.of (LocalDate.of (-40, 6, 1), OFFSET_PONE).plusMonths (months);
-    assertEquals (OffsetDate.of (LocalDate.of ((int) (-40L + months / 12), 6 + (int) (months % 12), 1), OFFSET_PONE),
-                  test);
+    assertEquals (OffsetDate.of (LocalDate.of ((int) (-40L + months / 12), 6 + (int) (months % 12), 1), OFFSET_PONE), test);
   }
 
   @Test
   public void test_plusMonths_long_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 1), OFFSET_PONE).plusMonths (1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 1), OFFSET_PONE).plusMonths (1));
   }
 
   @Test
@@ -1145,8 +1142,7 @@ public final class OffsetDateTest
   @Test
   public void test_plusMonths_long_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusMonths (-1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusMonths (-1));
   }
 
   // -----------------------------------------------------------------------
@@ -1268,15 +1264,13 @@ public final class OffsetDateTest
   @Test
   public void test_plusWeeks_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).plusWeeks (1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).plusWeeks (1));
   }
 
   @Test
   public void test_plusWeeks_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 7), OFFSET_PONE).plusWeeks (-1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 7), OFFSET_PONE).plusWeeks (-1));
   }
 
   @Test
@@ -1415,15 +1409,13 @@ public final class OffsetDateTest
   @Test
   public void test_plusDays_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).plusDays (1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).plusDays (1));
   }
 
   @Test
   public void test_plusDays_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusDays (-1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusDays (-1));
   }
 
   @Test
@@ -1515,8 +1507,7 @@ public final class OffsetDateTest
   @Test
   public void test_minusYears_long_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 1, 1), OFFSET_PONE).minusYears (-1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 1, 1), OFFSET_PONE).minusYears (-1));
   }
 
   @Test
@@ -1536,8 +1527,7 @@ public final class OffsetDateTest
   @Test
   public void test_minusYears_long_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusYears (1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusYears (1));
   }
 
   // -----------------------------------------------------------------------
@@ -1606,15 +1596,13 @@ public final class OffsetDateTest
   {
     final long months = 20L + Integer.MAX_VALUE;
     final OffsetDate test = OffsetDate.of (LocalDate.of (40, 6, 1), OFFSET_PONE).minusMonths (months);
-    assertEquals (OffsetDate.of (LocalDate.of ((int) (40L - months / 12), 6 - (int) (months % 12), 1), OFFSET_PONE),
-                  test);
+    assertEquals (OffsetDate.of (LocalDate.of ((int) (40L - months / 12), 6 - (int) (months % 12), 1), OFFSET_PONE), test);
   }
 
   @Test
   public void test_minusMonths_long_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 1), OFFSET_PONE).minusMonths (-1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 1), OFFSET_PONE).minusMonths (-1));
   }
 
   @Test
@@ -1634,8 +1622,7 @@ public final class OffsetDateTest
   @Test
   public void test_minusMonths_long_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusMonths (1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusMonths (1));
   }
 
   // -----------------------------------------------------------------------
@@ -1760,15 +1747,13 @@ public final class OffsetDateTest
   @Test
   public void test_minusWeeks_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).minusWeeks (-1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).minusWeeks (-1));
   }
 
   @Test
   public void test_minusWeeks_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 7), OFFSET_PONE).minusWeeks (1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 7), OFFSET_PONE).minusWeeks (1));
   }
 
   @Test
@@ -1907,15 +1892,13 @@ public final class OffsetDateTest
   @Test
   public void test_minusDays_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).minusDays (-1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).minusDays (-1));
   }
 
   @Test
   public void test_minusDays_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusDays (1));
+    assertThrows (DateTimeException.class, () -> OffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusDays (1));
   }
 
   @Test
@@ -1946,8 +1929,7 @@ public final class OffsetDateTest
   @Test
   public void test_format_formatter_null ()
   {
-    assertThrows (NullPointerException.class,
-                  () -> OffsetDate.of (LocalDate.of (2010, 12, 3), OFFSET_PONE).format (null));
+    assertThrows (NullPointerException.class, () -> OffsetDate.of (LocalDate.of (2010, 12, 3), OFFSET_PONE).format (null));
   }
 
   // -----------------------------------------------------------------------
@@ -1957,8 +1939,7 @@ public final class OffsetDateTest
   public void test_atTime_Local ()
   {
     final OffsetDate t = OffsetDate.of (LocalDate.of (2008, 6, 30), OFFSET_PTWO);
-    assertEquals (OffsetDateTime.of (LocalDate.of (2008, 6, 30), LocalTime.of (11, 30), OFFSET_PTWO),
-                  t.atTime (LocalTime.of (11, 30)));
+    assertEquals (OffsetDateTime.of (LocalDate.of (2008, 6, 30), LocalTime.of (11, 30), OFFSET_PTWO), t.atTime (LocalTime.of (11, 30)));
   }
 
   @Test
