@@ -29,6 +29,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* V10.0.1 - work in progress
+    * Added `CHttpHeader.HOST`
 * v10.0.0 - 2021-03-21
     * Changed Maven groupId from `com.helger` to `com.helger.commons`
     * The submodule `ph-xml` no longer depends on `ph-collection`

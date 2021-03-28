@@ -36,6 +36,7 @@ public final class CHttpHeader
   public static final String AGE = "Age";
   public static final String ALLOW = "Allow";
   public static final String CACHE_CONTROL = "Cache-Control";
+  public static final String CONNECTION = "Connection";
   public static final String CONTENT_DESCRIPTION = "Content-Description";
   public static final String CONTENT_DISPOSITION = "Content-Disposition";
   public static final String CONTENT_ENCODING = "Content-Encoding";
@@ -45,6 +46,7 @@ public final class CHttpHeader
   public static final String DATE = "Date";
   public static final String ETAG = "ETag";
   public static final String EXPIRES = "Expires";
+  public static final String HOST = "Host";
   public static final String IF_NON_MATCH = "If-None-Match";
   public static final String IF_MATCH = "If-Match";
   public static final String IF_MODIFIED_SINCE = "If-Modified-Since";
@@ -120,7 +122,6 @@ public final class CHttpHeader
   public static final String X_UA_COMPATIBLE = "X-UA-Compatible";
 
   // Response codes
-  public static final String CONNECTION = "Connection";
   public static final String CONTENT_LENGTH = "Content-Length";
   public static final String SET_COOKIE = "Set-Cookie";
   public static final String TRANSFER_ENCODING = "Transfer-Encoding";
