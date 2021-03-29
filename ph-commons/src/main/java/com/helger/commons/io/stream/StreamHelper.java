@@ -531,6 +531,21 @@ public final class StreamHelper
     }
 
     /**
+     * @param a
+     *        An optional maximum number of bytes to copied from the InputStream
+     *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
+     *        all bytes are copied. If <code>null</code> no limit is set
+     * @return this for chaining
+     * @since 10.0.1
+     * @see #unlimited()
+     */
+    @Nonnull
+    public CopyByteStreamBuilder limit (@Nullable final Long a)
+    {
+      return a == null ? unlimited () : limit (a.longValue ());
+    }
+
+    /**
      * Ensure no limit in copying (which is also the default).
      *
      * @return this for chaining
@@ -1194,6 +1209,21 @@ public final class StreamHelper
     {
       m_nLimit = n;
       return this;
+    }
+
+    /**
+     * @param a
+     *        An optional maximum number of chars to copied from the InputStream
+     *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
+     *        all bytes are copied. If <code>null</code> no limit is set
+     * @return this for chaining
+     * @since 10.0.1
+     * @see #unlimited()
+     */
+    @Nonnull
+    public CopyCharStreamBuilder limit (@Nullable final Long a)
+    {
+      return a == null ? unlimited () : limit (a.longValue ());
     }
 
     /**
