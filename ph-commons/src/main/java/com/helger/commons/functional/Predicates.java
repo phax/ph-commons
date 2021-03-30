@@ -23,6 +23,7 @@ import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 /**
@@ -185,5 +186,35 @@ public final class Predicates
   public static LongPredicate longIsGT0 ()
   {
     return x -> x > 0;
+  }
+
+  @Nullable
+  public static <T> Predicate <T> and (@Nullable final Predicate <? super T> aFirst,
+                                       @Nullable final Predicate <? super T> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return x -> aFirst.test (x) && aSecond.test (x);
+      return aFirst::test;
+    }
+    if (aSecond != null)
+      return aSecond::test;
+    return null;
+  }
+
+  @Nullable
+  public static <T> Predicate <T> or (@Nullable final Predicate <? super T> aFirst,
+                                      @Nullable final Predicate <? super T> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return x -> aFirst.test (x) || aSecond.test (x);
+      return aFirst::test;
+    }
+    if (aSecond != null)
+      return aSecond::test;
+    return null;
   }
 }
