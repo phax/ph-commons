@@ -87,6 +87,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -384,7 +385,6 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     return formatter.parse (text, OffsetDate::from);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Constructor.
    *
@@ -393,10 +393,11 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    * @param offset
    *        the zone offset, not null
    */
-  protected OffsetDate (@Nonnull final LocalDate date, @Nonnull final ZoneOffset offset)
+  protected OffsetDate (@Nonnull final LocalDate date, @Nullable final ZoneOffset offset)
   {
-    m_aDate = ValueEnforcer.notNull (date, "date");
-    m_aOffset = ValueEnforcer.notNull (offset, "offset");
+    ValueEnforcer.notNull (date, "date");
+    m_aDate = date;
+    m_aOffset = offset;
   }
 
   /**
@@ -421,7 +422,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @Nonnull
   private OffsetDate with (@Nonnull final LocalDate date, @Nonnull final ZoneOffset offset)
   {
-    if (this.m_aDate == date && this.m_aOffset.equals (offset))
+    if (this.m_aDate == date && EqualsHelper.equals (m_aOffset, offset))
       return this;
 
     return new OffsetDate (date, offset);
@@ -628,7 +629,9 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     {
       if (field == OFFSET_SECONDS)
       {
-        return getOffset ().getTotalSeconds ();
+        if (m_aOffset != null)
+          return m_aOffset.getTotalSeconds ();
+        throw new DateTimeException ("No offset present");
       }
       return m_aDate.getLong (field);
     }
@@ -643,7 +646,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    *
    * @return the zone offset, not null
    */
-  @Nonnull
+  @Nullable
   public ZoneOffset getOffset ()
   {
     return m_aOffset;
@@ -1379,7 +1382,8 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @Override
   public Temporal adjustInto (@Nonnull final Temporal temporal)
   {
-    return temporal.with (OFFSET_SECONDS, getOffset ().getTotalSeconds ()).with (EPOCH_DAY, toLocalDate ().toEpochDay ());
+    return temporal.with (OFFSET_SECONDS, (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0))
+                   .with (EPOCH_DAY, toLocalDate ().toEpochDay ());
   }
 
   /**
@@ -1446,7 +1450,8 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     final OffsetDate end = OffsetDate.from (endExclusive);
     if (unit instanceof ChronoUnit)
     {
-      final long offsetDiff = end.m_aOffset.getTotalSeconds () - m_aOffset.getTotalSeconds ();
+      final long offsetDiff = (end.m_aOffset != null ? end.m_aOffset.getTotalSeconds () : 0) -
+                              (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
       final LocalDate endLocal = end.m_aDate.plusDays (Math.floorDiv (-offsetDiff, SECONDS_PER_DAY));
       return m_aDate.until (endLocal, unit);
     }
@@ -1500,7 +1505,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   {
     final long epochDay = m_aDate.toEpochDay ();
     final long secs = epochDay * SECONDS_PER_DAY;
-    return secs - m_aOffset.getTotalSeconds ();
+    return secs - (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
   }
 
   /**
@@ -1553,7 +1558,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @Override
   public int compareTo (@Nonnull final OffsetDate o)
   {
-    if (m_aOffset.equals (o.m_aOffset))
+    if (EqualsHelper.equals (m_aOffset, o.m_aOffset))
       return m_aDate.compareTo (o.m_aDate);
 
     int ret = Long.compare (toEpochSecond (), o.toEpochSecond ());
@@ -1639,7 +1644,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
       return false;
 
     final OffsetDate other = (OffsetDate) o;
-    return m_aDate.equals (other.m_aDate) && m_aOffset.equals (other.m_aOffset);
+    return m_aDate.equals (other.m_aDate) && EqualsHelper.equals (m_aOffset, other.m_aOffset);
   }
 
   /**
@@ -1664,7 +1669,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @Nonempty
   public String getAsString ()
   {
-    return m_aDate.toString () + m_aOffset.toString ();
+    return m_aDate.toString () + (m_aOffset != null ? m_aOffset.toString () : "");
   }
 
   @Override

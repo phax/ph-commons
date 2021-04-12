@@ -17,7 +17,6 @@
 package com.helger.jaxb.adapter;
 
 import java.time.LocalDate;
-import java.time.ZoneOffset;
 
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
@@ -54,7 +53,7 @@ public class AdapterOffsetDate extends XmlAdapter <String, OffsetDate>
       // Check if this would be a valid LocalDate and use UTC as fallback
       final LocalDate aLD = PDTWebDateHelper.getLocalDateFromXSD (sTrimmed);
       if (aLD != null)
-        ret = OffsetDate.of (aLD, ZoneOffset.UTC);
+        ret = OffsetDate.of (aLD, null);
       else
         LOGGER.warn ("Failed to parse '" + sValue + "' to an OffsetDate");
     }
@@ -66,8 +65,6 @@ public class AdapterOffsetDate extends XmlAdapter <String, OffsetDate>
   {
     if (aValue == null)
       return null;
-    if (aValue.getOffset ().equals (ZoneOffset.UTC))
-      return PDTWebDateHelper.getAsStringXSD (aValue.toLocalDate ());
     return PDTWebDateHelper.getAsStringXSD (aValue);
   }
 }
