@@ -64,6 +64,10 @@ public class AdapterOffsetDate extends XmlAdapter <String, OffsetDate>
   @Override
   public String marshal (@Nullable final OffsetDate aValue)
   {
+    if (aValue == null)
+      return null;
+    if (aValue.getOffset ().equals (ZoneOffset.UTC))
+      return PDTWebDateHelper.getAsStringXSD (aValue.toLocalDate ());
     return PDTWebDateHelper.getAsStringXSD (aValue);
   }
 }
