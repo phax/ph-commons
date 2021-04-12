@@ -338,7 +338,7 @@ public final class OffsetDateTest
   @Test
   public void factory_of_intsMonthOffset_nullOffset ()
   {
-    assertThrows (NullPointerException.class, () -> OffsetDate.of (LocalDate.of (2007, Month.JANUARY, 30), null));
+    assertNotNull (OffsetDate.of (LocalDate.of (2007, Month.JANUARY, 30), null));
   }
 
   // -----------------------------------------------------------------------
@@ -382,7 +382,7 @@ public final class OffsetDateTest
   @Test
   public void factory_of_ints_nullOffset ()
   {
-    assertThrows (NullPointerException.class, () -> OffsetDate.of (LocalDate.of (2007, 1, 1), (ZoneOffset) null));
+    assertNotNull (OffsetDate.of (LocalDate.of (2007, 1, 1), (ZoneOffset) null));
   }
 
   // -----------------------------------------------------------------------
@@ -404,7 +404,7 @@ public final class OffsetDateTest
   public void factory_of_LocalDateZoneOffset_nullOffset ()
   {
     final LocalDate localDate = LocalDate.of (2008, 6, 30);
-    assertThrows (NullPointerException.class, () -> OffsetDate.of (localDate, (ZoneOffset) null));
+    assertNotNull (OffsetDate.of (localDate, (ZoneOffset) null));
   }
 
   // -----------------------------------------------------------------------
@@ -527,7 +527,7 @@ public final class OffsetDateTest
   @Test
   public void constructor_nullOffset () throws Throwable
   {
-    assertThrows (NullPointerException.class, () -> new OffsetDate (LocalDate.of (2008, 6, 30), null));
+    assertNotNull (new OffsetDate (LocalDate.of (2008, 6, 30), null));
   }
 
   // -----------------------------------------------------------------------
