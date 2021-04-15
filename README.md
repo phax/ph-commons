@@ -35,6 +35,7 @@ This project was the following modules:
     * Added `Predicates.and` and `Predicates.or`
     * Made the `ZoneOffset` in `OffsetDate` optional
     * Added method `Version.hasQualifier`
+    * Changed `Version.parse` to use the new format by default. Added `Version.parseDotOnly` for the old version.
 * v10.0.0 - 2021-03-21
     * Changed Maven groupId from `com.helger` to `com.helger.commons`
     * The submodule `ph-xml` no longer depends on `ph-collection`

@@ -123,13 +123,25 @@ public final class VersionTest
   public void testVersionString ()
   {
     // check valid
-    Version v = Version.parse ("1.2.3.alpha");
+    Version v = Version.parseDotOnly ("1.2.3.alpha");
+    assertEquals (1, v.getMajor ());
+    assertEquals (2, v.getMinor ());
+    assertEquals (3, v.getMicro ());
+    assertEquals ("alpha", v.getQualifier ());
+
+    v = Version.parse ("1.2.3.alpha");
     assertEquals (1, v.getMajor ());
     assertEquals (2, v.getMinor ());
     assertEquals (3, v.getMicro ());
     assertEquals ("alpha", v.getQualifier ());
 
     // no qualifier
+    v = Version.parseDotOnly ("4.5.6");
+    assertEquals (4, v.getMajor ());
+    assertEquals (5, v.getMinor ());
+    assertEquals (6, v.getMicro ());
+    assertNull (v.getQualifier ());
+
     v = Version.parse ("4.5.6");
     assertEquals (4, v.getMajor ());
     assertEquals (5, v.getMinor ());
@@ -137,6 +149,12 @@ public final class VersionTest
     assertNull (v.getQualifier ());
 
     // no micro
+    v = Version.parseDotOnly ("7.8");
+    assertEquals (7, v.getMajor ());
+    assertEquals (8, v.getMinor ());
+    assertEquals (0, v.getMicro ());
+    assertNull (v.getQualifier ());
+
     v = Version.parse ("7.8");
     assertEquals (7, v.getMajor ());
     assertEquals (8, v.getMinor ());
@@ -144,6 +162,12 @@ public final class VersionTest
     assertNull (v.getQualifier ());
 
     // no minor
+    v = Version.parseDotOnly ("9");
+    assertEquals (9, v.getMajor ());
+    assertEquals (0, v.getMinor ());
+    assertEquals (0, v.getMicro ());
+    assertNull (v.getQualifier ());
+
     v = Version.parse ("9");
     assertEquals (9, v.getMajor ());
     assertEquals (0, v.getMinor ());
@@ -153,7 +177,24 @@ public final class VersionTest
     try
     {
       // try negative value - needs to fail
+      Version.parseDotOnly ("-1.1.1");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
+      // try negative value - needs to fail
       Version.parse ("-1.1.1");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
+      Version.parseDotOnly ("1.-1.1");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -169,6 +210,14 @@ public final class VersionTest
 
     try
     {
+      Version.parseDotOnly ("1.1.-1");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
       Version.parse ("1.1.-1");
       fail ();
     }
@@ -176,6 +225,12 @@ public final class VersionTest
     {}
 
     // empty string
+    v = Version.parseDotOnly ("");
+    assertEquals (0, v.getMajor ());
+    assertEquals (0, v.getMinor ());
+    assertEquals (0, v.getMicro ());
+    assertNull (v.getQualifier ());
+
     v = Version.parse ("");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
@@ -183,6 +238,12 @@ public final class VersionTest
     assertNull (v.getQualifier ());
 
     // very weird stuff - fails because String.split does not split
+    v = Version.parseDotOnly ("...");
+    assertEquals (0, v.getMajor ());
+    assertEquals (0, v.getMinor ());
+    assertEquals (0, v.getMicro ());
+    assertNull (v.getQualifier ());
+
     v = Version.parse ("...");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
@@ -190,6 +251,12 @@ public final class VersionTest
     assertNull (v.getQualifier ());
 
     // very weird stuff - fails because String.split does not split
+    v = Version.parseDotOnly ("..");
+    assertEquals (0, v.getMajor ());
+    assertEquals (0, v.getMinor ());
+    assertEquals (0, v.getMicro ());
+    assertNull (v.getQualifier ());
+
     v = Version.parse ("..");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
@@ -197,6 +264,12 @@ public final class VersionTest
     assertNull (v.getQualifier ());
 
     // very weird stuff - fails because String.split does not split
+    v = Version.parseDotOnly (".");
+    assertEquals (0, v.getMajor ());
+    assertEquals (0, v.getMinor ());
+    assertEquals (0, v.getMicro ());
+    assertNull (v.getQualifier ());
+
     v = Version.parse (".");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
@@ -204,6 +277,12 @@ public final class VersionTest
     assertNull (v.getQualifier ());
 
     // null string
+    v = Version.parseDotOnly (null);
+    assertEquals (0, v.getMajor ());
+    assertEquals (0, v.getMinor ());
+    assertEquals (0, v.getMicro ());
+    assertNull (v.getQualifier ());
+
     v = Version.parse (null);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
@@ -211,70 +290,70 @@ public final class VersionTest
     assertNull (v.getQualifier ());
 
     // alphabetic string
-    v = Version.parse ("a.b.c.d", true);
+    v = Version.parseDotOnly ("a.b.c.d");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("d", v.getQualifier ());
 
     // alphabetic string
-    v = Version.parse ("a.b.c.d", false);
+    v = Version.parse ("a.b.c.d");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("a.b.c.d", v.getQualifier ());
 
     // alphabetic string
-    v = Version.parse ("a.b.c", true);
+    v = Version.parseDotOnly ("a.b.c");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // alphabetic string
-    v = Version.parse ("a.b.c", false);
+    v = Version.parse ("a.b.c");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("a.b.c", v.getQualifier ());
 
     // alphabetic string
-    v = Version.parse ("a5.b5.c5", true);
+    v = Version.parseDotOnly ("a5.b5.c5");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // alphabetic string
-    v = Version.parse ("a5.b5.c5", false);
+    v = Version.parse ("a5.b5.c5");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("a5.b5.c5", v.getQualifier ());
 
     // invalid numeric string
-    v = Version.parse ("3a.3b.3c", true);
+    v = Version.parseDotOnly ("3a.3b.3c");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // invalid numeric string
-    v = Version.parse ("3a.3b.3c", false);
+    v = Version.parse ("3a.3b.3c");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("3a.3b.3c", v.getQualifier ());
 
     // Dash separator
-    v = Version.parse ("3.0.0-RC1", true);
+    v = Version.parseDotOnly ("3.0.0-RC1");
     assertEquals (3, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // Dash separator
-    v = Version.parse ("3.0.0-RC1", false);
+    v = Version.parse ("3.0.0-RC1");
     assertEquals (3, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
@@ -582,11 +661,11 @@ public final class VersionTest
     assertEquals ("0.0.0.2", v.getAsString ());
     assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = Version.parse ("3.0.0-RC1", true);
+    v = Version.parseDotOnly ("3.0.0-RC1");
     assertEquals ("3", v.getAsString ());
     assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = Version.parse ("3.0.0-RC1", false);
+    v = Version.parse ("3.0.0-RC1");
     assertEquals ("3.0.0.RC1", v.getAsString ());
     assertEquals (v, Version.parse (v.getAsString ()));
   }
@@ -665,19 +744,19 @@ public final class VersionTest
     assertEquals ("0.0.0.2", v.getAsString (true));
     assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = Version.parse ("3.0.0-RC1", true);
+    v = Version.parseDotOnly ("3.0.0-RC1");
     assertEquals ("3.0.0", v.getAsString (true));
     assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = Version.parse ("3.0.0-RC1", false);
+    v = Version.parse ("3.0.0-RC1");
     assertEquals ("3.0.0.RC1", v.getAsString (true));
     assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = Version.parse ("3-RC1", true);
+    v = Version.parseDotOnly ("3-RC1");
     assertEquals ("0.0.0", v.getAsString (true));
     assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = Version.parse ("3-RC1", false);
+    v = Version.parse ("3-RC1");
     assertEquals ("3.0.0.RC1", v.getAsString (true));
     assertEquals (v, Version.parse (v.getAsString (true)));
   }
