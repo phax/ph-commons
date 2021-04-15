@@ -34,6 +34,7 @@ This project was the following modules:
     * Extended `Copy*StreamBuilder` with `limit (Long)`
     * Added `Predicates.and` and `Predicates.or`
     * Made the `ZoneOffset` in `OffsetDate` optional
+    * Added method `Version.hasQualifier`
 * v10.0.0 - 2021-03-21
     * Changed Maven groupId from `com.helger` to `com.helger.commons`
     * The submodule `ph-xml` no longer depends on `ph-collection`

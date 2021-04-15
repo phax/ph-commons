@@ -163,6 +163,11 @@ public final class Version implements IComparable <Version>
     return m_sQualifier;
   }
 
+  public boolean hasQualifier ()
+  {
+    return StringHelper.hasText (m_sQualifier);
+  }
+
   /**
    * Compares two Version objects.
    *
