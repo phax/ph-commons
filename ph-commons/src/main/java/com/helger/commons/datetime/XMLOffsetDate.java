@@ -1636,7 +1636,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   }
 
   @Nullable
-  public OffsetDate asOffsetDate ()
+  public OffsetDate toOffsetDate ()
   {
     if (m_aOffset != null)
       return OffsetDate.of (m_aDate, m_aOffset);

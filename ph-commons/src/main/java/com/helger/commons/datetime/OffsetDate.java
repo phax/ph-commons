@@ -1573,7 +1573,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   }
 
   @Nonnull
-  public XMLOffsetDate asXMLOffsetDate ()
+  public XMLOffsetDate toXMLOffsetDate ()
   {
     return XMLOffsetDate.of (m_aDate, m_aOffset);
   }

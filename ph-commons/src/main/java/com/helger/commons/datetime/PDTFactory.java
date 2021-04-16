@@ -659,6 +659,18 @@ public final class PDTFactory
   }
 
   @Nullable
+  public static LocalDateTime createLocalDateTime (@Nullable final OffsetDate aDT)
+  {
+    return aDT == null ? null : aDT.toLocalDate ().atStartOfDay ();
+  }
+
+  @Nullable
+  public static LocalDateTime createLocalDateTime (@Nullable final XMLOffsetDate aDT)
+  {
+    return aDT == null ? null : aDT.toLocalDate ().atStartOfDay ();
+  }
+
+  @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final LocalDate aLD)
   {
     return aLD == null ? null : aLD.atStartOfDay ();
@@ -867,6 +879,18 @@ public final class PDTFactory
   }
 
   @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final LocalDateTime aLD)
+  {
+    return aLD == null ? null : createOffsetDate (aLD.toLocalDate ());
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final LocalDateTime aLD, @Nonnull final ZoneOffset aOffset)
+  {
+    return aLD == null ? null : createOffsetDate (aLD.toLocalDate (), aOffset);
+  }
+
+  @Nullable
   public static OffsetDate createOffsetDate (@Nullable final GregorianCalendar aCalendar)
   {
     return aCalendar == null ? null : createOffsetDate (aCalendar.toZonedDateTime ());
@@ -875,7 +899,13 @@ public final class PDTFactory
   @Nonnull
   public static OffsetDate createOffsetDate (final long nMillis)
   {
-    return createOffsetDate (createOffsetDateTime (nMillis));
+    return createOffsetDate (Instant.ofEpochMilli (nMillis));
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final Instant aInstant)
+  {
+    return createOffsetDate (aInstant, ZoneOffset.UTC);
   }
 
   @Nullable
@@ -912,6 +942,12 @@ public final class PDTFactory
   public static OffsetDate createOffsetDate (@Nullable final ZonedDateTime aLDT)
   {
     return aLDT == null ? null : OffsetDate.of (aLDT.toLocalDate (), aLDT.getOffset ());
+  }
+
+  @Nullable
+  public static OffsetDate createOffsetDate (@Nullable final Number aMillis)
+  {
+    return aMillis == null ? null : createOffsetDate (aMillis.longValue ());
   }
 
   // To XMLOffsetDate
@@ -956,6 +992,18 @@ public final class PDTFactory
   }
 
   @Nullable
+  public static XMLOffsetDate createXMLOffsetDate (@Nullable final LocalDateTime aLD)
+  {
+    return aLD == null ? null : createXMLOffsetDate (aLD.toLocalDate ());
+  }
+
+  @Nullable
+  public static XMLOffsetDate createXMLOffsetDate (@Nullable final LocalDateTime aLD, @Nonnull final ZoneOffset aOffset)
+  {
+    return aLD == null ? null : createXMLOffsetDate (aLD.toLocalDate (), aOffset);
+  }
+
+  @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final GregorianCalendar aCalendar)
   {
     return aCalendar == null ? null : createXMLOffsetDate (aCalendar.toZonedDateTime ());
@@ -964,7 +1012,13 @@ public final class PDTFactory
   @Nonnull
   public static XMLOffsetDate createXMLOffsetDate (final long nMillis)
   {
-    return createXMLOffsetDate (createOffsetDateTime (nMillis));
+    return createXMLOffsetDate (Instant.ofEpochMilli (nMillis));
+  }
+
+  @Nullable
+  public static XMLOffsetDate createXMLOffsetDate (@Nullable final Instant aInstant)
+  {
+    return createXMLOffsetDate (aInstant, ZoneOffset.UTC);
   }
 
   @Nullable
@@ -1001,6 +1055,12 @@ public final class PDTFactory
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final ZonedDateTime aLDT)
   {
     return aLDT == null ? null : XMLOffsetDate.of (aLDT.toLocalDate (), aLDT.getOffset ());
+  }
+
+  @Nullable
+  public static XMLOffsetDate createXMLOffsetDate (@Nullable final Number aMillis)
+  {
+    return aMillis == null ? null : createXMLOffsetDate (aMillis.longValue ());
   }
 
   // LocalTime
