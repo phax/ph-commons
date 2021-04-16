@@ -48,12 +48,12 @@ public final class AdapterOffsetTimeTest
     assertNull (a.unmarshal ("10:12:61"));
     assertNull (a.unmarshal ("10: 12:45"));
     assertNull (a.unmarshal ("10:12: 45"));
+    assertNull (a.marshal (null));
 
     // Offset required
     assertEquals (PDTFactory.createOffsetTime (10, 12, 45, ZoneOffset.UTC), a.unmarshal ("10:12:45Z"));
     assertEquals (PDTFactory.createOffsetTime (10, 12, 45, ZoneOffset.ofHours (1)), a.unmarshal ("10:12:45+01:00"));
-    assertEquals (PDTFactory.createOffsetTime (10, 12, 45, ZoneOffset.ofHoursMinutes (-5, -30)),
-                  a.unmarshal ("10:12:45-05:30"));
+    assertEquals (PDTFactory.createOffsetTime (10, 12, 45, ZoneOffset.ofHoursMinutes (-5, -30)), a.unmarshal ("10:12:45-05:30"));
     assertEquals (PDTFactory.createOffsetTime (10, 12, 45, ZoneOffset.UTC), a.unmarshal (" 10:12:45Z"));
     assertEquals (PDTFactory.createOffsetTime (10, 12, 45, ZoneOffset.UTC), a.unmarshal ("10:12:45Z "));
     assertEquals (PDTFactory.createOffsetTime (10, 12, 45, ZoneOffset.UTC), a.unmarshal (" 10:12:45Z "));

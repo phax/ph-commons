@@ -50,9 +50,12 @@ public final class AdapterOffsetDateTimeTest
     assertNull (a.unmarshal ("2020- 01 -01"));
     assertNull (a.unmarshal ("2020-01-01"));
     assertNull (a.unmarshal ("2020-01-01 T10:12:45.654Z"));
+    assertNull (a.marshal (null));
 
-    OffsetDateTime o = PDTFactory.createOffsetDateTimeUTC (2020, Month.JANUARY, 1, 10, 12, 45)
-                                 .with (ChronoField.MILLI_OF_SECOND, 654);
+    OffsetDateTime o = PDTFactory.createOffsetDateTimeUTC (2020, Month.JANUARY, 1, 10, 12, 45).with (ChronoField.MILLI_OF_SECOND, 654);
+    assertEquals (ZoneOffset.UTC, o.getOffset ());
+    assertEquals ("2020-01-01T10:12:45.654Z", a.marshal (o));
+
     assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654"));
     assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654"));
     assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654 "));
@@ -71,6 +74,9 @@ public final class AdapterOffsetDateTimeTest
     o = PDTFactory.createOffsetDateTime (2020, Month.JANUARY, 1, 10, 12, 45)
                   .withOffsetSameLocal (ZoneOffset.ofHours (1))
                   .with (ChronoField.MILLI_OF_SECOND, 654);
+    assertEquals (ZoneOffset.ofHours (1), o.getOffset ());
+    assertEquals ("2020-01-01T10:12:45.654+01:00", a.marshal (o));
+
     assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+01:00"));
     assertEquals (o, a.unmarshal (" 2020-01-01T10:12:45.654+01:00"));
     assertEquals (o, a.unmarshal ("2020-01-01T10:12:45.654+01:00 "));

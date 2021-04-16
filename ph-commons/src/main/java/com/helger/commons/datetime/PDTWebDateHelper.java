@@ -560,6 +560,12 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
+  public static XMLOffsetDateTime getXMLOffsetDateTimeFromXSD (@Nullable final String sValue)
+  {
+    return PDTFromString.getXMLOffsetDateTimeFromString (sValue, getXSDFormatterDateTime (null));
+  }
+
+  @Nullable
   public static LocalDateTime getLocalDateTimeFromXSD (@Nullable final String sValue)
   {
     // For LocalDateTime always use the default chronology
@@ -568,6 +574,12 @@ public final class PDTWebDateHelper
 
   @Nullable
   public static String getAsStringXSD (@Nullable final OffsetDateTime aODT)
+  {
+    return aODT == null ? null : getXSDFormatterDateTime (null).format (aODT);
+  }
+
+  @Nullable
+  public static String getAsStringXSD (@Nullable final XMLOffsetDateTime aODT)
   {
     return aODT == null ? null : getXSDFormatterDateTime (null).format (aODT);
   }

@@ -67,12 +67,16 @@ public final class AdapterXMLOffsetDateTest
     o = PDTFactory.createXMLOffsetDate (2020, Month.JANUARY, 1, null);
     assertNull (o.getOffset ());
     assertEquals ("2020-01-01", a.marshal (o));
+
     assertEquals (o, a.unmarshal ("2020-01-01"));
     assertEquals (o, a.unmarshal (" 2020-01-01"));
     assertEquals (o, a.unmarshal ("2020-01-01 "));
     assertEquals (o, a.unmarshal (" 2020-01-01 "));
 
     o = PDTFactory.createXMLOffsetDate (2020, Month.JANUARY, 1, ZoneOffset.ofHours (1));
+    assertEquals (ZoneOffset.ofHours (1), o.getOffset ());
+    assertEquals ("2020-01-01+01:00", a.marshal (o));
+
     assertEquals (o, a.unmarshal ("2020-01-01+01:00"));
     assertEquals (o, a.unmarshal (" 2020-01-01+01:00"));
     assertEquals (o, a.unmarshal ("2020-01-01+01:00 "));

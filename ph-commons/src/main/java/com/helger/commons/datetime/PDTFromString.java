@@ -112,6 +112,23 @@ public final class PDTFromString
   }
 
   @Nullable
+  public static XMLOffsetDateTime getXMLOffsetDateTimeFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
+  {
+    ValueEnforcer.notNull (aDF, "DateTimeFormatter");
+
+    if (StringHelper.hasText (sValue))
+      try
+      {
+        return aDF.parse (sValue, XMLOffsetDateTime::from);
+      }
+      catch (final DateTimeParseException ex)
+      {
+        _onParseException ("XMLOffsetDateTime", sValue, aDF, ex);
+      }
+    return null;
+  }
+
+  @Nullable
   public static LocalDate getLocalDateFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
   {
     return getLocalDateFromString (sValue,
