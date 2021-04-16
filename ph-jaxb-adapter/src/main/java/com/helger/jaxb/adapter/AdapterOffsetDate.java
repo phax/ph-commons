@@ -65,6 +65,11 @@ public class AdapterOffsetDate extends XmlAdapter <String, OffsetDate>
   {
     if (aValue == null)
       return null;
+    if (aValue.getOffset () == null)
+    {
+      // Required for Java 9+
+      return PDTWebDateHelper.getAsStringXSD (aValue.toLocalDate ());
+    }
     return PDTWebDateHelper.getAsStringXSD (aValue);
   }
 }
