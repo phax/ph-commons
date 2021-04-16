@@ -41,7 +41,8 @@ public final class PDTToStringTest
     assertEquals ("10:45:07 AM", PDTToString.getAsString (PDTFactory.createLocalTime (10, 45, 7), aDisplayLocale));
     assertEquals ("10:45:07 AM", PDTToString.getAsString (PDTFactory.createOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)), aDisplayLocale));
     assertEquals ("10:45:07+01:00", PDTFactory.createOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)).toString ());
-    final String sComma = EJavaVersion.JDK_9.isCurrentVersion () ? "," : "";
+
+    final String sComma = EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_9) ? "," : "";
     assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM",
                   PDTToString.getAsString (PDTFactory.createLocalDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7), aDisplayLocale));
     assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM",
