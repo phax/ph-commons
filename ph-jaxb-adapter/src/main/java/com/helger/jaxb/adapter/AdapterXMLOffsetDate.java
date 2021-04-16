@@ -28,9 +28,9 @@ import com.helger.commons.datetime.PDTWebDateHelper;
 import com.helger.commons.datetime.XMLOffsetDate;
 
 /**
- * XML Adapter between OffsetDate and String. Use it in your binding file like
- * this:<br>
- * <code>&lt;xjc:javaType name="com.helger.commons.datetime.XMLOffsetDate" xmlType="xsd:date" adapter="com.helger.jaxb.adapter.AdapterOffsetDate" /&gt;</code>
+ * XML Adapter between XMLOffsetDate and String. Use it in your binding file
+ * like this:<br>
+ * <code>&lt;xjc:javaType name="com.helger.commons.datetime.XMLOffsetDate" xmlType="xsd:date" adapter="com.helger.jaxb.adapter.AdapterXMLOffsetDate" /&gt;</code>
  *
  * @author Philip Helger
  * @since 10.0.1

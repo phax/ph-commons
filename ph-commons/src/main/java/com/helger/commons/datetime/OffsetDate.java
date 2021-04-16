@@ -1572,6 +1572,12 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     return toEpochSecond () == other.toEpochSecond ();
   }
 
+  @Nonnull
+  public XMLOffsetDate asXMLOffsetDate ()
+  {
+    return XMLOffsetDate.of (m_aDate, m_aOffset);
+  }
+
   /**
    * Checks if this date is equal to another date.
    * <p>

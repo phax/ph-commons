@@ -1635,6 +1635,14 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return toEpochSecond () == other.toEpochSecond ();
   }
 
+  @Nullable
+  public OffsetDate asOffsetDate ()
+  {
+    if (m_aOffset != null)
+      return OffsetDate.of (m_aDate, m_aOffset);
+    throw new DateTimeException ("Need a zone offset to convert to OffsetDate");
+  }
+
   /**
    * Checks if this date is equal to another date.
    * <p>
