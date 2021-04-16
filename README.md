@@ -29,13 +29,14 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* V10.0.1 - work in progress
+* v10.0.1 - work in progress
     * Added `CHttpHeader.HOST`
     * Extended `Copy*StreamBuilder` with `limit (Long)`
     * Added `Predicates.and` and `Predicates.or`
-    * Made the `ZoneOffset` in `OffsetDate` optional
+    * Create new classes `XMLOffsetDate` and `AdapterXMLOffsetDate` similar to `OffsetDate` but with an optional zone offset
     * Added method `Version.hasQualifier`
     * Changed `Version.parse` to use the new format by default. Added `Version.parseDotOnly` for the old version.
+    * Added missing `PDTToString.getAsString (OffsetDate)` overloads
 * v10.0.0 - 2021-03-21
     * Changed Maven groupId from `com.helger` to `com.helger.commons`
     * The submodule `ph-xml` no longer depends on `ph-collection`

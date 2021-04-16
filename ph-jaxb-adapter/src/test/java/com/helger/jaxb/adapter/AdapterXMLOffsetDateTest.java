@@ -24,20 +24,20 @@ import java.time.ZoneOffset;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.XMLOffsetDate;
 
 /**
  * Test class for class {@link AdapterOffsetDate}.
  *
  * @author Philip Helger
  */
-public final class AdapterOffsetDateTest
+public final class AdapterXMLOffsetDateTest
 {
   @Test
   public void testUnmarshal ()
   {
-    final AdapterOffsetDate a = new AdapterOffsetDate ();
+    final AdapterXMLOffsetDate a = new AdapterXMLOffsetDate ();
     assertNull (a.unmarshal (null));
     assertNull (a.unmarshal (""));
     assertNull (a.unmarshal (" "));
@@ -50,11 +50,9 @@ public final class AdapterOffsetDateTest
     assertNull (a.unmarshal ("2020-01-01 Z"));
     assertNull (a.marshal (null));
 
-    OffsetDate o = PDTFactory.createOffsetDate (2020, Month.JANUARY, 1, ZoneOffset.UTC);
-    assertEquals (o, a.unmarshal ("2020-01-01"));
-    assertEquals (o, a.unmarshal (" 2020-01-01"));
-    assertEquals (o, a.unmarshal ("2020-01-01 "));
-    assertEquals (o, a.unmarshal (" 2020-01-01 "));
+    XMLOffsetDate o = PDTFactory.createXMLOffsetDate (2020, Month.JANUARY, 1, ZoneOffset.UTC);
+    assertEquals (ZoneOffset.UTC, o.getOffset ());
+    assertEquals ("2020-01-01Z", a.marshal (o));
 
     assertEquals (o, a.unmarshal ("2020-01-01Z"));
     assertEquals (o, a.unmarshal (" 2020-01-01Z"));
@@ -66,7 +64,15 @@ public final class AdapterOffsetDateTest
     assertEquals (o, a.unmarshal ("2020-01-01+00:00 "));
     assertEquals (o, a.unmarshal (" 2020-01-01+00:00 "));
 
-    o = PDTFactory.createOffsetDate (2020, Month.JANUARY, 1, ZoneOffset.ofHours (1));
+    o = PDTFactory.createXMLOffsetDate (2020, Month.JANUARY, 1, null);
+    assertNull (o.getOffset ());
+    assertEquals ("2020-01-01", a.marshal (o));
+    assertEquals (o, a.unmarshal ("2020-01-01"));
+    assertEquals (o, a.unmarshal (" 2020-01-01"));
+    assertEquals (o, a.unmarshal ("2020-01-01 "));
+    assertEquals (o, a.unmarshal (" 2020-01-01 "));
+
+    o = PDTFactory.createXMLOffsetDate (2020, Month.JANUARY, 1, ZoneOffset.ofHours (1));
     assertEquals (o, a.unmarshal ("2020-01-01+01:00"));
     assertEquals (o, a.unmarshal (" 2020-01-01+01:00"));
     assertEquals (o, a.unmarshal ("2020-01-01+01:00 "));
