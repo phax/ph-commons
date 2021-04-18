@@ -160,13 +160,19 @@ public final class URLHelperTest
     assertNull (URLHelper.getQueryParametersAsString ((URLParameterList) null, enc));
     assertNull (URLHelper.getQueryParametersAsString (new URLParameterList (), enc));
     assertEquals ("a=b", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b"), enc));
-    assertEquals ("a=b&c=d", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d"), enc));
+    assertEquals ("a=b&c=d",
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d"), enc));
     assertEquals ("a=b&c=d&e=f+g",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d").add ("e", "f g"), enc));
-    assertEquals ("a=b&c=d%26e", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), enc));
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b")
+                                                                               .add ("c", "d")
+                                                                               .add ("e", "f g"),
+                                                        enc));
+    assertEquals ("a=b&c=d%26e",
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), enc));
 
     // Using identity encoder
-    assertEquals ("a=b&c=d&e", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), null));
+    assertEquals ("a=b&c=d&e",
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), null));
   }
 
   @Test
@@ -209,8 +215,12 @@ public final class URLHelperTest
   public void testIsValidURN ()
   {
     assertTrue (URLHelper.isValidURN ("urn:de4a:dba:canonical-evidence:v0.5"));
+    assertTrue (URLHelper.isValidURN ("urn:de4a::dba:canonical-evidence:v0.5"));
+    assertTrue (URLHelper.isValidURN ("urn:de4a:dba:canonical-evidence::v0.5"));
+    assertTrue (URLHelper.isValidURN ("urn:de4a:::::::::::::::::::::::::::"));
     assertFalse (URLHelper.isValidURN ("ur:de4a:dba:canonical-evidence:v0.5"));
     assertFalse (URLHelper.isValidURN ("urn:de4a"));
+    assertFalse (URLHelper.isValidURN ("urn::de4a:dba:canonical-evidence:v0.5"));
     assertFalse (URLHelper.isValidURN (null));
     assertFalse (URLHelper.isValidURN (""));
     assertFalse (URLHelper.isValidURN (" urn:de4a:dba:canonical-evidence:v0.5"));
