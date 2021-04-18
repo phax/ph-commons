@@ -114,7 +114,8 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
     }
     catch (final Exception ex)
     {
-      LOGGER.error ("Failed to perform actions on object with performer " + m_aPerformer + " - object has been lost!", ex);
+      LOGGER.error ("Failed to perform actions on object with performer " + m_aPerformer + " - object has been lost!",
+                    ex);
     }
   }
 
@@ -145,6 +146,11 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
 
         _perform (GenericReflection.uncheckedCast (aCurrentObject));
       }
+    }
+    catch (final InterruptedException ex)
+    {
+      LOGGER.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
+      Thread.currentThread ().interrupt ();
     }
     catch (final Exception ex)
     {

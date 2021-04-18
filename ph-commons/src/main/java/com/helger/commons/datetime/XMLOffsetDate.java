@@ -247,7 +247,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year, final int month, final int dayOfMonth, @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year,
+                                  final int month,
+                                  final int dayOfMonth,
+                                  @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -276,7 +279,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year, final Month month, final int dayOfMonth, @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year,
+                                  final Month month,
+                                  final int dayOfMonth,
+                                  @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -1234,7 +1240,8 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public XMLOffsetDate minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
+                                              : plus (-amountToSubtract, unit);
   }
 
   // -----------------------------------------------------------------------
@@ -1464,7 +1471,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     final XMLOffsetDate end = XMLOffsetDate.from (endExclusive);
     if (unit instanceof ChronoUnit)
     {
-      final long offsetDiff = (end.m_aOffset != null ? end.m_aOffset.getTotalSeconds () : 0) -
+      final long offsetDiff = (long) (end.m_aOffset != null ? end.m_aOffset.getTotalSeconds () : 0) -
                               (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
       final LocalDate endLocal = end.m_aDate.plusDays (Math.floorDiv (-offsetDiff, SECONDS_PER_DAY));
       return m_aDate.until (endLocal, unit);
