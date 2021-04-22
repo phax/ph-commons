@@ -1453,6 +1453,12 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     return OffsetDateTime.of (m_aDate, aTime, m_aOffset);
   }
 
+  @Nonnull
+  public XMLOffsetDateTime atTimeXML (@Nonnull final LocalTime aTime)
+  {
+    return XMLOffsetDateTime.of (m_aDate, aTime, m_aOffset);
+  }
+
   /**
    * Converts this date to midnight at the start of day in epoch seconds.
    *

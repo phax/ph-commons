@@ -48,57 +48,91 @@ public final class PDTToString
   @Nullable
   public static String getAsString (@Nullable final LocalDate aDate, @Nonnull final Locale aDisplayLocale)
   {
-    return aDate == null ? null : PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
-                                              .format (aDate);
+    return aDate == null ? null
+                         : PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
+                                                          aDisplayLocale,
+                                                          EDTFormatterMode.PRINT)
+                                       .format (aDate);
   }
 
   @Nullable
   public static String getAsString (@Nullable final OffsetDate aTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aTime == null ? null : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
-                                              .format (aTime);
+    return aTime == null ? null
+                         : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
+                                                                aDisplayLocale,
+                                                                EDTFormatterMode.PRINT)
+                                       .format (aTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final XMLOffsetDate aTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aTime == null ? null : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
-                                              .format (aTime);
+    return aTime == null ? null
+                         : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
+                                                                aDisplayLocale,
+                                                                EDTFormatterMode.PRINT)
+                                       .format (aTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final LocalTime aTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aTime == null ? null : PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
-                                              .format (aTime);
+    return aTime == null ? null
+                         : PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE,
+                                                          aDisplayLocale,
+                                                          EDTFormatterMode.PRINT)
+                                       .format (aTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final OffsetTime aTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aTime == null ? null : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
-                                              .format (aTime);
+    return aTime == null ? null
+                         : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
+                                                                aDisplayLocale,
+                                                                EDTFormatterMode.PRINT)
+                                       .format (aTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final LocalDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aDateTime == null ? null : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
-                                                  .format (aDateTime);
+    return aDateTime == null ? null
+                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                  aDisplayLocale,
+                                                                  EDTFormatterMode.PRINT)
+                                           .format (aDateTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final ZonedDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aDateTime == null ? null : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
-                                                  .format (aDateTime);
+    return aDateTime == null ? null
+                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                  aDisplayLocale,
+                                                                  EDTFormatterMode.PRINT)
+                                           .format (aDateTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final OffsetDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aDateTime == null ? null : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
-                                                  .format (aDateTime);
+    return aDateTime == null ? null
+                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                  aDisplayLocale,
+                                                                  EDTFormatterMode.PRINT)
+                                           .format (aDateTime);
+  }
+
+  @Nullable
+  public static String getAsString (@Nullable final XMLOffsetDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
+  {
+    return aDateTime == null ? null
+                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                  aDisplayLocale,
+                                                                  EDTFormatterMode.PRINT)
+                                           .format (aDateTime);
   }
 
   @Nullable

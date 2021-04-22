@@ -372,7 +372,8 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public static XMLOffsetDate parse (@Nonnull final CharSequence text)
   {
-    return parse (text, DateTimeFormatter.ISO_OFFSET_DATE);
+    // Optional ZoneID
+    return parse (text, DateTimeFormatter.ISO_DATE);
   }
 
   /**
@@ -1403,7 +1404,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Override
   public Temporal adjustInto (@Nonnull final Temporal temporal)
   {
-    return temporal.with (OFFSET_SECONDS, (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0))
+    return temporal.with (OFFSET_SECONDS, m_aOffset != null ? m_aOffset.getTotalSeconds () : 0)
                    .with (EPOCH_DAY, toLocalDate ().toEpochDay ());
   }
 
@@ -1497,6 +1498,18 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return formatter.format (this);
   }
 
+  @Nonnull
+  private ZoneOffset _getOffsetOrDefault ()
+  {
+    ZoneOffset ret = m_aOffset;
+    if (ret == null)
+    {
+      // Is this smart?
+      ret = ZoneOffset.UTC;
+    }
+    return ret;
+  }
+
   /**
    * Returns an offset date-time formed from this date at the specified time.
    * <p>
@@ -1514,7 +1527,27 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public OffsetDateTime atTime (@Nonnull final LocalTime aTime)
   {
-    return OffsetDateTime.of (m_aDate, aTime, m_aOffset);
+    return OffsetDateTime.of (m_aDate, aTime, _getOffsetOrDefault ());
+  }
+
+  /**
+   * Returns an offset date-time formed from this date at the specified time.
+   * <p>
+   * This combines this date with the specified time to form an
+   * {@code OffsetDateTime}. All possible combinations of date and time are
+   * valid.
+   * <p>
+   * This instance is immutable and unaffected by this method call.
+   *
+   * @param aTime
+   *        the time to combine with, not null
+   * @return the offset date-time formed from this date and the specified time,
+   *         not null
+   */
+  @Nonnull
+  public XMLOffsetDateTime atTimeXML (@Nonnull final LocalTime aTime)
+  {
+    return XMLOffsetDateTime.of (m_aDate, aTime, m_aOffset);
   }
 
   /**
@@ -1645,9 +1678,19 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nullable
   public OffsetDate toOffsetDate ()
   {
-    if (m_aOffset != null)
-      return OffsetDate.of (m_aDate, m_aOffset);
-    throw new DateTimeException ("Need a zone offset to convert to OffsetDate");
+    return OffsetDate.of (m_aDate, _getOffsetOrDefault ());
+  }
+
+  @Nullable
+  public OffsetDateTime toOffsetDateTime (@Nonnull final LocalTime aTime)
+  {
+    return OffsetDateTime.of (m_aDate, aTime, _getOffsetOrDefault ());
+  }
+
+  @Nullable
+  public XMLOffsetDateTime toXMLOffsetDateTime (@Nonnull final LocalTime aTime)
+  {
+    return XMLOffsetDateTime.of (m_aDate, aTime, m_aOffset);
   }
 
   /**

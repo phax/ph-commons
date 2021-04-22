@@ -84,9 +84,27 @@ public class PDTMask <T extends Temporal>
   }
 
   @Nonnull
+  public static PDTMask <XMLOffsetDateTime> xmlOffsetDateTime (@Nonnull @Nonempty final String sPattern)
+  {
+    return new PDTMask <> (sPattern, XMLOffsetDateTime::from);
+  }
+
+  @Nonnull
   public static PDTMask <LocalDateTime> localDateTime (@Nonnull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, LocalDateTime::from);
+  }
+
+  @Nonnull
+  public static PDTMask <OffsetDate> offsetDate (@Nonnull @Nonempty final String sPattern)
+  {
+    return new PDTMask <> (sPattern, OffsetDate::from);
+  }
+
+  @Nonnull
+  public static PDTMask <XMLOffsetDate> xmlOffsetDate (@Nonnull @Nonempty final String sPattern)
+  {
+    return new PDTMask <> (sPattern, XMLOffsetDate::from);
   }
 
   @Nonnull

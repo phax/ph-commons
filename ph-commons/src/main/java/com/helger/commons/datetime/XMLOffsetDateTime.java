@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.Period;
 import java.time.ZoneId;
@@ -365,7 +366,8 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
    */
   public static XMLOffsetDateTime parse (final CharSequence text)
   {
-    return parse (text, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    // Optional ZoneID
+    return parse (text, DateTimeFormatter.ISO_DATE_TIME);
   }
 
   /**
@@ -737,13 +739,14 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
    * @throws DateTimeException
    *         if the result exceeds the supported date range
    */
-  public XMLOffsetDateTime withOffsetSameInstant (final ZoneOffset offset)
+  public XMLOffsetDateTime withOffsetSameInstant (@Nullable final ZoneOffset offset)
   {
     if (EqualsHelper.equals (offset, m_aOffset))
     {
       return this;
     }
-    final int difference = offset.getTotalSeconds () - (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
+    final int difference = (offset != null ? offset.getTotalSeconds () : 0) -
+                           (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
     final LocalDateTime adjusted = m_aDateTime.plusSeconds (difference);
     return new XMLOffsetDateTime (adjusted, offset);
   }
@@ -1593,7 +1596,8 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
   @Override
   public XMLOffsetDateTime minus (final long amountToSubtract, final TemporalUnit unit)
   {
-    return (amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit));
+    return (amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
+                                               : plus (-amountToSubtract, unit));
   }
 
   // -----------------------------------------------------------------------
@@ -1960,6 +1964,19 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
   }
 
   // -----------------------------------------------------------------------
+
+  @Nonnull
+  private ZoneOffset _getOffsetOrDefault ()
+  {
+    ZoneOffset ret = m_aOffset;
+    if (ret == null)
+    {
+      // Is this smart?
+      ret = ZoneOffset.UTC;
+    }
+    return ret;
+  }
+
   /**
    * Combines this date-time with a time-zone to create a {@code ZonedDateTime}
    * ensuring that the result has the same instant.
@@ -1980,7 +1997,7 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
    */
   public ZonedDateTime atZoneSameInstant (final ZoneId zone)
   {
-    return ZonedDateTime.ofInstant (m_aDateTime, m_aOffset, zone);
+    return ZonedDateTime.ofInstant (m_aDateTime, _getOffsetOrDefault (), zone);
   }
 
   /**
@@ -2014,7 +2031,7 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
    */
   public ZonedDateTime atZoneSimilarLocal (final ZoneId zone)
   {
-    return ZonedDateTime.ofLocal (m_aDateTime, zone, m_aOffset);
+    return ZonedDateTime.ofLocal (m_aDateTime, zone, _getOffsetOrDefault ());
   }
 
   // -----------------------------------------------------------------------
@@ -2027,7 +2044,7 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
    */
   public OffsetTime toOffsetTime ()
   {
-    return OffsetTime.of (m_aDateTime.toLocalTime (), m_aOffset);
+    return OffsetTime.of (m_aDateTime.toLocalTime (), _getOffsetOrDefault ());
   }
 
   /**
@@ -2045,7 +2062,7 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
    */
   public ZonedDateTime toZonedDateTime ()
   {
-    return ZonedDateTime.of (m_aDateTime, m_aOffset);
+    return ZonedDateTime.of (m_aDateTime, _getOffsetOrDefault ());
   }
 
   /**
@@ -2058,7 +2075,7 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
    */
   public Instant toInstant ()
   {
-    return m_aDateTime.toInstant (m_aOffset);
+    return m_aDateTime.toInstant (_getOffsetOrDefault ());
   }
 
   /**
@@ -2073,7 +2090,7 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
    */
   public long toEpochSecond ()
   {
-    return m_aDateTime.toEpochSecond (m_aOffset);
+    return m_aDateTime.toEpochSecond (_getOffsetOrDefault ());
   }
 
   // -----------------------------------------------------------------------
@@ -2130,7 +2147,8 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
   {
     final long thisEpochSec = toEpochSecond ();
     final long otherEpochSec = other.toEpochSecond ();
-    return thisEpochSec > otherEpochSec || (thisEpochSec == otherEpochSec && toLocalTime ().getNano () > other.toLocalTime ().getNano ());
+    return thisEpochSec > otherEpochSec ||
+           (thisEpochSec == otherEpochSec && toLocalTime ().getNano () > other.toLocalTime ().getNano ());
   }
 
   /**
@@ -2149,7 +2167,8 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
   {
     final long thisEpochSec = toEpochSecond ();
     final long otherEpochSec = other.toEpochSecond ();
-    return thisEpochSec < otherEpochSec || (thisEpochSec == otherEpochSec && toLocalTime ().getNano () < other.toLocalTime ().getNano ());
+    return thisEpochSec < otherEpochSec ||
+           (thisEpochSec == otherEpochSec && toLocalTime ().getNano () < other.toLocalTime ().getNano ());
   }
 
   /**
@@ -2168,6 +2187,24 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
   public boolean isEqual (final XMLOffsetDateTime other)
   {
     return toEpochSecond () == other.toEpochSecond () && toLocalTime ().getNano () == other.toLocalTime ().getNano ();
+  }
+
+  @Nullable
+  public OffsetDate toOffsetDate ()
+  {
+    return OffsetDate.of (m_aDateTime.toLocalDate (), _getOffsetOrDefault ());
+  }
+
+  @Nullable
+  public XMLOffsetDate toXMLOffsetDate ()
+  {
+    return XMLOffsetDate.of (m_aDateTime.toLocalDate (), m_aOffset);
+  }
+
+  @Nullable
+  public OffsetDateTime toOffsetDateTime ()
+  {
+    return OffsetDateTime.of (m_aDateTime, _getOffsetOrDefault ());
   }
 
   // -----------------------------------------------------------------------
