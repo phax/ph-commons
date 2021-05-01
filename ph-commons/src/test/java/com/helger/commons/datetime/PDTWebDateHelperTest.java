@@ -173,6 +173,25 @@ public final class PDTWebDateHelperTest
   }
 
   @Test
+  public void testXSDXMLOffsetTime ()
+  {
+    // Millis only for Java 11+
+    final XMLOffsetTime aDT = PDTFactory.getCurrentXMLOffsetTimeMillisOnly ();
+    final String s = PDTWebDateHelper.getAsStringXSD (aDT);
+    assertNotNull (s);
+    assertEquals (aDT, PDTWebDateHelper.getXMLOffsetTimeFromXSD (s));
+    assertNull (PDTWebDateHelper.getAsStringXSD ((XMLOffsetTime) null));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("11:30:00.0Z"));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.123-05:00"));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.12-05:00"));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.1-05:00"));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.000-05:00"));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.00-05:00"));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.0-05:00"));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23-05:00"));
+  }
+
+  @Test
   public void testXSDLocalDateTime ()
   {
     LocalDateTime d = PDTFactory.createLocalDateTime (2011, Month.JULY, 6, 12, 34);
