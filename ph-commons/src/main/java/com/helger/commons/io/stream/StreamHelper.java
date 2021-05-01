@@ -536,7 +536,7 @@ public final class StreamHelper
      *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
      *        all bytes are copied. If <code>null</code> no limit is set
      * @return this for chaining
-     * @since 10.0.1
+     * @since 10.1.0
      * @see #unlimited()
      */
     @Nonnull
@@ -1217,7 +1217,7 @@ public final class StreamHelper
      *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
      *        all bytes are copied. If <code>null</code> no limit is set
      * @return this for chaining
-     * @since 10.0.1
+     * @since 10.1.0
      * @see #unlimited()
      */
     @Nonnull
