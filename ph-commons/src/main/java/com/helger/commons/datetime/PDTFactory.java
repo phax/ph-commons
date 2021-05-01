@@ -1971,6 +1971,11 @@ public final class PDTFactory
     return a.toInstant ().toEpochMilli ();
   }
 
+  public static long getMillis (@Nonnull final XMLOffsetDateTime a)
+  {
+    return a.toInstant ().toEpochMilli ();
+  }
+
   public static long getMillis (@Nonnull final ZonedDateTime a)
   {
     return a.toInstant ().toEpochMilli ();
