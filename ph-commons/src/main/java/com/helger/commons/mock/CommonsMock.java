@@ -50,6 +50,7 @@ import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetDateTime;
+import com.helger.commons.datetime.XMLOffsetTime;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
@@ -318,6 +319,7 @@ public final class CommonsMock
 
     registerStatic (LocalTime.class, PDTFactory::getCurrentLocalTime);
     registerStatic (OffsetTime.class, PDTFactory::getCurrentOffsetTime);
+    registerStatic (XMLOffsetTime.class, PDTFactory::getCurrentXMLOffsetTime);
 
     registerStatic (LocalDateTime.class, PDTFactory::getCurrentLocalDateTime);
     registerStatic (OffsetDateTime.class, PDTFactory::getCurrentOffsetDateTime);

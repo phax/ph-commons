@@ -134,9 +134,6 @@ public final class XMLOffsetDateTest
     aSample.accept (2008, 7, 5, "+01:30:40", "2008-07-05+01:30:40");
   }
 
-  // -----------------------------------------------------------------------
-  // constants
-  // -----------------------------------------------------------------------
   @Test
   public void constant_MIN ()
   {
@@ -149,9 +146,6 @@ public final class XMLOffsetDateTest
     _check (XMLOffsetDate.MAX, Year.MAX_VALUE, 12, 31, ZoneOffset.MIN);
   }
 
-  // -----------------------------------------------------------------------
-  // now()
-  // -----------------------------------------------------------------------
   @Test
   public void now ()
   {
@@ -218,9 +212,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> XMLOffsetDate.now ((Clock) null));
   }
 
-  // -----------------------------------------------------------------------
-  // factories
-  // -----------------------------------------------------------------------
   private void _check (final XMLOffsetDate test, final int y, final int mo, final int d, final ZoneOffset offset)
   {
     assertEquals (LocalDate.of (y, mo, d), test.toLocalDate ());
@@ -352,9 +343,6 @@ public final class XMLOffsetDateTest
     assertNotNull (XMLOffsetDate.of (localDate, (ZoneOffset) null));
   }
 
-  // -----------------------------------------------------------------------
-  // from(TemporalAccessor)
-  // -----------------------------------------------------------------------
   @Test
   public void test_from_TemporalAccessor_OD ()
   {
@@ -380,9 +368,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> XMLOffsetDate.from ((TemporalAccessor) null));
   }
 
-  // -----------------------------------------------------------------------
-  // parse()
-  // -----------------------------------------------------------------------
   public void factory_parse_validText ()
   {
     _data_sampleToString ( (y, m, d, offsetId, parsable) -> {
@@ -436,9 +421,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> XMLOffsetDate.parse ((String) null));
   }
 
-  // -----------------------------------------------------------------------
-  // parse(DateTimeFormatter)
-  // -----------------------------------------------------------------------
   @Test
   public void factory_parse_formatter ()
   {
@@ -505,9 +487,6 @@ public final class XMLOffsetDateTest
     });
   }
 
-  // -----------------------------------------------------------------------
-  // isSupported(TemporalUnit)
-  // -----------------------------------------------------------------------
   @Test
   public void test_isSupported_TemporalUnit ()
   {
@@ -530,9 +509,6 @@ public final class XMLOffsetDateTest
     assertFalse (TEST_2007_07_15_PONE.isSupported (ChronoUnit.FOREVER));
   }
 
-  // -----------------------------------------------------------------------
-  // get(TemporalField)
-  // -----------------------------------------------------------------------
   @Test
   public void test_get_TemporalField ()
   {
@@ -559,9 +535,6 @@ public final class XMLOffsetDateTest
     assertEquals (3600, test.getLong (ChronoField.OFFSET_SECONDS));
   }
 
-  // -----------------------------------------------------------------------
-  // query(TemporalQuery)
-  // -----------------------------------------------------------------------
   @Test
   public void test_query_chrono ()
   {
@@ -603,9 +576,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> TEST_2007_07_15_PONE.query (null));
   }
 
-  // -----------------------------------------------------------------------
-  // adjustInto(Temporal)
-  // -----------------------------------------------------------------------
   @Test
   public void test_adjustInto ()
   {
@@ -615,9 +585,6 @@ public final class XMLOffsetDateTest
     assertEquals (expected, od.adjustInto (odt));
   }
 
-  // -----------------------------------------------------------------------
-  // until(Temporal, TemporalUnit)
-  // -----------------------------------------------------------------------
   private interface IUntil
   {
     void accept (final long expected, final XMLOffsetDate od1, final XMLOffsetDate od2, final TemporalUnit unit);
@@ -666,9 +633,6 @@ public final class XMLOffsetDateTest
     assertThrows (DateTimeException.class, () -> od1.until (Instant.ofEpochSecond (7), ChronoUnit.SECONDS));
   }
 
-  // -----------------------------------------------------------------------
-  // withOffsetSameLocal()
-  // -----------------------------------------------------------------------
   @Test
   public void test_withOffsetSameLocal ()
   {
@@ -692,9 +656,6 @@ public final class XMLOffsetDateTest
     assertNotNull (TEST_2007_07_15_PONE.withOffsetSameLocal (null));
   }
 
-  // -----------------------------------------------------------------------
-  // with(WithAdjuster)
-  // -----------------------------------------------------------------------
   @Test
   public void test_with_adjustment ()
   {
@@ -754,9 +715,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> TEST_2007_07_15_PONE.with ((TemporalAdjuster) null));
   }
 
-  // -----------------------------------------------------------------------
-  // with(TemporalField, long)
-  // -----------------------------------------------------------------------
   @Test
   public void test_with_TemporalField ()
   {
@@ -783,9 +741,6 @@ public final class XMLOffsetDateTest
     assertThrows (DateTimeException.class, () -> TEST_2007_07_15_PONE.with (ChronoField.AMPM_OF_DAY, 0));
   }
 
-  // -----------------------------------------------------------------------
-  // withYear()
-  // -----------------------------------------------------------------------
   @Test
   public void test_withYear_int_normal ()
   {
@@ -814,9 +769,6 @@ public final class XMLOffsetDateTest
     assertEquals (expected, t);
   }
 
-  // -----------------------------------------------------------------------
-  // withMonth()
-  // -----------------------------------------------------------------------
   @Test
   public void test_withMonth_int_normal ()
   {
@@ -845,9 +797,6 @@ public final class XMLOffsetDateTest
     assertEquals (expected, t);
   }
 
-  // -----------------------------------------------------------------------
-  // withDayOfMonth()
-  // -----------------------------------------------------------------------
   @Test
   public void test_withDayOfMonth_normal ()
   {
@@ -876,9 +825,6 @@ public final class XMLOffsetDateTest
                   () -> XMLOffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (32));
   }
 
-  // -----------------------------------------------------------------------
-  // withDayOfYear(int)
-  // -----------------------------------------------------------------------
   @Test
   public void test_withDayOfYear_normal ()
   {
@@ -905,9 +851,6 @@ public final class XMLOffsetDateTest
     assertThrows (DateTimeException.class, () -> TEST_2007_07_15_PONE.withDayOfYear (366));
   }
 
-  // -----------------------------------------------------------------------
-  // plus(PlusAdjuster)
-  // -----------------------------------------------------------------------
   @Test
   public void test_plus_PlusAdjuster ()
   {
@@ -937,9 +880,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> TEST_2007_07_15_PONE.plus ((TemporalAmount) null));
   }
 
-  // -----------------------------------------------------------------------
-  // plusYears()
-  // -----------------------------------------------------------------------
   @Test
   public void test_plusYears_long_normal ()
   {
@@ -1005,9 +945,6 @@ public final class XMLOffsetDateTest
                   () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusYears (-1));
   }
 
-  // -----------------------------------------------------------------------
-  // plusMonths()
-  // -----------------------------------------------------------------------
   @Test
   public void test_plusMonths_long_normal ()
   {
@@ -1102,10 +1039,6 @@ public final class XMLOffsetDateTest
     assertThrows (DateTimeException.class,
                   () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusMonths (-1));
   }
-
-  // -----------------------------------------------------------------------
-  // plusWeeks()
-  // -----------------------------------------------------------------------
 
   public void test_plusWeeks_symmetry ()
   {
@@ -1269,9 +1202,6 @@ public final class XMLOffsetDateTest
                                      .plusWeeks (Long.MIN_VALUE));
   }
 
-  // -----------------------------------------------------------------------
-  // plusDays()
-  // -----------------------------------------------------------------------
   private static final XMLOffsetDate [] data_samplePlusDaysSymmetry;
   static
   {
@@ -1417,9 +1347,6 @@ public final class XMLOffsetDateTest
                   () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusDays (Long.MIN_VALUE));
   }
 
-  // -----------------------------------------------------------------------
-  // minus(MinusAdjuster)
-  // -----------------------------------------------------------------------
   @Test
   public void test_minus_MinusAdjuster ()
   {
@@ -1449,9 +1376,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> TEST_2007_07_15_PONE.minus ((TemporalAmount) null));
   }
 
-  // -----------------------------------------------------------------------
-  // minusYears()
-  // -----------------------------------------------------------------------
   @Test
   public void test_minusYears_long_normal ()
   {
@@ -1517,9 +1441,6 @@ public final class XMLOffsetDateTest
                   () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusYears (1));
   }
 
-  // -----------------------------------------------------------------------
-  // minusMonths()
-  // -----------------------------------------------------------------------
   @Test
   public void test_minusMonths_long_normal ()
   {
@@ -1615,9 +1536,6 @@ public final class XMLOffsetDateTest
                   () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusMonths (1));
   }
 
-  // -----------------------------------------------------------------------
-  // minusWeeks()
-  // -----------------------------------------------------------------------
   private static final XMLOffsetDate [] data_sampleMinusWeeksSymmetry;
   static
   {
@@ -1765,9 +1683,6 @@ public final class XMLOffsetDateTest
                                      .minusWeeks (Long.MIN_VALUE));
   }
 
-  // -----------------------------------------------------------------------
-  // minusDays()
-  // -----------------------------------------------------------------------
   private static final XMLOffsetDate [] data_sampleMinusDaysSymmetry;
   static
   {
@@ -1913,9 +1828,6 @@ public final class XMLOffsetDateTest
                   () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusDays (Long.MAX_VALUE));
   }
 
-  // -----------------------------------------------------------------------
-  // format(DateTimeFormatter)
-  // -----------------------------------------------------------------------
   @Test
   public void test_format_formatter ()
   {
@@ -1931,9 +1843,6 @@ public final class XMLOffsetDateTest
                   () -> XMLOffsetDate.of (LocalDate.of (2010, 12, 3), OFFSET_PONE).format (null));
   }
 
-  // -----------------------------------------------------------------------
-  // atTime()
-  // -----------------------------------------------------------------------
   @Test
   public void test_atTime_Local ()
   {
@@ -1949,9 +1858,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> t.atTime ((LocalTime) null));
   }
 
-  // -----------------------------------------------------------------------
-  // toLocalDate()
-  // -----------------------------------------------------------------------
   public void test_toLocalDate ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -1960,9 +1866,6 @@ public final class XMLOffsetDateTest
     });
   }
 
-  // -----------------------------------------------------------------------
-  // toEpochSecond(LocalTime)
-  // -----------------------------------------------------------------------
   @Test
   public void test_toEpochSecond ()
   {
@@ -1971,9 +1874,6 @@ public final class XMLOffsetDateTest
     assertEquals (12 * 60 * 60, od.toEpochSecond (LocalTime.MIDNIGHT.plusSeconds (12 * 60 * 60)));
   }
 
-  // -----------------------------------------------------------------------
-  // compareTo()
-  // -----------------------------------------------------------------------
   @Test
   public void test_compareTo_date ()
   {
@@ -2045,9 +1945,6 @@ public final class XMLOffsetDateTest
     assertThrows (ClassCastException.class, () -> c.compareTo (new Object ()));
   }
 
-  // -----------------------------------------------------------------------
-  // isAfter() / isBefore() / isEqual()
-  // -----------------------------------------------------------------------
   @Test
   public void test_isBeforeIsAfterIsEqual1 ()
   {
@@ -2144,9 +2041,6 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> a.isEqual (null));
   }
 
-  // -----------------------------------------------------------------------
-  // equals() / hashCode()
-  // -----------------------------------------------------------------------
   public void test_equals_true ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -2199,15 +2093,12 @@ public final class XMLOffsetDateTest
     assertTrue (TEST_2007_07_15_PONE.equals (TEST_2007_07_15_PONE));
   }
 
+  @SuppressWarnings ("unlikely-arg-type")
   @Test
   public void test_equals_string_false ()
   {
     assertFalse (TEST_2007_07_15_PONE.equals ("2007-07-15"));
   }
-
-  // -----------------------------------------------------------------------
-  // toString()
-  // -----------------------------------------------------------------------
 
   public void test_toString ()
   {
@@ -2217,5 +2108,4 @@ public final class XMLOffsetDateTest
       assertEquals (expected, str);
     });
   }
-
 }

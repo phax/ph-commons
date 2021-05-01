@@ -39,6 +39,7 @@ import java.time.temporal.UnsupportedTemporalTypeException;
 import java.time.temporal.ValueRange;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -1991,15 +1992,24 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   }
 
   @Nonnull
-  protected ZoneOffset getOffsetOrDefault ()
+  protected ZoneOffset getOffsetOr (@Nonnull final Supplier <ZoneOffset> aSupplier)
   {
     ZoneOffset ret = m_aOffset;
     if (ret == null)
-    {
-      // Use default Zone ID by default
-      ret = PDTConfig.getDefaultZoneId ().getRules ().getOffset (m_aDateTime);
-    }
+      ret = aSupplier.get ();
     return ret;
+  }
+
+  @Nonnull
+  protected ZoneOffset getOffsetOrDefault ()
+  {
+    return getOffsetOr ( () -> PDTConfig.getDefaultZoneId ().getRules ().getOffset (m_aDateTime));
+  }
+
+  @Nonnull
+  protected ZoneOffset getOffsetOrUTC ()
+  {
+    return getOffsetOr ( () -> ZoneOffset.UTC);
   }
 
   /**
@@ -2150,7 +2160,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
    */
   public long toEpochSecond ()
   {
-    return m_aDateTime.toEpochSecond (getOffsetOrDefault ());
+    return m_aDateTime.toEpochSecond (getOffsetOrUTC ());
   }
 
   /**
