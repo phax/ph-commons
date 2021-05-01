@@ -17,6 +17,7 @@
 package com.helger.jaxb.adapter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.time.Month;
@@ -51,6 +52,11 @@ public final class AdapterXMLOffsetDateTimeTest
     assertNull (a.unmarshal ("2020-01-01"));
     assertNull (a.unmarshal ("2020-01-01 T10:12:45.654Z"));
     assertNull (a.marshal (null));
+
+    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654"));
+    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654Z"));
+    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654+01:00"));
+    assertNotNull (a.unmarshal ("2020-01-01T10:12:45.654-01:00"));
 
     XMLOffsetDateTime o = PDTFactory.createXMLOffsetDateTimeUTC (2020, Month.JANUARY, 1, 10, 12, 45)
                                     .with (ChronoField.MILLI_OF_SECOND, 654);

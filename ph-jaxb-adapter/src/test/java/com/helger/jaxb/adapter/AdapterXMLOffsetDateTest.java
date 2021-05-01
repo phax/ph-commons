@@ -17,6 +17,7 @@
 package com.helger.jaxb.adapter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.time.Month;
@@ -28,7 +29,7 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDate;
 
 /**
- * Test class for class {@link AdapterOffsetDate}.
+ * Test class for class {@link AdapterXMLOffsetDate}.
  *
  * @author Philip Helger
  */
@@ -49,6 +50,11 @@ public final class AdapterXMLOffsetDateTest
     assertNull (a.unmarshal ("2020- 01 -01"));
     assertNull (a.unmarshal ("2020-01-01 Z"));
     assertNull (a.marshal (null));
+
+    assertNotNull (a.unmarshal ("2020-01-01"));
+    assertNotNull (a.unmarshal ("2020-01-01Z"));
+    assertNotNull (a.unmarshal ("2020-01-01+01:00"));
+    assertNotNull (a.unmarshal ("2020-01-01-01:00"));
 
     XMLOffsetDate o = PDTFactory.createXMLOffsetDate (2020, Month.JANUARY, 1, ZoneOffset.UTC);
     assertEquals (ZoneOffset.UTC, o.getOffset ());

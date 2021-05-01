@@ -55,7 +55,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @since 10.1
  */
 @Immutable
-public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable <XMLOffsetDateTime>
+public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable <XMLOffsetDateTime>
 {
   /**
    * The minimum supported {@code XMLOffsetDateTime},
@@ -227,6 +227,12 @@ public final class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comp
   public static XMLOffsetDateTime of (@Nonnull final LocalDateTime dateTime, @Nullable final ZoneOffset offset)
   {
     return new XMLOffsetDateTime (dateTime, offset);
+  }
+
+  @Nonnull
+  public static XMLOffsetDateTime of (@Nonnull final OffsetDateTime ofsDateTime)
+  {
+    return new XMLOffsetDateTime (ofsDateTime.toLocalDateTime (), ofsDateTime.getOffset ());
   }
 
   /**

@@ -554,22 +554,83 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
-  public static ZonedDateTime getDateTimeFromXSD (@Nullable final String sValue)
+  public static LocalDateTime getLocalDateTimeFromXSD (@Nullable final String sValue)
   {
-    // No override zone ID is needed
-    return getDateTimeFromXSD (sValue, null);
+    // For LocalDateTime always use the default chronology
+    return PDTFromString.getLocalDateTimeFromString (sValue, getXSDFormatterDateTime (ZoneOffset.UTC));
   }
 
   @Nullable
+  public static String getAsStringXSD (@Nullable final LocalDateTime aLDT)
+  {
+    // For LocalDateTime always use the default zone ID
+    return aLDT == null ? null : getXSDFormatterDateTime (PDTConfig.getDefaultZoneId ()).format (aLDT);
+  }
+
+  /**
+   * @param sValue
+   *        value to parse
+   * @return parsed value
+   * @deprecated Since 10.1. Use {@link #getZonedDateTimeFromXSD(String)}
+   *             instead
+   */
+  @Deprecated
+  @Nullable
+  public static ZonedDateTime getDateTimeFromXSD (@Nullable final String sValue)
+  {
+    return getZonedDateTimeFromXSD (sValue);
+  }
+
+  @Nullable
+  public static ZonedDateTime getZonedDateTimeFromXSD (@Nullable final String sValue)
+  {
+    // No override zone ID is needed
+    return getZonedDateTimeFromXSD (sValue, null);
+  }
+
+  /**
+   * @param sValue
+   *        value to parse
+   * @param aZoneID
+   *        Zone ID to use
+   * @return parsed value
+   * @deprecated Use {@link #getZonedDateTimeFromXSD(String,ZoneId)} instead
+   */
+  @Deprecated
+  @Nullable
   public static ZonedDateTime getDateTimeFromXSD (@Nullable final String sValue, @Nullable final ZoneId aZoneID)
   {
+    return getZonedDateTimeFromXSD (sValue, aZoneID);
+  }
+
+  @Nullable
+  public static ZonedDateTime getZonedDateTimeFromXSD (@Nullable final String sValue, @Nullable final ZoneId aZoneID)
+  {
     return PDTFromString.getZonedDateTimeFromString (sValue, getXSDFormatterDateTime (aZoneID));
+  }
+
+  @Nullable
+  public static String getAsStringXSD (@Nullable final ZonedDateTime aZDT)
+  {
+    return aZDT == null ? null : getAsStringXSD (aZDT.getZone (), aZDT);
+  }
+
+  @Nullable
+  public static String getAsStringXSD (@Nonnull final ZoneId aZoneID, @Nullable final ZonedDateTime aZDT)
+  {
+    return aZDT == null ? null : getXSDFormatterDateTime (aZoneID).format (aZDT);
   }
 
   @Nullable
   public static OffsetDateTime getOffsetDateTimeFromXSD (@Nullable final String sValue)
   {
     return PDTFromString.getOffsetDateTimeFromString (sValue, getXSDFormatterDateTime (null));
+  }
+
+  @Nullable
+  public static String getAsStringXSD (@Nullable final OffsetDateTime aODT)
+  {
+    return aODT == null ? null : getXSDFormatterDateTime (null).format (aODT);
   }
 
   @Nullable
@@ -589,19 +650,6 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
-  public static LocalDateTime getLocalDateTimeFromXSD (@Nullable final String sValue)
-  {
-    // For LocalDateTime always use the default chronology
-    return PDTFromString.getLocalDateTimeFromString (sValue, getXSDFormatterDateTime (ZoneOffset.UTC));
-  }
-
-  @Nullable
-  public static String getAsStringXSD (@Nullable final OffsetDateTime aODT)
-  {
-    return aODT == null ? null : getXSDFormatterDateTime (null).format (aODT);
-  }
-
-  @Nullable
   public static String getAsStringXSD (@Nullable final XMLOffsetDateTime aODT)
   {
     if (aODT == null)
@@ -612,25 +660,6 @@ public final class PDTWebDateHelper
       return getAsStringXSD (aODT.toLocalDateTime ());
     }
     return getXSDFormatterDateTime (null).format (aODT);
-  }
-
-  @Nullable
-  public static String getAsStringXSD (@Nullable final ZonedDateTime aZDT)
-  {
-    return aZDT == null ? null : getAsStringXSD (aZDT.getZone (), aZDT);
-  }
-
-  @Nullable
-  public static String getAsStringXSD (@Nonnull final ZoneId aZoneID, @Nullable final ZonedDateTime aZDT)
-  {
-    return aZDT == null ? null : getXSDFormatterDateTime (aZoneID).format (aZDT);
-  }
-
-  @Nullable
-  public static String getAsStringXSD (@Nullable final LocalDateTime aLDT)
-  {
-    // For LocalDateTime always use the default zone ID
-    return aLDT == null ? null : getXSDFormatterDateTime (PDTConfig.getDefaultZoneId ()).format (aLDT);
   }
 
   @Nonnull
@@ -646,9 +675,21 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
+  public static String getAsStringXSD (@Nullable final LocalDate aLD)
+  {
+    return aLD == null ? null : getXSDFormatterDate ().format (aLD);
+  }
+
+  @Nullable
   public static OffsetDate getOffsetDateFromXSD (@Nullable final String sValue)
   {
     return PDTFromString.getOffsetDateFromString (sValue, getXSDFormatterDate ());
+  }
+
+  @Nullable
+  public static String getAsStringXSD (@Nullable final OffsetDate aOD)
+  {
+    return aOD == null ? null : getXSDFormatterDate ().format (aOD);
   }
 
   @Nullable
@@ -659,23 +700,11 @@ public final class PDTWebDateHelper
     {
       // XMLOffsetDate is also possible if no zone offset is present.
       // Check if this would be a valid LocalDate and use no zone offset
-      final LocalDate aLD = PDTWebDateHelper.getLocalDateFromXSD (sValue);
+      final LocalDate aLD = getLocalDateFromXSD (sValue);
       if (aLD != null)
         ret = XMLOffsetDate.of (aLD, null);
     }
     return ret;
-  }
-
-  @Nullable
-  public static String getAsStringXSD (@Nullable final LocalDate aLD)
-  {
-    return aLD == null ? null : getXSDFormatterDate ().format (aLD);
-  }
-
-  @Nullable
-  public static String getAsStringXSD (@Nullable final OffsetDate aOD)
-  {
-    return aOD == null ? null : getXSDFormatterDate ().format (aOD);
   }
 
   @Nullable
@@ -716,6 +745,12 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
+  public static String getAsStringXSD (@Nullable final OffsetTime aOT)
+  {
+    return aOT == null ? null : getXSDFormatterTime ().format (aOT);
+  }
+
+  @Nullable
   public static XMLOffsetTime getXMLOffsetTimeFromXSD (@Nullable final String sValue)
   {
     XMLOffsetTime ret = PDTFromString.getXMLOffsetTimeFromString (sValue, getXSDFormatterTime ());
@@ -723,17 +758,11 @@ public final class PDTWebDateHelper
     {
       // XMLOffsetTime is only possible if a zone offset is present.
       // Check if this would be a valid LocalTime and use no Zone ID
-      final LocalTime aLT = PDTWebDateHelper.getLocalTimeFromXSD (sValue);
+      final LocalTime aLT = getLocalTimeFromXSD (sValue);
       if (aLT != null)
         ret = XMLOffsetTime.of (aLT, null);
     }
     return ret;
-  }
-
-  @Nullable
-  public static String getAsStringXSD (@Nullable final OffsetTime aOT)
-  {
-    return aOT == null ? null : getXSDFormatterTime ().format (aOT);
   }
 
   @Nullable

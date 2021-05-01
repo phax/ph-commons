@@ -119,7 +119,7 @@ public final class PDTWebDateHelperTest
     final ZonedDateTime aDT = PDTFactory.getCurrentZonedDateTimeMillisOnlyUTC ();
     final String s = PDTWebDateHelper.getAsStringXSD (aDT);
     assertNotNull (s);
-    assertEquals (aDT, PDTWebDateHelper.getDateTimeFromXSD (s));
+    assertEquals (aDT, PDTWebDateHelper.getZonedDateTimeFromXSD (s));
     assertNull (PDTWebDateHelper.getAsStringXSD ((ZonedDateTime) null));
   }
 
@@ -184,7 +184,7 @@ public final class PDTWebDateHelperTest
     final ZonedDateTime z = d.atZone (ZoneOffset.ofHours (2));
     s = PDTWebDateHelper.getAsStringXSD (z);
     assertEquals ("2011-07-06T12:34:00.0+02:00", s);
-    final ZonedDateTime z2 = PDTWebDateHelper.getDateTimeFromXSD (s);
+    final ZonedDateTime z2 = PDTWebDateHelper.getZonedDateTimeFromXSD (s);
     assertEquals (z, z2);
 
     // Current time last

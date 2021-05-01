@@ -47,7 +47,7 @@ public class AdapterZonedDateTime extends XmlAdapter <String, ZonedDateTime>
       return null;
 
     final String sTrimmed = sValue.trim ();
-    ZonedDateTime ret = PDTWebDateHelper.getDateTimeFromXSD (sTrimmed);
+    ZonedDateTime ret = PDTWebDateHelper.getZonedDateTimeFromXSD (sTrimmed);
     if (ret == null)
     {
       // ZonedDateTime is only possible if a zone offset is present.

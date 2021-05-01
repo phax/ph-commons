@@ -28,7 +28,7 @@ import com.helger.commons.datetime.XMLOffsetDateTime;
 /**
  * XML Adapter between OffsetDateTime and String. Use it in your binding file
  * like this:<br>
- * <code>&lt;xjc:javaType name="java.time.OffsetDateTime" xmlType="xsd:dateTime" adapter="com.helger.jaxb.adapter.AdapterOffsetDateTime" /&gt;</code>
+ * <code>&lt;xjc:javaType name="com.helger.commons.datetime.XMLOffsetDateTime" xmlType="xsd:dateTime" adapter="com.helger.jaxb.adapter.AdapterXMLOffsetDateTime" /&gt;</code>
  *
  * @author Philip Helger
  * @since 10.1.0

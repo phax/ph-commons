@@ -31,7 +31,7 @@ import com.helger.commons.datetime.XMLOffsetTime;
  * <code>&lt;xjc:javaType name="com.helger.commons.datetime.XMLOffsetTime" xmlType="xsd:time" adapter="com.helger.jaxb.adapter.AdapterXMLOffsetTime" /&gt;</code>
  *
  * @author Philip Helger
- * @since 10.0.0
+ * @since 10.1.0
  */
 public class AdapterXMLOffsetTime extends XmlAdapter <String, XMLOffsetTime>
 {

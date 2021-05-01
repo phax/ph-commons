@@ -152,6 +152,12 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     return new XMLOffsetTime (time, offset);
   }
 
+  @Nonnull
+  public static XMLOffsetTime of (@Nonnull final OffsetTime ofsTime)
+  {
+    return new XMLOffsetTime (ofsTime.toLocalTime (), ofsTime.getOffset ());
+  }
+
   /**
    * Obtains an instance of {@code XMLOffsetTime} from an hour, minute, second
    * and nanosecond.
@@ -1448,7 +1454,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         not null
    */
   @Nonnull
-  public XMLOffsetDateTime atDateXML (@Nonnull final LocalDate date)
+  public XMLOffsetDateTime atXMLDate (@Nonnull final LocalDate date)
   {
     return XMLOffsetDateTime.of (date, m_aTime, m_aOffset);
   }
@@ -1557,6 +1563,12 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   public boolean isEqual (@Nonnull final XMLOffsetTime other)
   {
     return toEpochNano () == other.toEpochNano ();
+  }
+
+  @Nullable
+  public OffsetTime toOffsetTime ()
+  {
+    return OffsetTime.of (m_aTime, getOffsetOrDefault ());
   }
 
   /**

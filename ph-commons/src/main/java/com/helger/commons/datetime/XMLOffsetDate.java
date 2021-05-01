@@ -112,7 +112,7 @@ import com.helger.commons.string.ToStringGenerator;
  * identity hash code or use the distinction between equals() and ==.
  * <p>
  *
- * @since v10.0.1
+ * @since v10.1
  * @see OffsetDate
  */
 @Immutable
@@ -222,6 +222,12 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   public static XMLOffsetDate of (@Nonnull final LocalDate date, @Nullable final ZoneOffset offset)
   {
     return new XMLOffsetDate (date, offset);
+  }
+
+  @Nonnull
+  public static XMLOffsetDate of (@Nonnull final OffsetDate ofsDate)
+  {
+    return new XMLOffsetDate (ofsDate.toLocalDate (), ofsDate.getOffset ());
   }
 
   /**
@@ -1517,7 +1523,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         not null
    */
   @Nonnull
-  public XMLOffsetDateTime atTimeXML (@Nonnull final LocalTime aTime)
+  public XMLOffsetDateTime atXMLTime (@Nonnull final LocalTime aTime)
   {
     return XMLOffsetDateTime.of (m_aDate, aTime, m_aOffset);
   }
@@ -1649,18 +1655,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   public OffsetDate toOffsetDate ()
   {
     return OffsetDate.of (m_aDate, getOffsetOrDefault ());
-  }
-
-  @Nullable
-  public OffsetDateTime toOffsetDateTime (@Nonnull final LocalTime aTime)
-  {
-    return OffsetDateTime.of (m_aDate, aTime, getOffsetOrDefault ());
-  }
-
-  @Nullable
-  public XMLOffsetDateTime toXMLOffsetDateTime (@Nonnull final LocalTime aTime)
-  {
-    return XMLOffsetDateTime.of (m_aDate, aTime, m_aOffset);
   }
 
   /**

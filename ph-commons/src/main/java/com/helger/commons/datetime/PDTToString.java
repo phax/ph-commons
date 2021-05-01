@@ -96,6 +96,16 @@ public final class PDTToString
   }
 
   @Nullable
+  public static String getAsString (@Nullable final XMLOffsetTime aTime, @Nonnull final Locale aDisplayLocale)
+  {
+    return aTime == null ? null
+                         : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
+                                                                aDisplayLocale,
+                                                                EDTFormatterMode.PRINT)
+                                       .format (aTime);
+  }
+
+  @Nullable
   public static String getAsString (@Nullable final LocalDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
     return aDateTime == null ? null
