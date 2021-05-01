@@ -6,34 +6,29 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.ZoneOffset;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link XMLOffsetDateTime}
+ * Test class for class {@link XMLOffsetTime}
  *
  * @author Philip Helger
  */
-public final class XMLOffsetDateTimeTest
+public final class XMLOffsetTimeTest
 {
   @Test
   public void testBasic ()
   {
-    final LocalDate aLD = PDTFactory.createLocalDate (2020, Month.JANUARY, 2);
     final LocalTime aLT = PDTFactory.createLocalTime (19, 57, 12);
 
     // No timezone
-    XMLOffsetDateTime aDT = XMLOffsetDateTime.of (aLD, aLT, null);
-    assertEquals ("2020-01-02T19:57:12", aDT.getAsString ());
+    XMLOffsetTime aDT = XMLOffsetTime.of (aLT, null);
+    assertEquals ("19:57:12", aDT.getAsString ());
     assertNull (aDT.getOffset ());
     assertFalse (aDT.hasOffset ());
-    assertEquals (aLD, aDT.toLocalDate ());
     assertEquals (aLT, aDT.toLocalTime ());
-    assertEquals (aLD.atTime (aLT), aDT.toLocalDateTime ());
 
     assertEquals (0, aDT.compareTo (aDT));
     assertEquals (-1, aDT.compareTo (aDT.plusSeconds (1)));
@@ -43,13 +38,11 @@ public final class XMLOffsetDateTimeTest
     assertEquals (+1, aDT.compareTo (aDT.withOffsetSameInstant (ZoneOffset.ofHours (-2))));
 
     // UTC
-    aDT = XMLOffsetDateTime.of (aLD, aLT, ZoneOffset.UTC);
-    assertEquals ("2020-01-02T19:57:12Z", aDT.getAsString ());
+    aDT = XMLOffsetTime.of (aLT, ZoneOffset.UTC);
+    assertEquals ("19:57:12Z", aDT.getAsString ());
     assertSame (ZoneOffset.UTC, aDT.getOffset ());
     assertTrue (aDT.hasOffset ());
-    assertEquals (aLD, aDT.toLocalDate ());
     assertEquals (aLT, aDT.toLocalTime ());
-    assertEquals (aLD.atTime (aLT), aDT.toLocalDateTime ());
 
     assertEquals (0, aDT.compareTo (aDT));
     assertEquals (-1, aDT.compareTo (aDT.plusSeconds (1)));
@@ -60,12 +53,10 @@ public final class XMLOffsetDateTimeTest
 
     // +2 hours
     final ZoneOffset aZO = ZoneOffset.ofHours (2);
-    aDT = XMLOffsetDateTime.of (aLD, aLT, aZO);
-    assertEquals ("2020-01-02T19:57:12+02:00", aDT.getAsString ());
+    aDT = XMLOffsetTime.of (aLT, aZO);
+    assertEquals ("19:57:12+02:00", aDT.getAsString ());
     assertEquals (aZO, aDT.getOffset ());
-    assertEquals (aLD, aDT.toLocalDate ());
     assertEquals (aLT, aDT.toLocalTime ());
-    assertEquals (aLD.atTime (aLT), aDT.toLocalDateTime ());
 
     assertEquals (0, aDT.compareTo (aDT));
     assertEquals (-1, aDT.compareTo (aDT.plusSeconds (1)));

@@ -301,12 +301,6 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @Nonnull final String sPattern)
-  {
-    return getOffsetTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
-  }
-
-  @Nullable
   public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
@@ -321,6 +315,36 @@ public final class PDTFromString
         _onParseException ("OffsetTime", sValue, aDF, ex);
       }
     return null;
+  }
+
+  @Nullable
+  public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  {
+    return getOffsetTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
+  }
+
+  @Nullable
+  public static XMLOffsetTime getXMLOffsetTimeFromString (@Nullable final String sValue,
+                                                          @Nonnull final DateTimeFormatter aDF)
+  {
+    ValueEnforcer.notNull (aDF, "DateTimeFormatter");
+
+    if (StringHelper.hasText (sValue))
+      try
+      {
+        return aDF.parse (sValue, XMLOffsetTime::from);
+      }
+      catch (final DateTimeParseException ex)
+      {
+        _onParseException ("XMLOffsetTime", sValue, aDF, ex);
+      }
+    return null;
+  }
+
+  @Nullable
+  public static XMLOffsetTime getXMLOffsetTimeFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  {
+    return getXMLOffsetTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
 
   @Nullable

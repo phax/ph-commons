@@ -51,7 +51,6 @@ import static java.time.temporal.ChronoField.EPOCH_DAY;
 import static java.time.temporal.ChronoField.OFFSET_SECONDS;
 import static java.time.temporal.ChronoUnit.DAYS;
 
-import java.io.Serializable;
 import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
@@ -80,10 +79,10 @@ import java.time.temporal.TemporalQuery;
 import java.time.temporal.TemporalUnit;
 import java.time.temporal.UnsupportedTemporalTypeException;
 import java.time.temporal.ValueRange;
-import java.time.zone.ZoneRules;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -116,7 +115,8 @@ import com.helger.commons.string.ToStringGenerator;
  * @since v10.0.1
  * @see OffsetDate
  */
-public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XMLOffsetDate>, Serializable
+@Immutable
+public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XMLOffsetDate>
 {
   /**
    * The minimum supported {@code XMLOffsetDate}, '-999999999-01-01+18:00'. This
@@ -307,8 +307,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   {
     ValueEnforcer.notNull (instant, "instant");
     ValueEnforcer.notNull (zone, "zone");
-    final ZoneRules rules = zone.getRules ();
-    final ZoneOffset offset = rules.getOffset (instant);
+    final ZoneOffset offset = zone.getRules ().getOffset (instant);
     // overflow caught later
     final long epochSec = instant.getEpochSecond () + offset.getTotalSeconds ();
     final long epochDay = Math.floorDiv (epochSec, SECONDS_PER_DAY);
@@ -316,7 +315,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return new XMLOffsetDate (date, offset);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Obtains an instance of {@code XMLOffsetDate} from a temporal object.
    * <p>
@@ -355,13 +353,12 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     }
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Obtains an instance of {@code XMLOffsetDate} from a text string such as
    * {@code 2007-12-03+01:00}.
    * <p>
    * The string must represent a valid date and is parsed using
-   * {@link DateTimeFormatter#ISO_OFFSET_DATE}.
+   * {@link DateTimeFormatter#ISO_DATE}.
    *
    * @param text
    *        the text to parse such as "2007-12-03+01:00", not null
@@ -413,16 +410,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   }
 
   /**
-   * Validates the input.
-   *
-   * @return the valid object, not null
-   */
-  private Object readResolve ()
-  {
-    return of (m_aDate, m_aOffset);
-  }
-
-  /**
    * Returns a new date based on this one, returning {@code this} where
    * possible.
    *
@@ -440,7 +427,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return new XMLOffsetDate (date, offset);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Checks if the specified field is supported.
    * <p>
@@ -521,13 +507,11 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   public boolean isSupported (@Nullable final TemporalUnit unit)
   {
     if (unit instanceof ChronoUnit)
-    {
       return unit.isDateBased ();
-    }
+
     return unit != null && unit.isSupportedBy (this);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Gets the range of valid values for the specified field.
    * <p>
@@ -561,9 +545,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     if (field instanceof ChronoField)
     {
       if (field == OFFSET_SECONDS)
-      {
         return field.range ();
-      }
       return m_aDate.range (field);
     }
     return field.rangeRefinedBy (this);
@@ -650,7 +632,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return field.getFrom (this);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Gets the zone offset, such as '+01:00'.
    * <p>
@@ -696,7 +677,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return with (m_aDate, offset);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Gets the {@code LocalDate} part of this date.
    * <p>
@@ -711,7 +691,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return m_aDate;
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Gets the year field.
    * <p>
@@ -802,7 +781,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return m_aDate.getDayOfWeek ();
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Returns an adjusted copy of this date.
    * <p>
@@ -933,7 +911,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return field.adjustInto (this, newValue);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Returns a copy of this {@code XMLOffsetDate} with the year altered.
    * <p>
@@ -1023,7 +1000,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return with (m_aDate.withDayOfYear (dayOfYear), m_aOffset);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Returns a copy of this date with the specified period added.
    * <p>
@@ -1092,7 +1068,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return unit.addTo (this, amountToAdd);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Returns a copy of this {@code XMLOffsetDate} with the specified number of
    * years added.
@@ -1181,7 +1156,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return with (m_aDate.plusDays (days), m_aOffset);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Returns a copy of this date with the specified amount subtracted.
    * <p>
@@ -1245,7 +1219,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
                                               : plus (-amountToSubtract, unit);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Returns a copy of this {@code XMLOffsetDate} with the specified number of
    * years subtracted.
@@ -1334,7 +1307,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return with (m_aDate.minusDays (days), m_aOffset);
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Queries this date using the specified query.
    * <p>
@@ -1359,6 +1331,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    */
   @SuppressWarnings ("unchecked")
   @Override
+  @Nonnull
   public <R> R query (@Nonnull final TemporalQuery <R> query)
   {
     if (query == TemporalQueries.chronology ())
@@ -1366,7 +1339,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     if (query == TemporalQueries.precision ())
       return (R) DAYS;
     if (query == TemporalQueries.offset () || query == TemporalQueries.zone ())
-      return (R) getOffset ();
+      return (R) getOffsetOrDefault ();
     return Temporal.super.query (query);
   }
 
@@ -1404,8 +1377,8 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Override
   public Temporal adjustInto (@Nonnull final Temporal temporal)
   {
-    return temporal.with (OFFSET_SECONDS, m_aOffset != null ? m_aOffset.getTotalSeconds () : 0)
-                   .with (EPOCH_DAY, toLocalDate ().toEpochDay ());
+    return temporal.with (EPOCH_DAY, toLocalDate ().toEpochDay ())
+                   .with (OFFSET_SECONDS, m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
   }
 
   /**
@@ -1499,13 +1472,12 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   }
 
   @Nonnull
-  private ZoneOffset _getOffsetOrDefault ()
+  protected ZoneOffset getOffsetOrDefault ()
   {
     ZoneOffset ret = m_aOffset;
     if (ret == null)
     {
-      // Is this smart?
-      ret = ZoneOffset.UTC;
+      ret = PDTConfig.getDefaultZoneId ().getRules ().getOffset (m_aDate.atStartOfDay ());
     }
     return ret;
   }
@@ -1527,7 +1499,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public OffsetDateTime atTime (@Nonnull final LocalTime aTime)
   {
-    return OffsetDateTime.of (m_aDate, aTime, _getOffsetOrDefault ());
+    return OffsetDateTime.of (m_aDate, aTime, getOffsetOrDefault ());
   }
 
   /**
@@ -1555,7 +1527,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *
    * @return the epoch seconds value
    */
-  private long toEpochSecond ()
+  protected long toEpochSecond ()
   {
     final long epochDay = m_aDate.toEpochDay ();
     final long secs = epochDay * SECONDS_PER_DAY;
@@ -1582,7 +1554,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return toEpochSecond () + time.toSecondOfDay ();
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Compares this {@code XMLOffsetDate} to another date.
    * <p>
@@ -1621,7 +1592,6 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return ret;
   }
 
-  // -----------------------------------------------------------------------
   /**
    * Checks if the instant of midnight at the start of this
    * {@code XMLOffsetDate} is after midnight at the start of the specified date.
@@ -1678,13 +1648,13 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nullable
   public OffsetDate toOffsetDate ()
   {
-    return OffsetDate.of (m_aDate, _getOffsetOrDefault ());
+    return OffsetDate.of (m_aDate, getOffsetOrDefault ());
   }
 
   @Nullable
   public OffsetDateTime toOffsetDateTime (@Nonnull final LocalTime aTime)
   {
-    return OffsetDateTime.of (m_aDate, aTime, _getOffsetOrDefault ());
+    return OffsetDateTime.of (m_aDate, aTime, getOffsetOrDefault ());
   }
 
   @Nullable

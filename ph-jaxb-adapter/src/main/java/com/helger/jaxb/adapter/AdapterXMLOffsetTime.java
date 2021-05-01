@@ -23,37 +23,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTWebDateHelper;
-import com.helger.commons.datetime.XMLOffsetDate;
+import com.helger.commons.datetime.XMLOffsetTime;
 
 /**
- * XML Adapter between XMLOffsetDate and String. Use it in your binding file
- * like this:<br>
- * <code>&lt;xjc:javaType name="com.helger.commons.datetime.XMLOffsetDate" xmlType="xsd:date" adapter="com.helger.jaxb.adapter.AdapterXMLOffsetDate" /&gt;</code>
+ * XML Adapter between OffsetTime and String. Use it in your binding file like
+ * this:<br>
+ * <code>&lt;xjc:javaType name="com.helger.commons.datetime.XMLOffsetTime" xmlType="xsd:time" adapter="com.helger.jaxb.adapter.AdapterXMLOffsetTime" /&gt;</code>
  *
  * @author Philip Helger
- * @since 10.0.1
+ * @since 10.0.0
  */
-public class AdapterXMLOffsetDate extends XmlAdapter <String, XMLOffsetDate>
+public class AdapterXMLOffsetTime extends XmlAdapter <String, XMLOffsetTime>
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (AdapterXMLOffsetDate.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AdapterXMLOffsetTime.class);
 
   @Override
   @Nullable
-  public XMLOffsetDate unmarshal (@Nullable final String sValue)
+  public XMLOffsetTime unmarshal (@Nullable final String sValue)
   {
     if (sValue == null)
       return null;
 
-    final String sTrimmed = sValue.trim ();
-    final XMLOffsetDate ret = PDTWebDateHelper.getXMLOffsetDateFromXSD (sTrimmed);
+    final XMLOffsetTime ret = PDTWebDateHelper.getXMLOffsetTimeFromXSD (sValue.trim ());
     if (ret == null)
-      LOGGER.warn ("Failed to parse '" + sValue + "' to an XMLOffsetDate");
+      LOGGER.warn ("Failed to parse '" + sValue + "' to an XMLOffsetTime");
     return ret;
   }
 
   @Override
   @Nullable
-  public String marshal (@Nullable final XMLOffsetDate aValue)
+  public String marshal (@Nullable final XMLOffsetTime aValue)
   {
     return PDTWebDateHelper.getAsStringXSD (aValue);
   }

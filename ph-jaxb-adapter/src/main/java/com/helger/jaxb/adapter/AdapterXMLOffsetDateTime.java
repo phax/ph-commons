@@ -16,8 +16,6 @@
  */
 package com.helger.jaxb.adapter;
 
-import java.time.LocalDateTime;
-
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -33,43 +31,29 @@ import com.helger.commons.datetime.XMLOffsetDateTime;
  * <code>&lt;xjc:javaType name="java.time.OffsetDateTime" xmlType="xsd:dateTime" adapter="com.helger.jaxb.adapter.AdapterOffsetDateTime" /&gt;</code>
  *
  * @author Philip Helger
- * @since 10.0.1
+ * @since 10.1.0
  */
 public class AdapterXMLOffsetDateTime extends XmlAdapter <String, XMLOffsetDateTime>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AdapterXMLOffsetDateTime.class);
 
   @Override
+  @Nullable
   public XMLOffsetDateTime unmarshal (@Nullable final String sValue)
   {
     if (sValue == null)
       return null;
 
-    final String sTrimmed = sValue.trim ();
-    XMLOffsetDateTime ret = PDTWebDateHelper.getXMLOffsetDateTimeFromXSD (sTrimmed);
+    final XMLOffsetDateTime ret = PDTWebDateHelper.getXMLOffsetDateTimeFromXSD (sValue.trim ());
     if (ret == null)
-    {
-      // XMLOffsetDateTime is also possible if no zone offset is present.
-      // Check if this would be a valid LocalTime and use UTC as fallback
-      final LocalDateTime aLDT = PDTWebDateHelper.getLocalDateTimeFromXSD (sTrimmed);
-      if (aLDT != null)
-        ret = XMLOffsetDateTime.of (aLDT, null);
-      else
-        LOGGER.warn ("Failed to parse '" + sValue + "' to an XMLOffsetDateTime");
-    }
+      LOGGER.warn ("Failed to parse '" + sValue + "' to an XMLOffsetDateTime");
     return ret;
   }
 
   @Override
+  @Nullable
   public String marshal (@Nullable final XMLOffsetDateTime aValue)
   {
-    if (aValue == null)
-      return null;
-    if (!aValue.hasOffset ())
-    {
-      // Required for Java 9+
-      return PDTWebDateHelper.getAsStringXSD (aValue.toLocalDateTime ());
-    }
     return PDTWebDateHelper.getAsStringXSD (aValue);
   }
 }

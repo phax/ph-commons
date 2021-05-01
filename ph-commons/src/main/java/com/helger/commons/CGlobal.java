@@ -207,6 +207,16 @@ public final class CGlobal
    */
   public static final long NANOSECONDS_PER_SECOND = NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_SECOND;
 
+  /**
+   * Nanoseconds per minute (60_000_000_000).
+   */
+  public static final long NANOSECONDS_PER_MINUTE = NANOSECONDS_PER_SECOND * SECONDS_PER_MINUTE;
+
+  /**
+   * Nanoseconds per hour (3_600_000_000_000).
+   */
+  public static final long NANOSECONDS_PER_HOUR = NANOSECONDS_PER_MINUTE * MINUTES_PER_HOUR;
+
   /** The BigInteger for the largest possible byte value (127) */
   public static final BigInteger BIGINT_MAX_BYTE = BigInteger.valueOf (Byte.MAX_VALUE);
 

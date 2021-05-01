@@ -87,7 +87,8 @@ public final class PDTWebDateHelper
    * (year of era)
    */
   private static final PDTMask <?> [] RFC822_MASKS = { PDTMask.zonedDateTime (FORMAT_RFC822),
-                                                       PDTMask.zonedDateTime ("EEE, dd MMM uuuu HH:mm:ss " + ZONE_PATTERN2),
+                                                       PDTMask.zonedDateTime ("EEE, dd MMM uuuu HH:mm:ss " +
+                                                                              ZONE_PATTERN2),
                                                        PDTMask.localDateTime ("EEE, dd MMM uuuu HH:mm:ss"),
                                                        PDTMask.localDateTime ("EEE, dd MMM uu HH:mm:ss"),
                                                        PDTMask.localDateTime ("EEE, dd MMM uuuu HH:mm"),
@@ -103,22 +104,33 @@ public final class PDTWebDateHelper
    * string given the mask so we have to check the most complete format first,
    * then it fails with exception
    */
-  private static final PDTMask <?> [] W3CDATETIME_MASKS = { PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" + ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" + ZONE_PATTERN2),
+  private static final PDTMask <?> [] W3CDATETIME_MASKS = { PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" +
+                                                                                    ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" +
+                                                                                    ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS"),
                                                             PDTMask.offsetDateTime (FORMAT_W3C),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss" + ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" + ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss" +
+                                                                                    ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" +
+                                                                                    ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm:ss"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm:ss"),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" + ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" + ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" +
+                                                                                    ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" +
+                                                                                    ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm"),
                                                             /*
@@ -159,7 +171,8 @@ public final class PDTWebDateHelper
    *         the string with any of the masks.
    */
   @Nullable
-  public static OffsetDateTime parseOffsetDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks, @Nonnull @Nonempty final String sDate)
+  public static OffsetDateTime parseOffsetDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks,
+                                                             @Nonnull @Nonempty final String sDate)
   {
     for (final PDTMask <?> aMask : aMasks)
     {
@@ -562,7 +575,17 @@ public final class PDTWebDateHelper
   @Nullable
   public static XMLOffsetDateTime getXMLOffsetDateTimeFromXSD (@Nullable final String sValue)
   {
-    return PDTFromString.getXMLOffsetDateTimeFromString (sValue, getXSDFormatterDateTime (null));
+    XMLOffsetDateTime ret = PDTFromString.getXMLOffsetDateTimeFromString (sValue, getXSDFormatterDateTime (null));
+    if (ret == null && sValue != null)
+    {
+      // XMLOffsetDateTime is also possible if no zone offset is present.
+      // Check if this would be a valid LocalDateTime and use no offset as
+      // fallback
+      final LocalDateTime aLDT = getLocalDateTimeFromXSD (sValue);
+      if (aLDT != null)
+        ret = XMLOffsetDateTime.of (aLDT, null);
+    }
+    return ret;
   }
 
   @Nullable
@@ -581,7 +604,14 @@ public final class PDTWebDateHelper
   @Nullable
   public static String getAsStringXSD (@Nullable final XMLOffsetDateTime aODT)
   {
-    return aODT == null ? null : getXSDFormatterDateTime (null).format (aODT);
+    if (aODT == null)
+      return null;
+    if (!aODT.hasOffset ())
+    {
+      // Required for Java 9+
+      return getAsStringXSD (aODT.toLocalDateTime ());
+    }
+    return getXSDFormatterDateTime (null).format (aODT);
   }
 
   @Nullable
@@ -624,7 +654,16 @@ public final class PDTWebDateHelper
   @Nullable
   public static XMLOffsetDate getXMLOffsetDateFromXSD (@Nullable final String sValue)
   {
-    return PDTFromString.getXMLOffsetDateFromString (sValue, getXSDFormatterDate ());
+    XMLOffsetDate ret = PDTFromString.getXMLOffsetDateFromString (sValue, getXSDFormatterDate ());
+    if (ret == null && sValue != null)
+    {
+      // XMLOffsetDate is also possible if no zone offset is present.
+      // Check if this would be a valid LocalDate and use no zone offset
+      final LocalDate aLD = PDTWebDateHelper.getLocalDateFromXSD (sValue);
+      if (aLD != null)
+        ret = XMLOffsetDate.of (aLD, null);
+    }
+    return ret;
   }
 
   @Nullable
@@ -642,7 +681,14 @@ public final class PDTWebDateHelper
   @Nullable
   public static String getAsStringXSD (@Nullable final XMLOffsetDate aOD)
   {
-    return aOD == null ? null : getXSDFormatterDate ().format (aOD);
+    if (aOD == null)
+      return null;
+    if (!aOD.hasOffset ())
+    {
+      // Required for Java 9+
+      return getAsStringXSD (aOD.toLocalDate ());
+    }
+    return getXSDFormatterDate ().format (aOD);
   }
 
   @Nonnull
@@ -670,8 +716,36 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
+  public static XMLOffsetTime getXMLOffsetTimeFromXSD (@Nullable final String sValue)
+  {
+    XMLOffsetTime ret = PDTFromString.getXMLOffsetTimeFromString (sValue, getXSDFormatterTime ());
+    if (ret == null && sValue != null)
+    {
+      // XMLOffsetTime is only possible if a zone offset is present.
+      // Check if this would be a valid LocalTime and use no Zone ID
+      final LocalTime aLT = PDTWebDateHelper.getLocalTimeFromXSD (sValue);
+      if (aLT != null)
+        ret = XMLOffsetTime.of (aLT, null);
+    }
+    return ret;
+  }
+
+  @Nullable
   public static String getAsStringXSD (@Nullable final OffsetTime aOT)
   {
     return aOT == null ? null : getXSDFormatterTime ().format (aOT);
+  }
+
+  @Nullable
+  public static String getAsStringXSD (@Nullable final XMLOffsetTime aOT)
+  {
+    if (aOT == null)
+      return null;
+    if (!aOT.hasOffset ())
+    {
+      // Required for Java 9+
+      return getAsStringXSD (aOT.toLocalTime ());
+    }
+    return getXSDFormatterTime ().format (aOT);
   }
 }
