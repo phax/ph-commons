@@ -18,13 +18,16 @@ package com.helger.jaxb.adapter;
 
 import java.time.LocalDate;
 import java.time.ZoneOffset;
+import java.util.function.Function;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.PDTWebDateHelper;
 
@@ -40,6 +43,21 @@ public class AdapterOffsetDate extends XmlAdapter <String, OffsetDate>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AdapterOffsetDate.class);
 
+  private static Function <LocalDate, ZoneOffset> s_aZOSupplier = x -> ZoneOffset.UTC;
+
+  @Nonnull
+  public static Function <LocalDate, ZoneOffset> getFallbackZoneOffsetSupplier ()
+  {
+    return s_aZOSupplier;
+  }
+
+  @Nonnull
+  public static void setFallbackZoneOffsetSupplier (@Nonnull final Function <LocalDate, ZoneOffset> aZOSupplier)
+  {
+    ValueEnforcer.notNull (aZOSupplier, "ZoneOffsetSupplier");
+    s_aZOSupplier = aZOSupplier;
+  }
+
   @Override
   public OffsetDate unmarshal (@Nullable final String sValue)
   {
@@ -54,7 +72,7 @@ public class AdapterOffsetDate extends XmlAdapter <String, OffsetDate>
       // Check if this would be a valid LocalDate and use UTC as fallback
       final LocalDate aLD = PDTWebDateHelper.getLocalDateFromXSD (sTrimmed);
       if (aLD != null)
-        ret = OffsetDate.of (aLD, ZoneOffset.UTC);
+        ret = OffsetDate.of (aLD, getFallbackZoneOffsetSupplier ().apply (aLD));
       else
         LOGGER.warn ("Failed to parse '" + sValue + "' to an OffsetDate");
     }
