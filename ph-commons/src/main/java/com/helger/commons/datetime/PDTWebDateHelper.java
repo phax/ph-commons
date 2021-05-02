@@ -70,7 +70,7 @@ import com.helger.commons.typeconvert.TypeConverter;
 public final class PDTWebDateHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PDTWebDateHelper.class);
-  // "XXX" means "+HH:mm"
+  // "XXX" [no todo] means "+HH:mm"
   // "XX" means "+HHmm"
   private static final String ZONE_PATTERN1 = "XXX";
   private static final String ZONE_PATTERN2 = "XX";
