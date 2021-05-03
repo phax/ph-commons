@@ -47,7 +47,6 @@ import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.ESuccess;
@@ -532,8 +531,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
                       ": " +
                       ex.getClass ().getName () +
                       " -- " +
-                      ex.getMessage (),
-                      GlobalDebug.isDebugMode () ? ex.getCause () : null);
+                      ex.getMessage ());
       }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);

@@ -33,7 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -251,8 +250,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
                         ": " +
                         ex.getClass ().getName () +
                         " -- " +
-                        ex.getMessage (),
-                        GlobalDebug.isDebugMode () ? ex.getCause () : null);
+                        ex.getMessage ());
       }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);
