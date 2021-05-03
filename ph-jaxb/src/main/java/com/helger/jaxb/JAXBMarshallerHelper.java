@@ -249,11 +249,10 @@ public final class JAXBMarshallerHelper
    *        The namespace context to be used. May not be <code>null</code>.
    * @throws IllegalArgumentException
    *         If the passed NamespaceContext cannot be set.
-   * @throws ClassNotFoundException
+   * @throws NoClassDefFoundError
    *         if the JAXB reference implementation was not found (requires the
    *         <code>com.sun.xml.bind:jaxb-impl</code> artefact)
    */
-  @SuppressWarnings ("javadoc")
   public static void setSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
                                                   @Nonnull final NamespaceContext aNamespaceContext)
   {
