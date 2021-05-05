@@ -142,6 +142,9 @@ public final class KeyStoreHelper
 
     try
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Trying to load key store from path '" + sKeyStorePath + "' using type " + aKeyStoreType.getID ());
+
       final KeyStore aKeyStore = aKeyStoreType.getKeyStore ();
       aKeyStore.load (aIS, aKeyStorePassword);
       return aKeyStore;
@@ -182,6 +185,9 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (aBaseKeyStore, "BaseKeyStore");
     ValueEnforcer.notNull (sAliasToCopy, "AliasToCopy");
 
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Create a new key store using type " + aBaseKeyStore.getType ());
+
     final KeyStore aKeyStore = getSimiliarKeyStore (aBaseKeyStore);
     // null stream means: create new key store
     aKeyStore.load (null, null);
@@ -190,6 +196,9 @@ public final class KeyStoreHelper
     ProtectionParameter aPP = null;
     if (aAliasPassword != null)
       aPP = new PasswordProtection (aAliasPassword);
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Copying alias '" + sAliasToCopy + "' from old key store to new key store");
 
     aKeyStore.setEntry (sAliasToCopy, aBaseKeyStore.getEntry (sAliasToCopy, aPP), aPP);
     return aKeyStore;
@@ -274,6 +283,9 @@ public final class KeyStoreHelper
     T aKeyEntry = null;
     try
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Trying to access key store entry with alias '" + sKeyStoreKeyAlias + "' as a " + aTargetClass.getName ());
+
       final KeyStore.ProtectionParameter aProtection = new KeyStore.PasswordProtection (aKeyStoreKeyPassword);
       final KeyStore.Entry aEntry = aKeyStore.getEntry (sKeyStoreKeyAlias, aProtection);
       if (aEntry == null)
