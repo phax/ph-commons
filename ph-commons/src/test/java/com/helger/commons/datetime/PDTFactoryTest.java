@@ -46,14 +46,17 @@ public final class PDTFactoryTest
     assertNotNull (PDTFactory.getCurrentZonedDateTimeMillisOnly ());
     assertNotNull (PDTFactory.getCurrentZonedDateTimeUTC ());
     assertNotNull (PDTFactory.getCurrentZonedDateTimeMillisOnlyUTC ());
+
     assertNotNull (PDTFactory.getCurrentOffsetDateTime ());
     assertNotNull (PDTFactory.getCurrentOffsetDateTimeMillisOnly ());
     assertNotNull (PDTFactory.getCurrentOffsetDateTimeUTC ());
     assertNotNull (PDTFactory.getCurrentOffsetDateTimeMillisOnlyUTC ());
+
     assertNotNull (PDTFactory.getCurrentXMLOffsetDateTime ());
     assertNotNull (PDTFactory.getCurrentXMLOffsetDateTimeMillisOnly ());
     assertNotNull (PDTFactory.getCurrentXMLOffsetDateTimeUTC ());
     assertNotNull (PDTFactory.getCurrentXMLOffsetDateTimeMillisOnlyUTC ());
+
     assertNotNull (PDTFactory.getCurrentLocalDateTime ());
     assertNotNull (PDTFactory.getCurrentLocalDateTimeMillisOnly ());
     assertNotNull (PDTFactory.getCurrentLocalDateTimeUTC ());
@@ -61,8 +64,10 @@ public final class PDTFactoryTest
 
     assertNotNull (PDTFactory.getCurrentOffsetDate ());
     assertNotNull (PDTFactory.getCurrentOffsetDateUTC ());
+
     assertNotNull (PDTFactory.getCurrentXMLOffsetDate ());
     assertNotNull (PDTFactory.getCurrentXMLOffsetDateUTC ());
+
     assertNotNull (PDTFactory.getCurrentLocalDate ());
     assertNotNull (PDTFactory.getCurrentLocalDateUTC ());
 
@@ -70,10 +75,12 @@ public final class PDTFactoryTest
     assertNotNull (PDTFactory.getCurrentOffsetTimeMillisOnly ());
     assertNotNull (PDTFactory.getCurrentOffsetTimeUTC ());
     assertNotNull (PDTFactory.getCurrentOffsetTimeMillisOnlyUTC ());
+
     assertNotNull (PDTFactory.getCurrentXMLOffsetTime ());
     assertNotNull (PDTFactory.getCurrentXMLOffsetTimeMillisOnly ());
     assertNotNull (PDTFactory.getCurrentXMLOffsetTimeUTC ());
     assertNotNull (PDTFactory.getCurrentXMLOffsetTimeMillisOnlyUTC ());
+
     assertNotNull (PDTFactory.getCurrentLocalTime ());
     assertNotNull (PDTFactory.getCurrentLocalTimeMillisOnly ());
     assertNotNull (PDTFactory.getCurrentLocalTimeUTC ());

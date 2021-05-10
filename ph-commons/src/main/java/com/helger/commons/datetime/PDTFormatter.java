@@ -152,12 +152,21 @@ public final class PDTFormatter
       switch (aKey.m_eDTType)
       {
         case LOCAL_TIME:
-        case OFFSET_TIME:
           return PDTFormatPatterns.getPatternTime (aKey.m_eStyle, aKey.m_aLocale);
+        case OFFSET_TIME:
+          return PDTFormatPatterns.getPatternTime (aKey.m_eStyle, aKey.m_aLocale) + " Z";
         case LOCAL_DATE:
           return PDTFormatPatterns.getPatternDate (aKey.m_eStyle, aKey.m_aLocale);
-        default:
+        case OFFSET_DATE:
+          return PDTFormatPatterns.getPatternDate (aKey.m_eStyle, aKey.m_aLocale) + " Z";
+        case LOCAL_DATE_TIME:
           return PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale);
+        case OFFSET_DATE_TIME:
+          return PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale) + " Z";
+        case ZONED_DATE_TIME:
+          return PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale) + " z";
+        default:
+          throw new IllegalStateException ("Unsupported DTType " + aKey.m_eDTType);
       }
     }
   }
@@ -264,6 +273,26 @@ public final class PDTFormatter
   }
 
   /**
+   * Get the date formatter for the passed locale.
+   *
+   * @param eStyle
+   *        The format style to be used. May not be <code>null</code>.
+   * @param aDisplayLocale
+   *        The display locale to be used. May be <code>null</code>.
+   * @param eMode
+   *        Print or parse? May not be <code>null</code>.
+   * @return The created date formatter. Never <code>null</code>.
+   * @since 10.1.2
+   */
+  @Nonnull
+  public static DateTimeFormatter getFormatterOffsetDate (@Nonnull final FormatStyle eStyle,
+                                                          @Nullable final Locale aDisplayLocale,
+                                                          @Nonnull final EDTFormatterMode eMode)
+  {
+    return _getFormatter (new CacheKey (EDTType.OFFSET_DATE, aDisplayLocale, eStyle, eMode), aDisplayLocale);
+  }
+
+  /**
    * Get the time formatter for the passed locale.
    *
    * @param eStyle
@@ -321,6 +350,46 @@ public final class PDTFormatter
                                                         @Nonnull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.LOCAL_DATE_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
+  }
+
+  /**
+   * Get the date time formatter for the passed locale.
+   *
+   * @param eStyle
+   *        The format style to be used. May not be <code>null</code>.
+   * @param aDisplayLocale
+   *        The display locale to be used. May be <code>null</code>.
+   * @param eMode
+   *        Print or parse? May not be <code>null</code>.
+   * @return The created date time formatter. Never <code>null</code>.
+   * @since 10.1.2
+   */
+  @Nonnull
+  public static DateTimeFormatter getFormatterOffsetDateTime (@Nonnull final FormatStyle eStyle,
+                                                              @Nullable final Locale aDisplayLocale,
+                                                              @Nonnull final EDTFormatterMode eMode)
+  {
+    return _getFormatter (new CacheKey (EDTType.OFFSET_DATE_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
+  }
+
+  /**
+   * Get the date time formatter for the passed locale.
+   *
+   * @param eStyle
+   *        The format style to be used. May not be <code>null</code>.
+   * @param aDisplayLocale
+   *        The display locale to be used. May be <code>null</code>.
+   * @param eMode
+   *        Print or parse? May not be <code>null</code>.
+   * @return The created date time formatter. Never <code>null</code>.
+   * @since 10.1.2
+   */
+  @Nonnull
+  public static DateTimeFormatter getFormatterZonedDateTime (@Nonnull final FormatStyle eStyle,
+                                                             @Nullable final Locale aDisplayLocale,
+                                                             @Nonnull final EDTFormatterMode eMode)
+  {
+    return _getFormatter (new CacheKey (EDTType.ZONED_DATE_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
 
   /**

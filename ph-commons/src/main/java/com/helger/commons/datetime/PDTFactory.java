@@ -554,6 +554,18 @@ public final class PDTFactory
   }
 
   @Nonnull
+  public static OffsetDateTime createOffsetDateTime (final int nYear,
+                                                     @Nonnull final Month eMonth,
+                                                     final int nDay,
+                                                     final int nHour,
+                                                     final int nMinute,
+                                                     final int nSecond,
+                                                     @Nonnull final ZoneOffset aZoneOffset)
+  {
+    return OffsetDateTime.of (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond), aZoneOffset);
+  }
+
+  @Nonnull
   public static OffsetDateTime createOffsetDateTimeUTC (final int nYear,
                                                         @Nonnull final Month eMonth,
                                                         final int nDay,
@@ -796,6 +808,18 @@ public final class PDTFactory
                                                            final int nSecond)
   {
     return XMLOffsetDateTime.of (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond), null);
+  }
+
+  @Nonnull
+  public static XMLOffsetDateTime createXMLOffsetDateTime (final int nYear,
+                                                           @Nonnull final Month eMonth,
+                                                           final int nDay,
+                                                           final int nHour,
+                                                           final int nMinute,
+                                                           final int nSecond,
+                                                           @Nullable final ZoneOffset aZoneOffset)
+  {
+    return XMLOffsetDateTime.of (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond), aZoneOffset);
   }
 
   @Nonnull

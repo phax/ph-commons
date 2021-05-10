@@ -56,23 +56,27 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final OffsetDate aTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final OffsetDate aDate, @Nonnull final Locale aDisplayLocale)
   {
-    return aTime == null ? null
-                         : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
+    return aDate == null ? null
+                         : PDTFormatter.getFormatterOffsetDate (PDTFormatter.DEFAULT_STYLE,
                                                                 aDisplayLocale,
                                                                 EDTFormatterMode.PRINT)
-                                       .format (aTime);
+                                       .format (aDate);
   }
 
   @Nullable
-  public static String getAsString (@Nullable final XMLOffsetDate aTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final XMLOffsetDate aDate, @Nonnull final Locale aDisplayLocale)
   {
-    return aTime == null ? null
-                         : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
-                                                                aDisplayLocale,
-                                                                EDTFormatterMode.PRINT)
-                                       .format (aTime);
+    if (aDate == null)
+      return null;
+
+    if (aDate.hasOffset ())
+      return PDTFormatter.getFormatterOffsetDate (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
+                         .format (aDate);
+
+    return PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
+                       .format (aDate.toLocalDate ());
   }
 
   @Nullable
@@ -98,11 +102,15 @@ public final class PDTToString
   @Nullable
   public static String getAsString (@Nullable final XMLOffsetTime aTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aTime == null ? null
-                         : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
-                                                                aDisplayLocale,
-                                                                EDTFormatterMode.PRINT)
-                                       .format (aTime);
+    if (aTime == null)
+      return null;
+
+    if (aTime.hasOffset ())
+      return PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
+                         .format (aTime);
+
+    return PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
+                       .format (aTime.toLocalTime ());
   }
 
   @Nullable
@@ -119,9 +127,9 @@ public final class PDTToString
   public static String getAsString (@Nullable final ZonedDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
     return aDateTime == null ? null
-                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
-                                                                  aDisplayLocale,
-                                                                  EDTFormatterMode.PRINT)
+                             : PDTFormatter.getFormatterZonedDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                       aDisplayLocale,
+                                                                       EDTFormatterMode.PRINT)
                                            .format (aDateTime);
   }
 
@@ -129,20 +137,25 @@ public final class PDTToString
   public static String getAsString (@Nullable final OffsetDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
     return aDateTime == null ? null
-                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
-                                                                  aDisplayLocale,
-                                                                  EDTFormatterMode.PRINT)
+                             : PDTFormatter.getFormatterOffsetDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                        aDisplayLocale,
+                                                                        EDTFormatterMode.PRINT)
                                            .format (aDateTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final XMLOffsetDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aDateTime == null ? null
-                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
-                                                                  aDisplayLocale,
-                                                                  EDTFormatterMode.PRINT)
-                                           .format (aDateTime);
+    if (aDateTime == null)
+      return null;
+
+    if (aDateTime.hasOffset ())
+      return PDTFormatter.getFormatterOffsetDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                      aDisplayLocale,
+                                                      EDTFormatterMode.PRINT)
+                         .format (aDateTime);
+    return PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
+                       .format (aDateTime.toLocalDateTime ());
   }
 
   @Nullable

@@ -34,22 +34,159 @@ import com.helger.commons.system.EJavaVersion;
 public final class PDTToStringTest
 {
   @Test
-  public void testToString ()
+  public void testGetAsStringDate ()
   {
-    final Locale aDisplayLocale = Locale.US;
-    assertEquals ("Feb 3, 2021", PDTToString.getAsString (PDTFactory.createLocalDate (2021, Month.FEBRUARY, 3), aDisplayLocale));
+    Locale aDisplayLocale = Locale.US;
+
+    // US
+    assertEquals ("Feb 3, 2021",
+                  PDTToString.getAsString (PDTFactory.createLocalDate (2021, Month.FEBRUARY, 3), aDisplayLocale));
+
+    assertEquals ("Feb 3, 2021 +0100",
+                  PDTToString.getAsString (PDTFactory.createOffsetDate (2021,
+                                                                        Month.FEBRUARY,
+                                                                        3,
+                                                                        ZoneOffset.ofHours (1)),
+                                           aDisplayLocale));
+
+    assertEquals ("Feb 3, 2021 +0100",
+                  PDTToString.getAsString (PDTFactory.createXMLOffsetDate (2021,
+                                                                           Month.FEBRUARY,
+                                                                           3,
+                                                                           ZoneOffset.ofHours (1)),
+                                           aDisplayLocale));
+    assertEquals ("Feb 3, 2021",
+                  PDTToString.getAsString (PDTFactory.createXMLOffsetDate (2021, Month.FEBRUARY, 3), aDisplayLocale));
+
+    aDisplayLocale = Locale.GERMANY;
+
+    // Germany
+    assertEquals ("03.02.2021",
+                  PDTToString.getAsString (PDTFactory.createLocalDate (2021, Month.FEBRUARY, 3), aDisplayLocale));
+
+    assertEquals ("03.02.2021 +0100",
+                  PDTToString.getAsString (PDTFactory.createOffsetDate (2021,
+                                                                        Month.FEBRUARY,
+                                                                        3,
+                                                                        ZoneOffset.ofHours (1)),
+                                           aDisplayLocale));
+
+    assertEquals ("03.02.2021 +0100",
+                  PDTToString.getAsString (PDTFactory.createXMLOffsetDate (2021,
+                                                                           Month.FEBRUARY,
+                                                                           3,
+                                                                           ZoneOffset.ofHours (1)),
+                                           aDisplayLocale));
+    assertEquals ("03.02.2021",
+                  PDTToString.getAsString (PDTFactory.createXMLOffsetDate (2021, Month.FEBRUARY, 3), aDisplayLocale));
+  }
+
+  @Test
+  public void testGetAsStringTime ()
+  {
+    // US
+    Locale aDisplayLocale = Locale.US;
+
     assertEquals ("10:45:07 AM", PDTToString.getAsString (PDTFactory.createLocalTime (10, 45, 7), aDisplayLocale));
-    assertEquals ("10:45:07 AM", PDTToString.getAsString (PDTFactory.createOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)), aDisplayLocale));
+    assertEquals ("10:45:07 AM +0100",
+                  PDTToString.getAsString (PDTFactory.createOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)),
+                                           aDisplayLocale));
     assertEquals ("10:45:07+01:00", PDTFactory.createOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)).toString ());
 
-    final String sComma = EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_9) ? "," : "";
-    assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM",
-                  PDTToString.getAsString (PDTFactory.createLocalDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7), aDisplayLocale));
-    assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM",
-                  PDTToString.getAsString (PDTFactory.createZonedDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7), aDisplayLocale));
-    assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM",
-                  PDTToString.getAsString (PDTFactory.createLocalDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7)
-                                                     .atOffset (ZoneOffset.ofHours (1)),
+    assertEquals ("10:45:07 AM +0100",
+                  PDTToString.getAsString (PDTFactory.createXMLOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)),
                                            aDisplayLocale));
+    assertEquals ("10:45:07 AM", PDTToString.getAsString (PDTFactory.createXMLOffsetTime (10, 45, 7), aDisplayLocale));
+
+    // Germany
+    aDisplayLocale = Locale.GERMANY;
+
+    assertEquals ("10:45:07", PDTToString.getAsString (PDTFactory.createLocalTime (10, 45, 7), aDisplayLocale));
+    assertEquals ("10:45:07 +0100",
+                  PDTToString.getAsString (PDTFactory.createOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)),
+                                           aDisplayLocale));
+    assertEquals ("10:45:07+01:00", PDTFactory.createOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)).toString ());
+
+    assertEquals ("10:45:07 +0100",
+                  PDTToString.getAsString (PDTFactory.createXMLOffsetTime (10, 45, 7, ZoneOffset.ofHours (1)),
+                                           aDisplayLocale));
+    assertEquals ("10:45:07", PDTToString.getAsString (PDTFactory.createXMLOffsetTime (10, 45, 7), aDisplayLocale));
+  }
+
+  @Test
+  public void testGetAsStringDateTime ()
+  {
+    final String sOld = PDTConfig.getDefaultZoneId ().getId ();
+    try
+    {
+      PDTConfig.setDefaultDateTimeZoneID ("UTC");
+
+      // US
+      Locale aDisplayLocale = Locale.US;
+
+      final String sComma = EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_9) ? "," : "";
+      assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM",
+                    PDTToString.getAsString (PDTFactory.createLocalDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
+                                             aDisplayLocale));
+      assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM UTC",
+                    PDTToString.getAsString (PDTFactory.createZonedDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
+                                             aDisplayLocale));
+      assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM +0100",
+                    PDTToString.getAsString (PDTFactory.createOffsetDateTime (2021,
+                                                                              Month.FEBRUARY,
+                                                                              3,
+                                                                              10,
+                                                                              45,
+                                                                              7,
+                                                                              ZoneOffset.ofHours (1)),
+                                             aDisplayLocale));
+      assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM +0100",
+                    PDTToString.getAsString (PDTFactory.createXMLOffsetDateTime (2021,
+                                                                                 Month.FEBRUARY,
+                                                                                 3,
+                                                                                 10,
+                                                                                 45,
+                                                                                 7,
+                                                                                 ZoneOffset.ofHours (1)),
+                                             aDisplayLocale));
+      assertEquals ("Feb 3, 2021" + sComma + " 10:45:07 AM",
+                    PDTToString.getAsString (PDTFactory.createXMLOffsetDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
+                                             aDisplayLocale));
+
+      // Germany
+      aDisplayLocale = Locale.GERMANY;
+
+      assertEquals ("03.02.2021 10:45:07",
+                    PDTToString.getAsString (PDTFactory.createLocalDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
+                                             aDisplayLocale));
+      assertEquals ("03.02.2021 10:45:07 UTC",
+                    PDTToString.getAsString (PDTFactory.createZonedDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
+                                             aDisplayLocale));
+      assertEquals ("03.02.2021 10:45:07 +0100",
+                    PDTToString.getAsString (PDTFactory.createOffsetDateTime (2021,
+                                                                              Month.FEBRUARY,
+                                                                              3,
+                                                                              10,
+                                                                              45,
+                                                                              7,
+                                                                              ZoneOffset.ofHours (1)),
+                                             aDisplayLocale));
+      assertEquals ("03.02.2021 10:45:07 +0100",
+                    PDTToString.getAsString (PDTFactory.createXMLOffsetDateTime (2021,
+                                                                                 Month.FEBRUARY,
+                                                                                 3,
+                                                                                 10,
+                                                                                 45,
+                                                                                 7,
+                                                                                 ZoneOffset.ofHours (1)),
+                                             aDisplayLocale));
+      assertEquals ("03.02.2021 10:45:07",
+                    PDTToString.getAsString (PDTFactory.createXMLOffsetDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
+                                             aDisplayLocale));
+    }
+    finally
+    {
+      PDTConfig.setDefaultDateTimeZoneID (sOld);
+    }
   }
 }
