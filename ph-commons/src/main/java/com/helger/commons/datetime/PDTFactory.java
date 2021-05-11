@@ -31,7 +31,7 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -163,8 +163,7 @@ public final class PDTFactory
   @Nullable
   public static ZonedDateTime getWithMillisOnly (@Nullable final ZonedDateTime a)
   {
-    return a == null ? null
-                     : a.withNano (a.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return a == null ? null : a.truncatedTo (ChronoUnit.MILLIS);
   }
 
   /**
@@ -405,8 +404,7 @@ public final class PDTFactory
   @Nullable
   public static OffsetDateTime getWithMillisOnly (@Nullable final OffsetDateTime a)
   {
-    return a == null ? null
-                     : a.withNano (a.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return a == null ? null : a.truncatedTo (ChronoUnit.MILLIS);
   }
 
   /**
@@ -663,8 +661,7 @@ public final class PDTFactory
   @Nullable
   public static XMLOffsetDateTime getWithMillisOnly (@Nullable final XMLOffsetDateTime a)
   {
-    return a == null ? null
-                     : a.withNano (a.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return a == null ? null : a.truncatedTo (ChronoUnit.MILLIS);
   }
 
   /**
@@ -915,8 +912,7 @@ public final class PDTFactory
   @Nullable
   public static LocalDateTime getWithMillisOnly (@Nullable final LocalDateTime a)
   {
-    return a == null ? null
-                     : a.withNano (a.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return a == null ? null : a.truncatedTo (ChronoUnit.MILLIS);
   }
 
   /**
@@ -1462,8 +1458,7 @@ public final class PDTFactory
   @Nullable
   public static LocalTime getWithMillisOnly (@Nullable final LocalTime a)
   {
-    return a == null ? null
-                     : a.withNano (a.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return a == null ? null : a.truncatedTo (ChronoUnit.MILLIS);
   }
 
   /**
@@ -1565,8 +1560,7 @@ public final class PDTFactory
   @Nullable
   public static OffsetTime getWithMillisOnly (@Nullable final OffsetTime a)
   {
-    return a == null ? null
-                     : a.withNano (a.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return a == null ? null : a.truncatedTo (ChronoUnit.MILLIS);
   }
 
   /**
@@ -1688,8 +1682,7 @@ public final class PDTFactory
   @Nullable
   public static XMLOffsetTime getWithMillisOnly (@Nullable final XMLOffsetTime a)
   {
-    return a == null ? null
-                     : a.withNano (a.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return a == null ? null : a.truncatedTo (ChronoUnit.MILLIS);
   }
 
   /**
