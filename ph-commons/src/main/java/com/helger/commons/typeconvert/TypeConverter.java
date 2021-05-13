@@ -493,7 +493,8 @@ public final class TypeConverter
                                             @Nonnull final Object aSrcValue)
   {
     // try to find matching converter
-    final ITypeConverter <Object, Object> aConverter = aTypeConverterProvider.getTypeConverter (aSrcClass, aUsableDstClass);
+    final ITypeConverter <Object, Object> aConverter = aTypeConverterProvider.getTypeConverter (aSrcClass,
+                                                                                                aUsableDstClass);
     if (aConverter == null)
     {
       if (!isSilentMode ())
@@ -572,7 +573,7 @@ public final class TypeConverter
     final Class <?> aUsableDstClass = _getUsableClass (aDstClass);
 
     // First check if a direct cast is possible
-    Object aRetVal;
+    final Object aRetVal;
     if (ClassHelper.areConvertibleClasses (aSrcClass, aUsableDstClass))
       aRetVal = aSrcValue;
     else
