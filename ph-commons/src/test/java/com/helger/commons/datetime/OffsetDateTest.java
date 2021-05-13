@@ -527,7 +527,7 @@ public final class OffsetDateTest
 
       assertEquals (localDate, a.toLocalDate ());
       assertEquals (offset, a.getOffset ());
-      assertEquals (localDate.toString () + offset.toString (), a.getAsString ());
+      assertEquals (localDate.toString () + offset.toString (), a.toString ());
       assertEquals (localDate.getYear (), a.getYear ());
       assertEquals (localDate.getMonth (), a.getMonth ());
       assertEquals (localDate.getDayOfMonth (), a.getDayOfMonth ());
@@ -2203,23 +2203,19 @@ public final class OffsetDateTest
     assertTrue (TEST_2007_07_15_PONE.equals (TEST_2007_07_15_PONE));
   }
 
+  @SuppressWarnings ("unlikely-arg-type")
   @Test
   public void test_equals_string_false ()
   {
     assertFalse (TEST_2007_07_15_PONE.equals ("2007-07-15"));
   }
 
-  // -----------------------------------------------------------------------
-  // toString()
-  // -----------------------------------------------------------------------
-
   public void test_toString ()
   {
     data_sampleToString ( (y, m, d, offsetId, expected) -> {
       final OffsetDate t = OffsetDate.of (LocalDate.of (y, m, d), ZoneOffset.of (offsetId));
-      final String str = t.getAsString ();
+      final String str = t.toString ();
       assertEquals (expected, str);
     });
   }
-
 }

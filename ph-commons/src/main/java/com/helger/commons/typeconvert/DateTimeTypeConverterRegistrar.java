@@ -59,11 +59,6 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
 {
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
-    // Destination: String
-    aRegistry.registerTypeConverter (XMLOffsetDate.class, String.class, XMLOffsetDate::getAsString);
-    aRegistry.registerTypeConverter (XMLOffsetTime.class, String.class, XMLOffsetTime::getAsString);
-    aRegistry.registerTypeConverter (XMLOffsetDateTime.class, String.class, XMLOffsetDateTime::getAsString);
-
     // Source: Calendar
     aRegistry.registerTypeConverter (Calendar.class,
                                      String.class,

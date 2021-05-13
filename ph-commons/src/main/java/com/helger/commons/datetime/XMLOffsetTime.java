@@ -56,7 +56,6 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A version of {@link OffsetTime} that has an optional {@link ZoneOffset}
@@ -1625,11 +1624,24 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     return new HashCodeGenerator (this).append (m_aTime).append (m_aOffset).getHashCode ();
   }
 
+  @Nonnull
+  @Nonempty
+  @Deprecated
+  public String getAsString ()
+  {
+    return toString ();
+  }
+
   /**
    * Outputs this time as a {@code String}, such as {@code 10:15:30+01:00}.
    * <p>
    * The output will be one of the following ISO-8601 formats:
    * <ul>
+   * <li>{@code HH:mm}</li>
+   * <li>{@code HH:mm:ss}</li>
+   * <li>{@code HH:mm:ss.SSS}</li>
+   * <li>{@code HH:mm:ss.SSSSSS}</li>
+   * <li>{@code HH:mm:ss.SSSSSSSSS}</li>
    * <li>{@code HH:mmXXXXX}</li>
    * <li>{@code HH:mm:ssXXXXX}</li>
    * <li>{@code HH:mm:ss.SSSXXXXX}</li>
@@ -1641,17 +1653,9 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *
    * @return a string representation of this time, not null
    */
-  @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    return m_aTime.toString () + (m_aOffset != null ? m_aOffset.toString () : "");
-  }
-
   @Override
-  @Deprecated
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Time", m_aTime).append ("Offset", m_aOffset).getToString ();
+    return m_aTime.toString () + (m_aOffset != null ? m_aOffset.toString () : "");
   }
 }

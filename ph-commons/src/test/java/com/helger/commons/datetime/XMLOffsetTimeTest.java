@@ -41,7 +41,7 @@ public final class XMLOffsetTimeTest
 
     // No timezone
     XMLOffsetTime aDT = XMLOffsetTime.of (aLT, null);
-    assertEquals ("19:57:12", aDT.getAsString ());
+    assertEquals ("19:57:12", aDT.toString ());
     assertNull (aDT.getOffset ());
     assertFalse (aDT.hasOffset ());
     assertEquals (aLT, aDT.toLocalTime ());
@@ -55,7 +55,7 @@ public final class XMLOffsetTimeTest
 
     // UTC
     aDT = XMLOffsetTime.of (aLT, ZoneOffset.UTC);
-    assertEquals ("19:57:12Z", aDT.getAsString ());
+    assertEquals ("19:57:12Z", aDT.toString ());
     assertSame (ZoneOffset.UTC, aDT.getOffset ());
     assertTrue (aDT.hasOffset ());
     assertEquals (aLT, aDT.toLocalTime ());
@@ -70,7 +70,7 @@ public final class XMLOffsetTimeTest
     // +2 hours
     final ZoneOffset aZO = ZoneOffset.ofHours (2);
     aDT = XMLOffsetTime.of (aLT, aZO);
-    assertEquals ("19:57:12+02:00", aDT.getAsString ());
+    assertEquals ("19:57:12+02:00", aDT.toString ());
     assertEquals (aZO, aDT.getOffset ());
     assertEquals (aLT, aDT.toLocalTime ());
 

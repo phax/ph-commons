@@ -57,7 +57,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Copyright (c) 2007-present, Stephen Colebourne &amp; Michael Nascimento
@@ -1652,15 +1651,15 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    */
   @Nonnull
   @Nonempty
+  @Deprecated
   public String getAsString ()
   {
-    return m_aDate.toString () + m_aOffset.toString ();
+    return toString ();
   }
 
   @Override
-  @Deprecated
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Date", m_aDate).append ("Offset", m_aOffset).getToString ();
+    return m_aDate.toString () + m_aOffset.toString ();
   }
 }

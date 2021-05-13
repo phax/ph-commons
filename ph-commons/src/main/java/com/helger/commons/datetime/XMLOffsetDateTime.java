@@ -64,7 +64,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A version of {@link OffsetDateTime} that has an optional {@link ZoneOffset}
@@ -2306,12 +2305,25 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
     return new HashCodeGenerator (this).append (m_aDateTime).append (m_aOffset).getHashCode ();
   }
 
+  @Nonnull
+  @Nonempty
+  @Deprecated
+  public String getAsString ()
+  {
+    return toString ();
+  }
+
   /**
    * Outputs this date-time as a {@code String}, such as
    * {@code 2007-12-03T10:15:30+01:00}.
    * <p>
    * The output will be one of the following ISO-8601 formats:
    * <ul>
+   * <li>{@code uuuu-MM-dd'T'HH:mm}</li>
+   * <li>{@code uuuu-MM-dd'T'HH:mm:ss}</li>
+   * <li>{@code uuuu-MM-dd'T'HH:mm:ss.SSS}</li>
+   * <li>{@code uuuu-MM-dd'T'HH:mm:ss.SSSSSS}</li>
+   * <li>{@code uuuu-MM-dd'T'HH:mm:ss.SSSSSSSSS}</li>
    * <li>{@code uuuu-MM-dd'T'HH:mmXXXXX}</li>
    * <li>{@code uuuu-MM-dd'T'HH:mm:ssXXXXX}</li>
    * <li>{@code uuuu-MM-dd'T'HH:mm:ss.SSSXXXXX}</li>
@@ -2323,17 +2335,9 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
    *
    * @return a string representation of this date-time, not null
    */
-  @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    return m_aDateTime.toString () + (m_aOffset != null ? m_aOffset.toString () : "");
-  }
-
   @Override
-  @Deprecated
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("DateTime", m_aDateTime).append ("Offset", m_aOffset).getToString ();
+    return m_aDateTime.toString () + (m_aOffset != null ? m_aOffset.toString () : "");
   }
 }

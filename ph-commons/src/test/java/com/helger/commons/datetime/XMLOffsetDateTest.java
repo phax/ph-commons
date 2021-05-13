@@ -478,7 +478,7 @@ public final class XMLOffsetDateTest
 
       assertEquals (localDate, a.toLocalDate ());
       assertEquals (offset, a.getOffset ());
-      assertEquals (localDate.toString () + offset.toString (), a.getAsString ());
+      assertEquals (localDate.toString () + offset.toString (), a.toString ());
       assertEquals (localDate.getYear (), a.getYear ());
       assertEquals (localDate.getMonth (), a.getMonth ());
       assertEquals (localDate.getDayOfMonth (), a.getDayOfMonth ());
@@ -2104,7 +2104,7 @@ public final class XMLOffsetDateTest
   {
     _data_sampleToString ( (y, m, d, offsetId, expected) -> {
       final XMLOffsetDate t = XMLOffsetDate.of (LocalDate.of (y, m, d), ZoneOffset.of (offsetId));
-      final String str = t.getAsString ();
+      final String str = t.toString ();
       assertEquals (expected, str);
     });
   }

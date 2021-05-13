@@ -88,7 +88,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Copyright (c) 2007-present, Stephen Colebourne &amp; Michael Nascimento
@@ -1695,24 +1694,25 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return new HashCodeGenerator (this).append (m_aDate).append (m_aOffset).getHashCode ();
   }
 
+  @Nonnull
+  @Nonempty
+  @Deprecated
+  public String getAsString ()
+  {
+    return toString ();
+  }
+
   /**
    * Outputs this date as a {@code String}, such as {@code 2007-12-03+01:00}.
    * <p>
-   * The output will be in the ISO-8601 format {@code yyyy-MM-ddXXXXX}.
+   * The output will be in the ISO-8601 format {@code yyyy-MM-dd} or
+   * {@code yyyy-MM-ddXXXXX}.
    *
    * @return a string representation of this date, not null
    */
-  @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    return m_aDate.toString () + (m_aOffset != null ? m_aOffset.toString () : "");
-  }
-
   @Override
-  @Deprecated
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Date", m_aDate).append ("Offset", m_aOffset).getToString ();
+    return m_aDate.toString () + (m_aOffset != null ? m_aOffset.toString () : "");
   }
 }
