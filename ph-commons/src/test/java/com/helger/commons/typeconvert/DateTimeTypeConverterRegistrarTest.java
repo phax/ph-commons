@@ -81,7 +81,7 @@ public final class DateTimeTypeConverterRegistrarTest
                                                            new MutableShort (65532) };
 
   @Test
-  public void testDateTime ()
+  public void testZonedDateTime ()
   {
     assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), ZonedDateTime.class));
     assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), ZonedDateTime.class));
@@ -93,6 +93,38 @@ public final class DateTimeTypeConverterRegistrarTest
     final ZonedDateTime aNow = PDTFactory.getCurrentZonedDateTime ();
     final String sNow = TypeConverter.convert (aNow, String.class);
     final ZonedDateTime aNow2 = TypeConverter.convert (sNow, aNow.getClass ());
+    assertEquals (aNow, aNow2);
+  }
+
+  @Test
+  public void testOffsetDateTime ()
+  {
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), OffsetDateTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), OffsetDateTime.class));
+    assertNotNull (TypeConverter.convert (new Date (), OffsetDateTime.class));
+    for (final Object aNumber : NUMBERS)
+      assertNotNull (TypeConverter.convert (aNumber, OffsetDateTime.class));
+
+    // Test auto conversion to and from string
+    final OffsetDateTime aNow = PDTFactory.getCurrentOffsetDateTime ();
+    final String sNow = TypeConverter.convert (aNow, String.class);
+    final OffsetDateTime aNow2 = TypeConverter.convert (sNow, aNow.getClass ());
+    assertEquals (aNow, aNow2);
+  }
+
+  @Test
+  public void testXMLOffsetDateTime ()
+  {
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), XMLOffsetDateTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), XMLOffsetDateTime.class));
+    assertNotNull (TypeConverter.convert (new Date (), XMLOffsetDateTime.class));
+    for (final Object aNumber : NUMBERS)
+      assertNotNull (TypeConverter.convert (aNumber, XMLOffsetDateTime.class));
+
+    // Test auto conversion to and from string
+    final XMLOffsetDateTime aNow = PDTFactory.getCurrentXMLOffsetDateTime ();
+    final String sNow = TypeConverter.convert (aNow, String.class);
+    final XMLOffsetDateTime aNow2 = TypeConverter.convert (sNow, aNow.getClass ());
     assertEquals (aNow, aNow2);
   }
 
@@ -113,6 +145,60 @@ public final class DateTimeTypeConverterRegistrarTest
   }
 
   @Test
+  public void testOffsetDate ()
+  {
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), OffsetDate.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), OffsetDate.class));
+    assertNotNull (TypeConverter.convert (new Date (), OffsetDate.class));
+    for (final Object aNumber : NUMBERS)
+      assertNotNull (TypeConverter.convert (aNumber, OffsetDate.class));
+
+    // Test auto conversion to and from string
+    final OffsetDate aNowDate = PDTFactory.getCurrentOffsetDate ();
+    final String sNow = TypeConverter.convert (aNowDate, String.class);
+    final OffsetDate aNowDate2 = TypeConverter.convert (sNow, aNowDate.getClass ());
+    assertEquals (aNowDate, aNowDate2);
+
+    for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class,
+                                                         OffsetDateTime.class,
+                                                         XMLOffsetDateTime.class,
+                                                         LocalDateTime.class })
+    {
+      final OffsetDate aNow = PDTFactory.getCurrentOffsetDate ();
+      final Object aDT = TypeConverter.convert (aNow, aDestClass);
+      final OffsetDate aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
+      assertEquals (aNow, aNow2);
+    }
+  }
+
+  @Test
+  public void testXMLOffsetDate ()
+  {
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), XMLOffsetDate.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), XMLOffsetDate.class));
+    assertNotNull (TypeConverter.convert (new Date (), XMLOffsetDate.class));
+    for (final Object aNumber : NUMBERS)
+      assertNotNull (TypeConverter.convert (aNumber, XMLOffsetDate.class));
+
+    // Test auto conversion to and from string
+    final XMLOffsetDate aNowDate = PDTFactory.getCurrentXMLOffsetDate ();
+    final String sNow = TypeConverter.convert (aNowDate, String.class);
+    final XMLOffsetDate aNowDate2 = TypeConverter.convert (sNow, aNowDate.getClass ());
+    assertEquals (aNowDate, aNowDate2);
+
+    // Use only classes supporting a ZoneOffset
+    for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class,
+                                                         OffsetDateTime.class,
+                                                         XMLOffsetDateTime.class })
+    {
+      final XMLOffsetDate aNow = PDTFactory.getCurrentXMLOffsetDate ();
+      final Object aDT = TypeConverter.convert (aNow, aDestClass);
+      final XMLOffsetDate aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
+      assertEquals (aNow, aNow2);
+    }
+  }
+
+  @Test
   public void testLocalDate ()
   {
     assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), LocalDate.class));
@@ -122,10 +208,75 @@ public final class DateTimeTypeConverterRegistrarTest
       assertNotNull (TypeConverter.convert (aNumber, LocalDate.class));
 
     // Test auto conversion to and from string
-    final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
-    final String sNow = TypeConverter.convert (aNow, String.class);
-    final LocalDate aNow2 = TypeConverter.convert (sNow, aNow.getClass ());
-    assertEquals (aNow, aNow2);
+    final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
+    final String sNow = TypeConverter.convert (aNowDate, String.class);
+    final LocalDate aNowDate2 = TypeConverter.convert (sNow, aNowDate.getClass ());
+    assertEquals (aNowDate, aNowDate2);
+
+    for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class,
+                                                         OffsetDateTime.class,
+                                                         XMLOffsetDateTime.class,
+                                                         LocalDateTime.class })
+    {
+      final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
+      final Object aDT = TypeConverter.convert (aNow, aDestClass);
+      final LocalDate aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
+      assertEquals (aNow, aNow2);
+    }
+  }
+
+  @Test
+  public void testOffsetTime ()
+  {
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), OffsetTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), OffsetTime.class));
+    assertNotNull (TypeConverter.convert (new Date (), OffsetTime.class));
+    for (final Object aNumber : NUMBERS)
+      assertNotNull (TypeConverter.convert (aNumber, OffsetTime.class));
+
+    // Test auto conversion to and from string
+    final OffsetTime aNowTime = PDTFactory.getCurrentOffsetTime ();
+    final String sNow = TypeConverter.convert (aNowTime, String.class);
+    final OffsetTime aNowTime2 = TypeConverter.convert (sNow, aNowTime.getClass ());
+    assertEquals (aNowTime, aNowTime2);
+
+    // Use only classes supporting a ZoneOffset
+    for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class,
+                                                         OffsetDateTime.class,
+                                                         XMLOffsetDateTime.class })
+    {
+      final OffsetTime aNow = PDTFactory.getCurrentOffsetTime ();
+      final Object aDT = TypeConverter.convert (aNow, aDestClass);
+      final OffsetTime aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
+      assertEquals (aNow, aNow2);
+    }
+  }
+
+  @Test
+  public void testXMLOffsetTime ()
+  {
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), XMLOffsetTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), XMLOffsetTime.class));
+    assertNotNull (TypeConverter.convert (new Date (), XMLOffsetTime.class));
+    for (final Object aNumber : NUMBERS)
+      assertNotNull (TypeConverter.convert (aNumber, XMLOffsetTime.class));
+
+    // Test auto conversion to and from string
+    final XMLOffsetTime aNowTime = PDTFactory.getCurrentXMLOffsetTime ();
+    final String sNow = TypeConverter.convert (aNowTime, String.class);
+    final XMLOffsetTime aNowTime2 = TypeConverter.convert (sNow, aNowTime.getClass ());
+    assertEquals (aNowTime, aNowTime2);
+
+    // Use only classes supporting a ZoneOffset
+    for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class,
+                                                         OffsetDateTime.class,
+                                                         XMLOffsetDateTime.class })
+    {
+      final XMLOffsetTime aNow = PDTFactory.getCurrentXMLOffsetTime ();
+      final Object aDT = TypeConverter.convert (aNow, aDestClass);
+      final XMLOffsetTime aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
+      assertEquals (aNow, aNow2);
+    }
   }
 
   @Test
@@ -144,18 +295,14 @@ public final class DateTimeTypeConverterRegistrarTest
     assertEquals (aNowTime, aNowTime2);
 
     // Test auto conversion between default types
-    for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class, LocalDateTime.class })
+    for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class,
+                                                         OffsetDateTime.class,
+                                                         XMLOffsetDateTime.class,
+                                                         LocalDateTime.class })
     {
       final LocalTime aNow = PDTFactory.getCurrentLocalTime ();
       final Object aDT = TypeConverter.convert (aNow, aDestClass);
       final LocalTime aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
-      assertEquals (aNow, aNow2);
-    }
-    for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class, LocalDateTime.class })
-    {
-      final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
-      final Object aDT = TypeConverter.convert (aNow, aDestClass);
-      final LocalDate aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
       assertEquals (aNow, aNow2);
     }
   }
