@@ -53,7 +53,6 @@ public final class SafeArrayListTest
       assertNull (sMember);
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testSafeArrayListNewInstanceFactory ()
   {

@@ -116,7 +116,9 @@ public final class MicroElementTest
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns", "xy")));
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns2", "xyz")));
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement (null, "xyz")));
-    assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns", "xyz").setAttribute ("name", "value")));
+    assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns",
+                                                                                    "xyz").setAttribute ("name",
+                                                                                                         "value")));
 
     e = new MicroElement ("ns1:element");
     assertNull (e.getLocalName ());
@@ -126,7 +128,6 @@ public final class MicroElementTest
     assertEquals ("element", e.getTagName ());
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

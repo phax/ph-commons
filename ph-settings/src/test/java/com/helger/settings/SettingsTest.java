@@ -101,7 +101,6 @@ public final class SettingsTest
     _testSettings ();
   }
 
-  @SuppressWarnings ("unused")
   @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testIllegal ()

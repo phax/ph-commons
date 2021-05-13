@@ -41,7 +41,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class ArrayEnumerationTest
 {
-  @SuppressWarnings ("unused")
   @Test
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll ()
@@ -113,9 +112,17 @@ public final class ArrayEnumerationTest
 
     // equals...
     ae = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <> ("Hallo", "Welt", "from"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <> (Integer.valueOf (5)));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
+                                                                       new ArrayEnumeration <> ("Hallo",
+                                                                                                "Welt",
+                                                                                                "from",
+                                                                                                "Copenhagen"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
+                                                                           new ArrayEnumeration <> ("Hallo",
+                                                                                                    "Welt",
+                                                                                                    "from"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
+                                                                           new ArrayEnumeration <> (Integer.valueOf (5)));
     // Different index
     final ArrayEnumeration <String> ae2 = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();

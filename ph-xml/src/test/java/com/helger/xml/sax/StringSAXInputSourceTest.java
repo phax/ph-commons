@@ -39,7 +39,6 @@ public final class StringSAXInputSourceTest
     CommonsTestHelper.testToStringImplementation (sis);
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

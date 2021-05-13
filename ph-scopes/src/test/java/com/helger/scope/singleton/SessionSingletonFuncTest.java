@@ -58,7 +58,7 @@ public final class SessionSingletonFuncTest
     assertSame (a, MockSessionSingleton.getInstance ());
   }
 
-  @SuppressWarnings ({ "deprecation", "unused" })
+  @SuppressWarnings ("deprecation")
   @Test
   public void testInstantiateManually ()
   {
@@ -86,7 +86,8 @@ public final class SessionSingletonFuncTest
     final MockSessionSingletonWithScopeCtor a = MockSessionSingletonWithScopeCtor.getInstance ();
     assertNotNull (a);
     assertTrue (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
-    assertSame (a, AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertSame (a,
+                AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
     assertNotNull (a.getScope ());
     assertEquals (0, a.get ());
     a.inc ();

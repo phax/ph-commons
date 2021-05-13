@@ -71,7 +71,6 @@ public final class RecursiveChildNodeIteratorTest
     {}
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testError ()
   {

@@ -44,7 +44,6 @@ public final class DefaultTreeWithIDTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, t2);
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testError ()
   {

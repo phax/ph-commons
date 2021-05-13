@@ -31,7 +31,6 @@ import org.junit.Test;
  */
 public final class RingBufferFifoTest
 {
-  @SuppressWarnings ("unused")
   @Test
   public void testInvalid ()
   {

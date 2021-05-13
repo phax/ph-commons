@@ -73,7 +73,7 @@ public final class GlobalSingletonFuncTest
     assertSame (a, MockGlobalSingleton.getInstance ());
   }
 
-  @SuppressWarnings ({ "deprecation", "unused" })
+  @SuppressWarnings ("deprecation")
   @Test
   public void testInstantiateManually ()
   {

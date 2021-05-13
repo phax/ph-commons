@@ -35,7 +35,6 @@ import com.helger.graph.IMutableGraphNode;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("unused")
 public final class GraphIteratorTest extends AbstractGraphTestCase
 {
   @Test

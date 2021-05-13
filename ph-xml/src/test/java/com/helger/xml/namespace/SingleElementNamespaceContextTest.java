@@ -36,8 +36,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class SingleElementNamespaceContextTest
 {
-
-  @SuppressWarnings ("unused")
   @Test
   @SuppressFBWarnings ({ "NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION" })
   public void testCtor ()

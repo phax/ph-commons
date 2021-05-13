@@ -84,7 +84,6 @@ public final class ResourceLSInputTest
     CommonsTestHelper.testToStringImplementation (lsi);
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testError ()
   {

@@ -60,7 +60,6 @@ public final class MicroRecursiveIteratorTest
     {}
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

@@ -67,7 +67,6 @@ public final class CachingSAXInputSourceTest
     CommonsTestHelper.testToStringImplementation (is);
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

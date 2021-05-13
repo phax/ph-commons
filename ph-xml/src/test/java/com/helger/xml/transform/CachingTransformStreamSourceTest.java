@@ -78,7 +78,6 @@ public final class CachingTransformStreamSourceTest
     CommonsTestHelper.testToStringImplementation (src);
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

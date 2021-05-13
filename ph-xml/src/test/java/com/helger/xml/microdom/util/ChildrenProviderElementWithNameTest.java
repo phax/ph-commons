@@ -63,7 +63,6 @@ public final class ChildrenProviderElementWithNameTest
     assertEquals (1, x.getAllChildren (aDocElement).size ());
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

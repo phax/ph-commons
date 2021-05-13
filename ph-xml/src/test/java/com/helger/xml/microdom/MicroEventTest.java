@@ -52,7 +52,6 @@ public final class MicroEventTest
     CommonsTestHelper.testToStringImplementation (e);
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

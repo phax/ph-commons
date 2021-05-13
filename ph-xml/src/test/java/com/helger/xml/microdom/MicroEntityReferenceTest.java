@@ -65,7 +65,6 @@ public final class MicroEntityReferenceTest
     assertFalse (new MicroEntityReference ("xyz").isEqualContent (new MicroEntityReference ("xy")));
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

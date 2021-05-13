@@ -46,7 +46,6 @@ public final class ReadableResourceSAXInputSourceTest
     assertNull (new ReadableResourceSAXInputSource (new MockNullInputStreamProvider (), "sysid").getByteStream ());
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testCreationError ()
   {

@@ -41,7 +41,6 @@ import com.helger.tree.withid.folder.DefaultFolderTreeItem;
  */
 public final class FileSystemFolderTreeTest
 {
-  @SuppressWarnings ("unused")
   @Test
   public void testCreate ()
   {
@@ -77,7 +76,9 @@ public final class FileSystemFolderTreeTest
     catch (final IllegalArgumentException ex)
     {}
 
-    FileSystemFolderTree aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (), null, IFileFilter.filenameEndsWith (".java"));
+    FileSystemFolderTree aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (),
+                                                           null,
+                                                           IFileFilter.filenameEndsWith (".java"));
     TreeVisitor.visitTreeItem (aTree.getRootItem (),
                                new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, ICommonsList <File>>> ()
                                {

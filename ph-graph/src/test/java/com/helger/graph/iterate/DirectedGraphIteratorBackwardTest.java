@@ -35,7 +35,6 @@ import com.helger.graph.IMutableDirectedGraphNode;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("unused")
 public final class DirectedGraphIteratorBackwardTest extends AbstractGraphTestCase
 {
   @Test
