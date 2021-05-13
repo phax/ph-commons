@@ -389,6 +389,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (XMLOffsetDateTime.class, OffsetTime.class, XMLOffsetDateTime::toOffsetTime);
 
     aRegistry.registerTypeConverter (XMLOffsetTime.class, OffsetTime.class, XMLOffsetTime::toOffsetTime);
+    aRegistry.registerTypeConverter (LocalTime.class, OffsetTime.class, PDTFactory::createOffsetTime);
 
     aRegistry.registerTypeConverter (LocalDateTime.class, OffsetTime.class, PDTFactory::createOffsetTime);
 
@@ -408,6 +409,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (XMLOffsetDateTime.class, XMLOffsetTime.class, XMLOffsetDateTime::toXMLOffsetTime);
 
     aRegistry.registerTypeConverter (OffsetTime.class, XMLOffsetTime.class, XMLOffsetTime::of);
+    aRegistry.registerTypeConverter (LocalTime.class, XMLOffsetTime.class, PDTFactory::createXMLOffsetTime);
 
     aRegistry.registerTypeConverter (LocalDateTime.class, XMLOffsetTime.class, PDTFactory::createXMLOffsetTime);
 

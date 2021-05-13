@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.ZonedDateTime;
@@ -42,7 +43,11 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.XMLOffsetDate;
+import com.helger.commons.datetime.XMLOffsetDateTime;
+import com.helger.commons.datetime.XMLOffsetTime;
 import com.helger.commons.mutable.MutableByte;
 import com.helger.commons.mutable.MutableDouble;
 import com.helger.commons.mutable.MutableFloat;
@@ -155,6 +160,20 @@ public final class DateTimeTypeConverterRegistrarTest
     }
   }
 
+  private static boolean _isTimeClass (final Class <?> aClass)
+  {
+    return aClass == LocalTime.class || aClass == OffsetTime.class || aClass == XMLOffsetTime.class;
+  }
+
+  private static boolean _isNonTimeClass (final Class <?> aClass)
+  {
+    return aClass == LocalDate.class ||
+           aClass == OffsetDate.class ||
+           aClass == XMLOffsetDate.class ||
+           aClass == YearMonth.class ||
+           aClass == Year.class;
+  }
+
   @Test
   public void testConvertIntoEachOther ()
   {
@@ -162,11 +181,20 @@ public final class DateTimeTypeConverterRegistrarTest
     aValues.put (Date.class, new Date ());
     aValues.put (Calendar.class, PDTFactory.createCalendar ());
     aValues.put (GregorianCalendar.class, PDTFactory.createGregorianCalendar ());
+
     aValues.put (ZonedDateTime.class, PDTFactory.getCurrentZonedDateTime ());
     aValues.put (OffsetDateTime.class, PDTFactory.getCurrentOffsetDateTime ());
+    aValues.put (XMLOffsetDateTime.class, PDTFactory.getCurrentXMLOffsetDateTime ());
     aValues.put (LocalDateTime.class, PDTFactory.getCurrentLocalDateTime ());
+
+    aValues.put (OffsetDate.class, PDTFactory.getCurrentOffsetDate ());
+    aValues.put (XMLOffsetDate.class, PDTFactory.getCurrentXMLOffsetDate ());
     aValues.put (LocalDate.class, PDTFactory.getCurrentLocalDate ());
+
+    aValues.put (OffsetTime.class, PDTFactory.getCurrentOffsetTime ());
+    aValues.put (XMLOffsetTime.class, PDTFactory.getCurrentXMLOffsetTime ());
     aValues.put (LocalTime.class, PDTFactory.getCurrentLocalTime ());
+
     aValues.put (YearMonth.class, PDTFactory.getCurrentYearMonth ());
     aValues.put (Year.class, PDTFactory.getCurrentYearObj ());
     aValues.put (Instant.class, PDTFactory.getCurrentInstant ());
@@ -184,14 +212,8 @@ public final class DateTimeTypeConverterRegistrarTest
       for (final Class <?> aDst : aValues.keySet ())
         if (aSrc.getKey () != aDst)
         {
-          final boolean bIsTime = aSrc.getKey () == LocalTime.class || aDst == LocalTime.class;
-          if (bIsTime &&
-              (aSrc.getKey () == LocalDate.class ||
-               aDst == LocalDate.class ||
-               aSrc.getKey () == YearMonth.class ||
-               aDst == YearMonth.class ||
-               aSrc.getKey () == Year.class ||
-               aDst == Year.class))
+          if ((_isTimeClass (aSrc.getKey ()) && _isNonTimeClass (aDst)) ||
+              (_isNonTimeClass (aSrc.getKey ()) && _isTimeClass (aDst)))
           {
             // Not convertible
           }
