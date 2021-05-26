@@ -87,6 +87,8 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.helger.commons.mock.CommonsTestHelper;
+
 /**
  * Test {@link XMLOffsetDate}.
  */
@@ -255,8 +257,7 @@ public final class XMLOffsetDateTest
   @Test
   public void factory_of_intsMonthOffset_dayTooHigh ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (2007, Month.JANUARY, 32), OFFSET_PONE));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (2007, Month.JANUARY, 32), OFFSET_PONE));
   }
 
   @Test
@@ -268,8 +269,7 @@ public final class XMLOffsetDateTest
   @Test
   public void factory_of_intsMonthOffset_yearTooLow ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Integer.MIN_VALUE, Month.JANUARY, 1), OFFSET_PONE));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Integer.MIN_VALUE, Month.JANUARY, 1), OFFSET_PONE));
   }
 
   @Test
@@ -312,8 +312,7 @@ public final class XMLOffsetDateTest
   @Test
   public void factory_of_ints_yearTooLow ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Integer.MIN_VALUE, 1, 1), OFFSET_PONE));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Integer.MIN_VALUE, 1, 1), OFFSET_PONE));
   }
 
   @Test
@@ -368,6 +367,7 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> XMLOffsetDate.from ((TemporalAccessor) null));
   }
 
+  @Test
   public void factory_parse_validText ()
   {
     _data_sampleToString ( (y, m, d, offsetId, parsable) -> {
@@ -397,6 +397,7 @@ public final class XMLOffsetDateTest
                                                                        "2008-02-01",
                                                                        "2008-02-01+01:00[Europe/Paris]" };
 
+  @Test
   public void factory_parse_invalidText ()
   {
     for (final String unparsable : data_sampleBadParse)
@@ -470,6 +471,7 @@ public final class XMLOffsetDateTest
     aSample.accept (999999, 11, 20, ZoneOffset.ofHoursMinutesSeconds (6, 9, 12));
   }
 
+  @Test
   public void test_get_OffsetDate ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -592,24 +594,13 @@ public final class XMLOffsetDateTest
 
   private static void _data_until (@Nonnull final IUntil aSample)
   {
-    aSample.accept (1,
-                    XMLOffsetDate.of (2007, 6, 30, OFFSET_PONE),
-                    XMLOffsetDate.of (2007, 7, 1, OFFSET_PONE),
-                    ChronoUnit.DAYS);
-    aSample.accept (1,
-                    XMLOffsetDate.of (2007, 6, 30, OFFSET_PONE),
-                    XMLOffsetDate.of (2007, 8, 29, OFFSET_PONE),
-                    ChronoUnit.MONTHS);
-    aSample.accept (2,
-                    XMLOffsetDate.of (2007, 6, 30, OFFSET_PONE),
-                    XMLOffsetDate.of (2007, 8, 30, OFFSET_PONE),
-                    ChronoUnit.MONTHS);
-    aSample.accept (2,
-                    XMLOffsetDate.of (2007, 6, 30, OFFSET_PONE),
-                    XMLOffsetDate.of (2007, 8, 31, OFFSET_PONE),
-                    ChronoUnit.MONTHS);
+    aSample.accept (1, XMLOffsetDate.of (2007, 6, 30, OFFSET_PONE), XMLOffsetDate.of (2007, 7, 1, OFFSET_PONE), ChronoUnit.DAYS);
+    aSample.accept (1, XMLOffsetDate.of (2007, 6, 30, OFFSET_PONE), XMLOffsetDate.of (2007, 8, 29, OFFSET_PONE), ChronoUnit.MONTHS);
+    aSample.accept (2, XMLOffsetDate.of (2007, 6, 30, OFFSET_PONE), XMLOffsetDate.of (2007, 8, 30, OFFSET_PONE), ChronoUnit.MONTHS);
+    aSample.accept (2, XMLOffsetDate.of (2007, 6, 30, OFFSET_PONE), XMLOffsetDate.of (2007, 8, 31, OFFSET_PONE), ChronoUnit.MONTHS);
   }
 
+  @Test
   public void test_until ()
   {
     _data_until ( (expected, od1, od2, unit) -> {
@@ -814,15 +805,13 @@ public final class XMLOffsetDateTest
   @Test
   public void test_withDayOfMonth_invalidForMonth ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (31));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (31));
   }
 
   @Test
   public void test_withDayOfMonth_invalidAlways ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (32));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (2007, 11, 30), OFFSET_PONE).withDayOfMonth (32));
   }
 
   @Test
@@ -920,8 +909,7 @@ public final class XMLOffsetDateTest
   @Test
   public void test_plusYears_long_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 1, 1), OFFSET_PONE).plusYears (1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 1, 1), OFFSET_PONE).plusYears (1));
   }
 
   @Test
@@ -941,8 +929,7 @@ public final class XMLOffsetDateTest
   @Test
   public void test_plusYears_long_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusYears (-1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusYears (-1));
   }
 
   @Test
@@ -1008,15 +995,13 @@ public final class XMLOffsetDateTest
   {
     final long months = 20L + Integer.MAX_VALUE;
     final XMLOffsetDate test = XMLOffsetDate.of (LocalDate.of (-40, 6, 1), OFFSET_PONE).plusMonths (months);
-    assertEquals (XMLOffsetDate.of (LocalDate.of ((int) (-40L + months / 12), 6 + (int) (months % 12), 1), OFFSET_PONE),
-                  test);
+    assertEquals (XMLOffsetDate.of (LocalDate.of ((int) (-40L + months / 12), 6 + (int) (months % 12), 1), OFFSET_PONE), test);
   }
 
   @Test
   public void test_plusMonths_long_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 1), OFFSET_PONE).plusMonths (1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 1), OFFSET_PONE).plusMonths (1));
   }
 
   @Test
@@ -1036,58 +1021,38 @@ public final class XMLOffsetDateTest
   @Test
   public void test_plusMonths_long_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusMonths (-1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusMonths (-1));
   }
 
+  @Test
   public void test_plusWeeks_symmetry ()
   {
     for (final XMLOffsetDate reference : new XMLOffsetDate [] { XMLOffsetDate.of (LocalDate.of (-1, 1, 1), OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (-1, 2, 28),
-                                                                                  OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (-1, 2, 28), OFFSET_PTWO),
                                                                 XMLOffsetDate.of (LocalDate.of (-1, 3, 1), OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (-1, 12, 31),
-                                                                                  OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (-1, 12, 31), OFFSET_PTWO),
                                                                 XMLOffsetDate.of (LocalDate.of (0, 1, 1), OFFSET_PONE),
                                                                 XMLOffsetDate.of (LocalDate.of (0, 2, 28), OFFSET_PTWO),
                                                                 XMLOffsetDate.of (LocalDate.of (0, 2, 29), OFFSET_PTWO),
                                                                 XMLOffsetDate.of (LocalDate.of (0, 3, 1), OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (0, 12, 31),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2007, 1, 1),
-                                                                                  OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (2007, 2, 28),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2007, 3, 1),
-                                                                                  OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (2007, 12, 31),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2008, 1, 1),
-                                                                                  OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (2008, 2, 28),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2008, 2, 29),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2008, 3, 1),
-                                                                                  OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (2008, 12, 31),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2099, 1, 1),
-                                                                                  OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (2099, 2, 28),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2099, 3, 1),
-                                                                                  OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (2099, 12, 31),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2100, 1, 1),
-                                                                                  OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (2100, 2, 28),
-                                                                                  OFFSET_PTWO),
-                                                                XMLOffsetDate.of (LocalDate.of (2100, 3, 1),
-                                                                                  OFFSET_PONE),
-                                                                XMLOffsetDate.of (LocalDate.of (2100, 12, 31),
-                                                                                  OFFSET_PTWO) })
+                                                                XMLOffsetDate.of (LocalDate.of (0, 12, 31), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2007, 1, 1), OFFSET_PONE),
+                                                                XMLOffsetDate.of (LocalDate.of (2007, 2, 28), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2007, 3, 1), OFFSET_PONE),
+                                                                XMLOffsetDate.of (LocalDate.of (2007, 12, 31), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2008, 1, 1), OFFSET_PONE),
+                                                                XMLOffsetDate.of (LocalDate.of (2008, 2, 28), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2008, 2, 29), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2008, 3, 1), OFFSET_PONE),
+                                                                XMLOffsetDate.of (LocalDate.of (2008, 12, 31), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2099, 1, 1), OFFSET_PONE),
+                                                                XMLOffsetDate.of (LocalDate.of (2099, 2, 28), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2099, 3, 1), OFFSET_PONE),
+                                                                XMLOffsetDate.of (LocalDate.of (2099, 12, 31), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2100, 1, 1), OFFSET_PONE),
+                                                                XMLOffsetDate.of (LocalDate.of (2100, 2, 28), OFFSET_PTWO),
+                                                                XMLOffsetDate.of (LocalDate.of (2100, 3, 1), OFFSET_PONE),
+                                                                XMLOffsetDate.of (LocalDate.of (2100, 12, 31), OFFSET_PTWO) })
     {
       for (int weeks = 0; weeks < 365 * 8; weeks++)
       {
@@ -1175,31 +1140,27 @@ public final class XMLOffsetDateTest
   @Test
   public void test_plusWeeks_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).plusWeeks (1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).plusWeeks (1));
   }
 
   @Test
   public void test_plusWeeks_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 7), OFFSET_PONE).plusWeeks (-1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 7), OFFSET_PONE).plusWeeks (-1));
   }
 
   @Test
   public void test_plusWeeks_invalidMaxMinusMax ()
   {
     assertThrows (ArithmeticException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE)
-                                     .plusWeeks (Long.MAX_VALUE));
+                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).plusWeeks (Long.MAX_VALUE));
   }
 
   @Test
   public void test_plusWeeks_invalidMaxMinusMin ()
   {
     assertThrows (ArithmeticException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE)
-                                     .plusWeeks (Long.MIN_VALUE));
+                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).plusWeeks (Long.MIN_VALUE));
   }
 
   private static final XMLOffsetDate [] data_samplePlusDaysSymmetry;
@@ -1233,6 +1194,7 @@ public final class XMLOffsetDateTest
                                                          XMLOffsetDate.of (LocalDate.of (2100, 12, 31), OFFSET_PTWO) };
   }
 
+  @Test
   public void test_plusDays_symmetry ()
   {
     for (final XMLOffsetDate reference : data_samplePlusDaysSymmetry)
@@ -1321,23 +1283,20 @@ public final class XMLOffsetDateTest
   @Test
   public void test_plusDays_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).plusDays (1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).plusDays (1));
   }
 
   @Test
   public void test_plusDays_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusDays (-1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).plusDays (-1));
   }
 
   @Test
   public void test_plusDays_overflowTooLarge ()
   {
     assertThrows (ArithmeticException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE)
-                                     .plusDays (Long.MAX_VALUE));
+                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).plusDays (Long.MAX_VALUE));
   }
 
   @Test
@@ -1416,8 +1375,7 @@ public final class XMLOffsetDateTest
   @Test
   public void test_minusYears_long_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 1, 1), OFFSET_PONE).minusYears (-1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 1, 1), OFFSET_PONE).minusYears (-1));
   }
 
   @Test
@@ -1437,8 +1395,7 @@ public final class XMLOffsetDateTest
   @Test
   public void test_minusYears_long_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusYears (1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusYears (1));
   }
 
   @Test
@@ -1504,15 +1461,13 @@ public final class XMLOffsetDateTest
   {
     final long months = 20L + Integer.MAX_VALUE;
     final XMLOffsetDate test = XMLOffsetDate.of (LocalDate.of (40, 6, 1), OFFSET_PONE).minusMonths (months);
-    assertEquals (XMLOffsetDate.of (LocalDate.of ((int) (40L - months / 12), 6 - (int) (months % 12), 1), OFFSET_PONE),
-                  test);
+    assertEquals (XMLOffsetDate.of (LocalDate.of ((int) (40L - months / 12), 6 - (int) (months % 12), 1), OFFSET_PONE), test);
   }
 
   @Test
   public void test_minusMonths_long_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 1), OFFSET_PONE).minusMonths (-1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 1), OFFSET_PONE).minusMonths (-1));
   }
 
   @Test
@@ -1532,8 +1487,7 @@ public final class XMLOffsetDateTest
   @Test
   public void test_minusMonths_long_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusMonths (1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusMonths (1));
   }
 
   private static final XMLOffsetDate [] data_sampleMinusWeeksSymmetry;
@@ -1564,10 +1518,10 @@ public final class XMLOffsetDateTest
                                                            XMLOffsetDate.of (LocalDate.of (2100, 1, 1), OFFSET_PONE),
                                                            XMLOffsetDate.of (LocalDate.of (2100, 2, 28), OFFSET_PTWO),
                                                            XMLOffsetDate.of (LocalDate.of (2100, 3, 1), OFFSET_PONE),
-                                                           XMLOffsetDate.of (LocalDate.of (2100, 12, 31),
-                                                                             OFFSET_PTWO) };
+                                                           XMLOffsetDate.of (LocalDate.of (2100, 12, 31), OFFSET_PTWO) };
   }
 
+  @Test
   public void test_minusWeeks_symmetry ()
   {
     for (final XMLOffsetDate reference : data_sampleMinusWeeksSymmetry)
@@ -1656,31 +1610,27 @@ public final class XMLOffsetDateTest
   @Test
   public void test_minusWeeks_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).minusWeeks (-1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).minusWeeks (-1));
   }
 
   @Test
   public void test_minusWeeks_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 7), OFFSET_PONE).minusWeeks (1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 7), OFFSET_PONE).minusWeeks (1));
   }
 
   @Test
   public void test_minusWeeks_invalidMaxMinusMax ()
   {
     assertThrows (ArithmeticException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE)
-                                     .minusWeeks (Long.MAX_VALUE));
+                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).minusWeeks (Long.MAX_VALUE));
   }
 
   @Test
   public void test_minusWeeks_invalidMaxMinusMin ()
   {
     assertThrows (ArithmeticException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE)
-                                     .minusWeeks (Long.MIN_VALUE));
+                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 25), OFFSET_PONE).minusWeeks (Long.MIN_VALUE));
   }
 
   private static final XMLOffsetDate [] data_sampleMinusDaysSymmetry;
@@ -1714,6 +1664,7 @@ public final class XMLOffsetDateTest
                                                           XMLOffsetDate.of (LocalDate.of (2100, 12, 31), OFFSET_PTWO) };
   }
 
+  @Test
   public void test_minusDays_symmetry ()
   {
     for (final XMLOffsetDate reference : data_sampleMinusDaysSymmetry)
@@ -1802,23 +1753,20 @@ public final class XMLOffsetDateTest
   @Test
   public void test_minusDays_invalidTooLarge ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).minusDays (-1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).minusDays (-1));
   }
 
   @Test
   public void test_minusDays_invalidTooSmall ()
   {
-    assertThrows (DateTimeException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusDays (1));
+    assertThrows (DateTimeException.class, () -> XMLOffsetDate.of (LocalDate.of (Year.MIN_VALUE, 1, 1), OFFSET_PONE).minusDays (1));
   }
 
   @Test
   public void test_minusDays_overflowTooLarge ()
   {
     assertThrows (ArithmeticException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE)
-                                     .minusDays (Long.MIN_VALUE));
+                  () -> XMLOffsetDate.of (LocalDate.of (Year.MAX_VALUE, 12, 31), OFFSET_PONE).minusDays (Long.MIN_VALUE));
   }
 
   @Test
@@ -1839,16 +1787,14 @@ public final class XMLOffsetDateTest
   @Test
   public void test_format_formatter_null ()
   {
-    assertThrows (NullPointerException.class,
-                  () -> XMLOffsetDate.of (LocalDate.of (2010, 12, 3), OFFSET_PONE).format (null));
+    assertThrows (NullPointerException.class, () -> XMLOffsetDate.of (LocalDate.of (2010, 12, 3), OFFSET_PONE).format (null));
   }
 
   @Test
   public void test_atTime_Local ()
   {
     final XMLOffsetDate t = XMLOffsetDate.of (LocalDate.of (2008, 6, 30), OFFSET_PTWO);
-    assertEquals (OffsetDateTime.of (LocalDate.of (2008, 6, 30), LocalTime.of (11, 30), OFFSET_PTWO),
-                  t.atTime (LocalTime.of (11, 30)));
+    assertEquals (OffsetDateTime.of (LocalDate.of (2008, 6, 30), LocalTime.of (11, 30), OFFSET_PTWO), t.atTime (LocalTime.of (11, 30)));
   }
 
   @Test
@@ -1858,6 +1804,7 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> t.atTime ((LocalTime) null));
   }
 
+  @Test
   public void test_toLocalDate ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -2041,6 +1988,7 @@ public final class XMLOffsetDateTest
     assertThrows (NullPointerException.class, () -> a.isEqual (null));
   }
 
+  @Test
   public void test_equals_true ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -2051,6 +1999,7 @@ public final class XMLOffsetDateTest
     });
   }
 
+  @Test
   public void test_equals_false_year_differs ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -2060,6 +2009,7 @@ public final class XMLOffsetDateTest
     });
   }
 
+  @Test
   public void test_equals_false_month_differs ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -2069,6 +2019,7 @@ public final class XMLOffsetDateTest
     });
   }
 
+  @Test
   public void test_equals_false_day_differs ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -2078,6 +2029,7 @@ public final class XMLOffsetDateTest
     });
   }
 
+  @Test
   public void test_equals_false_offset_differs ()
   {
     _data_sampleDates ( (y, m, d, offset) -> {
@@ -2100,6 +2052,7 @@ public final class XMLOffsetDateTest
     assertFalse (TEST_2007_07_15_PONE.equals ("2007-07-15"));
   }
 
+  @Test
   public void test_toString ()
   {
     _data_sampleToString ( (y, m, d, offsetId, expected) -> {
@@ -2107,5 +2060,12 @@ public final class XMLOffsetDateTest
       final String str = t.toString ();
       assertEquals (expected, str);
     });
+  }
+
+  @Test
+  public void testSerialization ()
+  {
+    final XMLOffsetDate aObj = PDTFactory.getCurrentXMLOffsetDate ();
+    CommonsTestHelper.testDefaultSerialization (aObj);
   }
 }

@@ -23,6 +23,7 @@ import static java.time.temporal.ChronoField.OFFSET_SECONDS;
 import static java.time.temporal.ChronoUnit.FOREVER;
 import static java.time.temporal.ChronoUnit.NANOS;
 
+import java.io.Serializable;
 import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
@@ -71,7 +72,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
  * @since 10.1
  */
 @Immutable
-public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable <XMLOffsetDateTime>
+public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable <XMLOffsetDateTime>, Serializable
 {
   /**
    * The minimum supported {@code XMLOffsetDateTime},
@@ -119,8 +120,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
    *        the other date-time to compare to, not null
    * @return the comparator value, negative if less, positive if greater
    */
-  protected static int compareInstant (@Nonnull final XMLOffsetDateTime datetime1,
-                                       @Nonnull final XMLOffsetDateTime datetime2)
+  protected static int compareInstant (@Nonnull final XMLOffsetDateTime datetime1, @Nonnull final XMLOffsetDateTime datetime2)
   {
     if (EqualsHelper.equals (datetime1.m_aOffset, datetime2.m_aOffset))
       return datetime1.toLocalDateTime ().compareTo (datetime2.toLocalDateTime ());
@@ -218,9 +218,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
    * @return the offset date-time, not null
    */
   @Nonnull
-  public static XMLOffsetDateTime of (@Nonnull final LocalDate date,
-                                      @Nonnull final LocalTime time,
-                                      @Nullable final ZoneOffset offset)
+  public static XMLOffsetDateTime of (@Nonnull final LocalDate date, @Nonnull final LocalTime time, @Nullable final ZoneOffset offset)
   {
     final LocalDateTime dt = LocalDateTime.of (date, time);
     return new XMLOffsetDateTime (dt, offset);
@@ -768,8 +766,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
     if (EqualsHelper.equals (offset, m_aOffset))
       return this;
 
-    final int difference = (offset != null ? offset.getTotalSeconds () : 0) -
-                           (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
+    final int difference = (offset != null ? offset.getTotalSeconds () : 0) - (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
     final LocalDateTime adjusted = m_aDateTime.plusSeconds (difference);
     return new XMLOffsetDateTime (adjusted, offset);
   }
@@ -1632,8 +1629,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @Nonnull
   public XMLOffsetDateTime minus (final long amountToSubtract, final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
-                                              : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
   }
 
   /**
@@ -2228,8 +2224,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   {
     final long thisEpochSec = toEpochSecond ();
     final long otherEpochSec = other.toEpochSecond ();
-    return thisEpochSec > otherEpochSec ||
-           (thisEpochSec == otherEpochSec && toLocalTime ().getNano () > other.toLocalTime ().getNano ());
+    return thisEpochSec > otherEpochSec || (thisEpochSec == otherEpochSec && toLocalTime ().getNano () > other.toLocalTime ().getNano ());
   }
 
   /**
@@ -2248,8 +2243,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   {
     final long thisEpochSec = toEpochSecond ();
     final long otherEpochSec = other.toEpochSecond ();
-    return thisEpochSec < otherEpochSec ||
-           (thisEpochSec == otherEpochSec && toLocalTime ().getNano () < other.toLocalTime ().getNano ());
+    return thisEpochSec < otherEpochSec || (thisEpochSec == otherEpochSec && toLocalTime ().getNano () < other.toLocalTime ().getNano ());
   }
 
   /**

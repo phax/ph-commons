@@ -51,6 +51,7 @@ import static java.time.temporal.ChronoField.EPOCH_DAY;
 import static java.time.temporal.ChronoField.OFFSET_SECONDS;
 import static java.time.temporal.ChronoUnit.DAYS;
 
+import java.io.Serializable;
 import java.time.Clock;
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
@@ -115,7 +116,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
  * @see OffsetDate
  */
 @Immutable
-public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XMLOffsetDate>
+public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XMLOffsetDate>, Serializable
 {
   /**
    * The minimum supported {@code XMLOffsetDate}, '-999999999-01-01+18:00'. This
@@ -252,10 +253,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year,
-                                  final int month,
-                                  final int dayOfMonth,
-                                  @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year, final int month, final int dayOfMonth, @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -284,10 +282,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year,
-                                  final Month month,
-                                  final int dayOfMonth,
-                                  @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year, final Month month, final int dayOfMonth, @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -1220,8 +1215,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public XMLOffsetDate minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
-                                              : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
   }
 
   /**

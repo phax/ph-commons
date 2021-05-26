@@ -27,6 +27,8 @@ import java.time.ZoneOffset;
 
 import org.junit.Test;
 
+import com.helger.commons.mock.CommonsTestHelper;
+
 /**
  * Test class for class {@link XMLOffsetTime}
  *
@@ -80,5 +82,12 @@ public final class XMLOffsetTimeTest
     assertEquals (+1, aDT.compareTo (aDT.withOffsetSameInstant (null)));
     assertEquals (0, aDT.compareTo (aDT.withOffsetSameInstant (ZoneOffset.ofHours (2))));
     assertEquals (+1, aDT.compareTo (aDT.withOffsetSameInstant (ZoneOffset.ofHours (-2))));
+  }
+
+  @Test
+  public void testSerialization ()
+  {
+    final XMLOffsetTime aObj = PDTFactory.getCurrentXMLOffsetTime ();
+    CommonsTestHelper.testDefaultSerialization (aObj);
   }
 }
