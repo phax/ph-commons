@@ -229,8 +229,8 @@ public class HttpHeaderMap implements
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Setting HTTP header: '" + sName + "' = '" + sValue + "'");
+    if (LOGGER.isTraceEnabled ())
+      LOGGER.trace ("Setting HTTP header: '" + sName + "' = '" + sValue + "'");
     return _getOrCreateHeaderList (sName).set (sValue);
   }
 
@@ -240,8 +240,8 @@ public class HttpHeaderMap implements
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Adding HTTP header: '" + sName + "' = '" + sValue + "'");
+    if (LOGGER.isTraceEnabled ())
+      LOGGER.trace ("Adding HTTP header: '" + sName + "' = '" + sValue + "'");
     return _getOrCreateHeaderList (sName).addObject (sValue);
   }
 
