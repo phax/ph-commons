@@ -39,10 +39,7 @@ import com.helger.json.convert.JsonConverter;
  *
  * @author Philip Helger
  */
-public interface IJsonObject extends
-                             IJsonCollection,
-                             ICommonsIterable <Map.Entry <String, IJson>>,
-                             IGetterByKeyTrait <String>
+public interface IJsonObject extends IJsonCollection, ICommonsIterable <Map.Entry <String, IJson>>, IGetterByKeyTrait <String>
 {
   /**
    * Add a new child JSON with the given name to this object.
@@ -57,9 +54,7 @@ public interface IJsonObject extends
   IJsonObject addJson (@Nonnull String sName, @Nonnull IJson aValue);
 
   @Nonnull
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nonnull final IJson aValue,
-                             @Nonnull final Predicate <? super IJson> aFilter)
+  default IJsonObject addIf (@Nonnull final String sName, @Nonnull final IJson aValue, @Nonnull final Predicate <? super IJson> aFilter)
   {
     if (aFilter.test (aValue))
       addJson (sName, aValue);
@@ -90,10 +85,11 @@ public interface IJsonObject extends
     return this;
   }
 
+  // TODO next minor update:
+  // default <T> IJsonObject addIf (@Nonnull final String sName, @Nullable final
+  // T aValue, @Nonnull final Predicate <? super T> aFilter)
   @Nonnull
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nullable final Object aValue,
-                             @Nonnull final Predicate <? super Object> aFilter)
+  default IJsonObject addIf (@Nonnull final String sName, @Nullable final Object aValue, @Nonnull final Predicate <? super Object> aFilter)
   {
     if (aFilter.test (aValue))
       add (sName, aValue);
@@ -397,8 +393,7 @@ public interface IJsonObject extends
    * @since 8.6.4
    */
   @Nullable
-  default IJson computeIfAbsent (@Nonnull final String sName,
-                                 @Nonnull final Function <? super String, ? extends IJson> aValueProvider)
+  default IJson computeIfAbsent (@Nonnull final String sName, @Nonnull final Function <? super String, ? extends IJson> aValueProvider)
   {
     IJson ret = get (sName);
     if (ret == null)
