@@ -302,8 +302,7 @@ public final class CollectionHelper
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
   {
-    return aNavigableSet == null ? Collections.emptyNavigableSet ()
-                                 : Collections.unmodifiableNavigableSet (aNavigableSet);
+    return aNavigableSet == null ? Collections.emptyNavigableSet () : Collections.unmodifiableNavigableSet (aNavigableSet);
   }
 
   @Nonnull
@@ -311,8 +310,7 @@ public final class CollectionHelper
   @CodingStyleguideUnaware
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
   {
-    return aNavigableMap == null ? Collections.emptyNavigableMap ()
-                                 : Collections.unmodifiableNavigableMap (aNavigableMap);
+    return aNavigableMap == null ? Collections.emptyNavigableMap () : Collections.unmodifiableNavigableMap (aNavigableMap);
   }
 
   /**
@@ -460,11 +458,7 @@ public final class CollectionHelper
 
     // Check for identical size
     if (nKeys != nValues)
-      throw new IllegalArgumentException ("The passed arrays have different length (" +
-                                          nKeys +
-                                          " keys and " +
-                                          nValues +
-                                          " values)!");
+      throw new IllegalArgumentException ("The passed arrays have different length (" + nKeys + " keys and " + nValues + " values)!");
 
     // Are both empty?
     if (nKeys == 0)
@@ -486,11 +480,7 @@ public final class CollectionHelper
 
     // Check for identical size
     if (nKeys != nValues)
-      throw new IllegalArgumentException ("The passed arrays have different length (" +
-                                          nKeys +
-                                          " keys and " +
-                                          nValues +
-                                          " values)!");
+      throw new IllegalArgumentException ("The passed arrays have different length (" + nKeys + " keys and " + nValues + " values)!");
 
     // Are both empty?
     if (nKeys == 0)
@@ -651,11 +641,7 @@ public final class CollectionHelper
 
     // Check for identical size
     if (nKeys != nValues)
-      throw new IllegalArgumentException ("The passed arrays have different length (" +
-                                          nKeys +
-                                          " keys and " +
-                                          nValues +
-                                          " values)!");
+      throw new IllegalArgumentException ("The passed arrays have different length (" + nKeys + " keys and " + nValues + " values)!");
 
     // Are both empty?
     if (nKeys == 0)
@@ -677,11 +663,7 @@ public final class CollectionHelper
 
     // Check for identical size
     if (nKeys != nValues)
-      throw new IllegalArgumentException ("The passed arrays have different length (" +
-                                          nKeys +
-                                          " keys and " +
-                                          nValues +
-                                          " values)!");
+      throw new IllegalArgumentException ("The passed arrays have different length (" + nKeys + " keys and " + nValues + " values)!");
 
     // Are both empty?
     if (nKeys == 0)
@@ -1073,7 +1055,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" }, justification = "When using the constructor with the Comparator it works with null values!")
+  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" },
+                       justification = "When using the constructor with the Comparator it works with null values!")
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
@@ -1831,10 +1814,34 @@ public final class CollectionHelper
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getFirstElement (@Nullable final Iterable <ELEMENTTYPE> aIterable)
   {
-    if (aIterable == null)
-      return null;
-    final Iterator <ELEMENTTYPE> it = aIterable.iterator ();
-    return it.hasNext () ? it.next () : null;
+    return getFirstElement (aIterable, (ELEMENTTYPE) null);
+  }
+
+  /**
+   * Get the first element of the passed iterable.
+   *
+   * @param <ELEMENTTYPE>
+   *        Iterable element type
+   * @param aIterable
+   *        The iterable. May be <code>null</code>.
+   * @param aDefault
+   *        The default value to be returned, if no such value is present. May
+   *        be <code>null</code>.
+   * @return <code>null</code> if the iterable is <code>null</code> or empty,
+   *         the first element otherwise.
+   * @since 10.1.3
+   */
+  @Nullable
+  public static <ELEMENTTYPE> ELEMENTTYPE getFirstElement (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable,
+                                                           @Nullable final ELEMENTTYPE aDefault)
+  {
+    if (aIterable != null)
+    {
+      final Iterator <? extends ELEMENTTYPE> it = aIterable.iterator ();
+      if (it.hasNext ())
+        return it.next ();
+    }
+    return aDefault;
   }
 
   @Nullable
@@ -1914,8 +1921,7 @@ public final class CollectionHelper
    * @see #removeAtIndex(List, int)
    */
   @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE removeAndReturnElementAtIndex (@Nullable final List <ELEMENTTYPE> aList,
-                                                                         final int nIndex)
+  public static <ELEMENTTYPE> ELEMENTTYPE removeAndReturnElementAtIndex (@Nullable final List <ELEMENTTYPE> aList, final int nIndex)
   {
     if (aList == null || nIndex < 0 || nIndex >= aList.size ())
       return null;
@@ -2203,8 +2209,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static CommonsArrayList <?> newObjectListFromArray (@Nullable final Object aValue,
-                                                             @Nonnull final Class <?> aComponentType)
+  public static CommonsArrayList <?> newObjectListFromArray (@Nullable final Object aValue, @Nonnull final Class <?> aComponentType)
   {
     if (aValue == null)
       return null;
@@ -2311,6 +2316,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
+    // use null as default
     return findFirst (aCollection, aFilter, (ELEMENTTYPE) null);
   }
 
@@ -2320,7 +2326,7 @@ public final class CollectionHelper
                                                      @Nullable final ELEMENTTYPE aDefault)
   {
     if (aFilter == null)
-      return getFirstElement (aCollection);
+      return getFirstElement (aCollection, aDefault);
 
     if (isNotEmpty (aCollection))
       for (final ELEMENTTYPE aElement : aCollection)
@@ -2349,7 +2355,7 @@ public final class CollectionHelper
     if (isNotEmpty (aCollection))
     {
       if (aFilter == null)
-        return aMapper.apply (getFirstElement (aCollection));
+        return aMapper.apply (aCollection.iterator ().next ());
 
       for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
@@ -2611,10 +2617,9 @@ public final class CollectionHelper
    *        The type of elements on the list.
    */
   @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final List <? extends ELEMENTTYPE> aList,
-                                                      final int nIndex)
+  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final List <? extends ELEMENTTYPE> aList, final int nIndex)
   {
-    return getAtIndex (aList, nIndex, null);
+    return getAtIndex (aList, nIndex, (ELEMENTTYPE) null);
   }
 
   /**
@@ -2642,7 +2647,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                       @Nonnegative final int nIndex)
   {
-    return getAtIndex (aCollection, nIndex, null);
+    return getAtIndex (aCollection, nIndex, (ELEMENTTYPE) null);
   }
 
   @Nullable
@@ -2668,7 +2673,7 @@ public final class CollectionHelper
                                                       @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                                       @Nonnegative final int nIndex)
   {
-    return getAtIndex (aCollection, aFilter, nIndex, null);
+    return getAtIndex (aCollection, aFilter, nIndex, (ELEMENTTYPE) null);
   }
 
   @Nullable
@@ -2699,7 +2704,7 @@ public final class CollectionHelper
                                                              @Nonnegative final int nIndex,
                                                              @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
-    return getAtIndexMapped (aCollection, nIndex, aMapper, null);
+    return getAtIndexMapped (aCollection, nIndex, aMapper, (DSTTYPE) null);
   }
 
   @Nullable
@@ -2727,7 +2732,7 @@ public final class CollectionHelper
                                                              @Nonnegative final int nIndex,
                                                              @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
-    return getAtIndexMapped (aCollection, aFilter, nIndex, aMapper, null);
+    return getAtIndexMapped (aCollection, aFilter, nIndex, aMapper, (DSTTYPE) null);
   }
 
   @Nullable
