@@ -29,8 +29,15 @@ import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
 
+/**
+ * Test class that checks if the file <code>sun-jaxws.xml</code> is correct.
+ *
+ * @author Philip Helger
+ */
 public final class WSTestHelper
 {
+  public static final String SUN_JAXWS_XML = "sun-jaxws.xml";
+
   private static final Logger LOGGER = LoggerFactory.getLogger (WSTestHelper.class);
 
   private WSTestHelper ()
@@ -40,7 +47,7 @@ public final class WSTestHelper
   public static int testIfAllSunJaxwsFilesAreValid (@Nonnull final String sBaseDir, final boolean bContinueOnError)
   {
     final int nTotalImplementationCount = 0;
-    final File aFile = new File (sBaseDir, "sun-jaxws.xml");
+    final File aFile = new File (sBaseDir, SUN_JAXWS_XML);
     if (aFile.isFile ())
     {
       LOGGER.info ("Checking file " + aFile.getAbsolutePath ());
