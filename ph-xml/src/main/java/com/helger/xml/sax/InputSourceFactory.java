@@ -96,8 +96,8 @@ public final class InputSourceFactory
       final File aFile = aResource.getAsFile ();
       if (aFile != null)
       {
-        // Potentially use memory mapped files
-        final InputSource ret = create (FileHelper.getInputStream (aFile));
+        // Use a buffered stream
+        final InputSource ret = create (FileHelper.getBufferedInputStream (aFile));
         if (ret != null)
         {
           // Ensure system ID is present - may be helpful for resource
