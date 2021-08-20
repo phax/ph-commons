@@ -393,6 +393,19 @@ public class Option implements IOptionBase
   }
 
   /**
+   * Returns a {@link Builder} without a short option to create an
+   * {@link Option} using descriptive methods.
+   *
+   * @return a new {@link Builder} instance
+   * @since 10.1.3
+   */
+  @Nonnull
+  public static Builder builder ()
+  {
+    return new Builder (null);
+  }
+
+  /**
    * Returns a {@link Builder} to create an {@link Option} using descriptive
    * methods.
    *
