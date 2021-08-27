@@ -21,13 +21,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -36,16 +34,17 @@ import com.helger.commons.string.ToStringGenerator;
  * <br>
  * Note: cannot use {@link com.helger.commons.cache.Cache} because it would need
  * a <code>Class&lt;?&gt;</code> as a key and this would be a hard wired
- * reference.
+ * reference.<br>
+ * Since 10.1.3 the class is no longer read-write-locked, as the performance
+ * overhead is too big for reading only, compared to the penalty of double
+ * annotation determination.
  *
  * @author Philip Helger
  */
-@ThreadSafe
+@NotThreadSafe
 public class AnnotationUsageCache
 {
-  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final Class <? extends Annotation> m_aAnnotationClass;
-  @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, ETriState> m_aMap = new CommonsHashMap <> ();
 
   /**
@@ -93,22 +92,11 @@ public class AnnotationUsageCache
 
     final String sClassName = aClass.getName ();
 
-    ETriState eHas;
-    // Use direct code for performance reasons
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      eHas = m_aMap.get (sClassName);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    ETriState eHas = m_aMap.get (sClassName);
     if (eHas == null)
     {
-      // Try again in write-lock
-      eHas = m_aRWLock.writeLockedGet ( () -> m_aMap.computeIfAbsent (sClassName,
-                                                                      x -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)));
+      eHas = ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null);
+      m_aMap.put (sClassName, eHas);
     }
     return eHas.isTrue ();
   }
@@ -119,17 +107,17 @@ public class AnnotationUsageCache
 
     final String sClassName = aClass.getName ();
 
-    m_aRWLock.writeLockedGet ( () -> m_aMap.put (sClassName, ETriState.valueOf (bHasAnnotation)));
+    m_aMap.put (sClassName, ETriState.valueOf (bHasAnnotation));
   }
 
   public void clearCache ()
   {
-    m_aRWLock.writeLocked (m_aMap::clear);
+    m_aMap.clear ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("annotationClass", m_aAnnotationClass).append ("map", m_aMap).getToString ();
+    return new ToStringGenerator (this).append ("AnnotationClass", m_aAnnotationClass).append ("Map", m_aMap).getToString ();
   }
 }
