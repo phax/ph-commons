@@ -1268,6 +1268,9 @@ public final class ArrayHelperTest
     assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1 }));
     assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2 }));
     assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3 }));
+    assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, 1, 2, new byte [] { 1, 2 }, 0, 2));
+    assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, 1, 2, new byte [] { 1 }, 0, 1));
+    assertFalse (startsWith (new byte [] { 0, 1, 2, 3 }, 1, 2, new byte [] { 2 }, 0, 1));
     assertFalse (startsWith (new byte [] { 0, 1, 2, 3 }, 3, new byte [] { 0, 1, 2, 3 }));
     assertFalse (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3, 4 }));
     assertFalse (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 1, 2, 3 }));
