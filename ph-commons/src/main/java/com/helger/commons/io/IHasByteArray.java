@@ -19,6 +19,7 @@ package com.helger.commons.io;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -58,18 +59,20 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   boolean isCopy ();
 
   /**
-   * @return A copy of all bytes contained. Never <code>null</code>.
+   * @return A copy of all bytes contained, from {@link #getOffset()} for
+   *         {@link #size()} bytes. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
   default byte [] getAllBytes ()
   {
-    return ArrayHelper.getCopy (bytes ());
+    return ArrayHelper.getCopy (bytes (), getOffset (), size ());
   }
 
   /**
    * @return A reference to the contained byte array. Gives write access to the
-   *         payload! Never <code>null</code>.
+   *         payload! Don't forget to apply {@link #getOffset()} and
+   *         {@link #size()}. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableObject
@@ -128,7 +131,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
    */
   default boolean startsWith (@Nonnull final byte [] aCmpBytes)
   {
-    return ArrayHelper.startsWith (bytes (), aCmpBytes);
+    return ArrayHelper.startsWith (bytes (), getOffset (), size (), aCmpBytes, 0, aCmpBytes.length);
   }
 
   /**
@@ -139,5 +142,18 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   default String getHexEncoded ()
   {
     return StringHelper.getHexEncoded (bytes (), getOffset (), size ());
+  }
+
+  /**
+   * @param aCharset
+   *        The character set to use. May not be <code>null</code>.
+   * @return The byte array converted to a String, honouring
+   *         {@link #getOffset()} and {@link #size()}.
+   * @since 10.1.3
+   */
+  @Nonnull
+  default String getBytesAsString (@Nonnull final Charset aCharset)
+  {
+    return new String (bytes (), getOffset (), size (), aCharset);
   }
 }
