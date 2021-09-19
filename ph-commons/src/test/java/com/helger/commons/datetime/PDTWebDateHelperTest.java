@@ -196,13 +196,13 @@ public final class PDTWebDateHelperTest
   {
     LocalDateTime d = PDTFactory.createLocalDateTime (2011, Month.JULY, 6, 12, 34);
     String s = PDTWebDateHelper.getAsStringXSD (d);
-    assertEquals ("2011-07-06T12:34:00.0", s);
+    assertEquals ("2011-07-06T12:34:00", s);
     LocalDateTime d2 = PDTWebDateHelper.getLocalDateTimeFromXSD (s);
     assertEquals (d, d2);
 
     final ZonedDateTime z = d.atZone (ZoneOffset.ofHours (2));
     s = PDTWebDateHelper.getAsStringXSD (z);
-    assertEquals ("2011-07-06T12:34:00.0+02:00", s);
+    assertEquals ("2011-07-06T12:34:00+02:00", s);
     final ZonedDateTime z2 = PDTWebDateHelper.getZonedDateTimeFromXSD (s);
     assertEquals (z, z2);
 

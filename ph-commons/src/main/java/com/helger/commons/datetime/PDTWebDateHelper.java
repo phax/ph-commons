@@ -87,8 +87,7 @@ public final class PDTWebDateHelper
    * (year of era)
    */
   private static final PDTMask <?> [] RFC822_MASKS = { PDTMask.zonedDateTime (FORMAT_RFC822),
-                                                       PDTMask.zonedDateTime ("EEE, dd MMM uuuu HH:mm:ss " +
-                                                                              ZONE_PATTERN2),
+                                                       PDTMask.zonedDateTime ("EEE, dd MMM uuuu HH:mm:ss " + ZONE_PATTERN2),
                                                        PDTMask.localDateTime ("EEE, dd MMM uuuu HH:mm:ss"),
                                                        PDTMask.localDateTime ("EEE, dd MMM uu HH:mm:ss"),
                                                        PDTMask.localDateTime ("EEE, dd MMM uuuu HH:mm"),
@@ -104,33 +103,22 @@ public final class PDTWebDateHelper
    * string given the mask so we have to check the most complete format first,
    * then it fails with exception
    */
-  private static final PDTMask <?> [] W3CDATETIME_MASKS = { PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" +
-                                                                                    ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" +
-                                                                                    ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" +
-                                                                                    ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" +
-                                                                                    ZONE_PATTERN2),
+  private static final PDTMask <?> [] W3CDATETIME_MASKS = { PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" + ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" + ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" + ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" + ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS"),
                                                             PDTMask.offsetDateTime (FORMAT_W3C),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss" +
-                                                                                    ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" +
-                                                                                    ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" +
-                                                                                    ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss" + ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" + ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" + ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm:ss"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm:ss"),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" +
-                                                                                    ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" +
-                                                                                    ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" +
-                                                                                    ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" +
-                                                                                    ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" + ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" + ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" + ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" + ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm"),
                                                             /*
@@ -171,8 +159,7 @@ public final class PDTWebDateHelper
    *         the string with any of the masks.
    */
   @Nullable
-  public static OffsetDateTime parseOffsetDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks,
-                                                             @Nonnull @Nonempty final String sDate)
+  public static OffsetDateTime parseOffsetDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks, @Nonnull @Nonempty final String sDate)
   {
     for (final PDTMask <?> aMask : aMasks)
     {
@@ -503,7 +490,7 @@ public final class PDTWebDateHelper
                                                * unbounded, but we are limited
                                                * to 9 here
                                                */
-                                              .appendFraction (MILLI_OF_SECOND, 1, 9, true)
+                                              .appendFraction (MILLI_OF_SECOND, 0, 9, true)
                                               .optionalEnd ()
                                               // Timezone can occur without
                                               // milliseconds
