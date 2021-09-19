@@ -19,6 +19,7 @@ package com.helger.commons.datetime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.ResolverStyle;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
@@ -53,7 +54,9 @@ public final class DateTimeFormatterPattern
     ValueEnforcer.notNull (eResolverStyle, "ResolverStyle");
     m_sPattern = sPattern;
     m_eResolverStyle = eResolverStyle;
-    m_aFormatter = new DateTimeFormatterBuilder ().appendPattern (sPattern).toFormatter ().withResolverStyle (m_eResolverStyle);
+    m_aFormatter = new DateTimeFormatterBuilder ().appendPattern (sPattern)
+                                                  .toFormatter (Locale.getDefault (Locale.Category.FORMAT))
+                                                  .withResolverStyle (m_eResolverStyle);
   }
 
   /**

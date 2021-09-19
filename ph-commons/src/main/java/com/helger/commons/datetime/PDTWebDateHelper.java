@@ -501,7 +501,7 @@ public final class PDTWebDateHelper
                                               .parseCaseSensitive ()
                                               .appendZoneRegionId ()
                                               .appendLiteral (']')
-                                              .toFormatter ()
+                                              .toFormatter (Locale.getDefault (Locale.Category.FORMAT))
                                               .withResolverStyle (ResolverStyle.STRICT)
                                               .withChronology (IsoChronology.INSTANCE);
     // From the XSD spec:
@@ -519,14 +519,14 @@ public final class PDTWebDateHelper
                                               .parseCaseSensitive ()
                                               .appendZoneRegionId ()
                                               .appendLiteral (']')
-                                              .toFormatter ()
+                                              .toFormatter (Locale.getDefault (Locale.Category.FORMAT))
                                               .withResolverStyle (ResolverStyle.STRICT)
                                               .withChronology (IsoChronology.INSTANCE);
     XSD_DATE_TIME = new DateTimeFormatterBuilder ().parseCaseInsensitive ()
                                                    .append (DateTimeFormatter.ISO_LOCAL_DATE)
                                                    .appendLiteral ('T')
                                                    .append (XSD_TIME)
-                                                   .toFormatter ()
+                                                   .toFormatter (Locale.getDefault (Locale.Category.FORMAT))
                                                    .withResolverStyle (ResolverStyle.STRICT)
                                                    .withChronology (IsoChronology.INSTANCE);
   }
