@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>10.1.3</version>
+    <version>10.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>ph-scopes</artifactId>
   <packaging>bundle</packaging>
