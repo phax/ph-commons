@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.bind.JAXBElement;
@@ -250,6 +251,28 @@ public interface IJAXBReader <JAXBTYPE>
 
     // Ensure to use InputStream for BOM handling
     return read (new NonBlockingByteArrayInputStream (aXML));
+  }
+
+  /**
+   * Read a document from the specified byte array. The secure reading feature
+   * has affect when using this method.
+   *
+   * @param aXML
+   *        The XML bytes to read. May not be <code>null</code>.
+   * @param nOfs
+   *        the offset in the buffer of the first byte to read.
+   * @param nLen
+   *        the maximum number of bytes to read from the buffer.
+   * @return <code>null</code> in case reading fails.
+   * @since 10.1.4
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final byte [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.notNull (aXML, "XML");
+
+    // Ensure to use InputStream for BOM handling
+    return read (new NonBlockingByteArrayInputStream (aXML, nOfs, nLen));
   }
 
   /**
