@@ -17,6 +17,7 @@
 package com.helger.commons.io.resource.inmemory;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,5 +41,17 @@ public class ReadableResourceString extends ReadableResourceByteArray
   public ReadableResourceString (@Nullable final String sResourceID, @Nonnull final String sString, @Nonnull final Charset aCharset)
   {
     super (StringHelper.hasText (sResourceID) ? sResourceID : "String[" + aCharset.name () + "]", sString.getBytes (aCharset));
+  }
+
+  @Nonnull
+  public static ReadableResourceString utf8 (@Nonnull final String sString)
+  {
+    return new ReadableResourceString (sString, StandardCharsets.UTF_8);
+  }
+
+  @Nonnull
+  public static ReadableResourceString utf8 (@Nullable final String sResourceID, @Nonnull final String sString)
+  {
+    return new ReadableResourceString (sResourceID, sString, StandardCharsets.UTF_8);
   }
 }
