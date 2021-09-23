@@ -16,6 +16,7 @@
  */
 package com.helger.commons.text;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -45,7 +46,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractHasText implements IMultilingualText
+public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractHasText implements IMultilingualText, Serializable
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractReadOnlyMapBasedMultilingualText.class);
   private static final AtomicBoolean CONSISTENCY_CHECK_ENABED = new AtomicBoolean (GlobalDebug.isDebugMode ());
