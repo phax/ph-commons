@@ -34,7 +34,7 @@ public final class PasswordHashCreatorPBKDF2_SHA256_1000_48Test
   @Test
   public void testBasicSameSalt ()
   {
-    final IPasswordSalt aSalt = new PasswordSalt ();
+    final IPasswordSalt aSalt = PasswordSalt.createRandom ();
     final String sPlainTextPassword = "123456";
     final PasswordHashCreatorPBKDF2_SHA256_1000_48 a = new PasswordHashCreatorPBKDF2_SHA256_1000_48 ();
     final String sPW1 = a.createPasswordHash (aSalt, sPlainTextPassword);
@@ -47,15 +47,15 @@ public final class PasswordHashCreatorPBKDF2_SHA256_1000_48Test
   {
     final String sPlainTextPassword = "123456";
     final PasswordHashCreatorPBKDF2_SHA256_1000_48 a = new PasswordHashCreatorPBKDF2_SHA256_1000_48 ();
-    final String sPW1 = a.createPasswordHash (new PasswordSalt (), sPlainTextPassword);
-    final String sPW2 = a.createPasswordHash (new PasswordSalt (), sPlainTextPassword);
+    final String sPW1 = a.createPasswordHash (PasswordSalt.createRandom (), sPlainTextPassword);
+    final String sPW2 = a.createPasswordHash (PasswordSalt.createRandom (), sPlainTextPassword);
     assertFalse (sPW1.equals (sPW2));
   }
 
   @Test
   public void testCreateMultipleHashes ()
   {
-    final IPasswordSalt aSalt = new PasswordSalt ();
+    final IPasswordSalt aSalt = PasswordSalt.createRandom ();
     final String sPlainTextPassword = "123456";
     final PasswordHashCreatorPBKDF2_SHA256_1000_48 a = new PasswordHashCreatorPBKDF2_SHA256_1000_48 ();
     for (int i = 0; i < 1000; ++i)

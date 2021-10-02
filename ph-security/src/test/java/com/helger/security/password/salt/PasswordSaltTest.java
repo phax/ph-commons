@@ -34,12 +34,12 @@ public final class PasswordSaltTest
   @Test
   public void testBasic ()
   {
-    final PasswordSalt aSalt = new PasswordSalt ();
+    final PasswordSalt aSalt = PasswordSalt.createRandom ();
     assertEquals (PasswordSalt.DEFAULT_SALT_BYTES, aSalt.getSaltByteCount ());
     assertEquals (PasswordSalt.DEFAULT_SALT_BYTES, aSalt.getSaltBytes ().length);
     assertEquals (PasswordSalt.DEFAULT_SALT_BYTES * 2, aSalt.getSaltString ().length ());
 
-    final PasswordSalt aSalt2 = new PasswordSalt (20);
+    final PasswordSalt aSalt2 = PasswordSalt.createRandom (20);
     assertEquals (20, aSalt2.getSaltByteCount ());
     assertEquals (20, aSalt2.getSaltBytes ().length);
     assertEquals (20 * 2, aSalt2.getSaltString ().length ());
@@ -48,9 +48,9 @@ public final class PasswordSaltTest
   @Test
   public void testNotEquals ()
   {
-    final PasswordSalt aSalt = new PasswordSalt ();
+    final PasswordSalt aSalt = PasswordSalt.createRandom ();
     for (int i = 0; i < 100; ++i)
-      assertFalse (aSalt.equals (new PasswordSalt ()));
+      assertFalse (aSalt.equals (PasswordSalt.createRandom ()));
   }
 
   @Test
@@ -58,7 +58,7 @@ public final class PasswordSaltTest
   {
     for (int i = 0; i < 100; ++i)
     {
-      final PasswordSalt aSalt = new PasswordSalt ();
+      final PasswordSalt aSalt = PasswordSalt.createRandom ();
       final PasswordSalt aSalt2 = PasswordSalt.createFromStringMaybe (aSalt.getSaltString ());
       assertNotNull (aSalt2);
       assertEquals (aSalt, aSalt2);
