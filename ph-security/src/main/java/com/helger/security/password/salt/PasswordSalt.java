@@ -77,7 +77,13 @@ public final class PasswordSalt implements IPasswordSalt
     m_sSaltString = StringHelper.getHexEncoded (m_aSaltBytes);
   }
 
-  private PasswordSalt (@Nonnull @Nonempty final byte [] aBytes)
+  /**
+   * Constructor with salt bytes.
+   *
+   * @param aBytes
+   *        Salt bytes to use. May not be <code>null</code> or empty.
+   */
+  public PasswordSalt (@Nonnull @Nonempty final byte [] aBytes)
   {
     ValueEnforcer.notEmpty (aBytes, "Bytes");
     m_aSaltBytes = aBytes;
