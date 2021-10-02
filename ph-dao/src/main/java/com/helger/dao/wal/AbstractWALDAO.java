@@ -402,7 +402,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    */
   protected final void initialRead () throws DAOException
   {
-    File aFile = null;
+    final File aFile;
     final String sFilename = m_aFilenameProvider.get ();
     if (sFilename == null)
     {
@@ -412,6 +412,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
           LOGGER.info ("This DAO of class " + getClass ().getName () + " will not be able to read from a file");
 
       // do not return - run initialization anyway
+      aFile = null;
     }
     else
     {
@@ -420,7 +421,6 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     }
 
     final boolean bIsInitialization = aFile == null || !aFile.exists ();
-    final File aFinalFile = aFile;
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -436,8 +436,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
           // initial setup for non-existing file
           if (!isSilentMode ())
             if (LOGGER.isInfoEnabled ())
-              LOGGER.info ("Trying to initialize WAL DAO" +
-                           (aFinalFile == null ? "" : " XML file '" + aFinalFile.getAbsolutePath () + "'"));
+              LOGGER.info ("Trying to initialize WAL DAO" + (aFile == null ? "" : " XML file '" + aFile.getAbsolutePath () + "'"));
 
           beginWithoutAutoSave ();
           try
@@ -446,7 +445,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
             final StopWatch aSW = StopWatch.createdStarted ();
 
             if (onInit ().isChanged ())
-              if (aFinalFile != null)
+              if (aFile != null)
                 eWriteSuccess = _writeToFile ();
 
             m_aStatsCounterInitTimer.addTime (aSW.stopAndGetMillis ());
@@ -465,17 +464,17 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
         }
         else
         {
-          // Read existing file (aFinalFile must be set)
+          // Read existing file (aFile must be set)
           if (!isSilentMode ())
             if (LOGGER.isInfoEnabled ())
-              LOGGER.info ("Trying to read WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
+              LOGGER.info ("Trying to read WAL DAO XML file '" + aFile.getAbsolutePath () + "'");
 
           m_aStatsCounterReadTotal.increment ();
-          aDoc = MicroReader.readMicroXML (aFinalFile);
+          aDoc = MicroReader.readMicroXML (aFile);
           if (aDoc == null)
           {
             if (LOGGER.isErrorEnabled ())
-              LOGGER.error ("Failed to read DAO XML document from file '" + aFinalFile.getAbsolutePath () + "'");
+              LOGGER.error ("Failed to read DAO XML document from file '" + aFile.getAbsolutePath () + "'");
           }
           else
           {
@@ -514,15 +513,15 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
         {
           // There is something wrong
           if (LOGGER.isErrorEnabled ())
-            LOGGER.error ("File '" + aFinalFile.getAbsolutePath () + "' has pending changes after initialRead!");
+            LOGGER.error ("File '" + aFile.getAbsolutePath () + "' has pending changes after initialRead!");
         }
       }
       catch (final Exception ex)
       {
-        triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
+        triggerExceptionHandlersRead (ex, bIsInitialization, aFile);
         throw new DAOException ("Error " +
                                 (bIsInitialization ? "initializing" : "reading") +
-                                (aFinalFile == null ? "in-memory" : " the file '" + aFinalFile.getAbsolutePath () + "'"),
+                                (aFile == null ? "in-memory" : " the file '" + aFile.getAbsolutePath () + "'"),
                                 ex);
       }
 
