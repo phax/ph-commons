@@ -42,6 +42,11 @@ public final class GlobalIDFactory
   /** The default prefix to use for creating IDs */
   public static final String DEFAULT_PREFIX = "id";
 
+  /**
+   * The maximum string length of IDs created by the String based ID factory.
+   */
+  public static final int STRING_ID_MAX_LENGTH = 20;
+
   private static final Logger LOGGER = LoggerFactory.getLogger (GlobalIDFactory.class);
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
 
@@ -259,7 +264,13 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> {
       if (s_aStringIDFactory == null)
         throw new IllegalStateException ("No in-memory string ID factory has been supplied!");
-      return s_aStringIDFactory.getNewID ();
+      final String ret = s_aStringIDFactory.getNewID ();
+      if (ret.length () > STRING_ID_MAX_LENGTH)
+        throw new IllegalStateException ("The created String ID has a length of " +
+                                         ret.length () +
+                                         " which exceeds the maximum allowed length of " +
+                                         STRING_ID_MAX_LENGTH);
+      return ret;
     });
   }
 
@@ -272,7 +283,13 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> {
       if (s_aPersistentStringIDFactory == null)
         throw new IllegalStateException ("No persistent string ID factory has been supplied!");
-      return s_aPersistentStringIDFactory.getNewID ();
+      final String ret = s_aPersistentStringIDFactory.getNewID ();
+      if (ret.length () > STRING_ID_MAX_LENGTH)
+        throw new IllegalStateException ("The created String ID has a length of " +
+                                         ret.length () +
+                                         " which exceeds the maximum allowed length of " +
+                                         STRING_ID_MAX_LENGTH);
+      return ret;
     });
   }
 
@@ -367,7 +384,14 @@ public final class GlobalIDFactory
         throw new IllegalStateException ("No in-memory string ID factory has been supplied!");
       final String [] ret = new String [nCount];
       for (int i = 0; i < nCount; ++i)
+      {
         ret[i] = s_aStringIDFactory.getNewID ();
+        if (ret[i].length () > STRING_ID_MAX_LENGTH)
+          throw new IllegalStateException ("The created String ID has a length of " +
+                                           ret[i].length () +
+                                           " which exceeds the maximum allowed length of " +
+                                           STRING_ID_MAX_LENGTH);
+      }
       return ret;
     });
   }
@@ -387,7 +411,14 @@ public final class GlobalIDFactory
         throw new IllegalStateException ("No persistent string ID factory has been supplied!");
       final String [] ret = new String [nCount];
       for (int i = 0; i < nCount; ++i)
+      {
         ret[i] = s_aPersistentStringIDFactory.getNewID ();
+        if (ret[i].length () > STRING_ID_MAX_LENGTH)
+          throw new IllegalStateException ("The created String ID has a length of " +
+                                           ret[i].length () +
+                                           " which exceeds the maximum allowed length of " +
+                                           STRING_ID_MAX_LENGTH);
+      }
       return ret;
     });
   }
