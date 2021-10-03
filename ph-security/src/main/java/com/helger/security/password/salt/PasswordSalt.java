@@ -44,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
 public final class PasswordSalt implements IPasswordSalt
 {
   /** Default salt byte length is nothing else is specified. */
-  public static final int DEFAULT_SALT_BYTES = 512;
+  public static final int DEFAULT_SALT_BYTES = 32;
 
   private final byte [] m_aSaltBytes;
   private final String m_sSaltString;
