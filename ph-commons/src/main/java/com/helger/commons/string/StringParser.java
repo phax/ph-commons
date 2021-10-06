@@ -237,10 +237,13 @@ public final class StringParser
   @Nullable
   public static Boolean parseBoolObjExact (@Nullable final String sStr, @Nullable final Boolean aDefault)
   {
-    if (Boolean.TRUE.toString ().equalsIgnoreCase (sStr))
-      return Boolean.TRUE;
-    if (Boolean.FALSE.toString ().equalsIgnoreCase (sStr))
-      return Boolean.FALSE;
+    if (sStr != null && sStr.length () > 0)
+    {
+      if (Boolean.TRUE.toString ().equalsIgnoreCase (sStr))
+        return Boolean.TRUE;
+      if (Boolean.FALSE.toString ().equalsIgnoreCase (sStr))
+        return Boolean.FALSE;
+    }
     return aDefault;
   }
 
