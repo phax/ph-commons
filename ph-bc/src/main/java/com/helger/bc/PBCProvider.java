@@ -1,4 +1,4 @@
-/**
+/*
  * Original copyright by Apache Software Foundation
  * Copyright (C) 2017-2021 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
