@@ -269,7 +269,7 @@ public final class JsonReader
     private boolean m_bUseBufferedReader = true;
     private Reader m_aReader;
     private IJsonParserCustomizeCallback m_aCustomizeCallback;
-    private IJsonParseExceptionCallback m_aCustomeExceptionCallback;
+    private IJsonParseExceptionCallback m_aCustomExceptionCallback;
 
     public Builder ()
     {}
@@ -544,7 +544,7 @@ public final class JsonReader
     @Nonnull
     public Builder customExceptionCallback (@Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
     {
-      m_aCustomeExceptionCallback = aCustomExceptionCallback;
+      m_aCustomExceptionCallback = aCustomExceptionCallback;
       return this;
     }
 
@@ -586,7 +586,7 @@ public final class JsonReader
       return JsonReader.parseJson (_getEffectiveReader (),
                                    new DoNothingJsonParserHandler (),
                                    m_aCustomizeCallback,
-                                   m_aCustomeExceptionCallback)
+                                   m_aCustomExceptionCallback)
                        .isSuccess ();
     }
 
@@ -601,7 +601,7 @@ public final class JsonReader
     {
       if (m_aReader == null)
         throw new IllegalStateException ("No source is set.");
-      return JsonReader.readJson (_getEffectiveReader (), m_aCustomizeCallback, m_aCustomeExceptionCallback);
+      return JsonReader.readJson (_getEffectiveReader (), m_aCustomizeCallback, m_aCustomExceptionCallback);
     }
 
     /**
