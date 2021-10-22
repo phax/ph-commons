@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -31,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
  * @author Philip Helger
  * @see java.io.PushbackInputStream
  */
-public class NonBlockingPushbackInputStream extends FilterInputStream
+public class NonBlockingPushbackInputStream extends WrappedInputStream
 {
   /**
    * The pushback buffer.
