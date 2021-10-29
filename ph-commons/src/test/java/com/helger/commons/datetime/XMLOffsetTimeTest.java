@@ -18,16 +18,19 @@ package com.helger.commons.datetime;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoField;
 
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * Test class for class {@link XMLOffsetTime}
@@ -89,5 +92,21 @@ public final class XMLOffsetTimeTest
   {
     final XMLOffsetTime aObj = PDTFactory.getCurrentXMLOffsetTime ();
     CommonsTestHelper.testDefaultSerialization (aObj);
+  }
+
+  @Test
+  public void testConvert ()
+  {
+    XMLOffsetTime aDT = TypeConverter.convert ("13:09:16.015", XMLOffsetTime.class);
+    assertNotNull (aDT);
+    assertNull (aDT.getOffset ());
+    assertFalse (aDT.hasOffset ());
+    assertEquals (PDTFactory.createLocalTime (13, 9, 16).with (ChronoField.MILLI_OF_SECOND, 15), aDT.toLocalTime ());
+
+    aDT = TypeConverter.convert ("13:09:16.015Z", XMLOffsetTime.class);
+    assertNotNull (aDT);
+    assertNotNull (aDT.getOffset ());
+    assertTrue (aDT.hasOffset ());
+    assertEquals (PDTFactory.createLocalTime (13, 9, 16).with (ChronoField.MILLI_OF_SECOND, 15), aDT.toLocalTime ());
   }
 }

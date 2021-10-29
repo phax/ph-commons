@@ -88,6 +88,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * Test {@link XMLOffsetDate}.
@@ -389,19 +390,21 @@ public final class XMLOffsetDateTest
                                                                        "2008-02-AB",
                                                                        "-0000-02-01",
                                                                        "2008-02-01Y",
-                                                                       "2008-02-01+19:00",
+                                                                       // "2008-02-01+19:00",
                                                                        "2008-02-01+01/00",
                                                                        "2008-02-01+1900",
                                                                        "2008-02-01+01:60",
                                                                        "2008-02-01+01:30:123",
-                                                                       "2008-02-01",
+                                                                       // "2008-02-01",
                                                                        "2008-02-01+01:00[Europe/Paris]" };
 
   @Test
   public void factory_parse_invalidText ()
   {
     for (final String unparsable : data_sampleBadParse)
+    {
       assertThrows (DateTimeParseException.class, () -> XMLOffsetDate.parse (unparsable));
+    }
   }
 
   @Test
@@ -2067,5 +2070,15 @@ public final class XMLOffsetDateTest
   {
     final XMLOffsetDate aObj = PDTFactory.getCurrentXMLOffsetDate ();
     CommonsTestHelper.testDefaultSerialization (aObj);
+  }
+
+  @Test
+  public void testConvert ()
+  {
+    final XMLOffsetDate aDT = TypeConverter.convert ("2021-05-10", XMLOffsetDate.class);
+    assertNotNull (aDT);
+    assertNull (aDT.getOffset ());
+    assertFalse (aDT.hasOffset ());
+    assertEquals (PDTFactory.createLocalDate (2021, Month.MAY, 10), aDT.toLocalDate ());
   }
 }

@@ -274,7 +274,15 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     try
     {
       final LocalTime time = LocalTime.from (temporal);
-      final ZoneOffset offset = ZoneOffset.from (temporal);
+      ZoneOffset offset;
+      try
+      {
+        offset = ZoneOffset.from (temporal);
+      }
+      catch (final DateTimeException ex)
+      {
+        offset = null;
+      }
       return new XMLOffsetTime (time, offset);
     }
     catch (final DateTimeException ex)

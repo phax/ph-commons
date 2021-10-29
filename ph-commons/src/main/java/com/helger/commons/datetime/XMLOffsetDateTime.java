@@ -355,9 +355,18 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
 
     try
     {
-      final ZoneOffset offset = ZoneOffset.from (temporal);
       final LocalDate date = temporal.query (TemporalQueries.localDate ());
       final LocalTime time = temporal.query (TemporalQueries.localTime ());
+      // Optional offset
+      ZoneOffset offset;
+      try
+      {
+        offset = ZoneOffset.from (temporal);
+      }
+      catch (final DateTimeException ex)
+      {
+        offset = null;
+      }
       if (date != null && time != null)
         return XMLOffsetDateTime.of (date, time, offset);
 
