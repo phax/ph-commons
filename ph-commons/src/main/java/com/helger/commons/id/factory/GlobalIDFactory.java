@@ -68,6 +68,10 @@ public final class GlobalIDFactory
     return getIntIDFactory () != null;
   }
 
+  /**
+   * @return The factory to create non-persistent int IDs. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public static IIntIDFactory getIntIDFactory ()
   {
@@ -92,6 +96,9 @@ public final class GlobalIDFactory
     return getPersistentIntIDFactory () != null;
   }
 
+  /**
+   * @return The factory to create persistent int IDs. May be <code>null</code>.
+   */
   @Nullable
   public static IIntIDFactory getPersistentIntIDFactory ()
   {
@@ -116,6 +123,10 @@ public final class GlobalIDFactory
     return getLongIDFactory () != null;
   }
 
+  /**
+   * @return The factory to create non-persistent long IDs. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public static ILongIDFactory getLongIDFactory ()
   {
@@ -140,6 +151,10 @@ public final class GlobalIDFactory
     return getPersistentLongIDFactory () != null;
   }
 
+  /**
+   * @return The factory to create persistent long IDs. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public static ILongIDFactory getPersistentLongIDFactory ()
   {
@@ -164,6 +179,10 @@ public final class GlobalIDFactory
     return getStringIDFactory () != null;
   }
 
+  /**
+   * @return The factory to create non-persistent string IDs. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public static IStringIDFactory getStringIDFactory ()
   {
@@ -188,6 +207,10 @@ public final class GlobalIDFactory
     return getPersistentStringIDFactory () != null;
   }
 
+  /**
+   * @return The factory to create persistent string IDs. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public static IStringIDFactory getPersistentStringIDFactory ()
   {
@@ -213,9 +236,10 @@ public final class GlobalIDFactory
   public static int getNewIntID ()
   {
     return RW_LOCK.readLockedInt ( () -> {
-      if (s_aIntIDFactory == null)
+      final IIntIDFactory aFactory = s_aIntIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No in-memory int ID factory has been supplied!");
-      return s_aIntIDFactory.getNewID ();
+      return aFactory.getNewID ();
     });
   }
 
@@ -225,9 +249,10 @@ public final class GlobalIDFactory
   public static int getNewPersistentIntID ()
   {
     return RW_LOCK.readLockedInt ( () -> {
-      if (s_aPersistentIntIDFactory == null)
+      final IIntIDFactory aFactory = s_aPersistentIntIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No persistent int ID factory has been supplied. Don't know how to create persistent IDs!");
-      return s_aPersistentIntIDFactory.getNewID ();
+      return aFactory.getNewID ();
     });
   }
 
@@ -237,9 +262,10 @@ public final class GlobalIDFactory
   public static long getNewLongID ()
   {
     return RW_LOCK.readLockedLong ( () -> {
-      if (s_aLongIDFactory == null)
+      final ILongIDFactory aFactory = s_aLongIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No in-memory long ID factory has been supplied!");
-      return s_aLongIDFactory.getNewID ();
+      return aFactory.getNewID ();
     });
   }
 
@@ -249,9 +275,10 @@ public final class GlobalIDFactory
   public static long getNewPersistentLongID ()
   {
     return RW_LOCK.readLockedLong ( () -> {
-      if (s_aPersistentLongIDFactory == null)
+      final ILongIDFactory aFactory = s_aPersistentLongIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No persistent long ID factory has been supplied. Don't know how to create persistent IDs!");
-      return s_aPersistentLongIDFactory.getNewID ();
+      return aFactory.getNewID ();
     });
   }
 
@@ -262,9 +289,11 @@ public final class GlobalIDFactory
   public static String getNewStringID ()
   {
     return RW_LOCK.readLockedGet ( () -> {
-      if (s_aStringIDFactory == null)
+      final IStringIDFactory aFactory = s_aStringIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No in-memory string ID factory has been supplied!");
-      final String ret = s_aStringIDFactory.getNewID ();
+
+      final String ret = aFactory.getNewID ();
       if (ret.length () > STRING_ID_MAX_LENGTH)
         throw new IllegalStateException ("The created String ID has a length of " +
                                          ret.length () +
@@ -281,9 +310,11 @@ public final class GlobalIDFactory
   public static String getNewPersistentStringID ()
   {
     return RW_LOCK.readLockedGet ( () -> {
-      if (s_aPersistentStringIDFactory == null)
+      final IStringIDFactory aFactory = s_aPersistentStringIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No persistent string ID factory has been supplied!");
-      final String ret = s_aPersistentStringIDFactory.getNewID ();
+
+      final String ret = aFactory.getNewID ();
       if (ret.length () > STRING_ID_MAX_LENGTH)
         throw new IllegalStateException ("The created String ID has a length of " +
                                          ret.length () +
@@ -303,11 +334,13 @@ public final class GlobalIDFactory
     ValueEnforcer.isGT0 (nCount, "Count");
 
     return RW_LOCK.readLockedGet ( () -> {
-      if (s_aIntIDFactory == null)
+      final IIntIDFactory aFactory = s_aIntIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No in-memory int ID factory has been supplied!");
+
       final int [] ret = new int [nCount];
       for (int i = 0; i < nCount; ++i)
-        ret[i] = s_aIntIDFactory.getNewID ();
+        ret[i] = aFactory.getNewID ();
       return ret;
     });
   }
@@ -322,11 +355,13 @@ public final class GlobalIDFactory
     ValueEnforcer.isGT0 (nCount, "Count");
 
     return RW_LOCK.readLockedGet ( () -> {
-      if (s_aPersistentIntIDFactory == null)
+      final IIntIDFactory aFactory = s_aPersistentIntIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No persistent int ID factory has been supplied. Don't know how to create persistent IDs!");
+
       final int [] ret = new int [nCount];
       for (int i = 0; i < nCount; ++i)
-        ret[i] = s_aPersistentIntIDFactory.getNewID ();
+        ret[i] = aFactory.getNewID ();
       return ret;
     });
   }
@@ -341,11 +376,13 @@ public final class GlobalIDFactory
     ValueEnforcer.isGT0 (nCount, "Count");
 
     return RW_LOCK.readLockedGet ( () -> {
-      if (s_aLongIDFactory == null)
+      final ILongIDFactory aFactory = s_aLongIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No in-memory long ID factory has been supplied!");
+
       final long [] ret = new long [nCount];
       for (int i = 0; i < nCount; ++i)
-        ret[i] = s_aLongIDFactory.getNewID ();
+        ret[i] = aFactory.getNewID ();
       return ret;
     });
   }
@@ -360,11 +397,13 @@ public final class GlobalIDFactory
     ValueEnforcer.isGT0 (nCount, "Count");
 
     return RW_LOCK.readLockedGet ( () -> {
-      if (s_aPersistentLongIDFactory == null)
+      final ILongIDFactory aFactory = s_aPersistentLongIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No persistent long ID factory has been supplied. Don't know how to create persistent IDs!");
+
       final long [] ret = new long [nCount];
       for (int i = 0; i < nCount; ++i)
-        ret[i] = s_aPersistentLongIDFactory.getNewID ();
+        ret[i] = aFactory.getNewID ();
       return ret;
     });
   }
@@ -380,12 +419,14 @@ public final class GlobalIDFactory
     ValueEnforcer.isGT0 (nCount, "Count");
 
     return RW_LOCK.readLockedGet ( () -> {
-      if (s_aStringIDFactory == null)
+      final IStringIDFactory aFactory = s_aStringIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No in-memory string ID factory has been supplied!");
+
       final String [] ret = new String [nCount];
       for (int i = 0; i < nCount; ++i)
       {
-        ret[i] = s_aStringIDFactory.getNewID ();
+        ret[i] = aFactory.getNewID ();
         if (ret[i].length () > STRING_ID_MAX_LENGTH)
           throw new IllegalStateException ("The created String ID has a length of " +
                                            ret[i].length () +
@@ -407,12 +448,14 @@ public final class GlobalIDFactory
     ValueEnforcer.isGT0 (nCount, "Count");
 
     return RW_LOCK.readLockedGet ( () -> {
-      if (s_aPersistentStringIDFactory == null)
+      final IStringIDFactory aFactory = s_aPersistentStringIDFactory;
+      if (aFactory == null)
         throw new IllegalStateException ("No persistent string ID factory has been supplied!");
+
       final String [] ret = new String [nCount];
       for (int i = 0; i < nCount; ++i)
       {
-        ret[i] = s_aPersistentStringIDFactory.getNewID ();
+        ret[i] = aFactory.getNewID ();
         if (ret[i].length () > STRING_ID_MAX_LENGTH)
           throw new IllegalStateException ("The created String ID has a length of " +
                                            ret[i].length () +
