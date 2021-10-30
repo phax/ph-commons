@@ -303,15 +303,14 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * {@link java.time.format.DateTimeFormatter#ISO_TIME}.
    *
    * @param text
-   *        the text to parse such as "10:15:30+01:00", not null
-   * @return the parsed local time, not null
+   *        the text to parse such as "10:15:30+01:00", not <code>null</code>
+   * @return the parsed local time, not <code>null</code>
    * @throws DateTimeParseException
    *         if the text cannot be parsed
    */
   @Nonnull
   public static XMLOffsetTime parse (@Nonnull final CharSequence text)
   {
-    // Optional ZoneID
     return parse (text, DateTimeFormatter.ISO_TIME);
   }
 
@@ -322,10 +321,10 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * The text is parsed using the formatter, returning a time.
    *
    * @param text
-   *        the text to parse, not null
+   *        the text to parse, not <code>null</code>
    * @param formatter
-   *        the formatter to use, not null
-   * @return the parsed offset time, not null
+   *        the formatter to use, not <code>null</code>
+   * @return the parsed offset time, not <code>null</code>
    * @throws DateTimeParseException
    *         if the text cannot be parsed
    */
@@ -340,9 +339,9 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * Constructor.
    *
    * @param time
-   *        the local time, not null
+   *        the local time, not <code>null</code>
    * @param offset
-   *        the zone offset, maybe null
+   *        the zone offset, maybe <code>null</code>
    */
   protected XMLOffsetTime (@Nonnull final LocalTime time, @Nullable final ZoneOffset offset)
   {
@@ -355,9 +354,9 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * possible.
    *
    * @param time
-   *        the time to create with, not null
+   *        the time to create with, not <code>null</code>
    * @param offset
-   *        the zone offset to create with, maybe null
+   *        the zone offset to create with, maybe <code>null</code>
    */
   @Nonnull
   protected XMLOffsetTime with (@Nonnull final LocalTime time, @Nullable final ZoneOffset offset)

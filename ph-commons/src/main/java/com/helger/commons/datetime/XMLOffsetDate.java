@@ -370,15 +370,14 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    * {@link DateTimeFormatter#ISO_DATE}.
    *
    * @param text
-   *        the text to parse such as "2007-12-03+01:00", not null
-   * @return the parsed offset date, not null
+   *        the text to parse such as "2007-12-03+01:00", not <code>null</code>
+   * @return the parsed offset date, not <code>null</code>
    * @throws DateTimeParseException
    *         if the text cannot be parsed
    */
   @Nonnull
   public static XMLOffsetDate parse (@Nonnull final CharSequence text)
   {
-    // Optional ZoneID
     return parse (text, DateTimeFormatter.ISO_DATE);
   }
 
@@ -389,10 +388,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    * The text is parsed using the formatter, returning a date.
    *
    * @param text
-   *        the text to parse, not null
+   *        the text to parse, not <code>null</code>.
    * @param formatter
-   *        the formatter to use, not null
-   * @return the parsed offset date, not null
+   *        the formatter to use, not <code>null</code>.
+   * @return the parsed offset date, not <code>null</code>.
    * @throws DateTimeParseException
    *         if the text cannot be parsed
    */
