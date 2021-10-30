@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,8 +32,10 @@ import java.time.temporal.ChronoField;
 
 import org.junit.Test;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.commons.typeconvert.TypeConverterException;
 
 /**
  * Test class for class {@link XMLOffsetDateTime}
@@ -106,11 +109,35 @@ public final class XMLOffsetDateTimeTest
   @Test
   public void testConvert ()
   {
-    final XMLOffsetDateTime aDT = TypeConverter.convert ("2021-05-10T13:09:16.015", XMLOffsetDateTime.class);
+    XMLOffsetDateTime aDT = TypeConverter.convert ("2021-05-10T13:09:16.015", XMLOffsetDateTime.class);
     assertNotNull (aDT);
     assertNull (aDT.getOffset ());
     assertFalse (aDT.hasOffset ());
     assertEquals (PDTFactory.createLocalDate (2021, Month.MAY, 10), aDT.toLocalDate ());
     assertEquals (PDTFactory.createLocalTime (13, 9, 16).with (ChronoField.MILLI_OF_SECOND, 15), aDT.toLocalTime ());
+
+    aDT = TypeConverter.convert ("2021-05-10T13:09:16.015Z", XMLOffsetDateTime.class);
+    assertNotNull (aDT);
+    assertNotNull (aDT.getOffset ());
+    assertTrue (aDT.hasOffset ());
+    assertEquals (0, aDT.getOffset ().getTotalSeconds ());
+    assertEquals (PDTFactory.createLocalDate (2021, Month.MAY, 10), aDT.toLocalDate ());
+    assertEquals (PDTFactory.createLocalTime (13, 9, 16).with (ChronoField.MILLI_OF_SECOND, 15), aDT.toLocalTime ());
+
+    aDT = TypeConverter.convert ("2021-05-10T13:09:16.015+01:00", XMLOffsetDateTime.class);
+    assertNotNull (aDT);
+    assertNotNull (aDT.getOffset ());
+    assertTrue (aDT.hasOffset ());
+    assertEquals (1 * CGlobal.SECONDS_PER_HOUR, aDT.getOffset ().getTotalSeconds ());
+    assertEquals (PDTFactory.createLocalDate (2021, Month.MAY, 10), aDT.toLocalDate ());
+    assertEquals (PDTFactory.createLocalTime (13, 9, 16).with (ChronoField.MILLI_OF_SECOND, 15), aDT.toLocalTime ());
+
+    try
+    {
+      TypeConverter.convert ("2021-05-10T13:09:16.015+01", XMLOffsetDateTime.class);
+      fail ();
+    }
+    catch (final TypeConverterException ex)
+    {}
   }
 }

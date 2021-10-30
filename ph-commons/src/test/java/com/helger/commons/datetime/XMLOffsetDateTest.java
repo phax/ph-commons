@@ -54,6 +54,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.time.Clock;
 import java.time.DateTimeException;
@@ -87,8 +88,10 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.commons.typeconvert.TypeConverterException;
 
 /**
  * Test {@link XMLOffsetDate}.
@@ -2075,10 +2078,32 @@ public final class XMLOffsetDateTest
   @Test
   public void testConvert ()
   {
-    final XMLOffsetDate aDT = TypeConverter.convert ("2021-05-10", XMLOffsetDate.class);
+    XMLOffsetDate aDT = TypeConverter.convert ("2021-05-10", XMLOffsetDate.class);
     assertNotNull (aDT);
     assertNull (aDT.getOffset ());
     assertFalse (aDT.hasOffset ());
     assertEquals (PDTFactory.createLocalDate (2021, Month.MAY, 10), aDT.toLocalDate ());
+
+    aDT = TypeConverter.convert ("2021-05-10Z", XMLOffsetDate.class);
+    assertNotNull (aDT);
+    assertNotNull (aDT.getOffset ());
+    assertTrue (aDT.hasOffset ());
+    assertEquals (0, aDT.getOffset ().getTotalSeconds ());
+    assertEquals (PDTFactory.createLocalDate (2021, Month.MAY, 10), aDT.toLocalDate ());
+
+    aDT = TypeConverter.convert ("2021-05-10+01:00", XMLOffsetDate.class);
+    assertNotNull (aDT);
+    assertNotNull (aDT.getOffset ());
+    assertTrue (aDT.hasOffset ());
+    assertEquals (1 * CGlobal.SECONDS_PER_HOUR, aDT.getOffset ().getTotalSeconds ());
+    assertEquals (PDTFactory.createLocalDate (2021, Month.MAY, 10), aDT.toLocalDate ());
+
+    try
+    {
+      TypeConverter.convert ("2021-05-10+01", XMLOffsetDate.class);
+      fail ();
+    }
+    catch (final TypeConverterException ex)
+    {}
   }
 }
