@@ -104,14 +104,14 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-jaxb-pom</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-jaxws-pom</artifactId>
-        <version>1.3.0</version>
+        <version>1.3.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
