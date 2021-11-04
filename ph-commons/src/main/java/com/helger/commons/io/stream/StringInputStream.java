@@ -17,6 +17,7 @@
 package com.helger.commons.io.stream;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
@@ -30,5 +31,19 @@ public class StringInputStream extends NonBlockingByteArrayInputStream
   public StringInputStream (@Nonnull final String sInput, @Nonnull final Charset aCharset)
   {
     super (sInput.getBytes (aCharset));
+  }
+
+  /**
+   * Shortcut factory method for a UTF-8 based {@link StringInputStream}.
+   *
+   * @param sInput
+   *        The input String. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @since 10.1.5
+   */
+  @Nonnull
+  public static StringInputStream utf8 (@Nonnull final String sInput)
+  {
+    return new StringInputStream (sInput, StandardCharsets.UTF_8);
   }
 }
