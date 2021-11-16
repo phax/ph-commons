@@ -366,9 +366,24 @@ public class WatchDir implements AutoCloseable
    */
   public void runAsync ()
   {
+    runAsyncAndReturn ();
+  }
+
+  /**
+   * Call this method to process events. This method creates a background thread
+   * than runs {@link #processEvents()} and performs the heavy lifting.
+   *
+   * @return The created {@link Thread} that can also be stopped again if not
+   *         needed anymore.
+   * @since 10.1.5
+   */
+  @Nonnull
+  public Thread runAsyncAndReturn ()
+  {
     final Thread aThread = new Thread (this::processEvents, "WatchDir-" + m_aStartDir + "-" + ThreadLocalRandom.current ().nextInt ());
     aThread.setDaemon (true);
     aThread.start ();
+    return aThread;
   }
 
   /**
