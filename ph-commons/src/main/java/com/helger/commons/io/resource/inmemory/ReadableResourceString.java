@@ -44,6 +44,12 @@ public class ReadableResourceString extends ReadableResourceByteArray
   }
 
   @Nonnull
+  public static ReadableResourceString utf8 (@Nonnull final String sString)
+  {
+    return new ReadableResourceString (sString, StandardCharsets.UTF_8);
+  }
+
+  @Nonnull
   public static ReadableResourceString utf8 (@Nullable final String sResourceID, @Nonnull final String sString)
   {
     return new ReadableResourceString (sResourceID, sString, StandardCharsets.UTF_8);
