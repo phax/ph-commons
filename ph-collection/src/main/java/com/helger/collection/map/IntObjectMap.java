@@ -329,7 +329,8 @@ public class IntObjectMap <T> implements IHasSize
     return idx;
   }
 
-  public static interface IConsumer <T>
+  @FunctionalInterface
+  public interface IConsumer <T>
   {
     void accept (int nKey, T aValue);
   }

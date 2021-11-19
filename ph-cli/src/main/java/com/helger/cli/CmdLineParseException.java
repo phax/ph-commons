@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 public class CmdLineParseException extends Exception
 {
   private final ECmdLineParseError m_eError;
-  private final Option m_aOption;
+  private final transient Option m_aOption;
   private final OptionGroup m_aOptionGroup;
 
   /**

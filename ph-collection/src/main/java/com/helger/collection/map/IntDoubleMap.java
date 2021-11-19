@@ -330,7 +330,8 @@ public class IntDoubleMap implements IHasSize
     return (currentIndex + 1) & m_nMask;
   }
 
-  public static interface IConsumer
+  @FunctionalInterface
+  public interface IConsumer
   {
     void accept (int nKey, double dValue);
   }

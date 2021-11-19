@@ -1288,7 +1288,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   {
     if (query == TemporalQueries.offset () || query == TemporalQueries.zone ())
       return (R) getOffsetOrDefault ();
-    if (query == TemporalQueries.zoneId () | query == TemporalQueries.chronology () || query == TemporalQueries.localDate ())
+    if (query == TemporalQueries.zoneId () || query == TemporalQueries.chronology () || query == TemporalQueries.localDate ())
       return null;
     if (query == TemporalQueries.localTime ())
       return (R) m_aTime;
