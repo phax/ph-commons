@@ -39,14 +39,25 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
 {
   private final String m_sResourceID;
 
+  /**
+   * Constructor.
+   *
+   * @param sResourceID
+   *        The mandatory resource ID, used as the cache key. May neither be
+   *        <code>null</code> nor empty.
+   */
   public AbstractMemoryReadableResource (@Nonnull @Nonempty final String sResourceID)
   {
     m_sResourceID = ValueEnforcer.notEmpty (sResourceID, "ResourceID");
   }
 
+  /**
+   * @return The resource ID as provided in the constructor. Neither
+   *         <code>null</code> nor empty.
+   */
   @Nonnull
   @Nonempty
-  public String getResourceID ()
+  public final String getResourceID ()
   {
     return m_sResourceID;
   }

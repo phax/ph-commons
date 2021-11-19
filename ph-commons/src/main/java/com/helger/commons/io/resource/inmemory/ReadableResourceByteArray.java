@@ -17,6 +17,7 @@
 package com.helger.commons.io.resource.inmemory;
 
 import java.io.InputStream;
+import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -88,7 +89,8 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
                                     @Nonnegative final int nLen,
                                     final boolean bCopyNeeded)
   {
-    super (StringHelper.hasText (sResourceID) ? sResourceID : "byte[]");
+    // Ensure a unique resource ID
+    super (StringHelper.hasText (sResourceID) ? sResourceID : "bytes-" + nLen + "-" + Arrays.hashCode (aBytes));
     ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLen);
     // Create a copy to avoid outside modifications
     m_aBytes = new ByteArrayWrapper (aBytes, nOfs, nLen, bCopyNeeded);

@@ -36,13 +36,33 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
 {
   private final InputStream m_aIS;
 
-  public ReadableResourceInputStream (@Nonnull final InputStream aIS)
+  /**
+   * Please Don't use this one. Use the constructor with the resource ID.
+   *
+   * @param aIS
+   *        InputStream to use. May not be <code>null</code>. This Stream is NOT
+   *        closed by this class.
+   * @deprecated Use {@link #ReadableResourceInputStream(String, InputStream)}
+   *             instead
+   */
+  @Deprecated
+  public ReadableResourceInputStream (@Nonnull @WillNotClose final InputStream aIS)
   {
     this (null, aIS);
   }
 
+  /**
+   * Constructor to use.
+   *
+   * @param sResourceID
+   *        The unique resource ID, used as the caching key.
+   * @param aIS
+   *        The InputStream to read from. May not be <code>null</code>. This
+   *        Stream is NOT closed by this class.
+   */
   public ReadableResourceInputStream (@Nullable final String sResourceID, @Nonnull @WillNotClose final InputStream aIS)
   {
+    // Ensure a unique resource ID
     super (StringHelper.hasText (sResourceID) ? sResourceID : "input-stream");
     m_aIS = ValueEnforcer.notNull (aIS, "InputStream");
   }

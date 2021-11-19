@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.StringHelper;
 
 /**
  * An in-memory {@link IReadableResource} based on a {@link String} which is
@@ -40,13 +39,8 @@ public class ReadableResourceString extends ReadableResourceByteArray
 
   public ReadableResourceString (@Nullable final String sResourceID, @Nonnull final String sString, @Nonnull final Charset aCharset)
   {
-    super (StringHelper.hasText (sResourceID) ? sResourceID : "String[" + aCharset.name () + "]", sString.getBytes (aCharset));
-  }
-
-  @Nonnull
-  public static ReadableResourceString utf8 (@Nonnull final String sString)
-  {
-    return new ReadableResourceString (sString, StandardCharsets.UTF_8);
+    // No copy needed
+    super (sResourceID, sString.getBytes (aCharset), false);
   }
 
   @Nonnull
