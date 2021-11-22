@@ -245,7 +245,8 @@ public final class ConfigFactory
     // Prio 195, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
                                                                                             "private-application.json",
-                                                                                            aURL -> new ConfigurationSourceJson (new URLResource (aURL),
+                                                                                            aURL -> new ConfigurationSourceJson (PRIVATE_APPLICATION_JSON_PRIORITY,
+                                                                                                                                 new URLResource (aURL),
                                                                                                                                  StandardCharsets.UTF_8),
                                                                                             true),
                                    PRIVATE_APPLICATION_JSON_PRIORITY);
@@ -253,7 +254,8 @@ public final class ConfigFactory
     // Prio 190, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
                                                                                             "private-application.properties",
-                                                                                            aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
+                                                                                            aURL -> new ConfigurationSourceProperties (PRIVATE_APPLICATION_PROPERTIES_PRIORITY,
+                                                                                                                                       new URLResource (aURL),
                                                                                                                                        StandardCharsets.UTF_8),
                                                                                             true),
                                    PRIVATE_APPLICATION_PROPERTIES_PRIORITY);
@@ -261,7 +263,8 @@ public final class ConfigFactory
     // Prio 185, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
                                                                                             "application.json",
-                                                                                            aURL -> new ConfigurationSourceJson (new URLResource (aURL),
+                                                                                            aURL -> new ConfigurationSourceJson (APPLICATION_JSON_PRIORITY,
+                                                                                                                                 new URLResource (aURL),
                                                                                                                                  StandardCharsets.UTF_8),
                                                                                             true),
                                    APPLICATION_JSON_PRIORITY);
@@ -269,7 +272,8 @@ public final class ConfigFactory
     // Prio 180, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
                                                                                             "application.properties",
-                                                                                            aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
+                                                                                            aURL -> new ConfigurationSourceProperties (APPLICATION_PROPERTIES_PRIORITY,
+                                                                                                                                       new URLResource (aURL),
                                                                                                                                        StandardCharsets.UTF_8),
                                                                                             true),
                                    APPLICATION_PROPERTIES_PRIORITY);
@@ -277,7 +281,8 @@ public final class ConfigFactory
     // Prio 1
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
                                                                                             "reference.properties",
-                                                                                            aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
+                                                                                            aURL -> new ConfigurationSourceProperties (REFERENCE_PROPERTIES_PRIORITY,
+                                                                                                                                       new URLResource (aURL),
                                                                                                                                        StandardCharsets.UTF_8),
                                                                                             true),
                                    REFERENCE_PROPERTIES_PRIORITY);

@@ -144,26 +144,34 @@ public class Config implements IConfig
     return aCV == null ? null : aCV.getValue ();
   }
 
-  public static void forEachConfigurationValueProviderRecursive (@Nonnull final IConfigurationValueProvider aValueProvider,
-                                                                 @Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
+  private static void _forEachConfigurationValueProviderRecursive (@Nonnull final IConfigurationValueProvider aValueProvider,
+                                                                   final int nParentPriority,
+                                                                   @Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
     if (aValueProvider instanceof MultiConfigurationValueProvider)
     {
       final MultiConfigurationValueProvider aMulti = (MultiConfigurationValueProvider) aValueProvider;
-      // Descend recursively
-      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> forEachConfigurationValueProviderRecursive (cvp, aCallback));
+      // Descend recursively, maintain the local priority
+      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> _forEachConfigurationValueProviderRecursive (cvp, prio, aCallback));
     }
     else
     {
       // By default no priority
-      int nPriority = 0;
-      if (aValueProvider instanceof IConfigurationSource)
+      int nPriority = nParentPriority;
+      if (nPriority < 0 && aValueProvider instanceof IConfigurationSource)
       {
+        // Top-level configuration source
         final IConfigurationSource aSource = (IConfigurationSource) aValueProvider;
         nPriority = aSource.getPriority ();
       }
       aCallback.onConfigurationSource (aValueProvider, nPriority);
     }
+  }
+
+  public static void forEachConfigurationValueProviderRecursive (@Nonnull final IConfigurationValueProvider aValueProvider,
+                                                                 @Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
+  {
+    _forEachConfigurationValueProviderRecursive (aValueProvider, -1, aCallback);
   }
 
   public void forEachConfigurationValueProvider (@Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
