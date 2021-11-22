@@ -277,6 +277,21 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return MathHelper.isGE0 (m_aValue);
   }
 
+  @Nonnull
+  public BigDecimal getAndInc ()
+  {
+    final BigDecimal ret = getAsBigDecimal ();
+    inc ();
+    return ret;
+  }
+
+  @Nonnull
+  public BigDecimal incAndGet ()
+  {
+    inc ();
+    return getAsBigDecimal ();
+  }
+
   public int compareTo (@Nonnull final MutableBigDecimal rhs)
   {
     return m_aValue.compareTo (rhs.m_aValue);

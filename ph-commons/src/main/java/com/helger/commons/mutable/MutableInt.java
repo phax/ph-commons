@@ -194,6 +194,19 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return (m_nValue % 2) == 0;
   }
 
+  public int getAndInc ()
+  {
+    final int ret = intValue ();
+    inc ();
+    return ret;
+  }
+
+  public int incAndGet ()
+  {
+    inc ();
+    return intValue ();
+  }
+
   public int compareTo (@Nonnull final MutableInt rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);

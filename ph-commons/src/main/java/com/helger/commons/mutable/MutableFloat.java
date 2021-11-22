@@ -178,6 +178,19 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return CompareHelper.compare (m_fValue, 0f) >= 0;
   }
 
+  public float getAndInc ()
+  {
+    final float ret = floatValue ();
+    inc ();
+    return ret;
+  }
+
+  public float incAndGet ()
+  {
+    inc ();
+    return floatValue ();
+  }
+
   public int compareTo (@Nonnull final MutableFloat rhs)
   {
     return CompareHelper.compare (m_fValue, rhs.m_fValue);

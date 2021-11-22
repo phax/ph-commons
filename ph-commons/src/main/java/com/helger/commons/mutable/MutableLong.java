@@ -194,6 +194,19 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     return (m_nValue % 2) == 0;
   }
 
+  public long getAndInc ()
+  {
+    final long ret = longValue ();
+    inc ();
+    return ret;
+  }
+
+  public long incAndGet ()
+  {
+    inc ();
+    return longValue ();
+  }
+
   public int compareTo (@Nonnull final MutableLong rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);

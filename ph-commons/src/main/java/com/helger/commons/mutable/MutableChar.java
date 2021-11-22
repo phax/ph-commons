@@ -198,6 +198,19 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return (m_cValue % 2) == 0;
   }
 
+  public char getAndInc ()
+  {
+    final char ret = charValue ();
+    inc ();
+    return ret;
+  }
+
+  public char incAndGet ()
+  {
+    inc ();
+    return charValue ();
+  }
+
   public int compareTo (@Nonnull final MutableChar rhs)
   {
     return CompareHelper.compare (m_cValue, rhs.m_cValue);

@@ -192,6 +192,19 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
     return (m_nValue % 2) == 0;
   }
 
+  public byte getAndInc ()
+  {
+    final byte ret = byteValue ();
+    inc ();
+    return ret;
+  }
+
+  public byte incAndGet ()
+  {
+    inc ();
+    return byteValue ();
+  }
+
   public int compareTo (@Nonnull final MutableByte rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);

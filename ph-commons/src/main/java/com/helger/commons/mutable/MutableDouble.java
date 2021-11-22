@@ -178,6 +178,19 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return CompareHelper.compare (m_dValue, 0) >= 0;
   }
 
+  public double getAndInc ()
+  {
+    final double ret = doubleValue ();
+    inc ();
+    return ret;
+  }
+
+  public double incAndGet ()
+  {
+    inc ();
+    return doubleValue ();
+  }
+
   public int compareTo (@Nonnull final MutableDouble rhs)
   {
     return CompareHelper.compare (m_dValue, rhs.m_dValue);

@@ -192,6 +192,19 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return (m_nValue % 2) == 0;
   }
 
+  public short getAndInc ()
+  {
+    final short ret = shortValue ();
+    inc ();
+    return ret;
+  }
+
+  public short incAndGet ()
+  {
+    inc ();
+    return shortValue ();
+  }
+
   public int compareTo (@Nonnull final MutableShort rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);

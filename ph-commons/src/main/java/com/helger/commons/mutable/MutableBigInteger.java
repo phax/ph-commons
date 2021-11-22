@@ -246,6 +246,21 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return MathHelper.isGE0 (m_aValue);
   }
 
+  @Nonnull
+  public BigInteger getAndInc ()
+  {
+    final BigInteger ret = getAsBigInteger ();
+    inc ();
+    return ret;
+  }
+
+  @Nonnull
+  public BigInteger incAndGet ()
+  {
+    inc ();
+    return getAsBigInteger ();
+  }
+
   public int compareTo (@Nonnull final MutableBigInteger rhs)
   {
     return m_aValue.compareTo (rhs.m_aValue);
