@@ -71,6 +71,11 @@ public final class MutableLongTest
     assertFalse (x.isEven ());
     assertEquals (4711, x.longValue ());
 
+    assertEquals (4711, x.getAndInc ());
+    assertEquals (4712, x.shortValue ());
+    assertEquals (4713, x.incAndGet ());
+    assertEquals (4713, x.shortValue ());
+
     assertEquals (-1, new MutableLong (4).compareTo (new MutableLong (5)));
     assertEquals (0, new MutableLong (5).compareTo (new MutableLong (5)));
     assertEquals (+1, new MutableLong (6).compareTo (new MutableLong (5)));

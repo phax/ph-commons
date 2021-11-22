@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -33,7 +34,7 @@ import com.helger.commons.mock.CommonsTestHelper;
  */
 public final class MutableDoubleTest
 {
-  private static final double DELTA = 0.00001;
+  private static final double DELTA = CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE;
 
   @Test
   public void testMutableDouble ()
@@ -69,6 +70,11 @@ public final class MutableDoubleTest
     assertTrue (x.set (4711).isChanged ());
     assertFalse (x.set (4711).isChanged ());
     assertEquals (4711, x.doubleValue (), DELTA);
+
+    assertEquals (4711, x.getAndInc (), DELTA);
+    assertEquals (4712, x.doubleValue (), DELTA);
+    assertEquals (4713, x.incAndGet (), DELTA);
+    assertEquals (4713, x.doubleValue (), DELTA);
 
     assertEquals (-1, new MutableDouble (4).compareTo (new MutableDouble (5)));
     assertEquals (0, new MutableDouble (5).compareTo (new MutableDouble (5)));

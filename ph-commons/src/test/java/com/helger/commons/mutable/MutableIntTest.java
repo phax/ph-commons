@@ -71,6 +71,11 @@ public final class MutableIntTest
     assertFalse (x.isEven ());
     assertEquals (4711, x.intValue ());
 
+    assertEquals (4711, x.getAndInc ());
+    assertEquals (4712, x.intValue ());
+    assertEquals (4713, x.incAndGet ());
+    assertEquals (4713, x.intValue ());
+
     assertEquals (-1, new MutableInt (4).compareTo (new MutableInt (5)));
     assertEquals (0, new MutableInt (5).compareTo (new MutableInt (5)));
     assertEquals (+1, new MutableInt (6).compareTo (new MutableInt (5)));

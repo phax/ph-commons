@@ -89,6 +89,11 @@ public final class MutableShortTest
     assertTrue (x.set (65537).isChanged ());
     assertEquals (1, x.shortValue ());
 
+    assertEquals (1, x.getAndInc ());
+    assertEquals (2, x.intValue ());
+    assertEquals (3, x.incAndGet ());
+    assertEquals (3, x.intValue ());
+
     assertEquals (-1, new MutableShort (4).compareTo (new MutableShort (5)));
     assertEquals (0, new MutableShort (5).compareTo (new MutableShort (5)));
     assertEquals (+1, new MutableShort (6).compareTo (new MutableShort (5)));

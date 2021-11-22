@@ -89,6 +89,11 @@ public final class MutableByteTest
     assertTrue (x.set (257).isChanged ());
     assertEquals (1, x.byteValue ());
 
+    assertEquals (1, x.getAndInc ());
+    assertEquals (2, x.byteValue ());
+    assertEquals (3, x.incAndGet ());
+    assertEquals (3, x.byteValue ());
+
     assertEquals (-1, new MutableByte (4).compareTo (new MutableByte (5)));
     assertEquals (0, new MutableByte (5).compareTo (new MutableByte (5)));
     assertEquals (+1, new MutableByte (6).compareTo (new MutableByte (5)));

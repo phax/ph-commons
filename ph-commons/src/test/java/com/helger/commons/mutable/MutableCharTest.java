@@ -91,6 +91,14 @@ public final class MutableCharTest
     assertTrue (x.set (-2).isChanged ());
     assertEquals (65534, x.charValue ());
 
+    assertTrue (x.set (1).isChanged ());
+    assertEquals (1, x.charValue ());
+
+    assertEquals (1, x.getAndInc ());
+    assertEquals (2, x.charValue ());
+    assertEquals (3, x.incAndGet ());
+    assertEquals (3, x.charValue ());
+
     assertEquals (-1, new MutableChar (4).compareTo (new MutableChar (5)));
     assertEquals (0, new MutableChar (5).compareTo (new MutableChar (5)));
     assertEquals (+1, new MutableChar (6).compareTo (new MutableChar (5)));

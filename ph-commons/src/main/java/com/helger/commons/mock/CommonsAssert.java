@@ -32,8 +32,8 @@ import com.helger.commons.equals.EqualsHelper;
 @Immutable
 public final class CommonsAssert
 {
-  public static final float FLOAT_ALLOWED_ROUNDING_DIFFERENCE = 0.001f;
-  public static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.001;
+  public static final float FLOAT_ALLOWED_ROUNDING_DIFFERENCE = 0.00001f;
+  public static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.00001;
 
   @PresentForCodeCoverage
   private static final CommonsAssert INSTANCE = new CommonsAssert ();
