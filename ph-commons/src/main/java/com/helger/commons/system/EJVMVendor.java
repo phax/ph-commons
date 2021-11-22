@@ -93,7 +93,21 @@ public enum EJVMVendor
   }
 
   /** The current vendor. */
-  private static EJVMVendor INSTANCE = null;
+  private static final EJVMVendor INSTANCE;
+
+  static
+  {
+    // Check
+    EJVMVendor ret = null;
+    for (final EJVMVendor eVendor : values ())
+      if (eVendor.isJVMVendor ())
+      {
+        ret = eVendor;
+        break;
+      }
+    INSTANCE = ret == null ? UNKNOWN : ret;
+
+  }
 
   private final boolean m_bIsIt;
 
@@ -132,22 +146,6 @@ public enum EJVMVendor
   @Nonnull
   public static EJVMVendor getCurrentVendor ()
   {
-    EJVMVendor ret = INSTANCE;
-    if (ret == null)
-    {
-      // Note: double initialization doesn't matter here
-
-      // Check
-      for (final EJVMVendor eVendor : values ())
-        if (eVendor.isJVMVendor ())
-        {
-          ret = eVendor;
-          break;
-        }
-      if (ret == null)
-        ret = UNKNOWN;
-      INSTANCE = ret;
-    }
-    return ret;
+    return INSTANCE;
   }
 }

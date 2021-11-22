@@ -38,7 +38,7 @@ public class DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> extends
 {
   public DefaultTreeWithGlobalUniqueID ()
   {
-    this (new DefaultTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE> ());
+    this (new DefaultTreeItemWithUniqueIDFactory <> ());
   }
 
   public DefaultTreeWithGlobalUniqueID (@Nonnull final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)

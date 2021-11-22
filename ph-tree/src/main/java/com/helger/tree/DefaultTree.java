@@ -32,7 +32,7 @@ public class DefaultTree <DATATYPE> extends BasicTree <DATATYPE, DefaultTreeItem
 {
   public DefaultTree ()
   {
-    this (new DefaultTreeItemFactory <DATATYPE> ());
+    this (new DefaultTreeItemFactory <> ());
   }
 
   public DefaultTree (@Nonnull final ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>> aFactory)

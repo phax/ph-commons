@@ -34,7 +34,7 @@ public class DefaultTreeWithID <KEYTYPE, DATATYPE> extends BasicTreeWithID <KEYT
 {
   public DefaultTreeWithID ()
   {
-    this (new DefaultTreeItemWithIDFactory <KEYTYPE, DATATYPE> ());
+    this (new DefaultTreeItemWithIDFactory <> ());
   }
 
   public DefaultTreeWithID (@Nonnull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)

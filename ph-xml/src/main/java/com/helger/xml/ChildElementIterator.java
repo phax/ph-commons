@@ -40,7 +40,7 @@ public class ChildElementIterator implements IIterableIterator <Element>
   {
     m_aIter = NodeListIterator.createChildNodeIterator (aStartNode)
                               .withFilter (XMLHelper.filterNodeIsElement ())
-                              .withMapper (x -> (Element) x);
+                              .withMapper (Element.class::cast);
   }
 
   public final boolean hasNext ()

@@ -50,7 +50,7 @@ public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <
    */
   public DefaultFolderTree (@Nullable final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {
-    this (new DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE> (aKeyCombinator));
+    this (new DefaultFolderTreeItemFactory <> (aKeyCombinator));
   }
 
   /**

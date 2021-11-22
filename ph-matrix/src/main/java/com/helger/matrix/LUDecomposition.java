@@ -16,6 +16,8 @@
  */
 package com.helger.matrix;
 
+import java.util.Arrays;
+
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -229,10 +231,7 @@ public class LUDecomposition
   @Nonnull
   public int [] getPivot ()
   {
-    final int [] p = new int [m_nRows];
-    for (int i = 0; i < m_nRows; i++)
-      p[i] = m_aPivot[i];
-    return p;
+    return Arrays.copyOf (m_aPivot, m_nRows);
   }
 
   /**

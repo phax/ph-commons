@@ -92,13 +92,7 @@ public class AnnotationUsageCache
 
     final String sClassName = aClass.getName ();
 
-    ETriState eHas = m_aMap.get (sClassName);
-    if (eHas == null)
-    {
-      eHas = ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null);
-      m_aMap.put (sClassName, eHas);
-    }
-    return eHas.isTrue ();
+    return m_aMap.computeIfAbsent (sClassName, k -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)).isTrue ();
   }
 
   public void setAnnotation (@Nonnull final Class <?> aClass, final boolean bHasAnnotation)

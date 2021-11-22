@@ -242,10 +242,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    *         is invalid for the month-year
    */
   @Nonnull
-  public static OffsetDate of (final int year,
-                               final Month month,
-                               final int dayOfMonth,
-                               @Nonnull final ZoneOffset offset)
+  public static OffsetDate of (final int year, final Month month, final int dayOfMonth, @Nonnull final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new OffsetDate (d, offset);
@@ -379,7 +376,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    *
    * @return the valid object, not null
    */
-  private Object readResolve ()
+  protected Object readResolve ()
   {
     return of (m_aDate, m_aOffset);
   }
@@ -1192,8 +1189,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @Nonnull
   public OffsetDate minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
-                                              : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
   }
 
   // -----------------------------------------------------------------------
@@ -1355,8 +1351,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @Override
   public Temporal adjustInto (@Nonnull final Temporal temporal)
   {
-    return temporal.with (OFFSET_SECONDS, getOffset ().getTotalSeconds ())
-                   .with (EPOCH_DAY, toLocalDate ().toEpochDay ());
+    return temporal.with (OFFSET_SECONDS, getOffset ().getTotalSeconds ()).with (EPOCH_DAY, toLocalDate ().toEpochDay ());
   }
 
   /**

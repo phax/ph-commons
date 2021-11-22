@@ -69,7 +69,7 @@ public class StopWatch implements IStoppable
   /**
    * @return The current time in nano seconds.
    */
-  protected final long getCurrentNanoTime ()
+  protected static final long getCurrentNanoTime ()
   {
     return System.nanoTime ();
   }
@@ -252,9 +252,7 @@ public class StopWatch implements IStoppable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("StartDT", m_nStartDT)
-                                       .append ("DurationNanos", m_nDurationNanos)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("StartDT", m_nStartDT).append ("DurationNanos", m_nDurationNanos).getToString ();
   }
 
   /**

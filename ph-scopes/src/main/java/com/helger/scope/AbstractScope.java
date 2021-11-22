@@ -122,8 +122,8 @@ public abstract class AbstractScope implements IScope
 
     preDestroy ();
 
-    final ICommonsList <IScopeDestructionAware> aDestructionAware = m_aAttrs.copyOfValuesMapped (x -> x instanceof IScopeDestructionAware,
-                                                                                                 x -> (IScopeDestructionAware) x);
+    final ICommonsList <IScopeDestructionAware> aDestructionAware = m_aAttrs.copyOfValuesMapped (IScopeDestructionAware.class::isInstance,
+                                                                                                 IScopeDestructionAware.class::cast);
 
     // Call callback (if special interface is implemented)
     for (final IScopeDestructionAware aValue : aDestructionAware)
