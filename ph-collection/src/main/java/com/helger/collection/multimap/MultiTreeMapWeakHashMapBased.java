@@ -23,9 +23,24 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsVector;
 import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 
+/**
+ * Multi map based on {@link com.helger.commons.collection.impl.CommonsTreeMap}
+ * and {@link CommonsVector} values. <br>
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE1>
+ *        outer key type
+ * @param <KEYTYPE2>
+ *        inner key type
+ * @param <VALUETYPE>
+ *        value type
+ * @deprecated Deprecated in v10; will be removed for v11; use the ICommons
+ *             container directly
+ */
 @Deprecated
 public class MultiTreeMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends
                                           AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsMap <KEYTYPE2, VALUETYPE>>

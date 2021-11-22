@@ -31,6 +31,8 @@ import com.helger.commons.state.EChange;
  *        Key type
  * @param <VALUETYPE>
  *        Value type
+ * @deprecated Deprecated in v10; will be removed for v11; use the ICommons
+ *             container directly
  */
 @Deprecated
 public interface IMultiMapListBased <KEYTYPE, VALUETYPE> extends IMultiMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>

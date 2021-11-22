@@ -37,6 +37,8 @@ import com.helger.commons.collection.impl.ICommonsMap;
  *        value type
  * @param <MAPTYPE>
  *        Inner map type
+ * @deprecated Deprecated in v10; will be removed for v11; use the ICommons
+ *             container directly
  */
 @NotThreadSafe
 @Deprecated

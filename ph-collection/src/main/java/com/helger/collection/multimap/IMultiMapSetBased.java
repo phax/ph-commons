@@ -28,6 +28,8 @@ import com.helger.commons.collection.impl.ICommonsSet;
  *        Element type
  * @param <COLLTYPE>
  *        Set type containing value types
+ * @deprecated Deprecated in v10; will be removed for v11; use the ICommons
+ *             container directly
  */
 @Deprecated
 public interface IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>> extends

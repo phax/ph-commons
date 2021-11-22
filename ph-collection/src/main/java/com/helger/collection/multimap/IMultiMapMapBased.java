@@ -39,6 +39,8 @@ import com.helger.commons.state.EChange;
  *        Element type
  * @param <MAPTYPE>
  *        Inner map type
+ * @deprecated Deprecated in v10; will be removed for v11; use the ICommons
+ *             container directly
  */
 @Deprecated
 public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>> extends

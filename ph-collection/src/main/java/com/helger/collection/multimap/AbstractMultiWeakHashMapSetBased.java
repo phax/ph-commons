@@ -35,6 +35,8 @@ import com.helger.commons.collection.impl.ICommonsSet;
  *        value type
  * @param <COLLTYPE>
  *        Set type containing value types
+ * @deprecated Deprecated in v10; will be removed for v11; use the ICommons
+ *             container directly
  */
 @NotThreadSafe
 @Deprecated
