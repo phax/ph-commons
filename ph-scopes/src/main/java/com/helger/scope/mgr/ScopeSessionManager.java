@@ -63,7 +63,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   private static final IMutableStatisticsHandlerCounter STATS_UNIQUE_SESSIONS = StatisticsManager.getCounterHandler (ScopeSessionManager.class.getName () +
                                                                                                                      "$UNIQUE_SESSIONS");
 
-  private static ScopeSessionManager INSTANCE = null;
+  private static ScopeSessionManager s_aInstance;
 
   /** All contained session scopes. */
   @GuardedBy ("m_aRWLock")
@@ -90,9 +90,9 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   {
     // This special handling is needed, because this global singleton is
     // required upon shutdown of the GlobalWebScope!
-    ScopeSessionManager ret = INSTANCE;
+    ScopeSessionManager ret = s_aInstance;
     if (ret == null)
-      ret = INSTANCE = getGlobalSingleton (ScopeSessionManager.class);
+      ret = s_aInstance = getGlobalSingleton (ScopeSessionManager.class);
     return ret;
   }
 
@@ -321,6 +321,6 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     else
       if (isEndAllSessionsOnScopeEnd ())
         _endAllSessionScopes ();
-    INSTANCE = null;
+    s_aInstance = null;
   }
 }

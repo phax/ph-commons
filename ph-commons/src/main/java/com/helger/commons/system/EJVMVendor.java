@@ -98,14 +98,14 @@ public enum EJVMVendor
   static
   {
     // Check
-    EJVMVendor ret = null;
+    EJVMVendor ret = UNKNOWN;
     for (final EJVMVendor eVendor : values ())
       if (eVendor.isJVMVendor ())
       {
         ret = eVendor;
         break;
       }
-    INSTANCE = ret == null ? UNKNOWN : ret;
+    INSTANCE = ret;
 
   }
 

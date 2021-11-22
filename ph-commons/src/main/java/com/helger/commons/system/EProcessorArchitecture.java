@@ -41,7 +41,7 @@ public enum EProcessorArchitecture
   private static final String SYSTEM_PROPERTY_SUN_ARCH_DATA_MODEL = "sun.arch.data.model";
 
   /** The current architecture. */
-  private static EProcessorArchitecture INSTANCE = null;
+  private static final EProcessorArchitecture INSTANCE = forBits (getCurrentArchitectureBits ());
 
   private final int m_nBits;
 
@@ -103,15 +103,8 @@ public enum EProcessorArchitecture
    *         returned and never <code>null</code>.
    */
   @Nonnull
-  static EProcessorArchitecture getCurrentArchitecture ()
+  public static EProcessorArchitecture getCurrentArchitecture ()
   {
-    EProcessorArchitecture ret = INSTANCE;
-    if (ret == null)
-    {
-      // Note: double initialization doesn't matter here
-      ret = forBits (getCurrentArchitectureBits ());
-      INSTANCE = ret;
-    }
-    return ret;
+    return INSTANCE;
   }
 }

@@ -44,10 +44,25 @@ public enum EJavaVersion
   JDK_11 (55.0, 56.0),
   JDK_12 (56.0, 57.0),
   JDK_13 (57.0, 58.0),
-  JDK_14 (58.0, 59.0);
+  JDK_14 (58.0, 59.0),
+  JDK_15 (59.0, 60.0),
+  JDK_16 (60.0, 61.0),
+  JDK_17 (61.0, 62.0);
 
   /** The current version. */
-  private static EJavaVersion INSTANCE = null;
+  private static final EJavaVersion INSTANCE;
+
+  static
+  {
+    EJavaVersion ret = UNKNOWN;
+    for (final EJavaVersion eVersion : values ())
+      if (eVersion.m_bIsIt)
+      {
+        ret = eVersion;
+        break;
+      }
+    INSTANCE = ret;
+  }
 
   private final double m_dMinVersionIncl;
   private final double m_dMaxVersionExcl;
@@ -136,21 +151,7 @@ public enum EJavaVersion
   @Nonnull
   public static EJavaVersion getCurrentVersion ()
   {
-    EJavaVersion ret = INSTANCE;
-    if (ret == null)
-    {
-      // Note: double initialization doesn't matter here
-      for (final EJavaVersion eVersion : values ())
-        if (eVersion.m_bIsIt)
-        {
-          ret = eVersion;
-          break;
-        }
-      if (ret == null)
-        ret = UNKNOWN;
-      INSTANCE = ret;
-    }
-    return ret;
+    return INSTANCE;
   }
 
   /**

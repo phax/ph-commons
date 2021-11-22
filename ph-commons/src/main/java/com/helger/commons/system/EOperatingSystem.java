@@ -82,7 +82,16 @@ public enum EOperatingSystem implements IHasDisplayName
   private static final Logger LOGGER = LoggerFactory.getLogger (EOperatingSystem.class);
 
   /** The current OS. */
-  private static EOperatingSystem INSTANCE = null;
+  private static final EOperatingSystem INSTANCE;
+
+  static
+  {
+    final String sCurrentOSName = getCurrentOSName ();
+    INSTANCE = forName (sCurrentOSName);
+    if (INSTANCE == UNKNOWN)
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
+  }
 
   /** The human-readable name for this operating system. */
   private final String m_sDisplayName;
@@ -224,18 +233,7 @@ public enum EOperatingSystem implements IHasDisplayName
   @Nonnull
   public static EOperatingSystem getCurrentOS ()
   {
-    EOperatingSystem ret = INSTANCE;
-    if (ret == null)
-    {
-      // Note: double initialization doesn't matter here
-      final String sCurrentOSName = getCurrentOSName ();
-      ret = forName (sCurrentOSName);
-      INSTANCE = ret;
-      if (ret == UNKNOWN)
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
-    }
-    return ret;
+    return INSTANCE;
   }
 
   /**
