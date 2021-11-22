@@ -27,8 +27,8 @@ import javax.annotation.Nullable;
  */
 public class JsonParseException extends Exception
 {
-  private final IJsonParsePosition m_aTokenStart;
-  private final IJsonParsePosition m_aErrorPos;
+  private final transient IJsonParsePosition m_aTokenStart;
+  private final transient IJsonParsePosition m_aErrorPos;
   private final String m_sMessage;
 
   public JsonParseException (@Nonnull final String sMessage)

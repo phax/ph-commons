@@ -47,7 +47,7 @@ import com.helger.commons.string.ToStringGenerator;
 public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyMapBasedMultilingualText implements IMutableMultilingualText
 {
   /** A list of callback upon change. */
-  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <> ();
+  private final transient CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <> ();
 
   public AbstractMapBasedMultilingualText ()
   {}

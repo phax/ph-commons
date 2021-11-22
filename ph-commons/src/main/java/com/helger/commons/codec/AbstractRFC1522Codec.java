@@ -61,7 +61,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
   /**
    * The default charset used for string decoding and encoding.
    */
-  private transient Charset m_aCharset;
+  private Charset m_aCharset;
 
   /**
    * Constructor which allows for the selection of a default charset

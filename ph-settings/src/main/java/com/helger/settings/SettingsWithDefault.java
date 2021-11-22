@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class SettingsWithDefault extends Settings implements ISettingsWithDefault
 {
-  private final ISettings m_aDefaultSettings;
+  private final transient ISettings m_aDefaultSettings;
 
   public SettingsWithDefault (@Nonnull final ISettings aDefaultSettings)
   {

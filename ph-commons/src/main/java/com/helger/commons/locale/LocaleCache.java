@@ -59,7 +59,7 @@ public class LocaleCache
    * @since 9.3.9
    */
   @FunctionalInterface
-  public static interface IMissingLocaleHandler
+  public interface IMissingLocaleHandler
   {
     /**
      * Called if a Locale is not yet present.

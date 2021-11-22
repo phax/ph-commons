@@ -43,8 +43,8 @@ import com.helger.commons.string.ToStringGenerator;
 public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> implements
                                           IAttributeContainer <KEYTYPE, VALUETYPE>
 {
-  private final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> m_aBeforeCallbacks = new CallbackList <> ();
-  private final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> m_aAfterCallbacks = new CallbackList <> ();
+  private final transient CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> m_aBeforeCallbacks = new CallbackList <> ();
+  private final transient CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> m_aAfterCallbacks = new CallbackList <> ();
 
   public AttributeContainerConcurrent ()
   {}

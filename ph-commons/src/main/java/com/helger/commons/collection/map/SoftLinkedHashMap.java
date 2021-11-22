@@ -50,7 +50,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     // Note: 0.75f is the same as HashMap.DEFAULT_LOAD_FACTOR
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private Predicate <? super Map.Entry <K, V>> m_aFilter;
+    private transient Predicate <? super Map.Entry <K, V>> m_aFilter;
 
     public InternalLinkedHashMap (@Nonnegative final int nMaxSize)
     {

@@ -34,7 +34,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class NonReentrantLock extends AbstractQueuedSynchronizer implements Lock
 {
   @SuppressFBWarnings ("SE_BAD_FIELD")
-  private Thread m_aOwner;
+  private transient Thread m_aOwner;
 
   public NonReentrantLock ()
   {}

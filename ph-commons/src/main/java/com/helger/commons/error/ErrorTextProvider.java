@@ -94,7 +94,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
    *
    * @author Philip Helger
    */
-  public static interface IFormattableItem
+  public interface IFormattableItem
   {
     @Nonnull
     EField getField ();

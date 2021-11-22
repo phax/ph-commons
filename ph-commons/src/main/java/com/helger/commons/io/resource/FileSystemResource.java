@@ -52,7 +52,7 @@ public class FileSystemResource implements IReadWriteResource
   private final File m_aFile;
   private final String m_sPath;
   // Status var
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public FileSystemResource (@Nonnull final URI aURI)
   {

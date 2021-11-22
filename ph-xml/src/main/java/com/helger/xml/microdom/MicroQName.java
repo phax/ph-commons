@@ -49,7 +49,7 @@ public final class MicroQName implements IMicroQName
   private final String m_sNamespaceURI;
   private final String m_sName;
   // Status vars
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public MicroQName (@Nonnull @Nonempty final String sName)
   {

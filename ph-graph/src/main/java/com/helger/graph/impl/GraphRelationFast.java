@@ -34,7 +34,7 @@ import com.helger.graph.IMutableGraphNode;
 public class GraphRelationFast extends GraphRelation
 {
   // Status vars
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public GraphRelationFast (@Nonnull final IMutableGraphNode aFrom, @Nonnull final IMutableGraphNode aTo)
   {

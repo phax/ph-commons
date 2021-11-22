@@ -46,7 +46,7 @@ public final class DateTimeFormatterPattern
   private final DateTimeFormatter m_aFormatter;
 
   // Status vars
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public DateTimeFormatterPattern (@Nonnull @Nonempty final String sPattern, @Nonnull final ResolverStyle eResolverStyle)
   {

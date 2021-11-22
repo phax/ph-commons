@@ -109,7 +109,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     }
   }
 
-  private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger (0);
   @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();

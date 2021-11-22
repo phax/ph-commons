@@ -46,8 +46,8 @@ public final class RegExPattern
   private final int m_nOptions;
 
   // Status vars
-  private transient Pattern m_aPattern;
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private Pattern m_aPattern;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public static boolean areDebugConsistencyChecksEnabled ()
   {

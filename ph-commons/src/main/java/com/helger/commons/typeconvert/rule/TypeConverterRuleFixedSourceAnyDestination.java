@@ -37,7 +37,7 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
   private final Class <SRC> m_aSrcClass;
   private final Function <? super SRC, ? extends Object> m_aInBetweenConverter;
   // Status vars
-  private transient Class <?> m_aEffectiveDstClass;
+  private Class <?> m_aEffectiveDstClass;
 
   public TypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
                                                      @Nonnull final Function <? super SRC, ? extends Object> aInBetweenConverter)

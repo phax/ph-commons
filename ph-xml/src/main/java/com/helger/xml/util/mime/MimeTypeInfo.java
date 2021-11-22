@@ -52,7 +52,7 @@ public final class MimeTypeInfo
     private final IMimeType m_aMimeType;
     private final String m_sSource;
     // status vars
-    private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+    private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
     public MimeTypeWithSource (@Nonnull final String sMimeType) throws MimeTypeParserException
     {

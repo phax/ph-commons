@@ -41,7 +41,7 @@ public class ObjectType implements IComparable <ObjectType>, IHasName
 {
   private final String m_sName;
   // The mutable m_aHashCode does not contradict thread safety
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public ObjectType (@Nonnull @Nonempty final String sName)
   {

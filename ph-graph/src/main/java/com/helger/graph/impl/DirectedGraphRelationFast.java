@@ -34,7 +34,7 @@ import com.helger.graph.IMutableDirectedGraphNode;
 public class DirectedGraphRelationFast extends DirectedGraphRelation
 {
   // Status vars
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public DirectedGraphRelationFast (@Nonnull final IMutableDirectedGraphNode aFrom, @Nonnull final IMutableDirectedGraphNode aTo)
   {

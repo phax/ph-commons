@@ -32,7 +32,7 @@ import com.helger.commons.hashcode.IHashCodeGenerator;
 public class DirectedGraphNodeFast extends DirectedGraphNode
 {
   // Status vars
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public DirectedGraphNodeFast ()
   {

@@ -49,7 +49,7 @@ import com.helger.commons.traits.IGetterByKeyTrait;
 public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <KEYTYPE, VALUETYPE>, IGetterByKeyTrait <KEYTYPE>
 {
   @FunctionalInterface
-  public static interface IBeforeSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
+  interface IBeforeSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
   {
     /**
      * Invoked before a new value is set
@@ -66,7 +66,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
   }
 
   @FunctionalInterface
-  public static interface IAfterSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
+  interface IAfterSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
   {
     /**
      * Method that is invoked after a value changed.

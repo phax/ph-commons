@@ -34,7 +34,7 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 @ThreadSafe
 public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHandlerNumeric
 {
-  private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private int m_nInvocationCount = 0;
   private long m_nMin = CGlobal.ILLEGAL_ULONG;
   private long m_nMax = CGlobal.ILLEGAL_ULONG;

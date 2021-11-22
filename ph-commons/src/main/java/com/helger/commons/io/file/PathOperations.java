@@ -67,7 +67,7 @@ public final class PathOperations
    * @author Philip Helger
    */
   @FunctionalInterface
-  private static interface IOpPath
+  private interface IOpPath
   {
     void op (Path aPath) throws IOException;
   }
@@ -78,7 +78,7 @@ public final class PathOperations
    * @author Philip Helger
    */
   @FunctionalInterface
-  private static interface IOpPath2
+  private interface IOpPath2
   {
     void op (Path aPath1, Path aPath2) throws IOException;
   }

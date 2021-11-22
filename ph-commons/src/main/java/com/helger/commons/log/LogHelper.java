@@ -48,7 +48,7 @@ public final class LogHelper
    * @since 9.1.3
    */
   @FunctionalInterface
-  public static interface IFuncIsLoggingEnabled
+  public interface IFuncIsLoggingEnabled
   {
     boolean isEnabled ();
   }
@@ -61,7 +61,7 @@ public final class LogHelper
    * @since 9.1.3
    */
   @FunctionalInterface
-  public static interface IFuncLogger
+  public interface IFuncLogger
   {
     void log (@Nonnull String sMsg, @Nullable Throwable t);
   }

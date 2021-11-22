@@ -46,7 +46,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
 {
   @MustImplementEqualsAndHashcode
-  private final Supplier <? extends ELEMENTTYPE> m_aFactory;
+  private final transient Supplier <? extends ELEMENTTYPE> m_aFactory;
 
   /**
    * Constructor filling up the missing elements with <code>null</code> values.
