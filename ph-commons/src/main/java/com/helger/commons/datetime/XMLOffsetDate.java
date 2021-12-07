@@ -387,19 +387,19 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    * <p>
    * The text is parsed using the formatter, returning a date.
    *
-   * @param text
+   * @param sText
    *        the text to parse, not <code>null</code>.
-   * @param formatter
+   * @param aFormatter
    *        the formatter to use, not <code>null</code>.
    * @return the parsed offset date, not <code>null</code>.
    * @throws DateTimeParseException
    *         if the text cannot be parsed
    */
   @Nonnull
-  public static XMLOffsetDate parse (@Nonnull final CharSequence text, @Nonnull final DateTimeFormatter formatter)
+  public static XMLOffsetDate parse (@Nonnull final CharSequence sText, @Nonnull final DateTimeFormatter aFormatter)
   {
-    ValueEnforcer.notNull (formatter, "formatter");
-    return formatter.parse (text, XMLOffsetDate::from);
+    ValueEnforcer.notNull (aFormatter, "formatter");
+    return aFormatter.parse (sText, XMLOffsetDate::from);
   }
 
   /**
