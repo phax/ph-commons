@@ -103,7 +103,11 @@ public final class XMLFactory
   /**
    * Create a new {@link DocumentBuilderFactory} using the defaults defined in
    * this class ({@link #DEFAULT_DOM_NAMESPACE_AWARE},
-   * {@link #DEFAULT_DOM_VALIDATING} etc.).
+   * {@link #DEFAULT_DOM_VALIDATING} ,
+   * {@link #DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE},
+   * {@link #DEFAULT_DOM_EXPAND_ENTITY_REFERENCES},
+   * {@link #DEFAULT_DOM_IGNORING_COMMENTS} and
+   * {@link #DEFAULT_DOM_COALESCING}.).
    *
    * @return Never <code>null</code>.
    */
