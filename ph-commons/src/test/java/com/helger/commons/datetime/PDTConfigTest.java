@@ -20,8 +20,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 
 import org.junit.Test;
 
@@ -60,6 +64,26 @@ public final class PDTConfigTest
     finally
     {
       assertTrue (PDTConfig.setDefaultDateTimeZoneID (aDTZ.getId ()).isSuccess ());
+    }
+  }
+
+  @Test
+  public void testYearThan9999 ()
+  {
+    final LocalDate aLD = LocalDate.parse ("+22021-05-10");
+    assertNotNull (aLD);
+    assertEquals (PDTFactory.createLocalDate (22021, Month.MAY, 10), aLD);
+    assertEquals ("+22021-05-10", aLD.toString ());
+
+    // Fails without the "+" or "-" prefix
+    try
+    {
+      LocalDate.parse ("22021-05-10");
+      fail ();
+    }
+    catch (final DateTimeParseException ex)
+    {
+      // expected
     }
   }
 }
