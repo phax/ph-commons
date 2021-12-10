@@ -65,7 +65,7 @@
   <properties>
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
-    <bc.version>1.69</bc.version>
+    <bc.version>1.70</bc.version>
   </properties>
   
   <dependencyManagement>

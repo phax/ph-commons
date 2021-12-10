@@ -38,7 +38,7 @@ public final class ThirdPartyModuleProvider_ph_bc implements IThirdPartyModulePr
   public static final IThirdPartyModule BOUNCY_CASTLE = new ThirdPartyModule ("Bouncy Castle",
                                                                               "Legion of the Bouncy Castle",
                                                                               ELicense.MIT,
-                                                                              new Version (1, 69),
+                                                                              new Version (1, 70),
                                                                               "https://www.bouncycastle.org/");
 
   @Nonnull
