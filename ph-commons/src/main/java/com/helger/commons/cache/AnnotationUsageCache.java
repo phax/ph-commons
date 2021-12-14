@@ -79,6 +79,16 @@ public class AnnotationUsageCache
     return m_aAnnotationClass;
   }
 
+  /**
+   * Check if the class of the passed object has the annotation provided in the
+   * constructor.
+   *
+   * @param aObject
+   *        The object. To be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the owning class has the annotation,
+   *         <code>false</code> if not.
+   * @see #hasAnnotation(Class)
+   */
   public boolean hasAnnotation (@Nonnull final Object aObject)
   {
     ValueEnforcer.notNull (aObject, "Object");
@@ -86,6 +96,15 @@ public class AnnotationUsageCache
     return hasAnnotation (aObject.getClass ());
   }
 
+  /**
+   * Check if the provided class has the annotation from the constructor or not.
+   * If the value is not yet in the cache, it will be determined.
+   *
+   * @param aClass
+   *        The class to check. May not be <code>null</code>.
+   * @return <code>true</code> if the provided class has the annotation,
+   *         <code>false</code> if not.
+   */
   public boolean hasAnnotation (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
@@ -95,6 +114,15 @@ public class AnnotationUsageCache
     return m_aMap.computeIfAbsent (sClassName, k -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)).isTrue ();
   }
 
+  /**
+   * In case the knowledge was gathered on the outside, remember the wisdom in
+   * this class.
+   *
+   * @param aClass
+   *        The class that it is about.
+   * @param bHasAnnotation
+   *        <code>true</code> to indicate the presence, <code>false</code> to
+   */
   public void setAnnotation (@Nonnull final Class <?> aClass, final boolean bHasAnnotation)
   {
     ValueEnforcer.notNull (aClass, "Class");
@@ -104,6 +132,10 @@ public class AnnotationUsageCache
     m_aMap.put (sClassName, ETriState.valueOf (bHasAnnotation));
   }
 
+  /**
+   * Remove all entries from the cache. That is mainly of interested for testing
+   * purposes, to provide a clean state.
+   */
   public void clearCache ()
   {
     m_aMap.clear ();
