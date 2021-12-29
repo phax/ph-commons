@@ -1,6 +1,5 @@
 # ph-commons
 
-[![Build Status](https://travis-ci.com/phax/ph-commons.svg?branch=master)](https://travis-ci.com/phax/ph-commons)
 [![javadoc](https://javadoc.io/badge2/com.helger.commons/ph-commons/javadoc.svg)](https://javadoc.io/doc/com.helger.commons/ph-commons)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger.commons/ph-commons-parent-pom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger.commons/ph-commons-parent-pom) 
 
