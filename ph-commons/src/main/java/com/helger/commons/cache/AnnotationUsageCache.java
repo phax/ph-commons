@@ -111,7 +111,18 @@ public class AnnotationUsageCache
 
     final String sClassName = aClass.getName ();
 
-    return m_aMap.computeIfAbsent (sClassName, k -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)).isTrue ();
+    if (false)
+      return m_aMap.computeIfAbsent (sClassName, k -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)).isTrue ();
+
+    // Don't use computeIfAbsent here, because it can throw
+    // ConcurrentModificationException in Java 11
+    ETriState e = m_aMap.get (sClassName);
+    if (e == null)
+    {
+      e = ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null);
+      m_aMap.put (sClassName, e);
+    }
+    return e.isTrue ();
   }
 
   /**
