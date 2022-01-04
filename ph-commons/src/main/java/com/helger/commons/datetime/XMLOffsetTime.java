@@ -1408,9 +1408,9 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
         case NANOS:
           return nanosUntil;
         case MICROS:
-          return nanosUntil / 1000;
+          return nanosUntil / 1_000;
         case MILLIS:
-          return nanosUntil / 1000_000;
+          return nanosUntil / 1_000_000;
         case SECONDS:
           return nanosUntil / CGlobal.NANOSECONDS_PER_SECOND;
         case MINUTES:

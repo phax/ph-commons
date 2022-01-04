@@ -25,6 +25,7 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnegative;
@@ -1077,7 +1078,7 @@ public class MatrixInt implements ICloneable <MatrixInt>, Serializable
   @ReturnsMutableCopy
   public static MatrixInt random (@Nonnegative final int nRows, @Nonnegative final int nCols)
   {
-    final Random aRandom = new Random ();
+    final Random aRandom = ThreadLocalRandom.current ();
     final MatrixInt aNewMatrix = new MatrixInt (nRows, nCols);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
     for (int nRow = 0; nRow < nRows; nRow++)
