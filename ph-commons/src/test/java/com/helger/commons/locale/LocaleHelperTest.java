@@ -238,4 +238,10 @@ public final class LocaleHelperTest
     assertEquals ("EN", LocaleHelper.getValidCountryCode ("en"));
   }
 
+  @Test
+  public void testKosovo ()
+  {
+    assertEquals ("XK", LocaleHelper.getValidCountryCode ("XK"));
+    assertEquals ("1A", LocaleHelper.getValidCountryCode ("1A"));
+  }
 }

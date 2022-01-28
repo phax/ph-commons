@@ -402,7 +402,8 @@ public final class LocaleHelper
     if (StringHelper.hasText (sCode))
     {
       // Allow for 2 letter codes ("AT")
-      if (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2}|[0-9]{3}", sCode))
+      // Second version allows for "1A" as Kosovo code
+      if (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2}|[0-9][a-zA-Z]|[0-9]{3}", sCode))
       {
         return sCode.toUpperCase (Locale.ROOT);
       }
