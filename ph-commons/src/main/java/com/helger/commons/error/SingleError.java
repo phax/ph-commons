@@ -63,6 +63,12 @@ public class SingleError implements IError
   private final IHasErrorText m_aErrorText;
   private final Throwable m_aLinkedException;
 
+  /**
+   * Constructor for the Builder only.
+   *
+   * @param aBuilder
+   *        The builder to take the data from. May not be <code>null</code>.
+   */
   protected SingleError (@Nonnull final AbstractBuilder <?, ?> aBuilder)
   {
     this (aBuilder.m_aErrorDT,
@@ -78,7 +84,7 @@ public class SingleError implements IError
    * Constructor
    *
    * @param aErrorLevel
-   *        Error level
+   *        Error level. May not be <code>null</code>.
    * @param sErrorID
    *        Error ID
    * @param sErrorFieldName
@@ -109,7 +115,7 @@ public class SingleError implements IError
    * @param aErrorDT
    *        Error date time
    * @param aErrorLevel
-   *        Error level
+   *        Error level. May not be <code>null</code>.
    * @param sErrorID
    *        Error ID
    * @param sErrorFieldName
@@ -120,6 +126,7 @@ public class SingleError implements IError
    *        Error text
    * @param aLinkedException
    *        Linked exception
+   * @since 10.1.7
    */
   public SingleError (@Nullable final LocalDateTime aErrorDT,
                       @Nonnull final IErrorLevel aErrorLevel,
