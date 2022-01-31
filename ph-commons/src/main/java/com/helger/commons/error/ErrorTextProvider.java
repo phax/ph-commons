@@ -51,6 +51,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
   public enum EField implements IHasID <String>
   {
     CONSTANT ("const"),
+    ERROR_DATETIME ("datetime"),
     ERROR_LEVEL ("level"),
     ERROR_ID ("id"),
     ERROR_FIELD_NAME ("fieldname"),
@@ -152,7 +153,8 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     }
   }
 
-  public static final IErrorTextProvider DEFAULT = new ErrorTextProvider ().addItem (EField.ERROR_LEVEL, "[$]")
+  public static final IErrorTextProvider DEFAULT = new ErrorTextProvider ().addItem (EField.ERROR_DATETIME, "[$]")
+                                                                           .addItem (EField.ERROR_LEVEL, "[$]")
                                                                            .addItem (EField.ERROR_ID, "[$]")
                                                                            .addItem (EField.ERROR_FIELD_NAME, "in $")
                                                                            .addItem (EField.ERROR_LOCATION, "@ $")
@@ -236,6 +238,16 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
         case CONSTANT:
         {
           aSB.append (aItem.getUnformattedText ());
+          break;
+        }
+        case ERROR_DATETIME:
+        {
+          if (aError.hasErrorDateTime ())
+          {
+            if (aSB.length () > 0)
+              aSB.append (m_sFieldSep);
+            aSB.append (aItem.getFormattedText (aError.getErrorDateTime ().toString ()));
+          }
           break;
         }
         case ERROR_LEVEL:

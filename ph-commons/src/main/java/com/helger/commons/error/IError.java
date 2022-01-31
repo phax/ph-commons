@@ -16,6 +16,7 @@
  */
 package com.helger.commons.error;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -37,6 +38,30 @@ import com.helger.commons.location.SimpleLocation;
 @MustImplementEqualsAndHashcode
 public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, IHasErrorField
 {
+  /**
+   * @return The date and time when the error occurred. Defaults to
+   *         <code>null</code> for backwards compatibility.
+   * @since 10.1.7
+   */
+  @Nullable
+  default LocalDateTime getErrorDateTime ()
+  {
+    return null;
+  }
+
+  /**
+   * Check if a error date time is present.
+   *
+   * @return <code>true</code> if error date time information is present,
+   *         <code>false</code> otherwise.
+   * @see #getErrorDateTime()
+   * @since 10.1.7
+   */
+  default boolean hasErrorDateTime ()
+  {
+    return getErrorDateTime () != null;
+  }
+
   /**
    * {@inheritDoc}
    */

@@ -16,6 +16,8 @@
  */
 package com.helger.commons.error;
 
+import java.time.LocalDateTime;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -27,6 +29,7 @@ import org.xml.sax.SAXParseException;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.builder.IBuilder;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -52,6 +55,7 @@ import com.helger.commons.traits.IGenericImplTrait;
 @Immutable
 public class SingleError implements IError
 {
+  private final LocalDateTime m_aErrorDT;
   private final IErrorLevel m_aErrorLevel;
   private final String m_sErrorID;
   private final String m_sErrorFieldName;
@@ -61,7 +65,8 @@ public class SingleError implements IError
 
   protected SingleError (@Nonnull final AbstractBuilder <?, ?> aBuilder)
   {
-    this (aBuilder.m_aErrorLevel,
+    this (aBuilder.m_aErrorDT,
+          aBuilder.m_aErrorLevel,
           aBuilder.m_sErrorID,
           aBuilder.m_sErrorFieldName,
           aBuilder.m_aErrorLocation,
@@ -69,6 +74,25 @@ public class SingleError implements IError
           aBuilder.m_aLinkedException);
   }
 
+  /**
+   * Constructor
+   *
+   * @param aErrorLevel
+   *        Error level
+   * @param sErrorID
+   *        Error ID
+   * @param sErrorFieldName
+   *        Error field name
+   * @param aErrorLocation
+   *        Error location
+   * @param aErrorText
+   *        Error text
+   * @param aLinkedException
+   *        Linked exception
+   * @deprecated Since 10.1.7; Use the constructor with LocalDateTime instead;
+   *             Removed in v11
+   */
+  @Deprecated
   public SingleError (@Nonnull final IErrorLevel aErrorLevel,
                       @Nullable final String sErrorID,
                       @Nullable final String sErrorFieldName,
@@ -76,12 +100,48 @@ public class SingleError implements IError
                       @Nullable final IHasErrorText aErrorText,
                       @Nullable final Throwable aLinkedException)
   {
+    this (null, aErrorLevel, sErrorID, sErrorFieldName, aErrorLocation, aErrorText, aLinkedException);
+  }
+
+  /**
+   * Constructor
+   *
+   * @param aErrorDT
+   *        Error date time
+   * @param aErrorLevel
+   *        Error level
+   * @param sErrorID
+   *        Error ID
+   * @param sErrorFieldName
+   *        Error field name
+   * @param aErrorLocation
+   *        Error location
+   * @param aErrorText
+   *        Error text
+   * @param aLinkedException
+   *        Linked exception
+   */
+  public SingleError (@Nullable final LocalDateTime aErrorDT,
+                      @Nonnull final IErrorLevel aErrorLevel,
+                      @Nullable final String sErrorID,
+                      @Nullable final String sErrorFieldName,
+                      @Nullable final ILocation aErrorLocation,
+                      @Nullable final IHasErrorText aErrorText,
+                      @Nullable final Throwable aLinkedException)
+  {
+    m_aErrorDT = aErrorDT;
     m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     m_sErrorID = sErrorID;
     m_sErrorFieldName = sErrorFieldName;
     m_aErrorLocation = aErrorLocation != null ? aErrorLocation : SimpleLocation.NO_LOCATION;
     m_aErrorText = aErrorText;
     m_aLinkedException = aLinkedException;
+  }
+
+  @Nullable
+  public LocalDateTime getErrorDateTime ()
+  {
+    return m_aErrorDT;
   }
 
   @Nonnull
@@ -156,7 +216,8 @@ public class SingleError implements IError
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleError rhs = (SingleError) o;
-    return m_aErrorLevel.equals (rhs.m_aErrorLevel) &&
+    return EqualsHelper.equals (m_aErrorDT, rhs.m_aErrorDT) &&
+           m_aErrorLevel.equals (rhs.m_aErrorLevel) &&
            EqualsHelper.equals (m_sErrorID, rhs.m_sErrorID) &&
            EqualsHelper.equals (m_sErrorFieldName, rhs.m_sErrorFieldName) &&
            EqualsHelper.equals (m_aErrorLocation, rhs.m_aErrorLocation) &&
@@ -188,7 +249,8 @@ public class SingleError implements IError
   @Override
   public int hashCode ()
   {
-    final HashCodeGenerator aHCG = new HashCodeGenerator (this).append (m_aErrorLevel)
+    final HashCodeGenerator aHCG = new HashCodeGenerator (this).append (m_aErrorDT)
+                                                               .append (m_aErrorLevel)
                                                                .append (m_sErrorID)
                                                                .append (m_sErrorFieldName)
                                                                .append (m_aErrorLocation)
@@ -200,7 +262,8 @@ public class SingleError implements IError
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ErrorLevel", m_aErrorLevel)
+    return new ToStringGenerator (this).appendIfNotNull ("ErrorDateTime", m_aErrorDT)
+                                       .append ("ErrorLevel", m_aErrorLevel)
                                        .appendIfNotNull ("ErrorID", m_sErrorID)
                                        .appendIfNotNull ("ErrorFieldName", m_sErrorFieldName)
                                        .appendIfNotNull ("ErrorLocation", m_aErrorLocation)
@@ -311,6 +374,7 @@ public class SingleError implements IError
   {
     public static final IErrorLevel DEFAULT_ERROR_LEVEL = EErrorLevel.ERROR;
 
+    protected LocalDateTime m_aErrorDT;
     protected IErrorLevel m_aErrorLevel = DEFAULT_ERROR_LEVEL;
     protected String m_sErrorID;
     protected String m_sErrorFieldName;
@@ -330,6 +394,19 @@ public class SingleError implements IError
       errorLocation (aError.getErrorLocation ());
       errorText (aError.getErrorTexts ());
       linkedException (aError.getLinkedException ());
+    }
+
+    @Nonnull
+    public final IMPLTYPE dateTimeNow ()
+    {
+      return dateTime (PDTFactory.getCurrentLocalDateTime ());
+    }
+
+    @Nonnull
+    public final IMPLTYPE dateTime (@Nullable final LocalDateTime aErrorDT)
+    {
+      m_aErrorDT = aErrorDT;
+      return thisAsT ();
     }
 
     @Nonnull
