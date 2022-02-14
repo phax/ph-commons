@@ -35,6 +35,13 @@ import com.helger.security.password.salt.IPasswordSalt;
 @Immutable
 public final class PasswordHash
 {
+  /**
+   * The maximum length of the algorithm name (for database reasons)
+   *
+   * @since 10.1.7
+   */
+  public static final int ALGORITHM_NAME_MAX_LENGTH = 100;
+
   private final String m_sAlgorithmName;
   private final IPasswordSalt m_aSalt;
   private final String m_sPasswordHashValue;
@@ -43,9 +50,13 @@ public final class PasswordHash
                        @Nullable final IPasswordSalt aSalt,
                        @Nonnull @Nonempty final String sPasswordHashValue)
   {
-    m_sAlgorithmName = ValueEnforcer.notEmpty (sAlgorithmName, "AlgorithmName");
+    ValueEnforcer.notEmpty (sAlgorithmName, "AlgorithmName");
+    ValueEnforcer.isTrue ( () -> sAlgorithmName.length () <= ALGORITHM_NAME_MAX_LENGTH, "AlgorithmName is too long");
+    ValueEnforcer.notEmpty (sPasswordHashValue, "PasswordHashValue");
+
+    m_sAlgorithmName = sAlgorithmName;
     m_aSalt = aSalt;
-    m_sPasswordHashValue = ValueEnforcer.notEmpty (sPasswordHashValue, "PasswordHashValue");
+    m_sPasswordHashValue = sPasswordHashValue;
   }
 
   @Nonnull
