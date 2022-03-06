@@ -240,6 +240,14 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
     return ret;
   }
 
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("Sources", m_aSources)
+                                       .append ("UseOnlyInitializedConfigSources", m_bUseOnlyInitializedConfigSources)
+                                       .getToString ();
+  }
+
   /**
    * Load all classpath elements with the same name.
    *
