@@ -190,7 +190,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     // Avoid having a conversion issue with empty strings!
     if (StringHelper.hasNoText (sAttrValue))
       return null;
-    // throws IllegalArgumentException if nothing can be converted
+    // throws TypeConverterException if nothing can be converted
     return TypeConverter.convert (sAttrValue, aDstClass);
   }
 
