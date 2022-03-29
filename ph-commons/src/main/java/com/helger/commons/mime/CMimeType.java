@@ -85,6 +85,9 @@ public final class CMimeType
   /** SOAP XML. */
   public static final IMimeType APPLICATION_SOAP_XML = EMimeContentType.APPLICATION.buildMimeType ("soap+xml");
 
+  /** X.509 user certificate */
+  public static final IMimeType APPLICATION_X509_USER_CERT = EMimeContentType.APPLICATION.buildMimeType ("x-x509-user-cert");
+
   /** For URL posting. Not used in filenames! */
   public static final IMimeType APPLICATION_X_WWW_FORM_URLENCODED = EMimeContentType.APPLICATION.buildMimeType ("x-www-form-urlencoded");
 
