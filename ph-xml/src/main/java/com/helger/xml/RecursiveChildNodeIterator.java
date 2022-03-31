@@ -17,12 +17,10 @@
 package com.helger.xml;
 
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -39,28 +37,12 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
 {
   private final Iterator <Node> m_aIter;
 
-  private static void _recursiveFillListPrefix (@Nonnull final Node aParent, @Nonnull final List <Node> aNodes)
-  {
-    final NodeList aNodeList = aParent.getChildNodes ();
-    if (aNodeList != null)
-    {
-      final int nlsize = aNodeList.getLength ();
-      for (int i = 0; i < nlsize; ++i)
-      {
-        final Node aCurrent = aNodeList.item (i);
-        aNodes.add (aCurrent);
-
-        _recursiveFillListPrefix (aCurrent, aNodes);
-      }
-    }
-  }
-
   public RecursiveChildNodeIterator (@Nonnull final Node aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
 
     final ICommonsList <Node> aNodes = new CommonsArrayList <> ();
-    _recursiveFillListPrefix (aParent, aNodes);
+    XMLHelper.recursiveIterate (aParent, aNodes::add);
     m_aIter = aNodes.iterator ();
   }
 
