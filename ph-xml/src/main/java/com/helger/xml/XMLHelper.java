@@ -865,7 +865,36 @@ public final class XMLHelper
     return new QName (sNamespaceURI, aElement.getLocalName (), getPrefix (aElement));
   }
 
-  private static void _recursiveIterate (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
+  /**
+   * Iterate all child nodes of the provided element NOT recursive. The provided
+   * consumer is invoked for every child node. Please note: the Consumer is not
+   * invoked for the parent element itself.
+   *
+   * @param aParent
+   *        The parent node to start from. May not be <code>null</code>.
+   * @param aConsumer
+   *        The Consumer to be invoked for every node. May not be
+   *        <code>null</code>.
+   * @since 10.1.7
+   */
+  public static void iterateChildren (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
+  {
+    ValueEnforcer.notNull (aParent, "Parent");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    final NodeList aNodeList = aParent.getChildNodes ();
+    if (aNodeList != null)
+    {
+      final int nChildCount = aNodeList.getLength ();
+      for (int i = 0; i < nChildCount; ++i)
+      {
+        final Node aCurrent = aNodeList.item (i);
+        aConsumer.accept (aCurrent);
+      }
+    }
+  }
+
+  private static void _recursiveIterateChildren (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
   {
     final NodeList aNodeList = aParent.getChildNodes ();
     if (aNodeList != null)
@@ -876,18 +905,30 @@ public final class XMLHelper
         final Node aCurrent = aNodeList.item (i);
         aConsumer.accept (aCurrent);
 
-        recursiveIterate (aCurrent, aConsumer);
+        _recursiveIterateChildren (aCurrent, aConsumer);
       }
     }
   }
 
-  public static void recursiveIterate (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
+  /**
+   * Recursively iterate all children of the provided element. The provided
+   * consumer is invoked for every child node. Please note: the Consumer is not
+   * invoked for the parent element itself.
+   *
+   * @param aParent
+   *        The parent node to start from. May not be <code>null</code>.
+   * @param aConsumer
+   *        The Consumer to be invoked for every node. May not be
+   *        <code>null</code>.
+   * @since 10.1.7
+   */
+  public static void recursiveIterateChildren (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
   {
     ValueEnforcer.notNull (aParent, "Parent");
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
     // Use a private method to avoid the ValueEnforcer is called over and over
     // again
-    _recursiveIterate (aParent, aConsumer);
+    _recursiveIterateChildren (aParent, aConsumer);
   }
 }

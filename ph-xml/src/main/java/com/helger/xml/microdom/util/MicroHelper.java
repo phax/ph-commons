@@ -24,7 +24,6 @@ import javax.xml.XMLConstants;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 
 import com.helger.commons.ValueEnforcer;
@@ -156,7 +155,7 @@ public final class MicroHelper
   {
     ValueEnforcer.notNull (aNode, "Node");
 
-    IMicroNode ret;
+    final IMicroNode ret;
     final short nNodeType = aNode.getNodeType ();
     switch (nNodeType)
     {
@@ -222,16 +221,7 @@ public final class MicroHelper
     }
 
     // handle children recursively (works for different node types)
-    final NodeList aChildren = aNode.getChildNodes ();
-    if (aChildren != null)
-    {
-      final int nChildCount = aChildren.getLength ();
-      for (int i = 0; i < nChildCount; ++i)
-      {
-        final Node aChildNode = aChildren.item (i);
-        ret.appendChild (convertToMicroNode (aChildNode));
-      }
-    }
+    XMLHelper.iterateChildren (aNode, x -> ret.appendChild (convertToMicroNode (x)));
 
     return ret;
   }

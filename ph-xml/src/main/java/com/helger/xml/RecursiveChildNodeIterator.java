@@ -42,7 +42,7 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
     ValueEnforcer.notNull (aParent, "Parent");
 
     final ICommonsList <Node> aNodes = new CommonsArrayList <> ();
-    XMLHelper.recursiveIterate (aParent, aNodes::add);
+    XMLHelper.recursiveIterateChildren (aParent, aNodes::add);
     m_aIter = aNodes.iterator ();
   }
 
