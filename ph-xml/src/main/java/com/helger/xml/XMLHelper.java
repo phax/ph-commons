@@ -864,4 +864,30 @@ public final class XMLHelper
       return new QName (aElement.getTagName ());
     return new QName (sNamespaceURI, aElement.getLocalName (), getPrefix (aElement));
   }
+
+  private static void _recursiveIterate (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
+  {
+    final NodeList aNodeList = aParent.getChildNodes ();
+    if (aNodeList != null)
+    {
+      final int nChildCount = aNodeList.getLength ();
+      for (int i = 0; i < nChildCount; ++i)
+      {
+        final Node aCurrent = aNodeList.item (i);
+        aConsumer.accept (aCurrent);
+
+        recursiveIterate (aCurrent, aConsumer);
+      }
+    }
+  }
+
+  public static void recursiveIterate (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
+  {
+    ValueEnforcer.notNull (aParent, "Parent");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    // Use a private method to avoid the ValueEnforcer is called over and over
+    // again
+    _recursiveIterate (aParent, aConsumer);
+  }
 }
