@@ -62,6 +62,54 @@ public enum EXMLParserFeature implements IHasName
   SECURE_PROCESSING (EXMLParserFeatureType.GENERAL, XMLConstants.FEATURE_SECURE_PROCESSING),
 
   /**
+   * Restrict access to external DTDs and external Entity References to the
+   * protocols specified.If access is denied due to the restriction of this
+   * property, a runtime exception that is specific to the context is thrown. In
+   * the case of javax.xml.parsers.SAXParserfor example,
+   * org.xml.sax.SAXException is thrown.<br>
+   * Value: a list of protocols separated by comma. A protocol is the scheme
+   * portion of a java.net.URI, or in the case of the JAR protocol, "jar" plus
+   * the scheme portion separated by colon.<br>
+   * ({@link XMLConstants#ACCESS_EXTERNAL_DTD})
+   *
+   * @since 10.1.7
+   */
+  ACCESS_EXTERNAL_DTD (EXMLParserFeatureType.GENERAL, XMLConstants.ACCESS_EXTERNAL_DTD),
+
+  /**
+   * Restrict access to the protocols specified for external reference set by
+   * theschemaLocation attribute, Import and Include element. If access is
+   * denied due to the restriction of this property, a runtime exception that is
+   * specific to the context is thrown. In the case of
+   * javax.xml.validation.SchemaFactoryfor example, org.xml.sax.SAXException is
+   * thrown.<br>
+   * Value: a list of protocols separated by comma. A protocol is the scheme
+   * portion of a java.net.URI, or in the case of the JAR protocol, "jar" plus
+   * the scheme portion separated by colon. <br>
+   * ({@link XMLConstants#ACCESS_EXTERNAL_SCHEMA})
+   *
+   * @since 10.1.7
+   */
+  ACCESS_EXTERNAL_SCHEMA (EXMLParserFeatureType.GENERAL, XMLConstants.ACCESS_EXTERNAL_SCHEMA),
+
+  /**
+   * Restrict access to the protocols specified for external references set by
+   * the stylesheet processing instruction, Import and Include element, and
+   * document function.If access is denied due to the restriction of this
+   * property, a runtime exception that is specific to the context is thrown. In
+   * the case of constructing new javax.xml.transform.Transformer for example,
+   * javax.xml.transform.TransformerConfigurationExceptionwill be thrown by the
+   * javax.xml.transform.TransformerFactory.<br>
+   * Value: a list of protocols separated by comma. A protocol is the scheme
+   * portion of a java.net.URI, or in the case of the JAR protocol, "jar" plus
+   * the scheme portion separated by colon<br>
+   * ({@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET})
+   *
+   * @since 10.1.7
+   */
+  ACCESS_EXTERNAL_STYLESHEET (EXMLParserFeatureType.GENERAL, XMLConstants.ACCESS_EXTERNAL_STYLESHEET),
+
+  /**
    * When true: Perform namespace processing: prefixes will be stripped off
    * element and attribute names and replaced with the corresponding namespace
    * URIs. By default, the two will simply be concatenated, but the
@@ -120,7 +168,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://apache.org/xml/features/validation/schema-full-checking)
    */
-  SCHEMA_FULL_CHECKING (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/validation/schema-full-checking"),
+  SCHEMA_FULL_CHECKING (EXMLParserFeatureType.GENERAL,
+                        "http://apache.org/xml/features/validation/schema-full-checking"),
 
   /**
    * When true: Expose via SAX and DOM XML Schema normalized values for
@@ -172,7 +221,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://apache.org/xml/features/generate-synthetic-annotations)
    */
-  GENERATE_SYNTHETIC_ANNOTATIONS (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/generate-synthetic-annotations"),
+  GENERATE_SYNTHETIC_ANNOTATIONS (EXMLParserFeatureType.GENERAL,
+                                  "http://apache.org/xml/features/generate-synthetic-annotations"),
 
   /**
    * When true: Schema annotations will be laxly validated against available
@@ -192,7 +242,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://apache.org/xml/features/honour-all-schemaLocations)
    */
-  HONOUR_ALL_SCHEMA_LOCATIONS (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/honour-all-schemaLocations"),
+  HONOUR_ALL_SCHEMA_LOCATIONS (EXMLParserFeatureType.GENERAL,
+                               "http://apache.org/xml/features/honour-all-schemaLocations"),
 
   /**
    * When true: Include external general entities.<br>
@@ -216,7 +267,8 @@ public enum EXMLParserFeature implements IHasName
    * <br>
    * (http://xml.org/sax/features/external-parameter-entities)
    */
-  EXTERNAL_PARAMETER_ENTITIES (EXMLParserFeatureType.GENERAL, "http://xml.org/sax/features/external-parameter-entities"),
+  EXTERNAL_PARAMETER_ENTITIES (EXMLParserFeatureType.GENERAL,
+                               "http://xml.org/sax/features/external-parameter-entities"),
 
   /**
    * When true: Construct an optimal representation for DTD content models to
@@ -227,7 +279,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://apache.org/xml/features/validation/balance-syntax-trees)
    */
-  BALANCE_SYNTAX_TREES (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/validation/balance-syntax-trees"),
+  BALANCE_SYNTAX_TREES (EXMLParserFeatureType.GENERAL,
+                        "http://apache.org/xml/features/validation/balance-syntax-trees"),
 
   /**
    * When true: Enable checking of ID/IDREF constraints.<br>
@@ -245,7 +298,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: true<br>
    * (http://apache.org/xml/features/validation/identity-constraint-checking)
    */
-  IDENTITY_CONSTRAINT_CHECKING (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/validation/identity-constraint-checking"),
+  IDENTITY_CONSTRAINT_CHECKING (EXMLParserFeatureType.GENERAL,
+                                "http://apache.org/xml/features/validation/identity-constraint-checking"),
 
   /**
    * When true: Check that each value of type ENTITY matches the name of an
@@ -255,7 +309,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: true<br>
    * (http://apache.org/xml/features/validation/unparsed-entity-checking)
    */
-  UNPARSED_ENTITY_CHECKING (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/validation/unparsed-entity-checking"),
+  UNPARSED_ENTITY_CHECKING (EXMLParserFeatureType.GENERAL,
+                            "http://apache.org/xml/features/validation/unparsed-entity-checking"),
 
   /**
    * When true: Report a warning when a duplicate attribute is re-declared.<br>
@@ -264,7 +319,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://apache.org/xml/features/validation/warn-on-duplicate-attdef)
    */
-  WARN_ON_DUPLICATE_ATTDEF (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/validation/warn-on-duplicate-attdef"),
+  WARN_ON_DUPLICATE_ATTDEF (EXMLParserFeatureType.GENERAL,
+                            "http://apache.org/xml/features/validation/warn-on-duplicate-attdef"),
 
   /**
    * When true: Report a warning if an element referenced in a content model is
@@ -274,7 +330,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://apache.org/xml/features/validation/warn-on-undeclared-elemdef)
    */
-  WARN_ON_UNDECLARED_ELEMDEF (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/validation/warn-on-undeclared-elemdef"),
+  WARN_ON_UNDECLARED_ELEMDEF (EXMLParserFeatureType.GENERAL,
+                              "http://apache.org/xml/features/validation/warn-on-undeclared-elemdef"),
 
   /**
    * When true: Report a warning for duplicate entity declaration.<br>
@@ -282,7 +339,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://apache.org/xml/features/warn-on-duplicate-entitydef)
    */
-  WARN_ON_DUPLICATE_ENTITYDEF (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/warn-on-duplicate-entitydef"),
+  WARN_ON_DUPLICATE_ENTITYDEF (EXMLParserFeatureType.GENERAL,
+                               "http://apache.org/xml/features/warn-on-duplicate-entitydef"),
 
   /**
    * When true: Allow Java encoding names in XMLDecl and TextDecl line.<br>
@@ -299,7 +357,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://apache.org/xml/features/continue-after-fatal-error)
    */
-  CONTINUE_AFTER_FATAL_ERROR (EXMLParserFeatureType.GENERAL, "http://apache.org/xml/features/continue-after-fatal-error"),
+  CONTINUE_AFTER_FATAL_ERROR (EXMLParserFeatureType.GENERAL,
+                              "http://apache.org/xml/features/continue-after-fatal-error"),
 
   /**
    * When true: Load the DTD and use it to add default attributes and set
@@ -416,7 +475,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: true<br>
    * (http://apache.org/xml/features/dom/include-ignorable-whitespace)
    */
-  DOM_INCLUDE_IGNORABLE_WHITESPACE (EXMLParserFeatureType.DOM, "http://apache.org/xml/features/dom/include-ignorable-whitespace"),
+  DOM_INCLUDE_IGNORABLE_WHITESPACE (EXMLParserFeatureType.DOM,
+                                    "http://apache.org/xml/features/dom/include-ignorable-whitespace"),
 
   /**
    * When true: Report the original prefixed names and attributes used for
@@ -477,7 +537,8 @@ public enum EXMLParserFeature implements IHasName
    * Default: false<br>
    * (http://xml.org/sax/features/unicode-normalization-checking)
    */
-  SAX_UNICODE_NORMALIZATION_CHECKING (EXMLParserFeatureType.SAX, "http://xml.org/sax/features/unicode-normalization-checking"),
+  SAX_UNICODE_NORMALIZATION_CHECKING (EXMLParserFeatureType.SAX,
+                                      "http://xml.org/sax/features/unicode-normalization-checking"),
 
   /**
    * When true: The Attributes objects passed by the parser in
