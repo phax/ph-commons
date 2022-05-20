@@ -61,9 +61,12 @@ public class RecursiveNodeIterator implements IIterableIterator <Node>
     if (aChildren != null)
     {
       final int nChildCount = aChildren.getLength ();
-      // back to front
-      for (int i = nChildCount - 1; i >= 0; --i)
-        m_aOpen.add (0, aChildren.item (i));
+      int nTarget = 0;
+      for (int i = 0; i < nChildCount; ++i)
+      {
+        m_aOpen.add (nTarget, aChildren.item (i));
+        nTarget++;
+      }
     }
     return ret;
   }
