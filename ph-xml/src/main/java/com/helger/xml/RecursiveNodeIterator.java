@@ -14,30 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.xml.microdom.util;
+package com.helger.xml;
 
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnull;
+
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.xml.microdom.IMicroNode;
 
 /**
- * Class for recursively visiting all children of an {@link IMicroNode}. It
- * includes the initial node in the visitation.
+ * Iterate all children of the start node, but NOT the start node itself.
  *
  * @author Philip Helger
+ * @since 10.1.7
  */
-public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
+public class RecursiveNodeIterator implements IIterableIterator <Node>
 {
-  private final ICommonsList <IMicroNode> m_aOpen = new CommonsArrayList <> ();
+  private final ICommonsList <Node> m_aOpen = new CommonsArrayList <> ();
 
-  public MicroRecursiveIterator (@Nonnull final IMicroNode aNode)
+  public RecursiveNodeIterator (@Nonnull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
     m_aOpen.add (aNode);
@@ -49,14 +51,20 @@ public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
   }
 
   @Nonnull
-  public IMicroNode next ()
+  public Node next ()
   {
     if (m_aOpen.isEmpty ())
       throw new NoSuchElementException ();
 
-    final IMicroNode ret = m_aOpen.remove (0);
-    if (ret.hasChildren ())
-      m_aOpen.addAll (0, ret.getAllChildren ());
+    final Node ret = m_aOpen.remove (0);
+    final NodeList aChildren = ret.getChildNodes ();
+    if (aChildren != null)
+    {
+      final int nChildCount = aChildren.getLength ();
+      // back to front
+      for (int i = nChildCount - 1; i >= 0; --i)
+        m_aOpen.add (0, aChildren.item (i));
+    }
     return ret;
   }
 
@@ -67,19 +75,18 @@ public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
   }
 
   /**
-   * Create a {@link MicroRecursiveIterator} that only iterates the child nodes
+   * Create a {@link RecursiveNodeIterator} that only iterates the child nodes
    * of the given node.
    *
    * @param aNode
    *        The node to iterate the children from. May not be <code>null</code>.
    * @return Never <code>null</code>.
-   * @since 10.1.7
    */
   @Nonnull
-  public static MicroRecursiveIterator createChildNodeIterator (@Nonnull final IMicroNode aNode)
+  public static RecursiveNodeIterator createChildNodeIterator (@Nonnull final Node aNode)
   {
     // Create a regular one
-    final MicroRecursiveIterator ret = new MicroRecursiveIterator (aNode);
+    final RecursiveNodeIterator ret = new RecursiveNodeIterator (aNode);
     // But skip the root
     ret.next ();
     return ret;

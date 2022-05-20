@@ -32,7 +32,11 @@ import com.helger.commons.string.ToStringGenerator;
  * Iterate all children of the start node, but NOT the start node itself.
  *
  * @author Philip Helger
+ * @deprecated Since 10.1.7. Use {@link RecursiveNodeIterator} instead because
+ *             it can iterate with or without the main node and uses less
+ *             memory.
  */
+@Deprecated
 public class RecursiveChildNodeIterator implements IIterableIterator <Node>
 {
   private final Iterator <Node> m_aIter;

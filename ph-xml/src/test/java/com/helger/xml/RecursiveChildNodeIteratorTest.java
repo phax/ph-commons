@@ -30,7 +30,9 @@ import org.w3c.dom.Node;
  * Test class for class {@link RecursiveChildNodeIterator}.
  *
  * @author Philip Helger
+ * @deprecated Since v10.1.7
  */
+@Deprecated
 public final class RecursiveChildNodeIteratorTest
 {
   @Test
