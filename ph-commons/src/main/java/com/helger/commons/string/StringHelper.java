@@ -79,7 +79,16 @@ public final class StringHelper
    */
   public static final int STRING_NOT_FOUND = -1;
 
-  private static final int [] SIZE_TABLE_INT = { 9, 99, 999, 9999, 99999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE };
+  private static final int [] SIZE_TABLE_INT = { 9,
+                                                 99,
+                                                 999,
+                                                 9999,
+                                                 99999,
+                                                 999999,
+                                                 9999999,
+                                                 99999999,
+                                                 999999999,
+                                                 Integer.MAX_VALUE };
   private static final long [] SIZE_TABLE_LONG = { 9L,
                                                    99L,
                                                    999L,
@@ -112,10 +121,95 @@ public final class StringHelper
    *        The character sequence to check. May be <code>null</code>.
    * @return <code>true</code> if the string is <code>null</code> or empty,
    *         <code>false</code> otherwise
+   * @since 10.1.8
+   */
+  public static boolean isEmpty (@Nullable final CharSequence aCS)
+  {
+    return aCS == null || aCS.length () == 0;
+  }
+
+  /**
+   * Check if the string is <code>null</code> or empty.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is <code>null</code> or empty,
+   *         <code>false</code> otherwise
+   * @since 10.1.8
+   */
+  public static boolean isEmpty (@Nullable final String sStr)
+  {
+    return sStr == null || sStr.isEmpty ();
+  }
+
+  /**
+   * Check if the string is <code>null</code> or empty after trimming.
+   *
+   * @param s
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is <code>null</code> or empty or
+   *         consists only of whitespaces, <code>false</code> otherwise
+   * @since 10.1.8
+   */
+  public static boolean isEmptyAfterTrim (@Nullable final String s)
+  {
+    return s == null || s.trim ().isEmpty ();
+  }
+
+  /**
+   * Check if the string contains any char.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @return <code>true</code> if the string contains at least one,
+   *         <code>false</code> otherwise
+   * @since 10.1.8
+   */
+  public static boolean isNotEmpty (@Nullable final CharSequence aCS)
+  {
+    return aCS != null && aCS.length () > 0;
+  }
+
+  /**
+   * Check if the string contains any char.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string contains at least one char,
+   *         <code>false</code> otherwise
+   * @since 10.1.8
+   */
+  public static boolean isNotEmpty (@Nullable final String sStr)
+  {
+    return sStr != null && !sStr.isEmpty ();
+  }
+
+  /**
+   * Check if the string neither <code>null</code> nor empty after trimming.
+   *
+   * @param s
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is neither <code>null</code> nor
+   *         empty nor consists only of whitespaces, <code>false</code>
+   *         otherwise
+   * @since 10.1.8
+   */
+  public static boolean isNotEmptyAfterTrim (@Nullable final String s)
+  {
+    return s != null && !s.trim ().isEmpty ();
+  }
+
+  /**
+   * Check if the string is <code>null</code> or empty.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is <code>null</code> or empty,
+   *         <code>false</code> otherwise
    */
   public static boolean hasNoText (@Nullable final CharSequence aCS)
   {
-    return aCS == null || aCS.length () == 0;
+    return isEmpty (aCS);
   }
 
   /**
@@ -128,7 +222,7 @@ public final class StringHelper
    */
   public static boolean hasNoText (@Nullable final String sStr)
   {
-    return sStr == null || sStr.isEmpty ();
+    return isEmpty (sStr);
   }
 
   /**
@@ -141,7 +235,7 @@ public final class StringHelper
    */
   public static boolean hasNoTextAfterTrim (@Nullable final String s)
   {
-    return s == null || s.trim ().isEmpty ();
+    return isEmptyAfterTrim (s);
   }
 
   /**
@@ -154,7 +248,7 @@ public final class StringHelper
    */
   public static boolean hasText (@Nullable final CharSequence aCS)
   {
-    return aCS != null && aCS.length () > 0;
+    return isNotEmpty (aCS);
   }
 
   /**
@@ -167,7 +261,7 @@ public final class StringHelper
    */
   public static boolean hasText (@Nullable final String sStr)
   {
-    return sStr != null && !sStr.isEmpty ();
+    return isNotEmpty (sStr);
   }
 
   /**
@@ -181,7 +275,7 @@ public final class StringHelper
    */
   public static boolean hasTextAfterTrim (@Nullable final String s)
   {
-    return s != null && !s.trim ().isEmpty ();
+    return isNotEmptyAfterTrim (s);
   }
 
   /**
@@ -699,7 +793,9 @@ public final class StringHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] getHexDecoded (@Nonnull final char [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static byte [] getHexDecoded (@Nonnull final char [] aInput,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
     ValueEnforcer.isTrue ((nLen % 2) == 0, () -> "Passed chars have no even length: " + nLen);
@@ -903,7 +999,8 @@ public final class StringHelper
     }
 
     @Nonnull
-    public <T> ImploderBuilder source (@Nullable final Iterable <T> a, @Nonnull final Function <? super T, String> aMapper)
+    public <T> ImploderBuilder source (@Nullable final Iterable <T> a,
+                                       @Nonnull final Function <? super T, String> aMapper)
     {
       ValueEnforcer.notNull (aMapper, "Mapper");
       m_aSource = a == null ? null : new CommonsArrayList <> (a, aMapper);
@@ -1777,7 +1874,12 @@ public final class StringHelper
                                                                 @Nonnegative final int nLen,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    return imploder ().source (aElements, aMapper).separator (sSep).offset (nOfs).length (nLen).filterNonEmpty ().build ();
+    return imploder ().source (aElements, aMapper)
+                      .separator (sSep)
+                      .offset (nOfs)
+                      .length (nLen)
+                      .filterNonEmpty ()
+                      .build ();
   }
 
   /**
@@ -1809,7 +1911,12 @@ public final class StringHelper
                                                                 @Nonnegative final int nLen,
                                                                 @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
-    return imploder ().source (aElements, aMapper).separator (cSep).offset (nOfs).length (nLen).filterNonEmpty ().build ();
+    return imploder ().source (aElements, aMapper)
+                      .separator (cSep)
+                      .offset (nOfs)
+                      .length (nLen)
+                      .filterNonEmpty ()
+                      .build ();
   }
 
   /**
@@ -2034,7 +2141,10 @@ public final class StringHelper
                                                                @Nonnull final Function <? super KEYTYPE, String> aKeyMapper,
                                                                @Nonnull final Function <? super VALUETYPE, String> aValueMapper)
   {
-    return imploderMap ().source (aElements, aKeyMapper, aValueMapper).separatorOuter (sSepOuter).separatorInner (sSepInner).build ();
+    return imploderMap ().source (aElements, aKeyMapper, aValueMapper)
+                         .separatorOuter (sSepOuter)
+                         .separatorInner (sSepInner)
+                         .build ();
   }
 
   /**
@@ -2067,7 +2177,10 @@ public final class StringHelper
                                                                @Nonnull final Function <? super KEYTYPE, String> aKeyMapper,
                                                                @Nonnull final Function <? super VALUETYPE, String> aValueMapper)
   {
-    return imploderMap ().source (aElements, aKeyMapper, aValueMapper).separatorOuter (cSepOuter).separatorInner (cSepInner).build ();
+    return imploderMap ().source (aElements, aKeyMapper, aValueMapper)
+                         .separatorOuter (cSepOuter)
+                         .separatorInner (cSepInner)
+                         .build ();
   }
 
   /**
@@ -2087,7 +2200,9 @@ public final class StringHelper
    * @return The passed collection and never <code>null</code>.
    */
   @Nonnull
-  public static String [] getExplodedArray (final char cSep, @Nullable final String sElements, @CheckForSigned final int nMaxItems)
+  public static String [] getExplodedArray (final char cSep,
+                                            @Nullable final String sElements,
+                                            @CheckForSigned final int nMaxItems)
   {
     if (nMaxItems == 1)
       return new String [] { sElements };
@@ -2191,7 +2306,9 @@ public final class StringHelper
    *        The non-<code>null</code> consumer that is invoked for each exploded
    *        element
    */
-  public static void explode (final char cSep, @Nullable final String sElements, @Nonnull final Consumer <? super String> aConsumer)
+  public static void explode (final char cSep,
+                              @Nullable final String sElements,
+                              @Nonnull final Consumer <? super String> aConsumer)
   {
     explode (cSep, sElements, -1, aConsumer);
   }
@@ -2288,9 +2405,14 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <String> getExploded (final char cSep, @Nullable final String sElements, final int nMaxItems)
+  public static ICommonsList <String> getExploded (final char cSep,
+                                                   @Nullable final String sElements,
+                                                   final int nMaxItems)
   {
-    return getExploded (cSep, sElements, nMaxItems, nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
+    return getExploded (cSep,
+                        sElements,
+                        nMaxItems,
+                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
   }
 
   /**
@@ -2452,9 +2574,14 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <String> getExploded (@Nonnull final String sSep, @Nullable final String sElements, final int nMaxItems)
+  public static ICommonsList <String> getExploded (@Nonnull final String sSep,
+                                                   @Nullable final String sElements,
+                                                   final int nMaxItems)
   {
-    return getExploded (sSep, sElements, nMaxItems, nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
+    return getExploded (sSep,
+                        sElements,
+                        nMaxItems,
+                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
   }
 
   /**
@@ -2493,7 +2620,8 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep, @Nullable final String sElements)
+  public static CommonsLinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
+                                                                       @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet <> ());
   }
@@ -2513,7 +2641,8 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep, @Nullable final String sElements)
+  public static CommonsTreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep,
+                                                                @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1, new CommonsTreeSet <> ());
   }
@@ -2617,7 +2746,9 @@ public final class StringHelper
    * @return The concatenated string.
    */
   @Nonnull
-  public static String getConcatenatedOnDemand (@Nullable final String sFront, @Nullable final String sSep, @Nullable final String sEnd)
+  public static String getConcatenatedOnDemand (@Nullable final String sFront,
+                                                @Nullable final String sSep,
+                                                @Nullable final String sEnd)
   {
     final StringBuilder aSB = new StringBuilder ();
     if (hasText (sFront))
@@ -2644,7 +2775,9 @@ public final class StringHelper
    * @return The concatenated string.
    */
   @Nonnull
-  public static String getConcatenatedOnDemand (@Nullable final String sFront, final char cSep, @Nullable final String sEnd)
+  public static String getConcatenatedOnDemand (@Nullable final String sFront,
+                                                final char cSep,
+                                                @Nullable final String sEnd)
   {
     final StringBuilder aSB = new StringBuilder ();
     if (hasText (sFront))
@@ -2851,7 +2984,8 @@ public final class StringHelper
    */
   public static int getIndexOf (@Nullable final String sText, @Nullable final String sSearch)
   {
-    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.indexOf (sSearch) : STRING_NOT_FOUND;
+    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.indexOf (sSearch)
+                                                                                    : STRING_NOT_FOUND;
   }
 
   /**
@@ -2868,10 +3002,13 @@ public final class StringHelper
    *         parameter was <code>null</code>.
    * @see String#indexOf(String,int)
    */
-  public static int getIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, @Nullable final String sSearch)
+  public static int getIndexOf (@Nullable final String sText,
+                                @Nonnegative final int nFromIndex,
+                                @Nullable final String sSearch)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.indexOf (sSearch, nFromIndex)
-                                                                                                   : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           (sText.length () - nFromIndex) >= sSearch.length () ? sText.indexOf (sSearch, nFromIndex) : STRING_NOT_FOUND;
   }
 
   /**
@@ -2888,7 +3025,8 @@ public final class StringHelper
    */
   public static int getLastIndexOf (@Nullable final String sText, @Nullable final String sSearch)
   {
-    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.lastIndexOf (sSearch) : STRING_NOT_FOUND;
+    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.lastIndexOf (sSearch)
+                                                                                    : STRING_NOT_FOUND;
   }
 
   /**
@@ -2905,10 +3043,14 @@ public final class StringHelper
    *         parameter was <code>null</code>.
    * @see String#lastIndexOf(String,int)
    */
-  public static int getLastIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, @Nullable final String sSearch)
+  public static int getLastIndexOf (@Nullable final String sText,
+                                    @Nonnegative final int nFromIndex,
+                                    @Nullable final String sSearch)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.lastIndexOf (sSearch, nFromIndex)
-                                                                                                   : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           (sText.length () - nFromIndex) >= sSearch.length () ? sText.lastIndexOf (sSearch, nFromIndex)
+                                                               : STRING_NOT_FOUND;
   }
 
   /**
@@ -2944,7 +3086,8 @@ public final class StringHelper
    */
   public static int getIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, final char cSearch)
   {
-    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.indexOf (cSearch, nFromIndex) : STRING_NOT_FOUND;
+    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.indexOf (cSearch, nFromIndex)
+                                                                : STRING_NOT_FOUND;
   }
 
   /**
@@ -2980,7 +3123,8 @@ public final class StringHelper
    */
   public static int getLastIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, final char cSearch)
   {
-    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.lastIndexOf (cSearch, nFromIndex) : STRING_NOT_FOUND;
+    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.lastIndexOf (cSearch, nFromIndex)
+                                                                : STRING_NOT_FOUND;
   }
 
   /**
@@ -2997,12 +3141,13 @@ public final class StringHelper
    *         parameter was <code>null</code>.
    * @see String#indexOf(String)
    */
-  public static int getIndexOfIgnoreCase (@Nullable final String sText, @Nullable final String sSearch, @Nonnull final Locale aSortLocale)
+  public static int getIndexOfIgnoreCase (@Nullable final String sText,
+                                          @Nullable final String sSearch,
+                                          @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && sText.length () >= sSearch.length ()
-                                                                                    ? sText.toLowerCase (aSortLocale)
-                                                                                           .indexOf (sSearch.toLowerCase (aSortLocale))
-                                                                                    : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale).indexOf (sSearch.toLowerCase (aSortLocale)) : STRING_NOT_FOUND;
   }
 
   /**
@@ -3031,7 +3176,8 @@ public final class StringHelper
            sSearch != null &&
            (sText.length () - nFromIndex) >= sSearch.length ()
                                                                ? sText.toLowerCase (aSortLocale)
-                                                                      .indexOf (sSearch.toLowerCase (aSortLocale), nFromIndex)
+                                                                      .indexOf (sSearch.toLowerCase (aSortLocale),
+                                                                                nFromIndex)
                                                                : STRING_NOT_FOUND;
   }
 
@@ -3053,10 +3199,9 @@ public final class StringHelper
                                               @Nullable final String sSearch,
                                               @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && sText.length () >= sSearch.length ()
-                                                                                    ? sText.toLowerCase (aSortLocale)
-                                                                                           .lastIndexOf (sSearch.toLowerCase (aSortLocale))
-                                                                                    : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale).lastIndexOf (sSearch.toLowerCase (aSortLocale)) : STRING_NOT_FOUND;
   }
 
   /**
@@ -3085,7 +3230,8 @@ public final class StringHelper
            sSearch != null &&
            (sText.length () - nFromIndex) >= sSearch.length ()
                                                                ? sText.toLowerCase (aSortLocale)
-                                                                      .lastIndexOf (sSearch.toLowerCase (aSortLocale), nFromIndex)
+                                                                      .lastIndexOf (sSearch.toLowerCase (aSortLocale),
+                                                                                    nFromIndex)
                                                                : STRING_NOT_FOUND;
   }
 
@@ -3103,9 +3249,12 @@ public final class StringHelper
    *         parameter was <code>null</code>.
    * @see String#indexOf(int)
    */
-  public static int getIndexOfIgnoreCase (@Nullable final String sText, final char cSearch, @Nonnull final Locale aSortLocale)
+  public static int getIndexOfIgnoreCase (@Nullable final String sText,
+                                          final char cSearch,
+                                          @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale).indexOf (Character.toLowerCase (cSearch))
+    return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale)
+                                                        .indexOf (Character.toLowerCase (cSearch))
                                                  : STRING_NOT_FOUND;
   }
 
@@ -3131,9 +3280,9 @@ public final class StringHelper
                                           final char cSearch,
                                           @Nonnull final Locale aSortLocale)
   {
-    return sText != null && (sText.length () - nFromIndex) >= 1
-                                                                ? sText.toLowerCase (aSortLocale)
-                                                                       .indexOf (Character.toLowerCase (cSearch), nFromIndex)
+    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.toLowerCase (aSortLocale)
+                                                                       .indexOf (Character.toLowerCase (cSearch),
+                                                                                 nFromIndex)
                                                                 : STRING_NOT_FOUND;
   }
 
@@ -3151,9 +3300,13 @@ public final class StringHelper
    *         parameter was <code>null</code>.
    * @see String#lastIndexOf(int)
    */
-  public static int getLastIndexOfIgnoreCase (@Nullable final String sText, final char cSearch, @Nonnull final Locale aSortLocale)
+  public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
+                                              final char cSearch,
+                                              @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale).lastIndexOf (Character.toLowerCase (cSearch))
+    return sText != null && sText.length () >= 1
+                                                 ? sText.toLowerCase (aSortLocale)
+                                                        .lastIndexOf (Character.toLowerCase (cSearch))
                                                  : STRING_NOT_FOUND;
   }
 
@@ -3179,9 +3332,9 @@ public final class StringHelper
                                               final char cSearch,
                                               @Nonnull final Locale aSortLocale)
   {
-    return sText != null && (sText.length () - nFromIndex) >= 1
-                                                                ? sText.toLowerCase (aSortLocale)
-                                                                       .lastIndexOf (Character.toLowerCase (cSearch), nFromIndex)
+    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.toLowerCase (aSortLocale)
+                                                                       .lastIndexOf (Character.toLowerCase (cSearch),
+                                                                                     nFromIndex)
                                                                 : STRING_NOT_FOUND;
   }
 
@@ -3230,7 +3383,9 @@ public final class StringHelper
    *         <code>false</code> otherwise.
    * @see String#contains(CharSequence)
    */
-  public static boolean containsIgnoreCase (@Nullable final String sText, @Nullable final String sSearch, @Nonnull final Locale aSortLocale)
+  public static boolean containsIgnoreCase (@Nullable final String sText,
+                                            @Nullable final String sSearch,
+                                            @Nonnull final Locale aSortLocale)
   {
     return getIndexOfIgnoreCase (sText, sSearch, aSortLocale) != STRING_NOT_FOUND;
   }
@@ -3248,7 +3403,9 @@ public final class StringHelper
    *         <code>false</code> otherwise.
    * @see String#indexOf(int)
    */
-  public static boolean containsIgnoreCase (@Nullable final String sText, final char cSearch, @Nonnull final Locale aSortLocale)
+  public static boolean containsIgnoreCase (@Nullable final String sText,
+                                            final char cSearch,
+                                            @Nonnull final Locale aSortLocale)
   {
     return getIndexOfIgnoreCase (sText, cSearch, aSortLocale) != STRING_NOT_FOUND;
   }
@@ -3344,7 +3501,9 @@ public final class StringHelper
                                                   @Nullable final String sSearch,
                                                   @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null ? getOccurrenceCount (sText.toLowerCase (aSortLocale), sSearch.toLowerCase (aSortLocale)) : 0;
+    return sText != null && sSearch != null ? getOccurrenceCount (sText.toLowerCase (aSortLocale),
+                                                                  sSearch.toLowerCase (aSortLocale))
+                                            : 0;
   }
 
   /**
@@ -3395,7 +3554,9 @@ public final class StringHelper
    * @return A non-negative number of occurrences.
    */
   @Nonnegative
-  public static int getOccurrenceCountIgnoreCase (@Nullable final String sText, final char cSearch, @Nonnull final Locale aSortLocale)
+  public static int getOccurrenceCountIgnoreCase (@Nullable final String sText,
+                                                  final char cSearch,
+                                                  @Nonnull final Locale aSortLocale)
   {
     return sText != null ? getOccurrenceCount (sText.toLowerCase (aSortLocale), Character.toLowerCase (cSearch)) : 0;
   }
@@ -3654,7 +3815,9 @@ public final class StringHelper
    */
   @Nullable
   @CheckReturnValue
-  public static String trimStartAndEnd (@Nullable final String sSrc, @Nullable final String sLead, @Nullable final String sTail)
+  public static String trimStartAndEnd (@Nullable final String sSrc,
+                                        @Nullable final String sLead,
+                                        @Nullable final String sTail)
   {
     final String sInbetween = trimStart (sSrc, sLead);
     return trimEnd (sInbetween, sTail);
@@ -3942,7 +4105,8 @@ public final class StringHelper
       return sInputString;
 
     // build output buffer
-    final StringBuilder ret = new StringBuilder (nOldLength >= nNewLength ? sInputString.length () : sInputString.length () * 2);
+    final StringBuilder ret = new StringBuilder (nOldLength >= nNewLength ? sInputString.length ()
+                                                                          : sInputString.length () * 2);
     int nOldIndex = 0;
     do
     {
@@ -3975,7 +4139,9 @@ public final class StringHelper
    *         replaced is not contained.
    */
   @Nullable
-  public static String replaceAll (@Nullable final String sInputString, final char cSearchChar, final char cReplacementChar)
+  public static String replaceAll (@Nullable final String sInputString,
+                                   final char cSearchChar,
+                                   final char cReplacementChar)
   {
     // Is input string empty?
     if (hasNoText (sInputString))
@@ -4027,7 +4193,8 @@ public final class StringHelper
   {
     ValueEnforcer.notEmpty (sSearchText, "SearchText");
     ValueEnforcer.notNull (sReplacementText, "ReplacementText");
-    ValueEnforcer.isFalse (sReplacementText.contains (sSearchText), "Loop detection: replacementText must not contain searchText");
+    ValueEnforcer.isFalse (sReplacementText.contains (sSearchText),
+                           "Loop detection: replacementText must not contain searchText");
 
     // Is input string empty?
     if (hasNoText (sInputString))
@@ -4234,7 +4401,8 @@ public final class StringHelper
                                        @Nonnull final char [] [] aReplacementStrings,
                                        @Nonnull final Writer aTarget) throws IOException
   {
-    return aInput == null ? 0 : replaceMultipleTo (aInput, 0, aInput.length, aSearchChars, aReplacementStrings, aTarget);
+    return aInput == null ? 0
+                          : replaceMultipleTo (aInput, 0, aInput.length, aSearchChars, aReplacementStrings, aTarget);
   }
 
   /**
@@ -4496,7 +4664,8 @@ public final class StringHelper
    * @return <code>null</code> if the input string was <code>null</code>.
    */
   @Nullable
-  public static String replaceMultiple (@Nullable final String sInputString, @Nullable final Map <String, String> aTransTable)
+  public static String replaceMultiple (@Nullable final String sInputString,
+                                        @Nullable final Map <String, String> aTransTable)
   {
     if (hasNoText (sInputString) || aTransTable == null || aTransTable.isEmpty ())
       return sInputString;
@@ -4893,7 +5062,9 @@ public final class StringHelper
   }
 
   @Nullable
-  private static String _getUntilFirst (@Nullable final String sStr, final char cSearch, final boolean bIncludingSearchChar)
+  private static String _getUntilFirst (@Nullable final String sStr,
+                                        final char cSearch,
+                                        final boolean bIncludingSearchChar)
   {
     final int nIndex = getIndexOf (sStr, cSearch);
     if (nIndex == STRING_NOT_FOUND)
@@ -4934,7 +5105,9 @@ public final class StringHelper
   }
 
   @Nullable
-  private static String _getUntilFirst (@Nullable final String sStr, @Nullable final String sSearch, final boolean bIncludingSearchChar)
+  private static String _getUntilFirst (@Nullable final String sStr,
+                                        @Nullable final String sSearch,
+                                        final boolean bIncludingSearchChar)
   {
     if (hasNoText (sSearch))
       return "";
@@ -4980,7 +5153,9 @@ public final class StringHelper
   }
 
   @Nullable
-  private static String _getUntilLast (@Nullable final String sStr, final char cSearch, final boolean bIncludingSearchChar)
+  private static String _getUntilLast (@Nullable final String sStr,
+                                       final char cSearch,
+                                       final boolean bIncludingSearchChar)
   {
     final int nIndex = getLastIndexOf (sStr, cSearch);
     if (nIndex == STRING_NOT_FOUND)
@@ -5021,7 +5196,9 @@ public final class StringHelper
   }
 
   @Nullable
-  private static String _getUntilLast (@Nullable final String sStr, @Nullable final String sSearch, final boolean bIncludingSearchChar)
+  private static String _getUntilLast (@Nullable final String sStr,
+                                       @Nullable final String sSearch,
+                                       final boolean bIncludingSearchChar)
   {
     if (hasNoText (sSearch))
       return "";
@@ -5067,7 +5244,9 @@ public final class StringHelper
   }
 
   @Nullable
-  private static String _getFromFirst (@Nullable final String sStr, final char cSearch, final boolean bIncludingSearchChar)
+  private static String _getFromFirst (@Nullable final String sStr,
+                                       final char cSearch,
+                                       final boolean bIncludingSearchChar)
   {
     final int nIndex = getIndexOf (sStr, cSearch);
     if (nIndex == STRING_NOT_FOUND)
@@ -5108,7 +5287,9 @@ public final class StringHelper
   }
 
   @Nullable
-  private static String _getFromFirst (@Nullable final String sStr, @Nullable final String sSearch, final boolean bIncludingSearchString)
+  private static String _getFromFirst (@Nullable final String sStr,
+                                       @Nullable final String sSearch,
+                                       final boolean bIncludingSearchString)
   {
     if (hasNoText (sSearch))
       return sStr;
@@ -5154,7 +5335,9 @@ public final class StringHelper
   }
 
   @Nullable
-  private static String _getFromLast (@Nullable final String sStr, final char cSearch, final boolean bIncludingSearchChar)
+  private static String _getFromLast (@Nullable final String sStr,
+                                      final char cSearch,
+                                      final boolean bIncludingSearchChar)
   {
     final int nIndex = getLastIndexOf (sStr, cSearch);
     if (nIndex == STRING_NOT_FOUND)
@@ -5195,7 +5378,9 @@ public final class StringHelper
   }
 
   @Nullable
-  private static String _getFromLast (@Nullable final String sStr, @Nullable final String sSearch, final boolean bIncludingSearchString)
+  private static String _getFromLast (@Nullable final String sStr,
+                                      @Nullable final String sSearch,
+                                      final boolean bIncludingSearchString)
   {
     if (hasNoText (sSearch))
       return sStr;
