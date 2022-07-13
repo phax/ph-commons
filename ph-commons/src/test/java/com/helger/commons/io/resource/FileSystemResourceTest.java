@@ -27,6 +27,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.io.EAppend;
@@ -67,6 +68,7 @@ public final class FileSystemResourceTest
   }
 
   @Test
+  @Ignore ("See https://bugs.openjdk.org/browse/JDK-8285445")
   public void testUNC ()
   {
     if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
@@ -78,7 +80,8 @@ public final class FileSystemResourceTest
       assertTrue (aRes.getResourceID ().endsWith ("pom.xml"));
       assertTrue (aRes.getPath ().endsWith ("pom.xml"));
 
-      aRes = new FileSystemResource (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 + new File ("pom.xml").getAbsolutePath ()));
+      aRes = new FileSystemResource (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 +
+                                               new File ("pom.xml").getAbsolutePath ()));
       assertTrue (aRes.exists ());
       assertTrue (aRes.getResourceID ().endsWith ("pom.xml"));
       assertTrue (aRes.getPath ().endsWith ("pom.xml"));

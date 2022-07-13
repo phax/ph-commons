@@ -20,19 +20,22 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.system.EOperatingSystem;
 
 public final class JavaFileUNCFuncTest
 {
   @Test
+  @Ignore ("See https://bugs.openjdk.org/browse/JDK-8285445")
   public void testUNC ()
   {
     if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
     {
       // UNC hack: convert arbitrary path to UNC ;-)
-      final File f = new File ("\\\\.\\" + new File ("pom.xml").getAbsolutePath ());
+      final File f = new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + new File ("pom.xml").getAbsolutePath ());
       assertTrue (f.exists ());
     }
   }
