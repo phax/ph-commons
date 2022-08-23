@@ -52,6 +52,7 @@ public class Config implements IConfig
    * default.
    */
   public static final boolean DEFAULT_REPLACE_VARIABLES = false;
+  public static final UnaryOperator <String> DEFAULT_UNRESOLVED_VARIABLE_PROVIDER = x -> "unresolved-var(" + x + ")";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (Config.class);
 
@@ -59,6 +60,7 @@ public class Config implements IConfig
   private BiConsumer <String, ConfiguredValue> m_aKeyFoundConsumer;
   private Consumer <String> m_aKeyNotFoundConsumer;
   private boolean m_bReplaceVariables = DEFAULT_REPLACE_VARIABLES;
+  private UnaryOperator <String> m_aUnresolvedVariableProvider = DEFAULT_UNRESOLVED_VARIABLE_PROVIDER;
 
   /**
    * Constructor
@@ -157,6 +159,33 @@ public class Config implements IConfig
     return this;
   }
 
+  /**
+   * @return The unresolved variable provider to be used. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public final UnaryOperator <String> getUnresolvedVariableProvider ()
+  {
+    return m_aUnresolvedVariableProvider;
+  }
+
+  /**
+   * Set the handler to be invoked when a variable could not be resolved.
+   *
+   * @param aUnresolvedVariableProvider
+   *        The unresolved variable provider to be used. May not be
+   *        <code>null</code>.
+   * @return this for chaining
+   * @since 10.2.0
+   */
+  @Nonnull
+  public final Config setUnresolvedVariableProvider (@Nonnull final UnaryOperator <String> aUnresolvedVariableProvider)
+  {
+    ValueEnforcer.notNull (aUnresolvedVariableProvider, "UnresolvedVariableProvider");
+    m_aUnresolvedVariableProvider = aUnresolvedVariableProvider;
+    return this;
+  }
+
   @Nullable
   public ConfiguredValue getConfiguredValue (@Nullable final String sKey)
   {
@@ -203,7 +232,10 @@ public class Config implements IConfig
       // First time usage of variable name
       final ConfiguredValue aCV = getConfiguredValue (sVarName);
       if (aCV == null)
-        return "unresolved-var(" + sVarName + ")";
+      {
+        // Failed to resolve variable
+        return m_aUnresolvedVariableProvider.apply (sVarName);
+      }
 
       String sNestedConfiguredValue = aCV.getValue ();
       if (m_bReplaceVariables && StringHelper.hasText (sNestedConfiguredValue))

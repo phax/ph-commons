@@ -142,11 +142,13 @@ public final class ConfigTest
     aMap.put ("key2", "${key1}");
     aMap.put ("more.complex.nested.key", "complex ${key1} ${key2}!");
     aMap.put ("key3", "not so ${more.complex.nested.key}");
+    aMap.put ("key4", "abc ${dummy.foo} xyz");
     final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
     assertEquals ("value", aConfig.getAsString ("key1"));
     assertEquals ("value", aConfig.getAsString ("key2"));
     assertEquals ("complex value value!", aConfig.getAsString ("more.complex.nested.key"));
     assertEquals ("not so complex value value!", aConfig.getAsString ("key3"));
+    assertEquals ("abc unresolved-var(dummy.foo) xyz", aConfig.getAsString ("key4"));
   }
 
   @Test
