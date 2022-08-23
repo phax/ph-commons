@@ -58,6 +58,9 @@ public interface IConfig extends IGetterByKeyTrait <String>
   void forEachConfigurationValueProvider (@Nonnull IConfigurationValueProviderWithPriorityCallback aCallback);
 
   /**
+   * Count all configuration sources that implement
+   * {@link IConfigurationSourceResource}
+   *
    * @return The number of resource based configuration sources contained.
    *         Always &ge; 0.
    */
@@ -73,7 +76,8 @@ public interface IConfig extends IGetterByKeyTrait <String>
   }
 
   /**
-   * Reload the configuration from all resource based sources.
+   * Reload the configuration from all resource based sources (the ones
+   * implementing {@link IConfigurationSourceResource}).
    *
    * @return {@link ESuccess#SUCCESS} if all could be reloaded,
    *         {@link ESuccess#FAILURE} if at least one failed.
