@@ -172,4 +172,13 @@ public final class ConfigTest
     assertEquals ("2 and ${key1}", aConfig.getAsString ("key2"));
     assertEquals ("3 and ${key2}", aConfig.getAsString ("key3"));
   }
+
+  @Test
+  public void testWithVariableReplacementSelfRef ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "Prefix ${key1}");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("Prefix ${key1}", aConfig.getAsString ("key1"));
+  }
 }

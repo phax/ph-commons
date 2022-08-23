@@ -61,7 +61,6 @@ public interface IConfigWithFallback extends IConfig
    *        neither be <code>null</code> nor empty.
    * @return <code>null</code> if neither the primary nor the old configuration
    *         property keys could be resolved.
-   * @see #getAsString(String)
    */
   @Nullable
   String getAsStringOrFallback (@Nonnull String sPrimary, @Nonnull @Nonempty String... aOldOnes);
@@ -77,7 +76,6 @@ public interface IConfigWithFallback extends IConfig
    *        neither be <code>null</code> nor empty.
    * @return <code>null</code> if neither the primary nor the old configuration
    *         property keys could be resolved.
-   * @see #getAsBigDecimal(String)
    */
   @Nullable
   BigDecimal getAsBigDecimalOrFallback (@Nonnull String sPrimary, @Nonnull @Nonempty String... aOldOnes);
@@ -98,7 +96,6 @@ public interface IConfigWithFallback extends IConfig
    *        neither be <code>null</code> nor empty.
    * @return <code>null</code> if neither the primary nor the old configuration
    *         property keys could be resolved.
-   * @see #getAsInt(String, int)
    */
   int getAsIntOrFallback (@Nonnull String sPrimary, int nBogus, int nDefault, @Nonnull @Nonempty String... aOldOnes);
 
@@ -118,7 +115,6 @@ public interface IConfigWithFallback extends IConfig
    *        neither be <code>null</code> nor empty.
    * @return <code>null</code> if neither the primary nor the old configuration
    *         property keys could be resolved.
-   * @see #getAsLong(String, long)
    */
   long getAsLongOrFallback (@Nonnull String sPrimary,
                             long nBogus,
