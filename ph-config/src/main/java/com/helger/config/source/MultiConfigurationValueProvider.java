@@ -55,12 +55,12 @@ public class MultiConfigurationValueProvider implements
                                              IConfigurationValueProvider,
                                              ICloneable <MultiConfigurationValueProvider>
 {
-  private static final class CS
+  private static final class ConfigValueProviderWithPrio
   {
     private final IConfigurationValueProvider m_aCVP;
     private final int m_nPriority;
 
-    public CS (@Nonnull final IConfigurationValueProvider aCVP, final int nPrio)
+    public ConfigValueProviderWithPrio (@Nonnull final IConfigurationValueProvider aCVP, final int nPrio)
     {
       m_aCVP = aCVP;
       m_nPriority = nPrio;
@@ -69,7 +69,9 @@ public class MultiConfigurationValueProvider implements
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (null).append ("CVP", m_aCVP).append ("Priority", m_nPriority).getToString ();
+      return new ToStringGenerator (null).append ("ConfigValProvider", m_aCVP)
+                                         .append ("Priority", m_nPriority)
+                                         .getToString ();
     }
   }
 
@@ -77,7 +79,7 @@ public class MultiConfigurationValueProvider implements
 
   private static final Logger LOGGER = LoggerFactory.getLogger (MultiConfigurationValueProvider.class);
 
-  private final ICommonsList <CS> m_aSources = new CommonsArrayList <> ();
+  private final ICommonsList <ConfigValueProviderWithPrio> m_aSources = new CommonsArrayList <> ();
   private boolean m_bUseOnlyInitializedConfigSources = DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES;
 
   /**
@@ -175,7 +177,7 @@ public class MultiConfigurationValueProvider implements
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Adding configuration source " + aCVP + " with priority " + nPriority);
 
-      m_aSources.add (new CS (aCVP, nPriority));
+      m_aSources.add (new ConfigValueProviderWithPrio (aCVP, nPriority));
       // Ensure entry with highest priority comes first
       m_aSources.sort ( (x, y) -> y.m_nPriority - x.m_nPriority);
     }
@@ -195,7 +197,7 @@ public class MultiConfigurationValueProvider implements
   public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     ConfiguredValue ret = null;
-    for (final CS aSource : m_aSources)
+    for (final ConfigValueProviderWithPrio aSource : m_aSources)
     {
       ret = aSource.m_aCVP.getConfigurationValue (sKey);
       if (ret != null)
@@ -217,7 +219,7 @@ public class MultiConfigurationValueProvider implements
   {
     ValueEnforcer.notNull (aCallback, "aCallback");
 
-    for (final CS aSource : m_aSources)
+    for (final ConfigValueProviderWithPrio aSource : m_aSources)
       aCallback.onConfigurationSource (aSource.m_aCVP, aSource.m_nPriority);
   }
 
@@ -231,12 +233,12 @@ public class MultiConfigurationValueProvider implements
   public MultiConfigurationValueProvider getClone ()
   {
     final MultiConfigurationValueProvider ret = new MultiConfigurationValueProvider ();
-    for (final CS aSource : m_aSources)
+    for (final ConfigValueProviderWithPrio aSource : m_aSources)
     {
       if (aSource.m_aCVP instanceof ICloneable <?>)
       {
         final IConfigurationValueProvider aCVPClone = (IConfigurationValueProvider) ((ICloneable <?>) aSource.m_aCVP).getClone ();
-        ret.m_aSources.add (new CS (aCVPClone, aSource.m_nPriority));
+        ret.m_aSources.add (new ConfigValueProviderWithPrio (aCVPClone, aSource.m_nPriority));
       }
       else
         ret.m_aSources.add (aSource);
