@@ -36,6 +36,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.CheckReturnValue;
@@ -4847,16 +4848,35 @@ public final class StringHelper
    * @param s
    *        The parameter to be not <code>null</code>.
    * @param sDefaultIfNull
-   *        The value to be used of the first parameter is <code>null</code>.
+   *        The value to be used if the first parameter is <code>null</code>.
    *        May be <code>null</code> but in this case the call to this method is
    *        obsolete.
    * @return The passed default value if the string is <code>null</code>,
    *         otherwise the input string.
    */
   @Nullable
-  public static String getNotNull (@Nullable final String s, final String sDefaultIfNull)
+  public static String getNotNull (@Nullable final String s, @Nullable final String sDefaultIfNull)
   {
     return s == null ? sDefaultIfNull : s;
+  }
+
+  /**
+   * Get the passed string but never return <code>null</code>. If the passed
+   * parameter is <code>null</code> the second parameter is returned.
+   *
+   * @param s
+   *        The parameter to be not <code>null</code>.
+   * @param aDefaultIfNull
+   *        The value supplier to be used if the first parameter is
+   *        <code>null</code>. May not be <code>null</code>.
+   * @return The passed default value if the string is <code>null</code>,
+   *         otherwise the input string.
+   * @since 10.1.9
+   */
+  @Nullable
+  public static String getNotNull (@Nullable final String s, @Nonnull final Supplier <String> aDefaultIfNull)
+  {
+    return s == null ? aDefaultIfNull.get () : s;
   }
 
   /**
@@ -4881,16 +4901,36 @@ public final class StringHelper
    * @param s
    *        The parameter to be not <code>null</code>.
    * @param sDefaultIfNull
-   *        The value to be used of the first parameter is <code>null</code>.
+   *        The value to be used if the first parameter is <code>null</code>.
    *        May be <code>null</code> but in this case the call to this method is
    *        obsolete.
    * @return The passed default value if the string is <code>null</code>,
    *         otherwise the input {@link CharSequence}.
    */
   @Nullable
-  public static CharSequence getNotNull (@Nullable final CharSequence s, final CharSequence sDefaultIfNull)
+  public static CharSequence getNotNull (@Nullable final CharSequence s, @Nullable final CharSequence sDefaultIfNull)
   {
     return s == null ? sDefaultIfNull : s;
+  }
+
+  /**
+   * Get the passed {@link CharSequence} but never return <code>null</code>. If
+   * the passed parameter is <code>null</code> the second parameter is returned.
+   *
+   * @param s
+   *        The parameter to be not <code>null</code>.
+   * @param aDefaultIfNull
+   *        The value supplier to be used if the first parameter is
+   *        <code>null</code>. May not be <code>null</code>.
+   * @return The passed default value if the string is <code>null</code>,
+   *         otherwise the input {@link CharSequence}.
+   * @since 10.1.9
+   */
+  @Nullable
+  public static CharSequence getNotNull (@Nullable final CharSequence s,
+                                         @Nonnull final Supplier <? extends CharSequence> aDefaultIfNull)
+  {
+    return s == null ? aDefaultIfNull.get () : s;
   }
 
   /**
@@ -4900,7 +4940,7 @@ public final class StringHelper
    * @param s
    *        The parameter to be not <code>null</code> nor empty.
    * @param sDefaultIfEmpty
-   *        The value to be used of the first parameter is <code>null</code> or
+   *        The value to be used if the first parameter is <code>null</code> or
    *        empty. May be <code>null</code> but in this case the call to this
    *        method is obsolete.
    * @return The passed default value if the string is <code>null</code> or
@@ -4913,14 +4953,33 @@ public final class StringHelper
   }
 
   /**
-   * Get the passed string but never return an empty char sequence. If the
-   * passed parameter is <code>null</code> or empty the second parameter is
+   * Get the passed string but never return an empty string. If the passed
+   * parameter is <code>null</code> or empty the second parameter is returned.
+   *
+   * @param s
+   *        The parameter to be not <code>null</code> nor empty.
+   * @param aDefaultIfEmpty
+   *        The value supplier to be used if the first parameter is
+   *        <code>null</code> or empty. May not be <code>null</code>.
+   * @return The passed default value if the string is <code>null</code> or
+   *         empty, otherwise the input string.
+   * @since 10.1.9
+   */
+  @Nullable
+  public static String getNotEmpty (@Nullable final String s, @Nonnull final Supplier <String> aDefaultIfEmpty)
+  {
+    return hasNoText (s) ? aDefaultIfEmpty.get () : s;
+  }
+
+  /**
+   * Get the passed char sequence but never return an empty char sequence. If
+   * the passed parameter is <code>null</code> or empty the second parameter is
    * returned.
    *
    * @param s
    *        The parameter to be not <code>null</code> nor empty.
    * @param sDefaultIfEmpty
-   *        The value to be used of the first parameter is <code>null</code> or
+   *        The value to be used if the first parameter is <code>null</code> or
    *        empty. May be <code>null</code> but in this case the call to this
    *        method is obsolete.
    * @return The passed default value if the char sequence is <code>null</code>
@@ -4930,6 +4989,26 @@ public final class StringHelper
   public static CharSequence getNotEmpty (@Nullable final CharSequence s, @Nullable final CharSequence sDefaultIfEmpty)
   {
     return hasNoText (s) ? sDefaultIfEmpty : s;
+  }
+
+  /**
+   * Get the passed char sequence but never return an empty char sequence. If
+   * the passed parameter is <code>null</code> or empty the second parameter is
+   * returned.
+   *
+   * @param s
+   *        The parameter to be not <code>null</code> nor empty.
+   * @param aDefaultIfEmpty
+   *        The value supplier to be used if the first parameter is
+   *        <code>null</code> or empty. May not be <code>null</code>.
+   * @return The passed default value if the char sequence is <code>null</code>
+   *         or empty, otherwise the input char sequence.
+   */
+  @Nullable
+  public static CharSequence getNotEmpty (@Nullable final CharSequence s,
+                                          @Nullable final Supplier <? extends CharSequence> aDefaultIfEmpty)
+  {
+    return hasNoText (s) ? aDefaultIfEmpty.get () : s;
   }
 
   /**
