@@ -146,6 +146,8 @@ public class MultiConfigurationValueProvider implements
     if (m_bUseOnlyInitializedConfigSources && !aSource.isInitializedAndUsable ())
     {
       // Don't add
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Not adding the configuration source " + aSource + " because it is not yet initialized");
       return this;
     }
 
