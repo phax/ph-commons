@@ -42,7 +42,7 @@ import com.helger.commons.string.StringHelper;
  * character so that the "$" can be represented as "\$".
  *
  * @author Philip Helger
- * @since 10.1.9
+ * @since 10.2.0
  */
 @Immutable
 public final class TextVariableHelper

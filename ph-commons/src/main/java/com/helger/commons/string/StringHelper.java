@@ -4871,7 +4871,7 @@ public final class StringHelper
    *        <code>null</code>. May not be <code>null</code>.
    * @return The passed default value if the string is <code>null</code>,
    *         otherwise the input string.
-   * @since 10.1.9
+   * @since 10.2.0
    */
   @Nullable
   public static String getNotNull (@Nullable final String s, @Nonnull final Supplier <String> aDefaultIfNull)
@@ -4924,7 +4924,7 @@ public final class StringHelper
    *        <code>null</code>. May not be <code>null</code>.
    * @return The passed default value if the string is <code>null</code>,
    *         otherwise the input {@link CharSequence}.
-   * @since 10.1.9
+   * @since 10.2.0
    */
   @Nullable
   public static CharSequence getNotNull (@Nullable final CharSequence s,
@@ -4963,7 +4963,7 @@ public final class StringHelper
    *        <code>null</code> or empty. May not be <code>null</code>.
    * @return The passed default value if the string is <code>null</code> or
    *         empty, otherwise the input string.
-   * @since 10.1.9
+   * @since 10.2.0
    */
   @Nullable
   public static String getNotEmpty (@Nullable final String s, @Nonnull final Supplier <String> aDefaultIfEmpty)
@@ -5003,6 +5003,7 @@ public final class StringHelper
    *        <code>null</code> or empty. May not be <code>null</code>.
    * @return The passed default value if the char sequence is <code>null</code>
    *         or empty, otherwise the input char sequence.
+   * @since 10.2.0
    */
   @Nullable
   public static CharSequence getNotEmpty (@Nullable final CharSequence s,

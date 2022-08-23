@@ -30,7 +30,7 @@ import com.helger.config.value.ConfiguredValue;
  * configuration values from more then one key (e.g. for migration purposes).
  *
  * @author Philip Helger
- * @since 10.1.9
+ * @since 10.2.0
  */
 public interface IConfigWithFallback extends IConfig
 {

@@ -134,7 +134,7 @@ public class Config implements IConfig
    * @return <code>true</code> if variables in configuration properties should
    *         be replaced, <code>false</code> if not. The default value is
    *         {@value #DEFAULT_REPLACE_VARIABLES}.
-   * @since 10.1.9
+   * @since 10.2.0
    */
   public final boolean isReplaceVariables ()
   {
@@ -148,6 +148,7 @@ public class Config implements IConfig
    *        <code>true</code> to enable replacement, <code>false</code> to
    *        disable it.
    * @return this for chaining
+   * @since 10.2.0
    */
   @Nonnull
   public final Config setReplaceVariables (final boolean bReplaceVariables)

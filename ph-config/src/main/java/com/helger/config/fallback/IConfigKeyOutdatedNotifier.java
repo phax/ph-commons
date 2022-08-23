@@ -25,7 +25,7 @@ import com.helger.commons.annotation.Nonempty;
  * configuration key.
  *
  * @author Philip Helger
- * @since 10.1.9
+ * @since 10.2.0
  */
 @FunctionalInterface
 public interface IConfigKeyOutdatedNotifier

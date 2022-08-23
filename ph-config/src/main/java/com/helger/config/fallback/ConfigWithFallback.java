@@ -35,7 +35,7 @@ import com.helger.config.value.IConfigurationValueProvider;
  * The default implementation of {@link IConfigWithFallback}.
  *
  * @author Philip Helger
- * @since 10.1.9
+ * @since 10.2.0
  */
 public class ConfigWithFallback extends Config implements IConfigWithFallback
 {
