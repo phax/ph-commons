@@ -17,13 +17,18 @@
 package com.helger.config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.config.source.MultiConfigurationValueProvider;
+import com.helger.config.source.appl.ConfigurationSourceFunction;
 import com.helger.config.source.res.ConfigurationSourceJson;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
@@ -42,9 +47,10 @@ public final class ConfigTest
   @Test
   public void testForEachOneConfigSource ()
   {
-    final IConfig aConfig = new Config (CS1);
+    final Config aConfig = new Config (CS1);
     assertEquals ("from-application-json0", aConfig.getAsString ("element0"));
     assertNull (aConfig.getAsString ("element5"));
+    assertFalse (aConfig.isReplaceVariables ());
 
     final MutableInt aCounter = new MutableInt (0);
     final IConfigurationValueProviderWithPriorityCallback aCallback = (aCVP, nPriority) -> {
@@ -112,5 +118,48 @@ public final class ConfigTest
       }
     };
     aConfig.forEachConfigurationValueProvider (aCallback);
+  }
+
+  @Test
+  public void testWithDisabledVariableReplacement ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "value");
+    aMap.put ("key2", "${key1}");
+    aMap.put ("more.complex.nested.key", "complex ${key1} ${key2}!");
+    aMap.put ("key3", "not so ${more.complex.nested.key}");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (false);
+    assertEquals ("value", aConfig.getAsString ("key1"));
+    assertEquals ("${key1}", aConfig.getAsString ("key2"));
+    assertEquals ("complex ${key1} ${key2}!", aConfig.getAsString ("more.complex.nested.key"));
+    assertEquals ("not so ${more.complex.nested.key}", aConfig.getAsString ("key3"));
+  }
+
+  @Test
+  public void testWithVariableReplacement ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "value");
+    aMap.put ("key2", "${key1}");
+    aMap.put ("more.complex.nested.key", "complex ${key1} ${key2}!");
+    aMap.put ("key3", "not so ${more.complex.nested.key}");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("value", aConfig.getAsString ("key1"));
+    assertEquals ("value", aConfig.getAsString ("key2"));
+    assertEquals ("complex value value!", aConfig.getAsString ("more.complex.nested.key"));
+    assertEquals ("not so complex value value!", aConfig.getAsString ("key3"));
+  }
+
+  @Test
+  @Ignore ("TODO")
+  // This class does not yet work as expected
+  public void testWithVariableReplacementCyclicDep ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "1 and ${key2}");
+    aMap.put ("key2", "2 and ${key1}");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("1 and ${key2}", aConfig.getAsString ("key1"));
+    assertEquals ("2 and ${key1}", aConfig.getAsString ("key2"));
   }
 }

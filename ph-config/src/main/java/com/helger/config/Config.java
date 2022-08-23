@@ -18,13 +18,21 @@ package com.helger.config;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.util.TextVariableHelper;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.value.ConfiguredValue;
@@ -39,9 +47,18 @@ import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
  */
 public class Config implements IConfig
 {
+  /**
+   * For backwards compatibility reason, variable replacement is disabled by
+   * default.
+   */
+  public static final boolean DEFAULT_REPLACE_VARIABLES = false;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (Config.class);
+
   private final IConfigurationValueProvider m_aValueProvider;
   private BiConsumer <String, ConfiguredValue> m_aKeyFoundConsumer;
   private Consumer <String> m_aKeyNotFoundConsumer;
+  private boolean m_bReplaceVariables = DEFAULT_REPLACE_VARIABLES;
 
   /**
    * Constructor
@@ -113,6 +130,32 @@ public class Config implements IConfig
     return this;
   }
 
+  /**
+   * @return <code>true</code> if variables in configuration properties should
+   *         be replaced, <code>false</code> if not. The default value is
+   *         {@value #DEFAULT_REPLACE_VARIABLES}.
+   * @since 10.1.9
+   */
+  public final boolean isReplaceVariables ()
+  {
+    return m_bReplaceVariables;
+  }
+
+  /**
+   * Enable or disable the replacement of variables in configuration values.
+   *
+   * @param bReplaceVariables
+   *        <code>true</code> to enable replacement, <code>false</code> to
+   *        disable it.
+   * @return this for chaining
+   */
+  @Nonnull
+  public final Config setReplaceVariables (final boolean bReplaceVariables)
+  {
+    m_bReplaceVariables = bReplaceVariables;
+    return this;
+  }
+
   @Nullable
   public ConfiguredValue getConfiguredValue (@Nullable final String sKey)
   {
@@ -137,11 +180,73 @@ public class Config implements IConfig
     return ret;
   }
 
+  @Nonnull
+  @Nonempty
+  private String _getWithVariablesReplaced (@Nonnull @Nonempty final String sConfiguredValue,
+                                            @Nullable final ICommonsSet <String> aUsedVarContainer)
+  {
+    final UnaryOperator <String> aVarProvider = sVarName -> {
+      // Create new on top level, re-use on sub levels
+      final ICommonsSet <String> aUsedVarsPerConfigValue = aUsedVarContainer != null ? aUsedVarContainer
+                                                                                     : new CommonsLinkedHashSet <> ();
+      if (aUsedVarsPerConfigValue.add (sVarName))
+      {
+        // First time usage of variable name
+        final ConfiguredValue aCV = getConfiguredValue (sVarName);
+        if (aCV == null)
+          return "unresolved-var(" + sVarName + ")";
+
+        String sNestedConfiguredValue = aCV.getValue ();
+        if (m_bReplaceVariables && StringHelper.hasText (sNestedConfiguredValue))
+        {
+          // Recursive call
+          sNestedConfiguredValue = _getWithVariablesReplaced (sNestedConfiguredValue, aUsedVarContainer);
+        }
+
+        return sNestedConfiguredValue;
+      }
+
+      // Variable is used more then once
+      throw new IllegalStateException ("The variables  have a cyclic dependency: " +
+                                       StringHelper.imploder ()
+                                                   .source (aUsedVarsPerConfigValue, y -> '"' + y + '"')
+                                                   .separator (" -> ")
+                                                   .build () +
+                                       " -> \"" +
+                                       sVarName +
+                                       '"');
+    };
+    return TextVariableHelper.getWithReplacedVariables (sConfiguredValue, aVarProvider);
+  }
+
   @Nullable
   public String getValue (@Nullable final String sKey)
   {
     final ConfiguredValue aCV = getConfiguredValue (sKey);
-    return aCV == null ? null : aCV.getValue ();
+    if (aCV == null)
+      return null;
+
+    String sConfiguredValue = aCV.getValue ();
+    if (m_bReplaceVariables && StringHelper.hasText (sConfiguredValue))
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Resolving variables in configuration value '" + sConfiguredValue + "'");
+
+      try
+      {
+        sConfiguredValue = _getWithVariablesReplaced (sConfiguredValue, null);
+      }
+      catch (final IllegalStateException ex)
+      {
+        // Handle exception only on top-level
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to replace variables in configuration value '" +
+                        sConfiguredValue +
+                        "': " +
+                        ex.getMessage ());
+      }
+    }
+    return sConfiguredValue;
   }
 
   private static void _forEachConfigurationValueProviderRecursive (@Nonnull final IConfigurationValueProvider aValueProvider,
@@ -151,8 +256,11 @@ public class Config implements IConfig
     if (aValueProvider instanceof MultiConfigurationValueProvider)
     {
       final MultiConfigurationValueProvider aMulti = (MultiConfigurationValueProvider) aValueProvider;
-      // Descend recursively, maintain the local priority
-      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> _forEachConfigurationValueProviderRecursive (cvp, prio, aCallback));
+      // Descend recursively
+      aMulti.forEachConfigurationValueProvider ( (cvp,
+                                                  prio) -> _forEachConfigurationValueProviderRecursive (cvp,
+                                                                                                        prio,
+                                                                                                        aCallback));
     }
     else
     {
