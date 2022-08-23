@@ -149,6 +149,9 @@ public final class ConfigTest
     assertEquals ("complex value value!", aConfig.getAsString ("more.complex.nested.key"));
     assertEquals ("not so complex value value!", aConfig.getAsString ("key3"));
     assertEquals ("abc unresolved-var(dummy.foo) xyz", aConfig.getAsString ("key4"));
+
+    aConfig.setUnresolvedVariableProvider (x -> "bla<" + x + ">");
+    assertEquals ("abc bla<dummy.foo> xyz", aConfig.getAsString ("key4"));
   }
 
   @Test
