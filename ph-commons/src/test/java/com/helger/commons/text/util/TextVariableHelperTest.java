@@ -17,7 +17,9 @@
 package com.helger.commons.text.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -141,5 +143,25 @@ public class TextVariableHelperTest
     // Unexpected cases
     assertEquals ("a${open", TextVariableHelper.getWithReplacedVariables ("a${open", aVars::get));
     assertEquals ("a PH ${open", TextVariableHelper.getWithReplacedVariables ("a ${name} ${open", aVars::get));
+  }
+
+  @Test
+  public void testContainsVariables ()
+  {
+    // Expected cases
+    assertFalse (TextVariableHelper.containsVariables (null));
+    assertFalse (TextVariableHelper.containsVariables (""));
+    assertFalse (TextVariableHelper.containsVariables ("abc"));
+    assertFalse (TextVariableHelper.containsVariables (" abc "));
+    assertTrue (TextVariableHelper.containsVariables ("${name}"));
+    assertTrue (TextVariableHelper.containsVariables ("${name}${name}"));
+    assertTrue (TextVariableHelper.containsVariables ("Hello ${name} - so ${bla}"));
+    assertTrue (TextVariableHelper.containsVariables (" ${name}\\$${name}\\\\ "));
+    assertTrue (TextVariableHelper.containsVariables ("${noidea}"));
+    assertTrue (TextVariableHelper.containsVariables ("a${noidea}b"));
+
+    // Unexpected cases
+    assertFalse (TextVariableHelper.containsVariables ("a${open"));
+    assertTrue (TextVariableHelper.containsVariables ("a ${name} ${open"));
   }
 }

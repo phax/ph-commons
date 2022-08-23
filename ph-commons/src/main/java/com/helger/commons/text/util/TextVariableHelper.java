@@ -139,22 +139,25 @@ public final class TextVariableHelper
 
   /**
    * This method is responsible for splitting a source string into the constant
-   * text parts and the variable names.<br>
-   * By convention, the first result element is always a constant String (maybe
-   * empty) and the second element is a variable name, the third element is
-   * again a constant string etc. So constant strings and variable names are
-   * always intermixed. However it is not guaranteed, with what kind of element
-   * the result list ends.<br>
-   * Note: a variable <code>${bla}</code> ends up as <code>bla</code> in the
-   * result list.
+   * text fragments and the variable names.<br>
+   * By convention, the first result element is always a constant text fragment
+   * (maybe empty) and the second element is a variable name, the third element
+   * is again a constant text fragment etc. So constant text fragments and
+   * variable names are always intermixed. However it is not guaranteed, with
+   * what kind of element the result list ends.<br>
+   * Example: a variable <code>${bla}</code> ends up as <code>bla</code> in the
+   * result list. <br>
+   * Example the text <code>Hello ${x}!</code> results in a list with 3
+   * elements: <code>"Hello "</code>, <code>"x"</code> and <code>"!"</code>.
    *
    * @param sText
    *        The string to split into elements of constant text and variable
    *        names. May neither be <code>null</code> nor empty.
-   * @return
+   * @return Never <code>null</code> list of elements, intermixed between
+   *         constant strings and variable names.
    */
   @VisibleForTesting
-  @Nullable
+  @Nonnull
   static ICommonsList <String> splitByVariables (@Nonnull @Nonempty final String sText)
   {
     ValueEnforcer.notEmpty (sText, "Text");
@@ -223,25 +226,52 @@ public final class TextVariableHelper
     return ret;
   }
 
-  public static void replaceVariables (@Nullable final String sSourceString,
-                                       @Nonnull final Consumer <String> aTextHandler,
-                                       @Nonnull final Consumer <String> aReplacedVariableHandler)
+  /**
+   * Quickly check if a string contains a variable.
+   *
+   * @param sSourceString
+   *        the string to check for variables.
+   * @return <code>true</code> if at least one variable is contained,
+   *         <code>false</code> if not.
+   */
+  public static boolean containsVariables (@Nullable final String sSourceString)
   {
-    ValueEnforcer.notNull (aTextHandler, "TextHandler");
-    ValueEnforcer.notNull (aReplacedVariableHandler, "ReplacedVariableHandler");
+    return StringHelper.hasText (sSourceString) && splitByVariables (sSourceString).size () > 1;
+  }
+
+  /**
+   * Parse the provided source string looking for variables in the form
+   * <code>${...}</code> and invoke callbacks for either text fragments or
+   * variable names.
+   *
+   * @param sSourceString
+   *        The source string to parse and analyze. May be <code>null</code>.
+   * @param aTextFragmentHandler
+   *        The callback to be invoked for each text fragment. May not be
+   *        <code>null</code>.
+   * @param aVariableNameHandler
+   *        The callback to be invoked for each variable name. May not be
+   *        <code>null</code>.
+   */
+  public static void forEachTextAndVariable (@Nullable final String sSourceString,
+                                             @Nonnull final Consumer <String> aTextFragmentHandler,
+                                             @Nonnull final Consumer <String> aVariableNameHandler)
+  {
+    ValueEnforcer.notNull (aTextFragmentHandler, "TextFragmentHandler");
+    ValueEnforcer.notNull (aVariableNameHandler, "VariableNameHandler");
 
     if (StringHelper.hasNoText (sSourceString))
     {
       // Surely no variables
-      aTextHandler.accept (sSourceString);
+      aTextFragmentHandler.accept (sSourceString);
     }
     else
     {
       final ICommonsList <String> aPieces = splitByVariables (sSourceString);
-      if (aPieces == null || aPieces.size () <= 1)
+      if (aPieces.size () <= 1)
       {
         // Syntax error or no variables
-        aTextHandler.accept (sSourceString);
+        aTextFragmentHandler.accept (sSourceString);
       }
       else
       {
@@ -252,9 +282,9 @@ public final class TextVariableHelper
           if (StringHelper.hasText (sPiece))
           {
             if (bText)
-              aTextHandler.accept (sPiece);
+              aTextFragmentHandler.accept (sPiece);
             else
-              aReplacedVariableHandler.accept (sPiece);
+              aVariableNameHandler.accept (sPiece);
           }
 
           bText = !bText;
@@ -272,11 +302,11 @@ public final class TextVariableHelper
     if (StringHelper.hasNoText (sSourceString))
       return sSourceString;
 
-    // Allocate some spacw
+    // Allocate some space
     final StringBuilder aSB = new StringBuilder (sSourceString.length () * 2);
     // The text is copied "as-is"
     // Variable names are resolved through the provider
-    replaceVariables (sSourceString, aSB::append, x -> aSB.append (aVariableProvider.apply (x)));
+    forEachTextAndVariable (sSourceString, aSB::append, x -> aSB.append (aVariableProvider.apply (x)));
     return aSB.toString ();
   }
 }
