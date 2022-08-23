@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsHashMap;
@@ -151,8 +150,6 @@ public final class ConfigTest
   }
 
   @Test
-  @Ignore ("TODO")
-  // This class does not yet work as expected
   public void testWithVariableReplacementCyclicDep ()
   {
     final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
@@ -161,5 +158,18 @@ public final class ConfigTest
     final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
     assertEquals ("1 and ${key2}", aConfig.getAsString ("key1"));
     assertEquals ("2 and ${key1}", aConfig.getAsString ("key2"));
+  }
+
+  @Test
+  public void testWithVariableReplacementCyclicDepV2 ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "1 and ${key3}");
+    aMap.put ("key2", "2 and ${key1}");
+    aMap.put ("key3", "3 and ${key2}");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("1 and ${key3}", aConfig.getAsString ("key1"));
+    assertEquals ("2 and ${key1}", aConfig.getAsString ("key2"));
+    assertEquals ("3 and ${key2}", aConfig.getAsString ("key3"));
   }
 }

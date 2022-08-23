@@ -183,38 +183,38 @@ public class Config implements IConfig
   @Nonnull
   @Nonempty
   private String _getWithVariablesReplaced (@Nonnull @Nonempty final String sConfiguredValue,
-                                            @Nullable final ICommonsSet <String> aUsedVarContainer)
+                                            @Nonnull final ICommonsSet <String> aUsedVarContainer)
   {
     final UnaryOperator <String> aVarProvider = sVarName -> {
-      // Create new on top level, re-use on sub levels
-      final ICommonsSet <String> aUsedVarsPerConfigValue = aUsedVarContainer != null ? aUsedVarContainer
-                                                                                     : new CommonsLinkedHashSet <> ();
-      if (aUsedVarsPerConfigValue.add (sVarName))
+      if (!aUsedVarContainer.add (sVarName))
       {
-        // First time usage of variable name
-        final ConfiguredValue aCV = getConfiguredValue (sVarName);
-        if (aCV == null)
-          return "unresolved-var(" + sVarName + ")";
-
-        String sNestedConfiguredValue = aCV.getValue ();
-        if (m_bReplaceVariables && StringHelper.hasText (sNestedConfiguredValue))
-        {
-          // Recursive call
-          sNestedConfiguredValue = _getWithVariablesReplaced (sNestedConfiguredValue, aUsedVarContainer);
-        }
-
-        return sNestedConfiguredValue;
+        // Variable is used more then once
+        throw new IllegalStateException ("Found a variable cyclic dependency: " +
+                                         StringHelper.imploder ()
+                                                     .source (aUsedVarContainer, y -> '"' + y + '"')
+                                                     .separator (" -> ")
+                                                     .build () +
+                                         " -> \"" +
+                                         sVarName +
+                                         '"');
       }
 
-      // Variable is used more then once
-      throw new IllegalStateException ("The variables  have a cyclic dependency: " +
-                                       StringHelper.imploder ()
-                                                   .source (aUsedVarsPerConfigValue, y -> '"' + y + '"')
-                                                   .separator (" -> ")
-                                                   .build () +
-                                       " -> \"" +
-                                       sVarName +
-                                       '"');
+      // First time usage of variable name
+      final ConfiguredValue aCV = getConfiguredValue (sVarName);
+      if (aCV == null)
+        return "unresolved-var(" + sVarName + ")";
+
+      String sNestedConfiguredValue = aCV.getValue ();
+      if (m_bReplaceVariables && StringHelper.hasText (sNestedConfiguredValue))
+      {
+        // Recursive call
+        sNestedConfiguredValue = _getWithVariablesReplaced (sNestedConfiguredValue, aUsedVarContainer);
+      }
+
+      // Remove the variable again, because resolution worked so far
+      aUsedVarContainer.remove (sVarName);
+
+      return sNestedConfiguredValue;
     };
     return TextVariableHelper.getWithReplacedVariables (sConfiguredValue, aVarProvider);
   }
@@ -234,7 +234,7 @@ public class Config implements IConfig
 
       try
       {
-        sConfiguredValue = _getWithVariablesReplaced (sConfiguredValue, null);
+        sConfiguredValue = _getWithVariablesReplaced (sConfiguredValue, new CommonsLinkedHashSet <> ());
       }
       catch (final IllegalStateException ex)
       {
