@@ -42,7 +42,6 @@ public final class ConfigTest
   @Test
   public void testForEachOneConfigSource ()
   {
-
     final IConfig aConfig = new Config (CS1);
     assertEquals ("from-application-json0", aConfig.getAsString ("element0"));
     assertNull (aConfig.getAsString ("element5"));
