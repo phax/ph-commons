@@ -51,7 +51,9 @@ import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
  *
  * @author Philip Helger
  */
-public class MultiConfigurationValueProvider implements IConfigurationValueProvider, ICloneable <MultiConfigurationValueProvider>
+public class MultiConfigurationValueProvider implements
+                                             IConfigurationValueProvider,
+                                             ICloneable <MultiConfigurationValueProvider>
 {
   private static final class CS
   {
@@ -307,7 +309,8 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
 
         if (!aUsedURLs.add (aURL.toExternalForm ()))
         {
-          LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
           continue;
         }
 
@@ -335,7 +338,8 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
         final URL aURL = aRes.getAsURL ();
         if (!aUsedURLs.add (aURL.toExternalForm ()))
         {
-          LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
         }
         else
         {
