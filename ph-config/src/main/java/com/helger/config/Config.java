@@ -212,8 +212,8 @@ public class Config implements IConfig
 
   @Nonnull
   @Nonempty
-  private String _getWithVariablesReplaced (@Nonnull @Nonempty final String sConfiguredValue,
-                                            @Nonnull final ICommonsSet <String> aUsedVarContainer)
+  private String _getWithVariablesReplacedRecursive (@Nonnull @Nonempty final String sConfiguredValue,
+                                                     @Nonnull final ICommonsSet <String> aUsedVarContainer)
   {
     final UnaryOperator <String> aVarProvider = sVarName -> {
       if (!aUsedVarContainer.add (sVarName))
@@ -238,10 +238,10 @@ public class Config implements IConfig
       }
 
       String sNestedConfiguredValue = aCV.getValue ();
-      if (m_bReplaceVariables && StringHelper.hasText (sNestedConfiguredValue))
+      if (StringHelper.hasText (sNestedConfiguredValue))
       {
         // Recursive call
-        sNestedConfiguredValue = _getWithVariablesReplaced (sNestedConfiguredValue, aUsedVarContainer);
+        sNestedConfiguredValue = _getWithVariablesReplacedRecursive (sNestedConfiguredValue, aUsedVarContainer);
       }
 
       // Remove the variable again, because resolution worked so far
@@ -249,6 +249,8 @@ public class Config implements IConfig
 
       return sNestedConfiguredValue;
     };
+
+    // Main replacement with
     return TextVariableHelper.getWithReplacedVariables (sConfiguredValue, aVarProvider);
   }
 
@@ -267,7 +269,7 @@ public class Config implements IConfig
 
       try
       {
-        sConfiguredValue = _getWithVariablesReplaced (sConfiguredValue, new CommonsLinkedHashSet <> ());
+        sConfiguredValue = _getWithVariablesReplacedRecursive (sConfiguredValue, new CommonsLinkedHashSet <> ());
       }
       catch (final IllegalStateException ex)
       {

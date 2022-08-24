@@ -306,7 +306,12 @@ public final class TextVariableHelper
     final StringBuilder aSB = new StringBuilder (sSourceString.length () * 2);
     // The text is copied "as-is"
     // Variable names are resolved through the provider
-    forEachTextAndVariable (sSourceString, aSB::append, x -> aSB.append (aVariableProvider.apply (x)));
+    forEachTextAndVariable (sSourceString, aSB::append, sVarName -> {
+      final String sResolved = aVariableProvider.apply (sVarName);
+      aSB.append (sResolved);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Resolved configuration variable '" + sVarName + "' to '" + sResolved + "'");
+    });
     return aSB.toString ();
   }
 }

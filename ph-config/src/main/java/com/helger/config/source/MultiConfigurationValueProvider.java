@@ -120,11 +120,25 @@ public class MultiConfigurationValueProvider implements
         addConfigurationSource (aSource);
   }
 
+  /**
+   * @return <code>true</code> if this multi value provider accepts only
+   *         configuration sources that were initialized and are usable. The
+   *         default is {@value #DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES}.
+   * @see IConfigurationSource#isInitializedAndUsable()
+   */
   public final boolean isUseOnlyInitializedConfigSources ()
   {
     return m_bUseOnlyInitializedConfigSources;
   }
 
+  /**
+   * Enable or disable the usage of only initialized configuration sources.
+   *
+   * @param bUseOnlyInitializedConfigSources
+   *        <code>true</code> to only allow the usage of initialized
+   *        configuration sources.
+   * @return this for chaining
+   */
   @Nonnull
   public final MultiConfigurationValueProvider setUseOnlyInitializedConfigSources (final boolean bUseOnlyInitializedConfigSources)
   {
