@@ -98,9 +98,12 @@ public final class ConfigFactory
    * with underscores. So e.g. the property 'a.b' resolves to the environment
    * variable "A_B" - priority 300</li>
    * </ul>
+   * Usually this is not what you are looking for but
+   * {@link #createDefaultValueProvider()}
    *
    * @return A new value provider. Never <code>null</code>.
    * @since 9.4.5
+   * @see #createDefaultValueProvider()
    */
   @Nonnull
   public static MultiConfigurationValueProvider createValueProviderSystemOnly ()

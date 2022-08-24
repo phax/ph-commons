@@ -234,6 +234,9 @@ public class Config implements IConfig
       if (aCV == null)
       {
         // Failed to resolve variable
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Failed to resolve configuration variable '" + sVarName + "'");
+
         return m_aUnresolvedVariableProvider.apply (sVarName);
       }
 
@@ -329,6 +332,8 @@ public class Config implements IConfig
     return new ToStringGenerator (this).append ("ValueProvider", m_aValueProvider)
                                        .append ("KeyFoundConsumer", m_aKeyFoundConsumer)
                                        .append ("KeyNotFoundConsumer", m_aKeyNotFoundConsumer)
+                                       .append ("ReplaceVariables", m_bReplaceVariables)
+                                       .append ("UnresolvedVariableProvider", m_aUnresolvedVariableProvider)
                                        .getToString ();
   }
 
