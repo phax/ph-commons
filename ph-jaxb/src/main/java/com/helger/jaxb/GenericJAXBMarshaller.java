@@ -41,6 +41,7 @@ import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.ESuccess;
@@ -48,6 +49,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
 import com.helger.jaxb.validation.IValidationEventHandlerFactory;
+import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.xml.schema.XMLSchemaCache;
 
 import jakarta.xml.bind.JAXBContext;
@@ -199,6 +201,25 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   {
     m_aVEHFactory = aVEHFactory;
     return this;
+  }
+
+  /**
+   * Special overload of
+   * {@link #setValidationEventHandlerFactory(IValidationEventHandlerFactory)}
+   * for the easy version of just collecting the errors and additionally
+   * invoking the old validation handler.
+   *
+   * @param aErrorList
+   *        The error list to fill. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 11.0.0
+   */
+  @Nonnull
+  public final GenericJAXBMarshaller <JAXBTYPE> setCollectErrors (@Nonnull final ErrorList aErrorList)
+  {
+    ValueEnforcer.notNull (aErrorList, "ErrorList");
+
+    return setValidationEventHandlerFactory (aOld -> new WrappedCollectingValidationEventHandler (aErrorList).andThen (aOld));
   }
 
   public final boolean isReadSecure ()
