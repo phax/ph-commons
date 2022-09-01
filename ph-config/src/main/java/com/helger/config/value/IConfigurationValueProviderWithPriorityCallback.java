@@ -28,12 +28,12 @@ public interface IConfigurationValueProviderWithPriorityCallback
 {
   /**
    * Invoked for a single configuration value provider.<br>
-   * TODO rename to "onConfigurationValueProvider" in v11
+   * Was renamed to "onConfigurationValueProvider" in v11
    *
    * @param aCVP
    *        The Configuration value provider. Never <code>null</code>
    * @param nPriority
    *        The priority the Configuration value provide has.
    */
-  void onConfigurationSource (@Nonnull IConfigurationValueProvider aCVP, int nPriority);
+  void onConfigurationValueProvider (@Nonnull IConfigurationValueProvider aCVP, int nPriority);
 }
