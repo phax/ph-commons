@@ -32,6 +32,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.jaxb.IJAXBMarshaller;
 import com.helger.jaxb.IJAXBWriter;
 import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;

@@ -31,7 +31,7 @@ public abstract class AbstractPasswordHashCreator implements IPasswordHashCreato
 {
   private final String m_sAlgorithmName;
 
-  public AbstractPasswordHashCreator (@Nonnull @Nonempty final String sAlgorithmName)
+  protected AbstractPasswordHashCreator (@Nonnull @Nonempty final String sAlgorithmName)
   {
     m_sAlgorithmName = ValueEnforcer.notEmpty (sAlgorithmName, "Algorithm");
   }

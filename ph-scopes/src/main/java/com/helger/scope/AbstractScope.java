@@ -64,7 +64,7 @@ public abstract class AbstractScope implements IScope
    * @param sScopeID
    *        The scope ID. May neither be <code>null</code> nor empty.
    */
-  public AbstractScope (@Nonnull @Nonempty final String sScopeID)
+  protected AbstractScope (@Nonnull @Nonempty final String sScopeID)
   {
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }

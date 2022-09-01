@@ -71,7 +71,7 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
   {
     private final int m_nRuns;
 
-    public AbstractDoIt (final int runs)
+    protected AbstractDoIt (final int runs)
     {
       m_nRuns = runs;
     }

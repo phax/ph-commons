@@ -54,7 +54,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   private boolean m_bUseSchema = true;
   private final CallbackList <IExceptionCallback <JAXBException>> m_aExceptionCallbacks = new CallbackList <> ();
 
-  public AbstractJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
+  protected AbstractJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     m_aDocType = ValueEnforcer.notNull (aDocType, "DocType");
     // By default this class loader of the type to be marshalled should be used

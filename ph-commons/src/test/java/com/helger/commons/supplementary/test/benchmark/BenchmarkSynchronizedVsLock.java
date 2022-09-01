@@ -87,7 +87,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
   {
     private int m_nRuns = 10000;
 
-    public AbstractBase ()
+    protected AbstractBase ()
     {}
 
     protected final void performAction ()

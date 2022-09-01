@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.IJAXBReader;
+import com.helger.jaxb.IJAXBUnmarshaller;
 import com.helger.jaxb.LoggingJAXBReadExceptionHandler;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 

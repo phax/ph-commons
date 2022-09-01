@@ -48,10 +48,6 @@ import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
 import com.helger.xml.serialize.read.SAXReaderSettings;
 
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
-
 /**
  * Interface for reading JAXB documents from various sources.
  *
@@ -61,20 +57,6 @@ import jakarta.xml.bind.Unmarshaller;
  */
 public interface IJAXBReader <JAXBTYPE>
 {
-  /**
-   * A special bi-consumer that additionally can throw a {@link JAXBException}
-   *
-   * @author Philip Helger
-   * @param <JAXBTYPE>
-   *        The JAXB type to be written
-   */
-  @FunctionalInterface
-  interface IJAXBUnmarshaller <JAXBTYPE>
-  {
-    @Nonnull
-    JAXBElement <JAXBTYPE> doUnmarshal (@Nonnull Unmarshaller aUnmarshaller, @Nonnull Class <JAXBTYPE> aClass) throws JAXBException;
-  }
-
   /**
    * Check if secure reading is enabled. Secure reading means that documents are
    * checked for XXE and XML bombs (infinite entity expansions). By default

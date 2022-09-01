@@ -177,6 +177,16 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   /**
+   * @return The currently used validation event handler factory. By default
+   *         none is used. May be <code>null</code> if explicitly set.
+   */
+  @Nullable
+  public final IValidationEventHandlerFactory getValidationEventHandlerFactory ()
+  {
+    return m_aVEHFactory;
+  }
+
+  /**
    * Set a factory to be used to create {@link ValidationEventHandler} objects.
    * By default none is present.
    *
@@ -189,16 +199,6 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   {
     m_aVEHFactory = aVEHFactory;
     return this;
-  }
-
-  /**
-   * @return The currently used validation event handler factory. By default
-   *         none is used. May be <code>null</code> if explicitly set.
-   */
-  @Nullable
-  public final IValidationEventHandlerFactory getValidationEventHandlerFactory ()
-  {
-    return m_aVEHFactory;
   }
 
   public final boolean isReadSecure ()

@@ -88,7 +88,8 @@ public class JAXBContextCacheKey
    *        JAXB context properties. May be <code>null</code>.
    * @since v9.4.2
    */
-  public JAXBContextCacheKey (@Nonnull final ICommonsList <Class <?>> aClasses, @Nullable final Map <String, ?> aProperties)
+  public JAXBContextCacheKey (@Nonnull final ICommonsList <Class <?>> aClasses,
+                              @Nullable final Map <String, ?> aProperties)
   {
     ValueEnforcer.notEmptyNoNullValue (aClasses, "Classes");
     m_aPackage = null;
@@ -140,7 +141,10 @@ public class JAXBContextCacheKey
 
     if (!bSilentMode)
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Creating JAXB context for package " + m_aPackage.getName () + " using ClassLoader " + aClassLoader.toString ());
+        LOGGER.info ("Creating JAXB context for package " +
+                     m_aPackage.getName () +
+                     " using ClassLoader " +
+                     aClassLoader.toString ());
 
     try
     {
@@ -220,7 +224,10 @@ public class JAXBContextCacheKey
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sEqualsHashCodeKey).append (_getClassLoader ()).append (m_aProperties).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sEqualsHashCodeKey)
+                                       .append (_getClassLoader ())
+                                       .append (m_aProperties)
+                                       .getHashCode ();
   }
 
   @Override
@@ -230,6 +237,7 @@ public class JAXBContextCacheKey
                                        .appendIfNotNull ("ClassLoader", m_aClassLoader)
                                        .appendIfNotNull ("Classes", m_aClasses)
                                        .appendIfNotNull ("Properties", m_aProperties)
+                                       .appendIfNotNull ("EqualsHashCodeKey", m_sEqualsHashCodeKey)
                                        .getToString ();
   }
 }

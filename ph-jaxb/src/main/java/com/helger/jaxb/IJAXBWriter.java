@@ -56,10 +56,6 @@ import com.helger.xml.serialize.write.SafeXMLStreamWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 import com.helger.xml.transform.TransformResultFactory;
 
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-
 /**
  * Interface for writing JAXB documents to various destinations.
  *
@@ -73,7 +69,8 @@ public interface IJAXBWriter <JAXBTYPE>
    * Use the {@link SafeXMLStreamWriter} where applicable to ensure valid XML is
    * created? This is a work around for
    * https://github.com/eclipse-ee4j/jaxb-ri/issues/614 and
-   * https://github.com/eclipse-ee4j/jaxb-ri/issues/960
+   * https://github.com/eclipse-ee4j/jaxb-ri/issues/960<br>
+   * Note: these bugs are still open for JAXB 4.0.0
    */
   boolean USE_JAXB_CHARSET_FIX = true;
 
@@ -161,19 +158,6 @@ public interface IJAXBWriter <JAXBTYPE>
       ret.setCharset (getCharset ());
     return ret.setNewLineMode (ENewLineMode.DEFAULT)
               .setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING);
-  }
-
-  /**
-   * A special bi-consumer that additionally can throw a {@link JAXBException}
-   *
-   * @author Philip Helger
-   * @param <JAXBTYPE>
-   *        The JAXB type to be written
-   */
-  @FunctionalInterface
-  interface IJAXBMarshaller <JAXBTYPE>
-  {
-    void doMarshal (@Nonnull Marshaller aMarshaller, @Nonnull JAXBElement <JAXBTYPE> aJAXBElement) throws JAXBException;
   }
 
   /**
@@ -341,7 +325,8 @@ public interface IJAXBWriter <JAXBTYPE>
   {
     if (USE_JAXB_CHARSET_FIX && aResult instanceof StreamResult)
     {
-      LoggerFactory.getLogger (IJAXBWriter.class).warn ("Potentially invalid XML is created by using StreamResult object: {}", aResult);
+      LoggerFactory.getLogger (IJAXBWriter.class)
+                   .warn ("Potentially invalid XML is created by using StreamResult object: {}", aResult);
     }
 
     return write (aObject, (m, e) -> m.marshal (e, aResult));
@@ -375,7 +360,8 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return {@link ESuccess}
    */
   @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
+  default ESuccess write (@Nonnull final JAXBTYPE aObject,
+                          @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
   {
     // No need for charset fix, because it is up to the XMLStreamWriter, if it
     // is converting to a byte[] or not.
@@ -492,7 +478,9 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS.getBuffer ();
+        return write (aObject,
+                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
+                                                                                                : aBBOS.getBuffer ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getBuffer ();
     }
@@ -514,7 +502,9 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS.getAsByteArray ();
+        return write (aObject,
+                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
+                                                                                                : aBBOS.getAsByteArray ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getAsByteArray ();
     }

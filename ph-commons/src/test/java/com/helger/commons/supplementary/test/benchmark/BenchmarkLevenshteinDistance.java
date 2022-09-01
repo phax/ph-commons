@@ -66,10 +66,12 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     findWhetherSynchronizedOrLockAreFaster ();
   }
 
-  private static ICommonsList <String> _readWordList (final IReadableResource aRes, final Charset aCharset) throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
+                                                      final Charset aCharset) throws IOException
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
-    final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (), aCharset));
+    final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),
+                                                                                                aCharset));
     String sLine;
     int nIdx = 0;
     while ((sLine = aBR.readLine ()) != null)
@@ -100,7 +102,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
 
   private static void findWhetherSynchronizedOrLockAreFaster () throws IOException
   {
-    final ICommonsList <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"), StandardCharsets.ISO_8859_1);
+    final ICommonsList <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"),
+                                                          StandardCharsets.ISO_8859_1);
     if (true)
     {
       aStrings.remove (0);
@@ -191,7 +194,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
   {
     private final String [] m_aStrings;
 
-    public AbstractLevDist (final String [] aStrings)
+    protected AbstractLevDist (final String [] aStrings)
     {
       m_aStrings = aStrings;
     }
@@ -249,7 +252,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
           final int cost = sStr1.charAt (i - 1) == ch2 ? 0 : LV_COST_SUBSTITUTE;
           // minimum of cell to the left+1, to the top+1, diagonally left and up
           // +cost
-          aCurRow[i] = Math.min (Math.min (aCurRow[i - 1] + LV_COST_INSERT, aPrevRow[i] + LV_COST_DELETE), aPrevRow[i - 1] + cost);
+          aCurRow[i] = Math.min (Math.min (aCurRow[i - 1] + LV_COST_INSERT, aPrevRow[i] + LV_COST_DELETE),
+                                 aPrevRow[i - 1] + cost);
         }
 
         // copy current distance counts to 'previous row' distance counts
@@ -303,7 +307,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
           final int cost = chs1[i] == ch2 ? 0 : LV_COST_SUBSTITUTE;
           // minimum of cell to the left+1, to the top+1, diagonally left and up
           // +cost
-          aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + LV_COST_INSERT, aPrevRow[i + 1] + LV_COST_DELETE), aPrevRow[i] + cost);
+          aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + LV_COST_INSERT, aPrevRow[i + 1] + LV_COST_DELETE),
+                                     aPrevRow[i] + cost);
         }
 
         // swap current distance counts to 'previous row' distance counts
@@ -348,7 +353,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
         for (int j = 0; j < nLen2; j++)
         {
           final int cost = sStr1.charAt (i) == sStr2.charAt (j) ? 0 : LV_COST_SUBSTITUTE;
-          T[i + 1][j + 1] = Math.min (Math.min (T[i][j] + cost, T[i][j + 1] + LV_COST_DELETE), T[i + 1][j] + LV_COST_INSERT);
+          T[i + 1][j + 1] = Math.min (Math.min (T[i][j] + cost, T[i][j + 1] + LV_COST_DELETE),
+                                      T[i + 1][j] + LV_COST_INSERT);
         }
       }
 
@@ -390,7 +396,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
         for (int j = 0; j < nLen2; j++)
         {
           final int cost = ch1 == chs2[j] ? 0 : LV_COST_SUBSTITUTE;
-          T[i + 1][j + 1] = Math.min (Math.min (T[i][j] + cost, T[i][j + 1] + LV_COST_DELETE), T[i + 1][j] + LV_COST_INSERT);
+          T[i + 1][j + 1] = Math.min (Math.min (T[i][j] + cost, T[i][j + 1] + LV_COST_DELETE),
+                                      T[i + 1][j] + LV_COST_INSERT);
         }
       }
 

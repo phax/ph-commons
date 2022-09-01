@@ -40,10 +40,10 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
   protected final int m_nIterations;
   protected final int m_nHashBytes;
 
-  public AbstractPasswordHashCreatorPBKDF2 (@Nonnull @Nonempty final String sAlgorithmName,
-                                            @Nonnull @Nonempty final String sPBKDF2AlgorithmName,
-                                            @Nonnegative final int nIterations,
-                                            @Nonnegative final int nBytes)
+  protected AbstractPasswordHashCreatorPBKDF2 (@Nonnull @Nonempty final String sAlgorithmName,
+                                               @Nonnull @Nonempty final String sPBKDF2AlgorithmName,
+                                               @Nonnegative final int nIterations,
+                                               @Nonnegative final int nBytes)
   {
     super (sAlgorithmName);
     m_sPBKDF2AlgorithmName = ValueEnforcer.notEmpty (sPBKDF2AlgorithmName, "PBKDF2AlgorithmName");

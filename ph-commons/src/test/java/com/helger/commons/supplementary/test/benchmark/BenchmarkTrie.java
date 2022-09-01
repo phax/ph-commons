@@ -52,7 +52,8 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     execute ();
   }
 
-  private static ICommonsList <String> _readWordList (final IReadableResource aRes, final Charset aCharset) throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
+                                                      final Charset aCharset) throws IOException
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
     final BufferedReader aBR = new BufferedReader (new InputStreamReader (aRes.getInputStream (), aCharset));
@@ -77,7 +78,8 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
 
   private static void execute () throws IOException
   {
-    final ICommonsList <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"), StandardCharsets.ISO_8859_1);
+    final ICommonsList <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"),
+                                                          StandardCharsets.ISO_8859_1);
     if (true)
     {
       // 309 chars
@@ -116,7 +118,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
   {
     private final String [] m_aStrings;
 
-    public AbstractStringMapBase (final String [] aStrings)
+    protected AbstractStringMapBase (final String [] aStrings)
     {
       m_aStrings = aStrings;
     }

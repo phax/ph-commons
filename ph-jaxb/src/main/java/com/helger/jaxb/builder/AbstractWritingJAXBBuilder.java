@@ -43,12 +43,13 @@ import jakarta.xml.bind.Marshaller;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>> extends
+public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>>
+                                                 extends
                                                  AbstractJAXBBuilder <IMPLTYPE>
 {
   private Consumer <? super Marshaller> m_aMarshallerCustomizer;
 
-  public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
+  protected AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
     exceptionCallbacks ().add (new LoggingJAXBWriteExceptionHandler ());

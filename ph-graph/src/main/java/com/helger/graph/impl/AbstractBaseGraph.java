@@ -55,7 +55,7 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
   protected final ICommonsOrderedMap <String, NODETYPE> m_aNodes = new CommonsLinkedHashMap <> ();
   private boolean m_bIsChangingConnectedObjectsAllowed = DEFAULT_CHANGING_CONNECTED_OBJECTS_ALLOWED;
 
-  public AbstractBaseGraph (@Nullable final String sID)
+  protected AbstractBaseGraph (@Nullable final String sID)
   {
     super (sID);
   }
@@ -111,7 +111,8 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AbstractBaseGraph <?, ?> rhs = (AbstractBaseGraph <?, ?>) o;
-    return m_aNodes.equals (rhs.m_aNodes) && m_bIsChangingConnectedObjectsAllowed == rhs.m_bIsChangingConnectedObjectsAllowed;
+    return m_aNodes.equals (rhs.m_aNodes) &&
+           m_bIsChangingConnectedObjectsAllowed == rhs.m_bIsChangingConnectedObjectsAllowed;
   }
 
   @Override
