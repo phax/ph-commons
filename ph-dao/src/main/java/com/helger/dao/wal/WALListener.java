@@ -84,7 +84,7 @@ public final class WALListener extends AbstractGlobalSingleton
    *
    * @deprecated Called via reflection - don't call it yourself
    */
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public WALListener ()
   {}

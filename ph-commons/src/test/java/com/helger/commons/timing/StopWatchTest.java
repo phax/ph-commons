@@ -32,13 +32,11 @@ import com.helger.commons.concurrent.ThreadHelper;
  */
 public final class StopWatchTest
 {
-  @SuppressWarnings ("deprecation")
   @Test
   public void testAll ()
   {
     StopWatch sw = StopWatch.createdStopped ();
     assertFalse (sw.isStarted ());
-    assertEquals (0, sw.getSeconds ());
     assertEquals (0, sw.getMillis ());
     assertEquals (0, sw.getNanos ());
     assertFalse (sw.stop ().isChanged ());
@@ -56,7 +54,7 @@ public final class StopWatchTest
     assertTrue (sw.start ().isChanged ());
     assertTrue (sw.isStarted ());
     ThreadHelper.sleep (10);
-    assertTrue (sw.stopAndGetNanos () > 0);
+    assertTrue (sw.stopAndGetMillis () > 0);
     assertFalse (sw.isStarted ());
     assertTrue (sw.getNanos () > 0);
     assertTrue (sw.reset ().isChanged ());

@@ -334,7 +334,7 @@ public final class CHttp
   public static String getHttpResponseMessage (final int nResponseCode)
   {
     // All codes from HttpServletReponse in servlet Spec 3.1.0 are contained!
-    String sMsg;
+    final String sMsg;
     switch (nResponseCode)
     {
       // 1XX

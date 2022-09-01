@@ -37,21 +37,6 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
   private final InputStream m_aIS;
 
   /**
-   * Please Don't use this one. Use the constructor with the resource ID.
-   *
-   * @param aIS
-   *        InputStream to use. May not be <code>null</code>. This Stream is NOT
-   *        closed by this class.
-   * @deprecated Use {@link #ReadableResourceInputStream(String, InputStream)}
-   *             instead
-   */
-  @Deprecated
-  public ReadableResourceInputStream (@Nonnull @WillNotClose final InputStream aIS)
-  {
-    this (null, aIS);
-  }
-
-  /**
    * Constructor to use.
    *
    * @param sResourceID

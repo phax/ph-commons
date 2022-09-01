@@ -83,35 +83,6 @@ public class SingleError implements IError
   /**
    * Constructor
    *
-   * @param aErrorLevel
-   *        Error level. May not be <code>null</code>.
-   * @param sErrorID
-   *        Error ID
-   * @param sErrorFieldName
-   *        Error field name
-   * @param aErrorLocation
-   *        Error location
-   * @param aErrorText
-   *        Error text
-   * @param aLinkedException
-   *        Linked exception
-   * @deprecated Since 10.1.7; Use the constructor with LocalDateTime instead;
-   *             Removed in v11
-   */
-  @Deprecated
-  public SingleError (@Nonnull final IErrorLevel aErrorLevel,
-                      @Nullable final String sErrorID,
-                      @Nullable final String sErrorFieldName,
-                      @Nullable final ILocation aErrorLocation,
-                      @Nullable final IHasErrorText aErrorText,
-                      @Nullable final Throwable aLinkedException)
-  {
-    this (null, aErrorLevel, sErrorID, sErrorFieldName, aErrorLocation, aErrorText, aLinkedException);
-  }
-
-  /**
-   * Constructor
-   *
    * @param aErrorDT
    *        Error date time
    * @param aErrorLevel
@@ -389,10 +360,10 @@ public class SingleError implements IError
     protected IHasErrorText m_aErrorText;
     protected Throwable m_aLinkedException;
 
-    public AbstractBuilder ()
+    protected AbstractBuilder ()
     {}
 
-    public AbstractBuilder (@Nonnull final IError aError)
+    protected AbstractBuilder (@Nonnull final IError aError)
     {
       ValueEnforcer.notNull (aError, "Error");
       errorLevel (aError.getErrorLevel ());

@@ -1633,9 +1633,10 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     return new HashCodeGenerator (this).append (m_aTime).append (m_aOffset).getHashCode ();
   }
 
+  // Don't use "getAsString" for compatibility with the rest of the Java DT API
   @Nonnull
   @Nonempty
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public String getAsString ()
   {
     return toString ();

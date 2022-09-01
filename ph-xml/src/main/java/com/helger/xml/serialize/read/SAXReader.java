@@ -56,12 +56,13 @@ public final class SAXReader
 {
   private static final IMutableStatisticsHandlerTimer STATS_SAX_TIMER = StatisticsManager.getTimerHandler (SAXReader.class.getName ());
   private static final IMutableStatisticsHandlerCounter STATS_SAX_SUCCESS_COUNTER = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
-                                                                                                                       "$success");
+                                                                                                                         "$success");
   private static final IMutableStatisticsHandlerCounter STATS_SAX_ERROR_COUNTER = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
-                                                                                                                     "$error");
+                                                                                                                       "$error");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final IMutableObjectPool <org.xml.sax.XMLReader> POOL = new ObjectPool <> (10, new SAXReaderFactory ());
+  private static final IMutableObjectPool <org.xml.sax.XMLReader> POOL = new ObjectPool <> (10,
+                                                                                            new SAXReaderFactory ());
 
   @PresentForCodeCoverage
   private static final SAXReader INSTANCE = new SAXReader ();
@@ -94,7 +95,8 @@ public final class SAXReader
   }
 
   @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final IReadableResource aResource, @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@Nonnull final IReadableResource aResource,
+                                     @Nonnull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aResource), aSettings);
   }
@@ -148,7 +150,8 @@ public final class SAXReader
   }
 
   @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull @WillClose final InputStream aIS, @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@Nonnull @WillClose final InputStream aIS,
+                                     @Nonnull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -163,7 +166,8 @@ public final class SAXReader
   }
 
   @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull @WillClose final Reader aReader, @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@Nonnull @WillClose final Reader aReader,
+                                     @Nonnull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aReader, "Reader");
 
@@ -193,18 +197,20 @@ public final class SAXReader
    *         {@link ESuccess#FAILURE} otherwise
    */
   @Nonnull
-  public static ESuccess readXMLSAX (@WillClose @Nonnull final InputSource aIS, @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@WillClose @Nonnull final InputSource aIS,
+                                     @Nonnull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aSettings, "Settings");
 
     try
     {
-      boolean bFromPool = false;
-      org.xml.sax.XMLReader aParser;
+      final boolean bFromPool;
+      final org.xml.sax.XMLReader aParser;
       if (aSettings.requiresNewXMLParser ())
       {
         aParser = SAXReaderFactory.createXMLReader ();
+        bFromPool = false;
       }
       else
       {
