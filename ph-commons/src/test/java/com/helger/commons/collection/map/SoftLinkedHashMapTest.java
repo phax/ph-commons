@@ -28,7 +28,6 @@ import java.util.Set;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,12 +43,11 @@ public final class SoftLinkedHashMapTest
   private static final Logger LOGGER = LoggerFactory.getLogger (SoftLinkedHashMapTest.class);
 
   @Test
-  @Ignore ("Travis will fail if this test is run")
   @SuppressFBWarnings ("UC_USELESS_OBJECT")
   public void testBasic ()
   {
     final MutableBoolean aChange = new MutableBoolean (false);
-    final SoftLinkedHashMap <Integer, BigDecimal> map = new SoftLinkedHashMap <Integer, BigDecimal> (1)
+    final SoftLinkedHashMap <Integer, BigDecimal> map = new SoftLinkedHashMap <> (1)
     {
       @Override
       protected void onEntryRemoved (final Integer aKey)
@@ -59,7 +57,8 @@ public final class SoftLinkedHashMapTest
       }
 
       @Override
-      protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <Integer, BigDecimal> aEldest)
+      protected void onRemoveEldestEntry (@Nonnegative final int nSize,
+                                          @Nonnull final Map.Entry <Integer, BigDecimal> aEldest)
       {
         LOGGER.info ("Removed eldest entry " + aEldest.getKey ());
       }

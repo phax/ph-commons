@@ -110,7 +110,10 @@ public final class MappedCacheTest
   @Test
   public void testNullValueNotAllowed ()
   {
-    final Cache <Integer, String> c = new Cache <> (x -> x == null ? null : "v" + x.intValue (), MappedCache.NO_MAX_SIZE, "Mock", false);
+    final Cache <Integer, String> c = new Cache <> (x -> x == null ? null : "v" + x.intValue (),
+                                                    MappedCache.NO_MAX_SIZE,
+                                                    "Mock",
+                                                    false);
     assertEquals ("v1", c.getFromCache (Integer.valueOf (1)));
     assertEquals (1, c.size ());
     try
@@ -130,7 +133,10 @@ public final class MappedCacheTest
   @Test
   public void testNullValueAllowed ()
   {
-    final Cache <String, String> c = new Cache <> (aKey -> "blub".equals (aKey) ? null : aKey, MappedCache.NO_MAX_SIZE, "Mock", true);
+    final Cache <String, String> c = new Cache <> (aKey -> "blub".equals (aKey) ? null : aKey,
+                                                   MappedCache.NO_MAX_SIZE,
+                                                   "Mock",
+                                                   true);
     assertEquals ("v1", c.getFromCache ("v1"));
     assertEquals (1, c.size ());
     // null value allowed
@@ -142,11 +148,11 @@ public final class MappedCacheTest
   @Test
   public void testPrefilledCache ()
   {
-    final MappedCache <String, String, String> c = new MappedCache <String, String, String> (x -> x,
-                                                                                             StringHelper::getNotNull,
-                                                                                             MappedCache.NO_MAX_SIZE,
-                                                                                             "Mock",
-                                                                                             false)
+    final MappedCache <String, String, String> c = new MappedCache <> (x -> x,
+                                                                       StringHelper::getNotNull,
+                                                                       MappedCache.NO_MAX_SIZE,
+                                                                       "Mock",
+                                                                       false)
     {
       {
         putInCache ("a", "b");

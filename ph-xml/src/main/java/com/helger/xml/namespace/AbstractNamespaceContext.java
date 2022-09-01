@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyIterator;
@@ -45,8 +44,7 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   protected abstract Iterator <String> getCustomPrefixes (@Nonnull String sNamespaceURI);
 
   @Nonnull
-  @DevelopersNote ("Java 8: Iterator; Java 10: Iterator<String>")
-  public final Iterator getPrefixes (@Nonnull final String sNamespaceURI)
+  public final Iterator <String> getPrefixes (@Nonnull final String sNamespaceURI)
   {
     // According to JavaDoc
     if (sNamespaceURI == null)

@@ -239,7 +239,8 @@ public final class CommonsMock
      *        The type to be mocked
      */
     @Nonnull
-    public static <T> MockSupplier createNoParams (@Nonnull final Class <T> aDstClass, @Nonnull final Supplier <T> aSupplier)
+    public static <T> MockSupplier createNoParams (@Nonnull final Class <T> aDstClass,
+                                                   @Nonnull final Supplier <T> aSupplier)
     {
       ValueEnforcer.notNull (aDstClass, "DstClass");
       ValueEnforcer.notNull (aSupplier, "Supplier");
@@ -299,7 +300,7 @@ public final class CommonsMock
 
     // Create some basic simple type mappings
     {
-      final Supplier <String> aStringSupplier = new Supplier <String> ()
+      final Supplier <String> aStringSupplier = new Supplier <> ()
       {
         private final AtomicInteger m_aCount = new AtomicInteger (0);
 
@@ -407,7 +408,8 @@ public final class CommonsMock
    * @param aTargetMap
    *        Map to register it to. May not be <code>null</code>.
    */
-  private static void _register (@Nonnull final MockSupplier aSupplier, @Nonnull final Map <Class <?>, MockSupplier> aTargetMap)
+  private static void _register (@Nonnull final MockSupplier aSupplier,
+                                 @Nonnull final Map <Class <?>, MockSupplier> aTargetMap)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");
@@ -510,7 +512,9 @@ public final class CommonsMock
   }
 
   @Nonnull
-  private Object _mock (@Nonnull final Class <?> aClass, @Nullable final Object [] aParams, final int nLevel) throws Exception
+  private Object _mock (@Nonnull final Class <?> aClass,
+                        @Nullable final Object [] aParams,
+                        final int nLevel) throws Exception
   {
     // Check for static supplier
     final MockSupplier aStatic = STATIC_SUPPLIERS.get (aClass);
@@ -632,7 +636,9 @@ public final class CommonsMock
    */
   @Nonnull
   @ReturnsMutableCopy
-  public <T> ICommonsList <T> mockMany (@Nonnegative final int nCount, @Nonnull final Class <T> aClass, @Nullable final Object... aParams)
+  public <T> ICommonsList <T> mockMany (@Nonnegative final int nCount,
+                                        @Nonnull final Class <T> aClass,
+                                        @Nullable final Object... aParams)
   {
     final ICommonsList <T> ret = new CommonsArrayList <> (nCount);
     for (int i = 0; i < nCount; ++i)
@@ -656,7 +662,9 @@ public final class CommonsMock
    */
   @Nonnull
   @ReturnsMutableCopy
-  public <T> ICommonsSet <T> mockSet (@Nonnegative final int nCount, @Nonnull final Class <T> aClass, @Nullable final Object... aParams)
+  public <T> ICommonsSet <T> mockSet (@Nonnegative final int nCount,
+                                      @Nonnull final Class <T> aClass,
+                                      @Nullable final Object... aParams)
   {
     final ICommonsSet <T> ret = new CommonsHashSet <> (nCount);
     for (int i = 0; i < nCount; ++i)

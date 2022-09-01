@@ -23,7 +23,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.system.SystemProperties;
@@ -41,10 +40,10 @@ public final class SAXReaderFactory implements Supplier <org.xml.sax.XMLReader>
   {
     try
     {
-      org.xml.sax.XMLReader ret;
+      final org.xml.sax.XMLReader ret;
       if (true)
       {
-        ret = XMLReaderFactory.createXMLReader ();
+        ret = org.xml.sax.helpers.XMLReaderFactory.createXMLReader ();
         // Because of a performance flaw in this implementation, explicitly set
         // the system property to avoid scanning JAR files over and over again
         SystemProperties.setPropertyValue ("org.xml.sax.driver", ret.getClass ().getName ());
