@@ -185,7 +185,8 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           return ESuccess.SUCCESS;
         }
       if (!isSilentMode ())
-        LOGGER.warn ("Object " + aItem + " is not pooled!");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Object " + aItem + " is not pooled!");
       return ESuccess.FAILURE;
     }
     finally
