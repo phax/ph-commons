@@ -17,7 +17,6 @@
 package com.helger.commons.collection.map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -45,15 +44,19 @@ public final class MapEntryTest
     assertNotEquals (e, "bla");
     assertEquals (e, e);
     assertEquals (e, new MapEntry <String, Object> ("Key", "new"));
-    assertFalse (e.equals (new MapEntry <String, Object> ("Key", Integer.valueOf (17))));
+    assertNotEquals (e, new MapEntry <String, Object> ("Key", Integer.valueOf (17)));
     assertEquals (e.hashCode (), new MapEntry <String, Object> ("Key", "new").hashCode ());
     assertNotNull (e.toString ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapEntry <String, Object> ("Key", "value"),
                                                                        new MapEntry <String, Object> ("Key", "value"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key", "value"),
-                                                                           new MapEntry <String, Object> ("Key", "value2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key", "value"),
-                                                                           new MapEntry <String, Object> ("Key2", "value"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
+                                                                                                          "value"),
+                                                                           new MapEntry <String, Object> ("Key",
+                                                                                                          "value2"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
+                                                                                                          "value"),
+                                                                           new MapEntry <String, Object> ("Key2",
+                                                                                                          "value"));
   }
 }

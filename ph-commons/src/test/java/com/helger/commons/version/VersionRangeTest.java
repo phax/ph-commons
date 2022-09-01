@@ -289,7 +289,7 @@ public final class VersionRangeTest
     for (final String element : aFalseTests)
     {
       final VersionRange vr = VersionRange.parse (element);
-      assertFalse (vr.getAsString ().equals (element));
+      assertNotEquals (vr.getAsString (), element);
     }
   }
 
@@ -315,7 +315,7 @@ public final class VersionRangeTest
     for (final String element : aFalseTests)
     {
       final VersionRange vr = VersionRange.parse (element);
-      assertFalse (vr.getAsString (true).equals (element));
+      assertNotEquals (vr.getAsString (true), element);
     }
   }
 
@@ -403,12 +403,18 @@ public final class VersionRangeTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(,2.0]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.3,2.0]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.1]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"), VersionRange.parse ("(,2.1]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"), VersionRange.parse ("(1.3]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2,]"), VersionRange.parse ("(,2.0]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"), VersionRange.parse ("(1.2,]"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
+                                                                           VersionRange.parse ("(,2.1]"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
+                                                                           VersionRange.parse ("(1.3]"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2,]"),
+                                                                           VersionRange.parse ("(,2.0]"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
+                                                                           VersionRange.parse ("(1.2,]"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (VersionRange.parse ("(1.2]"), VersionRange.parse ("(1.2]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"), VersionRange.parse ("(1.2)"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (VersionRange.parse ("(1.2]"),
+                                                                       VersionRange.parse ("(1.2]"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
+                                                                           VersionRange.parse ("(1.2)"));
   }
 }

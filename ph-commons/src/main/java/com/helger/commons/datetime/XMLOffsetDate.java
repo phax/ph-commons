@@ -479,7 +479,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    * @return true if the field is supported on this date, false if not
    */
   @Override
-  public boolean isSupported (@Nonnull final TemporalField field)
+  public boolean isSupported (@Nullable final TemporalField field)
   {
     if (field instanceof ChronoField)
       return field.isDateBased () || field == OFFSET_SECONDS;
@@ -1706,7 +1706,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   // Don't use "getAsString" for compatibility with the rest of the Java DT API
   @Nonnull
   @Nonempty
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public String getAsString ()
   {
     return toString ();

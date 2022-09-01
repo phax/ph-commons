@@ -499,98 +499,98 @@ public final class VersionTest
     assertEquals (v1, v1);
     assertEquals (v1, v2);
     assertEquals (v1, v3);
-    assertFalse (v1.equals (v4));
-    assertFalse (v1.equals (v5));
-    assertFalse (v1.equals (v6));
-    assertFalse (v1.equals (v7));
-    assertFalse (v1.equals (v8));
-    assertFalse (v1.equals (v9));
+    assertNotEquals (v1, (v4));
+    assertNotEquals (v1, (v5));
+    assertNotEquals (v1, (v6));
+    assertNotEquals (v1, (v7));
+    assertNotEquals (v1, (v8));
+    assertNotEquals (v1, (v9));
 
     // test v2
     assertEquals (v2, v1);
     assertEquals (v2, v2);
     assertEquals (v2, v3);
-    assertFalse (v2.equals (v4));
-    assertFalse (v2.equals (v5));
-    assertFalse (v2.equals (v6));
-    assertFalse (v2.equals (v7));
-    assertFalse (v2.equals (v8));
-    assertFalse (v2.equals (v9));
+    assertNotEquals (v2, (v4));
+    assertNotEquals (v2, (v5));
+    assertNotEquals (v2, (v6));
+    assertNotEquals (v2, (v7));
+    assertNotEquals (v2, (v8));
+    assertNotEquals (v2, (v9));
 
     // test v3
     assertEquals (v3, v1);
     assertEquals (v3, v2);
     assertEquals (v3, v3);
-    assertFalse (v3.equals (v4));
-    assertFalse (v3.equals (v5));
-    assertFalse (v3.equals (v6));
-    assertFalse (v3.equals (v7));
-    assertFalse (v3.equals (v8));
-    assertFalse (v3.equals (v9));
+    assertNotEquals (v3, (v4));
+    assertNotEquals (v3, (v5));
+    assertNotEquals (v3, (v6));
+    assertNotEquals (v3, (v7));
+    assertNotEquals (v3, (v8));
+    assertNotEquals (v3, (v9));
 
     // test v4
-    assertFalse (v4.equals (v1));
-    assertFalse (v4.equals (v2));
-    assertFalse (v4.equals (v3));
+    assertNotEquals (v4, (v1));
+    assertNotEquals (v4, (v2));
+    assertNotEquals (v4, (v3));
     assertEquals (v4, v4);
-    assertFalse (v4.equals (v5));
-    assertFalse (v4.equals (v6));
-    assertFalse (v4.equals (v7));
-    assertFalse (v4.equals (v8));
-    assertFalse (v4.equals (v9));
+    assertNotEquals (v4, (v5));
+    assertNotEquals (v4, (v6));
+    assertNotEquals (v4, (v7));
+    assertNotEquals (v4, (v8));
+    assertNotEquals (v4, (v9));
 
     // test v5
-    assertFalse (v5.equals (v1));
-    assertFalse (v5.equals (v2));
-    assertFalse (v5.equals (v3));
-    assertFalse (v5.equals (v4));
+    assertNotEquals (v5, (v1));
+    assertNotEquals (v5, (v2));
+    assertNotEquals (v5, (v3));
+    assertNotEquals (v5, (v4));
     assertEquals (v5, v5);
-    assertFalse (v5.equals (v6));
-    assertFalse (v5.equals (v7));
-    assertFalse (v5.equals (v8));
-    assertFalse (v5.equals (v9));
+    assertNotEquals (v5, (v6));
+    assertNotEquals (v5, (v7));
+    assertNotEquals (v5, (v8));
+    assertNotEquals (v5, (v9));
 
     // test v6
-    assertFalse (v6.equals (v1));
-    assertFalse (v6.equals (v2));
-    assertFalse (v6.equals (v3));
-    assertFalse (v6.equals (v4));
-    assertFalse (v6.equals (v5));
+    assertNotEquals (v6, (v1));
+    assertNotEquals (v6, (v2));
+    assertNotEquals (v6, (v3));
+    assertNotEquals (v6, (v4));
+    assertNotEquals (v6, (v5));
     assertEquals (v6, v6);
-    assertFalse (v6.equals (v7));
-    assertFalse (v6.equals (v8));
-    assertFalse (v6.equals (v9));
+    assertNotEquals (v6, (v7));
+    assertNotEquals (v6, (v8));
+    assertNotEquals (v6, (v9));
 
     // test v7
-    assertFalse (v7.equals (v1));
-    assertFalse (v7.equals (v2));
-    assertFalse (v7.equals (v3));
-    assertFalse (v7.equals (v4));
-    assertFalse (v7.equals (v5));
-    assertFalse (v7.equals (v6));
+    assertNotEquals (v7, (v1));
+    assertNotEquals (v7, (v2));
+    assertNotEquals (v7, (v3));
+    assertNotEquals (v7, (v4));
+    assertNotEquals (v7, (v5));
+    assertNotEquals (v7, (v6));
     assertEquals (v7, v7);
-    assertFalse (v7.equals (v8));
-    assertFalse (v7.equals (v9));
+    assertNotEquals (v7, (v8));
+    assertNotEquals (v7, (v9));
 
     // test v8
-    assertFalse (v8.equals (v1));
-    assertFalse (v8.equals (v2));
-    assertFalse (v8.equals (v3));
-    assertFalse (v8.equals (v4));
-    assertFalse (v8.equals (v5));
-    assertFalse (v8.equals (v6));
-    assertFalse (v8.equals (v7));
+    assertNotEquals (v8, (v1));
+    assertNotEquals (v8, (v2));
+    assertNotEquals (v8, (v3));
+    assertNotEquals (v8, (v4));
+    assertNotEquals (v8, (v5));
+    assertNotEquals (v8, (v6));
+    assertNotEquals (v8, (v7));
     assertEquals (v8, v8);
     assertEquals (v8, v9);
 
     // test v9
-    assertFalse (v9.equals (v1));
-    assertFalse (v9.equals (v2));
-    assertFalse (v9.equals (v3));
-    assertFalse (v9.equals (v4));
-    assertFalse (v9.equals (v5));
-    assertFalse (v9.equals (v6));
-    assertFalse (v9.equals (v7));
+    assertNotEquals (v9, (v1));
+    assertNotEquals (v9, (v2));
+    assertNotEquals (v9, (v3));
+    assertNotEquals (v9, (v4));
+    assertNotEquals (v9, (v5));
+    assertNotEquals (v9, (v6));
+    assertNotEquals (v9, (v7));
     assertEquals (v9, v8);
     assertEquals (v9, v9);
 
@@ -764,16 +764,22 @@ public final class VersionTest
   @Test
   public void testHashCode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"), new Version (1, 2, 3, "4"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"), Version.parse ("1.2.3.4"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
+                                                                       new Version (1, 2, 3, "4"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
+                                                                       Version.parse ("1.2.3.4"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1), Version.parse ("1"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (Version.parse ("1"), Version.parse ("   1"));
 
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"), new Version (1, 2, 3));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"), new Version (1, 2, 3, "5"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"), Version.parse ("1.3.3.4"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
+                                                                           new Version (1, 2, 3));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
+                                                                           new Version (1, 2, 3, "5"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
+                                                                           Version.parse ("1.3.3.4"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (2), Version.parse ("1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (Version.parse ("1"), Version.parse ("   11"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (Version.parse ("1"),
+                                                                           Version.parse ("   11"));
   }
 
   @Test
