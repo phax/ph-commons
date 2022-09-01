@@ -279,7 +279,9 @@ public final class StreamHelperTest
       fail ();
     }
     catch (final NullPointerException ex)
-    {}
+    {
+      // Expected
+    }
   }
 
   @Test

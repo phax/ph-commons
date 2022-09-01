@@ -46,7 +46,7 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
    *        The mandatory resource ID, used as the cache key. May neither be
    *        <code>null</code> nor empty.
    */
-  public AbstractMemoryReadableResource (@Nonnull @Nonempty final String sResourceID)
+  protected AbstractMemoryReadableResource (@Nonnull @Nonempty final String sResourceID)
   {
     m_sResourceID = ValueEnforcer.notEmpty (sResourceID, "ResourceID");
   }
@@ -89,7 +89,11 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
   @UnsupportedOperation
   public IReadableResource getReadableCloneForPath (@Nonnull final String sPath)
   {
-    throw new UnsupportedOperationException ("Cannot clone in-memory resource '" + m_sResourceID + "' for path '" + sPath + "'");
+    throw new UnsupportedOperationException ("Cannot clone in-memory resource '" +
+                                             m_sResourceID +
+                                             "' for path '" +
+                                             sPath +
+                                             "'");
   }
 
   @Override

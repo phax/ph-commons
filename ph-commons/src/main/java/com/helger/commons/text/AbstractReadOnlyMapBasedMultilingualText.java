@@ -46,14 +46,16 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractHasText implements IMultilingualText, Serializable
+public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractHasText implements
+                                                               IMultilingualText,
+                                                               Serializable
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractReadOnlyMapBasedMultilingualText.class);
   private static final AtomicBoolean CONSISTENCY_CHECK_ENABED = new AtomicBoolean (GlobalDebug.isDebugMode ());
 
   private final ICommonsOrderedMap <Locale, String> m_aTexts;
 
-  public AbstractReadOnlyMapBasedMultilingualText ()
+  protected AbstractReadOnlyMapBasedMultilingualText ()
   {
     // Use a HashMap by default
     this (new CommonsLinkedHashMap <> ());

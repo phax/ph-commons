@@ -35,7 +35,7 @@ public abstract class AbstractTypeConverterRule <SRC, DST> implements ITypeConve
 {
   private final ESubType m_eSubType;
 
-  public AbstractTypeConverterRule (@Nonnull final ITypeConverterRule.ESubType eSubType)
+  protected AbstractTypeConverterRule (@Nonnull final ITypeConverterRule.ESubType eSubType)
   {
     m_eSubType = ValueEnforcer.notNull (eSubType, "SubType");
   }

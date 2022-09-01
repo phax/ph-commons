@@ -36,7 +36,7 @@ public abstract class AbstractFormatterString implements Function <Object, Strin
   /**
    * Default constructor
    */
-  public AbstractFormatterString ()
+  protected AbstractFormatterString ()
   {}
 
   /**

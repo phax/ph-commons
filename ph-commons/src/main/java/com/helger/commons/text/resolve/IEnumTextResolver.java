@@ -63,9 +63,11 @@ public interface IEnumTextResolver
    *             instead when no argument is needed
    */
   @Nullable
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @DevelopersNote ("Use getText instead when no argument is needed")
-  default String getTextWithArgs (@Nonnull final Enum <?> aEnum, @Nonnull final IHasTextWithArgs aTP, @Nonnull final Locale aContentLocale)
+  default String getTextWithArgs (@Nonnull final Enum <?> aEnum,
+                                  @Nonnull final IHasTextWithArgs aTP,
+                                  @Nonnull final Locale aContentLocale)
   {
     return getText (aEnum, aTP, aContentLocale);
   }

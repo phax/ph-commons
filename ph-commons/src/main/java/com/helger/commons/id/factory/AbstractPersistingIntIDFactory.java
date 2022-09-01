@@ -52,7 +52,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
    *        The number of IDs to reserve per persistence layer access. Must be
    *        &gt; 0.
    */
-  public AbstractPersistingIntIDFactory (@Nonnegative final int nReserveCount)
+  protected AbstractPersistingIntIDFactory (@Nonnegative final int nReserveCount)
   {
     ValueEnforcer.isGT0 (nReserveCount, "ReserveCount");
     m_nReserveCount = nReserveCount;
@@ -112,7 +112,11 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
 
         // the existing ID may not be < than the previously used ID!
         if (m_nLastID >= 0 && nNewID < m_nID)
-          throw new IllegalStateException ("The read value " + nNewID + " is smaller than the last known ID " + m_nID + "!");
+          throw new IllegalStateException ("The read value " +
+                                           nNewID +
+                                           " is smaller than the last known ID " +
+                                           m_nID +
+                                           "!");
 
         m_nID = nNewID;
         m_nLastID = nNewID + m_nReserveCount;

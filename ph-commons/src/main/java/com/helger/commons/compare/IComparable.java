@@ -19,8 +19,8 @@ package com.helger.commons.compare;
 import javax.annotation.Nonnull;
 
 /**
- * A special interface extension to the {@link Comparable} interface that makes
- * objects serializable and adds some default comparison methods.
+ * A special interface extension to the {@link Comparable} interface that adds
+ * some default comparison methods.
  *
  * @author Philip Helger
  * @param <DATATYPE>

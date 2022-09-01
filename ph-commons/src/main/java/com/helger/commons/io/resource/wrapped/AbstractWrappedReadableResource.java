@@ -36,7 +36,7 @@ public abstract class AbstractWrappedReadableResource implements IWrappedReadabl
 {
   private final IReadableResource m_aBaseResource;
 
-  public AbstractWrappedReadableResource (@Nonnull final IReadableResource aBaseResource)
+  protected AbstractWrappedReadableResource (@Nonnull final IReadableResource aBaseResource)
   {
     m_aBaseResource = ValueEnforcer.notNull (aBaseResource, "BaseResource");
   }

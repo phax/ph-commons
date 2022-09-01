@@ -72,7 +72,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
    *        The maximum number of items that can be in the queue. Must be &gt;
    *        0.
    */
-  public AbstractConcurrentCollector (@Nonnegative final int nMaxQueueSize)
+  protected AbstractConcurrentCollector (@Nonnegative final int nMaxQueueSize)
   {
     this (new ArrayBlockingQueue <> (ValueEnforcer.isGT0 (nMaxQueueSize, "MaxQueueSize")));
   }
@@ -83,7 +83,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
    * @param aQueue
    *        The {@link BlockingQueue} to be used. May not be <code>null</code>.
    */
-  public AbstractConcurrentCollector (@Nonnull final BlockingQueue <Object> aQueue)
+  protected AbstractConcurrentCollector (@Nonnull final BlockingQueue <Object> aQueue)
   {
     ValueEnforcer.notNull (aQueue, "Queue");
     m_aQueue = aQueue;
