@@ -18,9 +18,10 @@ package com.helger.jaxb.adapter;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.lang.CloneHelper;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * Misc utility classes for JAXB

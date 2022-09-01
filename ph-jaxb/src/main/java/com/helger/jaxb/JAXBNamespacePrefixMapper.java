@@ -20,17 +20,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.NamespaceContext;
 
+import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 /**
- * A special namespace prefix mapper for the Sun JAXB2 implementation.<br>
- * Important note: this class works only, if the com.sun.xml.bind:jaxb-impl
- * artifact is in your classpath, because this class extends
- * <code>com.sun.xml.bind.marshaller.NamespacePrefixMapper</code> which is not
- * available in the runtime JAXB, where the class is called
- * <code>com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper</code>
+ * A special namespace prefix mapper for the Jakarta XML Binding
+ * implementation.<br>
+ * Important note: this class works only, if the
+ * <code>com.sun.xml.bind:jaxb-impl</code> artifact is in your classpath,
+ * because this class extends
+ * <code>org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper</code>
+ * which is not available in the other JAXB implementations.
  *
  * @author Philip Helger
  */
@@ -45,7 +47,9 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper
 
   @Override
   @Nullable
-  public String getPreferredPrefix (@Nonnull final String sNamespaceUri, @Nullable final String sSuggestion, final boolean bRequirePrefix)
+  public String getPreferredPrefix (@Nonnull final String sNamespaceUri,
+                                    @Nullable final String sSuggestion,
+                                    final boolean bRequirePrefix)
   {
     final String sPrefix = m_aNC.getPrefix (sNamespaceUri);
     if (sPrefix != null)

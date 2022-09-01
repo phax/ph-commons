@@ -21,11 +21,12 @@ import java.nio.charset.Charset;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
-import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.xml.bind.ValidationEventHandler;
 
 /**
  * A class containing some default settings for the various JAXB builders. Each

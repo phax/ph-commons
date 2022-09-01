@@ -20,12 +20,13 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 import javax.annotation.Nullable;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTWebDateHelper;
+
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * XML Adapter between LocalDateTime and String. Use it in your binding file

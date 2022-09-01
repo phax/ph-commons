@@ -21,8 +21,6 @@ import java.lang.ref.WeakReference;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
@@ -34,6 +32,9 @@ import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.jaxb.JAXBContextCache;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * Abstract builder class for reading, writing and validating JAXB documents.

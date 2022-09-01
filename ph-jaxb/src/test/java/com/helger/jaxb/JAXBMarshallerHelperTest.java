@@ -26,9 +26,6 @@ import static org.junit.Assert.assertTrue;
 import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -40,6 +37,10 @@ import com.helger.jaxb.mock.MockMarshallerExternal;
 import com.helger.jaxb.mock.external.MockJAXBArchive;
 import com.helger.jaxb.mock.external.MockJAXBCollection;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 /**
  * Test class for class {@link JAXBMarshallerHelper}.

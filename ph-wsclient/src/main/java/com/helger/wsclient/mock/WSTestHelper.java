@@ -20,7 +20,6 @@ import java.io.File;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +27,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
+
+import jakarta.jws.WebService;
 
 /**
  * Test class that checks if the file <code>sun-jaxws.xml</code> is correct.

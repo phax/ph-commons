@@ -17,14 +17,15 @@
 package com.helger.jaxb;
 
 import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshalException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.callback.exception.IExceptionCallback;
+
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.UnmarshalException;
 
 /**
  * Logging JAXB read Exception handler

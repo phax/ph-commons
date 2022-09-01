@@ -22,7 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.error.IError;
 
 /**
- * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
+ * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
  * interface that does nothing an swallows all errors.
  *
  * @author Philip Helger

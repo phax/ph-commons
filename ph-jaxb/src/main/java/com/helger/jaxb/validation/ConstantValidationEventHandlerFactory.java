@@ -17,11 +17,12 @@
 package com.helger.jaxb.validation;
 
 import javax.annotation.Nullable;
-import javax.xml.bind.ValidationEventHandler;
+
+import jakarta.xml.bind.ValidationEventHandler;
 
 /**
  * Implementation of {@link IValidationEventHandlerFactory} using a constant
- * {@link javax.xml.bind.ValidationEventHandler} object.
+ * {@link jakarta.xml.bind.ValidationEventHandler} object.
  *
  * @author Philip Helger
  */

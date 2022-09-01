@@ -21,9 +21,12 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
 import javax.xml.namespace.NamespaceContext;
+
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.PropertyException;
 
 /**
  * This class contains utility methods for JAXB {@link Marshaller} objects. It
@@ -34,16 +37,16 @@ import javax.xml.namespace.NamespaceContext;
 @Immutable
 public final class JAXBMarshallerHelper
 {
-  private static final String JAXB_EXTERNAL_CLASS_NAME = "com.sun.xml.bind.v2.runtime.MarshallerImpl";
+  private static final String JAXB_EXTERNAL_CLASS_NAME = "org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl";
 
   // Sun specific property name (ripped from
-  // com.sun.xml.bind.v2.runtime.MarshallerImpl)
-  private static final String SUN_INDENT_STRING = "com.sun.xml.bind.indentString";
-  private static final String SUN_PREFIX_MAPPER = "com.sun.xml.bind.namespacePrefixMapper";
-  private static final String SUN_ENCODING_HANDLER2 = "com.sun.xml.bind.marshaller.CharacterEscapeHandler";
-  private static final String SUN_XML_HEADERS = "com.sun.xml.bind.xmlHeaders";
-  private static final String SUN_C14N = "com.sun.xml.bind.c14n";
-  private static final String SUN_OBJECT_IDENTITY_CYCLE_DETECTION = "com.sun.xml.bind.objectIdentitityCycleDetection";
+  // org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl)
+  private static final String SUN_INDENT_STRING = "org.glassfish.jaxb.indentString";
+  private static final String SUN_PREFIX_MAPPER = "org.glassfish.jaxb.namespacePrefixMapper";
+  private static final String SUN_ENCODING_HANDLER2 = "org.glassfish.jaxb.marshaller.CharacterEscapeHandler";
+  private static final String SUN_XML_HEADERS = "org.glassfish.jaxb.xmlHeaders";
+  private static final String SUN_C14N = JAXBRIContext.CANONICALIZATION_SUPPORT;
+  private static final String SUN_OBJECT_IDENTITY_CYCLE_DETECTION = "org.glassfish.jaxb.objectIdentitityCycleDetection";
 
   private JAXBMarshallerHelper ()
   {}

@@ -21,9 +21,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
-import javax.xml.ws.Binding;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.EndpointReference;
 
 import org.junit.Test;
 
@@ -31,9 +28,13 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.url.URLHelper;
 
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.EndpointReference;
+
 /**
  * Test class for class {@link WSClientConfig}.
- * 
+ *
  * @author Philip Helger
  */
 public final class WSClientConfigTest
@@ -83,10 +84,14 @@ public final class WSClientConfigTest
     assertEquals (5, aMap.size ());
     assertEquals ("http://www.example.org", aMap.get (BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
     // 2 versions
-    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_CONNECTION_TIMEOUT_MS), aMap.get ("com.sun.xml.ws.connect.timeout"));
-    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_CONNECTION_TIMEOUT_MS), aMap.get ("com.sun.xml.internal.ws.connect.timeout"));
+    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_CONNECTION_TIMEOUT_MS),
+                  aMap.get ("com.sun.xml.ws.connect.timeout"));
+    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_CONNECTION_TIMEOUT_MS),
+                  aMap.get ("com.sun.xml.internal.ws.connect.timeout"));
     // 2 versions
-    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_REQUEST_TIMEOUT_MS), aMap.get ("com.sun.xml.ws.request.timeout"));
-    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_REQUEST_TIMEOUT_MS), aMap.get ("com.sun.xml.internal.ws.request.timeout"));
+    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_REQUEST_TIMEOUT_MS),
+                  aMap.get ("com.sun.xml.ws.request.timeout"));
+    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_REQUEST_TIMEOUT_MS),
+                  aMap.get ("com.sun.xml.internal.ws.request.timeout"));
   }
 }

@@ -18,10 +18,11 @@ package com.helger.wsclient;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.ws.handler.MessageContext;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.system.SystemProperties;
+
+import jakarta.xml.ws.handler.MessageContext;
 
 /**
  * Helper class for Webservice invocations and servics

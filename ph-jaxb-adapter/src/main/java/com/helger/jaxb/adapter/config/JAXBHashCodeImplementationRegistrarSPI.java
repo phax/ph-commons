@@ -17,12 +17,13 @@
 package com.helger.jaxb.adapter.config;
 
 import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistry;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * Implementation of {@link IHashCodeImplementationRegistrarSPI} for
