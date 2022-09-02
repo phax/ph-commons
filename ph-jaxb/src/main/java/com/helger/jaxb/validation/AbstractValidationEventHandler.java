@@ -21,9 +21,6 @@ import java.net.URL;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.ValidationEventLocator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +37,10 @@ import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.serialize.write.XMLWriter;
 
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventLocator;
+
 /**
  * An abstract implementation of the JAXB {@link ValidationEventHandler}
  * interface.
@@ -54,7 +55,7 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
   /**
    * Constructor not encapsulating any existing handler.
    */
-  public AbstractValidationEventHandler ()
+  protected AbstractValidationEventHandler ()
   {}
 
   /**
@@ -149,8 +150,10 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
 
     final ValidationEventLocator aLocator = aEvent.getLocator ();
     aErrBuilder.errorLocation (new SimpleLocation (getLocationResourceID (aLocator),
-                                                   aLocator != null ? aLocator.getLineNumber () : ILocation.ILLEGAL_NUMBER,
-                                                   aLocator != null ? aLocator.getColumnNumber () : ILocation.ILLEGAL_NUMBER))
+                                                   aLocator != null ? aLocator.getLineNumber ()
+                                                                    : ILocation.ILLEGAL_NUMBER,
+                                                   aLocator != null ? aLocator.getColumnNumber ()
+                                                                    : ILocation.ILLEGAL_NUMBER))
                .errorFieldName (getErrorFieldName (aLocator));
 
     // Message may be null in some cases (e.g. when a linked exception is

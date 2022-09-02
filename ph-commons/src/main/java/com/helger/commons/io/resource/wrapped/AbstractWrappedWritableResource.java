@@ -36,7 +36,7 @@ public abstract class AbstractWrappedWritableResource implements IWrappedWritabl
 {
   private final IWritableResource m_aBaseResource;
 
-  public AbstractWrappedWritableResource (@Nonnull final IWritableResource aBaseResource)
+  protected AbstractWrappedWritableResource (@Nonnull final IWritableResource aBaseResource)
   {
     m_aBaseResource = ValueEnforcer.notNull (aBaseResource, "BaseResource");
   }

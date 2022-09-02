@@ -50,34 +50,6 @@ public final class PasswordSalt implements IPasswordSalt
   private final String m_sSaltString;
 
   /**
-   * Create a new password salt with the default length of
-   * {@value #DEFAULT_SALT_BYTES} and random bytes.
-   *
-   * @deprecated Since 10.1.4. Use {@link #createRandom()} instead
-   */
-  @Deprecated
-  public PasswordSalt ()
-  {
-    this (DEFAULT_SALT_BYTES);
-  }
-
-  /**
-   * Constructor to create a new password salt with the provided byte count.
-   *
-   * @param nSaltBytes
-   *        The number of salt bytes to use. Must be &gt; 0.
-   * @deprecated Since 10.1.4. Use {@link #createRandom(int)} instead
-   */
-  @Deprecated
-  public PasswordSalt (@Nonnegative final int nSaltBytes)
-  {
-    ValueEnforcer.isGT0 (nSaltBytes, "SaltBytes");
-    m_aSaltBytes = new byte [nSaltBytes];
-    ThreadLocalRandom.current ().nextBytes (m_aSaltBytes);
-    m_sSaltString = StringHelper.getHexEncoded (m_aSaltBytes);
-  }
-
-  /**
    * Constructor with salt bytes.
    *
    * @param aBytes

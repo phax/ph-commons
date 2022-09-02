@@ -160,36 +160,12 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * @return The elapsed seconds.
-   */
-  @Nonnegative
-  @Deprecated
-  public long getSeconds ()
-  {
-    return m_nDurationNanos / CGlobal.NANOSECONDS_PER_SECOND;
-  }
-
-  /**
    * @return The elapsed duration. Never <code>null</code>.
    */
   @Nonnull
   public Duration getDuration ()
   {
     return Duration.ofNanos (m_nDurationNanos);
-  }
-
-  /**
-   * Stop the stop watch and get the elapsed nanoseconds since the start. If the
-   * stop watch was started and stopped multiple times, the duration is added.
-   *
-   * @return The elapsed nano seconds or 0 if the stop watch was never started.
-   */
-  @Nonnegative
-  @Deprecated
-  public long stopAndGetNanos ()
-  {
-    stop ();
-    return getNanos ();
   }
 
   /**
@@ -204,20 +180,6 @@ public class StopWatch implements IStoppable
   {
     stop ();
     return getMillis ();
-  }
-
-  /**
-   * Stop the stop watch and get the elapsed seconds since the start. If the
-   * stop watch was started and stopped multiple times, the duration is added.
-   *
-   * @return The elapsed seconds or 0 if the stop watch was never started.
-   */
-  @Nonnegative
-  @Deprecated
-  public long stopAndGetSeconds ()
-  {
-    stop ();
-    return getSeconds ();
   }
 
   /**
@@ -252,7 +214,9 @@ public class StopWatch implements IStoppable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("StartDT", m_nStartDT).append ("DurationNanos", m_nDurationNanos).getToString ();
+    return new ToStringGenerator (this).append ("StartDT", m_nStartDT)
+                                       .append ("DurationNanos", m_nDurationNanos)
+                                       .getToString ();
   }
 
   /**

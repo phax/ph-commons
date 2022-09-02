@@ -157,7 +157,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     _updatePosition ("startElement");
     _createParentDocument ();
 
-    IMicroElement aElement;
+    final IMicroElement aElement;
     if (StringHelper.hasText (sNamespaceURI))
       aElement = m_aParent.appendElement (sNamespaceURI, sLocalName);
     else
@@ -245,7 +245,9 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
-  public void comment (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength) throws SAXException
+  public void comment (@Nonnull final char [] aChars,
+                       @Nonnegative final int nStart,
+                       @Nonnegative final int nLength) throws SAXException
   {
     _updatePosition ("comment");
     // Ignore comments in DTD
@@ -258,7 +260,9 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
-  public void ignorableWhitespace (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
+  public void ignorableWhitespace (@Nonnull final char [] aChars,
+                                   @Nonnegative final int nStart,
+                                   @Nonnegative final int nLength)
   {
     _updatePosition ("ignorableWhitespace");
     if (m_bSaveIgnorableWhitespaces)
@@ -311,7 +315,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   @Nullable
-  public InputSource getExternalSubset (final String sName, @Nullable final String sBaseURI) throws SAXException, IOException
+  public InputSource getExternalSubset (final String sName, @Nullable final String sBaseURI) throws SAXException,
+                                                                                             IOException
   {
     _updatePosition ("getExternalSubset");
     final EntityResolver2 aER2 = m_aEntityResolver2;
@@ -348,7 +353,10 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     return null;
   }
 
-  public void unparsedEntityDecl (final String sName, final String sPublicId, final String sSystemId, final String sNotationName)
+  public void unparsedEntityDecl (final String sName,
+                                  final String sPublicId,
+                                  final String sSystemId,
+                                  final String sNotationName)
   {
     _updatePosition ("unparsedEntityDecl");
     if (LOGGER.isWarnEnabled ())
@@ -400,7 +408,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   // For namespace handling
-  public void startPrefixMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI) throws SAXException
+  public void startPrefixMapping (@Nonnull final String sPrefix,
+                                  @Nonnull final String sNamespaceURI) throws SAXException
   {}
 
   // for namespace handling

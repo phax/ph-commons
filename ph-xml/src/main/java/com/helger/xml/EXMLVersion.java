@@ -77,7 +77,8 @@ public enum EXMLVersion
    *         such {@link EXMLVersion} object is present.
    */
   @Nullable
-  public static EXMLVersion getFromVersionOrDefault (@Nullable final String sVersion, @Nullable final EXMLVersion eDefault)
+  public static EXMLVersion getFromVersionOrDefault (@Nullable final String sVersion,
+                                                     @Nullable final EXMLVersion eDefault)
   {
     if (StringHelper.hasText (sVersion))
       for (final EXMLVersion eVersion : values ())

@@ -22,7 +22,6 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +29,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.PDTWebDateHelper;
+
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * XML Adapter between OffsetDate and String. Use it in your binding file like

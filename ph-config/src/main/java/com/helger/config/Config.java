@@ -310,7 +310,7 @@ public class Config implements IConfig
         final IConfigurationSource aSource = (IConfigurationSource) aValueProvider;
         nPriority = aSource.getPriority ();
       }
-      aCallback.onConfigurationSource (aValueProvider, nPriority);
+      aCallback.onConfigurationValueProvider (aValueProvider, nPriority);
     }
   }
 

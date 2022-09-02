@@ -166,6 +166,7 @@ public final class MimeTypeParser
 
         final StringBuilder aSB = new StringBuilder ();
         if (nIndex < nMax)
+        {
           if (aParamChars[nIndex] == cSep)
           {
             // Quoted string!
@@ -204,6 +205,7 @@ public final class MimeTypeParser
               ++nIndex;
             }
           }
+        }
         final String sParameterValue = aSB.toString ();
         try
         {

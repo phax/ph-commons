@@ -63,7 +63,8 @@ public class NaturalNumericOrderComparator implements Comparator <String>
   private int _compareRight (final String a, final String b)
   {
     int bias = 0;
-    int ia = 0, ib = 0;
+    int ia = 0;
+    int ib = 0;
 
     // The longest run of digits wins. That aside, the greatest
     // value wins, but we can't know that it will until we've scanned

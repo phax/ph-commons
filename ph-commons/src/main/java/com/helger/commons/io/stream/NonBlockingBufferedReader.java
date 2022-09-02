@@ -559,7 +559,7 @@ public class NonBlockingBufferedReader extends Reader
   @Nonnull
   public Stream <String> lines ()
   {
-    final Iterator <String> aIter = new Iterator <String> ()
+    final Iterator <String> aIter = new Iterator <> ()
     {
       private String m_sNextLine;
 
@@ -591,6 +591,7 @@ public class NonBlockingBufferedReader extends Reader
         throw new NoSuchElementException ();
       }
     };
-    return StreamSupport.stream (Spliterators.spliteratorUnknownSize (aIter, Spliterator.ORDERED | Spliterator.NONNULL), false);
+    return StreamSupport.stream (Spliterators.spliteratorUnknownSize (aIter, Spliterator.ORDERED | Spliterator.NONNULL),
+                                 false);
   }
 }

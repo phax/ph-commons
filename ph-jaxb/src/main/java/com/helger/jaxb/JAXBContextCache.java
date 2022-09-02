@@ -22,8 +22,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.annotation.XmlSchema;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
@@ -32,6 +30,9 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.state.EChange;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.annotation.XmlSchema;
 
 /**
  * Specific cache class for JAXB context elements. This is helpful, as the JAXB

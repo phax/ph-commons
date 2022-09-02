@@ -23,13 +23,18 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.helger.commons.exception.InitializationException;
-import com.helger.commons.system.SystemProperties;
 
 public final class SAXReaderFactory implements Supplier <org.xml.sax.XMLReader>
 {
+  /** SAXParserFactory is by default not namespace aware */
+  public static final boolean DEFAULT_SAX_NAMESPACE_AWARE = true;
+  /** SAXParserFactory is by default not DTD validating */
+  public static final boolean DEFAULT_SAX_VALIDATING = false;
+  /** SAXParserFactory is by default not XInclude aware */
+  public static final boolean DEFAULT_SAX_XINCLUDE_AWARE = false;
+
   @Nonnull
   public org.xml.sax.XMLReader get ()
   {
@@ -41,24 +46,15 @@ public final class SAXReaderFactory implements Supplier <org.xml.sax.XMLReader>
   {
     try
     {
-      org.xml.sax.XMLReader ret;
-      if (true)
-      {
-        ret = XMLReaderFactory.createXMLReader ();
-        // Because of a performance flaw in this implementation, explicitly set
-        // the system property to avoid scanning JAR files over and over again
-        SystemProperties.setPropertyValue ("org.xml.sax.driver", ret.getClass ().getName ());
-      }
-      else
-      {
-        // This fails with Xerces on the classpath
-        ret = SAXParserFactory.newInstance ().newSAXParser ().getXMLReader ();
-      }
-      return ret;
+      final SAXParserFactory aFactory = SAXParserFactory.newDefaultInstance ();
+      aFactory.setNamespaceAware (DEFAULT_SAX_NAMESPACE_AWARE);
+      aFactory.setValidating (DEFAULT_SAX_VALIDATING);
+      aFactory.setXIncludeAware (DEFAULT_SAX_XINCLUDE_AWARE);
+      return aFactory.newSAXParser ().getXMLReader ();
     }
     catch (final ParserConfigurationException | SAXException ex)
     {
-      throw new InitializationException ("Failed to instantiate XML reader!", ex);
+      throw new InitializationException ("Failed to instantiate XML SAX reader!", ex);
     }
   }
 }

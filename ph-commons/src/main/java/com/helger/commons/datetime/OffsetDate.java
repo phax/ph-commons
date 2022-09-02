@@ -242,7 +242,10 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    *         is invalid for the month-year
    */
   @Nonnull
-  public static OffsetDate of (final int year, final Month month, final int dayOfMonth, @Nonnull final ZoneOffset offset)
+  public static OffsetDate of (final int year,
+                               final Month month,
+                               final int dayOfMonth,
+                               @Nonnull final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new OffsetDate (d, offset);
@@ -438,7 +441,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    * @return true if the field is supported on this date, false if not
    */
   @Override
-  public boolean isSupported (@Nonnull final TemporalField field)
+  public boolean isSupported (@Nullable final TemporalField field)
   {
     if (field instanceof ChronoField)
       return field.isDateBased () || field == OFFSET_SECONDS;
@@ -1189,7 +1192,8 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @Nonnull
   public OffsetDate minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
+                                              : plus (-amountToSubtract, unit);
   }
 
   // -----------------------------------------------------------------------
@@ -1351,7 +1355,8 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @Override
   public Temporal adjustInto (@Nonnull final Temporal temporal)
   {
-    return temporal.with (OFFSET_SECONDS, getOffset ().getTotalSeconds ()).with (EPOCH_DAY, toLocalDate ().toEpochDay ());
+    return temporal.with (OFFSET_SECONDS, getOffset ().getTotalSeconds ())
+                   .with (EPOCH_DAY, toLocalDate ().toEpochDay ());
   }
 
   /**
@@ -1637,16 +1642,10 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     return new HashCodeGenerator (this).append (m_aDate).append (m_aOffset).getHashCode ();
   }
 
-  /**
-   * Outputs this date as a {@code String}, such as {@code 2007-12-03+01:00}.
-   * <p>
-   * The output will be in the ISO-8601 format {@code yyyy-MM-ddXXXXX}.
-   *
-   * @return a string representation of this date, not null
-   */
+  // Don't use "getAsString" for compatibility with the rest of the Java DT API
   @Nonnull
   @Nonempty
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public String getAsString ()
   {
     return toString ();

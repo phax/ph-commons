@@ -23,10 +23,6 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.NamespaceContext;
 
 import org.slf4j.Logger;
@@ -36,9 +32,15 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.jaxb.IJAXBMarshaller;
 import com.helger.jaxb.IJAXBWriter;
 import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
+
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.ValidationEventHandler;
 
 /**
  * Builder class for writing JAXB documents.

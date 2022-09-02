@@ -32,12 +32,12 @@ public abstract class AbstractTransformURIResolver implements URIResolver
 {
   private final URIResolver m_aWrappedURIResolver;
 
-  public AbstractTransformURIResolver ()
+  protected AbstractTransformURIResolver ()
   {
     this (null);
   }
 
-  public AbstractTransformURIResolver (@Nullable final URIResolver aWrappedURIResolver)
+  protected AbstractTransformURIResolver (@Nullable final URIResolver aWrappedURIResolver)
   {
     m_aWrappedURIResolver = aWrappedURIResolver;
   }

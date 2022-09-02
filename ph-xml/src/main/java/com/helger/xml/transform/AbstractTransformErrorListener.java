@@ -36,7 +36,7 @@ import com.helger.commons.text.IMultilingualText;
  */
 public abstract class AbstractTransformErrorListener implements ITransformErrorListener
 {
-  public AbstractTransformErrorListener ()
+  protected AbstractTransformErrorListener ()
   {}
 
   @Nonnull

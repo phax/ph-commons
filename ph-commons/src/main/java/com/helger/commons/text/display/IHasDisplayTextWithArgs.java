@@ -43,8 +43,8 @@ public interface IHasDisplayTextWithArgs extends IHasDisplayText
    *             parameters are present
    */
   @Nullable
-  @Deprecated
-  @DevelopersNote ("Use geDisplayText (Locale) instead")
+  @Deprecated (forRemoval = false)
+  @DevelopersNote ("Use getDisplayText (Locale) instead")
   default String getDisplayTextWithArgs (@Nonnull final Locale aContentLocale)
   {
     return getDisplayText (aContentLocale);

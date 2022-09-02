@@ -234,7 +234,7 @@ public class MultiConfigurationValueProvider implements
     ValueEnforcer.notNull (aCallback, "aCallback");
 
     for (final ConfigValueProviderWithPrio aSource : m_aSources)
-      aCallback.onConfigurationSource (aSource.m_aCVP, aSource.m_nPriority);
+      aCallback.onConfigurationValueProvider (aSource.m_aCVP, aSource.m_nPriority);
   }
 
   /**

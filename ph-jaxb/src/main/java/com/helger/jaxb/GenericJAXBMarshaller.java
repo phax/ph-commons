@@ -25,12 +25,6 @@ import java.util.function.Function;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
@@ -47,6 +41,7 @@ import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.ESuccess;
@@ -54,7 +49,15 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
 import com.helger.jaxb.validation.IValidationEventHandlerFactory;
+import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.xml.schema.XMLSchemaCache;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEventHandler;
 
 /**
  * This is the generic reader and writer base class for JAXB enabled document
@@ -176,6 +179,16 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   /**
+   * @return The currently used validation event handler factory. By default
+   *         none is used. May be <code>null</code> if explicitly set.
+   */
+  @Nullable
+  public final IValidationEventHandlerFactory getValidationEventHandlerFactory ()
+  {
+    return m_aVEHFactory;
+  }
+
+  /**
    * Set a factory to be used to create {@link ValidationEventHandler} objects.
    * By default none is present.
    *
@@ -191,13 +204,22 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   /**
-   * @return The currently used validation event handler factory. By default
-   *         none is used. May be <code>null</code> if explicitly set.
+   * Special overload of
+   * {@link #setValidationEventHandlerFactory(IValidationEventHandlerFactory)}
+   * for the easy version of just collecting the errors and additionally
+   * invoking the old validation handler.
+   *
+   * @param aErrorList
+   *        The error list to fill. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 11.0.0
    */
-  @Nullable
-  public final IValidationEventHandlerFactory getValidationEventHandlerFactory ()
+  @Nonnull
+  public final GenericJAXBMarshaller <JAXBTYPE> setCollectErrors (@Nonnull final ErrorList aErrorList)
   {
-    return m_aVEHFactory;
+    ValueEnforcer.notNull (aErrorList, "ErrorList");
+
+    return setValidationEventHandlerFactory (aOld -> new WrappedCollectingValidationEventHandler (aErrorList).andThen (aOld));
   }
 
   public final boolean isReadSecure ()

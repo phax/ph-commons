@@ -17,7 +17,7 @@
 package com.helger.commons.callback;
 
 /**
- * Marker interface for callback interfaces. All callbacks must be serializable.
+ * Marker interface for callback interfaces.
  *
  * @author Philip Helger
  */

@@ -42,7 +42,7 @@ import com.helger.xml.serialize.read.DOMReaderDefaultSettings;
  */
 public final class XMLFactory
 {
-  /** DocumentBuilderFactory is by default namespace aware */
+  /** DocumentBuilderFactory is by default not namespace aware */
   public static final boolean DEFAULT_DOM_NAMESPACE_AWARE = true;
   /** DocumentBuilderFactory is by default not DTD validating */
   public static final boolean DEFAULT_DOM_VALIDATING = false;

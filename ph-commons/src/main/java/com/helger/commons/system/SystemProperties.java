@@ -227,10 +227,12 @@ public final class SystemProperties
   {
     final String ret = IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
     if (LOGGER.isDebugEnabled ())
+    {
       if (ret != null)
         LOGGER.debug ("Removed system property '" + sKey + "' with value '" + ret + "'");
       else
         LOGGER.debug ("Remove system property '" + sKey + "' failed");
+    }
     return ret;
   }
 

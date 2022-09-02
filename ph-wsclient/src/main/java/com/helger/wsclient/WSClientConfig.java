@@ -30,9 +30,6 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.handler.MessageContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +47,10 @@ import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.ws.HostnameVerifierVerifyAll;
 import com.helger.commons.ws.TrustManagerTrustAll;
+
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.handler.MessageContext;
 
 /**
  * Base configuration for a webservice client caller.
@@ -543,7 +544,8 @@ public class WSClientConfig
     if (hasChunkSize ())
     {
       aRequestContext.put ("com.sun.xml.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
-      aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
+      aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size",
+                           Integer.valueOf (m_nChunkSize));
     }
     if (StringHelper.hasText (m_sUserName))
     {

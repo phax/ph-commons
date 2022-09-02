@@ -36,6 +36,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.exception.mock.MockIOException;
 import com.helger.commons.io.IHasInputStream;
@@ -52,7 +53,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @SuppressFBWarnings ("SE_BAD_FIELD_INNER_CLASS")
-@SuppressWarnings ("deprecation")
 public final class StreamHelperTest
 {
   @Test
@@ -147,10 +147,25 @@ public final class StreamHelperTest
     // try with null streams
     assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, null).isFailure ());
     assertTrue (StreamHelper.copyInputStreamToOutputStream (null, aBAOS).isFailure ());
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [10]).isSuccess ());
+    assertTrue (StreamHelper.copyByteStream ()
+                            .from (aBAIS)
+                            .closeFrom (true)
+                            .to (aBAOS)
+                            .closeTo (false)
+                            .buffer (new byte [10])
+                            .build ()
+                            .isSuccess ());
     final MutableLong aML = new MutableLong (0);
     aBAIS.reset ();
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, false, aBAOS, false, new byte [10], null, null, aML).isSuccess ());
+    assertTrue (StreamHelper.copyByteStream ()
+                            .from (aBAIS)
+                            .closeFrom (true)
+                            .to (aBAOS)
+                            .closeTo (false)
+                            .buffer (new byte [10])
+                            .copyByteCount (aML)
+                            .build ()
+                            .isSuccess ());
     assertEquals (aML.longValue (), aInput.length);
 
     // Must be a ByteArrayInputStream so that an IOException can be thrown!
@@ -164,10 +179,15 @@ public final class StreamHelperTest
     }, aBAOS).isFailure ());
 
     // null buffer is handled internally
-    StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, (byte []) null);
+    assertTrue (StreamHelper.copyByteStream ().from (aBAIS).to (aBAOS).buffer ((byte []) null).build ().isSuccess ());
 
     // empty buffer is handled internally
-    StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [0]);
+    assertTrue (StreamHelper.copyByteStream ()
+                            .from (aBAIS)
+                            .to (aBAOS)
+                            .buffer (ArrayHelper.EMPTY_BYTE_ARRAY)
+                            .build ()
+                            .isSuccess ());
   }
 
   @Test
@@ -176,22 +196,46 @@ public final class StreamHelperTest
   {
     final byte [] aInput = "Hello12Bytes".getBytes (StandardCharsets.ISO_8859_1);
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput), aBAOS, 5).isSuccess ());
+    assertTrue (StreamHelper.copyByteStream ()
+                            .from (new NonBlockingByteArrayInputStream (aInput))
+                            .to (aBAOS)
+                            .limit (5)
+                            .build ()
+                            .isSuccess ());
     assertEquals ("Hello", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
-    assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput), aBAOS, 7).isSuccess ());
+    assertTrue (StreamHelper.copyByteStream ()
+                            .from (new NonBlockingByteArrayInputStream (aInput))
+                            .to (aBAOS)
+                            .limit (7)
+                            .build ()
+                            .isSuccess ());
     assertEquals ("Hello12", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
-    assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput), aBAOS, 0).isSuccess ());
+    assertTrue (StreamHelper.copyByteStream ()
+                            .from (new NonBlockingByteArrayInputStream (aInput))
+                            .to (aBAOS)
+                            .limit (0)
+                            .build ()
+                            .isSuccess ());
     assertEquals ("", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
-    assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput), aBAOS, 9999)
+    assertTrue (StreamHelper.copyByteStream ()
+                            .from (new NonBlockingByteArrayInputStream (aInput))
+                            .to (aBAOS)
+                            .limit (9999)
+                            .build ()
                             .isSuccess ());
     assertEquals ("Hello12Bytes", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
 
     // Negative limit is ignored internally
-    StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput), aBAOS, -1);
+    assertTrue (StreamHelper.copyByteStream ()
+                            .from (new NonBlockingByteArrayInputStream (aInput))
+                            .to (aBAOS)
+                            .limit (-1)
+                            .build ()
+                            .isSuccess ());
   }
 
   @Test
@@ -221,8 +265,12 @@ public final class StreamHelperTest
     assertNull (StreamHelper.getAllBytes ((IHasInputStream) null));
     assertNull (StreamHelper.getAllBytes ((InputStream) null));
 
-    assertEquals (sInput, StreamHelper.getAllBytesAsString (new ByteArrayInputStreamProvider (aInput), StandardCharsets.ISO_8859_1));
-    assertEquals (sInput, StreamHelper.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput), StandardCharsets.ISO_8859_1));
+    assertEquals (sInput,
+                  StreamHelper.getAllBytesAsString (new ByteArrayInputStreamProvider (aInput),
+                                                    StandardCharsets.ISO_8859_1));
+    assertEquals (sInput,
+                  StreamHelper.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput),
+                                                    StandardCharsets.ISO_8859_1));
     assertNull (StreamHelper.getAllBytesAsString ((IHasInputStream) null, StandardCharsets.ISO_8859_1));
     assertNull (StreamHelper.getAllBytesAsString ((InputStream) null, StandardCharsets.ISO_8859_1));
     try
@@ -231,7 +279,9 @@ public final class StreamHelperTest
       fail ();
     }
     catch (final NullPointerException ex)
-    {}
+    {
+      // Expected
+    }
   }
 
   @Test
@@ -240,7 +290,8 @@ public final class StreamHelperTest
   {
     assertNull (StreamHelper.readStreamLines ((IReadableResource) null, StandardCharsets.ISO_8859_1));
     assertNull (StreamHelper.readStreamLines (new ClassPathResource ("gibts-ned"), StandardCharsets.ISO_8859_1));
-    assertNull (StreamHelper.readStreamLines (ClassPathResource.getInputStream ("gibts-ned"), StandardCharsets.ISO_8859_1));
+    assertNull (StreamHelper.readStreamLines (ClassPathResource.getInputStream ("gibts-ned"),
+                                              StandardCharsets.ISO_8859_1));
 
     final IReadableResource aRes = new ClassPathResource ("streamutils-lines");
 
@@ -320,13 +371,22 @@ public final class StreamHelperTest
     assertTrue (StreamHelper.copyReaderToWriter (aBAIS, null).isFailure ());
     assertTrue (StreamHelper.copyReaderToWriter (null, aBAOS).isFailure ());
     aBAIS = new NonBlockingStringReader (sInput);
-    assertTrue (StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [10]).isSuccess ());
+    assertTrue (StreamHelper.copyCharStream ().from (aBAIS).to (aBAOS).buffer (new char [10]).build ().isSuccess ());
     final MutableLong aML = new MutableLong (0);
     aBAIS = new NonBlockingStringReader (sInput);
-    assertTrue (StreamHelper.copyReaderToWriter (aBAIS, false, aBAOS, false, new char [10], null, null, aML).isSuccess ());
+    assertTrue (StreamHelper.copyCharStream ()
+                            .from (aBAIS)
+                            .closeFrom (false)
+                            .to (aBAOS)
+                            .closeTo (false)
+                            .buffer (new char [10])
+                            .copyCharCount (aML)
+                            .build ()
+                            .isSuccess ());
     assertEquals (aML.longValue (), sInput.length ());
 
     // Must be a ByteArrayReader so that an IOException can be thrown!
+    aBAIS = new NonBlockingStringReader (sInput);
     assertTrue (StreamHelper.copyReaderToWriter (new WrappedReader (aBAIS)
     {
       @Override
@@ -337,10 +397,12 @@ public final class StreamHelperTest
     }, aBAOS).isFailure ());
 
     // null buffer
-    StreamHelper.copyReaderToWriter (aBAIS, aBAOS, (char []) null);
+    aBAIS = new NonBlockingStringReader (sInput);
+    assertTrue (StreamHelper.copyCharStream ().from (aBAIS).to (aBAOS).buffer ((char []) null).build ().isSuccess ());
 
     // empty buffer
-    StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [0]);
+    aBAIS = new NonBlockingStringReader (sInput);
+    assertTrue (StreamHelper.copyCharStream ().from (aBAIS).to (aBAOS).buffer (new char [0]).build ().isSuccess ());
   }
 
   @Test
@@ -348,21 +410,46 @@ public final class StreamHelperTest
   {
     final String sSrc = "Hello12Chars";
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    assertTrue (StreamHelper.copyReaderToWriterWithLimit (StreamHelper.createReader (sSrc), aSW, 5).isSuccess ());
+    assertTrue (StreamHelper.copyCharStream ()
+                            .from (StreamHelper.createReader (sSrc))
+                            .to (aSW)
+                            .limit (5)
+                            .build ()
+                            .isSuccess ());
     assertEquals ("Hello", aSW.getAsString ());
     aSW.reset ();
-    assertTrue (StreamHelper.copyReaderToWriterWithLimit (StreamHelper.createReader (sSrc), aSW, 7).isSuccess ());
+    assertTrue (StreamHelper.copyCharStream ()
+                            .from (StreamHelper.createReader (sSrc))
+                            .to (aSW)
+                            .limit (7)
+                            .build ()
+                            .isSuccess ());
     assertEquals ("Hello12", aSW.getAsString ());
     aSW.reset ();
-    assertTrue (StreamHelper.copyReaderToWriterWithLimit (StreamHelper.createReader (sSrc), aSW, 0).isSuccess ());
+    assertTrue (StreamHelper.copyCharStream ()
+                            .from (StreamHelper.createReader (sSrc))
+                            .to (aSW)
+                            .limit (0)
+                            .build ()
+                            .isSuccess ());
     assertEquals ("", aSW.getAsString ());
     aSW.reset ();
-    assertTrue (StreamHelper.copyReaderToWriterWithLimit (StreamHelper.createReader (sSrc), aSW, 9999).isSuccess ());
+    assertTrue (StreamHelper.copyCharStream ()
+                            .from (StreamHelper.createReader (sSrc))
+                            .to (aSW)
+                            .limit (9999)
+                            .build ()
+                            .isSuccess ());
     assertEquals (sSrc, aSW.getAsString ());
     aSW.reset ();
 
     // negative limit is allowed!
-    StreamHelper.copyReaderToWriterWithLimit (StreamHelper.createReader (sSrc), aSW, -1);
+    assertTrue (StreamHelper.copyCharStream ()
+                            .from (StreamHelper.createReader (sSrc))
+                            .to (aSW)
+                            .limit (-1)
+                            .build ()
+                            .isSuccess ());
   }
 
   @Test

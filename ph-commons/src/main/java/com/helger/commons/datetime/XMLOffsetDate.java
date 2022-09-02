@@ -253,7 +253,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year, final int month, final int dayOfMonth, @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year,
+                                  final int month,
+                                  final int dayOfMonth,
+                                  @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -282,7 +285,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year, final Month month, final int dayOfMonth, @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year,
+                                  final Month month,
+                                  final int dayOfMonth,
+                                  @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -473,7 +479,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    * @return true if the field is supported on this date, false if not
    */
   @Override
-  public boolean isSupported (@Nonnull final TemporalField field)
+  public boolean isSupported (@Nullable final TemporalField field)
   {
     if (field instanceof ChronoField)
       return field.isDateBased () || field == OFFSET_SECONDS;
@@ -1223,7 +1229,8 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public XMLOffsetDate minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
+                                              : plus (-amountToSubtract, unit);
   }
 
   /**
@@ -1696,9 +1703,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return new HashCodeGenerator (this).append (m_aDate).append (m_aOffset).getHashCode ();
   }
 
+  // Don't use "getAsString" for compatibility with the rest of the Java DT API
   @Nonnull
   @Nonempty
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public String getAsString ()
   {
     return toString ();

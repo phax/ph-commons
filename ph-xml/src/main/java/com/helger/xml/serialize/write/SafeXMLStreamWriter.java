@@ -129,16 +129,15 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
       return ret;
     }
 
-    // Java 8: "Iterator", Java 10: "Iterator<String>"
     @Override
     @Nonnull
-    public Iterator getPrefixes (@Nonnull final String uri)
+    public Iterator <String> getPrefixes (@Nonnull final String uri)
     {
-      final Iterator <?> aIter1 = m_aInternalContext.getPrefixes (uri);
+      final Iterator <String> aIter1 = m_aInternalContext.getPrefixes (uri);
       if (m_aUserContext == null)
         return aIter1;
 
-      final Iterator <?> aIter2 = m_aUserContext.getPrefixes (uri);
+      final Iterator <String> aIter2 = m_aUserContext.getPrefixes (uri);
       return new CombinedIterator <> (aIter1, aIter2);
     }
 
@@ -158,7 +157,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   private final boolean m_bIndent;
   private final String m_sIndent;
   private final MultiNamespaceContext m_aNamespaceContext = new MultiNamespaceContext ();
-  private final NonBlockingStack <ElementState> m_aElementStateStack = new NonBlockingStack <ElementState> ()
+  private final NonBlockingStack <ElementState> m_aElementStateStack = new NonBlockingStack <> ()
   {
     @Override
     public ElementState push (final ElementState o)

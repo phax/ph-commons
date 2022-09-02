@@ -14,26 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.multimap;
+package com.helger.jaxb;
 
-import com.helger.commons.collection.impl.ICommonsSet;
+import javax.annotation.Nonnull;
+
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 /**
- * Interface for a multi map that uses a {@link ICommonsSet} for the storage.
+ * A special bi-consumer that additionally can throw a {@link JAXBException}
  *
  * @author Philip Helger
- * @param <KEYTYPE>
- *        Key type
- * @param <VALUETYPE>
- *        Element type
- * @param <COLLTYPE>
- *        Set type containing value types
- * @deprecated Deprecated in v10; will be removed for v11; use the ICommons
- *             container directly
+ * @param <JAXBTYPE>
+ *        The JAXB type to be written
  */
-@Deprecated
-public interface IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>> extends
-                                   IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
+@FunctionalInterface
+public interface IJAXBMarshaller <JAXBTYPE>
 {
-  /* empty */
+  void doMarshal (@Nonnull Marshaller aMarshaller, @Nonnull JAXBElement <JAXBTYPE> aJAXBElement) throws JAXBException;
 }

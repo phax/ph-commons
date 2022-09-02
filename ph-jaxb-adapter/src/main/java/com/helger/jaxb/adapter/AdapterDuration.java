@@ -19,10 +19,11 @@ package com.helger.jaxb.adapter;
 import java.time.Duration;
 
 import javax.annotation.Nullable;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * XML Adapter between Duration and String. Use it in your binding file like

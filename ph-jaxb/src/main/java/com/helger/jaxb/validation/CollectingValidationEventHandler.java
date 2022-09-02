@@ -32,7 +32,7 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
+ * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
  * interface. It collects all events that occurred!
  *
  * @author Philip Helger
@@ -87,6 +87,8 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @Override
   public String toString ()
   {
-    return m_aRWLock.readLockedGet ( () -> ToStringGenerator.getDerived (super.toString ()).append ("Errors", m_aErrors).getToString ());
+    return m_aRWLock.readLockedGet ( () -> ToStringGenerator.getDerived (super.toString ())
+                                                            .append ("Errors", m_aErrors)
+                                                            .getToString ());
   }
 }

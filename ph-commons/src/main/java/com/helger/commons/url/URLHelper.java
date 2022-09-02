@@ -223,7 +223,9 @@ public final class URLHelper
    * @since 9.4.1
    */
   @Nullable
-  public static String urlDecodeOrDefault (@Nullable final String sValue, @Nonnull final Charset aCharset, @Nullable final String sDefault)
+  public static String urlDecodeOrDefault (@Nullable final String sValue,
+                                           @Nonnull final Charset aCharset,
+                                           @Nullable final String sDefault)
   {
     if (sValue != null)
       try
@@ -280,21 +282,23 @@ public final class URLHelper
     // in the unit test) this code would wait forever in the static initializer
     // because XMLMapHandler internally also acquires an XML reader....
     final ICommonsOrderedMap <String, String> aCleanURLMap = new CommonsLinkedHashMap <> ();
-    StreamHelper.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"), StandardCharsets.UTF_8, sLine -> {
-      if (sLine.length () > 0 && sLine.charAt (0) == '"')
-      {
-        final String [] aParts = StringHelper.getExplodedArray ('=', sLine, 2);
-        String sKey = StringHelper.trimStartAndEnd (aParts[0], '"');
-        if (sKey.startsWith ("&#"))
-        {
-          // E.g. "&#12345;"
-          sKey = StringHelper.trimStartAndEnd (sKey, "&#", ";");
-          sKey = Character.toString ((char) StringParser.parseInt (sKey, -1));
-        }
-        final String sValue = StringHelper.trimStartAndEnd (aParts[1], '"');
-        aCleanURLMap.put (sKey, sValue);
-      }
-    });
+    StreamHelper.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"),
+                                  StandardCharsets.UTF_8,
+                                  sLine -> {
+                                    if (sLine.length () > 0 && sLine.charAt (0) == '"')
+                                    {
+                                      final String [] aParts = StringHelper.getExplodedArray ('=', sLine, 2);
+                                      String sKey = StringHelper.trimStartAndEnd (aParts[0], '"');
+                                      if (sKey.startsWith ("&#"))
+                                      {
+                                        // E.g. "&#12345;"
+                                        sKey = StringHelper.trimStartAndEnd (sKey, "&#", ";");
+                                        sKey = Character.toString ((char) StringParser.parseInt (sKey, -1));
+                                      }
+                                      final String sValue = StringHelper.trimStartAndEnd (aParts[1], '"');
+                                      aCleanURLMap.put (sKey, sValue);
+                                    }
+                                  });
     // if (XMLMapHandler.readMap (new ClassPathResource
     // ("codelists/cleanurl-data.xml"), aCleanURLMap).isFailure ())
     // throw new InitializationException ("Failed to init CleanURL data!");
@@ -349,7 +353,8 @@ public final class URLHelper
    *         URL
    */
   @Nonnull
-  public static ISimpleURL getAsURLData (@Nonnull final String sHref, @Nullable final IDecoder <String, String> aParameterDecoder)
+  public static ISimpleURL getAsURLData (@Nonnull final String sHref,
+                                         @Nullable final IDecoder <String, String> aParameterDecoder)
   {
     ValueEnforcer.notNull (sHref, "Href");
 
@@ -460,7 +465,9 @@ public final class URLHelper
    *         <code>null</code>.
    */
   @Nullable
-  public static String getURLString (@Nullable final String sPath, @Nullable final String sQueryParams, @Nullable final String sAnchor)
+  public static String getURLString (@Nullable final String sPath,
+                                     @Nullable final String sQueryParams,
+                                     @Nullable final String sAnchor)
   {
     final boolean bHasPath = StringHelper.hasText (sPath);
     final boolean bHasQueryParams = StringHelper.hasText (sQueryParams);
@@ -626,7 +633,8 @@ public final class URLHelper
                                      @Nullable final String sAnchor,
                                      @Nullable final Charset aParameterCharset)
   {
-    final IEncoder <String, String> aQueryParameterEncoder = aParameterCharset == null ? null : new URLParameterEncoder (aParameterCharset);
+    final IEncoder <String, String> aQueryParameterEncoder = aParameterCharset == null ? null
+                                                                                       : new URLParameterEncoder (aParameterCharset);
     return getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
   }
 
@@ -860,12 +868,22 @@ public final class URLHelper
         if (_isTimeout (ex))
         {
           if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Timeout to open input stream for '" + aURL + "': " + ex.getClass ().getName () + " - " + ex.getMessage ());
+            LOGGER.warn ("Timeout to open input stream for '" +
+                         aURL +
+                         "': " +
+                         ex.getClass ().getName () +
+                         " - " +
+                         ex.getMessage ());
         }
         else
         {
           if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Failed to open input stream for '" + aURL + "': " + ex.getClass ().getName () + " - " + ex.getMessage ());
+            LOGGER.warn ("Failed to open input stream for '" +
+                         aURL +
+                         "': " +
+                         ex.getClass ().getName () +
+                         " - " +
+                         ex.getMessage ());
         }
       }
 
@@ -891,7 +909,12 @@ public final class URLHelper
         {
           // deal with the exception
           if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Failed to consume error stream for '" + aURL + "': " + ex2.getClass ().getName () + " - " + ex2.getMessage ());
+            LOGGER.warn ("Failed to consume error stream for '" +
+                         aURL +
+                         "': " +
+                         ex2.getClass ().getName () +
+                         " - " +
+                         ex2.getMessage ());
         }
         finally
         {
@@ -931,7 +954,7 @@ public final class URLHelper
   }
 
   @Nullable
-  public static File getAsFileOrNull (@Nonnull final URL aURL)
+  public static File getAsFileOrNull (@Nullable final URL aURL)
   {
     if (aURL != null)
       try
@@ -984,7 +1007,8 @@ public final class URLHelper
     return getClassPathURL (sPath) != null;
   }
 
-  public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath, @Nonnull final ClassLoader aClassLoader)
+  public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath,
+                                                @Nonnull final ClassLoader aClassLoader)
   {
     return ClassLoaderHelper.getResource (aClassLoader, sPath) != null;
   }

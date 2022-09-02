@@ -21,12 +21,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import org.junit.Test;
 
 import com.helger.commons.equals.EqualsHelper;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * Test class for class {@link JAXBHelper}.

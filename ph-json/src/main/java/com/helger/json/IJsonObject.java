@@ -57,15 +57,6 @@ public interface IJsonObject extends
   IJsonObject addJson (@Nonnull String sName, @Nonnull IJson aValue);
 
   @Nonnull
-  @Deprecated
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nonnull final IJson aValue,
-                             @Nonnull final Predicate <? super IJson> aFilter)
-  {
-    return addJsonIf (sName, aValue, aFilter);
-  }
-
-  @Nonnull
   default IJsonObject addJsonIf (@Nonnull final String sName,
                                  @Nonnull final IJson aValue,
                                  @Nonnull final Predicate <? super IJson> aFilter)
@@ -76,7 +67,7 @@ public interface IJsonObject extends
   }
 
   @Nonnull
-  default IJsonObject addJsonIfNotNull (@Nonnull final String sName, @Nonnull final IJson aValue)
+  default IJsonObject addJsonIfNotNull (@Nonnull final String sName, @Nullable final IJson aValue)
   {
     if (aValue != null)
       addJson (sName, aValue);
@@ -107,13 +98,10 @@ public interface IJsonObject extends
     return this;
   }
 
-  // TODO next minor update:
-  // default <T> IJsonObject addIf (@Nonnull final String sName, @Nullable final
-  // T aValue, @Nonnull final Predicate <? super T> aFilter)
   @Nonnull
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nullable final Object aValue,
-                             @Nonnull final Predicate <? super Object> aFilter)
+  default <T> IJsonObject addIf (@Nonnull final String sName,
+                                 @Nullable final T aValue,
+                                 @Nonnull final Predicate <? super T> aFilter)
   {
     if (aFilter.test (aValue))
       add (sName, aValue);

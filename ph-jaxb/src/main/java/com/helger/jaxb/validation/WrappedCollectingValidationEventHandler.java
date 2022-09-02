@@ -26,7 +26,7 @@ import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
+ * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
  * interface. It collects all events that occurred!
  *
  * @author Philip Helger

@@ -21,16 +21,17 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.jaxb.LoggingJAXBWriteExceptionHandler;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 /**
  * Abstract builder base class for writing and validating JAXB documents.
@@ -42,12 +43,13 @@ import com.helger.jaxb.LoggingJAXBWriteExceptionHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>> extends
+public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>>
+                                                 extends
                                                  AbstractJAXBBuilder <IMPLTYPE>
 {
   private Consumer <? super Marshaller> m_aMarshallerCustomizer;
 
-  public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
+  protected AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
     exceptionCallbacks ().add (new LoggingJAXBWriteExceptionHandler ());

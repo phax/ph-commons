@@ -41,16 +41,16 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   public static final boolean DEFAULT_CHECK_FOR_FALLBACK = true;
 
   private static final IMutableStatisticsHandlerKeyedCounter STATS_GET_TEXT = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
-                                                                                                                         "$getText");
+                                                                                                                        "$getText");
   private static final IMutableStatisticsHandlerCounter STATS_OVERRIDE = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
-                                                                                                                "$OVERRIDE");
+                                                                                                              "$OVERRIDE");
   private static final IMutableStatisticsHandlerCounter STATS_FALLBACK = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
-                                                                                                                "$FALLBACK");
+                                                                                                              "$FALLBACK");
 
   private boolean m_bCheckForOverride = DEFAULT_CHECK_FOR_OVERRIDE;
   private boolean m_bCheckForFallback = DEFAULT_CHECK_FOR_FALLBACK;
 
-  public AbstractEnumTextResolverWithOverrideAndFallback ()
+  protected AbstractEnumTextResolverWithOverrideAndFallback ()
   {}
 
   public final boolean isCheckForOverride ()
@@ -102,7 +102,9 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   protected abstract String internalGetFallbackString (@Nonnull String sID, @Nonnull Locale aContentLocale);
 
   @Nullable
-  public final String getText (@Nonnull final Enum <?> aEnum, @Nonnull final IHasText aTP, @Nonnull final Locale aContentLocale)
+  public final String getText (@Nonnull final Enum <?> aEnum,
+                               @Nonnull final IHasText aTP,
+                               @Nonnull final Locale aContentLocale)
   {
     // Get the unique text element ID
     final String sID = EnumHelper.getEnumID (aEnum);

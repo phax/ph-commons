@@ -20,9 +20,6 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -30,6 +27,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.jaxb.IJAXBValidator;
 import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
+
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 /**
  * Builder class for validating JAXB documents.

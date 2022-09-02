@@ -14,26 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.config.value;
+package com.helger.jaxb;
 
 import javax.annotation.Nonnull;
 
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+
 /**
- * Callback interface for enumeration.
+ * A special bi-consumer that additionally can throw a {@link JAXBException}
  *
  * @author Philip Helger
+ * @param <JAXBTYPE>
+ *        The JAXB type to be written
  */
 @FunctionalInterface
-public interface IConfigurationValueProviderWithPriorityCallback
+public interface IJAXBUnmarshaller <JAXBTYPE>
 {
-  /**
-   * Invoked for a single configuration value provider.<br>
-   * Was renamed to "onConfigurationValueProvider" in v11
-   *
-   * @param aCVP
-   *        The Configuration value provider. Never <code>null</code>
-   * @param nPriority
-   *        The priority the Configuration value provide has.
-   */
-  void onConfigurationValueProvider (@Nonnull IConfigurationValueProvider aCVP, int nPriority);
+  @Nonnull
+  JAXBElement <JAXBTYPE> doUnmarshal (@Nonnull Unmarshaller aUnmarshaller,
+                                      @Nonnull Class <JAXBTYPE> aClass) throws JAXBException;
 }

@@ -44,7 +44,7 @@ public interface IHasTextWithArgs extends IHasText
    * @deprecated Don't call this; Use {@link #getText(Locale)} instead!
    */
   @Nullable
-  @Deprecated
+  @Deprecated (forRemoval = false)
   default String getTextWithArgs (@Nonnull final Locale aContentLocale)
   {
     return getText (aContentLocale);

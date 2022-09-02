@@ -14,5 +14,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@javax.xml.bind.annotation.XmlSchema (elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@jakarta.xml.bind.annotation.XmlSchema (elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.helger.jaxb.mock.external;

@@ -16,11 +16,12 @@
  */
 package com.helger.jaxb.mock;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+
+import jakarta.xml.bind.JAXBElement;
 
 public final class MockMarshallerExternal extends GenericJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
 {

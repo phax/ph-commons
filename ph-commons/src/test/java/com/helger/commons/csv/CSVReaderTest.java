@@ -137,7 +137,7 @@ public final class CSVReaderTest
     aSB.append ("a,\0b,aReader");
 
     try (final NonBlockingStringReader reader = new NonBlockingStringReader (aSB.toString ());
-         final CSVReader defaultReader = new CSVReader (reader))
+        final CSVReader defaultReader = new CSVReader (reader))
     {
       final ICommonsList <String> nextLine = defaultReader.readNext ();
       assertEquals (3, nextLine.size ());
@@ -194,9 +194,9 @@ public final class CSVReaderTest
 
       nextLine = aReader.readNext ();
       // check the tricky situation
-      assertTrue (nextLine.get (0).equals ("\"\""));
+      assertEquals ("\"\"", nextLine.get (0));
       // make sure we didn't ruin the next field..
-      assertTrue (nextLine.get (1).equals ("test"));
+      assertEquals ("test", nextLine.get (1));
       nextLine = aReader.readNext ();
       assertEquals (4, nextLine.size ());
       assertEquals ("a\nb", nextLine.get (0));

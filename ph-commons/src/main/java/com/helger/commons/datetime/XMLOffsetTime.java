@@ -237,7 +237,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     final ZoneOffset offset = rules.getOffset (instant);
     // overflow caught later
     final long localSecond = instant.getEpochSecond () + offset.getTotalSeconds ();
-    final int secsOfDay = (int) Math.floorMod (localSecond, CGlobal.SECONDS_PER_DAY);
+    final int secsOfDay = Math.floorMod (localSecond, CGlobal.SECONDS_PER_DAY);
     final LocalTime time = LocalTime.ofNanoOfDay (secsOfDay * CGlobal.NANOSECONDS_PER_SECOND + instant.getNano ());
     return new XMLOffsetTime (time, offset);
   }
@@ -647,7 +647,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     if (EqualsHelper.equals (offset, m_aOffset))
       return this;
 
-    final int difference = (offset != null ? offset.getTotalSeconds () : 0) - (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
+    final int difference = (offset != null ? offset.getTotalSeconds () : 0) -
+                           (m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
     final LocalTime adjusted = m_aTime.plusSeconds (difference);
     return new XMLOffsetTime (adjusted, offset);
   }
@@ -1152,7 +1153,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public XMLOffsetTime minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
+                                              : plus (-amountToSubtract, unit);
   }
 
   /**
@@ -1288,7 +1290,9 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   {
     if (query == TemporalQueries.offset () || query == TemporalQueries.zone ())
       return (R) getOffsetOrDefault ();
-    if (query == TemporalQueries.zoneId () || query == TemporalQueries.chronology () || query == TemporalQueries.localDate ())
+    if (query == TemporalQueries.zoneId () ||
+        query == TemporalQueries.chronology () ||
+        query == TemporalQueries.localDate ())
       return null;
     if (query == TemporalQueries.localTime ())
       return (R) m_aTime;
@@ -1334,7 +1338,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public Temporal adjustInto (@Nonnull final Temporal temporal)
   {
-    return temporal.with (NANO_OF_DAY, m_aTime.toNanoOfDay ()).with (OFFSET_SECONDS, m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
+    return temporal.with (NANO_OF_DAY, m_aTime.toNanoOfDay ())
+                   .with (OFFSET_SECONDS, m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
   }
 
   /**
@@ -1628,9 +1633,10 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     return new HashCodeGenerator (this).append (m_aTime).append (m_aOffset).getHashCode ();
   }
 
+  // Don't use "getAsString" for compatibility with the rest of the Java DT API
   @Nonnull
   @Nonempty
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public String getAsString ()
   {
     return toString ();

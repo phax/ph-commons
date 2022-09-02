@@ -331,7 +331,11 @@ public final class Version implements IComparable <Version>
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_nMajor).append (m_nMinor).append (m_nMicro).append (m_sQualifier).getHashCode ();
+    return new HashCodeGenerator (this).append (m_nMajor)
+                                       .append (m_nMinor)
+                                       .append (m_nMicro)
+                                       .append (m_sQualifier)
+                                       .getHashCode ();
   }
 
   @Override
@@ -504,29 +508,5 @@ public final class Version implements IComparable <Version>
       sQualifier = null;
 
     return new Version (nMajor, nMinor, nMicro, sQualifier);
-  }
-
-  /**
-   * Construct a version object from a string.
-   *
-   * @param sVersionString
-   *        the version string to be interpreted as a version
-   * @param bOldVersion
-   *        <code>true</code> to use the old version to parse a string, meaning
-   *        splitting only by dot; or <code>false</code> to indicate that the
-   *        more complex parsing should be used.
-   * @return The parsed {@link Version} object.
-   * @throws IllegalArgumentException
-   *         if any of the parameters is &lt; 0
-   * @deprecated Since v10.0.1 in favour of {@link #parse(String)} and
-   *             {@link #parseDotOnly(String)}
-   */
-  @Nonnull
-  @Deprecated
-  public static Version parse (@Nullable final String sVersionString, final boolean bOldVersion)
-  {
-    if (bOldVersion)
-      return parseDotOnly (sVersionString);
-    return parse (sVersionString);
   }
 }

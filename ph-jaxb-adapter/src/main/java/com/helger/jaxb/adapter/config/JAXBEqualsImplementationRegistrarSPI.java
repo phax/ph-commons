@@ -17,13 +17,14 @@
 package com.helger.jaxb.adapter.config;
 
 import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.equals.IEqualsImplementationRegistrarSPI;
 import com.helger.commons.equals.IEqualsImplementationRegistry;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * Implementation of {@link IEqualsImplementationRegistrarSPI} for

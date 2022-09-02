@@ -28,7 +28,7 @@ import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
 
 /**
- * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
+ * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
  * interface. It simply prints the messages to a logger before the original
  * handler handles them.
  *

@@ -50,12 +50,12 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
 {
   private final ICommonsMap <KEYTYPE, ITEMTYPE> m_aItemStore;
 
-  public AbstractTreeItemWithUniqueIDFactory ()
+  protected AbstractTreeItemWithUniqueIDFactory ()
   {
     this (new CommonsHashMap <> ());
   }
 
-  public AbstractTreeItemWithUniqueIDFactory (@Nonnull final ICommonsMap <KEYTYPE, ITEMTYPE> aItemStore)
+  protected AbstractTreeItemWithUniqueIDFactory (@Nonnull final ICommonsMap <KEYTYPE, ITEMTYPE> aItemStore)
   {
     m_aItemStore = ValueEnforcer.notNull (aItemStore, "ItemStore");
   }
