@@ -146,6 +146,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   {
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
+    // Copy the values into a new list to avoid external modification
     return getFromCache (new CommonsArrayList <> (aResources));
   }
 
@@ -163,6 +164,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   {
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
+    // Copy the values into a new list to avoid external modification
     return getFromCache (new CommonsArrayList <> (aResources));
   }
 
