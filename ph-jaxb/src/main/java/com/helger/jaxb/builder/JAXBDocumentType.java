@@ -18,6 +18,7 @@ package com.helger.jaxb.builder;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -52,6 +53,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
 
   private final Class <?> m_aClass;
   private final ICommonsList <ClassPathResource> m_aXSDs = new CommonsArrayList <> ();
+  private Supplier <XMLSchemaCache> m_aXMLSchemaCacheProvider = XMLSchemaCache::getInstance;
 
   // Status vars
   private final String m_sNamespaceURI;
@@ -87,8 +89,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
     {
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       for (final ClassPathResource aRes : aXSDs)
-        ValueEnforcer.isTrue (aRes.hasClassLoader (),
-                              () -> "ClassPathResource " + aRes + " should define its ClassLoader for OSGI handling!");
+        ValueEnforcer.isTrue (aRes.hasClassLoader (), () -> "ClassPathResource " + aRes + " MUST define its ClassLoader!");
     }
 
     // Check whether it is an @XmlType class
@@ -176,8 +177,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
     {
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       for (final ClassPathResource aRes : aXSDs)
-        ValueEnforcer.isTrue (aRes.hasClassLoader (),
-                              () -> "ClassPathResource " + aRes + " should define its ClassLoader for OSGI handling!");
+        ValueEnforcer.isTrue (aRes.hasClassLoader (), () -> "ClassPathResource " + aRes + " MUST define its ClassLoader!");
     }
     ValueEnforcer.notEmpty (sLocalName, "sLocalName");
 
@@ -204,27 +204,41 @@ public class JAXBDocumentType implements IJAXBDocumentType
   }
 
   @Nonnull
-  public Class <?> getImplementationClass ()
+  public final Class <?> getImplementationClass ()
   {
     return m_aClass;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <ClassPathResource> getAllXSDResources ()
+  public final ICommonsList <ClassPathResource> getAllXSDResources ()
   {
     return m_aXSDs.getClone ();
   }
 
   @Nonnull
-  public String getNamespaceURI ()
+  public final Supplier <XMLSchemaCache> getXMLSchemaCacheProvider ()
+  {
+    return m_aXMLSchemaCacheProvider;
+  }
+
+  @Nonnull
+  public final JAXBDocumentType setXMLSchemaCacheProvider (@Nonnull final Supplier <XMLSchemaCache> aXMLSchemaCacheProvider)
+  {
+    ValueEnforcer.notNull (aXMLSchemaCacheProvider, "SchemaCacheProvider");
+    m_aXMLSchemaCacheProvider = aXMLSchemaCacheProvider;
+    return this;
+  }
+
+  @Nonnull
+  public final String getNamespaceURI ()
   {
     return m_sNamespaceURI;
   }
 
   @Nonnull
   @Nonempty
-  public String getLocalName ()
+  public final String getLocalName ()
   {
     return m_sLocalName;
   }
@@ -240,7 +254,10 @@ public class JAXBDocumentType implements IJAXBDocumentType
 
     if (m_aCachedSchema == null)
     {
-      m_aCachedSchema = XMLSchemaCache.getInstance ().getSchema (m_aXSDs);
+      final XMLSchemaCache aSchemaCache = m_aXMLSchemaCacheProvider.get ();
+      if (aSchemaCache == null)
+        throw new IllegalStateException ("Failed to get an instance of XMLSchemaCache from " + m_aXMLSchemaCacheProvider);
+      m_aCachedSchema = aSchemaCache.getSchema (m_aXSDs);
     }
     return m_aCachedSchema;
   }
@@ -267,6 +284,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
   {
     return new ToStringGenerator (this).append ("Class", m_aClass)
                                        .append ("XSDPaths", m_aXSDs)
+                                       .append ("XMLSchemaCacheProvider", m_aXMLSchemaCacheProvider)
                                        .append ("NamespaceURI", m_sNamespaceURI)
                                        .append ("LocalName", m_sLocalName)
                                        .getToString ();
