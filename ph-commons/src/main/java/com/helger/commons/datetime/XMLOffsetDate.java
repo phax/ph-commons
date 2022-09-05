@@ -209,6 +209,21 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   }
 
   /**
+   * Obtains an instance of {@code XMLOffsetDate} from a local date and not zone
+   * offset.
+   *
+   * @param date
+   *        the local date, not null
+   * @return the offset date, not <code>null</code>
+   * @since 11.0.0
+   */
+  @Nonnull
+  public static XMLOffsetDate of (@Nonnull final LocalDate date)
+  {
+    return new XMLOffsetDate (date, null);
+  }
+
+  /**
    * Obtains an instance of {@code XMLOffsetDate} from a local date and an
    * offset.
    *
@@ -216,7 +231,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *        the local date, not null
    * @param offset
    *        the zone offset, may be null
-   * @return the offset date, not null
+   * @return the offset date, not <code>null</code>
    */
   @Nonnull
   public static XMLOffsetDate of (@Nonnull final LocalDate date, @Nullable final ZoneOffset offset)
@@ -253,10 +268,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year,
-                                  final int month,
-                                  final int dayOfMonth,
-                                  @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year, final int month, final int dayOfMonth, @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -285,10 +297,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year,
-                                  final Month month,
-                                  final int dayOfMonth,
-                                  @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year, final Month month, final int dayOfMonth, @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -1229,8 +1238,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public XMLOffsetDate minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
-                                              : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
   }
 
   /**
