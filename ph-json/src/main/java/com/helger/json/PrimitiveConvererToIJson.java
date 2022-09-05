@@ -22,6 +22,11 @@ import javax.annotation.Nullable;
 import com.helger.commons.traits.IPrimitiveConverterTo;
 import com.helger.json.convert.JsonConverter;
 
+/**
+ * An instance of {@link IPrimitiveConverterTo} for the usage with JSON.
+ *
+ * @author Philip Helger
+ */
 public class PrimitiveConvererToIJson implements IPrimitiveConverterTo <IJson>
 {
   public static final PrimitiveConvererToIJson INSTANCE = new PrimitiveConvererToIJson ();
