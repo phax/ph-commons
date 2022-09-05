@@ -55,6 +55,13 @@ public class CredentialValidationResult implements ICredentialValidationResult
     m_sErrorMsg = ValueEnforcer.notEmpty (sErrorMsg, "ErrorMessage");
   }
 
+  @Nonnull
+  @Nonempty
+  public final String getErrorMessage ()
+  {
+    return m_sErrorMsg;
+  }
+
   public boolean isSuccess ()
   {
     return m_sErrorMsg == null;

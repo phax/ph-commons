@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;
@@ -51,6 +52,13 @@ public class CredentialValidationResultList implements ICredentialValidationResu
     ValueEnforcer.notEmpty (aResults, "Results");
     m_aResults = new CommonsArrayList <> (aResults);
     m_bFailure = m_aResults.containsAny (ICredentialValidationResult::isFailure);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public final ICommonsList <ICredentialValidationResult> getResults ()
+  {
+    return m_aResults.getClone ();
   }
 
   public boolean isSuccess ()
