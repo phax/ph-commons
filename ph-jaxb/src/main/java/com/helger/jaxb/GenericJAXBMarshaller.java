@@ -543,17 +543,12 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     if (m_aNSContext != null)
       try
       {
-        JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller, m_aNSContext);
+        JAXBMarshallerHelper.setJakartaNamespacePrefixMapper (aMarshaller, m_aNSContext);
       }
       catch (final Exception | NoClassDefFoundError ex)
       {
         // Might be an IllegalArgumentException or a NoClassDefFoundError
-        LOGGER.error ("Failed to set the namespace context " +
-                      m_aNSContext +
-                      ": " +
-                      ex.getClass ().getName () +
-                      " -- " +
-                      ex.getMessage ());
+        LOGGER.error ("Failed to set the namespace context " + m_aNSContext + ": " + ex.getClass ().getName () + " -- " + ex.getMessage ());
       }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);
@@ -562,7 +557,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       JAXBMarshallerHelper.setEncoding (aMarshaller, m_aCharset);
 
     if (m_sIndentString != null)
-      JAXBMarshallerHelper.setSunIndentString (aMarshaller, m_sIndentString);
+      JAXBMarshallerHelper.setJakartaIndentString (aMarshaller, m_sIndentString);
 
     if (m_sSchemaLocation != null)
       JAXBMarshallerHelper.setSchemaLocation (aMarshaller, m_sSchemaLocation);
@@ -591,8 +586,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject,
-                               @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
+  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aObject, "Object");
     ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
@@ -603,6 +597,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       customizeMarshaller (aMarshaller);
 
       final JAXBElement <JAXBTYPE> aJAXBElement = m_aJAXBElementWrapper.apply (aObject);
+
+      // Main writing
       aMarshallerFunc.doMarshal (aMarshaller, aJAXBElement);
       return ESuccess.SUCCESS;
     }
@@ -651,8 +647,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @see #GenericJAXBMarshaller(Class, QName)
    */
   @Nonnull
-  public static <T> Function <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName,
-                                                                           @Nonnull final Class <T> aClass)
+  public static <T> Function <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName, @Nonnull final Class <T> aClass)
   {
     return aValue -> new JAXBElement <> (aQName, aClass, null, aValue);
   }

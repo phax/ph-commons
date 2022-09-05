@@ -57,7 +57,7 @@ public final class JAXBMarshallerHelperTest
     assertNotNull (aCtx);
 
     final Marshaller aMarshaller = aCtx.createMarshaller ();
-    assertTrue (JAXBMarshallerHelper.isSunJAXB2Marshaller (aMarshaller));
+    assertTrue (JAXBMarshallerHelper.isJakartaJAXBMarshaller (aMarshaller));
 
     // Encoding
     assertEquals (StandardCharsets.UTF_8.name (), JAXBMarshallerHelper.getEncoding (aMarshaller));
@@ -85,12 +85,13 @@ public final class JAXBMarshallerHelperTest
     assertTrue (JAXBMarshallerHelper.isFragment (aMarshaller));
 
     // Namespace prefix mapper
-    assertNull (JAXBMarshallerHelper.getSunNamespacePrefixMapper (aMarshaller));
-    JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
-                                                      new MapBasedNamespaceContext ().addMapping ("p1", "http://www.helger.com/namespace1")
-                                                                                     .addMapping ("p2",
-                                                                                                  "http://www.helger.com/namespace2"));
-    assertNotNull (JAXBMarshallerHelper.getSunNamespacePrefixMapper (aMarshaller));
+    assertNull (JAXBMarshallerHelper.getJakartaNamespacePrefixMapper (aMarshaller));
+    JAXBMarshallerHelper.setJakartaNamespacePrefixMapper (aMarshaller,
+                                                          new MapBasedNamespaceContext ().addMapping ("p1",
+                                                                                                      "http://www.helger.com/namespace1")
+                                                                                         .addMapping ("p2",
+                                                                                                      "http://www.helger.com/namespace2"));
+    assertNotNull (JAXBMarshallerHelper.getJakartaNamespacePrefixMapper (aMarshaller));
   }
 
   @Test

@@ -39,14 +39,14 @@ public final class JAXBMarshallerHelper
 {
   private static final String JAXB_EXTERNAL_CLASS_NAME = "org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl";
 
-  // Sun specific property name (ripped from
+  // Jakarta specific property name (ripped from
   // org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl)
-  private static final String SUN_INDENT_STRING = "org.glassfish.jaxb.indentString";
-  private static final String SUN_PREFIX_MAPPER = "org.glassfish.jaxb.namespacePrefixMapper";
-  private static final String SUN_ENCODING_HANDLER2 = "org.glassfish.jaxb.marshaller.CharacterEscapeHandler";
-  private static final String SUN_XML_HEADERS = "org.glassfish.jaxb.xmlHeaders";
-  private static final String SUN_C14N = JAXBRIContext.CANONICALIZATION_SUPPORT;
-  private static final String SUN_OBJECT_IDENTITY_CYCLE_DETECTION = "org.glassfish.jaxb.objectIdentitityCycleDetection";
+  private static final String JAKARTA_INDENT_STRING = "org.glassfish.jaxb.indentString";
+  private static final String JAKARTA_PREFIX_MAPPER = "org.glassfish.jaxb.namespacePrefixMapper";
+  private static final String JAKARTA_ENCODING_HANDLER2 = "org.glassfish.jaxb.marshaller.CharacterEscapeHandler";
+  private static final String JAKARTA_XML_HEADERS = "org.glassfish.jaxb.xmlHeaders";
+  private static final String JAKARTA_C14N = JAXBRIContext.CANONICALIZATION_SUPPORT;
+  private static final String JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION = "org.glassfish.jaxb.objectIdentitityCycleDetection";
 
   private JAXBMarshallerHelper ()
   {}
@@ -78,8 +78,7 @@ public final class JAXBMarshallerHelper
     }
   }
 
-  private static boolean _getBooleanProperty (@Nonnull final Marshaller aMarshaller,
-                                              @Nonnull final String sPropertyName)
+  private static boolean _getBooleanProperty (@Nonnull final Marshaller aMarshaller, @Nonnull final String sPropertyName)
   {
     return ((Boolean) _getProperty (aMarshaller, sPropertyName)).booleanValue ();
   }
@@ -88,6 +87,12 @@ public final class JAXBMarshallerHelper
   private static String _getStringProperty (@Nonnull final Marshaller aMarshaller, @Nonnull final String sPropertyName)
   {
     return (String) _getProperty (aMarshaller, sPropertyName);
+  }
+
+  @Nullable
+  public static String getEncoding (@Nonnull final Marshaller aMarshaller)
+  {
+    return _getStringProperty (aMarshaller, Marshaller.JAXB_ENCODING);
   }
 
   /**
@@ -116,10 +121,9 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, Marshaller.JAXB_ENCODING, sEncoding);
   }
 
-  @Nullable
-  public static String getEncoding (@Nonnull final Marshaller aMarshaller)
+  public static boolean isFormattedOutput (@Nonnull final Marshaller aMarshaller)
   {
-    return _getStringProperty (aMarshaller, Marshaller.JAXB_ENCODING);
+    return _getBooleanProperty (aMarshaller, Marshaller.JAXB_FORMATTED_OUTPUT);
   }
 
   /**
@@ -135,9 +139,10 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.valueOf (bFormattedOutput));
   }
 
-  public static boolean isFormattedOutput (@Nonnull final Marshaller aMarshaller)
+  @Nullable
+  public static String getSchemaLocation (@Nonnull final Marshaller aMarshaller)
   {
-    return _getBooleanProperty (aMarshaller, Marshaller.JAXB_FORMATTED_OUTPUT);
+    return _getStringProperty (aMarshaller, Marshaller.JAXB_SCHEMA_LOCATION);
   }
 
   /**
@@ -154,9 +159,9 @@ public final class JAXBMarshallerHelper
   }
 
   @Nullable
-  public static String getSchemaLocation (@Nonnull final Marshaller aMarshaller)
+  public static String getNoNamespaceSchemaLocation (@Nonnull final Marshaller aMarshaller)
   {
-    return _getStringProperty (aMarshaller, Marshaller.JAXB_SCHEMA_LOCATION);
+    return _getStringProperty (aMarshaller, Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION);
   }
 
   /**
@@ -167,16 +172,14 @@ public final class JAXBMarshallerHelper
    * @param sSchemaLocation
    *        the value to be set
    */
-  public static void setNoNamespaceSchemaLocation (@Nonnull final Marshaller aMarshaller,
-                                                   @Nullable final String sSchemaLocation)
+  public static void setNoNamespaceSchemaLocation (@Nonnull final Marshaller aMarshaller, @Nullable final String sSchemaLocation)
   {
     _setProperty (aMarshaller, Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, sSchemaLocation);
   }
 
-  @Nullable
-  public static String getNoNamespaceSchemaLocation (@Nonnull final Marshaller aMarshaller)
+  public static boolean isFragment (@Nonnull final Marshaller aMarshaller)
   {
-    return _getStringProperty (aMarshaller, Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION);
+    return _getBooleanProperty (aMarshaller, Marshaller.JAXB_FRAGMENT);
   }
 
   /**
@@ -192,34 +195,33 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, Marshaller.JAXB_FRAGMENT, Boolean.valueOf (bFragment));
   }
 
-  public static boolean isFragment (@Nonnull final Marshaller aMarshaller)
+  @Nullable
+  public static String getJakartaIndentString (@Nonnull final Marshaller aMarshaller)
   {
-    return _getBooleanProperty (aMarshaller, Marshaller.JAXB_FRAGMENT);
+    return _getStringProperty (aMarshaller, JAKARTA_INDENT_STRING);
   }
 
   /**
-   * Set the Sun specific property for the indent string.
+   * Set the Jakarta specific property for the indent string.
    *
    * @param aMarshaller
    *        The marshaller to set the property. May not be <code>null</code>.
    * @param sIndentString
    *        the value to be set
    */
-  public static void setSunIndentString (@Nonnull final Marshaller aMarshaller, @Nullable final String sIndentString)
+  public static void setJakartaIndentString (@Nonnull final Marshaller aMarshaller, @Nullable final String sIndentString)
   {
-    final String sPropertyName = SUN_INDENT_STRING;
-    _setProperty (aMarshaller, sPropertyName, sIndentString);
+    _setProperty (aMarshaller, JAKARTA_INDENT_STRING, sIndentString);
   }
 
   @Nullable
-  public static String getSunIndentString (@Nonnull final Marshaller aMarshaller)
+  public static Object getJakartaCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = SUN_INDENT_STRING;
-    return _getStringProperty (aMarshaller, sPropertyName);
+    return _getProperty (aMarshaller, JAKARTA_ENCODING_HANDLER2);
   }
 
   /**
-   * Set the Sun specific encoding handler. Value must implement
+   * Set the Jakarta specific encoding handler. Value must implement
    * com.sun.xml.bind.marshaller.CharacterEscapeHandler
    *
    * @param aMarshaller
@@ -227,22 +229,19 @@ public final class JAXBMarshallerHelper
    * @param aCharacterEscapeHandler
    *        the value to be set
    */
-  public static void setSunCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller,
-                                                   @Nonnull final Object aCharacterEscapeHandler)
+  public static void setJakartaCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller, @Nonnull final Object aCharacterEscapeHandler)
   {
-    final String sPropertyName = SUN_ENCODING_HANDLER2;
-    _setProperty (aMarshaller, sPropertyName, aCharacterEscapeHandler);
+    _setProperty (aMarshaller, JAKARTA_ENCODING_HANDLER2, aCharacterEscapeHandler);
   }
 
   @Nullable
-  public static Object getSunCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller)
+  public static JAXBNamespacePrefixMapper getJakartaNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = SUN_ENCODING_HANDLER2;
-    return _getProperty (aMarshaller, sPropertyName);
+    return (JAXBNamespacePrefixMapper) _getProperty (aMarshaller, JAKARTA_PREFIX_MAPPER);
   }
 
   /**
-   * Set the Sun specific namespace prefix mapper based on a generic
+   * Set the Jakarta specific namespace prefix mapper based on a generic
    * {@link NamespaceContext}. This method instantiates an
    * {@link JAXBNamespacePrefixMapper}.
    *
@@ -256,110 +255,94 @@ public final class JAXBMarshallerHelper
    *         if the JAXB reference implementation was not found (requires the
    *         <code>com.sun.xml.bind:jaxb-impl</code> artefact)
    */
-  public static void setSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
-                                                  @Nonnull final NamespaceContext aNamespaceContext)
+  public static void setJakartaNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
+                                                      @Nonnull final NamespaceContext aNamespaceContext)
   {
     final JAXBNamespacePrefixMapper aNamespacePrefixMapper = new JAXBNamespacePrefixMapper (aNamespaceContext);
-    setSunNamespacePrefixMapper (aMarshaller, aNamespacePrefixMapper);
+    setJakartaNamespacePrefixMapper (aMarshaller, aNamespacePrefixMapper);
   }
 
   /**
-   * Set the Sun specific namespace prefix mapper. Value must implement either
-   * <code>com.sun.xml.bind.marshaller.NamespacePrefixMapper</code> or
-   * <code>com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper</code>
-   * depending on the implementation type of <code>Marshaller</code>.
+   * Set the Jakarta specific namespace prefix mapper.
    *
    * @param aMarshaller
    *        The marshaller to set the property. May not be <code>null</code>.
    * @param aNamespacePrefixMapper
    *        the value to be set
    */
-  public static void setSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
-                                                  @Nonnull final JAXBNamespacePrefixMapper aNamespacePrefixMapper)
+  public static void setJakartaNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
+                                                      @Nonnull final JAXBNamespacePrefixMapper aNamespacePrefixMapper)
   {
-    final String sPropertyName = SUN_PREFIX_MAPPER;
-    _setProperty (aMarshaller, sPropertyName, aNamespacePrefixMapper);
+    _setProperty (aMarshaller, JAKARTA_PREFIX_MAPPER, aNamespacePrefixMapper);
   }
 
   @Nullable
-  public static JAXBNamespacePrefixMapper getSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller)
+  public static String getJakartaXMLHeaders (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = SUN_PREFIX_MAPPER;
-    return (JAXBNamespacePrefixMapper) _getProperty (aMarshaller, sPropertyName);
+    return _getStringProperty (aMarshaller, JAKARTA_XML_HEADERS);
   }
 
   /**
-   * Set the Sun specific XML header string.
+   * Set the Jakarta specific XML header string.
    *
    * @param aMarshaller
    *        The marshaller to set the property. May not be <code>null</code>.
    * @param sXMLHeaders
    *        the value to be set
    */
-  public static void setSunXMLHeaders (@Nonnull final Marshaller aMarshaller, @Nonnull final String sXMLHeaders)
+  public static void setJakartaXMLHeaders (@Nonnull final Marshaller aMarshaller, @Nonnull final String sXMLHeaders)
   {
-    final String sPropertyName = SUN_XML_HEADERS;
-    _setProperty (aMarshaller, sPropertyName, sXMLHeaders);
+    _setProperty (aMarshaller, JAKARTA_XML_HEADERS, sXMLHeaders);
   }
 
-  @Nullable
-  public static String getSunXMLHeaders (@Nonnull final Marshaller aMarshaller)
+  public static boolean isJakartaCanonicalization (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = SUN_XML_HEADERS;
-    return _getStringProperty (aMarshaller, sPropertyName);
+    return _getBooleanProperty (aMarshaller, JAKARTA_C14N);
   }
 
   /**
-   * Set the Sun specific canonicalization property.
+   * Set the Jakarta specific canonicalization property.
    *
    * @param aMarshaller
    *        The marshaller to set the property. May not be <code>null</code>.
    * @param bCanonicalize
    *        the value to be set
    */
-  public static void setSunCanonicalization (@Nonnull final Marshaller aMarshaller, final boolean bCanonicalize)
+  public static void setJakartaCanonicalization (@Nonnull final Marshaller aMarshaller, final boolean bCanonicalize)
   {
-    final String sPropertyName = SUN_C14N;
-    _setProperty (aMarshaller, sPropertyName, Boolean.valueOf (bCanonicalize));
+    _setProperty (aMarshaller, JAKARTA_C14N, Boolean.valueOf (bCanonicalize));
   }
 
-  public static boolean isSunCanonicalization (@Nonnull final Marshaller aMarshaller)
+  public static boolean isJakartaObjectIdentityCycleDetection (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = SUN_C14N;
-    return _getBooleanProperty (aMarshaller, sPropertyName);
+    return _getBooleanProperty (aMarshaller, JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION);
   }
 
   /**
-   * Set the Sun specific canonicalization property.
+   * Set the Jakarta specific canonicalization property.
    *
    * @param aMarshaller
    *        The marshaller to set the property. May not be <code>null</code>.
    * @param bObjectIdentityCycleDetection
    *        the value to be set
    */
-  public static void setSunObjectIdentityCycleDetection (@Nonnull final Marshaller aMarshaller,
-                                                         final boolean bObjectIdentityCycleDetection)
+  public static void setJakartaObjectIdentityCycleDetection (@Nonnull final Marshaller aMarshaller,
+                                                             final boolean bObjectIdentityCycleDetection)
   {
-    final String sPropertyName = SUN_OBJECT_IDENTITY_CYCLE_DETECTION;
-    _setProperty (aMarshaller, sPropertyName, Boolean.valueOf (bObjectIdentityCycleDetection));
-  }
-
-  public static boolean isSunObjectIdentityCycleDetection (@Nonnull final Marshaller aMarshaller)
-  {
-    final String sPropertyName = SUN_OBJECT_IDENTITY_CYCLE_DETECTION;
-    return _getBooleanProperty (aMarshaller, sPropertyName);
+    _setProperty (aMarshaller, JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION, Boolean.valueOf (bObjectIdentityCycleDetection));
   }
 
   /**
-   * Check if the passed Marshaller is a Sun JAXB v2 marshaller. Use this method
-   * to determined, whether the Sun specific methods may be invoked or not.
+   * Check if the passed Marshaller is a Jakarta JAXB marshaller. Use this
+   * method to determined, whether the Jakarta specific methods may be invoked
+   * or not.
    *
    * @param aMarshaller
    *        The marshaller to be checked. May be <code>null</code>.
    * @return <code>true</code> if the passed marshaller is not <code>null</code>
-   *         and is of the Sun class.
+   *         and is of the Jakarta class.
    */
-  public static boolean isSunJAXB2Marshaller (@Nullable final Marshaller aMarshaller)
+  public static boolean isJakartaJAXBMarshaller (@Nullable final Marshaller aMarshaller)
   {
     if (aMarshaller == null)
       return false;

@@ -241,7 +241,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     if (m_aNSContext != null)
       try
       {
-        JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller, m_aNSContext);
+        JAXBMarshallerHelper.setJakartaNamespacePrefixMapper (aMarshaller, m_aNSContext);
       }
       catch (final Exception | NoClassDefFoundError ex)
       {
@@ -261,7 +261,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
       JAXBMarshallerHelper.setEncoding (aMarshaller, m_aCharset);
 
     if (m_sIndentString != null)
-      JAXBMarshallerHelper.setSunIndentString (aMarshaller, m_sIndentString);
+      JAXBMarshallerHelper.setJakartaIndentString (aMarshaller, m_sIndentString);
 
     if (m_sSchemaLocation != null)
       JAXBMarshallerHelper.setSchemaLocation (aMarshaller, m_sSchemaLocation);
@@ -273,8 +273,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   }
 
   @Nonnull
-  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument,
-                         @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
+  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument, @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
     ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
@@ -324,8 +323,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
                             .append ("NamespaceContext", m_aNSContext)
                             .append ("FormattedOutput", m_bFormattedOutput)
                             .append ("Charset", m_aCharset)
-                            .append ("IndentString",
-                                     StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
+                            .append ("IndentString", StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
                             .append ("SchemaLocation", m_sSchemaLocation)
                             .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                             .getToString ();

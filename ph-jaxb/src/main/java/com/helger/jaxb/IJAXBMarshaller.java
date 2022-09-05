@@ -32,5 +32,13 @@ import jakarta.xml.bind.Marshaller;
 @FunctionalInterface
 public interface IJAXBMarshaller <JAXBTYPE>
 {
+  /**
+   * @param aMarshaller
+   *        The {@link Marshaller} to use. May not be <code>null</code>.
+   * @param aJAXBElement
+   *        The JAXB-Element to write. May not be <code>null</code>.
+   * @throws JAXBException
+   *         In case writing to XML fails.
+   */
   void doMarshal (@Nonnull Marshaller aMarshaller, @Nonnull JAXBElement <JAXBTYPE> aJAXBElement) throws JAXBException;
 }
