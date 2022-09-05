@@ -132,7 +132,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
     // Main load
     final NonBlockingProperties aProps = _load (getResource (), m_aCharset);
     // Replace in write-lock
-    m_aRWLock.writeLockedGet ( () -> m_aProps = aProps);
+    m_aRWLock.writeLocked ( () -> m_aProps = aProps);
     return ESuccess.valueOf (aProps != null);
   }
 

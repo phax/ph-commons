@@ -92,13 +92,13 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
     final JsonReader.Builder aBuilder = JsonReader.builder ()
                                                   .source (aRes, aCharset)
                                                   .customizeCallback (aParser -> aParser.setRequireStringQuotes (false)
-                                                                                           .setAllowSpecialCharsInStrings (true)
-                                                                                           .setAlwaysUseBigNumber (true)
-                                                                                           .setTrackPosition (true))
+                                                                                        .setAllowSpecialCharsInStrings (true)
+                                                                                        .setAlwaysUseBigNumber (true)
+                                                                                        .setTrackPosition (true))
                                                   .customExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
-                                                                                                   aRes.getPath () +
-                                                                                                   "' to JSON: " +
-                                                                                                   ex.getMessage ()));
+                                                                                                aRes.getPath () +
+                                                                                                "' to JSON: " +
+                                                                                                ex.getMessage ()));
     final IJsonObject aProps = aBuilder.hasSource () ? aBuilder.readAsObject () : null;
     if (aProps == null)
       return null;
@@ -183,7 +183,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
     // Main load
     final ICommonsOrderedMap <String, String> aProps = _load (getResource (), m_aCharset);
     // Replace in write-lock
-    m_aRWLock.writeLockedGet ( () -> m_aProps = aProps);
+    m_aRWLock.writeLocked ( () -> m_aProps = aProps);
     return ESuccess.valueOf (aProps != null);
   }
 
