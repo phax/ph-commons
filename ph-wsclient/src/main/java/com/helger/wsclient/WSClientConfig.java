@@ -118,7 +118,8 @@ public class WSClientConfig
 
   /**
    * Set the {@link SSLSocketFactory} to be used by this client to one that
-   * trusts all servers.
+   * trusts all servers. It defaults to at least TLS 1.2 and disables
+   * certificate checks. This is NOT recommended for secure, production code!
    *
    * @throws KeyManagementException
    *         if initializing the SSL context failed
@@ -132,7 +133,8 @@ public class WSClientConfig
 
   /**
    * Set the {@link SSLSocketFactory} to be used by this client to one that
-   * trusts all servers.
+   * trusts all servers. It defaults to at least TLS 1.2 and disables
+   * certificate checks. This is NOT recommended for secure, production code!
    *
    * @param bDebugMode
    *        <code>true</code> for extended debug logging, <code>false</code> for
@@ -184,7 +186,8 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link HostnameVerifier} to a "trust all" verifier.
+   * Set the {@link HostnameVerifier} to a "trust all" verifier. This is NOT
+   * recommended for secure, production code!
    *
    * @return this for chaining
    */
@@ -195,7 +198,8 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link HostnameVerifier} to a "trust all" verifier.
+   * Set the {@link HostnameVerifier} to a "trust all" verifier. This is NOT
+   * recommended for secure, production code!
    *
    * @param bDebugMode
    *        <code>true</code> for extended debug logging, <code>false</code> for
@@ -544,8 +548,7 @@ public class WSClientConfig
     if (hasChunkSize ())
     {
       aRequestContext.put ("com.sun.xml.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
-      aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size",
-                           Integer.valueOf (m_nChunkSize));
+      aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
     }
     if (StringHelper.hasText (m_sUserName))
     {
