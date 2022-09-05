@@ -58,7 +58,8 @@ public class AdapterLocalTime extends XmlAdapter <String, LocalTime>
     // Parse without Timezone
     final LocalTime ret = PDTWebDateHelper.getLocalTimeFromXSD (sTrimmed);
     if (ret == null)
-      LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalTime");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalTime");
     return ret;
   }
 

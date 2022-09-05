@@ -57,7 +57,8 @@ public class AdapterLocalDateTime extends XmlAdapter <String, LocalDateTime>
 
     final LocalDateTime ret = PDTWebDateHelper.getLocalDateTimeFromXSD (sTrimmed);
     if (ret == null)
-      LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalDateTime");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalDateTime");
     return ret;
   }
 

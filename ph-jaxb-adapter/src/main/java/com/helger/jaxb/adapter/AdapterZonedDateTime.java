@@ -57,7 +57,10 @@ public class AdapterZonedDateTime extends XmlAdapter <String, ZonedDateTime>
       if (aLDT != null)
         ret = ZonedDateTime.of (aLDT, ZoneOffset.UTC);
       else
-        LOGGER.warn ("Failed to parse '" + sValue + "' to a ZonedDateTime");
+      {
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Failed to parse '" + sValue + "' to a ZonedDateTime");
+      }
     }
     return ret;
   }
