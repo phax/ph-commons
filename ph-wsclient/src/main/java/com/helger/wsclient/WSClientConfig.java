@@ -101,7 +101,7 @@ public class WSClientConfig
    *         <code>null</code> if the endpoint from the WSDL should be used.
    */
   @Nullable
-  public URL getEndpointAddress ()
+  public final URL getEndpointAddress ()
   {
     return m_aEndpointAddress;
   }
@@ -262,7 +262,7 @@ public class WSClientConfig
   }
 
   /**
-   * @return The request timeout in milliseconds. Default is
+   * @return The request (response) timeout in milliseconds. Default is
    *         {@link #DEFAULT_REQUEST_TIMEOUT_MS}.
    */
   public int getRequestTimeoutMS ()
@@ -271,7 +271,7 @@ public class WSClientConfig
   }
 
   /**
-   * @return <code>true</code> if a request timeout is defined,
+   * @return <code>true</code> if a request (response) timeout is defined,
    *         <code>false</code> if not.
    * @since 9.1.5
    */
@@ -281,7 +281,7 @@ public class WSClientConfig
   }
 
   /**
-   * Set the request timeout in milliseconds.
+   * Set the request (response) timeout in milliseconds.
    *
    * @param nRequestTimeoutMS
    *        Milliseconds. Only values &ge; 0 are considered.
@@ -525,30 +525,28 @@ public class WSClientConfig
     {
       aRequestContext.put (BindingProvider.ENDPOINT_ADDRESS_PROPERTY, m_aEndpointAddress.toExternalForm ());
     }
+
+    // Note: all the constants are defined in class JAXWSProperties, but they
+    // are implementation specific and not part of the shared API
     if (m_aSSLSocketFactory != null)
     {
       aRequestContext.put ("com.sun.xml.ws.transport.https.client.SSLSocketFactory", m_aSSLSocketFactory);
-      aRequestContext.put ("com.sun.xml.internal.ws.transport.https.client.SSLSocketFactory", m_aSSLSocketFactory);
     }
     if (m_aHostnameVerifier != null)
     {
       aRequestContext.put ("com.sun.xml.ws.transport.https.client.hostname.verifier", m_aHostnameVerifier);
-      aRequestContext.put ("com.sun.xml.internal.ws.transport.https.client.hostname.verifier", m_aHostnameVerifier);
     }
     if (hasConnectionTimeoutMS ())
     {
       aRequestContext.put ("com.sun.xml.ws.connect.timeout", Integer.valueOf (m_nConnectionTimeoutMS));
-      aRequestContext.put ("com.sun.xml.internal.ws.connect.timeout", Integer.valueOf (m_nConnectionTimeoutMS));
     }
     if (hasRequestTimeoutMS ())
     {
       aRequestContext.put ("com.sun.xml.ws.request.timeout", Integer.valueOf (m_nRequestTimeoutMS));
-      aRequestContext.put ("com.sun.xml.internal.ws.request.timeout", Integer.valueOf (m_nRequestTimeoutMS));
     }
     if (hasChunkSize ())
     {
       aRequestContext.put ("com.sun.xml.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
-      aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
     }
     if (StringHelper.hasText (m_sUserName))
     {

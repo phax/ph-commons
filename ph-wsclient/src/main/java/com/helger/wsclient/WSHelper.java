@@ -65,24 +65,20 @@ public final class WSHelper
     // Server debug mode
     String sDebug = Boolean.toString (bServerDebug);
     SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", sDebug);
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", sDebug);
 
     // Client debug mode
     sDebug = Boolean.toString (bClientDebug);
     SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpTransportPipe.dump", sDebug);
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpTransportPipe.dump", sDebug);
 
     // Enlarge dump size
     if (bServerDebug || bClientDebug)
     {
       final String sValue = Integer.toString (2 * CGlobal.BYTES_PER_MEGABYTE);
-      SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dumpTreshold", sValue);
-      SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold", sValue);
+      SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dumpThreshold", sValue);
     }
     else
     {
-      SystemProperties.removePropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dumpTreshold");
-      SystemProperties.removePropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold");
+      SystemProperties.removePropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dumpThreshold");
     }
   }
 
@@ -101,12 +97,16 @@ public final class WSHelper
     // different....
     enableSoapLogging (bDebug);
 
+    // "Classname" + ".property"
     SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
+    // "Classname" + ".property"
     SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
+    // "Classname" + ".property"
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.fault.SOAPFaultBuilder.captureStackTrace", Boolean.toString (bDebug));
 
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.fault.SOAPFaultBuilder.disableCaptureStackTrace", bDebug ? null : "false");
-
+    // Defined in com.sun.xml.ws.assembler.MetroTubelineAssembler
     SystemProperties.setPropertyValue ("com.sun.metro.soap.dump", Boolean.toString (bDebug));
+
     SystemProperties.setPropertyValue ("com.sun.xml.wss.provider.wsit.SecurityTubeFactory.dump", Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", Boolean.toString (bDebug));
