@@ -40,7 +40,6 @@ import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsEnumMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
@@ -196,7 +195,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public final SAXReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty, @Nullable final Object aPropertyValue)
+  public final SAXReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
+                                                   @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
@@ -226,17 +226,18 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public final EChange removePropertyValue (@Nullable final EXMLParserProperty eProperty)
+  public final SAXReaderSettings removePropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
-    if (eProperty == null)
-      return EChange.UNCHANGED;
-    return m_aProperties.removeObject (eProperty);
+    if (eProperty != null)
+      m_aProperties.removeObject (eProperty);
+    return this;
   }
 
   @Nonnull
-  public final EChange removeAllPropertyValues ()
+  public final SAXReaderSettings removeAllPropertyValues ()
   {
-    return m_aProperties.removeAll ();
+    m_aProperties.removeAll ();
+    return this;
   }
 
   @Nullable
@@ -245,6 +246,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return (Locale) getPropertyValue (EXMLParserProperty.GENERAL_LOCALE);
   }
 
+  @Nonnull
   public SAXReaderSettings setLocale (@Nullable final Locale aLocale)
   {
     return setPropertyValue (EXMLParserProperty.GENERAL_LOCALE, aLocale);
@@ -278,7 +280,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public final SAXReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
+  public final SAXReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature,
+                                                  @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
@@ -289,6 +292,13 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return this;
   }
 
+  /**
+   * Add multiple XML parser features at once.
+   *
+   * @param aValues
+   *        The values to be added. May be <code>null</code>.
+   * @return this for chaining
+   */
   @Nonnull
   public final SAXReaderSettings setFeatureValues (@Nullable final Map <EXMLParserFeature, Boolean> aValues)
   {
@@ -298,17 +308,27 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public final EChange removeFeature (@Nullable final EXMLParserFeature eFeature)
+  public final SAXReaderSettings removeFeature (@Nullable final EXMLParserFeature eFeature)
   {
-    if (eFeature == null)
-      return EChange.UNCHANGED;
-    return m_aFeatures.removeObject (eFeature);
+    if (eFeature != null)
+      m_aFeatures.removeObject (eFeature);
+    return this;
   }
 
   @Nonnull
-  public final EChange removeAllFeatures ()
+  public final SAXReaderSettings removeFeatures (@Nullable final EXMLParserFeature... aFeatures)
   {
-    return m_aFeatures.removeAll ();
+    if (aFeatures != null)
+      for (final EXMLParserFeature eFeature : aFeatures)
+        m_aFeatures.removeObject (eFeature);
+    return this;
+  }
+
+  @Nonnull
+  public final SAXReaderSettings removeAllFeatures ()
+  {
+    m_aFeatures.removeAll ();
+    return this;
   }
 
   public boolean requiresNewXMLParser ()

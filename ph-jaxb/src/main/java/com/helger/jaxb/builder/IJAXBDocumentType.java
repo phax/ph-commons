@@ -107,12 +107,11 @@ public interface IJAXBDocumentType
     if (aSchema != null)
     {
       final Validator aValidator = aSchema.newValidator ();
-      if (aValidator != null)
-      {
-        if (aLocale != null)
-          EXMLParserProperty.GENERAL_LOCALE.applyTo (aValidator, aLocale);
-        return aValidator;
-      }
+      assert aValidator != null;
+
+      if (aLocale != null)
+        EXMLParserProperty.GENERAL_LOCALE.applyTo (aValidator, aLocale);
+      return aValidator;
     }
     return null;
   }

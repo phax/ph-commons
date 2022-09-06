@@ -27,6 +27,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
@@ -88,7 +89,9 @@ public final class MicroWriterTest
   @Test
   public void testGetXHTMLString ()
   {
-    final IMicroDocument aDoc = MicroReader.readMicroXML (TEST_XML);
+    final IMicroDocument aDoc = MicroReader.readMicroXML (TEST_XML,
+                                                          new SAXReaderSettings ().setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                                                    false));
     _testGetNodeAsXHTMLString (aDoc);
     _testGetNodeAsXHTMLString (aDoc.getDocumentElement ());
     _testGetNodeAsXHTMLString (new MicroDocument ());
@@ -127,7 +130,9 @@ public final class MicroWriterTest
   @Test
   public void testGetXMLString ()
   {
-    final IMicroDocument aDoc = MicroReader.readMicroXML (TEST_XML);
+    final IMicroDocument aDoc = MicroReader.readMicroXML (TEST_XML,
+                                                          new SAXReaderSettings ().setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                                                    false));
     _testGetNodeAsXMLString (aDoc);
     _testGetNodeAsXMLString (aDoc.getDocumentElement ());
     _testGetNodeAsXMLString (new MicroElement ("xyz"));
@@ -192,12 +197,16 @@ public final class MicroWriterTest
   {
     for (final EXMLSerializeVersion eVersion : EXMLSerializeVersion.values ())
     {
-      final IMicroDocument aDoc = MicroReader.readMicroXML (TEST_XML);
+      final IMicroDocument aDoc = MicroReader.readMicroXML (TEST_XML,
+                                                            new SAXReaderSettings ().setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                                                      false));
       final XMLWriterSettings aSettings = new XMLWriterSettings ();
       aSettings.setSerializeVersion (eVersion);
       final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
       assertNotNull (sXML);
-      assertTrue (sXML.contains ("version=\"" + eVersion.getXMLVersionOrDefault (EXMLVersion.XML_10).getVersion () + "\""));
+      assertTrue (sXML.contains ("version=\"" +
+                                 eVersion.getXMLVersionOrDefault (EXMLVersion.XML_10).getVersion () +
+                                 "\""));
     }
   }
 
@@ -230,7 +239,8 @@ public final class MicroWriterTest
   @Test
   public void testWriteCDATAAsText ()
   {
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setWriteCDATAAsText (true);
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setWriteCDATAAsText (true);
 
     // Simple CDATA
     IMicroElement e = new MicroElement ("a");
@@ -586,7 +596,8 @@ public final class MicroWriterTest
   @Test
   public void testOrderAttributes ()
   {
-    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setUseDoubleQuotesForAttributes (false);
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
 
     // default order
     final IMicroElement e = new MicroElement ("a");
@@ -603,7 +614,8 @@ public final class MicroWriterTest
   @Test
   public void testOrderNamespaces ()
   {
-    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setUseDoubleQuotesForAttributes (false);
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
 
     // default order
     final IMicroElement e = new MicroElement ("urn:stringdefault", "a");
@@ -622,7 +634,11 @@ public final class MicroWriterTest
   private static void _testC14 (final String sSrc, final String sDst)
   {
     final IMicroDocument aDoc = MicroReader.readMicroXML (sSrc,
-                                                          new SAXReaderSettings ().setEntityResolver ( (x,
+                                                          new SAXReaderSettings ().setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                                                    false)
+                                                                                  .setFeatureValue (EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES,
+                                                                                                    true)
+                                                                                  .setEntityResolver ( (x,
                                                                                                         y) -> "world.txt".equals (y) ? new StringSAXInputSource ("world")
                                                                                                                                      : new StringSAXInputSource ("")));
     assertNotNull (aDoc);

@@ -38,13 +38,11 @@ import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
-import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
-import com.helger.xml.serialize.read.SAXReaderSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
@@ -127,7 +125,8 @@ public final class XMLListHandler
    *         other error occurred.
    */
   @Nonnull
-  public static ESuccess readList (@Nonnull @WillClose final InputStream aIS, @Nonnull final Collection <String> aTargetList)
+  public static ESuccess readList (@Nonnull @WillClose final InputStream aIS,
+                                   @Nonnull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aTargetList, "TargetList");
@@ -135,8 +134,7 @@ public final class XMLListHandler
     try
     {
       // open file
-      final IMicroDocument aDoc = MicroReader.readMicroXML (aIS,
-                                                            new SAXReaderSettings ().setFeatureValues (EXMLParserFeature.AVOID_XML_ATTACKS));
+      final IMicroDocument aDoc = MicroReader.readMicroXML (aIS);
       if (aDoc != null)
       {
         readList (aDoc.getDocumentElement (), aTargetList);
@@ -157,7 +155,8 @@ public final class XMLListHandler
   }
 
   @Nonnull
-  public static ESuccess readList (@Nonnull final IMicroElement aParentElement, @Nonnull final Collection <String> aTargetList)
+  public static ESuccess readList (@Nonnull final IMicroElement aParentElement,
+                                   @Nonnull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aParentElement, "ParentElement");
     ValueEnforcer.notNull (aTargetList, "TargetList");
@@ -202,7 +201,8 @@ public final class XMLListHandler
   }
 
   @Nonnull
-  public static ESuccess writeList (@Nonnull final Collection <String> aCollection, @Nonnull final IHasOutputStream aOSP)
+  public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
+                                    @Nonnull final IHasOutputStream aOSP)
   {
     ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
 
@@ -222,7 +222,8 @@ public final class XMLListHandler
    *         {@link ESuccess#FAILURE} otherwise.
    */
   @Nonnull
-  public static ESuccess writeList (@Nonnull final Collection <String> aCollection, @Nonnull @WillClose final OutputStream aOS)
+  public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
+                                    @Nonnull @WillClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aCollection, "Collection");
     ValueEnforcer.notNull (aOS, "OutputStream");

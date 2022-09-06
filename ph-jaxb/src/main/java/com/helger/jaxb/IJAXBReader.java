@@ -43,7 +43,6 @@ import com.helger.commons.io.stream.ByteBufferInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
 import com.helger.xml.serialize.read.SAXReaderSettings;
@@ -57,15 +56,6 @@ import com.helger.xml.serialize.read.SAXReaderSettings;
  */
 public interface IJAXBReader <JAXBTYPE>
 {
-  /**
-   * Check if secure reading is enabled. Secure reading means that documents are
-   * checked for XXE and XML bombs (infinite entity expansions). By default
-   * secure reading is enabled.
-   *
-   * @return <code>true</code> if secure reading is enabled.
-   */
-  boolean isReadSecure ();
-
   /**
    * Read a document from the specified input source. The secure reading feature
    * has affect when using this method.
@@ -96,12 +86,6 @@ public interface IJAXBReader <JAXBTYPE>
   {
     ValueEnforcer.notNull (aSettings, "Settings");
     ValueEnforcer.notNull (aInputSource, "InputSource");
-
-    if (isReadSecure ())
-    {
-      // Apply settings that make reading more secure
-      aSettings.setFeatureValues (EXMLParserFeature.AVOID_XML_ATTACKS);
-    }
 
     // Create new XML reader
     final XMLReader aParser = SAXReaderFactory.createXMLReader ();

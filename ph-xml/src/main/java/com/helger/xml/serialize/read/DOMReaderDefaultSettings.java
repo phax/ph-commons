@@ -86,11 +86,12 @@ public final class DOMReaderDefaultSettings
   private static ErrorHandler s_aDefaultErrorHandler = new LoggingSAXErrorHandler ();
 
   // Handling properties
-  private static CallbackList <IExceptionCallback <Throwable>> s_aDefaultExceptionCallbacks = new CallbackList <> ();
+  private static final CallbackList <IExceptionCallback <Throwable>> DEFAULT_EXCEPTION_CALLBACKS = new CallbackList <> ();
   static
   {
-    s_aDefaultExceptionCallbacks.add (new XMLLoggingExceptionCallback ());
+    DEFAULT_EXCEPTION_CALLBACKS.add (new XMLLoggingExceptionCallback ());
   }
+
   @GuardedBy ("RW_LOCK")
   private static boolean s_bDefaultRequiresNewXMLParserExplicitly = DEFAULT_REQUIRES_NEW_XML_PARSER_EXPLICITLY;
 
@@ -202,7 +203,8 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.readLockedGet (DEFAULT_PROPS::getClone);
   }
 
-  public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty, @Nullable final Object aPropertyValue)
+  public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
+                                       @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
@@ -352,7 +354,7 @@ public final class DOMReaderDefaultSettings
   @ReturnsMutableObject
   public static CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {
-    return s_aDefaultExceptionCallbacks;
+    return DEFAULT_EXCEPTION_CALLBACKS;
   }
 
   public static boolean isRequiresNewXMLParserExplicitly ()

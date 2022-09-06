@@ -38,7 +38,6 @@ import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsEnumMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
@@ -244,7 +243,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   @Nonnull
-  public final DOMReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty, @Nullable final Object aPropertyValue)
+  public final DOMReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
+                                                   @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
@@ -276,17 +276,18 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   @Nonnull
-  public final EChange removePropertyValue (@Nullable final EXMLParserProperty eProperty)
+  public final DOMReaderSettings removePropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
-    if (eProperty == null)
-      return EChange.UNCHANGED;
-    return m_aProperties.removeObject (eProperty);
+    if (eProperty != null)
+      m_aProperties.removeObject (eProperty);
+    return this;
   }
 
   @Nonnull
-  public final EChange removeAllPropertyValues ()
+  public final DOMReaderSettings removeAllPropertyValues ()
   {
-    return m_aProperties.removeAll ();
+    m_aProperties.removeAll ();
+    return this;
   }
 
   @Nullable
@@ -329,7 +330,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   @Nonnull
-  public final DOMReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
+  public final DOMReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature,
+                                                  @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
@@ -349,17 +351,27 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   @Nonnull
-  public final EChange removeFeature (@Nullable final EXMLParserFeature eFeature)
+  public final DOMReaderSettings removeFeature (@Nullable final EXMLParserFeature eFeature)
   {
-    if (eFeature == null)
-      return EChange.UNCHANGED;
-    return m_aFeatures.removeObject (eFeature);
+    if (eFeature != null)
+      m_aFeatures.removeObject (eFeature);
+    return this;
   }
 
   @Nonnull
-  public final EChange removeAllFeatures ()
+  public final DOMReaderSettings removeFeatures (@Nullable final EXMLParserFeature... aFeatures)
   {
-    return m_aFeatures.removeAll ();
+    if (aFeatures != null)
+      for (final EXMLParserFeature eFeature : aFeatures)
+        m_aFeatures.removeObject (eFeature);
+    return this;
+  }
+
+  @Nonnull
+  public final DOMReaderSettings removeAllFeatures ()
+  {
+    m_aFeatures.removeAll ();
+    return this;
   }
 
   public boolean requiresNewXMLParser ()

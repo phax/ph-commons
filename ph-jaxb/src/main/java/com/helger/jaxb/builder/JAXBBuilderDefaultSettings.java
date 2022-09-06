@@ -24,6 +24,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
 import jakarta.xml.bind.ValidationEventHandler;
@@ -41,6 +42,7 @@ import jakarta.xml.bind.ValidationEventHandler;
 public final class JAXBBuilderDefaultSettings
 {
   public static final boolean DEFAULT_USE_CONTEXT_CACHE = true;
+  public static final ValidationEventHandler DEFAULT_VALIDATION_EVENT_HANDLER = LoggingValidationEventHandler.DEFAULT_INSTANCE;
   public static final boolean DEFAULT_FORMATTED_OUTPUT = false;
   public static final Charset DEFAULT_CHARSET = XMLWriterSettings.DEFAULT_XML_CHARSET_OBJ;
 
@@ -48,7 +50,7 @@ public final class JAXBBuilderDefaultSettings
   @GuardedBy ("RW_LOCK")
   private static boolean s_bUseContextCache = DEFAULT_USE_CONTEXT_CACHE;
   @GuardedBy ("RW_LOCK")
-  private static ValidationEventHandler s_aEventHandler;
+  private static ValidationEventHandler s_aEventHandler = DEFAULT_VALIDATION_EVENT_HANDLER;
   @GuardedBy ("RW_LOCK")
   private static NamespaceContext s_aNamespaceContext;
   @GuardedBy ("RW_LOCK")

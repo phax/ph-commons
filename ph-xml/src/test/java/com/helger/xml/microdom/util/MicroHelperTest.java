@@ -36,6 +36,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.stream.StringInputStream;
+import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
@@ -123,6 +124,7 @@ public final class MicroHelperTest
     final DocumentBuilderFactory aDBF = XMLFactory.createDefaultDocumentBuilderFactory ();
     aDBF.setCoalescing (false);
     aDBF.setIgnoringComments (false);
+    aDBF.setFeature (EXMLParserFeature.DISALLOW_DOCTYPE_DECL.getName (), false);
     final Document doc = aDBF.newDocumentBuilder ().parse (new StringInputStream (sXML, StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
     final IMicroNode aNode = MicroHelper.convertToMicroNode (doc);
@@ -163,7 +165,8 @@ public final class MicroHelperTest
     y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
     y.appendCDATA ("234");
-    assertEquals (BigInteger.valueOf (100234), MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
+    assertEquals (BigInteger.valueOf (100234),
+                  MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
   }
 
   @Test
@@ -195,7 +198,8 @@ public final class MicroHelperTest
     y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
     y.appendCDATA ("234");
-    assertEquals (BigInteger.valueOf (100234), MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
+    assertEquals (BigInteger.valueOf (100234),
+                  MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
   }
 
   @Test

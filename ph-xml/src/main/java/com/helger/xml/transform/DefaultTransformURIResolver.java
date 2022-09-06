@@ -101,10 +101,10 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
     try
     {
       final IReadableResource aRes = DefaultResourceResolver.getResolvedResource (sHref, sRealBase);
-      if (aRes != null && aRes.exists ())
+      if (aRes.exists ())
         return TransformSourceFactory.create (aRes);
     }
-    catch (final Exception ex)
+    catch (final RuntimeException ex)
     {
       throw new TransformerException (sHref + "//" + sBase + "//" + sRealBase, ex);
     }
@@ -116,6 +116,8 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).appendIfNotNull ("DefaultBase", m_sDefaultBase).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .appendIfNotNull ("DefaultBase", m_sDefaultBase)
+                            .getToString ();
   }
 }

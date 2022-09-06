@@ -39,6 +39,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
 import com.helger.commons.system.ENewLineMode;
+import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
@@ -150,7 +151,8 @@ public final class MicroReaderTest
                           "</content>";
     final IMicroDocument docXHTML = MicroReader.readMicroXML (new NonBlockingStringReader (sXHTML));
     assertNotNull (docXHTML);
-    final String sResult = MicroWriter.getNodeAsString (docXHTML, new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
+    final String sResult = MicroWriter.getNodeAsString (docXHTML,
+                                                        new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
 
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                   "<content>" +
@@ -335,7 +337,9 @@ public final class MicroReaderTest
   public void testReadNotation ()
   {
     // Read file with notation
-    final IMicroDocument doc = MicroReader.readMicroXML (new ClassPathResource ("xml/xml-notation.xml"));
+    final IMicroDocument doc = MicroReader.readMicroXML (new ClassPathResource ("xml/xml-notation.xml"),
+                                                         new SAXReaderSettings ().setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                                                   false));
     assertNotNull (doc);
 
     // Write again
@@ -347,7 +351,9 @@ public final class MicroReaderTest
   {
     // Read file with notation
     final IMicroDocument doc = MicroReader.readMicroXML (new ClassPathResource ("xml/xml-entity-public.xml"),
-                                                         new SAXReaderSettings ().setEntityResolver (new EmptyEntityResolver ()));
+                                                         new SAXReaderSettings ().setEntityResolver (new EmptyEntityResolver ())
+                                                                                 .setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                                                   false));
     assertNotNull (doc);
 
     final MicroSAXHandler aHdl = new MicroSAXHandler (true, new EmptyEntityResolver (), true);
@@ -355,8 +361,11 @@ public final class MicroReaderTest
                                                                  .setDTDHandler (aHdl)
                                                                  .setContentHandler (aHdl)
                                                                  .setErrorHandler (aHdl)
-                                                                 .setLexicalHandler (aHdl);
-    assertTrue (SAXReader.readXMLSAX (InputSourceFactory.create (ClassPathResource.getInputStream ("xml/xml-entity-public.xml")), aSettings)
+                                                                 .setLexicalHandler (aHdl)
+                                                                 .setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                                   false);
+    assertTrue (SAXReader.readXMLSAX (InputSourceFactory.create (ClassPathResource.getInputStream ("xml/xml-entity-public.xml")),
+                                      aSettings)
                          .isSuccess ());
     assertNotNull (aHdl.getDocument ());
 
@@ -391,7 +400,9 @@ public final class MicroReaderTest
                      INDENT +
                      "<?important value?>" +
                      "</root>";
-    assertTrue (MicroReader.readMicroXML (s).isEqualContent (MicroReader.readMicroXML (s)));
+    final SAXReaderSettings aSRS = new SAXReaderSettings ().setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                             false);
+    assertTrue (MicroReader.readMicroXML (s, aSRS).isEqualContent (MicroReader.readMicroXML (s, aSRS)));
   }
 
   @Test

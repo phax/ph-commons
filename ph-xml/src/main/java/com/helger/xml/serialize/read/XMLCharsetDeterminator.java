@@ -113,8 +113,11 @@ public final class XMLCharsetDeterminator
                                             @Nonnegative final int nOfs,
                                             @Nonnull final Charset aParseCharset)
   {
-    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes, nOfs, aBytes.length - nOfs);
-         final Reader aReader = new InputStreamReader (aIS, aParseCharset))
+    try (
+        final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
+                                                                                         nOfs,
+                                                                                         aBytes.length - nOfs);
+        final Reader aReader = new InputStreamReader (aIS, aParseCharset))
     {
       final StringBuilder aSB = new StringBuilder ();
       int c;
@@ -184,7 +187,9 @@ public final class XMLCharsetDeterminator
    *        The encoding specific bytes to check.
    * @return <code>true</code> if the bytes match, <code>false</code> otherwise.
    */
-  private static boolean _match (@Nonnull final byte [] aSrcBytes, @Nonnegative final int nSrcOffset, @Nonnull final byte [] aCmpBytes)
+  private static boolean _match (@Nonnull final byte [] aSrcBytes,
+                                 @Nonnegative final int nSrcOffset,
+                                 @Nonnull final byte [] aCmpBytes)
   {
     final int nEnd = aCmpBytes.length;
     for (int i = 0; i < nEnd; ++i)
@@ -213,10 +218,11 @@ public final class XMLCharsetDeterminator
     {
       // Check if a BOM is present
       // Read at maximum 4 bytes (max BOM bytes)
-      try (NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
-                                                                                      0,
-                                                                                      Math.min (EUnicodeBOM.getMaximumByteCount (),
-                                                                                                aBytes.length)))
+      try (
+          NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
+                                                                                     0,
+                                                                                     Math.min (EUnicodeBOM.getMaximumByteCount (),
+                                                                                               aBytes.length)))
       {
         // Check for BOM first
         final InputStreamAndCharset aISC = CharsetHelper.getInputStreamAndCharsetFromBOM (aIS);
@@ -238,6 +244,7 @@ public final class XMLCharsetDeterminator
 
     // No charset found and enough bytes left?
     if (aParseCharset == null && aBytes.length - nSearchOfs >= 4)
+    {
       if (_match (aBytes, nSearchOfs, CS_UTF32_BE))
         aParseCharset = CHARSET_UTF_32BE;
       else
@@ -258,6 +265,7 @@ public final class XMLCharsetDeterminator
                 else
                   if (_match (aBytes, nSearchOfs, CS_IBM290))
                     aParseCharset = CHARSET_IBM290;
+    }
 
     if (aParseCharset == null)
     {

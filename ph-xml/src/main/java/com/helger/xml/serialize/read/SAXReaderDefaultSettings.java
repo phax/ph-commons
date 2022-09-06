@@ -184,7 +184,8 @@ public final class SAXReaderDefaultSettings
     return RW_LOCK.readLockedGet (DEFAULT_PROPS::getClone);
   }
 
-  public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty, @Nullable final Object aPropertyValue)
+  public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
+                                       @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
 

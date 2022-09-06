@@ -298,7 +298,7 @@ public final class DOMReader
       if (aSettings.requiresNewXMLParser ())
       {
         // We need to create a new DocumentBuilderFactory
-        final DocumentBuilderFactory aDocumentBuilderFactory = DocumentBuilderFactory.newInstance ();
+        final DocumentBuilderFactory aDocumentBuilderFactory = XMLFactory.createDefaultDocumentBuilderFactory ();
 
         // Apply the settings on the DocumentBuilderFactory
         aSettings.applyToDocumentBuilderFactory (aDocumentBuilderFactory);

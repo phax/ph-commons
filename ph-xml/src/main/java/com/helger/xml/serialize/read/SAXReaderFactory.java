@@ -23,38 +23,30 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import com.helger.commons.exception.InitializationException;
+import com.helger.xml.XMLFactory;
 
-public final class SAXReaderFactory implements Supplier <org.xml.sax.XMLReader>
+public final class SAXReaderFactory implements Supplier <XMLReader>
 {
-  /** SAXParserFactory is by default not namespace aware */
-  public static final boolean DEFAULT_SAX_NAMESPACE_AWARE = true;
-  /** SAXParserFactory is by default not DTD validating */
-  public static final boolean DEFAULT_SAX_VALIDATING = false;
-  /** SAXParserFactory is by default not XInclude aware */
-  public static final boolean DEFAULT_SAX_XINCLUDE_AWARE = false;
-
   @Nonnull
-  public org.xml.sax.XMLReader get ()
+  public XMLReader get ()
   {
     return createXMLReader ();
   }
 
   @Nonnull
-  public static org.xml.sax.XMLReader createXMLReader ()
+  public static XMLReader createXMLReader ()
   {
     try
     {
-      final SAXParserFactory aFactory = SAXParserFactory.newDefaultInstance ();
-      aFactory.setNamespaceAware (DEFAULT_SAX_NAMESPACE_AWARE);
-      aFactory.setValidating (DEFAULT_SAX_VALIDATING);
-      aFactory.setXIncludeAware (DEFAULT_SAX_XINCLUDE_AWARE);
+      final SAXParserFactory aFactory = XMLFactory.createDefaultSAXParserFactory ();
       return aFactory.newSAXParser ().getXMLReader ();
     }
     catch (final ParserConfigurationException | SAXException ex)
     {
-      throw new InitializationException ("Failed to instantiate XML SAX reader!", ex);
+      throw new InitializationException ("Failed to instantiate XML SAX reader", ex);
     }
   }
 }

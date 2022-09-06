@@ -156,6 +156,7 @@ public final class JAXBBuilderFuncTest
                                                new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY)
                                                                        .setNewLineMode (ENewLineMode.UNIX))
                                       .setDebugMode (true));
+    final String sXML = aSW.getAsString ();
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                   "<Root Version=\"1.23\">\n" +
                   "<Collection ID=\"0\" Description=\"InternalDesc-0\">\n" +
@@ -171,6 +172,9 @@ public final class JAXBBuilderFuncTest
                   "</Issue>\n" +
                   "</Collection>\n" +
                   "</Root>",
-                  aSW.getAsString ());
+                  sXML);
+
+    // Read again and write again
+
   }
 }

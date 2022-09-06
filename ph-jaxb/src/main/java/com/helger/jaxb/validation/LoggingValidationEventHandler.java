@@ -37,6 +37,7 @@ import com.helger.commons.error.level.EErrorLevel;
 @NotThreadSafe
 public class LoggingValidationEventHandler extends AbstractValidationEventHandler
 {
+  public static final LoggingValidationEventHandler DEFAULT_INSTANCE = new LoggingValidationEventHandler ();
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingValidationEventHandler.class);
 
   public LoggingValidationEventHandler ()

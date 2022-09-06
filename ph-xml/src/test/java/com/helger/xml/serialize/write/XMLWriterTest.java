@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.ENewLineMode;
+import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
@@ -66,9 +67,11 @@ public final class XMLWriterTest
     final String sSerTagName = "<" + sTAGNAME + "></" + sTAGNAME + ">";
 
     final Document doc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-    final Element aHead = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
+    final Element aHead = (Element) doc.getDocumentElement ()
+                                       .appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
     aHead.appendChild (doc.createTextNode ("Hallo"));
-    final Element aNoText = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, sTAGNAME));
+    final Element aNoText = (Element) doc.getDocumentElement ()
+                                         .appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, sTAGNAME));
     aNoText.appendChild (doc.createTextNode (""));
 
     // test including doc type
@@ -123,7 +126,8 @@ public final class XMLWriterTest
                                                         XMLWriterSettings.createForXHTML ()
                                                                          .setSerializeDocType (EXMLSerializeDocType.IGNORE)
                                                                          .setIndent (EXMLSerializeIndent.NONE));
-      assertEquals ("<html xmlns=\"" + DOCTYPE_XHTML10_URI + "\"><head>Hallo</head>" + sSerTagName + "</html>", sResult);
+      assertEquals ("<html xmlns=\"" + DOCTYPE_XHTML10_URI + "\"><head>Hallo</head>" + sSerTagName + "</html>",
+                    sResult);
       assertEquals (sResult,
                     XMLWriter.getNodeAsString (doc,
                                                XMLWriterSettings.createForXHTML ()
@@ -272,9 +276,11 @@ public final class XMLWriterTest
       final String sSerTagName = "<" + sTAGNAME + "></" + sTAGNAME + ">";
 
       final Document doc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-      final Element aHead = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
+      final Element aHead = (Element) doc.getDocumentElement ()
+                                         .appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
       aHead.appendChild (doc.createTextNode ("Hallo"));
-      final Element aNoText = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, sTAGNAME));
+      final Element aNoText = (Element) doc.getDocumentElement ()
+                                           .appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, sTAGNAME));
       aNoText.appendChild (doc.createTextNode (""));
 
       // test including doc type
@@ -443,12 +449,20 @@ public final class XMLWriterTest
 
     aSettings.setEmitNamespaces (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" + "<root>" + "<child1 />" + "<child2 />" + "</root>",
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
+                  "<root>" +
+                  "<child1 />" +
+                  "<child2 />" +
+                  "</root>",
                   s);
 
     aSettings.setPutNamespaceContextPrefixesInRoot (true);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" + "<root>" + "<child1 />" + "<child2 />" + "</root>",
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
+                  "<root>" +
+                  "<child1 />" +
+                  "<child2 />" +
+                  "</root>",
                   s);
   }
 
@@ -552,9 +566,11 @@ public final class XMLWriterTest
     final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
 
     final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-    final Element aHead = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
+    final Element aHead = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
     aHead.appendChild (aDoc.createTextNode ("Hallo"));
-    final Element aBody = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
+    final Element aBody = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
     aBody.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "img"));
 
     // test including doc type
@@ -594,9 +610,11 @@ public final class XMLWriterTest
     final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
 
     final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-    final Element aHead = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
+    final Element aHead = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
     aHead.appendChild (aDoc.createTextNode ("Hallo"));
-    final Element aBody = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
+    final Element aBody = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
     aBody.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "img"));
 
     // test including doc type
@@ -637,9 +655,11 @@ public final class XMLWriterTest
     final String sINDENT = xs.getIndentationString ();
 
     final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-    final Element aHead = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
+    final Element aHead = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
     aHead.appendChild (aDoc.createTextNode ("Hallo"));
-    final Element aBody = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
+    final Element aBody = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
     final Element aPre = (Element) aBody.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "pre"));
     final Element aDiv = (Element) aPre.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "div"));
     aDiv.appendChild (aDoc.createTextNode ("pre formatted"));
@@ -696,7 +716,8 @@ public final class XMLWriterTest
   @Test
   public void testOrderAttributes ()
   {
-    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setUseDoubleQuotesForAttributes (false);
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
 
     // default order
     final Document aDoc = XMLFactory.newDocument ();
@@ -714,7 +735,8 @@ public final class XMLWriterTest
   @Test
   public void testOrderNamespaces ()
   {
-    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setUseDoubleQuotesForAttributes (false);
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
 
     // default order
     final Document aDoc = XMLFactory.newDocument ();
@@ -732,9 +754,15 @@ public final class XMLWriterTest
 
   private static void _testC14 (final String sSrc, final String sDst)
   {
-    final Document aDoc = DOMReader.readXMLDOM (sSrc, new DOMReaderSettings ().setEntityResolver ( (x, y) -> {
-      return "world.txt".equals (new File (y).getName ()) ? new StringSAXInputSource ("world") : new StringSAXInputSource ("");
-    }));
+    final Document aDoc = DOMReader.readXMLDOM (sSrc,
+                                                new DOMReaderSettings ().setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
+                                                                                          false)
+                                                                        .setFeatureValue (EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES,
+                                                                                          true)
+                                                                        .setEntityResolver ( (x, y) -> {
+                                                                          return "world.txt".equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
+                                                                                                                              : new StringSAXInputSource ("");
+                                                                        }));
     assertNotNull (aDoc);
 
     final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
@@ -872,6 +900,14 @@ public final class XMLWriterTest
     aSettings.setNewLineAfterXMLDeclaration (true);
     aSettings.setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.EMIT_NO_STANDALONE);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + CRLF + "<root>" + CRLF + "  <child1 />" + CRLF + "</root>" + CRLF, s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                  CRLF +
+                  "<root>" +
+                  CRLF +
+                  "  <child1 />" +
+                  CRLF +
+                  "</root>" +
+                  CRLF,
+                  s);
   }
 }

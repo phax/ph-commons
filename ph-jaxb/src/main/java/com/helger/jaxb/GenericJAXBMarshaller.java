@@ -70,15 +70,12 @@ import jakarta.xml.bind.ValidationEventHandler;
 @NotThreadSafe
 public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBReader <JAXBTYPE>, IJAXBWriter <JAXBTYPE>
 {
-  public static final boolean DEFAULT_READ_SECURE = true;
-
   private static final Logger LOGGER = LoggerFactory.getLogger (GenericJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
   private final ICommonsList <ClassPathResource> m_aXSDs = new CommonsArrayList <> ();
   private final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> m_aJAXBElementWrapper;
-  private IValidationEventHandlerFactory m_aVEHFactory;
-  private boolean m_bReadSecure = DEFAULT_READ_SECURE;
+  private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.isDefaultFormattedOutput ();
   private NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
   private Charset m_aCharset = JAXBBuilderDefaultSettings.getDefaultCharset ();
@@ -179,35 +176,54 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   /**
-   * @return The currently used validation event handler factory. By default
-   *         none is used. May be <code>null</code> if explicitly set.
+   * @return The special JAXB validation event handler to be used. By default
+   *         {@link JAXBBuilderDefaultSettings#getDefaultValidationEventHandler()}
+   *         is used.
    */
   @Nullable
-  public final IValidationEventHandlerFactory getValidationEventHandlerFactory ()
+  public final ValidationEventHandler getValidationEventHandler ()
   {
-    return m_aVEHFactory;
+    return m_aEventHandler;
   }
 
   /**
-   * Set a factory to be used to create {@link ValidationEventHandler} objects.
-   * By default none is present.
+   * Set the JAXB validation event handler to be used. May be <code>null</code>.
    *
-   * @param aVEHFactory
-   *        The new factory to be used. May be <code>null</code>.
+   * @param aEventHandler
+   *        The event handler to be used. May be <code>null</code>.
    * @return this for chaining
    */
   @Nonnull
-  public final GenericJAXBMarshaller <JAXBTYPE> setValidationEventHandlerFactory (@Nullable final IValidationEventHandlerFactory aVEHFactory)
+  public final GenericJAXBMarshaller <JAXBTYPE> setValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
   {
-    m_aVEHFactory = aVEHFactory;
+    m_aEventHandler = aEventHandler;
     return this;
   }
 
   /**
+   * Set a factory to be used to create {@link ValidationEventHandler} objects.
+   * By default none is present. Since v11 this is deprecated, because it was
+   * too complicated to use.
+   *
+   * @param aVEHFactory
+   *        The new factory to be used. May be <code>null</code>.
+   * @return this for chaining
+   * @deprecated Set the validation event handler manually. Use
+   *             {@link #setValidationEventHandler(ValidationEventHandler)}
+   *             instead.
+   */
+  @Nonnull
+  @Deprecated (forRemoval = true, since = "11.0.0")
+  public final GenericJAXBMarshaller <JAXBTYPE> setValidationEventHandlerFactory (@Nullable final IValidationEventHandlerFactory aVEHFactory)
+  {
+    return setValidationEventHandler (aVEHFactory == null ? null : aVEHFactory.apply (m_aEventHandler));
+  }
+
+  /**
    * Special overload of
-   * {@link #setValidationEventHandlerFactory(IValidationEventHandlerFactory)}
-   * for the easy version of just collecting the errors and additionally
-   * invoking the old validation handler.
+   * {@link #setValidationEventHandler(ValidationEventHandler)} for the easy
+   * version of just collecting the errors and additionally invoking the old
+   * validation handler.
    *
    * @param aErrorList
    *        The error list to fill. May not be <code>null</code>.
@@ -219,29 +235,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   {
     ValueEnforcer.notNull (aErrorList, "ErrorList");
 
-    return setValidationEventHandlerFactory (aOld -> new WrappedCollectingValidationEventHandler (aErrorList).andThen (aOld));
-  }
-
-  public final boolean isReadSecure ()
-  {
-    return m_bReadSecure;
-  }
-
-  /**
-   * Enable or disable secure reading. Secure reading means that documents are
-   * checked for XXE and XML bombs (infinite entity expansions). By default
-   * secure reading is enabled.
-   *
-   * @param bReadSecure
-   *        <code>true</code> to read secure, <code>false</code> to disable
-   *        secure reading.
-   * @return this for chaining
-   */
-  @Nonnull
-  public final GenericJAXBMarshaller <JAXBTYPE> setReadSecure (final boolean bReadSecure)
-  {
-    m_bReadSecure = bReadSecure;
-    return this;
+    return setValidationEventHandler (new WrappedCollectingValidationEventHandler (aErrorList));
   }
 
   @Nullable
@@ -470,13 +464,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
 
     // create an Unmarshaller
     final Unmarshaller aUnmarshaller = aJAXBContext.createUnmarshaller ();
-    if (m_aVEHFactory != null)
-    {
-      // Create and set a new event handler
-      final ValidationEventHandler aEvHdl = m_aVEHFactory.apply (aUnmarshaller.getEventHandler ());
-      if (aEvHdl != null)
-        aUnmarshaller.setEventHandler (aEvHdl);
-    }
+    if (m_aEventHandler != null)
+      aUnmarshaller.setEventHandler (m_aEventHandler);
 
     // Set XSD (if any)
     final Schema aValidationSchema = createValidationSchema ();
@@ -532,13 +521,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
 
     // create an Unmarshaller
     final Marshaller aMarshaller = aJAXBContext.createMarshaller ();
-    if (m_aVEHFactory != null)
-    {
-      // Create and set the event handler
-      final ValidationEventHandler aEvHdl = m_aVEHFactory.apply (aMarshaller.getEventHandler ());
-      if (aEvHdl != null)
-        aMarshaller.setEventHandler (aEvHdl);
-    }
+    if (m_aEventHandler != null)
+      aMarshaller.setEventHandler (m_aEventHandler);
 
     if (m_aNSContext != null)
       try
@@ -548,7 +532,12 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       catch (final Exception | NoClassDefFoundError ex)
       {
         // Might be an IllegalArgumentException or a NoClassDefFoundError
-        LOGGER.error ("Failed to set the namespace context " + m_aNSContext + ": " + ex.getClass ().getName () + " -- " + ex.getMessage ());
+        LOGGER.error ("Failed to set the namespace context " +
+                      m_aNSContext +
+                      ": " +
+                      ex.getClass ().getName () +
+                      " -- " +
+                      ex.getMessage ());
       }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);
@@ -586,7 +575,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
+  public final ESuccess write (@Nonnull final JAXBTYPE aObject,
+                               @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aObject, "Object");
     ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
@@ -615,8 +605,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     return new ToStringGenerator (this).append ("Type", m_aType)
                                        .append ("XSDs", m_aXSDs)
                                        .append ("JAXBElementWrapper", m_aJAXBElementWrapper)
-                                       .append ("VEHFactory", m_aVEHFactory)
-                                       .append ("ReadSecure", m_bReadSecure)
+                                       .append ("EventHandler", m_aEventHandler)
                                        .append ("FormattedOutput", m_bFormattedOutput)
                                        .append ("NSContext", m_aNSContext)
                                        .append ("Charset", m_aCharset)
@@ -647,7 +636,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @see #GenericJAXBMarshaller(Class, QName)
    */
   @Nonnull
-  public static <T> Function <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName, @Nonnull final Class <T> aClass)
+  public static <T> Function <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName,
+                                                                           @Nonnull final Class <T> aClass)
   {
     return aValue -> new JAXBElement <> (aQName, aClass, null, aValue);
   }

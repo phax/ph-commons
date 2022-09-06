@@ -22,11 +22,18 @@ import javax.annotation.concurrent.GuardedBy;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.validation.Schema;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
+import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -60,6 +67,14 @@ public final class XMLFactory
   /** DocumentBuilderFactory is by default not XInclude aware */
   public static final boolean DEFAULT_DOM_XINCLUDE_AWARE = false;
 
+  /** SAXParserFactory is by default not namespace aware */
+  public static final boolean DEFAULT_SAX_NAMESPACE_AWARE = DEFAULT_DOM_NAMESPACE_AWARE;
+  /** SAXParserFactory is by default not DTD validating */
+  public static final boolean DEFAULT_SAX_VALIDATING = DEFAULT_DOM_VALIDATING;
+  /** SAXParserFactory is by default not XInclude aware */
+  public static final boolean DEFAULT_SAX_XINCLUDE_AWARE = DEFAULT_DOM_XINCLUDE_AWARE;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLFactory.class);
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
 
   /** The DOM DocumentBuilderFactory. */
@@ -100,6 +115,20 @@ public final class XMLFactory
   private XMLFactory ()
   {}
 
+  private static void _setFeature (@Nonnull final DocumentBuilderFactory aFactory,
+                                   @Nonnull final EXMLParserFeature eFeature,
+                                   final boolean bValue)
+  {
+    try
+    {
+      aFactory.setFeature (eFeature.getName (), bValue);
+    }
+    catch (final ParserConfigurationException ex1)
+    {
+      LOGGER.warn ("Failed to set feature " + eFeature + " to " + bValue + " on XML DocumentBuilderFactory");
+    }
+  }
+
   /**
    * Create a new {@link DocumentBuilderFactory} using the defaults defined in
    * this class ({@link #DEFAULT_DOM_NAMESPACE_AWARE},
@@ -114,32 +143,27 @@ public final class XMLFactory
   @Nonnull
   public static DocumentBuilderFactory createDefaultDocumentBuilderFactory ()
   {
-    final DocumentBuilderFactory aDocumentBuilderFactory = DocumentBuilderFactory.newInstance ();
-    aDocumentBuilderFactory.setNamespaceAware (DEFAULT_DOM_NAMESPACE_AWARE);
-    aDocumentBuilderFactory.setValidating (DEFAULT_DOM_VALIDATING);
-    aDocumentBuilderFactory.setIgnoringElementContentWhitespace (DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE);
-    aDocumentBuilderFactory.setExpandEntityReferences (DEFAULT_DOM_EXPAND_ENTITY_REFERENCES);
-    aDocumentBuilderFactory.setIgnoringComments (DEFAULT_DOM_IGNORING_COMMENTS);
-    aDocumentBuilderFactory.setCoalescing (DEFAULT_DOM_COALESCING);
+    // Secure processing is enabled by default since JDK 8
+    final DocumentBuilderFactory aFactory = DocumentBuilderFactory.newInstance ();
+    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+    aFactory.setNamespaceAware (DEFAULT_DOM_NAMESPACE_AWARE);
+    aFactory.setValidating (DEFAULT_DOM_VALIDATING);
+    aFactory.setIgnoringElementContentWhitespace (DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE);
+    aFactory.setExpandEntityReferences (DEFAULT_DOM_EXPAND_ENTITY_REFERENCES);
+    aFactory.setIgnoringComments (DEFAULT_DOM_IGNORING_COMMENTS);
+    aFactory.setCoalescing (DEFAULT_DOM_COALESCING);
+
     try
     {
-      // Set secure processing to be the default. This is anyway the default in
-      // JDK8
-      aDocumentBuilderFactory.setFeature (EXMLParserFeature.SECURE_PROCESSING.getName (), true);
-    }
-    catch (final ParserConfigurationException ex1)
-    {
-      // Ignore
-    }
-    try
-    {
-      aDocumentBuilderFactory.setXIncludeAware (DEFAULT_DOM_XINCLUDE_AWARE);
+      aFactory.setXIncludeAware (DEFAULT_DOM_XINCLUDE_AWARE);
     }
     catch (final UnsupportedOperationException ex)
     {
       // Ignore
     }
-    return aDocumentBuilderFactory;
+    return aFactory;
   }
 
   /**
@@ -183,9 +207,10 @@ public final class XMLFactory
       return ret;
 
     return RW_LOCK.writeLockedGet ( () -> {
-      if (s_aDefaultDocBuilder == null)
-        s_aDefaultDocBuilder = createDocumentBuilder (s_aDefaultDocBuilderFactory);
-      return s_aDefaultDocBuilder;
+      DocumentBuilder ret2 = s_aDefaultDocBuilder;
+      if (ret2 == null)
+        ret2 = s_aDefaultDocBuilder = createDocumentBuilder (s_aDefaultDocBuilderFactory);
+      return ret2;
     });
   }
 
@@ -389,5 +414,63 @@ public final class XMLFactory
     final Document aDoc = aDomImpl.createDocument (sSystemId, sQualifiedName, aDocType);
     aDoc.setXmlVersion ((eVersion != null ? eVersion : EXMLVersion.XML_10).getVersion ());
     return aDoc;
+  }
+
+  private static void _setFeature (@Nonnull final SAXParserFactory aFactory,
+                                   @Nonnull final EXMLParserFeature eFeature,
+                                   final boolean bValue)
+  {
+    try
+    {
+      aFactory.setFeature (eFeature.getName (), bValue);
+    }
+    catch (final SAXException | ParserConfigurationException ex)
+    {
+      LOGGER.warn ("Failed to set feature " + eFeature + " to " + bValue + " on XML SAXParserFactory");
+    }
+  }
+
+  @Nonnull
+  public static SAXParserFactory createDefaultSAXParserFactory ()
+  {
+    final SAXParserFactory aFactory = SAXParserFactory.newDefaultInstance ();
+    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+    aFactory.setNamespaceAware (DEFAULT_SAX_NAMESPACE_AWARE);
+    aFactory.setValidating (DEFAULT_SAX_VALIDATING);
+    aFactory.setXIncludeAware (DEFAULT_SAX_XINCLUDE_AWARE);
+    return aFactory;
+  }
+
+  private static void _setFeature (@Nonnull final TransformerFactory aFactory,
+                                   @Nonnull final EXMLParserFeature eFeature,
+                                   final boolean bValue)
+  {
+    try
+    {
+      aFactory.setFeature (eFeature.getName (), bValue);
+    }
+    catch (final TransformerConfigurationException ex1)
+    {
+      LOGGER.warn ("Failed to set feature " + eFeature + " to " + bValue + " on XML TransformerFactory");
+    }
+  }
+
+  @Nonnull
+  public static TransformerFactory createDefaultTransformerFactory ()
+  {
+    try
+    {
+      final TransformerFactory aFactory = TransformerFactory.newInstance ();
+      _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+      _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+      _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+      return aFactory;
+    }
+    catch (final TransformerFactoryConfigurationError ex)
+    {
+      throw new InitializationException ("Failed to create XML TransformerFactory", ex);
+    }
   }
 }

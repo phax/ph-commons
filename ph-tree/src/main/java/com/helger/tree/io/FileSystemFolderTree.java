@@ -46,30 +46,29 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
                                 @Nullable final Predicate <? super File> aDirFilter,
                                 @Nullable final Predicate <? super File> aFileFilter)
   {
-    if (aDir != null)
-      for (final File aChild : FileHelper.getDirectoryContent (aDir))
+    for (final File aChild : FileHelper.getDirectoryContent (aDir))
+    {
+      if (aChild.isFile ())
       {
-        if (aChild.isFile ())
-        {
-          // file
-          // Check against the optional filter
-          if (aFileFilter == null || aFileFilter.test (aChild))
-            aTreeItem.getData ().add (aChild);
-        }
-        else
-          if (aChild.isDirectory () && !FilenameHelper.isSystemInternalDirectory (aChild))
-          {
-            // directory
-            // Check against the optional filter
-            if (aDirFilter == null || aDirFilter.test (aChild))
-            {
-              // create item and recursively descend
-              final DefaultFolderTreeItem <String, File, ICommonsList <File>> aChildItem = aTreeItem.createChildItem (aChild.getName (),
-                                                                                                                      new CommonsArrayList <> ());
-              _iterate (aChildItem, aChild, aDirFilter, aFileFilter);
-            }
-          }
+        // file
+        // Check against the optional filter
+        if (aFileFilter == null || aFileFilter.test (aChild))
+          aTreeItem.getData ().add (aChild);
       }
+      else
+        if (aChild.isDirectory () && !FilenameHelper.isSystemInternalDirectory (aChild))
+        {
+          // directory
+          // Check against the optional filter
+          if (aDirFilter == null || aDirFilter.test (aChild))
+          {
+            // create item and recursively descend
+            final DefaultFolderTreeItem <String, File, ICommonsList <File>> aChildItem = aTreeItem.createChildItem (aChild.getName (),
+                                                                                                                    new CommonsArrayList <> ());
+            _iterate (aChildItem, aChild, aDirFilter, aFileFilter);
+          }
+        }
+    }
   }
 
   public FileSystemFolderTree (@Nonnull final String sStartDir)

@@ -35,7 +35,6 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.IJAXBMarshaller;
 import com.helger.jaxb.IJAXBWriter;
 import com.helger.jaxb.JAXBMarshallerHelper;
-import com.helger.jaxb.validation.LoggingValidationEventHandler;
 
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
@@ -235,8 +234,6 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
 
     if (m_aEventHandler != null)
       aMarshaller.setEventHandler (m_aEventHandler);
-    else
-      aMarshaller.setEventHandler (new LoggingValidationEventHandler ().andThen (aMarshaller.getEventHandler ()));
 
     if (m_aNSContext != null)
       try
@@ -273,7 +270,8 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   }
 
   @Nonnull
-  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument, @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
+  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument,
+                         @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
     ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
@@ -323,7 +321,8 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
                             .append ("NamespaceContext", m_aNSContext)
                             .append ("FormattedOutput", m_bFormattedOutput)
                             .append ("Charset", m_aCharset)
-                            .append ("IndentString", StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
+                            .append ("IndentString",
+                                     StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
                             .append ("SchemaLocation", m_sSchemaLocation)
                             .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                             .getToString ();

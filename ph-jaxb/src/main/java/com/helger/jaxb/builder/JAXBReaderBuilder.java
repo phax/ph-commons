@@ -32,7 +32,6 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.IJAXBReader;
 import com.helger.jaxb.IJAXBUnmarshaller;
 import com.helger.jaxb.LoggingJAXBReadExceptionHandler;
-import com.helger.jaxb.validation.LoggingValidationEventHandler;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
@@ -50,17 +49,15 @@ import jakarta.xml.bind.ValidationEventHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JAXBTYPE, IMPLTYPE>> extends AbstractJAXBBuilder <IMPLTYPE>
-                               implements
+public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JAXBTYPE, IMPLTYPE>> extends
+                               AbstractJAXBBuilder <IMPLTYPE> implements
                                IJAXBReader <JAXBTYPE>
 {
-  public static final boolean DEFAULT_READ_SECURE = true;
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBReaderBuilder.class);
 
   private final Class <JAXBTYPE> m_aImplClass;
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
   private Consumer <? super Unmarshaller> m_aUnmarshallerCustomizer;
-  private boolean m_bReadSecure = DEFAULT_READ_SECURE;
 
   public JAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -118,18 +115,6 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     return thisAsT ();
   }
 
-  public final boolean isReadSecure ()
-  {
-    return m_bReadSecure;
-  }
-
-  @Nonnull
-  public final IMPLTYPE setReadSecure (final boolean bReadSecure)
-  {
-    m_bReadSecure = bReadSecure;
-    return thisAsT ();
-  }
-
   @Nonnull
   protected Unmarshaller createUnmarshaller () throws JAXBException
   {
@@ -139,8 +124,6 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     final Unmarshaller aUnmarshaller = aJAXBContext.createUnmarshaller ();
     if (m_aEventHandler != null)
       aUnmarshaller.setEventHandler (m_aEventHandler);
-    else
-      aUnmarshaller.setEventHandler (new LoggingValidationEventHandler ().andThen (aUnmarshaller.getEventHandler ()));
 
     // Validating (if possible)
     final Schema aSchema = getSchema ();
@@ -174,7 +157,9 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
       final JAXBElement <JAXBTYPE> aElement = aHandler.doUnmarshal (aUnmarshaller, m_aImplClass);
       ret = aElement.getValue ();
       if (ret == null)
-        throw new IllegalStateException ("Failed to read JAXB document of class " + m_aImplClass.getName () + " - without exception!");
+        throw new IllegalStateException ("Failed to read JAXB document of class " +
+                                         m_aImplClass.getName () +
+                                         " - without exception!");
     }
     catch (final JAXBException ex)
     {
@@ -191,7 +176,6 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
                             .append ("ImplClass", m_aImplClass)
                             .append ("EventHandler", m_aEventHandler)
                             .append ("UnmarshallerCustomizer", m_aUnmarshallerCustomizer)
-                            .append ("ReadSecure", m_bReadSecure)
                             .getToString ();
   }
 }

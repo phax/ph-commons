@@ -49,7 +49,7 @@ public final class CollectingValidationEventHandlerTest
 
     {
       final CollectingValidationEventHandler cveh = new CollectingValidationEventHandler ();
-      um.setEventHandler (cveh.andThen (new LoggingValidationEventHandler ()));
+      um.setEventHandler (cveh.andThen (LoggingValidationEventHandler.DEFAULT_INSTANCE));
 
       // read valid
       final JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-01.xml")),
@@ -71,7 +71,7 @@ public final class CollectingValidationEventHandlerTest
     // Read invalid (but close to valid)
     {
       final CollectingValidationEventHandler cveh = new CollectingValidationEventHandler ();
-      um.setEventHandler (cveh.andThen (new LoggingValidationEventHandler ()));
+      um.setEventHandler (cveh.andThen (LoggingValidationEventHandler.DEFAULT_INSTANCE));
       final JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-03.xml")),
                                                             MockJAXBArchive.class);
       assertNotNull (o);
