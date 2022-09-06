@@ -17,6 +17,7 @@
 package com.helger.commons.system;
 
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -80,6 +81,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SystemProperties.class);
+  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
   private static final ICommonsSet <String> WARNED_PROP_NAMES = new CommonsCopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage
@@ -87,6 +89,28 @@ public final class SystemProperties
 
   private SystemProperties ()
   {}
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   */
+  public static boolean isSilentMode ()
+  {
+    return SILENT_MODE.get ();
+  }
+
+  /**
+   * Enable or disable certain regular log messages.
+   *
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable
+   *        logging
+   * @return The previous value of the silent mode.
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return SILENT_MODE.getAndSet (bSilentMode);
+  }
 
   @Nullable
   public static String getPropertyValueOrNull (@Nullable final String sKey)
@@ -104,8 +128,9 @@ public final class SystemProperties
       if (ret == null && WARNED_PROP_NAMES.add (sKey))
       {
         // Warn about each property once
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("System property '" + sKey + "' is not set!");
+        if (!isSilentMode ())
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("System property '" + sKey + "' cannot be read because it is not set");
       }
     }
     return ret;
@@ -206,8 +231,10 @@ public final class SystemProperties
     {
       final String sOld = IPrivilegedAction.systemSetProperty (sKey, sValue).invokeSafe ();
       bChanged = sOld != null && !sValue.equals (sOld);
-      if (LOGGER.isDebugEnabled () && bChanged)
-        LOGGER.debug ("Set system property '" + sKey + "' to '" + sValue + "'");
+      if (bChanged)
+        if (!isSilentMode ())
+          if (LOGGER.isInfoEnabled ())
+            LOGGER.info ("Set system property '" + sKey + "' to '" + sValue + "'");
     }
     return EChange.valueOf (bChanged);
   }
@@ -225,15 +252,21 @@ public final class SystemProperties
   @Nullable
   public static String removePropertyValue (@Nonnull final String sKey)
   {
-    final String ret = IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
-    if (LOGGER.isDebugEnabled ())
+    final String sOldValue = IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
+    if (!isSilentMode ())
     {
-      if (ret != null)
-        LOGGER.debug ("Removed system property '" + sKey + "' with value '" + ret + "'");
+      if (sOldValue != null)
+      {
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("Removed system property '" + sKey + "' with value '" + sOldValue + "'");
+      }
       else
-        LOGGER.debug ("Remove system property '" + sKey + "' failed");
+      {
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Remove system property '" + sKey + "' failed");
+      }
     }
-    return ret;
+    return sOldValue;
   }
 
   /**
