@@ -37,7 +37,6 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -235,18 +234,21 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   @Nonnull
-  public EChange removeMapping (@Nullable final String sPrefix)
+  public MapBasedNamespaceContext removeMapping (@Nullable final String sPrefix)
   {
     final String sNamespaceURI = m_aPrefix2NS.remove (sPrefix);
-    if (sNamespaceURI == null)
-      return EChange.UNCHANGED;
-
-    // Remove from namespace 2 prefix map as well
-    final ICommonsSet <String> aSet = m_aNS2Prefix.get (sNamespaceURI);
-    if (aSet != null && aSet.removeObject (sPrefix).isChanged ())
-      return EChange.CHANGED;
-
-    throw new IllegalStateException ("Internal inconsistency removing '" + sPrefix + "' and '" + sNamespaceURI + "'");
+    if (sNamespaceURI != null)
+    {
+      // Remove from namespace 2 prefix map as well
+      final ICommonsSet <String> aSet = m_aNS2Prefix.get (sNamespaceURI);
+      if (aSet == null || aSet.removeObject (sPrefix).isUnchanged ())
+        throw new IllegalStateException ("Internal inconsistency removing '" +
+                                         sPrefix +
+                                         "' and '" +
+                                         sNamespaceURI +
+                                         "'");
+    }
+    return this;
   }
 
   public boolean isPrefixMapped (@Nullable final String sPrefix)
@@ -260,15 +262,15 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   @Nonnull
-  public EChange clear ()
+  public MapBasedNamespaceContext clear ()
   {
-    if (m_aPrefix2NS.isEmpty ())
-      return EChange.UNCHANGED;
-
-    m_aPrefix2NS.clear ();
-    m_aNS2Prefix.clear ();
-    m_sDefaultNamespaceURI = null;
-    return EChange.CHANGED;
+    if (m_aPrefix2NS.isNotEmpty ())
+    {
+      m_aPrefix2NS.clear ();
+      m_aNS2Prefix.clear ();
+      m_sDefaultNamespaceURI = null;
+    }
+    return this;
   }
 
   @Override

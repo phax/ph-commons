@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import javax.xml.XMLConstants;
@@ -28,7 +27,6 @@ import javax.xml.XMLConstants;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.state.EChange;
 
 /**
  * Test class for class {@link MapBasedNamespaceContext}.
@@ -101,10 +99,14 @@ public final class MapBasedNamespaceContextTest
     aNSCtx.addMapping ("p2", "urn:example2");
     final MapBasedNamespaceContext aNSCtx2 = aNSCtx.getClone ();
     // Remove from original
-    assertSame (EChange.CHANGED, aNSCtx.removeMapping ("p1"));
-    assertSame (EChange.UNCHANGED, aNSCtx.removeMapping ("p1"));
+    assertEquals ("urn:example1", aNSCtx.getNamespaceURI ("p1"));
+    assertNotNull (aNSCtx.removeMapping ("p1"));
+    assertEquals (XMLConstants.NULL_NS_URI, aNSCtx.getNamespaceURI ("p1"));
+    assertNotNull (aNSCtx.removeMapping ("p1"));
     // Remove from clone
-    assertSame (EChange.CHANGED, aNSCtx2.removeMapping ("p1"));
-    assertSame (EChange.UNCHANGED, aNSCtx2.removeMapping ("p1"));
+    assertEquals ("urn:example1", aNSCtx2.getNamespaceURI ("p1"));
+    assertNotNull (aNSCtx2.removeMapping ("p1"));
+    assertEquals (XMLConstants.NULL_NS_URI, aNSCtx2.getNamespaceURI ("p1"));
+    assertNotNull (aNSCtx2.removeMapping ("p1"));
   }
 }
