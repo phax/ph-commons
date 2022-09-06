@@ -52,7 +52,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlAccessorType (XmlAccessType.FIELD)
 @XmlType (name = "", propOrder = { "m_aCollection" })
 @XmlRootElement (name = "Root")
-public final class MockJAXBArchive
+public class MockJAXBArchive
 {
   @XmlElement (name = "Collection", required = true)
   private List <MockJAXBCollection> m_aCollection;

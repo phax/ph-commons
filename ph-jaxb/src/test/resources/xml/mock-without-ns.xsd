@@ -1,0 +1,55 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+           
+  <xs:simpleType name="CA_DATETIME">
+    <xs:restriction base="xs:string" />
+  </xs:simpleType>         
+           
+ <xs:complexType name="CA_GEN_Issue">
+   <xs:sequence>
+     <xs:element name="Title" type="xs:decimal" minOccurs="0"/>
+     <xs:element name="SubTitle" type="xs:string" minOccurs="0"/>
+     <xs:element name="DateDescription" type="xs:string" minOccurs="0"/>
+     <xs:element name="FirstPage" minOccurs="0">
+       <xs:complexType>
+         <xs:simpleContent>
+           <xs:extension base="xs:string">
+             <xs:attribute name="Width" use="optional" type="xs:unsignedInt" />
+             <xs:attribute name="Height" use="optional" type="xs:unsignedInt" />
+           </xs:extension>
+         </xs:simpleContent>
+       </xs:complexType>
+     </xs:element>
+   </xs:sequence>
+   <xs:attribute name="ID" use="optional" type="xs:unsignedInt" />
+   <xs:attribute name="CollectionID" use="optional" type="xs:unsignedInt" />
+   <xs:attribute name="ContentLanguage" use="optional" type="xs:string" />
+   <xs:attribute name="MenuLanguage" use="optional" type="xs:string" />
+   <xs:attribute name="MenuLayout" use="optional" type="xs:string" />
+   <xs:attribute name="PageCount" use="optional" type="xs:unsignedInt" />
+   <xs:attribute name="ArticleCount" use="optional" type="xs:unsignedInt" />
+   <xs:attribute name="Directory" use="optional" type="xs:string" />
+   <xs:attribute name="DateSort" use="optional" type="CA_DATETIME" />
+   <xs:attribute name="DateFrom" use="optional" type="CA_DATETIME" />
+   <xs:attribute name="DateTo" use="optional" type="CA_DATETIME" />
+   <xs:attribute name="DirAbsolute" use="optional" type="xs:unsignedInt" />
+ </xs:complexType>
+           
+ <xs:complexType name="CollectionType">
+   <xs:sequence>
+     <xs:element name="Issue" type="CA_GEN_Issue" maxOccurs="unbounded" minOccurs="0"/>
+   </xs:sequence>
+   <xs:attribute name="ID" use="optional" type="xs:unsignedInt" />
+   <xs:attribute name="Name" use="optional" type="xs:string" />
+   <xs:attribute name="Description" use="optional" type="xs:string" />
+ </xs:complexType>
+ 
+  <xs:complexType name="ArchiveType">
+    <xs:sequence>
+      <xs:element name="Collection" type="CollectionType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Version" use="optional" type="xs:string" />
+  </xs:complexType>
+  
+  <xs:element name="Root" type="ArchiveType" />
+</xs:schema>

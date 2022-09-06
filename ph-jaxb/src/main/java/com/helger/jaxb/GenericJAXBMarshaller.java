@@ -31,6 +31,7 @@ import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.helpers.DefaultHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -68,7 +69,11 @@ import jakarta.xml.bind.ValidationEventHandler;
  *        The JAXB type to be marshaled
  */
 @NotThreadSafe
-public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBReader <JAXBTYPE>, IJAXBWriter <JAXBTYPE>
+public class GenericJAXBMarshaller <JAXBTYPE> implements
+                                   IHasClassLoader,
+                                   IJAXBReader <JAXBTYPE>,
+                                   IJAXBWriter <JAXBTYPE>,
+                                   IJAXBValidator <JAXBTYPE>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (GenericJAXBMarshaller.class);
 
@@ -597,6 +602,52 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       m_aWriteExceptionCallbacks.forEach (x -> x.onException (ex));
     }
     return ESuccess.FAILURE;
+  }
+
+  /**
+   * Customize the passed marshaller before marshalling something.
+   *
+   * @param aMarshaller
+   *        The object to customize. Never <code>null</code>.
+   */
+  @OverrideOnDemand
+  protected void customizeMarshallerForValidation (@Nonnull final Marshaller aMarshaller)
+  {
+    // empty
+  }
+
+  public void validate (@Nonnull final JAXBTYPE aObject, @Nonnull final ErrorList aErrorList)
+  {
+    ValueEnforcer.notNull (aObject, "Object");
+    ValueEnforcer.notNull (aErrorList, "ErrorList");
+
+    final WrappedCollectingValidationEventHandler aEventHandler = new WrappedCollectingValidationEventHandler (aErrorList);
+    try
+    {
+      // create a Marshaller
+      final Marshaller aMarshaller = _createMarshaller (getClassLoader ());
+
+      // Overwrite event handler
+      aMarshaller.setEventHandler (aEventHandler);
+
+      // Customize on demand
+      customizeMarshallerForValidation (aMarshaller);
+
+      if (aMarshaller.getSchema () == null)
+        LOGGER.warn ("Running validation on JAXB object of type " +
+                     aObject.getClass ().getName () +
+                     " makes no sense, because no XML Schema is provided");
+
+      // start marshalling
+      final JAXBElement <?> aJAXBElement = m_aJAXBElementWrapper.apply (aObject);
+
+      // DefaultHandler has very little overhead and does nothing
+      aMarshaller.marshal (aJAXBElement, new DefaultHandler ());
+    }
+    catch (final JAXBException ex)
+    {
+      // Should already be contained as an entry in the event handler
+    }
   }
 
   @Override

@@ -18,20 +18,31 @@ package com.helger.jaxb.mock;
 
 import javax.xml.namespace.QName;
 
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
 import jakarta.xml.bind.JAXBElement;
 
-public final class MockMarshallerExternal extends GenericJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
+public final class JAXBMarshallerMockArchive extends
+                                             GenericJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
 {
-  public MockMarshallerExternal ()
+  private static final ClassPathResource WITH_NS = new ClassPathResource ("xml/mock-without-ns.xsd",
+                                                                          JAXBMarshallerMockArchive.class.getClassLoader ());
+
+  public JAXBMarshallerMockArchive ()
+  {
+    this (true);
+  }
+
+  public JAXBMarshallerMockArchive (final boolean bValidate)
   {
     // No XSD available
     super (com.helger.jaxb.mock.external.MockJAXBArchive.class,
-           null,
-           x -> new JAXBElement <> (new QName ("urn:test:external", "any"), com.helger.jaxb.mock.external.MockJAXBArchive.class, x));
+           bValidate ? new CommonsArrayList <> (WITH_NS) : null,
+           x -> new JAXBElement <> (new QName ("", "Root"), com.helger.jaxb.mock.external.MockJAXBArchive.class, x));
     setFormattedOutput (true);
-    setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("def", "urn:test:external"));
+    setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("def", ""));
   }
 }

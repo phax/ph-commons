@@ -47,7 +47,7 @@ public class WrappedCollectingValidationEventHandler extends AbstractValidationE
    *         <code>null</code>.
    */
   @Nonnull
-  @ReturnsMutableObject ("design")
+  @ReturnsMutableObject
   public ErrorList wrappedErrorList ()
   {
     return m_aErrorList;

@@ -173,8 +173,5 @@ public final class JAXBBuilderFuncTest
                   "</Collection>\n" +
                   "</Root>",
                   sXML);
-
-    // Read again and write again
-
   }
 }
