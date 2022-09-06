@@ -18,12 +18,14 @@
 package com.helger.cli;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
+@NotThreadSafe
 public class OptionGroup extends CommonsArrayList <Option> implements IOptionBase
 {
   private boolean m_bRequired = false;
@@ -41,17 +43,17 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
   public OptionGroup addOption (@Nonnull final Option aOption)
   {
     ValueEnforcer.notNull (aOption, "Option");
-    add (aOption);
+    super.add (aOption);
     return this;
   }
 
-  public boolean isRequired ()
+  public final boolean isRequired ()
   {
     return m_bRequired;
   }
 
   @Nonnull
-  public OptionGroup setRequired (final boolean bRequired)
+  public final OptionGroup setRequired (final boolean bRequired)
   {
     m_bRequired = bRequired;
     return this;

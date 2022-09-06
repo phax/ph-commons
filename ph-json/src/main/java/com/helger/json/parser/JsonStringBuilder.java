@@ -84,8 +84,8 @@ public class JsonStringBuilder
 
   public char charAt (@Nonnegative final int nIndex)
   {
-    if (nIndex >= m_nLen)
-      throw new IllegalArgumentException ("Invalid index provided: " + nIndex);
+    if (nIndex < 0 || nIndex >= m_nLen)
+      throw new IllegalArgumentException ("Invalid index provided: " + nIndex + ". Allowed range is 0-" + m_nLen);
     return m_aBuf[nIndex];
   }
 

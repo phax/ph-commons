@@ -117,7 +117,8 @@ public final class JsonReader
    * @return {@link ESuccess}
    */
   @Nonnull
-  public static ESuccess parseJson (@Nonnull @WillClose final Reader aReader, @Nonnull final IJsonParserHandler aParserHandler)
+  public static ESuccess parseJson (@Nonnull @WillClose final Reader aReader,
+                                    @Nonnull final IJsonParserHandler aParserHandler)
   {
     return parseJson (aReader, aParserHandler, (IJsonParserCustomizeCallback) null, (IJsonParseExceptionCallback) null);
   }
@@ -183,7 +184,10 @@ public final class JsonReader
   private static EValidity _validateJson (@Nonnull @WillClose final Reader aReader)
   {
     // Force silent parsing :)
-    final ESuccess eSuccess = parseJson (aReader, new DoNothingJsonParserHandler (), (IJsonParserCustomizeCallback) null, ex -> {});
+    final ESuccess eSuccess = parseJson (aReader,
+                                         new DoNothingJsonParserHandler (),
+                                         (IJsonParserCustomizeCallback) null,
+                                         ex -> {});
     return EValidity.valueOf (eSuccess.isSuccess ());
   }
 
@@ -251,7 +255,9 @@ public final class JsonReader
   @Nonnull
   public static Builder builderMultiObject ()
   {
-    return builder ().dontCloseSource (true).useBufferedReader (false).customizeCallback (p -> p.setCheckForEOI (false));
+    return builder ().dontCloseSource (true)
+                     .useBufferedReader (false)
+                     .customizeCallback (p -> p.setCheckForEOI (false));
   }
 
   /**
@@ -494,11 +500,7 @@ public final class JsonReader
       ValueEnforcer.notNull (aIS, "InputStream");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
-      final Reader aReader = CharsetHelper.getReaderByBOM (aIS, aFallbackCharset);
-      if (aReader != null)
-        return source (aReader);
-
-      return this;
+      return source (CharsetHelper.getReaderByBOM (aIS, aFallbackCharset));
     }
 
     /**

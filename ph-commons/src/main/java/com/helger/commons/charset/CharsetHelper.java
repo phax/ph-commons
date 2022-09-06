@@ -378,6 +378,8 @@ public final class CharsetHelper
     // Create the reader with the current position of the InputStream and the
     // correct charset
     final Charset aEffectiveCharset = aISAndBOM.getCharset (aFallbackCharset);
+
+    // As IS and Charset cannot be null the return is non-null
     return StreamHelper.createReader (aISAndBOM.getInputStream (), aEffectiveCharset);
   }
 }

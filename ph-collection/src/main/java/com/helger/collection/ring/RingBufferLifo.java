@@ -124,15 +124,15 @@ public class RingBufferLifo <ELEMENTTYPE>
       m_nAvailable++;
       return EChange.CHANGED;
     }
-    else
-      if (m_bAllowOverwrite)
-      {
-        if (m_nWritePos >= m_nCapacity)
-          m_nWritePos = 0;
-        m_aElements[m_nWritePos] = aElement;
-        m_nWritePos++;
-        return EChange.CHANGED;
-      }
+
+    if (m_bAllowOverwrite)
+    {
+      if (m_nWritePos >= m_nCapacity)
+        m_nWritePos = 0;
+      m_aElements[m_nWritePos] = aElement;
+      m_nWritePos++;
+      return EChange.CHANGED;
+    }
 
     return EChange.UNCHANGED;
   }

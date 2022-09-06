@@ -61,7 +61,7 @@ final class OptionValidator
       for (final char ch : sOpt.toCharArray ())
         if (!_isValidChar (ch))
         {
-          throw new IllegalArgumentException ("The option '" + sOpt + "' contains the illegal " + "character '" + ch + "'");
+          throw new IllegalArgumentException ("The option '" + sOpt + "' contains the illegal character '" + ch + "'");
         }
     }
   }

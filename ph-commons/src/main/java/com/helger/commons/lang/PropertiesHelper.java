@@ -24,7 +24,7 @@ import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Properties;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -110,7 +110,8 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes, @Nonnull final Charset aCharset)
+  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes,
+                                                      @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aRes, "Resource");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -173,7 +174,7 @@ public final class PropertiesHelper
    * @param sValue
    *        Source value. May be <code>null</code>.
    * @return <code>null</code> if source is <code>null</code>.
-   * @see #expandProperties(String, Function)
+   * @see #expandProperties(String, UnaryOperator)
    */
   @Nullable
   public static String expandSystemProperties (@Nullable final String sValue)
@@ -193,7 +194,8 @@ public final class PropertiesHelper
    * @since 9.1.2
    */
   @Nullable
-  public static String expandProperties (@Nullable final String sValue, @Nonnull final Function <String, String> aValueProvider)
+  public static String expandProperties (@Nullable final String sValue,
+                                         @Nonnull final UnaryOperator <String> aValueProvider)
   {
     ValueEnforcer.notNull (aValueProvider, "ValueProvider");
 

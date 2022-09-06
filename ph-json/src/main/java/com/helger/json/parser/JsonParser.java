@@ -114,7 +114,7 @@ public class JsonParser
    *         <code>false</code> if not. By default it is disabled - see
    *         {@link #DEFAULT_TRACK_POSITION}
    */
-  public boolean isTrackPosition ()
+  public final boolean isTrackPosition ()
   {
     return m_bTrackPosition;
   }
@@ -125,57 +125,57 @@ public class JsonParser
    * @return this for chaining
    */
   @Nonnull
-  public JsonParser setTrackPosition (final boolean bTrackPosition)
+  public final JsonParser setTrackPosition (final boolean bTrackPosition)
   {
     m_bTrackPosition = bTrackPosition;
     return this;
   }
 
   @Nonnegative
-  public int getTabSize ()
+  public final int getTabSize ()
   {
     return m_nTabSize;
   }
 
   @Nonnull
-  public JsonParser setTabSize (@Nonnegative final int nTabSize)
+  public final JsonParser setTabSize (@Nonnegative final int nTabSize)
   {
     ValueEnforcer.isGT0 (nTabSize, "TabSize");
     m_nTabSize = nTabSize;
     return this;
   }
 
-  public boolean isAlwaysUseBigNumber ()
+  public final boolean isAlwaysUseBigNumber ()
   {
     return m_bAlwaysUseBigNumber;
   }
 
   @Nonnull
-  public JsonParser setAlwaysUseBigNumber (final boolean bAlwaysUseBigNumber)
+  public final JsonParser setAlwaysUseBigNumber (final boolean bAlwaysUseBigNumber)
   {
     m_bAlwaysUseBigNumber = bAlwaysUseBigNumber;
     return this;
   }
 
-  public boolean isRequireStringQuotes ()
+  public final boolean isRequireStringQuotes ()
   {
     return m_bRequireStringQuotes;
   }
 
   @Nonnull
-  public JsonParser setRequireStringQuotes (final boolean bRequireStringQuotes)
+  public final JsonParser setRequireStringQuotes (final boolean bRequireStringQuotes)
   {
     m_bRequireStringQuotes = bRequireStringQuotes;
     return this;
   }
 
-  public boolean isAllowSpecialCharsInStrings ()
+  public final boolean isAllowSpecialCharsInStrings ()
   {
     return m_bAllowSpecialCharsInStrings;
   }
 
   @Nonnull
-  public JsonParser setAllowSpecialCharsInStrings (final boolean bAllowSpecialCharsInStrings)
+  public final JsonParser setAllowSpecialCharsInStrings (final boolean bAllowSpecialCharsInStrings)
   {
     m_bAllowSpecialCharsInStrings = bAllowSpecialCharsInStrings;
     return this;
@@ -187,7 +187,7 @@ public class JsonParser
    *         compatibility - see {@link #DEFAULT_CHECK_FOR_EOI}
    * @since 9.3.8
    */
-  public boolean isCheckForEOI ()
+  public final boolean isCheckForEOI ()
   {
     return m_bCheckForEOI;
   }
@@ -203,7 +203,7 @@ public class JsonParser
    * @since 9.3.8
    */
   @Nonnull
-  public JsonParser setCheckForEOI (final boolean bCheckForEOI)
+  public final JsonParser setCheckForEOI (final boolean bCheckForEOI)
   {
     m_bCheckForEOI = bCheckForEOI;
     return this;
@@ -739,7 +739,8 @@ public class JsonParser
         c = _readChar ();
       }
       if (!bDecimalDigits)
-        throw _parseEx (aStartPos, "Missing digits after decimal point in JSON Number '" + aStrNumber.getAsString () + "'");
+        throw _parseEx (aStartPos,
+                        "Missing digits after decimal point in JSON Number '" + aStrNumber.getAsString () + "'");
     }
 
     final boolean bHasExponent = c == 'e' || c == 'E';
@@ -768,7 +769,8 @@ public class JsonParser
         c = _readChar ();
       }
       if (!bExponentDigits)
-        throw _parseEx (aStartPos, "Missing digits after exponent sign in JSON Number '" + aStrNumber.getAsString () + "'");
+        throw _parseEx (aStartPos,
+                        "Missing digits after exponent sign in JSON Number '" + aStrNumber.getAsString () + "'");
     }
 
     // Backup last (unused) char
