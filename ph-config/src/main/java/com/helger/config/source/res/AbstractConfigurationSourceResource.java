@@ -40,7 +40,8 @@ import com.helger.config.source.IConfigurationSource;
  * @author Philip Helger
  */
 @Immutable
-public abstract class AbstractConfigurationSourceResource extends AbstractConfigurationSource implements IConfigurationSourceResource
+public abstract class AbstractConfigurationSourceResource extends AbstractConfigurationSource implements
+                                                          IConfigurationSourceResource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.RESOURCE;
 
@@ -60,13 +61,15 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
       if (aFile.isFile ())
       {
         if (!aFile.canRead ())
-          LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is not readable");
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is not readable");
       }
       else
       {
         // Non existing files are okay
         if (aFile.isDirectory ())
-          LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is a directory");
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is a directory");
       }
     }
   }

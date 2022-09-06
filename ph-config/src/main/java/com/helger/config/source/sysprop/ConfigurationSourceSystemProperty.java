@@ -21,10 +21,14 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.system.SystemProperties;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
+import com.helger.config.source.IIterableConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
 
 /**
@@ -33,7 +37,8 @@ import com.helger.config.value.ConfiguredValue;
  * @author Philip Helger
  */
 @Immutable
-public class ConfigurationSourceSystemProperty extends AbstractConfigurationSource
+public class ConfigurationSourceSystemProperty extends AbstractConfigurationSource implements
+                                               IIterableConfigurationSource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.SYSTEM_PROPERTY;
 
@@ -59,5 +64,13 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
     // Uses PrivilegedAction internally
     final String sValue = SystemProperties.getPropertyValueOrNull (sKey);
     return sValue == null ? null : new ConfiguredValue (this, sValue);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsMap <String, String> getAllConfigItems ()
+  {
+    // Sort by name
+    return new CommonsTreeMap <> (SystemProperties.getAllProperties ());
   }
 }

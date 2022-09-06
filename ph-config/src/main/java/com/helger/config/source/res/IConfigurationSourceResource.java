@@ -22,14 +22,14 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.state.ESuccess;
-import com.helger.config.source.IConfigurationSource;
+import com.helger.config.source.IIterableConfigurationSource;
 
 /**
  * Specific configuration source based on a readable resource.
  *
  * @author Philip Helger
  */
-public interface IConfigurationSourceResource extends IConfigurationSource
+public interface IConfigurationSourceResource extends IIterableConfigurationSource
 {
   /**
    * @return The resource of this configuration source. Never <code>null</code>.

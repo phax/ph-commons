@@ -24,9 +24,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
+import com.helger.config.source.IIterableConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
 
 /**
@@ -36,7 +40,7 @@ import com.helger.config.value.ConfiguredValue;
  * @author Philip Helger
  */
 @Immutable
-public class ConfigurationSourceEnvVar extends AbstractConfigurationSource
+public class ConfigurationSourceEnvVar extends AbstractConfigurationSource implements IIterableConfigurationSource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.ENVIRONMENT_VARIABLE;
 
@@ -63,6 +67,10 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource
   {
     // Unify the naming to the environment conventions
     final String sRealName = EnvVarHelper.getUnifiedSysEnvName (sKey, EnvVarHelper.DEFAULT_REPLACEMENT_CHAR);
+
+    if (LOGGER.isTraceEnabled ())
+      LOGGER.trace ("Querying configuration property '" + sKey + "' as EnvVar '" + sRealName + "'");
+
     String sValue = null;
     try
     {
@@ -73,5 +81,13 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource
       LOGGER.error ("Security violation accessing environment variable '" + sRealName + "'", ex);
     }
     return sValue == null ? null : new ConfiguredValue (this, sValue);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsMap <String, String> getAllConfigItems ()
+  {
+    // Sort by name
+    return new CommonsTreeMap <> (System.getenv ());
   }
 }
