@@ -30,9 +30,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
 import jakarta.xml.bind.ValidationEventHandler;
 
 /**
- * A class containing some default settings for the various JAXB builders. Each
- * new instance of {@link JAXBReaderBuilder}, {@link JAXBValidationBuilder} and
- * {@link JAXBWriterBuilder} use the settings in this class as the defaults.<br>
+ * A class containing some default settings for the various JAXB builders.<br>
  * Changes made in this class only effects instances that are created
  * afterwards. Existing instances are never changed.
  *

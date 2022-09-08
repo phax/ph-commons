@@ -16,6 +16,7 @@
  */
 package com.helger.jaxb.builder;
 
+@Deprecated
 public final class MockExternalArchiveReaderBuilder extends
                                                     JAXBReaderBuilder <com.helger.jaxb.mock.external.MockJAXBArchive, MockExternalArchiveReaderBuilder>
 {

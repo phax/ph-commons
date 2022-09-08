@@ -16,6 +16,7 @@
  */
 package com.helger.jaxb.builder;
 
+@Deprecated
 public final class MockExternalArchiveWriterBuilder extends
                                                     JAXBWriterBuilder <com.helger.jaxb.mock.external.MockJAXBArchive, MockExternalArchiveWriterBuilder>
 {

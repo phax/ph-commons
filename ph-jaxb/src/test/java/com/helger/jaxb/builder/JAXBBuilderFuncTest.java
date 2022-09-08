@@ -41,6 +41,7 @@ import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.SafeXMLStreamWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
+@Deprecated
 public final class JAXBBuilderFuncTest
 {
   @Test

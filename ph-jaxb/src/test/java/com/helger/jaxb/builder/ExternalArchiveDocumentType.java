@@ -16,7 +16,7 @@
  */
 package com.helger.jaxb.builder;
 
-public final class ExternalArchiveDocumentType extends JAXBDocumentType
+final class ExternalArchiveDocumentType extends JAXBDocumentType
 {
   public ExternalArchiveDocumentType ()
   {

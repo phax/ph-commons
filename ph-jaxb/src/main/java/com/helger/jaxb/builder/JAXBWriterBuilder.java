@@ -49,8 +49,11 @@ import jakarta.xml.bind.ValidationEventHandler;
  *        The JAXB implementation class to be written
  * @param <IMPLTYPE>
  *        The implementation class implementing this abstract class.
+ * @deprecated Since v11 - use the GenericJAXBMarshaller instead - it deals with
+ *             all of the stuff in one class. Will be removed in v12
  */
 @NotThreadSafe
+@Deprecated (forRemoval = true, since = "11.0.0")
 public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JAXBTYPE, IMPLTYPE>> extends
                                AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE> implements
                                IJAXBWriter <JAXBTYPE>
