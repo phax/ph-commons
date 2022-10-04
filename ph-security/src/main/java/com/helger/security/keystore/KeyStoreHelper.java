@@ -103,9 +103,12 @@ public final class KeyStoreHelper
   @Nonnull
   public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
                                              @Nonnull final String sKeyStorePath,
-                                             @Nullable final String sKeyStorePassword) throws GeneralSecurityException, IOException
+                                             @Nullable final String sKeyStorePassword) throws GeneralSecurityException,
+                                                                                       IOException
   {
-    return loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, sKeyStorePassword == null ? null : sKeyStorePassword.toCharArray ());
+    return loadKeyStoreDirect (aKeyStoreType,
+                               sKeyStorePath,
+                               sKeyStorePassword == null ? null : sKeyStorePassword.toCharArray ());
   }
 
   /**
@@ -130,7 +133,8 @@ public final class KeyStoreHelper
   @Nonnull
   public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
                                              @Nonnull final String sKeyStorePath,
-                                             @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException, IOException
+                                             @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException,
+                                                                                        IOException
   {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
@@ -143,7 +147,10 @@ public final class KeyStoreHelper
     try
     {
       if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Trying to load key store from path '" + sKeyStorePath + "' using type " + aKeyStoreType.getID ());
+        LOGGER.debug ("Trying to load key store from path '" +
+                      sKeyStorePath +
+                      "' using type " +
+                      aKeyStoreType.getID ());
 
       final KeyStore aKeyStore = aKeyStoreType.getKeyStore ();
       aKeyStore.load (aIS, aKeyStorePassword);
@@ -180,7 +187,8 @@ public final class KeyStoreHelper
   @Nonnull
   public static KeyStore createKeyStoreWithOnlyOneItem (@Nonnull final KeyStore aBaseKeyStore,
                                                         @Nonnull final String sAliasToCopy,
-                                                        @Nullable final char [] aAliasPassword) throws GeneralSecurityException, IOException
+                                                        @Nullable final char [] aAliasPassword) throws GeneralSecurityException,
+                                                                                                IOException
   {
     ValueEnforcer.notNull (aBaseKeyStore, "BaseKeyStore");
     ValueEnforcer.notNull (sAliasToCopy, "AliasToCopy");
@@ -242,14 +250,23 @@ public final class KeyStoreHelper
       if (LOGGER.isWarnEnabled ())
         LOGGER.warn ("No such key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
 
-      return new LoadedKeyStore (null, EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_NON_EXISTING, sKeyStorePath, ex.getMessage ());
+      return new LoadedKeyStore (null,
+                                 EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_NON_EXISTING,
+                                 sKeyStorePath,
+                                 ex.getMessage ());
     }
     catch (final Exception ex)
     {
       final boolean bInvalidPW = _isInvalidPasswordException (ex);
 
       if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (), bInvalidPW ? null : ex.getCause ());
+        LOGGER.warn ("Failed to load key store '" +
+                     sKeyStorePath +
+                     "' of type " +
+                     aKeyStoreType.getID () +
+                     ": " +
+                     ex.getMessage (),
+                     bInvalidPW ? null : ex.getCause ());
 
       return new LoadedKeyStore (null,
                                  bInvalidPW ? EKeyStoreLoadError.KEYSTORE_INVALID_PASSWORD
@@ -284,7 +301,10 @@ public final class KeyStoreHelper
     try
     {
       if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Trying to access key store entry with alias '" + sKeyStoreKeyAlias + "' as a " + aTargetClass.getName ());
+        LOGGER.debug ("Trying to access key store entry with alias '" +
+                      sKeyStoreKeyAlias +
+                      "' as a " +
+                      aTargetClass.getName ());
 
       final KeyStore.ProtectionParameter aProtection = new KeyStore.PasswordProtection (aKeyStoreKeyPassword);
       final KeyStore.Entry aEntry = aKeyStore.getEntry (sKeyStoreKeyAlias, aProtection);
@@ -306,11 +326,19 @@ public final class KeyStoreHelper
     }
     catch (final UnrecoverableKeyException ex)
     {
-      return new LoadedKey <> (null, EKeyStoreLoadError.KEY_INVALID_PASSWORD, sKeyStoreKeyAlias, sKeyStorePath, ex.getMessage ());
+      return new LoadedKey <> (null,
+                               EKeyStoreLoadError.KEY_INVALID_PASSWORD,
+                               sKeyStoreKeyAlias,
+                               sKeyStorePath,
+                               ex.getMessage ());
     }
     catch (final GeneralSecurityException ex)
     {
-      return new LoadedKey <> (null, EKeyStoreLoadError.KEY_LOAD_ERROR, sKeyStoreKeyAlias, sKeyStorePath, ex.getMessage ());
+      return new LoadedKey <> (null,
+                               EKeyStoreLoadError.KEY_LOAD_ERROR,
+                               sKeyStoreKeyAlias,
+                               sKeyStorePath,
+                               ex.getMessage ());
     }
 
     // Finally success
@@ -389,6 +417,10 @@ public final class KeyStoreHelper
                                                                                         @Nullable final String sKeyStoreKeyAlias,
                                                                                         @Nullable final char [] aKeyStoreKeyPassword)
   {
-    return _loadKey (aKeyStore, sKeyStorePath, sKeyStoreKeyAlias, aKeyStoreKeyPassword, KeyStore.TrustedCertificateEntry.class);
+    return _loadKey (aKeyStore,
+                     sKeyStorePath,
+                     sKeyStoreKeyAlias,
+                     aKeyStoreKeyPassword,
+                     KeyStore.TrustedCertificateEntry.class);
   }
 }
