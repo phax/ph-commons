@@ -85,7 +85,7 @@ public final class ConfigFactory
     if (nResourceBased == 0)
     {
       // Small consistency check
-      LOGGER.info ("The default Config instance is based soley on system properties and environment variables. No configuration resources were found.");
+      LOGGER.info ("The default Config instance is solely based on system properties and environment variables. No configuration resources were found.");
     }
   }
 
