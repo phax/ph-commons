@@ -102,14 +102,18 @@ public class JavaVersionHelperTest
     assertEquals (0, aParts[1]);
     assertEquals (0, aParts[2]);
 
-    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk", "1.8.0-adoptopenjdk-_2018_05_19_00_59-b00");
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk",
+                                                    "1.8.0-adoptopenjdk-_2018_05_19_00_59-b00",
+                                                    true);
     assertNotNull (aParts);
     assertEquals (3, aParts.length);
     assertEquals (8, aParts[0]);
     assertEquals (172, aParts[1]);
     assertEquals (0, aParts[2]);
 
-    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk", "1.8.0-adoptopenjdk-_2018_05_19_01_59-b00");
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk",
+                                                    "1.8.0-adoptopenjdk-_2018_05_19_01_59-b00",
+                                                    true);
     assertNotNull (aParts);
     assertEquals (3, aParts.length);
     assertEquals (8, aParts[0]);
@@ -123,5 +127,19 @@ public class JavaVersionHelperTest
     assertEquals (11, aParts[0]);
     assertEquals (0, aParts[1]);
     assertEquals (0, aParts[2]);
+
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("17.4.0.1");
+    assertNotNull (aParts);
+    assertEquals (3, aParts.length);
+    assertEquals (17, aParts[0]);
+    assertEquals (4, aParts[1]);
+    assertEquals (0, aParts[2]);
+
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("11.0.16.1");
+    assertNotNull (aParts);
+    assertEquals (3, aParts.length);
+    assertEquals (11, aParts[0]);
+    assertEquals (0, aParts[1]);
+    assertEquals (16, aParts[2]);
   }
 }

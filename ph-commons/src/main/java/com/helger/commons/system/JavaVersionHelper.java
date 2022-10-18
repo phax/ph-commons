@@ -60,18 +60,25 @@ public final class JavaVersionHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (JavaVersionHelper.class);
 
   private static final LocalDateTime REFERENCE_DATE = PDTFactory.createLocalDateTime (2018, Month.JANUARY, 1, 0, 0, 0);
-  private static final LocalDateTime ADOPTOPENJDK_BUILD_172 = PDTFactory.createLocalDateTime (2018, Month.MAY, 19, 0, 59, 0);
+  private static final LocalDateTime ADOPTOPENJDK_BUILD_172 = PDTFactory.createLocalDateTime (2018,
+                                                                                              Month.MAY,
+                                                                                              19,
+                                                                                              0,
+                                                                                              59,
+                                                                                              0);
 
   @Nonnull
   @ReturnsMutableCopy
   static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion)
   {
-    return getAsUnifiedVersion (sOriginalJavaVersion, SystemProperties.getJavaRuntimeVersion ());
+    return getAsUnifiedVersion (sOriginalJavaVersion, SystemProperties.getJavaRuntimeVersion (), true);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion, @Nullable final String sJavaRuntimeVersion)
+  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion,
+                                     @Nullable final String sJavaRuntimeVersion,
+                                     final boolean bThrowExceptionOnError)
   {
     int nMajor = 0;
     int nMinor = 0;
@@ -86,76 +93,111 @@ public final class JavaVersionHelper
 
       // Skip "1."
       s = s.substring (2);
+
       // All up to first "."
       final int nSecondDot = s.indexOf ('.');
       if (nSecondDot < 0)
-        throw new IllegalStateException ("Unexpected Java version string '" + sOriginalJavaVersion + "'");
-      nMajor = StringParser.parseInt (s.substring (0, nSecondDot), -1);
-      if (nMajor < 0)
-        throw new IllegalStateException ("Failed to determine Java major version from '" + sOriginalJavaVersion + "'");
-
-      final int nUnderscore = s.indexOf ('_');
-      if (nUnderscore >= 0)
       {
-        // Everything after "_"
-        nMinor = StringParser.parseInt (s.substring (nUnderscore + 1), -1);
-        if (nMinor < 0)
-          throw new IllegalStateException ("Failed to determine Java minor version from '" + sOriginalJavaVersion + "'");
-
-        // Micro part is not present
-        nMicro = -1;
+        final String sMsg = "Unexpected Java version string '" + sOriginalJavaVersion + "'";
+        if (bThrowExceptionOnError)
+          throw new IllegalStateException (sMsg);
+        LOGGER.warn (sMsg);
+        nMajor = 0;
+        nMinor = 0;
+        nMicro = 0;
       }
       else
       {
-        final int nDash = s.indexOf ('-');
-        if (nDash >= 0)
+        nMajor = StringParser.parseInt (s.substring (0, nSecondDot), -1);
+        if (nMajor < 0)
         {
-          // 1.8.0-adoptopenjdk
+          final String sMsg = "Failed to determine Java major version from '" + sOriginalJavaVersion + "'";
+          if (bThrowExceptionOnError)
+            throw new IllegalStateException (sMsg);
+          LOGGER.warn (sMsg);
+          nMajor = 0;
+        }
 
-          // 1.8.0-adoptopenjdk-_2018_05_19_00_59-b00 == b172
-          if (sJavaRuntimeVersion.startsWith (sOriginalJavaVersion))
+        final int nUnderscore = s.indexOf ('_');
+        if (nUnderscore >= 0)
+        {
+          // Everything after "_"
+          nMinor = StringParser.parseInt (s.substring (nUnderscore + 1), -1);
+          if (nMinor < 0)
           {
-            // Use data as "minor"
-            String sData = sJavaRuntimeVersion.substring (sOriginalJavaVersion.length ());
-            sData = StringHelper.removeAll (sData, '_');
-            sData = StringHelper.removeAll (sData, '-');
-            final int nB = sData.indexOf ('b');
-            if (nB >= 0)
-              sData = sData.substring (0, nB);
-            final LocalDateTime aDateTime = PDTFromString.getLocalDateTimeFromString (sData, "uuuuMMddHHmm");
-            if (aDateTime != null)
+            final String sMsg = "Failed to determine Java minor version from '" + sOriginalJavaVersion + "'";
+            if (bThrowExceptionOnError)
+              throw new IllegalStateException (sMsg);
+            LOGGER.warn (sMsg);
+            nMinor = 0;
+          }
+
+          // Micro part is not present
+          nMicro = -1;
+        }
+        else
+        {
+          final int nDash = s.indexOf ('-');
+          if (nDash >= 0)
+          {
+            // 1.8.0-adoptopenjdk
+
+            // 1.8.0-adoptopenjdk-_2018_05_19_00_59-b00 == b172
+            if (sJavaRuntimeVersion.startsWith (sOriginalJavaVersion))
             {
-              // Check known versions
-              if (aDateTime.equals (ADOPTOPENJDK_BUILD_172))
-                nMinor = 172;
+              // Use data as "minor"
+              String sData = sJavaRuntimeVersion.substring (sOriginalJavaVersion.length ());
+              sData = StringHelper.removeAll (sData, '_');
+              sData = StringHelper.removeAll (sData, '-');
+              final int nB = sData.indexOf ('b');
+              if (nB >= 0)
+                sData = sData.substring (0, nB);
+              final LocalDateTime aDateTime = PDTFromString.getLocalDateTimeFromString (sData, "uuuuMMddHHmm");
+              if (aDateTime != null)
+              {
+                // Check known versions
+                if (aDateTime.equals (ADOPTOPENJDK_BUILD_172))
+                  nMinor = 172;
+                else
+                {
+                  // Minutes since reference date
+                  nMinor = Math.toIntExact (Duration.between (REFERENCE_DATE, aDateTime).toMinutes ());
+                }
+              }
               else
               {
-                // Minutes since reference date
-                nMinor = Math.toIntExact (Duration.between (REFERENCE_DATE, aDateTime).toMinutes ());
+                // Open...
+                LOGGER.warn ("Unknown runtime version '" +
+                             sJavaRuntimeVersion +
+                             "' compared to java version '" +
+                             sOriginalJavaVersion);
+                nMinor = -1;
+                nMicro = -1;
               }
             }
             else
             {
-              // Open...
-              if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("Unknown runtime version '" + sJavaRuntimeVersion + "' compared to java version '" + sOriginalJavaVersion);
+              // Unknown runtime version
+              LOGGER.warn ("Unknown runtime version '" +
+                           sJavaRuntimeVersion +
+                           "' compared to java version '" +
+                           sOriginalJavaVersion);
               nMinor = -1;
               nMicro = -1;
             }
           }
           else
           {
-            // Unknown runtime version
-            if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("Unknown runtime version '" + sJavaRuntimeVersion + "' compared to java version '" + sOriginalJavaVersion);
-            nMinor = -1;
-            nMicro = -1;
+            final String sMsg = "Unexpected Java version string '" + sOriginalJavaVersion + "'";
+            if (bThrowExceptionOnError)
+              throw new IllegalStateException (sMsg);
+            LOGGER.warn (sMsg);
+            nMajor = 0;
+            nMinor = 0;
+            nMicro = 0;
           }
         }
-        else
-          throw new IllegalStateException ("Unexpected Java version string '" + sOriginalJavaVersion + "'");
       }
-
     }
     else
     {
@@ -190,7 +232,13 @@ public final class JavaVersionHelper
       else
         nMajor = StringParser.parseInt (s.substring (0, nFirstDot), -1);
       if (nMajor < 0)
-        throw new IllegalStateException ("Failed to determine Java major version from '" + sOriginalJavaVersion + "'");
+      {
+        final String sMsg = "Failed to determine Java major version from '" + sOriginalJavaVersion + "'";
+        if (bThrowExceptionOnError)
+          throw new IllegalStateException (sMsg);
+        LOGGER.warn (sMsg);
+        nMajor = 0;
+      }
 
       if (nFirstDot >= 0)
       {
@@ -203,25 +251,56 @@ public final class JavaVersionHelper
         else
           nMinor = StringParser.parseInt (s.substring (nFirstDot + 1, nSecondDot), -1);
         if (nMinor < 0)
-          throw new IllegalStateException ("Failed to determine Java minor version from '" + sOriginalJavaVersion + "'");
+        {
+          final String sMsg = "Failed to determine Java minor version from '" + sOriginalJavaVersion + "'";
+          if (bThrowExceptionOnError)
+            throw new IllegalStateException (sMsg);
+          LOGGER.warn (sMsg);
+          nMinor = 0;
+        }
 
         if (nSecondDot >= 0)
         {
-          nMicro = StringParser.parseInt (s.substring (nSecondDot + 1), -1);
+          final int nThirdDot = s.indexOf ('.', nSecondDot + 1);
+          if (nThirdDot < 0)
+          {
+            // Things like "17.3.0" or "11.0.13"
+            nMicro = StringParser.parseInt (s.substring (nSecondDot + 1), -1);
+          }
+          else
+          {
+            // Things like "17.4.0.1" or "11.0.16.1" - skip everything after the
+            // third dot
+            nMicro = StringParser.parseInt (s.substring (nSecondDot + 1, nThirdDot), -1);
+          }
           if (nMicro < 0)
-            throw new IllegalStateException ("Failed to determine Java micro version from '" + sOriginalJavaVersion + "'");
+          {
+            final String sMsg = "Failed to determine Java micro version from '" + sOriginalJavaVersion + "'";
+            if (bThrowExceptionOnError)
+              throw new IllegalStateException (sMsg);
+            LOGGER.warn (sMsg);
+            nMicro = 0;
+          }
         }
       }
     }
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Java version '" + sOriginalJavaVersion + "' split into " + nMajor + "." + nMinor + (nMicro >= 0 ? "." + nMicro : ""));
+      LOGGER.debug ("Java version '" +
+                    sOriginalJavaVersion +
+                    "' split into " +
+                    nMajor +
+                    "." +
+                    nMinor +
+                    (nMicro >= 0 ? "." + nMicro : ""));
     return new int [] { nMajor, nMinor, nMicro };
   }
 
   static
   {
-    final int [] aParts = getAsUnifiedVersion (SystemProperties.getJavaVersion (), SystemProperties.getJavaRuntimeVersion ());
+    final int [] aParts = getAsUnifiedVersion (SystemProperties.getJavaVersion (),
+                                               SystemProperties.getJavaRuntimeVersion (),
+                                               false);
     JAVA_MAJOR_VERSION = aParts[0];
     JAVA_MINOR_VERSION = aParts[1];
     JAVA_MICRO_VERSION = aParts[2];
