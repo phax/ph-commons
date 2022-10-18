@@ -156,13 +156,16 @@ public final class PDTToStringTest
       // Germany
       aDisplayLocale = Locale.GERMANY;
 
-      assertEquals ("03.02.2021 10:45:07",
+      final String sSeparator = EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_17) ? ", "
+                                                                                                            : " ";
+
+      assertEquals ("03.02.2021" + sSeparator + "10:45:07",
                     PDTToString.getAsString (PDTFactory.createLocalDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
                                              aDisplayLocale));
-      assertEquals ("03.02.2021 10:45:07 UTC",
+      assertEquals ("03.02.2021" + sSeparator + "10:45:07 UTC",
                     PDTToString.getAsString (PDTFactory.createZonedDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
                                              aDisplayLocale));
-      assertEquals ("03.02.2021 10:45:07 +0100",
+      assertEquals ("03.02.2021" + sSeparator + "10:45:07 +0100",
                     PDTToString.getAsString (PDTFactory.createOffsetDateTime (2021,
                                                                               Month.FEBRUARY,
                                                                               3,
@@ -171,7 +174,7 @@ public final class PDTToStringTest
                                                                               7,
                                                                               ZoneOffset.ofHours (1)),
                                              aDisplayLocale));
-      assertEquals ("03.02.2021 10:45:07 +0100",
+      assertEquals ("03.02.2021" + sSeparator + "10:45:07 +0100",
                     PDTToString.getAsString (PDTFactory.createXMLOffsetDateTime (2021,
                                                                                  Month.FEBRUARY,
                                                                                  3,
@@ -180,7 +183,7 @@ public final class PDTToStringTest
                                                                                  7,
                                                                                  ZoneOffset.ofHours (1)),
                                              aDisplayLocale));
-      assertEquals ("03.02.2021 10:45:07",
+      assertEquals ("03.02.2021" + sSeparator + "10:45:07",
                     PDTToString.getAsString (PDTFactory.createXMLOffsetDateTime (2021, Month.FEBRUARY, 3, 10, 45, 7),
                                              aDisplayLocale));
     }
