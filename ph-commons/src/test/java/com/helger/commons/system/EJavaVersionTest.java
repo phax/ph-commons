@@ -82,7 +82,8 @@ public final class EJavaVersionTest
     assertEquals (EJavaVersion.JDK_15, EJavaVersion.getFromVersionNumber (59.0));
     assertEquals (EJavaVersion.JDK_16, EJavaVersion.getFromVersionNumber (60.0));
     assertEquals (EJavaVersion.JDK_17, EJavaVersion.getFromVersionNumber (61.0));
-    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (62.0));
+    assertEquals (EJavaVersion.JDK_18, EJavaVersion.getFromVersionNumber (62.0));
+    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (63.0));
 
     assertTrue (EJavaVersion.JDK_1_1.isSupportedVersion ());
     assertTrue (EJavaVersion.JDK_1_2.isSupportedVersion ());
@@ -104,6 +105,7 @@ public final class EJavaVersionTest
       assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
       assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
       assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+      assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
     }
     else
       if (EJavaVersion.JDK_9.isCurrentVersion ())
@@ -118,6 +120,7 @@ public final class EJavaVersionTest
         assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
         assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
         assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+        assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
       }
       else
         if (EJavaVersion.JDK_10.isCurrentVersion ())
@@ -132,6 +135,7 @@ public final class EJavaVersionTest
           assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
           assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
           assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+          assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
         }
         else
           if (EJavaVersion.JDK_11.isCurrentVersion ())
@@ -146,6 +150,7 @@ public final class EJavaVersionTest
             assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
             assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
             assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+            assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
           }
           else
             if (EJavaVersion.JDK_12.isCurrentVersion ())
@@ -160,6 +165,7 @@ public final class EJavaVersionTest
               assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
               assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
               assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+              assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
             }
             else
               if (EJavaVersion.JDK_13.isCurrentVersion ())
@@ -174,6 +180,7 @@ public final class EJavaVersionTest
                 assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
                 assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
                 assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+                assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
               }
               else
                 if (EJavaVersion.JDK_14.isCurrentVersion ())
@@ -188,6 +195,7 @@ public final class EJavaVersionTest
                   assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
                   assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
                   assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+                  assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
                 }
                 else
                   if (EJavaVersion.JDK_15.isCurrentVersion ())
@@ -202,6 +210,7 @@ public final class EJavaVersionTest
                     assertTrue (EJavaVersion.JDK_15.isSupportedVersion ());
                     assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
                     assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+                    assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
                   }
                   else
                     if (EJavaVersion.JDK_16.isCurrentVersion ())
@@ -216,6 +225,7 @@ public final class EJavaVersionTest
                       assertTrue (EJavaVersion.JDK_15.isSupportedVersion ());
                       assertTrue (EJavaVersion.JDK_16.isSupportedVersion ());
                       assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
+                      assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
                     }
                     else
                       if (EJavaVersion.JDK_17.isCurrentVersion ())
@@ -230,9 +240,25 @@ public final class EJavaVersionTest
                         assertTrue (EJavaVersion.JDK_15.isSupportedVersion ());
                         assertTrue (EJavaVersion.JDK_16.isSupportedVersion ());
                         assertTrue (EJavaVersion.JDK_17.isSupportedVersion ());
+                        assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
                       }
                       else
-                        fail ("Implement me");
+                        if (EJavaVersion.JDK_18.isCurrentVersion ())
+                        {
+                          assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_12.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_13.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_14.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_15.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_16.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_17.isSupportedVersion ());
+                          assertTrue (EJavaVersion.JDK_18.isSupportedVersion ());
+                        }
+                        else
+                          fail ("Implement me");
   }
 
   @Test
