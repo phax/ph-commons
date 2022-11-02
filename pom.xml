@@ -45,7 +45,7 @@
     <connection>scm:git:git@github.com:phax/ph-commons.git</connection>
     <developerConnection>scm:git:git@github.com:phax/ph-commons.git</developerConnection>
     <url>http://github.com/phax/ph-commons</url>
-    <tag>10.x</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <organization>
