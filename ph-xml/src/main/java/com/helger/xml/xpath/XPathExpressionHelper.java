@@ -58,7 +58,10 @@ public final class XPathExpressionHelper
                                   @Nonnull final Document aDoc,
                                   @Nonnull final QName aReturnType)
   {
-    return evalXPath (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc, aReturnType);
+    return evalXPath (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext),
+                      sXPath,
+                      aDoc,
+                      aReturnType);
   }
 
   @Nullable
@@ -94,7 +97,9 @@ public final class XPathExpressionHelper
                                           @Nonnull final String sXPath,
                                           @Nonnull final Document aDoc)
   {
-    return evalXPathToNumber (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
+    return evalXPathToNumber (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext),
+                              sXPath,
+                              aDoc);
   }
 
   @Nullable
@@ -104,7 +109,9 @@ public final class XPathExpressionHelper
   }
 
   @Nullable
-  public static Double evalXPathToNumber (@Nonnull final XPath aXPath, @Nonnull final String sXPath, @Nonnull final Document aDoc)
+  public static Double evalXPathToNumber (@Nonnull final XPath aXPath,
+                                          @Nonnull final String sXPath,
+                                          @Nonnull final Document aDoc)
   {
     final Object aResult = evalXPath (aXPath, sXPath, aDoc, XPathConstants.NUMBER);
     return (Double) aResult;
@@ -117,7 +124,9 @@ public final class XPathExpressionHelper
                                           @Nonnull final String sXPath,
                                           @Nonnull final Document aDoc)
   {
-    return evalXPathToString (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
+    return evalXPathToString (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext),
+                              sXPath,
+                              aDoc);
   }
 
   @Nullable
@@ -127,7 +136,9 @@ public final class XPathExpressionHelper
   }
 
   @Nullable
-  public static String evalXPathToString (@Nonnull final XPath aXPath, @Nonnull final String sXPath, @Nonnull final Document aDoc)
+  public static String evalXPathToString (@Nonnull final XPath aXPath,
+                                          @Nonnull final String sXPath,
+                                          @Nonnull final Document aDoc)
   {
     final Object aResult = evalXPath (aXPath, sXPath, aDoc, XPathConstants.STRING);
     return (String) aResult;
@@ -140,7 +151,9 @@ public final class XPathExpressionHelper
                                             @Nonnull final String sXPath,
                                             @Nonnull final Document aDoc)
   {
-    return evalXPathToBoolean (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
+    return evalXPathToBoolean (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext),
+                               sXPath,
+                               aDoc);
   }
 
   @Nullable
@@ -150,7 +163,9 @@ public final class XPathExpressionHelper
   }
 
   @Nullable
-  public static Boolean evalXPathToBoolean (@Nonnull final XPath aXPath, @Nonnull final String sXPath, @Nonnull final Document aDoc)
+  public static Boolean evalXPathToBoolean (@Nonnull final XPath aXPath,
+                                            @Nonnull final String sXPath,
+                                            @Nonnull final Document aDoc)
   {
     final Object aResult = evalXPath (aXPath, sXPath, aDoc, XPathConstants.BOOLEAN);
     return (Boolean) aResult;
@@ -163,7 +178,9 @@ public final class XPathExpressionHelper
                                               @Nonnull final String sXPath,
                                               @Nonnull final Document aDoc)
   {
-    return evalXPathToNodeList (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
+    return evalXPathToNodeList (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext),
+                                sXPath,
+                                aDoc);
   }
 
   @Nullable
@@ -173,7 +190,9 @@ public final class XPathExpressionHelper
   }
 
   @Nullable
-  public static NodeList evalXPathToNodeList (@Nonnull final XPath aXPath, @Nonnull final String sXPath, @Nonnull final Document aDoc)
+  public static NodeList evalXPathToNodeList (@Nonnull final XPath aXPath,
+                                              @Nonnull final String sXPath,
+                                              @Nonnull final Document aDoc)
   {
     final Object aResult = evalXPath (aXPath, sXPath, aDoc, XPathConstants.NODESET);
     return (NodeList) aResult;
@@ -186,7 +205,9 @@ public final class XPathExpressionHelper
                                       @Nonnull final String sXPath,
                                       @Nonnull final Document aDoc)
   {
-    return evalXPathToNode (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
+    return evalXPathToNode (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext),
+                            sXPath,
+                            aDoc);
   }
 
   @Nullable
@@ -196,7 +217,9 @@ public final class XPathExpressionHelper
   }
 
   @Nullable
-  public static Node evalXPathToNode (@Nonnull final XPath aXPath, @Nonnull final String sXPath, @Nonnull final Document aDoc)
+  public static Node evalXPathToNode (@Nonnull final XPath aXPath,
+                                      @Nonnull final String sXPath,
+                                      @Nonnull final Document aDoc)
   {
     final Object aResult = evalXPath (aXPath, sXPath, aDoc, XPathConstants.NODE);
     return (Node) aResult;
