@@ -18,13 +18,16 @@ package com.helger.xml;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.XMLConstants;
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 
 import org.w3c.dom.Attr;
@@ -39,6 +42,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.builder.IBuilder;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -48,8 +52,6 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This class contains multiple XML utility methods.
@@ -231,7 +233,8 @@ public final class XMLHelper
   {
     if (aStartNode == null)
       return null;
-    return NodeListIterator.createChildNodeIterator (aStartNode).findFirstMapped (filterNodeIsElement (), Element.class::cast);
+    return NodeListIterator.createChildNodeIterator (aStartNode)
+                           .findFirstMapped (filterNodeIsElement (), Element.class::cast);
   }
 
   /**
@@ -260,7 +263,8 @@ public final class XMLHelper
    * @return <code>null</code> if the parent element has no such child element.
    */
   @Nullable
-  public static Element getFirstChildElementOfName (@Nullable final Node aStartNode, @Nonnull @Nonempty final String sTagName)
+  public static Element getFirstChildElementOfName (@Nullable final Node aStartNode,
+                                                    @Nonnull @Nonempty final String sTagName)
   {
     if (aStartNode == null)
       return null;
@@ -286,7 +290,8 @@ public final class XMLHelper
   {
     if (aStartNode == null)
       return null;
-    return new ChildElementIterator (aStartNode).findFirst (filterElementWithNamespaceAndLocalName (sNamespaceURI, sLocalName));
+    return new ChildElementIterator (aStartNode).findFirst (filterElementWithNamespaceAndLocalName (sNamespaceURI,
+                                                                                                    sLocalName));
   }
 
   /**
@@ -305,7 +310,8 @@ public final class XMLHelper
    * @since 10.1.2
    */
   @Nullable
-  public static Element getChildElementOfNames (@Nullable final Element aStartElement, @Nonnull final String... aTagNames)
+  public static Element getChildElementOfNames (@Nullable final Element aStartElement,
+                                                @Nonnull final String... aTagNames)
   {
     ValueEnforcer.notEmptyNoNullValue (aTagNames, "TagNames");
 
@@ -401,13 +407,15 @@ public final class XMLHelper
   }
 
   @Nonnegative
-  public static int getDirectChildElementCount (@Nullable final Element aParent, @Nonnull @Nonempty final String sTagName)
+  public static int getDirectChildElementCount (@Nullable final Element aParent,
+                                                @Nonnull @Nonempty final String sTagName)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent, sTagName));
   }
 
   @Nonnegative
-  public static int getDirectChildElementCountNoNS (@Nullable final Element aParent, @Nonnull @Nonempty final String sTagName)
+  public static int getDirectChildElementCountNoNS (@Nullable final Element aParent,
+                                                    @Nonnull @Nonempty final String sTagName)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent, sTagName));
   }
@@ -423,7 +431,8 @@ public final class XMLHelper
                                                   @Nullable final String sNamespaceURI,
                                                   @Nonnull @Nonempty final String sLocalName)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
+    return aParent == null ? 0
+                           : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
   }
 
   /**
@@ -502,7 +511,381 @@ public final class XMLHelper
                                                                        @Nullable final String sNamespaceURI,
                                                                        @Nonnull @Nonempty final String sLocalName)
   {
-    return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespaceAndLocalName (sNamespaceURI, sLocalName));
+    return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespaceAndLocalName (sNamespaceURI,
+                                                                                                     sLocalName));
+  }
+
+  public static boolean hasSameElementName (@Nonnull final Element aFirst, @Nonnull final Element aSecond)
+  {
+    final String sFirstNS = aFirst.getNamespaceURI ();
+    final String sSecondNS = aSecond.getNamespaceURI ();
+    if (StringHelper.hasText (sFirstNS))
+    {
+      // NS + local name
+      return sFirstNS.equals (sSecondNS) && aFirst.getLocalName ().equals (aSecond.getLocalName ());
+    }
+    // No NS + tag name
+    return StringHelper.hasNoText (sSecondNS) && aFirst.getTagName ().equals (aSecond.getTagName ());
+  }
+
+  @Nonnull
+  private static String _getPathToNode (@Nonnull final Node aNode,
+                                        @Nonnull final String sSep,
+                                        final boolean bExcludeDocumentNode,
+                                        final boolean bZeroBasedIndex,
+                                        final boolean bForceUseIndex,
+                                        final boolean bTrailingSeparator,
+                                        final boolean bCompareIncludingNamespaceURI,
+                                        @Nullable final NamespaceContext aNamespaceCtx)
+  {
+    ValueEnforcer.notNull (aNode, "Node");
+    ValueEnforcer.notNull (sSep, "Separator");
+
+    final Function <String, String> funGetNSPrefix = aNamespaceCtx == null ? ns -> "" : ns -> {
+      if (StringHelper.hasText (ns))
+      {
+        final String sPrefix = aNamespaceCtx.getPrefix (ns);
+        if (StringHelper.hasText (sPrefix))
+          return sPrefix + ":";
+      }
+      return "";
+    };
+
+    final StringBuilder aRet = new StringBuilder (128);
+    Node aCurNode = aNode;
+    while (aCurNode != null)
+    {
+      final short nNodeType = aCurNode.getNodeType ();
+      if (bExcludeDocumentNode && nNodeType == Node.DOCUMENT_NODE && aRet.length () > 0)
+      {
+        // Avoid printing the content of the document node, if something else
+        // is already present
+
+        // Add leading separator
+        aRet.insert (0, sSep);
+        break;
+      }
+
+      final StringBuilder aName = new StringBuilder (aCurNode.getNodeName ());
+
+      final Node aParentNode;
+      if (nNodeType == Node.ATTRIBUTE_NODE)
+        aParentNode = ((Attr) aCurNode).getOwnerElement ();
+      else
+        aParentNode = aCurNode.getParentNode ();
+
+      // Is there a parent node to work on?
+      if (aParentNode != null)
+      {
+        // Attribute nodes don't have a parent node, so it is not possible to
+        // construct the path
+        if (nNodeType == Node.ELEMENT_NODE)
+        {
+          // Differentiate between root element and nested child element
+          if (aParentNode.getNodeType () == Node.ELEMENT_NODE)
+          {
+            // get index of current element in parent element
+            final Element aCurElement = (Element) aCurNode;
+            int nParentChildCountWithName = 0;
+            int nMatchingIndex = -1;
+            for (final Element aCurParentChild : new ChildElementIterator (aParentNode))
+            {
+              if (EqualsHelper.identityEqual (aCurParentChild, aCurNode))
+              {
+                // 0-based index
+                nMatchingIndex = nParentChildCountWithName;
+              }
+
+              final boolean bMatches;
+              if (bCompareIncludingNamespaceURI)
+                bMatches = hasSameElementName (aCurParentChild, aCurElement);
+              else
+                bMatches = aCurParentChild.getTagName ().equals (aCurElement.getTagName ());
+
+              if (bMatches)
+                ++nParentChildCountWithName;
+            }
+            if (nMatchingIndex < 0)
+              throw new IllegalStateException ("Failed to find Node with name '" +
+                                               aCurElement.getTagName () +
+                                               "' at parent");
+
+            if (nParentChildCountWithName > 1 || bForceUseIndex)
+            {
+              // Append index only, if more than one element is present
+              aName.append ('[').append (bZeroBasedIndex ? nMatchingIndex : nMatchingIndex + 1).append (']');
+            }
+          }
+          else
+          {
+            // This is the root element - special case
+            if (bForceUseIndex)
+            {
+              // Append index only, if more than one element is present
+              aName.append ('[').append (bZeroBasedIndex ? 0 : 1).append (']');
+            }
+          }
+        }
+      }
+
+      if (aRet.length () > 0)
+      {
+        // Avoid trailing separator
+        aRet.insert (0, sSep);
+      }
+
+      aRet.insert (0, aName);
+      aRet.insert (0, funGetNSPrefix.apply (aCurNode.getNamespaceURI ()));
+      if (nNodeType == Node.ATTRIBUTE_NODE)
+        aRet.insert (0, '@');
+
+      // goto parent
+      aCurNode = aParentNode;
+    }
+    if (bTrailingSeparator && aRet.length () > 0)
+      aRet.append (sSep);
+    return aRet.toString ();
+  }
+
+  /**
+   * Builder class for the different possibilities to get the path of a node
+   *
+   * @author Philip Helger
+   * @since 10.2.2
+   */
+  @NotThreadSafe
+  public static class PathToNodeBuilder implements IBuilder <String>
+  {
+    private Node m_aNode;
+    private String m_sSeperator;
+    private boolean m_bExcludeDocumentNode;
+    private boolean m_bZeroBasedIndex;
+    private boolean m_bForceUseIndex;
+    private boolean m_bTrailingSeparator;
+    private boolean m_bCompareIncludingNamespaceURI;
+    private NamespaceContext m_aNamespaceCtx;
+
+    public PathToNodeBuilder ()
+    {
+      separator ("/");
+      excludeDocumentNode (true);
+      zeroBasedIndex (false);
+      forceUseIndex (false);
+      trailingSeparator (false);
+      compareIncludingNamespaceURI (true);
+    }
+
+    /**
+     * The node to get the path from.
+     *
+     * @param a
+     *        Node to be used. Should not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public PathToNodeBuilder node (@Nullable final Node a)
+    {
+      m_aNode = a;
+      return this;
+    }
+
+    /**
+     * Set the separator to be used.
+     *
+     * @param c
+     *        The separator char
+     * @return this for chaining
+     */
+    @Nonnull
+    public PathToNodeBuilder separator (final char c)
+    {
+      return separator (Character.toString (c));
+    }
+
+    /**
+     * Set the separator to be used.
+     *
+     * @param s
+     *        The separator string. Should not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public PathToNodeBuilder separator (@Nullable final String s)
+    {
+      m_sSeperator = s;
+      return this;
+    }
+
+    /**
+     * Determine to include or exclude the document node in the resulting path.
+     *
+     * @param b
+     *        <code>true</code> to exclude it, <code>false</code> to include it
+     * @return this for chaining
+     */
+    @Nonnull
+    public PathToNodeBuilder excludeDocumentNode (final boolean b)
+    {
+      m_bExcludeDocumentNode = b;
+      return this;
+    }
+
+    /**
+     * Shortcut to exclude the document Node from the resulting output
+     *
+     * @return this for chaining
+     * @see #excludeDocumentNode(boolean)
+     */
+    @Nonnull
+    public PathToNodeBuilder excludeDocumentNode ()
+    {
+      return excludeDocumentNode (true);
+    }
+
+    /**
+     * Shortcut to include the document Node in the resulting output
+     *
+     * @return this for chaining
+     * @see #excludeDocumentNode(boolean)
+     */
+    @Nonnull
+    public PathToNodeBuilder includeDocumentNode ()
+    {
+      return excludeDocumentNode (false);
+    }
+
+    /**
+     * Determine whether a 0-based index or a 1-based index should be used. For
+     * XPath usage etc. a 1-based index should be used. For a 0-based index the
+     * first element uses <code>[0]</code> and for a 1-based index this is
+     * <code>[1]</code>.
+     *
+     * @param b
+     *        <code>true</code> to use a 0-based index, <code>false</code>
+     * @return this for chaining.
+     */
+    @Nonnull
+    public PathToNodeBuilder zeroBasedIndex (final boolean b)
+    {
+      m_bZeroBasedIndex = b;
+      return this;
+    }
+
+    /**
+     * Shortcut to enable the usage of a zero based index.
+     *
+     * @return this for chaining
+     * @see #zeroBasedIndex(boolean)
+     */
+    @Nonnull
+    public PathToNodeBuilder zeroBasedIndex ()
+    {
+      return zeroBasedIndex (true);
+    }
+
+    /**
+     * Shortcut to enable the usage of a one based index.
+     *
+     * @return this for chaining
+     * @see #zeroBasedIndex(boolean)
+     */
+    @Nonnull
+    public PathToNodeBuilder oneBasedIndex ()
+    {
+      return zeroBasedIndex (false);
+    }
+
+    /**
+     * Enable or disable the force of an index. If the index is forced, the
+     * <code>[0]</code> or <code>[1]</code>, depending on
+     * {@link #zeroBasedIndex(boolean)} is always emitted, even if only one
+     * element exists. If this is disabled and only element exists, the index is
+     * not emitted.
+     *
+     * @param b
+     *        <code>true</code> to force the index, <code>false</code> to omit
+     *        it if possible.
+     * @return this for chaining
+     */
+    @Nonnull
+    public PathToNodeBuilder forceUseIndex (final boolean b)
+    {
+      m_bForceUseIndex = b;
+      return this;
+    }
+
+    /**
+     * Enable or disable the usage of a trailing separator. If enabled, the
+     * output is e.g. <code>element/</code> compared to the output
+     * <code>element</code> if the trailing separator is disabled.
+     *
+     * @param b
+     *        <code>true</code> to use a trailing separator, <code>false</code>
+     *        to omit it.
+     * @return this for chaining
+     */
+    @Nonnull
+    public PathToNodeBuilder trailingSeparator (final boolean b)
+    {
+      m_bTrailingSeparator = b;
+      return this;
+    }
+
+    /**
+     * Compare with namespace URI and local name, or just with the tag name.
+     *
+     * @param b
+     *        <code>true</code> to compare with namespace URI,
+     *        <code>false</code> to compare without namespace URI
+     * @return this for chaining
+     */
+    @Nonnull
+    public PathToNodeBuilder compareIncludingNamespaceURI (final boolean b)
+    {
+      m_bCompareIncludingNamespaceURI = b;
+      return this;
+    }
+
+    /**
+     * Set the optional namespace context to be used for emitting prefixes. This
+     * is optional.
+     *
+     * @param a
+     *        The namespace context to be used. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public PathToNodeBuilder namespaceContext (@Nullable final NamespaceContext a)
+    {
+      m_aNamespaceCtx = a;
+      return this;
+    }
+
+    @Nonnull
+    public String build ()
+    {
+      if (m_aNode == null)
+        throw new IllegalStateException ("A source Node need to be provided");
+
+      // Empty separator makes not much sense, but who knows....
+      if (m_sSeperator == null)
+        throw new IllegalStateException ("A non-null separator needs to be provided");
+
+      return _getPathToNode (m_aNode,
+                             m_sSeperator,
+                             m_bExcludeDocumentNode,
+                             m_bZeroBasedIndex,
+                             m_bForceUseIndex,
+                             m_bTrailingSeparator,
+                             m_bCompareIncludingNamespaceURI,
+                             m_aNamespaceCtx);
+    }
+  }
+
+  @Nonnull
+  public static PathToNodeBuilder pathToNodeBuilder ()
+  {
+    return new PathToNodeBuilder ();
   }
 
   /**
@@ -530,39 +913,16 @@ public final class XMLHelper
    * @return The path to the node.
    */
   @Nonnull
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public static String getPathToNode (@Nonnull final Node aNode, @Nonnull final String sSep)
   {
-    ValueEnforcer.notNull (aNode, "Node");
-    ValueEnforcer.notNull (sSep, "Separator");
-
-    final StringBuilder aRet = new StringBuilder ();
-    Node aCurNode = aNode;
-    while (aCurNode != null)
-    {
-      final StringBuilder aName = new StringBuilder (aCurNode.getNodeName ());
-      if (aCurNode.getNodeType () == Node.ELEMENT_NODE && aCurNode.getParentNode () != null)
-      {
-        // get index of my current element
-        final Element aCurElement = (Element) aCurNode;
-        int nIndex = 0;
-        // For all elements of the parent node
-        for (final Element x : new ChildElementIterator (aCurNode.getParentNode ()))
-        {
-          if (EqualsHelper.identityEqual (x, aCurNode))
-            break;
-          if (x.getTagName ().equals (aCurElement.getTagName ()))
-            ++nIndex;
-        }
-        aName.append ('[').append (nIndex).append (']');
-      }
-
-      aRet.insert (0, sSep).insert (0, aName);
-
-      // goto parent
-      aCurNode = aCurNode.getParentNode ();
-    }
-    return aRet.toString ();
+    return pathToNodeBuilder ().node (aNode)
+                               .separator (sSep)
+                               .includeDocumentNode ()
+                               .zeroBasedIndex ()
+                               .forceUseIndex (true)
+                               .trailingSeparator (true)
+                               .compareIncludingNamespaceURI (false)
+                               .build ();
   }
 
   /**
@@ -592,63 +952,14 @@ public final class XMLHelper
   @Nonnull
   public static String getPathToNode2 (@Nonnull final Node aNode, @Nonnull final String sSep)
   {
-    ValueEnforcer.notNull (aNode, "Node");
-    ValueEnforcer.notNull (sSep, "Separator");
-
-    final StringBuilder aRet = new StringBuilder ();
-    Node aCurNode = aNode;
-    while (aCurNode != null)
-    {
-      if (aCurNode.getNodeType () == Node.DOCUMENT_NODE && aRet.length () > 0)
-      {
-        // Avoid printing the content of the document node, if something else is
-        // already present
-
-        // Add leading separator
-        aRet.insert (0, sSep);
-        break;
-      }
-
-      final StringBuilder aName = new StringBuilder (aCurNode.getNodeName ());
-
-      // Attribute nodes don't have a parent node, so it is not possible to
-      // construct the path
-      if (aCurNode.getNodeType () == Node.ELEMENT_NODE &&
-          aCurNode.getParentNode () != null &&
-          aCurNode.getParentNode ().getNodeType () == Node.ELEMENT_NODE)
-      {
-        // get index of current element in parent element
-        final Element aCurElement = (Element) aCurNode;
-        int nIndex = 0;
-        int nMatchingIndex = -1;
-        for (final Element x : new ChildElementIterator (aCurNode.getParentNode ()))
-        {
-          if (EqualsHelper.identityEqual (x, aCurNode))
-            nMatchingIndex = nIndex;
-
-          if (x.getTagName ().equals (aCurElement.getTagName ()))
-            ++nIndex;
-        }
-        if (nMatchingIndex < 0)
-          throw new IllegalStateException ("Failed to find Node at parent");
-        if (nIndex > 1)
-        {
-          // Append index only, if more than one element is present
-          aName.append ('[').append (nMatchingIndex).append (']');
-        }
-      }
-
-      if (aRet.length () > 0)
-      {
-        // Avoid trailing separator
-        aRet.insert (0, sSep);
-      }
-      aRet.insert (0, aName);
-
-      // goto parent
-      aCurNode = aCurNode.getParentNode ();
-    }
-    return aRet.toString ();
+    return pathToNodeBuilder ().node (aNode)
+                               .separator (sSep)
+                               .excludeDocumentNode ()
+                               .zeroBasedIndex ()
+                               .forceUseIndex (false)
+                               .trailingSeparator (false)
+                               .compareIncludingNamespaceURI (false)
+                               .build ();
   }
 
   /**
@@ -715,7 +1026,9 @@ public final class XMLHelper
    *         value otherwise
    */
   @Nullable
-  public static String getAttributeValue (@Nonnull final Element aElement, @Nonnull final String sAttrName, @Nullable final String sDefault)
+  public static String getAttributeValue (@Nonnull final Element aElement,
+                                          @Nonnull final String sAttrName,
+                                          @Nullable final String sDefault)
   {
     final Attr aAttr = aElement.getAttributeNode (sAttrName);
     return aAttr == null ? sDefault : aAttr.getValue ();
@@ -792,7 +1105,8 @@ public final class XMLHelper
     return ret;
   }
 
-  public static void forAllAttributes (@Nullable final Element aSrcNode, @Nonnull final Consumer <? super Attr> aConsumer)
+  public static void forAllAttributes (@Nullable final Element aSrcNode,
+                                       @Nonnull final Consumer <? super Attr> aConsumer)
   {
     NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> aConsumer.accept ((Attr) x));
   }
@@ -819,7 +1133,8 @@ public final class XMLHelper
   public static QName getXMLNSAttrQName (@Nullable final String sNSPrefix)
   {
     if (sNSPrefix != null)
-      ValueEnforcer.isFalse (sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR), () -> "prefix is invalid: " + sNSPrefix);
+      ValueEnforcer.isFalse (sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR),
+                             () -> "prefix is invalid: " + sNSPrefix);
 
     if (sNSPrefix == null || sNSPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
     {
@@ -894,7 +1209,8 @@ public final class XMLHelper
     }
   }
 
-  private static void _recursiveIterateChildren (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
+  private static void _recursiveIterateChildren (@Nonnull final Node aParent,
+                                                 @Nonnull final Consumer <? super Node> aConsumer)
   {
     final NodeList aNodeList = aParent.getChildNodes ();
     if (aNodeList != null)
@@ -922,7 +1238,8 @@ public final class XMLHelper
    *        <code>null</code>.
    * @since 10.1.7
    */
-  public static void recursiveIterateChildren (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
+  public static void recursiveIterateChildren (@Nonnull final Node aParent,
+                                               @Nonnull final Consumer <? super Node> aConsumer)
   {
     ValueEnforcer.notNull (aParent, "Parent");
     ValueEnforcer.notNull (aConsumer, "Consumer");
