@@ -566,7 +566,18 @@ public final class XMLHelper
         break;
       }
 
-      final StringBuilder aName = new StringBuilder (aCurNode.getNodeName ());
+      final String sNamespaceURI = aCurNode.getNamespaceURI ();
+
+      final StringBuilder aName = new StringBuilder ();
+      if (nNodeType == Node.ATTRIBUTE_NODE)
+        aName.append ('@');
+      if (StringHelper.hasText (sNamespaceURI))
+      {
+        aName.append (funGetNSPrefix.apply (sNamespaceURI));
+        aName.append (aCurNode.getLocalName ());
+      }
+      else
+        aName.append (aCurNode.getNodeName ());
 
       final Node aParentNode;
       if (nNodeType == Node.ATTRIBUTE_NODE)
@@ -633,11 +644,7 @@ public final class XMLHelper
         // Avoid trailing separator
         aRet.insert (0, sSep);
       }
-
       aRet.insert (0, aName);
-      aRet.insert (0, funGetNSPrefix.apply (aCurNode.getNamespaceURI ()));
-      if (nNodeType == Node.ATTRIBUTE_NODE)
-        aRet.insert (0, '@');
 
       // goto parent
       aCurNode = aParentNode;
