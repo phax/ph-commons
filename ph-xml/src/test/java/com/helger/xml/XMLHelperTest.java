@@ -20,16 +20,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.RoundingMode;
 import java.util.Iterator;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.xml.namespace.QName;
+import javax.xml.xpath.XPath;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -37,7 +42,10 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IterableIterator;
+import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.xpath.XPathExpressionHelper;
+import com.helger.xml.xpath.XPathHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -48,7 +56,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class XMLHelperTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLHelperTest.class);
   private static final String TEST_NS = "http://www.helger.com/dev/unittests/commons/";
+  private static final String TEST_NS2 = TEST_NS + "alt/";
 
   @Nonnull
   private static Document _getTestDoc ()
@@ -71,13 +81,27 @@ public final class XMLHelperTest
     eC1.appendChild (doc.createElement ("c12"));
     eC.appendChild (doc.createElement ("c2"));
     final Element eD = (Element) eRoot.appendChild (doc.createElement ("d"));
+    eD.setAttribute ("attr1", "val1");
+    eD.setAttribute ("attr2", "val2");
     eD.appendChild (doc.createElement ("d1"));
     eD.appendChild (doc.createElement ("d2"));
     eRoot.appendChild (doc.createComment ("Dummy comment 1 after d"));
     eRoot.appendChild (doc.createComment ("Dummy comment 2 after d"));
-    final Element eE = (Element) eRoot.appendChild (doc.createElementNS (TEST_NS, "x:e"));
-    eE.appendChild (doc.createElement ("e1"));
-    eE.appendChild (doc.createElement ("e1"));
+    {
+      final Element eE = (Element) eRoot.appendChild (doc.createElementNS (TEST_NS, "e"));
+      eE.appendChild (doc.createElement ("e1"));
+      eE.appendChild (doc.createElement ("e1"));
+    }
+    {
+      final Element eE = (Element) eRoot.appendChild (doc.createElementNS (TEST_NS2, "e"));
+      eE.appendChild (doc.createElementNS (TEST_NS2, "e1"));
+      final Element e1 = (Element) eE.appendChild (doc.createElementNS (TEST_NS2, "e1"));
+      e1.setAttributeNS (TEST_NS2, "attr3", "val3");
+    }
+
+    if (false)
+      LOGGER.info (XMLWriter.getNodeAsString (doc));
+
     return doc;
   }
 
@@ -137,7 +161,9 @@ public final class XMLHelperTest
   {
     final Document doc = _getTestDoc ();
     final String sExpectedTagName = "e";
-    final Iterator <Element> it = XMLHelper.getChildElementIteratorNS (doc.getDocumentElement (), TEST_NS, sExpectedTagName);
+    final Iterator <Element> it = XMLHelper.getChildElementIteratorNS (doc.getDocumentElement (),
+                                                                       TEST_NS,
+                                                                       sExpectedTagName);
     int nCount = 0;
     while (it.hasNext ())
     {
@@ -307,32 +333,147 @@ public final class XMLHelperTest
   public void testGetPathToNode ()
   {
     final Document doc = _getTestDoc ();
+
+    // Document root
     assertEquals (doc.getNodeName () + "/", XMLHelper.getPathToNode (doc));
     assertEquals (doc.getNodeName () + "$$", XMLHelper.getPathToNode (doc, "$$"));
 
     Node e = doc.getDocumentElement ();
+
+    // Different separators
     assertEquals (doc.getNodeName () + "/root[0]/", XMLHelper.getPathToNode (e));
     assertEquals (doc.getNodeName () + "$$root[0]$$", XMLHelper.getPathToNode (e, "$$"));
     assertEquals (doc.getNodeName () + "root[0]", XMLHelper.getPathToNode (e, ""));
 
-    // Query by XPath is much more comfortable :)
+    // Check with specific nodes
     e = XPathExpressionHelper.evalXPathToNode ("//e1[2]", doc);
-    assertEquals (doc.getNodeName () + "/root[0]/x:e[0]/e1[1]/", XMLHelper.getPathToNode (e));
+    assertNotNull (e);
+    assertNull (e.getNamespaceURI ());
+    assertSame (e, XPathExpressionHelper.evalXPathToNode ("//*[local-name()='e1'][2]", doc));
+    assertEquals (doc.getNodeName () + "/root[0]/e[0]/e1[1]/", XMLHelper.getPathToNode (e));
+
+    // Special case with same name but different
+    final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
+    aCtx.addMapping ("c1", TEST_NS);
+    aCtx.addMapping ("c2", TEST_NS2);
+    final XPath aXPath = XPathHelper.createNewXPath ();
+    aXPath.setNamespaceContext (aCtx);
+
+    e = XPathExpressionHelper.evalXPathToNode (aXPath, "/root/c2:e[1]/c2:e1[1]", doc);
+    assertNotNull (e);
+    assertEquals (doc.getNodeName () + "/root[0]/e[1]/e1[0]/", XMLHelper.getPathToNode (e));
 
     try
     {
       XMLHelper.getPathToNode (null);
       fail ();
     }
-    catch (final NullPointerException ex)
+    catch (final IllegalStateException ex)
     {}
     try
     {
       XMLHelper.getPathToNode (e, null);
       fail ();
     }
-    catch (final NullPointerException ex)
+    catch (final IllegalStateException ex)
     {}
+  }
+
+  @Test
+  public void testGetPathToNode2 ()
+  {
+    final Document doc = _getTestDoc ();
+    assertEquals (doc.getNodeName (), XMLHelper.getPathToNode2 (doc));
+    assertEquals (doc.getNodeName (), XMLHelper.getPathToNode2 (doc, "$$"));
+
+    Node e = doc.getDocumentElement ();
+    assertEquals ("/root", XMLHelper.getPathToNode2 (e));
+    assertEquals ("$$root", XMLHelper.getPathToNode2 (e, "$$"));
+    assertEquals ("root", XMLHelper.getPathToNode2 (e, ""));
+
+    // Query by XPath is much more comfortable :)
+    e = XPathExpressionHelper.evalXPathToNode ("//e1[2]", doc);
+    assertNotNull (e);
+    assertNull (e.getNamespaceURI ());
+    assertSame (e, XPathExpressionHelper.evalXPathToNode ("//*[local-name()='e1'][2]", doc));
+    assertEquals ("/root/e[0]/e1[1]", XMLHelper.getPathToNode2 (e));
+
+    // Special case with same name but different
+    final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
+    aCtx.addMapping ("c1", TEST_NS);
+    aCtx.addMapping ("c2", TEST_NS2);
+    final XPath aXPath = XPathHelper.createNewXPath ();
+    aXPath.setNamespaceContext (aCtx);
+
+    e = XPathExpressionHelper.evalXPathToNode (aXPath, "/root/c2:e[1]/c2:e1[1]", doc);
+    assertNotNull (e);
+    assertEquals ("/root/e[1]/e1[0]", XMLHelper.getPathToNode2 (e));
+
+    try
+    {
+      XMLHelper.getPathToNode2 (null);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {}
+    try
+    {
+      XMLHelper.getPathToNode2 (e, null);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {}
+  }
+
+  @Test
+  public void testGetPathToNodeBuilder ()
+  {
+    final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
+    aCtx.addMapping ("x1", TEST_NS);
+    aCtx.addMapping ("y2", TEST_NS2);
+
+    final Document aDoc = _getTestDoc ();
+
+    final Function <Node, String> funcToNode = aNode -> {
+      return XMLHelper.pathToNodeBuilder ()
+                      .node (aNode)
+                      .separator ("/")
+                      .excludeDocumentNode ()
+                      .oneBasedIndex ()
+                      .forceUseIndex (false)
+                      .trailingSeparator (false)
+                      .compareIncludingNamespaceURI (true)
+                      .namespaceContext (aCtx)
+                      .build ();
+    };
+
+    Node e;
+
+    // Query by XPath is much more comfortable :)
+    e = XPathExpressionHelper.evalXPathToNode ("//e1[2]", aDoc);
+    assertNotNull (e);
+    assertNull (e.getNamespaceURI ());
+    assertEquals ("/root/x1:e/e1[2]", funcToNode.apply (e));
+
+    final XPath aXPath = XPathHelper.createNewXPath ();
+    aXPath.setNamespaceContext (aCtx);
+    e = XPathExpressionHelper.evalXPathToNode (aXPath, "/root/y2:e[1]/y2:e1[1]", aDoc);
+    assertNotNull (e);
+    assertEquals (Node.ELEMENT_NODE, e.getNodeType ());
+    assertSame (e, XPathExpressionHelper.evalXPathToNode ("(//*[local-name()='e1'])[3]", aDoc));
+    assertEquals ("/root/y2:e/y2:e1[1]", funcToNode.apply (e));
+
+    e = XPathExpressionHelper.evalXPathToNode ("//d/@attr1", aDoc);
+    assertNotNull (e);
+    assertEquals (Node.ATTRIBUTE_NODE, e.getNodeType ());
+    assertNull (e.getNamespaceURI ());
+    assertEquals ("/root/d/@attr1", funcToNode.apply (e));
+
+    e = XPathExpressionHelper.evalXPathToNode (aXPath, "//y2:e1[2]/@y2:attr3", aDoc);
+    assertNotNull (e);
+    assertEquals (Node.ATTRIBUTE_NODE, e.getNodeType ());
+    assertEquals (TEST_NS2, e.getNamespaceURI ());
+    assertEquals ("/root/y2:e/y2:e1[2]/@y2:attr3", funcToNode.apply (e));
   }
 
   @Test
@@ -340,7 +481,7 @@ public final class XMLHelperTest
   {
     final Document doc = _getTestDoc ();
     final Element e = doc.getDocumentElement ();
-    assertEquals (10, e.getChildNodes ().getLength ());
+    assertEquals (11, e.getChildNodes ().getLength ());
     XMLHelper.removeAllChildElements (e);
     assertEquals (0, e.getChildNodes ().getLength ());
   }
