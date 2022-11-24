@@ -210,6 +210,13 @@ public class MultiConfigurationValueProvider implements
   @Nullable
   public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Trying to resolve configuration value of key '" +
+                    sKey +
+                    "' in " +
+                    m_aSources.size () +
+                    " sources");
+
     ConfiguredValue ret = null;
     for (final ConfigValueProviderWithPrio aSource : m_aSources)
     {
@@ -220,6 +227,11 @@ public class MultiConfigurationValueProvider implements
         break;
       }
     }
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (ret != null ? "Successfully resolved configuration value of key '" + sKey + "' to " + ret
+                                : "Failed to resolve configuration value of key '" + sKey + "'");
+
     return ret;
   }
 
