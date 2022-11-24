@@ -162,9 +162,9 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    * @return {@link ESuccess}
    */
   @Nonnull
-  private ESuccess _perform (@Nonnull final List <DATATYPE> aObjectsToPerform)
+  private ESuccess _perform (@Nonnull final ICommonsList <DATATYPE> aObjectsToPerform)
   {
-    if (!aObjectsToPerform.isEmpty ())
+    if (aObjectsToPerform.isNotEmpty ())
     {
       try
       {
@@ -255,9 +255,12 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
       LOGGER.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
       Thread.currentThread ().interrupt ();
     }
-    catch (final Exception ex)
+    catch (final Throwable t)
     {
-      LOGGER.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
+      // Here we need to catch Throwable, in case a class loading error occurs
+      // in the async processor
+      // Otherwise that information may get swallowed
+      LOGGER.error ("Error taking elements from queue - queue has been stopped!!!", t);
     }
   }
 }

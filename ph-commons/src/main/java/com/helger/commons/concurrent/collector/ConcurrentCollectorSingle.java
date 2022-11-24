@@ -152,9 +152,12 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
       LOGGER.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
       Thread.currentThread ().interrupt ();
     }
-    catch (final Exception ex)
+    catch (final Throwable t)
     {
-      LOGGER.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
+      // Here we need to catch Throwable, in case a class loading error occurs
+      // in the async processor
+      // Otherwise that information may get swallowed
+      LOGGER.error ("Error taking elements from queue - queue has been stopped!!!", t);
     }
   }
 }
