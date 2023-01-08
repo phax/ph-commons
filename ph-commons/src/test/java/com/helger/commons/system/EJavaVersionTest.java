@@ -18,9 +18,9 @@ package com.helger.commons.system;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -37,34 +37,17 @@ public final class EJavaVersionTest
     for (final EJavaVersion e : EJavaVersion.values ())
       assertSame (e, EJavaVersion.valueOf (e.name ()));
 
-    assertFalse (EJavaVersion.JDK_1_1.isCurrentVersion ());
-    assertFalse (EJavaVersion.JDK_1_2.isCurrentVersion ());
-    assertFalse (EJavaVersion.JDK_1_3.isCurrentVersion ());
-    assertFalse (EJavaVersion.JDK_1_4.isCurrentVersion ());
-    assertFalse (EJavaVersion.JDK_1_5.isCurrentVersion ());
-    assertFalse (EJavaVersion.JDK_1_6.isCurrentVersion ());
-    assertFalse (EJavaVersion.JDK_1_7.isCurrentVersion ());
-    assertTrue (EJavaVersion.JDK_1_8.isCurrentVersion () ||
-                EJavaVersion.JDK_9.isCurrentVersion () ||
-                EJavaVersion.JDK_10.isCurrentVersion () ||
-                EJavaVersion.JDK_11.isCurrentVersion () ||
-                EJavaVersion.JDK_12.isCurrentVersion () ||
-                EJavaVersion.JDK_13.isCurrentVersion () ||
-                EJavaVersion.JDK_14.isCurrentVersion () ||
-                EJavaVersion.JDK_15.isCurrentVersion () ||
-                EJavaVersion.JDK_16.isCurrentVersion () ||
-                EJavaVersion.JDK_17.isCurrentVersion ());
+    boolean bAny = false;
+    for (final EJavaVersion e : EJavaVersion.values ())
+      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_10))
+        assertFalse (e.isCurrentVersion ());
+      else
+        bAny = bAny || e.isCurrentVersion ();
+    assertTrue (bAny);
+
     final EJavaVersion eJV = EJavaVersion.getCurrentVersion ();
-    assertTrue (eJV == EJavaVersion.JDK_1_8 ||
-                eJV == EJavaVersion.JDK_9 ||
-                eJV == EJavaVersion.JDK_10 ||
-                eJV == EJavaVersion.JDK_11 ||
-                eJV == EJavaVersion.JDK_12 ||
-                eJV == EJavaVersion.JDK_13 ||
-                eJV == EJavaVersion.JDK_14 ||
-                eJV == EJavaVersion.JDK_15 ||
-                eJV == EJavaVersion.JDK_16 ||
-                eJV == EJavaVersion.JDK_17);
+    assertNotNull (eJV);
+    assertTrue (eJV.isNewerOrEqualsThan (EJavaVersion.JDK_11));
 
     assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (44.0));
     assertEquals (EJavaVersion.JDK_1_5, EJavaVersion.getFromMajorAndMinor (49, 0));
@@ -83,182 +66,27 @@ public final class EJavaVersionTest
     assertEquals (EJavaVersion.JDK_16, EJavaVersion.getFromVersionNumber (60.0));
     assertEquals (EJavaVersion.JDK_17, EJavaVersion.getFromVersionNumber (61.0));
     assertEquals (EJavaVersion.JDK_18, EJavaVersion.getFromVersionNumber (62.0));
-    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (63.0));
+    assertEquals (EJavaVersion.JDK_19, EJavaVersion.getFromVersionNumber (63.0));
+    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (64.0));
 
-    assertTrue (EJavaVersion.JDK_1_1.isSupportedVersion ());
-    assertTrue (EJavaVersion.JDK_1_2.isSupportedVersion ());
-    assertTrue (EJavaVersion.JDK_1_3.isSupportedVersion ());
-    assertTrue (EJavaVersion.JDK_1_4.isSupportedVersion ());
-    assertTrue (EJavaVersion.JDK_1_5.isSupportedVersion ());
-    assertTrue (EJavaVersion.JDK_1_6.isSupportedVersion ());
-    assertTrue (EJavaVersion.JDK_1_7.isSupportedVersion ());
+    for (final EJavaVersion e : EJavaVersion.values ())
+      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_11))
+        assertTrue (e.isSupportedVersion ());
 
-    if (EJavaVersion.JDK_1_8.isCurrentVersion ())
-    {
-      assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_9.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_10.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_11.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_12.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_13.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_14.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-      assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-    }
-    else
-      if (EJavaVersion.JDK_9.isCurrentVersion ())
+    boolean bShouldBeSupported = true;
+    for (final EJavaVersion e : EJavaVersion.values ())
+      if (e != EJavaVersion.UNKNOWN)
       {
-        assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-        assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_10.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_11.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_12.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_13.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_14.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-        assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-      }
-      else
-        if (EJavaVersion.JDK_10.isCurrentVersion ())
-        {
-          assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-          assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-          assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-          assertFalse (EJavaVersion.JDK_11.isSupportedVersion ());
-          assertFalse (EJavaVersion.JDK_12.isSupportedVersion ());
-          assertFalse (EJavaVersion.JDK_13.isSupportedVersion ());
-          assertFalse (EJavaVersion.JDK_14.isSupportedVersion ());
-          assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
-          assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
-          assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-          assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-        }
+        if (bShouldBeSupported)
+          assertTrue ("Should be supported: " + e, e.isSupportedVersion ());
         else
-          if (EJavaVersion.JDK_11.isCurrentVersion ())
-          {
-            assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-            assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-            assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-            assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
-            assertFalse (EJavaVersion.JDK_12.isSupportedVersion ());
-            assertFalse (EJavaVersion.JDK_13.isSupportedVersion ());
-            assertFalse (EJavaVersion.JDK_14.isSupportedVersion ());
-            assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
-            assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
-            assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-            assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-          }
-          else
-            if (EJavaVersion.JDK_12.isCurrentVersion ())
-            {
-              assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-              assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-              assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-              assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
-              assertTrue (EJavaVersion.JDK_12.isSupportedVersion ());
-              assertFalse (EJavaVersion.JDK_13.isSupportedVersion ());
-              assertFalse (EJavaVersion.JDK_14.isSupportedVersion ());
-              assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
-              assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
-              assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-              assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-            }
-            else
-              if (EJavaVersion.JDK_13.isCurrentVersion ())
-              {
-                assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-                assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-                assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-                assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
-                assertTrue (EJavaVersion.JDK_12.isSupportedVersion ());
-                assertTrue (EJavaVersion.JDK_13.isSupportedVersion ());
-                assertFalse (EJavaVersion.JDK_14.isSupportedVersion ());
-                assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
-                assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
-                assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-                assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-              }
-              else
-                if (EJavaVersion.JDK_14.isCurrentVersion ())
-                {
-                  assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-                  assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-                  assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-                  assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
-                  assertTrue (EJavaVersion.JDK_12.isSupportedVersion ());
-                  assertTrue (EJavaVersion.JDK_13.isSupportedVersion ());
-                  assertTrue (EJavaVersion.JDK_14.isSupportedVersion ());
-                  assertFalse (EJavaVersion.JDK_15.isSupportedVersion ());
-                  assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
-                  assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-                  assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-                }
-                else
-                  if (EJavaVersion.JDK_15.isCurrentVersion ())
-                  {
-                    assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-                    assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-                    assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-                    assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
-                    assertTrue (EJavaVersion.JDK_12.isSupportedVersion ());
-                    assertTrue (EJavaVersion.JDK_13.isSupportedVersion ());
-                    assertTrue (EJavaVersion.JDK_14.isSupportedVersion ());
-                    assertTrue (EJavaVersion.JDK_15.isSupportedVersion ());
-                    assertFalse (EJavaVersion.JDK_16.isSupportedVersion ());
-                    assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-                    assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-                  }
-                  else
-                    if (EJavaVersion.JDK_16.isCurrentVersion ())
-                    {
-                      assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-                      assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-                      assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-                      assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
-                      assertTrue (EJavaVersion.JDK_12.isSupportedVersion ());
-                      assertTrue (EJavaVersion.JDK_13.isSupportedVersion ());
-                      assertTrue (EJavaVersion.JDK_14.isSupportedVersion ());
-                      assertTrue (EJavaVersion.JDK_15.isSupportedVersion ());
-                      assertTrue (EJavaVersion.JDK_16.isSupportedVersion ());
-                      assertFalse (EJavaVersion.JDK_17.isSupportedVersion ());
-                      assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-                    }
-                    else
-                      if (EJavaVersion.JDK_17.isCurrentVersion ())
-                      {
-                        assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_12.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_13.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_14.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_15.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_16.isSupportedVersion ());
-                        assertTrue (EJavaVersion.JDK_17.isSupportedVersion ());
-                        assertFalse (EJavaVersion.JDK_18.isSupportedVersion ());
-                      }
-                      else
-                        if (EJavaVersion.JDK_18.isCurrentVersion ())
-                        {
-                          assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_12.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_13.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_14.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_15.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_16.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_17.isSupportedVersion ());
-                          assertTrue (EJavaVersion.JDK_18.isSupportedVersion ());
-                        }
-                        else
-                          fail ("Implement me");
+          assertFalse ("Should not be supported: " + e, e.isSupportedVersion ());
+        if (e.isCurrentVersion ())
+        {
+          // All following versions are not supported
+          bShouldBeSupported = false;
+        }
+      }
   }
 
   @Test
@@ -281,6 +109,8 @@ public final class EJavaVersionTest
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_15));
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_16));
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_17));
+    assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_18));
+    assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_19));
   }
 
   @Test
@@ -303,5 +133,7 @@ public final class EJavaVersionTest
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_15));
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_16));
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_17));
+    assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_18));
+    assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_19));
   }
 }
