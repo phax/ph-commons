@@ -122,7 +122,7 @@ public class DefaultResourceResolver
     // Base URI is inside a jar file? Skip the JAR file
     // See issue #8 - use lastIndexOf here
     final int i = sBaseURI.lastIndexOf ("!/");
-    String sPrefix;
+    final String sPrefix;
     String sBasePath;
     if (i < 0)
     {
@@ -146,7 +146,7 @@ public class DefaultResourceResolver
     final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
                                                                            : aBaseFile.getPath () + '/' + sSystemId);
 
-    String sAggregatedPath;
+    final String sAggregatedPath;
     if (sPrefix.endsWith ("/") && sNewPath.startsWith ("/"))
     {
       // Avoid "//"
@@ -164,7 +164,7 @@ public class DefaultResourceResolver
 
   @Nonnull
   private static URLResource _resolveURLResource (final String sSystemId,
-                                                  final URL aBaseURL) throws MalformedURLException
+                                                  @Nonnull final URL aBaseURL) throws MalformedURLException
   {
     // Take only the path
     String sBasePath = aBaseURL.getPath ();
@@ -296,7 +296,7 @@ public class DefaultResourceResolver
       }
 
     // Base is not a URL or a file based URL
-    File aBaseFile;
+    final File aBaseFile;
     if (aBaseURL != null)
       aBaseFile = URLHelper.getAsFile (aBaseURL);
     else
