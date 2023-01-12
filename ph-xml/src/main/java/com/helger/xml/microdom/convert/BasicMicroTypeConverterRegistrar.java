@@ -28,6 +28,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -40,9 +41,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.datetime.OffsetDate;
+import com.helger.commons.datetime.XMLOffsetDate;
+import com.helger.commons.datetime.XMLOffsetDateTime;
+import com.helger.commons.datetime.XMLOffsetTime;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
+import com.helger.commons.state.EEOI;
 import com.helger.commons.state.EEnabled;
+import com.helger.commons.state.EHandled;
 import com.helger.commons.state.EInterrupt;
 import com.helger.commons.state.ELeftRight;
 import com.helger.commons.state.EMandatory;
@@ -67,45 +74,78 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
     aRegistry.registerMicroElementTypeConverter (String.class, StringMicroTypeConverter.getInstance ());
 
     // Other base type based on the String converter
-    aRegistry.registerMicroElementTypeConverter (AtomicBoolean.class, new StringBasedMicroTypeConverter <> (AtomicBoolean.class));
-    aRegistry.registerMicroElementTypeConverter (AtomicInteger.class, new StringBasedMicroTypeConverter <> (AtomicInteger.class));
-    aRegistry.registerMicroElementTypeConverter (AtomicLong.class, new StringBasedMicroTypeConverter <> (AtomicLong.class));
+    aRegistry.registerMicroElementTypeConverter (AtomicBoolean.class,
+                                                 new StringBasedMicroTypeConverter <> (AtomicBoolean.class));
+    aRegistry.registerMicroElementTypeConverter (AtomicInteger.class,
+                                                 new StringBasedMicroTypeConverter <> (AtomicInteger.class));
+    aRegistry.registerMicroElementTypeConverter (AtomicLong.class,
+                                                 new StringBasedMicroTypeConverter <> (AtomicLong.class));
     aRegistry.registerMicroElementTypeConverter (Boolean.class, new StringBasedMicroTypeConverter <> (Boolean.class));
     aRegistry.registerMicroElementTypeConverter (Byte.class, new StringBasedMicroTypeConverter <> (Byte.class));
-    aRegistry.registerMicroElementTypeConverter (Character.class, new StringBasedMicroTypeConverter <> (Character.class));
+    aRegistry.registerMicroElementTypeConverter (Character.class,
+                                                 new StringBasedMicroTypeConverter <> (Character.class));
     aRegistry.registerMicroElementTypeConverter (Double.class, new StringBasedMicroTypeConverter <> (Double.class));
     aRegistry.registerMicroElementTypeConverter (Float.class, new StringBasedMicroTypeConverter <> (Float.class));
     aRegistry.registerMicroElementTypeConverter (Integer.class, new StringBasedMicroTypeConverter <> (Integer.class));
     aRegistry.registerMicroElementTypeConverter (Long.class, new StringBasedMicroTypeConverter <> (Long.class));
     aRegistry.registerMicroElementTypeConverter (Short.class, new StringBasedMicroTypeConverter <> (Short.class));
-    aRegistry.registerMicroElementTypeConverter (BigDecimal.class, new StringBasedMicroTypeConverter <> (BigDecimal.class));
-    aRegistry.registerMicroElementTypeConverter (BigInteger.class, new StringBasedMicroTypeConverter <> (BigInteger.class));
-    aRegistry.registerMicroElementTypeConverter (StringBuffer.class, new StringBasedMicroTypeConverter <> (StringBuffer.class));
-    aRegistry.registerMicroElementTypeConverter (StringBuilder.class, new StringBasedMicroTypeConverter <> (StringBuilder.class));
+    aRegistry.registerMicroElementTypeConverter (BigDecimal.class,
+                                                 new StringBasedMicroTypeConverter <> (BigDecimal.class));
+    aRegistry.registerMicroElementTypeConverter (BigInteger.class,
+                                                 new StringBasedMicroTypeConverter <> (BigInteger.class));
+    aRegistry.registerMicroElementTypeConverter (StringBuffer.class,
+                                                 new StringBasedMicroTypeConverter <> (StringBuffer.class));
+    aRegistry.registerMicroElementTypeConverter (StringBuilder.class,
+                                                 new StringBasedMicroTypeConverter <> (StringBuilder.class));
     aRegistry.registerMicroElementTypeConverter (byte [].class, new StringBasedMicroTypeConverter <> (byte [].class));
 
     // Date Time stuff
-    aRegistry.registerMicroElementTypeConverter (ZonedDateTime.class, new StringBasedMicroTypeConverter <> (ZonedDateTime.class));
-    aRegistry.registerMicroElementTypeConverter (OffsetDateTime.class, new StringBasedMicroTypeConverter <> (OffsetDateTime.class));
-    aRegistry.registerMicroElementTypeConverter (LocalDate.class, new StringBasedMicroTypeConverter <> (LocalDate.class));
-    aRegistry.registerMicroElementTypeConverter (LocalDateTime.class, new StringBasedMicroTypeConverter <> (LocalDateTime.class));
-    aRegistry.registerMicroElementTypeConverter (LocalTime.class, new StringBasedMicroTypeConverter <> (LocalTime.class));
+    aRegistry.registerMicroElementTypeConverter (ZonedDateTime.class,
+                                                 new StringBasedMicroTypeConverter <> (ZonedDateTime.class));
+    aRegistry.registerMicroElementTypeConverter (OffsetDate.class,
+                                                 new StringBasedMicroTypeConverter <> (OffsetDate.class));
+    aRegistry.registerMicroElementTypeConverter (OffsetDateTime.class,
+                                                 new StringBasedMicroTypeConverter <> (OffsetDateTime.class));
+    aRegistry.registerMicroElementTypeConverter (OffsetTime.class,
+                                                 new StringBasedMicroTypeConverter <> (OffsetTime.class));
+    aRegistry.registerMicroElementTypeConverter (XMLOffsetDate.class,
+                                                 new StringBasedMicroTypeConverter <> (XMLOffsetDate.class));
+    aRegistry.registerMicroElementTypeConverter (XMLOffsetDateTime.class,
+                                                 new StringBasedMicroTypeConverter <> (XMLOffsetDateTime.class));
+    aRegistry.registerMicroElementTypeConverter (XMLOffsetTime.class,
+                                                 new StringBasedMicroTypeConverter <> (XMLOffsetTime.class));
+    aRegistry.registerMicroElementTypeConverter (LocalDate.class,
+                                                 new StringBasedMicroTypeConverter <> (LocalDate.class));
+    aRegistry.registerMicroElementTypeConverter (LocalDateTime.class,
+                                                 new StringBasedMicroTypeConverter <> (LocalDateTime.class));
+    aRegistry.registerMicroElementTypeConverter (LocalTime.class,
+                                                 new StringBasedMicroTypeConverter <> (LocalTime.class));
     aRegistry.registerMicroElementTypeConverter (Duration.class, new StringBasedMicroTypeConverter <> (Duration.class));
     aRegistry.registerMicroElementTypeConverter (Period.class, new StringBasedMicroTypeConverter <> (Period.class));
     aRegistry.registerMicroElementTypeConverter (Date.class, new StringBasedMicroTypeConverter <> (Date.class));
-    aRegistry.registerMicroElementTypeConverter (GregorianCalendar.class, new StringBasedMicroTypeConverter <> (GregorianCalendar.class));
+    aRegistry.registerMicroElementTypeConverter (GregorianCalendar.class,
+                                                 new StringBasedMicroTypeConverter <> (GregorianCalendar.class));
 
     // State enums
     aRegistry.registerMicroElementTypeConverter (EChange.class, new StringBasedMicroTypeConverter <> (EChange.class));
-    aRegistry.registerMicroElementTypeConverter (EContinue.class, new StringBasedMicroTypeConverter <> (EContinue.class));
+    aRegistry.registerMicroElementTypeConverter (EContinue.class,
+                                                 new StringBasedMicroTypeConverter <> (EContinue.class));
     aRegistry.registerMicroElementTypeConverter (EEnabled.class, new StringBasedMicroTypeConverter <> (EEnabled.class));
-    aRegistry.registerMicroElementTypeConverter (EInterrupt.class, new StringBasedMicroTypeConverter <> (EInterrupt.class));
-    aRegistry.registerMicroElementTypeConverter (ELeftRight.class, new StringBasedMicroTypeConverter <> (ELeftRight.class));
-    aRegistry.registerMicroElementTypeConverter (EMandatory.class, new StringBasedMicroTypeConverter <> (EMandatory.class));
+    aRegistry.registerMicroElementTypeConverter (EEOI.class, new StringBasedMicroTypeConverter <> (EEOI.class));
+    aRegistry.registerMicroElementTypeConverter (EHandled.class, new StringBasedMicroTypeConverter <> (EHandled.class));
+    aRegistry.registerMicroElementTypeConverter (EInterrupt.class,
+                                                 new StringBasedMicroTypeConverter <> (EInterrupt.class));
+    aRegistry.registerMicroElementTypeConverter (ELeftRight.class,
+                                                 new StringBasedMicroTypeConverter <> (ELeftRight.class));
+    aRegistry.registerMicroElementTypeConverter (EMandatory.class,
+                                                 new StringBasedMicroTypeConverter <> (EMandatory.class));
     aRegistry.registerMicroElementTypeConverter (ESuccess.class, new StringBasedMicroTypeConverter <> (ESuccess.class));
-    aRegistry.registerMicroElementTypeConverter (ETopBottom.class, new StringBasedMicroTypeConverter <> (ETopBottom.class));
-    aRegistry.registerMicroElementTypeConverter (ETriState.class, new StringBasedMicroTypeConverter <> (ETriState.class));
-    aRegistry.registerMicroElementTypeConverter (EValidity.class, new StringBasedMicroTypeConverter <> (EValidity.class));
+    aRegistry.registerMicroElementTypeConverter (ETopBottom.class,
+                                                 new StringBasedMicroTypeConverter <> (ETopBottom.class));
+    aRegistry.registerMicroElementTypeConverter (ETriState.class,
+                                                 new StringBasedMicroTypeConverter <> (ETriState.class));
+    aRegistry.registerMicroElementTypeConverter (EValidity.class,
+                                                 new StringBasedMicroTypeConverter <> (EValidity.class));
 
     // IO stuff
     aRegistry.registerMicroElementTypeConverter (File.class, new StringBasedMicroTypeConverter <> (File.class));
