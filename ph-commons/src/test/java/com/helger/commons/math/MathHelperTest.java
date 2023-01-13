@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.junit.Test;
 
@@ -76,6 +77,9 @@ public final class MathHelperTest
   public void testGetDividedBigDecimal ()
   {
     assertEquals (MathHelper.toBigDecimal (1.5), MathHelper.getDividedBigDecimal (3, 2));
+    assertEquals (MathHelper.toBigDecimal (1.5), MathHelper.getDividedBigDecimal (3, 2, 1, RoundingMode.HALF_UP));
+    assertEquals (MathHelper.toBigDecimal ("1.33"), MathHelper.getDividedBigDecimal (4, 3, 2, RoundingMode.HALF_UP));
+    assertEquals (MathHelper.toBigDecimal ("1.333"), MathHelper.getDividedBigDecimal (4, 3, 3, RoundingMode.HALF_UP));
 
     try
     {
@@ -90,6 +94,26 @@ public final class MathHelperTest
     try
     {
       MathHelper.getDividedBigDecimal (0, 0);
+      fail ();
+    }
+    catch (final ArithmeticException ex)
+    {
+      // expected
+    }
+
+    try
+    {
+      MathHelper.getDividedBigDecimal (5, 0, 10, RoundingMode.HALF_UP);
+      fail ();
+    }
+    catch (final ArithmeticException ex)
+    {
+      // expected
+    }
+
+    try
+    {
+      MathHelper.getDividedBigDecimal (0, 0, 10, RoundingMode.HALF_UP);
       fail ();
     }
     catch (final ArithmeticException ex)

@@ -119,9 +119,32 @@ public final class MathHelper
   @Nonnull
   public static BigDecimal getDividedBigDecimal (final long nDividend, final long nDivisor)
   {
-    final BigDecimal aDividend = BigDecimal.valueOf (nDividend);
-    final BigDecimal aDivisor = BigDecimal.valueOf (nDivisor);
-    return aDividend.divide (aDivisor);
+    return toBigDecimal (nDividend).divide (toBigDecimal (nDivisor));
+  }
+
+  /**
+   * Get the division result using {@link BigDecimal}.
+   *
+   * @param nDividend
+   *        the dividend
+   * @param nDivisor
+   *        the divisor
+   * @param nScale
+   *        Number of fraction digits. Must be &ge; 0.
+   * @param eRoundingMode
+   *        Round mode to be used. May not be <code>null</code>.
+   * @return the result of the division
+   * @throws ArithmeticException
+   *         if the divisor is 0.
+   * @since v11.0.2
+   */
+  @Nonnull
+  public static BigDecimal getDividedBigDecimal (final long nDividend,
+                                                 final long nDivisor,
+                                                 @Nonnegative final int nScale,
+                                                 @Nonnull final RoundingMode eRoundingMode)
+  {
+    return toBigDecimal (nDividend).divide (toBigDecimal (nDivisor), nScale, eRoundingMode);
   }
 
   public static int getIntDividedCeil (final int nDividend, final int nDivisor)
@@ -149,7 +172,9 @@ public final class MathHelper
     return getLongDivided (nDividend, nDivisor, RoundingMode.FLOOR);
   }
 
-  public static long getLongDivided (final long nDividend, final long nDivisor, @Nonnull final RoundingMode eRoundingMode)
+  public static long getLongDivided (final long nDividend,
+                                     final long nDivisor,
+                                     @Nonnull final RoundingMode eRoundingMode)
   {
     return toBigDecimal (nDividend).divide (toBigDecimal (nDivisor), eRoundingMode).longValue ();
   }
@@ -998,7 +1023,8 @@ public final class MathHelper
                                             @Nonnegative final int nScale,
                                             @Nonnull final RoundingMode eRoundingMode)
   {
-    return aBase.multiply (CGlobal.BIGDEC_100.subtract (aPercentage)).divide (CGlobal.BIGDEC_100, nScale, eRoundingMode);
+    return aBase.multiply (CGlobal.BIGDEC_100.subtract (aPercentage))
+                .divide (CGlobal.BIGDEC_100, nScale, eRoundingMode);
   }
 
   /**
