@@ -34,6 +34,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
@@ -325,7 +326,8 @@ public interface IJAXBWriter <JAXBTYPE>
   {
     if (USE_JAXB_CHARSET_FIX && aResult instanceof StreamResult)
     {
-      LoggerFactory.getLogger (IJAXBWriter.class).warn ("Potentially invalid XML is created by using StreamResult object: {}", aResult);
+      LoggerFactory.getLogger (IJAXBWriter.class)
+                   .warn ("Potentially invalid XML is created by using StreamResult object: {}", aResult);
     }
 
     return write (aObject, (m, e) -> m.marshal (e, aResult));
@@ -359,7 +361,8 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return {@link ESuccess}
    */
   @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
+  default ESuccess write (@Nonnull final JAXBTYPE aObject,
+                          @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
   {
     // No need for charset fix, because it is up to the XMLStreamWriter, if it
     // is converting to a byte[] or not.
@@ -398,6 +401,22 @@ public interface IJAXBWriter <JAXBTYPE>
     // representation with String content
     final Document aDoc = XMLFactory.newDocument ();
     return write (aObject, TransformResultFactory.create (aDoc)).isSuccess () ? aDoc : null;
+  }
+
+  /**
+   * Convert the passed object to a new DOM document and return the document
+   * element (write).
+   *
+   * @param aObject
+   *        The object to be converted. May not be <code>null</code>.
+   * @return <code>null</code> if converting the document failed.
+   * @since 11.0.2
+   */
+  @Nullable
+  default Element getAsElement (@Nonnull final JAXBTYPE aObject)
+  {
+    final Document aDoc = getAsDocument (aObject);
+    return aDoc == null ? null : aDoc.getDocumentElement ();
   }
 
   /**
@@ -454,7 +473,9 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject, SafeXMLStreamWriter.create (aSW, getXMLWriterSettings ())).isSuccess () ? aSW.getAsString () : null;
+        return write (aObject,
+                      SafeXMLStreamWriter.create (aSW, getXMLWriterSettings ())).isSuccess () ? aSW.getAsString ()
+                                                                                              : null;
       }
       return write (aObject, TransformResultFactory.create (aSW)).isSuccess () ? aSW.getAsString () : null;
     }
@@ -475,7 +496,9 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS.getBuffer ();
+        return write (aObject,
+                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
+                                                                                                : aBBOS.getBuffer ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getBuffer ();
     }
@@ -497,7 +520,9 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS.getAsByteArray ();
+        return write (aObject,
+                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
+                                                                                                : aBBOS.getAsByteArray ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getAsByteArray ();
     }
