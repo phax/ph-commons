@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.ObjIntConsumer;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -439,7 +440,8 @@ public final class ArrayHelper
    * @return <code>-1</code> if the searched value is not contained, a value
    *         &ge; 0 otherwise.
    */
-  public static <ELEMENTTYPE> int getFirstIndex (@Nullable final ELEMENTTYPE [] aValues, @Nullable final ELEMENTTYPE aSearchValue)
+  public static <ELEMENTTYPE> int getFirstIndex (@Nullable final ELEMENTTYPE [] aValues,
+                                                 @Nullable final ELEMENTTYPE aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -621,7 +623,8 @@ public final class ArrayHelper
    * @return <code>-1</code> if the searched value is not contained, a value
    *         &ge; 0 otherwise.
    */
-  public static <ELEMENTTYPE> int getLastIndex (@Nullable final ELEMENTTYPE [] aValues, @Nullable final ELEMENTTYPE aSearchValue)
+  public static <ELEMENTTYPE> int getLastIndex (@Nullable final ELEMENTTYPE [] aValues,
+                                                @Nullable final ELEMENTTYPE aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -803,7 +806,8 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search
    *         value is contained - false otherwise.
    */
-  public static <ELEMENTTYPE> boolean contains (@Nullable final ELEMENTTYPE [] aValues, @Nullable final ELEMENTTYPE aSearchValue)
+  public static <ELEMENTTYPE> boolean contains (@Nullable final ELEMENTTYPE [] aValues,
+                                                @Nullable final ELEMENTTYPE aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1098,7 +1102,8 @@ public final class ArrayHelper
    *         value if the passed array is empty.
    */
   @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE getFirst (@Nullable final ELEMENTTYPE [] aArray, @Nullable final ELEMENTTYPE aDefaultValue)
+  public static <ELEMENTTYPE> ELEMENTTYPE getFirst (@Nullable final ELEMENTTYPE [] aArray,
+                                                    @Nullable final ELEMENTTYPE aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1281,7 +1286,8 @@ public final class ArrayHelper
    *         value if the passed array is empty.
    */
   @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE getLast (@Nullable final ELEMENTTYPE [] aArray, @Nullable final ELEMENTTYPE aDefaultValue)
+  public static <ELEMENTTYPE> ELEMENTTYPE getLast (@Nullable final ELEMENTTYPE [] aArray,
+                                                   @Nullable final ELEMENTTYPE aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -1343,7 +1349,9 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getCopy (@Nullable final boolean [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public static boolean [] getCopy (@Nullable final boolean [] aArray,
+                                    @Nonnegative final int nStartIndex,
+                                    @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1408,7 +1416,9 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static byte [] getCopy (@Nullable final byte [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public static byte [] getCopy (@Nullable final byte [] aArray,
+                                 @Nonnegative final int nStartIndex,
+                                 @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1473,7 +1483,9 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static char [] getCopy (@Nullable final char [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public static char [] getCopy (@Nullable final char [] aArray,
+                                 @Nonnegative final int nStartIndex,
+                                 @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1538,7 +1550,9 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static double [] getCopy (@Nullable final double [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public static double [] getCopy (@Nullable final double [] aArray,
+                                   @Nonnegative final int nStartIndex,
+                                   @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1603,7 +1617,9 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static float [] getCopy (@Nullable final float [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public static float [] getCopy (@Nullable final float [] aArray,
+                                  @Nonnegative final int nStartIndex,
+                                  @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1684,7 +1700,9 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static int [] getCopy (@Nullable final int [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public static int [] getCopy (@Nullable final int [] aArray,
+                                @Nonnegative final int nStartIndex,
+                                @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1740,7 +1758,9 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static long [] getCopy (@Nullable final long [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public static long [] getCopy (@Nullable final long [] aArray,
+                                 @Nonnegative final int nStartIndex,
+                                 @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1805,7 +1825,9 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static short [] getCopy (@Nullable final short [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public static short [] getCopy (@Nullable final short [] aArray,
+                                  @Nonnegative final int nStartIndex,
+                                  @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1851,7 +1873,8 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] getCopy (@Nullable final ELEMENTTYPE [] aArray, @Nonnegative final int nLength)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] getCopy (@Nullable final ELEMENTTYPE [] aArray,
+                                                      @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -2002,7 +2025,8 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getConcatenated (@Nullable final boolean [] aHeadArray, @Nullable final boolean... aTailArray)
+  public static boolean [] getConcatenated (@Nullable final boolean [] aHeadArray,
+                                            @Nullable final boolean... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2182,7 +2206,8 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static char [] [] getConcatenated (@Nullable final char [] [] aHeadArray, @Nullable final char []... aTailArray)
+  public static char [] [] getConcatenated (@Nullable final char [] [] aHeadArray,
+                                            @Nullable final char []... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2793,7 +2818,8 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getAllExcept (@Nullable final boolean [] aArray, @Nullable final boolean... aElementsToRemove)
+  public static boolean [] getAllExcept (@Nullable final boolean [] aArray,
+                                         @Nullable final boolean... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3820,7 +3846,8 @@ public final class ArrayHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nonnull final Class <? extends ELEMENTTYPE> aClass, @Nonnegative final int nSize)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nonnull final Class <? extends ELEMENTTYPE> aClass,
+                                                       @Nonnegative final int nSize)
   {
     ValueEnforcer.notNull (aClass, "class");
     if (aClass.isPrimitive ())
@@ -3844,7 +3871,8 @@ public final class ArrayHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] newArraySameType (@Nonnull final ELEMENTTYPE [] aArray, @Nonnegative final int nSize)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] newArraySameType (@Nonnull final ELEMENTTYPE [] aArray,
+                                                               @Nonnegative final int nSize)
   {
     return newArray (getComponentType (aArray), nSize);
   }
@@ -4175,7 +4203,8 @@ public final class ArrayHelper
   }
 
   @Nonnegative
-  public static <ELEMENTTYPE> int getCount (@Nullable final ELEMENTTYPE [] aArray, @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE> int getCount (@Nullable final ELEMENTTYPE [] aArray,
+                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return getSize (aArray);
@@ -4201,11 +4230,26 @@ public final class ArrayHelper
     return false;
   }
 
-  public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray, @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+  public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
+                                            @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
     if (isNotEmpty (aArray))
       for (final ELEMENTTYPE aElement : aArray)
         aConsumer.accept (aElement);
+  }
+
+  public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
+                                            @Nonnull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
+  {
+    if (isNotEmpty (aArray))
+    {
+      int nIndex = 0;
+      for (final ELEMENTTYPE aElement : aArray)
+      {
+        aConsumer.accept (aElement, nIndex);
+        ++nIndex;
+      }
+    }
   }
 
   public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
@@ -4230,7 +4274,9 @@ public final class ArrayHelper
     return startsWith (aArray, 0, aArray.length, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@Nonnull final byte [] aArray, @Nonnegative final int nArrayLen, @Nullable final byte [] aSearch)
+  public static boolean startsWith (@Nonnull final byte [] aArray,
+                                    @Nonnegative final int nArrayLen,
+                                    @Nullable final byte [] aSearch)
   {
     if (aSearch == null)
       return false;
@@ -4277,7 +4323,9 @@ public final class ArrayHelper
     return startsWith (aArray, 0, aArray.length, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@Nonnull final char [] aArray, @Nonnegative final int nArrayLen, @Nullable final char [] aSearch)
+  public static boolean startsWith (@Nonnull final char [] aArray,
+                                    @Nonnegative final int nArrayLen,
+                                    @Nullable final char [] aSearch)
   {
     if (aSearch == null)
       return false;
