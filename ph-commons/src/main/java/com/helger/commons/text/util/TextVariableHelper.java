@@ -110,6 +110,7 @@ public final class TextVariableHelper
                                           @Nonnegative final int nLen,
                                           @Nonnull final StringBuilder aSB)
   {
+    final int nStartOfs = nOfs;
     // Find start of variable with "$"
     int nAbsOfs = _nextCharConsiderMasking (aChars, nOfs, nLen, DOLLAR, aSB);
     while (nAbsOfs >= nOfs && nAbsOfs <= nOfs + nLen - 1)
@@ -132,7 +133,7 @@ public final class TextVariableHelper
       }
 
       // Find next "$" starting from where we are atm
-      nAbsOfs = _nextCharConsiderMasking (aChars, nAbsOfs + 1, nLen, DOLLAR, aSB);
+      nAbsOfs = _nextCharConsiderMasking (aChars, nAbsOfs + 1, nLen - (nAbsOfs - nStartOfs + 1), DOLLAR, aSB);
     }
     return nAbsOfs;
   }

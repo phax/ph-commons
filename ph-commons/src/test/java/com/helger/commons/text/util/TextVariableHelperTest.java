@@ -105,6 +105,24 @@ public class TextVariableHelperTest
     aList = TextVariableHelper.splitByVariables ("bla ${foo");
     assertEquals (new CommonsArrayList <> ("bla ${foo"), aList);
 
+    aList = TextVariableHelper.splitByVariables ("bla $foo");
+    assertEquals (new CommonsArrayList <> ("bla $foo"), aList);
+
+    aList = TextVariableHelper.splitByVariables ("bla $$foo");
+    assertEquals (new CommonsArrayList <> ("bla $$foo"), aList);
+
+    aList = TextVariableHelper.splitByVariables ("$");
+    assertEquals (new CommonsArrayList <> ("$"), aList);
+
+    aList = TextVariableHelper.splitByVariables ("$$");
+    assertEquals (new CommonsArrayList <> ("$$"), aList);
+
+    aList = TextVariableHelper.splitByVariables ("$${var}");
+    assertEquals (new CommonsArrayList <> ("$", "var"), aList);
+
+    aList = TextVariableHelper.splitByVariables ("${var}$");
+    assertEquals (new CommonsArrayList <> ("", "var", "$"), aList);
+
     aList = TextVariableHelper.splitByVariables ("bla ${foo\\}");
     assertEquals (new CommonsArrayList <> ("bla ${foo\\}"), aList);
 
