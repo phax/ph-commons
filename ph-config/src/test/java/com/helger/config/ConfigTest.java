@@ -20,11 +20,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
+import java.io.StringReader;
+
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.lang.NonBlockingProperties;
+import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.appl.ConfigurationSourceFunction;
@@ -185,5 +189,112 @@ public final class ConfigTest
     aMap.put ("key1", "Prefix ${key1}");
     final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
     assertEquals ("Prefix ${key1}", aConfig.getAsString ("key1"));
+  }
+
+  @Test
+  public void testIssueSmp234 ()
+  {
+    final String s = "# Global flags for initializer\r\n" +
+                     "# For production debug should be false and production should be true\r\n" +
+                     "global.debug = true\r\n" +
+                     "global.production = false\r\n" +
+                     "global.debugjaxws = false\r\n" +
+                     "\r\n" +
+                     "## Application Configuration\r\n" +
+                     "# Type (JKS or PKCS12)\r\n" +
+                     "pdclient.keystore.type = ${smp.keystore.type}\r\n" +
+                     "# The path should be absolute for docker configuration\r\n" +
+                     "# Put the .p12 file in the same directory as this file (depends on the docker config)\r\n" +
+                     "pdclient.keystore.path = ${smp.keystore.path}\r\n" +
+                     "pdclient.keystore.key.alias = ${smp.keystore.key.alias}\r\n" +
+                     "\r\n" +
+                     "#DO NOT COMMIT THE REAL PASSWORD!\r\n" +
+                     "pdclient.keystore.password = ${smp.keystore.password}\r\n" +
+                     "pdclient.keystore.key.password = ${smp.keystore.key.password}\r\n" +
+                     "\r\n" +
+                     "## SMP Configuration\r\n" +
+                     "# The backend to be used. Can either be \"sql\" or \"xml\". Any other value will result in a startup error\r\n" +
+                     "smp.backend = xml\r\n" +
+                     "\r\n" +
+                     "## Keystore data\r\n" +
+                     "\r\n" +
+                     "# Type (JKS or PKCS12)\r\n" +
+                     "smp.keystore.type = pkcs12\r\n" +
+                     "# The path should be absolute for docker configuration\r\n" +
+                     "# Put the .p12 file in the same directory as this file (depends on the docker config)\r\n" +
+                     "smp.keystore.path = /config/smp-test-complete.p12\r\n" +
+                     "smp.keystore.key.alias = smp-test\r\n" +
+                     "#DO NOT COMMIT THE REAL PASSWORD!\r\n" +
+                     "smp.keystore.password = password\r\n" +
+                     "smp.keystore.key.password = password\r\n" +
+                     "\r\n" +
+                     "# This default truststore handles 2010 and 2018 PKIs\r\n" +
+                     "#smp.truststore.type     = jks\r\n" +
+                     "#smp.truststore.path     = truststore/complete-truststore.jks\r\n" +
+                     "#smp.truststore.password = peppol\r\n" +
+                     "\r\n" +
+                     "# Force all paths (links) to be \"/\" instead of the context path\r\n" +
+                     "# This is helpful if the web application runs in a context like \"/smp\" but is proxied to a root path\r\n" +
+                     "smp.forceroot = true\r\n" +
+                     "\r\n" +
+                     "# If this property is specified, it will overwrite the automatically generated URL\r\n" +
+                     "# for all cases where absolute URLs are necessary\r\n" +
+                     "# This might be helpful when running on a proxied Tomcat behind a web server\r\n" +
+                     "smp.publicurl = http://smp-test.payreq.com/\r\n" +
+                     "\r\n" +
+                     "## Write to SML? true or false\r\n" +
+                     "sml.enabled=false\r\n" +
+                     "# Is an SML needed in the current scenario - show warnings if true\r\n" +
+                     "sml.required=true\r\n" +
+                     "# The SMP ID also used in the SML!\r\n" +
+                     "sml.smpid=PAU000363\r\n" +
+                     "\r\n" +
+                     "# SML connection timeout milliseconds\r\n" +
+                     "#sml.connection.timeout.ms = 5000\r\n" +
+                     "\r\n" +
+                     "# SML request timeout milliseconds\r\n" +
+                     "#sml.request.timeout.ms = 20000\r\n" +
+                     "\r\n" +
+                     "# Enable PEPPOL Directory integration?\r\n" +
+                     "#todo: change to true in prod\r\n" +
+                     "smp.directory.integration.enabled=true\r\n" +
+                     "smp.directory.hostname=https://test-directory.peppol.eu\r\n" +
+                     "\r\n" +
+                     "# Use PEPPOL identifiers (with all constraints) or simple, unchecked identifiers?\r\n" +
+                     "# Possible values are \"peppol\", \"simple\" and \"bdxr\"\r\n" +
+                     "smp.identifiertype=peppol\r\n" +
+                     "\r\n" +
+                     "smp.rest.type=peppol\r\n" +
+                     "smp.rest.log.exceptions=true\r\n" +
+                     "\r\n" +
+                     "# Central directory where the data should be stored.\r\n" +
+                     "# This should be absolute in production.\r\n" +
+                     "webapp.datapath = /home/git/conf\r\n" +
+                     "\r\n" +
+                     "# Should all files of the application checked for readability?\r\n" +
+                     "# This should only be set to true when datapath is a relative directory inside a production version\r\n" +
+                     "webapp.checkfileaccess = false\r\n" +
+                     "\r\n" +
+                     "# Is it a test version? E.g. a separate header is shown\r\n" +
+                     "webapp.testversion = true\r\n" +
+                     "\r\n" +
+                     "# Use slow, but fancy dynamic table on the start page?\r\n" +
+                     "webapp.startpage.dynamictable = false\r\n" +
+                     "\r\n" +
+                     "# Participant list is enabled by default\r\n" +
+                     "webapp.startpage.participants.none = false\r\n" +
+                     "\r\n" +
+                     "# Don't show content of extensions by default on start page\r\n" +
+                     "webapp.startpage.extensions.show = false\r\n" +
+                     "\r\n" +
+                     "# The name of the Directory implementation\r\n" +
+                     "webapp.directory.name = PEPPOL Directory\r\n" +
+                     "\r\n" +
+                     "# Don't show content of extensions by default in service groups\r\n" +
+                     "webapp.servicegroups.extensions.show = false\r\n";
+
+    final NonBlockingProperties aProps = PropertiesHelper.loadProperties (new StringReader (s));
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aProps::get)).setReplaceVariables (true);
+    assertEquals ("false", aConfig.getAsString ("webapp.startpage.participants.none"));
   }
 }
