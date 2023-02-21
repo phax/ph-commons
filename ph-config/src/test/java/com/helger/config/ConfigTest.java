@@ -20,13 +20,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
-import java.io.StringReader;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.mutable.MutableInt;
@@ -293,8 +292,11 @@ public final class ConfigTest
                      "# Don't show content of extensions by default in service groups\r\n" +
                      "webapp.servicegroups.extensions.show = false\r\n";
 
-    final NonBlockingProperties aProps = PropertiesHelper.loadProperties (new StringReader (s));
-    final Config aConfig = new Config (new ConfigurationSourceFunction (aProps::get)).setReplaceVariables (true);
-    assertEquals ("false", aConfig.getAsString ("webapp.startpage.participants.none"));
+    try (final NonBlockingStringReader aReader = new NonBlockingStringReader (s))
+    {
+      final NonBlockingProperties aProps = PropertiesHelper.loadProperties (aReader);
+      final Config aConfig = new Config (new ConfigurationSourceFunction (aProps::get)).setReplaceVariables (true);
+      assertEquals ("false", aConfig.getAsString ("webapp.startpage.participants.none"));
+    }
   }
 }
