@@ -17,8 +17,8 @@
 package com.helger.config;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -52,7 +52,7 @@ public final class ConfigTest
     final Config aConfig = new Config (CS1);
     assertEquals ("from-application-json0", aConfig.getAsString ("element0"));
     assertNull (aConfig.getAsString ("element5"));
-    assertFalse (aConfig.isReplaceVariables ());
+    assertTrue (aConfig.isReplaceVariables ());
 
     final MutableInt aCounter = new MutableInt (0);
     final IConfigurationValueProviderWithPriorityCallback aCallback = (aCVP, nPriority) -> {
