@@ -48,10 +48,10 @@ import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 public class Config implements IConfig
 {
   /**
-   * For backwards compatibility reason, variable replacement is disabled by
-   * default.
+   * For backwards compatibility reason, variable replacement is enabled by
+   * default since v11.0.2.
    */
-  public static final boolean DEFAULT_REPLACE_VARIABLES = false;
+  public static final boolean DEFAULT_REPLACE_VARIABLES = true;
   public static final UnaryOperator <String> DEFAULT_UNRESOLVED_VARIABLE_PROVIDER = x -> "unresolved-var(" + x + ")";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (Config.class);
