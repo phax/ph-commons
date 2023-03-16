@@ -160,8 +160,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     // By default this class loader of the type to be marshaled should be used
     // This is important for OSGI application containers and ANT tasks
     m_aClassLoader = new WeakReference <> (aType.getClassLoader ());
-    m_aReadExceptionCallbacks.add (new LoggingJAXBReadExceptionHandler ());
-    m_aWriteExceptionCallbacks.add (new LoggingJAXBWriteExceptionHandler ());
+    m_aReadExceptionCallbacks.add (LoggingJAXBReadExceptionHandler.INSTANCE);
+    m_aWriteExceptionCallbacks.add (LoggingJAXBWriteExceptionHandler.INSTANCE);
   }
 
   /**
