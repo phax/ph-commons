@@ -43,6 +43,7 @@ import jakarta.xml.bind.Marshaller;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
+@Deprecated (forRemoval = true, since = "11.0.3")
 public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>>
                                                  extends
                                                  AbstractJAXBBuilder <IMPLTYPE>
@@ -52,7 +53,7 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   protected AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
-    exceptionCallbacks ().add (new LoggingJAXBWriteExceptionHandler ());
+    exceptionCallbacks ().add (LoggingJAXBWriteExceptionHandler.INSTANCE);
   }
 
   @Nullable

@@ -44,6 +44,7 @@ import jakarta.xml.bind.JAXBException;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
+@Deprecated (forRemoval = true, since = "11.0.3")
 public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder <IMPLTYPE>> implements
                                           IGenericImplTrait <IMPLTYPE>,
                                           IHasClassLoader
