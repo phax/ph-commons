@@ -17,6 +17,7 @@
 package com.helger.jaxb;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +33,11 @@ import jakarta.xml.bind.MarshalException;
  * @author Philip Helger
  * @since 9.2.2
  */
+@Immutable
 public class LoggingJAXBWriteExceptionHandler implements IExceptionCallback <JAXBException>
 {
+  public static final LoggingJAXBWriteExceptionHandler INSTANCE = new LoggingJAXBWriteExceptionHandler ();
+
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingJAXBWriteExceptionHandler.class);
 
   public void onException (@Nonnull final JAXBException ex)
