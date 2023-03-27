@@ -269,7 +269,15 @@ public final class CHttp
   /**
    * HTTP Status-Code 451: Unavailable For Legal Reasons.
    */
-  public static final int HTTP_UNAVAILABLE_FOR_LEGA_REASONS = 451;
+  public static final int HTTP_UNAVAILABLE_FOR_LEGAL_REASONS = 451;
+
+  /**
+   * HTTP Status-Code 451: Unavailable For Legal Reasons.
+   *
+   * @deprecated Use {@link #HTTP_UNAVAILABLE_FOR_LEGAL_REASONS} instead
+   */
+  @Deprecated (since = "11.0.3", forRemoval = true)
+  public static final int HTTP_UNAVAILABLE_FOR_LEGA_REASONS = HTTP_UNAVAILABLE_FOR_LEGAL_REASONS;
 
   /* 5XX: server error */
 
@@ -470,7 +478,7 @@ public final class CHttp
       case HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE:
         sMsg = "Request Header Fields Too Large";
         break;
-      case HTTP_UNAVAILABLE_FOR_LEGA_REASONS:
+      case HTTP_UNAVAILABLE_FOR_LEGAL_REASONS:
         sMsg = "Unavailable For Legal Reasons";
         break;
       // 5xx
