@@ -29,7 +29,9 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.PrivateKey;
+import java.security.Provider;
 import java.security.PublicKey;
+import java.security.Security;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Date;
@@ -41,8 +43,10 @@ import javax.security.auth.x500.X500Principal;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.bc.PBCProvider;
@@ -85,6 +89,7 @@ public final class KeyStoreHelperTest
   }
 
   private static final String JKS = EKeyStoreType.JKS.getID ();
+  private static final String PKCS11 = EKeyStoreType.PKCS11.getID ();
 
   @Test
   public void testLoadKeyStoreDirect () throws Exception
@@ -179,6 +184,25 @@ public final class KeyStoreHelperTest
     }
     catch (final IOException ex)
     {}
+  }
+
+  @Test
+  @Ignore("Needs a running PKCS11 provider implementation (like SoftHSM)")
+  public void testLoadKeyStoreForPkcs11 ()
+  {
+    Security.addProvider (new BouncyCastleProvider ());
+
+    String config = KeyStoreHelperTest.class.getResource ("/softhsm-pkcs11.cfg").getPath();
+    Provider currentPkcs11Provider = Security.getProvider ("SunPKCS11");
+    Provider mockPkcs11Provider = currentPkcs11Provider.configure (config);
+
+    Security.removeProvider ("SunPKCS11");
+    Security.addProvider (mockPkcs11Provider);
+
+    LoadedKeyStore loadedKeyStore = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS11, null, "111111");
+    assertNotNull (loadedKeyStore);
+    assertNotNull (loadedKeyStore.getKeyStore());
+    assertEquals (PKCS11, loadedKeyStore.getKeyStore ().getType ());
   }
 
   @Test
