@@ -88,7 +88,8 @@ public final class KeyStoreHelper
    * @param aKeyStoreType
    *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        The path pointing to the key store. May only be <code>null</code> for {@link EKeyStoreType#PKCS11}.
+   *        The path pointing to the key store. May only be <code>null</code>
+   *        for {@link EKeyStoreType#PKCS11}.
    * @param sKeyStorePassword
    *        The key store password. May be <code>null</code> to indicate that no
    *        password is required.
@@ -117,7 +118,9 @@ public final class KeyStoreHelper
    * @param aKeyStoreType
    *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        The path pointing to the key store. May only be <code>null</code> for {@link EKeyStoreType#PKCS11}.
+   *        The path pointing to the key store. May only be <code>null</code>
+   *        for {@link EKeyStoreType#PKCS11} or other key store types that don't
+   *        require a path.
    * @param aKeyStorePassword
    *        The key store password. May be <code>null</code> to indicate that no
    *        password is required.
@@ -139,15 +142,17 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
 
     final InputStream aIS;
-
-    if (aKeyStoreType.isKeyStorePathRequired()) {
-      ValueEnforcer.notNull(sKeyStorePath, "KeyStorePath");
+    if (aKeyStoreType.isKeyStorePathRequired ())
+    {
+      ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
 
       // Open the resource stream
-      aIS = getResourceProvider().getInputStream(sKeyStorePath);
+      aIS = getResourceProvider ().getInputStream (sKeyStorePath);
       if (aIS == null)
-        throw new IllegalArgumentException("Failed to open key store '" + sKeyStorePath + "'");
-    } else {
+        throw new IllegalArgumentException ("Failed to open key store '" + sKeyStorePath + "'");
+    }
+    else
+    {
       aIS = null;
     }
 
@@ -230,7 +235,8 @@ public final class KeyStoreHelper
    * @param aKeyStoreType
    *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        Path to the key store. May not be <code>null</code> to succeed.
+   *        Path to the key store. May not be <code>null</code> for all key
+   *        store types that require a path.
    * @param sKeyStorePassword
    *        Password for the key store. May not be <code>null</code> to succeed.
    * @return The key store loading result. Never <code>null</code>.
@@ -243,10 +249,10 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
 
     // Get the parameters for the key store
-    if (aKeyStoreType.isKeyStorePathRequired() && StringHelper.hasNoText (sKeyStorePath))
+    if (aKeyStoreType.isKeyStorePathRequired () && StringHelper.hasNoText (sKeyStorePath))
       return new LoadedKeyStore (null, EKeyStoreLoadError.KEYSTORE_NO_PATH);
 
-    KeyStore aKeyStore;
+    final KeyStore aKeyStore;
     // Try to load key store
     try
     {

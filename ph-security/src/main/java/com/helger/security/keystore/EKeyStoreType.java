@@ -36,8 +36,11 @@ public enum EKeyStoreType implements IKeyStoreType
    */
   JKS ("JKS", true),
   /**
-   * The PKCS11 key store type is used for secure storage such as Smart Cards and HSM. A key store
-   * path is not required (and not supported) for such key store types.
+   * The PKCS11 key store type is used for secure storage such as Smart Cards
+   * and HSM. A key store path is not required (and not supported) for such key
+   * store types.
+   *
+   * @since 11.0.3
    */
   PKCS11 ("PKCS11", false),
   /**
@@ -57,12 +60,12 @@ public enum EKeyStoreType implements IKeyStoreType
   BCFKS ("BCFKS", true);
 
   private final String m_sID;
-  private final boolean m_keyStorePathRequired;
+  private final boolean m_bKeyStorePathRequired;
 
-  EKeyStoreType (@Nonnull @Nonempty final String sID, final boolean keyStorePathRequired)
+  EKeyStoreType (@Nonnull @Nonempty final String sID, final boolean bKeyStorePathRequired)
   {
     m_sID = sID;
-    m_keyStorePathRequired = keyStorePathRequired;
+    m_bKeyStorePathRequired = bKeyStorePathRequired;
   }
 
   @Nonnull
@@ -72,9 +75,9 @@ public enum EKeyStoreType implements IKeyStoreType
     return m_sID;
   }
 
-  @Override
-  public boolean isKeyStorePathRequired() {
-    return m_keyStorePathRequired;
+  public boolean isKeyStorePathRequired ()
+  {
+    return m_bKeyStorePathRequired;
   }
 
   @Nullable
@@ -90,7 +93,8 @@ public enum EKeyStoreType implements IKeyStoreType
   }
 
   @Nullable
-  public static EKeyStoreType getFromIDCaseInsensitiveOrDefault (@Nullable final String sID, @Nullable final EKeyStoreType eDefault)
+  public static EKeyStoreType getFromIDCaseInsensitiveOrDefault (@Nullable final String sID,
+                                                                 @Nullable final EKeyStoreType eDefault)
   {
     return EnumHelper.getFromIDCaseInsensitiveOrDefault (EKeyStoreType.class, sID, eDefault);
   }

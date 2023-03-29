@@ -48,9 +48,15 @@ public interface IKeyStoreType extends IHasID <String>
 
   /**
    * Determines, if a key store path is required for loading the key store.
+   * Note: the default value is only contained to be backwards compatible.
+   *
    * @return <code>true</code>, if a path must be present
+   * @since 11.0.3
    */
-  boolean isKeyStorePathRequired();
+  default boolean isKeyStorePathRequired ()
+  {
+    return true;
+  }
 
   /**
    * @param sProvider
@@ -65,7 +71,8 @@ public interface IKeyStoreType extends IHasID <String>
    *            provider list.
    */
   @Nonnull
-  default KeyStore getKeyStore (@Nonnull @Nonempty final String sProvider) throws KeyStoreException, NoSuchProviderException
+  default KeyStore getKeyStore (@Nonnull @Nonempty final String sProvider) throws KeyStoreException,
+                                                                           NoSuchProviderException
   {
     return KeyStore.getInstance (getID (), sProvider);
   }
