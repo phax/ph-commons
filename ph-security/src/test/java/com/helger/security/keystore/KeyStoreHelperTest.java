@@ -43,15 +43,16 @@ import javax.security.auth.x500.X500Principal;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.bc.PBCProvider;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.IReadableResource;
 
 /**
  * Test class for class {@link KeyStoreHelper}.
@@ -60,6 +61,10 @@ import com.helger.commons.io.resource.ClassPathResource;
  */
 public final class KeyStoreHelperTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (KeyStoreHelperTest.class);
+  private static final String JKS = EKeyStoreType.JKS.getID ();
+  private static final String PKCS11 = EKeyStoreType.PKCS11.getID ();
+
   @Nonnull
   private static KeyPair _createKeyPair (final int nKeySizeInBits) throws Exception
   {
@@ -80,16 +85,15 @@ public final class KeyStoreHelperTest
 
     final X509CertificateHolder aCertHolder = new JcaX509v1CertificateBuilder (new X500Principal ("CN=Test Certificate"),
                                                                                BigInteger.valueOf (System.currentTimeMillis ()),
-                                                                               new Date (System.currentTimeMillis () - 50000),
-                                                                               new Date (System.currentTimeMillis () + 50000),
+                                                                               new Date (System.currentTimeMillis () -
+                                                                                         50000),
+                                                                               new Date (System.currentTimeMillis () +
+                                                                                         50000),
                                                                                new X500Principal ("CN=Test Certificate"),
                                                                                aPublicKey).build (aContentSigner);
     // Convert to JCA X509Certificate
     return new JcaX509CertificateConverter ().getCertificate (aCertHolder);
   }
-
-  private static final String JKS = EKeyStoreType.JKS.getID ();
-  private static final String PKCS11 = EKeyStoreType.PKCS11.getID ();
 
   @Test
   public void testLoadKeyStoreDirect () throws Exception
@@ -110,7 +114,8 @@ public final class KeyStoreHelperTest
 
     // Load from absolute file path
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
-                                            new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ().getAbsolutePath (),
+                                            new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ()
+                                                                                                  .getAbsolutePath (),
                                             (String) null);
     assertEquals (JKS, ks.getType ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
@@ -122,7 +127,8 @@ public final class KeyStoreHelperTest
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
                                             new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ()
                                                                                                   .getAbsolutePath ()
-                                                                                                  .substring (sBasePath.length () + 1),
+                                                                                                  .substring (sBasePath.length () +
+                                                                                                              1),
                                             (String) null);
     assertEquals (JKS, ks.getType ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
@@ -141,7 +147,8 @@ public final class KeyStoreHelperTest
 
     // Load from absolute file path
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
-                                            new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ().getAbsolutePath (),
+                                            new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ()
+                                                                                                      .getAbsolutePath (),
                                             (String) null);
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
@@ -152,7 +159,8 @@ public final class KeyStoreHelperTest
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
                                             new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ()
                                                                                                       .getAbsolutePath ()
-                                                                                                      .substring (sBasePath.length () + 1),
+                                                                                                      .substring (sBasePath.length () +
+                                                                                                                  1),
                                             (String) null);
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
@@ -187,22 +195,31 @@ public final class KeyStoreHelperTest
   }
 
   @Test
-  @Ignore("Needs a running PKCS11 provider implementation (like SoftHSM)")
+  // Needs a running PKCS11 provider implementation (like SoftHSM)
   public void testLoadKeyStoreForPkcs11 ()
   {
-    Security.addProvider (new BouncyCastleProvider ());
+    final IReadableResource aConfig = new ClassPathResource ("/softhsm-pkcs11.cfg");
+    if (aConfig.exists ())
+    {
+      LOGGER.info ("Found SoftHSM configuration - trying to load keystore");
 
-    String config = KeyStoreHelperTest.class.getResource ("/softhsm-pkcs11.cfg").getPath();
-    Provider currentPkcs11Provider = Security.getProvider ("SunPKCS11");
-    Provider mockPkcs11Provider = currentPkcs11Provider.configure (config);
+      // BouncyCastle
+      Security.addProvider (PBCProvider.getProvider ());
 
-    Security.removeProvider ("SunPKCS11");
-    Security.addProvider (mockPkcs11Provider);
+      final Provider aCurrentPkcs11Provider = Security.getProvider ("SunPKCS11");
+      final Provider aMockPkcs11Provider = aCurrentPkcs11Provider.configure (aConfig.getAsURL ().getPath ());
 
-    LoadedKeyStore loadedKeyStore = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS11, null, "111111");
-    assertNotNull (loadedKeyStore);
-    assertNotNull (loadedKeyStore.getKeyStore());
-    assertEquals (PKCS11, loadedKeyStore.getKeyStore ().getType ());
+      // Replace the PKCS11 provide
+      Security.removeProvider ("SunrPKCS11");
+      Security.addProvider (aMockPkcs11Provider);
+
+      final LoadedKeyStore loadedKeyStore = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS11, null, "111111");
+      assertNotNull (loadedKeyStore);
+      assertNotNull (loadedKeyStore.getKeyStore ());
+      assertEquals (PKCS11, loadedKeyStore.getKeyStore ().getType ());
+    }
+    else
+      LOGGER.warn ("SoftHSM configuration was not found - ignoring test");
   }
 
   @Test
@@ -266,7 +283,9 @@ public final class KeyStoreHelperTest
   public void testLoadPeppolTrustStoreProduction () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/truststore-peppol-prod.jks", "peppol");
+    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
+                                                                    "keystores/truststore-peppol-prod.jks",
+                                                                    "peppol");
     assertNotNull (aTrustStore);
 
     // Additionally the STS certificate is contained
@@ -288,7 +307,9 @@ public final class KeyStoreHelperTest
   public void testLoadPeppolTrustStorePilot () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/truststore-peppol-pilot.jks", "peppol");
+    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
+                                                                    "keystores/truststore-peppol-pilot.jks",
+                                                                    "peppol");
     assertNotNull (aTrustStore);
 
     // Additionally the STS certificate is contained
@@ -301,8 +322,10 @@ public final class KeyStoreHelperTest
 
     final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (TRUSTSTORE_PILOT_ALIAS_AP);
     final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
+    assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
+                  sIssuerName);
     final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
+    assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
+                  sSubjectName);
   }
 }
