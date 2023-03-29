@@ -34,13 +34,18 @@ public enum EKeyStoreType implements IKeyStoreType
    * The default Java Key Store type. Supported by all relevant Java versions
    * since at least 1.5
    */
-  JKS ("JKS"),
+  JKS ("JKS", true),
+  /**
+   * The PKCS11 key store type is used for secure storage such as Smart Cards and HSM. A key store
+   * path is not required (and not supported) for such key store types.
+   */
+  PKCS11 ("PKCS11", false),
   /**
    * The PKCS12 key store type is slightly better than JKS and is supported only
    * in Java 1.9. In Java 1.8 and earlier this is only supported when
    * BouncyCastle is contained.
    */
-  PKCS12 ("PKCS12"),
+  PKCS12 ("PKCS12", true),
   /**
    * The BCFKS key store is designed to be FIPS compliant. It is available in
    * approved-mode operation and is also capable of storing some secret key
@@ -49,13 +54,15 @@ public enum EKeyStoreType implements IKeyStoreType
    * CCM for encryption. Passwords are encoded for conversion into keys using
    * PKCS#12 format (as in each 16 bit character is converted into 2 bytes).
    */
-  BCFKS ("BCFKS");
+  BCFKS ("BCFKS", true);
 
   private final String m_sID;
+  private final boolean m_keyStorePathRequired;
 
-  EKeyStoreType (@Nonnull @Nonempty final String sID)
+  EKeyStoreType (@Nonnull @Nonempty final String sID, final boolean keyStorePathRequired)
   {
     m_sID = sID;
+    m_keyStorePathRequired = keyStorePathRequired;
   }
 
   @Nonnull
@@ -63,6 +70,11 @@ public enum EKeyStoreType implements IKeyStoreType
   public String getID ()
   {
     return m_sID;
+  }
+
+  @Override
+  public boolean isKeyStorePathRequired() {
+    return m_keyStorePathRequired;
   }
 
   @Nullable

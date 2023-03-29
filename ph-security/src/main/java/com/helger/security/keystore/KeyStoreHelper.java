@@ -88,7 +88,7 @@ public final class KeyStoreHelper
    * @param aKeyStoreType
    *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        The path pointing to the key store. May not be <code>null</code>.
+   *        The path pointing to the key store. May only be <code>null</code> for {@link EKeyStoreType#PKCS11}.
    * @param sKeyStorePassword
    *        The key store password. May be <code>null</code> to indicate that no
    *        password is required.
@@ -102,7 +102,7 @@ public final class KeyStoreHelper
    */
   @Nonnull
   public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
-                                             @Nonnull final String sKeyStorePath,
+                                             @Nullable final String sKeyStorePath,
                                              @Nullable final String sKeyStorePassword) throws GeneralSecurityException,
                                                                                        IOException
   {
@@ -117,7 +117,7 @@ public final class KeyStoreHelper
    * @param aKeyStoreType
    *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        The path pointing to the key store. May not be <code>null</code>.
+   *        The path pointing to the key store. May only be <code>null</code> for {@link EKeyStoreType#PKCS11}.
    * @param aKeyStorePassword
    *        The key store password. May be <code>null</code> to indicate that no
    *        password is required.
@@ -132,17 +132,24 @@ public final class KeyStoreHelper
    */
   @Nonnull
   public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
-                                             @Nonnull final String sKeyStorePath,
+                                             @Nullable final String sKeyStorePath,
                                              @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException,
                                                                                         IOException
   {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
-    ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
 
-    // Open the resource stream
-    final InputStream aIS = getResourceProvider ().getInputStream (sKeyStorePath);
-    if (aIS == null)
-      throw new IllegalArgumentException ("Failed to open key store '" + sKeyStorePath + "'");
+    final InputStream aIS;
+
+    if (aKeyStoreType.isKeyStorePathRequired()) {
+      ValueEnforcer.notNull(sKeyStorePath, "KeyStorePath");
+
+      // Open the resource stream
+      aIS = getResourceProvider().getInputStream(sKeyStorePath);
+      if (aIS == null)
+        throw new IllegalArgumentException("Failed to open key store '" + sKeyStorePath + "'");
+    } else {
+      aIS = null;
+    }
 
     try
     {
@@ -236,10 +243,10 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
 
     // Get the parameters for the key store
-    if (StringHelper.hasNoText (sKeyStorePath))
+    if (aKeyStoreType.isKeyStorePathRequired() && StringHelper.hasNoText (sKeyStorePath))
       return new LoadedKeyStore (null, EKeyStoreLoadError.KEYSTORE_NO_PATH);
 
-    KeyStore aKeyStore = null;
+    KeyStore aKeyStore;
     // Try to load key store
     try
     {
@@ -297,7 +304,7 @@ public final class KeyStoreHelper
       return new LoadedKey <> (null, EKeyStoreLoadError.KEY_NO_PASSWORD, sKeyStoreKeyAlias, sKeyStorePath);
 
     // Try to load the key.
-    T aKeyEntry = null;
+    T aKeyEntry;
     try
     {
       if (LOGGER.isDebugEnabled ())

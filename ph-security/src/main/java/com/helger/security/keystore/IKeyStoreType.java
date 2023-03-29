@@ -47,6 +47,12 @@ public interface IKeyStoreType extends IHasID <String>
   }
 
   /**
+   * Determines, if a key store path is required for loading the key store.
+   * @return <code>true</code>, if a path must be present
+   */
+  boolean isKeyStorePathRequired();
+
+  /**
    * @param sProvider
    *        Security provider to be used. E.g. for BouncyCastle. May neither be
    *        <code>null</code> nor empty.
