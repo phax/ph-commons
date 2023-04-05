@@ -293,7 +293,7 @@ public final class StreamHelperTest
     assertNull (StreamHelper.readStreamLines (ClassPathResource.getInputStream ("gibts-ned"),
                                               StandardCharsets.ISO_8859_1));
 
-    final IReadableResource aRes = new ClassPathResource ("streamutils-lines");
+    final IReadableResource aRes = new ClassPathResource ("streamutils-lines.txt");
 
     // Read all lines
     ICommonsList <String> aLines = StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8);
@@ -350,7 +350,7 @@ public final class StreamHelperTest
   @Test
   public void testGetAllBytesAsString ()
   {
-    final IReadableResource aRes = new ClassPathResource ("streamutils-bytes");
+    final IReadableResource aRes = new ClassPathResource ("streamutils-bytes.txt");
     assertEquals ("abc", StreamHelper.getAllBytesAsString (aRes, StandardCharsets.UTF_8));
     // Non existing
     assertNull (StreamHelper.getAllBytesAsString (new ClassPathResource ("bla fasel"), StandardCharsets.UTF_8));

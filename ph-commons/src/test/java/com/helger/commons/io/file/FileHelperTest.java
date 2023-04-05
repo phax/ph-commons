@@ -49,7 +49,7 @@ public final class FileHelperTest
   public void testExistsFile ()
   {
     assertFalse (FileHelper.existsFile (new File ("oaaajeee")));
-    assertTrue (FileHelper.existsFile (ClassPathResource.getAsFile ("streamutils-lines")));
+    assertTrue (FileHelper.existsFile (ClassPathResource.getAsFile ("streamutils-lines.txt")));
     assertFalse (FileHelper.existsFile (new File ("src")));
   }
 
@@ -58,7 +58,7 @@ public final class FileHelperTest
   {
     assertFalse (FileHelper.existsDir (new File ("oaaajeee")));
     assertTrue (FileHelper.existsDir (new File ("src")));
-    assertFalse (FileHelper.existsDir (ClassPathResource.getAsFile ("streamutils-lines")));
+    assertFalse (FileHelper.existsDir (ClassPathResource.getAsFile ("streamutils-lines.txt")));
   }
 
   @Test
@@ -70,7 +70,8 @@ public final class FileHelperTest
     // Existing folder
     assertTrue (FileHelper.ensureParentDirectoryIsPresent (new File ("src")).isUnchanged ());
     // Existing file
-    assertTrue (FileHelper.ensureParentDirectoryIsPresent (ClassPathResource.getAsFile ("streamutils-lines")).isUnchanged ());
+    assertTrue (FileHelper.ensureParentDirectoryIsPresent (ClassPathResource.getAsFile ("streamutils-lines.txt"))
+                          .isUnchanged ());
 
     // Non existing object
     try
@@ -208,8 +209,10 @@ public final class FileHelperTest
     assertNull (FileHelper.getSecureFile (null));
     assertEquals (new File ("abc.txt").getAbsoluteFile (), FileHelper.getSecureFile (new File ("abc.txt")));
     assertEquals (new File ("abc.txt").getAbsoluteFile (), FileHelper.getSecureFile (new File ("abc.txt\u0000.txx")));
-    assertEquals (new File ("abc/abc.txt").getAbsoluteFile (), FileHelper.getSecureFile (new File ("abc/abc.txt\u0000.txx")));
-    assertEquals (new File ("abc.txt").getAbsoluteFile (), FileHelper.getSecureFile (new File ("any/../abc.txt\u0000.txx")));
+    assertEquals (new File ("abc/abc.txt").getAbsoluteFile (),
+                  FileHelper.getSecureFile (new File ("abc/abc.txt\u0000.txx")));
+    assertEquals (new File ("abc.txt").getAbsoluteFile (),
+                  FileHelper.getSecureFile (new File ("any/../abc.txt\u0000.txx")));
   }
 
   @Test

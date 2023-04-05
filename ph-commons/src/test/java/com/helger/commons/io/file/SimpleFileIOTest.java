@@ -59,11 +59,11 @@ public final class SimpleFileIOTest
   }
 
   @Test
-  public void testReaFileLines ()
+  public void testReadFileLines ()
   {
     assertNull (SimpleFileIO.getAllFileLines (null, StandardCharsets.ISO_8859_1));
     assertNull (SimpleFileIO.getAllFileLines (new File ("ha ha said the clown"), StandardCharsets.ISO_8859_1));
-    final File aFile = ClassPathResource.getAsFile ("streamutils-lines");
+    final File aFile = ClassPathResource.getAsFile ("streamutils-lines.txt");
     assertTrue (aFile.exists ());
     final ICommonsList <String> lines = SimpleFileIO.getAllFileLines (aFile, StandardCharsets.ISO_8859_1);
     assertEquals (10, lines.size ());
