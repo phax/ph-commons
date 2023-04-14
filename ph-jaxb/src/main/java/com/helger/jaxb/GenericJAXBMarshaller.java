@@ -85,6 +85,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   private NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
   private Charset m_aCharset = JAXBBuilderDefaultSettings.getDefaultCharset ();
   private String m_sIndentString = JAXBBuilderDefaultSettings.getDefaultIndentString ();
+  private boolean m_bUseSchema = JAXBBuilderDefaultSettings.isDefaultUseSchema ();
   private String m_sSchemaLocation = JAXBBuilderDefaultSettings.getDefaultSchemaLocation ();
   private String m_sNoNamespaceSchemaLocation = JAXBBuilderDefaultSettings.getDefaultNoNamespaceSchemaLocation ();
   private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
@@ -326,6 +327,27 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  public final boolean isUseSchema ()
+  {
+    return m_bUseSchema;
+  }
+
+  /**
+   * Enable or disable the usage of an eventually configured XML Schema.
+   *
+   * @param bUseSchema
+   *        <code>true</code> to use an XML Schema, <code>false</code> to not
+   *        use it.
+   * @return this for chaining
+   * @since 11.0.3
+   */
+  @Nonnull
+  public final GenericJAXBMarshaller <JAXBTYPE> setuseSchema (final boolean bUseSchema)
+  {
+    m_bUseSchema = bUseSchema;
+    return this;
+  }
+
   @Nullable
   public final String getSchemaLocation ()
   {
@@ -413,7 +435,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
 
   /**
    * @return A list of all XSD resources used for validation. Never
-   *         <code>null</code>.
+   *         <code>null</code> but maybe empty.
    */
   @Nonnull
   @Nonempty
@@ -426,11 +448,22 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   /**
    * @return The validation schema to be used. May be <code>null</code>
    *         indicating that no validation is required.
+   * @see #isUseSchema()
+   * @see #getOriginalXSDs()
    */
   @Nullable
+  @OverrideOnDemand
   protected Schema createValidationSchema ()
   {
-    return m_aXSDs.isEmpty () ? null : XMLSchemaCache.getInstanceOfClassLoader (getClassLoader ()).getSchema (m_aXSDs);
+    // Schema use enabled?
+    if (!m_bUseSchema)
+      return null;
+
+    // Any XSD provided?
+    if (m_aXSDs.isEmpty ())
+      return null;
+
+    return XMLSchemaCache.getInstanceOfClassLoader (getClassLoader ()).getSchema (m_aXSDs);
   }
 
   /**
