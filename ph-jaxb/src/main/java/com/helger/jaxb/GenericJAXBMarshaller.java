@@ -342,7 +342,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @since 11.0.3
    */
   @Nonnull
-  public final GenericJAXBMarshaller <JAXBTYPE> setuseSchema (final boolean bUseSchema)
+  public final GenericJAXBMarshaller <JAXBTYPE> setUseSchema (final boolean bUseSchema)
   {
     m_bUseSchema = bUseSchema;
     return this;
