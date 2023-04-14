@@ -47,6 +47,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * @author Philip Helger
  */
 @NotThreadSafe
+@Deprecated (forRemoval = true, since = "11.0.3")
 public class JAXBDocumentType implements IJAXBDocumentType
 {
   public static final String JAXB_DEFAULT = "##default";
@@ -89,13 +90,16 @@ public class JAXBDocumentType implements IJAXBDocumentType
     {
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       for (final ClassPathResource aRes : aXSDs)
-        ValueEnforcer.isTrue (aRes.hasClassLoader (), () -> "ClassPathResource " + aRes + " MUST define its ClassLoader!");
+        ValueEnforcer.isTrue (aRes.hasClassLoader (),
+                              () -> "ClassPathResource " + aRes + " MUST define its ClassLoader!");
     }
 
     // Check whether it is an @XmlType class
     final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
     if (aXmlType == null)
-      throw new IllegalArgumentException ("The passed class '" + aClass.getName () + "' does not have an @XmlType annotation!");
+      throw new IllegalArgumentException ("The passed class '" +
+                                          aClass.getName () +
+                                          "' does not have an @XmlType annotation!");
 
     // Get the package of the passed Class
     final Package aPackage = aClass.getPackage ();
@@ -105,7 +109,9 @@ public class JAXBDocumentType implements IJAXBDocumentType
     // not contain any namespace URI, the XMLSchema annotation might be missing!
     final XmlSchema aXmlSchema = aPackage.getAnnotation (XmlSchema.class);
     if (aXmlSchema != null && aXmlSchema.namespace () == null)
-      throw new IllegalArgumentException ("The package '" + aPackage.getName () + "' has no namespace URI in the @XmlSchema annotation!");
+      throw new IllegalArgumentException ("The package '" +
+                                          aPackage.getName () +
+                                          "' has no namespace URI in the @XmlSchema annotation!");
 
     // Depending on the generation mode, the class may have the @XmlRootElement
     // annotation or not. If it is present, use the namespace URI and the local
@@ -177,14 +183,17 @@ public class JAXBDocumentType implements IJAXBDocumentType
     {
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       for (final ClassPathResource aRes : aXSDs)
-        ValueEnforcer.isTrue (aRes.hasClassLoader (), () -> "ClassPathResource " + aRes + " MUST define its ClassLoader!");
+        ValueEnforcer.isTrue (aRes.hasClassLoader (),
+                              () -> "ClassPathResource " + aRes + " MUST define its ClassLoader!");
     }
     ValueEnforcer.notEmpty (sLocalName, "sLocalName");
 
     // Check whether it is an @XmlType class
     final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
     if (aXmlType == null)
-      throw new IllegalArgumentException ("The passed class '" + aClass.getName () + "' does not have an @XmlType annotation!");
+      throw new IllegalArgumentException ("The passed class '" +
+                                          aClass.getName () +
+                                          "' does not have an @XmlType annotation!");
 
     // Get the package of the passed Class
     final Package aPackage = aClass.getPackage ();
@@ -194,7 +203,9 @@ public class JAXBDocumentType implements IJAXBDocumentType
     // not contain any namespace URI, the XMLSchema annotation might be missing!
     final XmlSchema aXmlSchema = aPackage.getAnnotation (XmlSchema.class);
     if (aXmlSchema != null && aXmlSchema.namespace () == null)
-      throw new IllegalArgumentException ("The package '" + aPackage.getName () + "' has no namespace URI in the @XmlSchema annotation!");
+      throw new IllegalArgumentException ("The package '" +
+                                          aPackage.getName () +
+                                          "' has no namespace URI in the @XmlSchema annotation!");
 
     m_aClass = aClass;
     if (aXSDs != null)
@@ -256,7 +267,8 @@ public class JAXBDocumentType implements IJAXBDocumentType
     {
       final XMLSchemaCache aSchemaCache = m_aXMLSchemaCacheProvider.get ();
       if (aSchemaCache == null)
-        throw new IllegalStateException ("Failed to get an instance of XMLSchemaCache from " + m_aXMLSchemaCacheProvider);
+        throw new IllegalStateException ("Failed to get an instance of XMLSchemaCache from " +
+                                         m_aXMLSchemaCacheProvider);
       m_aCachedSchema = aSchemaCache.getSchema (m_aXSDs);
     }
     return m_aCachedSchema;

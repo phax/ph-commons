@@ -40,6 +40,7 @@ import com.helger.xml.schema.XMLSchemaValidationHelper;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
+@Deprecated (forRemoval = true, since = "11.0.3")
 public interface IJAXBDocumentType
 {
   /**
