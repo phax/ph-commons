@@ -118,6 +118,14 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
+   * @return <code>true</code> if an eventually configured XML Schema should be
+   *         used, <code>false</code> to explicitly disable the usage of XML
+   *         Schema.
+   * @since 11.0.3
+   */
+  boolean isUseSchema ();
+
+  /**
    * @return The schema location to be used for writing. <code>null</code> by
    *         default.
    * @since 8.6.0

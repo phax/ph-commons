@@ -31,6 +31,14 @@ import com.helger.commons.error.list.IErrorList;
 public interface IJAXBValidator <JAXBTYPE>
 {
   /**
+   * @return <code>true</code> if an eventually configured XML Schema should be
+   *         used, <code>false</code> to explicitly disable the usage of XML
+   *         Schema.
+   * @since 11.0.3
+   */
+  boolean isUseSchema ();
+
+  /**
    * Check if the passed JAXB document is valid according to the XSD or not.
    *
    * @param aJAXBDocument

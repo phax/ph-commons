@@ -57,6 +57,14 @@ import com.helger.xml.serialize.read.SAXReaderSettings;
 public interface IJAXBReader <JAXBTYPE>
 {
   /**
+   * @return <code>true</code> if an eventually configured XML Schema should be
+   *         used, <code>false</code> to explicitly disable the usage of XML
+   *         Schema.
+   * @since 11.0.3
+   */
+  boolean isUseSchema ();
+
+  /**
    * Read a document from the specified input source. The secure reading feature
    * has affect when using this method.
    *
