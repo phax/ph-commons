@@ -152,10 +152,10 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     {
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       m_aXSDs.addAll (aXSDs);
+      for (final ClassPathResource aRes : m_aXSDs)
+        ValueEnforcer.isTrue (aRes.hasClassLoader (),
+                              () -> "ClassPathResource " + aRes + " should define its ClassLoader for OSGI handling!");
     }
-    for (final ClassPathResource aRes : m_aXSDs)
-      ValueEnforcer.isTrue (aRes.hasClassLoader (),
-                            () -> "ClassPathResource " + aRes + " should define its ClassLoader for OSGI handling!");
 
     m_aJAXBElementWrapper = ValueEnforcer.notNull (aJAXBElementWrapper, "JAXBElementWrapper");
     // By default this class loader of the type to be marshaled should be used
