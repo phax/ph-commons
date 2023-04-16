@@ -21,6 +21,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.LongConsumer;
 import java.util.function.ObjIntConsumer;
 
 import javax.annotation.CheckForSigned;
@@ -289,6 +290,7 @@ public final class StreamHelper
     private long m_nLimit = CGlobal.ILLEGAL_ULONG;
     private IExceptionCallback <IOException> m_aExceptionCallback;
     private MutableLong m_aCopyByteCount;
+    private LongConsumer m_aProgressCallback;
 
     /**
      * @param a
@@ -422,10 +424,26 @@ public final class StreamHelper
       return this;
     }
 
+    /**
+     * @param a
+     *        An optional progress callback that takes the number of total bytes
+     *        written during the copy action. It is first invoked after some
+     *        byte were written.
+     * @return this for chaining
+     * @since 11.0.3
+     */
+    @Nonnull
+    public CopyByteStreamBuilder progressCallback (@Nullable final LongConsumer a)
+    {
+      m_aProgressCallback = a;
+      return this;
+    }
+
     @Nonnegative
     private static long _copyInputStreamToOutputStream (@Nonnull @WillNotClose final InputStream aIS,
                                                         @Nonnull @WillNotClose final OutputStream aOS,
-                                                        @Nonnull final byte [] aBuffer) throws IOException
+                                                        @Nonnull final byte [] aBuffer,
+                                                        @Nullable final LongConsumer aProgressCallback) throws IOException
     {
       final int nBufferLength = aBuffer.length;
       long nTotalBytesWritten = 0;
@@ -433,8 +451,14 @@ public final class StreamHelper
       // Potentially blocking read
       while ((nBytesRead = aIS.read (aBuffer, 0, nBufferLength)) > -1)
       {
-        aOS.write (aBuffer, 0, nBytesRead);
-        nTotalBytesWritten += nBytesRead;
+        if (nBytesRead > 0)
+        {
+          aOS.write (aBuffer, 0, nBytesRead);
+          nTotalBytesWritten += nBytesRead;
+
+          if (aProgressCallback != null)
+            aProgressCallback.accept (nTotalBytesWritten);
+        }
       }
       return nTotalBytesWritten;
     }
@@ -443,7 +467,8 @@ public final class StreamHelper
     private static long _copyInputStreamToOutputStreamWithLimit (@Nonnull @WillNotClose final InputStream aIS,
                                                                  @Nonnull @WillNotClose final OutputStream aOS,
                                                                  @Nonnull final byte [] aBuffer,
-                                                                 @Nonnegative final long nLimit) throws IOException
+                                                                 @Nonnegative final long nLimit,
+                                                                 @Nullable final LongConsumer aProgressCallback) throws IOException
     {
       final int nBufferLength = aBuffer.length;
       long nRest = nLimit;
@@ -469,6 +494,9 @@ public final class StreamHelper
           aOS.write (aBuffer, 0, nBytesRead);
           nTotalBytesWritten += nBytesRead;
           nRest -= nBytesRead;
+
+          if (aProgressCallback != null)
+            aProgressCallback.accept (nTotalBytesWritten);
         }
       }
       return nTotalBytesWritten;
@@ -500,9 +528,13 @@ public final class StreamHelper
         // both streams are not null
         final long nTotalBytesCopied;
         if (m_nLimit < 0)
-          nTotalBytesCopied = _copyInputStreamToOutputStream (m_aIS, m_aOS, aBuffer);
+          nTotalBytesCopied = _copyInputStreamToOutputStream (m_aIS, m_aOS, aBuffer, m_aProgressCallback);
         else
-          nTotalBytesCopied = _copyInputStreamToOutputStreamWithLimit (m_aIS, m_aOS, aBuffer, m_nLimit);
+          nTotalBytesCopied = _copyInputStreamToOutputStreamWithLimit (m_aIS,
+                                                                       m_aOS,
+                                                                       aBuffer,
+                                                                       m_nLimit,
+                                                                       m_aProgressCallback);
 
         // Add to statistics
         STATS_COPY_BYTES.addSize (nTotalBytesCopied);
@@ -769,6 +801,7 @@ public final class StreamHelper
     private long m_nLimit = CGlobal.ILLEGAL_ULONG;
     private IExceptionCallback <IOException> m_aExceptionCallback;
     private MutableLong m_aCopyCharCount;
+    private LongConsumer m_aProgressCallback;
 
     /**
      * @param a
@@ -902,18 +935,40 @@ public final class StreamHelper
       return this;
     }
 
+    /**
+     * @param a
+     *        An optional progress callback that takes the number of total chars
+     *        written during the copy action. It is first invoked after some
+     *        chars were written.
+     * @return this for chaining
+     * @since 11.0.3
+     */
+    @Nonnull
+    public CopyCharStreamBuilder progressCallback (@Nullable final LongConsumer a)
+    {
+      m_aProgressCallback = a;
+      return this;
+    }
+
     @Nonnegative
     private static long _copyReaderToWriter (@Nonnull @WillNotClose final Reader aReader,
                                              @Nonnull @WillNotClose final Writer aWriter,
-                                             @Nonnull final char [] aBuffer) throws IOException
+                                             @Nonnull final char [] aBuffer,
+                                             @Nullable final LongConsumer aProgressCallback) throws IOException
     {
       long nTotalCharsWritten = 0;
       int nCharsRead;
       // Potentially blocking read
       while ((nCharsRead = aReader.read (aBuffer, 0, aBuffer.length)) > -1)
       {
-        aWriter.write (aBuffer, 0, nCharsRead);
-        nTotalCharsWritten += nCharsRead;
+        if (nCharsRead > 0)
+        {
+          aWriter.write (aBuffer, 0, nCharsRead);
+          nTotalCharsWritten += nCharsRead;
+
+          if (aProgressCallback != null)
+            aProgressCallback.accept (nTotalCharsWritten);
+        }
       }
       return nTotalCharsWritten;
     }
@@ -922,7 +977,8 @@ public final class StreamHelper
     private static long _copyReaderToWriterWithLimit (@Nonnull @WillNotClose final Reader aReader,
                                                       @Nonnull @WillNotClose final Writer aWriter,
                                                       @Nonnull final char [] aBuffer,
-                                                      @Nonnegative final long nLimit) throws IOException
+                                                      @Nonnegative final long nLimit,
+                                                      @Nullable final LongConsumer aProgressCallback) throws IOException
     {
       long nRest = nLimit;
       long nTotalCharsWritten = 0;
@@ -947,6 +1003,9 @@ public final class StreamHelper
           aWriter.write (aBuffer, 0, nCharsRead);
           nTotalCharsWritten += nCharsRead;
           nRest -= nCharsRead;
+
+          if (aProgressCallback != null)
+            aProgressCallback.accept (nTotalCharsWritten);
         }
       }
       return nTotalCharsWritten;
@@ -977,9 +1036,13 @@ public final class StreamHelper
         // both streams are not null
         final long nTotalCharsCopied;
         if (m_nLimit < 0)
-          nTotalCharsCopied = _copyReaderToWriter (m_aReader, m_aWriter, aBuffer);
+          nTotalCharsCopied = _copyReaderToWriter (m_aReader, m_aWriter, aBuffer, m_aProgressCallback);
         else
-          nTotalCharsCopied = _copyReaderToWriterWithLimit (m_aReader, m_aWriter, aBuffer, m_nLimit);
+          nTotalCharsCopied = _copyReaderToWriterWithLimit (m_aReader,
+                                                            m_aWriter,
+                                                            aBuffer,
+                                                            m_nLimit,
+                                                            m_aProgressCallback);
 
         // Add to statistics
         STATS_COPY_CHARS.addSize (nTotalCharsCopied);
