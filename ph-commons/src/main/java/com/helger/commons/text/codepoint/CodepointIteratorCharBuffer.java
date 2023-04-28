@@ -36,7 +36,7 @@ public class CodepointIteratorCharBuffer extends AbstractCodepointIterator
   @Override
   protected char get ()
   {
-    return m_nPosition < m_nLimit ? m_aBuffer[m_nPosition++] : (char) -1;
+    return m_nPosition < limit () ? m_aBuffer[m_nPosition++] : (char) -1;
   }
 
   @Override

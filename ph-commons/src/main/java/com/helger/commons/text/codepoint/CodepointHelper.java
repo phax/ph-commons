@@ -246,28 +246,28 @@ public final class CodepointHelper
     }
     else
     {
-      int l = 1;
-      int nI = nIndex;
-      final char ch = aSeq.charAt (nI);
-      final boolean high = Character.isHighSurrogate (ch);
-      final boolean low = Character.isLowSurrogate (ch);
-      if (high || low)
+      int len = 1;
+      int nCharIdx = nIndex;
+      final char ch = aSeq.charAt (nCharIdx);
+      final boolean bHigh = Character.isHighSurrogate (ch);
+      final boolean bLow = Character.isLowSurrogate (ch);
+      if (bHigh || bLow)
       {
-        if (high && (nI + 1) < aSeq.length () && Character.isLowSurrogate (aSeq.charAt (nI + 1)))
-          l++;
+        if (bHigh && (nCharIdx + 1) < aSeq.length () && Character.isLowSurrogate (aSeq.charAt (nCharIdx + 1)))
+          len++;
         else
         {
-          if (low && nI > 0 && Character.isHighSurrogate (aSeq.charAt (nI - 1)))
+          if (bLow && nCharIdx > 0 && Character.isHighSurrogate (aSeq.charAt (nCharIdx - 1)))
           {
-            nI--;
-            l++;
+            nCharIdx--;
+            len++;
           }
         }
       }
       if (aSeq instanceof StringBuffer)
-        ((StringBuffer) aSeq).replace (nI, nI + l, getAsString (nCodepoint));
+        ((StringBuffer) aSeq).replace (nCharIdx, nCharIdx + len, getAsString (nCodepoint));
       else
-        ((StringBuilder) aSeq).replace (nI, nI + l, getAsString (nCodepoint));
+        ((StringBuilder) aSeq).replace (nCharIdx, nCharIdx + len, getAsString (nCodepoint));
     }
   }
 

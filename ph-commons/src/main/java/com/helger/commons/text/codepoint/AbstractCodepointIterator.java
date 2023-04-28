@@ -24,6 +24,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
+
 /**
  * Provides an iterator over Unicode Codepoints
  *
@@ -35,11 +37,10 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   protected int m_nPosition = -1;
   protected int m_nLimit = -1;
 
-  protected AbstractCodepointIterator ()
-  {}
-
-  protected AbstractCodepointIterator (final int nPosition, final int nLimit)
+  protected AbstractCodepointIterator (@Nonnegative final int nPosition, @Nonnegative final int nLimit)
   {
+    ValueEnforcer.isGE0 (nPosition, "Position");
+    ValueEnforcer.isGE0 (nLimit, "Limit");
     m_nPosition = nPosition;
     m_nLimit = nLimit;
   }
@@ -80,14 +81,14 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
             return new char [] { c1, c2 };
           throw new InvalidCharacterException (c2);
         }
-        else
-          if (Character.isLowSurrogate (c1) && position () > 0)
-          {
-            final char c2 = get (position () - 2);
-            if (Character.isHighSurrogate (c2))
-              return new char [] { c1, c2 };
-            throw new InvalidCharacterException (c2);
-          }
+
+        if (Character.isLowSurrogate (c1) && position () > 0)
+        {
+          final char c2 = get (position () - 2);
+          if (Character.isHighSurrogate (c2))
+            return new char [] { c1, c2 };
+          throw new InvalidCharacterException (c2);
+        }
       }
       return new char [] { get () };
     }
@@ -174,13 +175,13 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   }
 
   @Nonnegative
-  public int position ()
+  public final int position ()
   {
     return m_nPosition;
   }
 
   @Nonnegative
-  public int limit ()
+  public final int limit ()
   {
     return m_nLimit;
   }
@@ -218,7 +219,9 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   }
 
   @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning, final boolean bInvert)
+  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter,
+                                               final boolean bScanning,
+                                               final boolean bInvert)
   {
     return new CodepointIteratorRestricted (this, aFilter, bScanning, bInvert);
   }
