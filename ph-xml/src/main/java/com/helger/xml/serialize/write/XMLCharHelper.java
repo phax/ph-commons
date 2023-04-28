@@ -690,6 +690,11 @@ public final class XMLCharHelper
     return aChars != null && aChars.length > 0 && containsInvalidXMLNameChar (eXMLVersion, aChars, 0, aChars.length);
   }
 
+  private static boolean _isSurrogate (final char c)
+  {
+    return Character.isHighSurrogate (c) || Character.isLowSurrogate (c);
+  }
+
   public static boolean containsInvalidXMLNameChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                     @Nullable final char [] aChars,
                                                     @Nonnegative final int nOfs,
@@ -701,16 +706,10 @@ public final class XMLCharHelper
       for (int i = 0; i < nLen; ++i)
       {
         final char c = aChars[nOfs + i];
-        if (nIndex == 0)
-        {
-          if (isInvalidXMLNameStartChar (eXMLVersion, c))
-            return true;
-        }
-        else
-        {
-          if (isInvalidXMLNameChar (eXMLVersion, c))
-            return true;
-        }
+        final boolean bInvalid = nIndex == 0 ? isInvalidXMLNameStartChar (eXMLVersion, c)
+                                             : isInvalidXMLNameChar (eXMLVersion, c);
+        if (bInvalid && !_isSurrogate (c))
+          return true;
         ++nIndex;
       }
     }
@@ -748,16 +747,10 @@ public final class XMLCharHelper
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
-      if (nIndex == 0)
-      {
-        if (isInvalidXMLNameStartChar (eXMLVersion, c))
-          aRes.add (Character.valueOf (c));
-      }
-      else
-      {
-        if (isInvalidXMLNameChar (eXMLVersion, c))
-          aRes.add (Character.valueOf (c));
-      }
+      final boolean bInvalid = nIndex == 0 ? isInvalidXMLNameStartChar (eXMLVersion, c)
+                                           : isInvalidXMLNameChar (eXMLVersion, c);
+      if (bInvalid && !_isSurrogate (c))
+        aRes.add (Character.valueOf (c));
       ++nIndex;
     }
     return aRes;
@@ -806,7 +799,7 @@ public final class XMLCharHelper
       for (int i = 0; i < nLen; ++i)
       {
         final char c = aChars[nOfs + i];
-        if (isInvalidXMLTextChar (eXMLVersion, c))
+        if (isInvalidXMLTextChar (eXMLVersion, c) && !_isSurrogate (c))
           return true;
       }
     return false;
@@ -842,7 +835,7 @@ public final class XMLCharHelper
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
-      if (isInvalidXMLTextChar (eXMLVersion, c))
+      if (isInvalidXMLTextChar (eXMLVersion, c) && !_isSurrogate (c))
         aRes.add (Character.valueOf (c));
     }
     return aRes;
@@ -891,7 +884,7 @@ public final class XMLCharHelper
       for (int i = 0; i < nLen; ++i)
       {
         final char c = aChars[nOfs + i];
-        if (isInvalidXMLCDATAChar (eXMLVersion, c))
+        if (isInvalidXMLCDATAChar (eXMLVersion, c) && !_isSurrogate (c))
           return true;
       }
     return false;
@@ -927,7 +920,7 @@ public final class XMLCharHelper
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
-      if (isInvalidXMLCDATAChar (eXMLVersion, c))
+      if (isInvalidXMLCDATAChar (eXMLVersion, c) && !_isSurrogate (c))
         aRes.add (Character.valueOf (c));
     }
     return aRes;
@@ -977,7 +970,7 @@ public final class XMLCharHelper
       for (int i = 0; i < nLen; ++i)
       {
         final char c = aChars[nOfs + i];
-        if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
+        if (isInvalidXMLAttributeValueChar (eXMLVersion, c) && !_isSurrogate (c))
           return true;
       }
     return false;
@@ -1013,7 +1006,7 @@ public final class XMLCharHelper
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
-      if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
+      if (isInvalidXMLAttributeValueChar (eXMLVersion, c) && !_isSurrogate (c))
         aRes.add (Character.valueOf (c));
     }
     return aRes;

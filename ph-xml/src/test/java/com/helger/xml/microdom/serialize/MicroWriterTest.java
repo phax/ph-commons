@@ -16,17 +16,20 @@
  */
 package com.helger.xml.microdom.serialize;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.text.codepoint.CodepointHelper;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
@@ -37,9 +40,11 @@ import com.helger.xml.microdom.MicroContainer;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroEntityReference;
+import com.helger.xml.microdom.MicroText;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.sax.StringSAXInputSource;
 import com.helger.xml.serialize.read.SAXReaderSettings;
+import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
 import com.helger.xml.serialize.write.EXMLSerializeComments;
 import com.helger.xml.serialize.write.EXMLSerializeDocType;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
@@ -54,6 +59,8 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  */
 public final class MicroWriterTest
 {
+  public static final String SURROGATE_PAIR_TEST_STRING = "株式会社 髙橋 𩸽𠮷商事";
+
   private static final String TEST_XML = "<?xml version=\"1.0\"?>" +
                                          "<!DOCTYPE verrryoot>" +
                                          "<verrryoot xmlns=\"sthgelse\">" +
@@ -70,9 +77,13 @@ public final class MicroWriterTest
   {
     // try all permutations
     final XMLWriterSettings aSettings = XMLWriterSettings.createForXHTML ();
-    for (int nCharSet = 0; nCharSet < 2; ++nCharSet)
+    for (final Charset aCharset : new Charset [] { StandardCharsets.ISO_8859_1,
+                                                   StandardCharsets.UTF_8,
+                                                   StandardCharsets.UTF_16,
+                                                   StandardCharsets.UTF_16BE,
+                                                   StandardCharsets.UTF_16LE })
     {
-      aSettings.setCharset (nCharSet == 1 ? StandardCharsets.ISO_8859_1 : StandardCharsets.UTF_8);
+      aSettings.setCharset (aCharset);
       for (final EXMLSerializeIndent eIndent : EXMLSerializeIndent.values ())
       {
         aSettings.setIndent (eIndent);
@@ -109,9 +120,13 @@ public final class MicroWriterTest
   {
     // try all permutations
     final XMLWriterSettings aSettings = new XMLWriterSettings ();
-    for (int nCharSet = 0; nCharSet < 2; ++nCharSet)
+    for (final Charset aCharset : new Charset [] { StandardCharsets.ISO_8859_1,
+                                                   StandardCharsets.UTF_8,
+                                                   StandardCharsets.UTF_16,
+                                                   StandardCharsets.UTF_16BE,
+                                                   StandardCharsets.UTF_16LE })
     {
-      aSettings.setCharset (nCharSet == 1 ? StandardCharsets.ISO_8859_1 : StandardCharsets.UTF_8);
+      aSettings.setCharset (aCharset);
       for (final EXMLSerializeIndent eIndent : EXMLSerializeIndent.values ())
       {
         aSettings.setIndent (eIndent);
@@ -137,6 +152,7 @@ public final class MicroWriterTest
     _testGetNodeAsXMLString (new MicroComment ("useless"));
     _testGetNodeAsXMLString (new MicroEntityReference ("xyz"));
     _testGetNodeAsXMLString (new MicroCDATA ("xyz"));
+
     try
     {
       _testGetNodeAsXMLString (null);
@@ -144,7 +160,6 @@ public final class MicroWriterTest
     }
     catch (final NullPointerException ex)
     {}
-
     try
     {
       MicroWriter.getNodeAsString (null, XMLWriterSettings.DEFAULT_XML_SETTINGS);
@@ -159,6 +174,53 @@ public final class MicroWriterTest
     }
     catch (final NullPointerException ex)
     {}
+  }
+
+  @Test
+  public void testSurrogatePairs ()
+  {
+    // Surrogate pairs are contained
+    // See https://github.com/phax/phase4/discussions/123
+    assertEquals (14, SURROGATE_PAIR_TEST_STRING.length ());
+    assertEquals (12, CodepointHelper.length (SURROGATE_PAIR_TEST_STRING));
+    assertArrayEquals (new char [] { '株',
+                                     '式',
+                                     '会',
+                                     '社',
+                                     0x20,
+                                     '髙',
+                                     '橋',
+                                     0x20,
+                                     0xd867,
+                                     0xde3d,
+                                     0xd842,
+                                     0xdfb7,
+                                     '商',
+                                     '事' }, SURROGATE_PAIR_TEST_STRING.toCharArray ());
+    final XMLWriterSettings aSettings = new XMLWriterSettings ();
+    aSettings.setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.THROW_EXCEPTION);
+    aSettings.setCharset (StandardCharsets.UTF_16);
+    aSettings.setIndent (EXMLSerializeIndent.NONE);
+
+    // Text only
+    {
+      final String sXML = MicroWriter.getNodeAsString (new MicroText (SURROGATE_PAIR_TEST_STRING), aSettings);
+      assertEquals (SURROGATE_PAIR_TEST_STRING, sXML);
+    }
+    // As an attribute
+    {
+      final IMicroElement e = new MicroElement ("bla");
+      e.setAttribute ("attr", SURROGATE_PAIR_TEST_STRING);
+      final String sXML = MicroWriter.getNodeAsString (e, aSettings);
+      assertEquals ("<bla attr=\"" + SURROGATE_PAIR_TEST_STRING + "\" />", sXML);
+    }
+    // As an element value
+    {
+      final IMicroElement e = new MicroElement ("bla");
+      e.appendText (SURROGATE_PAIR_TEST_STRING);
+      final String sXML = MicroWriter.getNodeAsString (e, aSettings);
+      assertEquals ("<bla>" + SURROGATE_PAIR_TEST_STRING + "</bla>", sXML);
+    }
   }
 
   @Test
@@ -197,7 +259,9 @@ public final class MicroWriterTest
       aSettings.setSerializeVersion (eVersion);
       final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
       assertNotNull (sXML);
-      assertTrue (sXML.contains ("version=\"" + eVersion.getXMLVersionOrDefault (EXMLVersion.XML_10).getVersion () + "\""));
+      assertTrue (sXML.contains ("version=\"" +
+                                 eVersion.getXMLVersionOrDefault (EXMLVersion.XML_10).getVersion () +
+                                 "\""));
     }
   }
 
@@ -230,7 +294,8 @@ public final class MicroWriterTest
   @Test
   public void testWriteCDATAAsText ()
   {
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setWriteCDATAAsText (true);
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setWriteCDATAAsText (true);
 
     // Simple CDATA
     IMicroElement e = new MicroElement ("a");
@@ -514,7 +579,6 @@ public final class MicroWriterTest
       final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
       assertTrue (aDoc.isEqualContent (aDoc2));
     }
-
     {
       final MapBasedNamespaceContext aNC = new MapBasedNamespaceContext ();
       aNC.addMapping ("n1", "ns1url");
@@ -531,7 +595,6 @@ public final class MicroWriterTest
       assertNotNull (aDoc2);
       assertTrue (aDoc.isEqualContent (aDoc2));
     }
-
     {
       final MapBasedNamespaceContext aNC = new MapBasedNamespaceContext ();
       aNC.addMapping ("n1", "ns1url");
@@ -552,7 +615,6 @@ public final class MicroWriterTest
         assertTrue (aDoc.isEqualContent (aDoc2));
       }
     }
-
     {
       final MapBasedNamespaceContext aNC = new MapBasedNamespaceContext ();
       aNC.addMapping ("n1", "ns1url");
@@ -569,7 +631,6 @@ public final class MicroWriterTest
       // Different namespace for attr2
       assertTrue (aDoc.isEqualContent (aDoc2));
     }
-
     {
       final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setEmitNamespaces (false));
       assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
@@ -586,7 +647,8 @@ public final class MicroWriterTest
   @Test
   public void testOrderAttributes ()
   {
-    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setUseDoubleQuotesForAttributes (false);
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
 
     // default order
     final IMicroElement e = new MicroElement ("a");
@@ -603,7 +665,8 @@ public final class MicroWriterTest
   @Test
   public void testOrderNamespaces ()
   {
-    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setUseDoubleQuotesForAttributes (false);
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
 
     // default order
     final IMicroElement e = new MicroElement ("urn:stringdefault", "a");
