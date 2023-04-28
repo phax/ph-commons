@@ -23,16 +23,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.cache.Cache;
-import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.state.EChange;
 
 import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.annotation.XmlSchema;
 
 /**
  * Specific cache class for JAXB context elements. This is helpful, as the JAXB
@@ -101,11 +98,13 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    * @param aPackage
    *        Package to load. May not be <code>null</code>.
    * @return <code>null</code> if package is <code>null</code>.
+   * @deprecated Use the {@link JAXBContextCacheKey} factory methods instead
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public JAXBContext getFromCache (@Nonnull final Package aPackage)
   {
-    return getFromCache (aPackage, (ClassLoader) null);
+    return getFromCache (JAXBContextCacheKey.createForPackage (aPackage));
   }
 
   /**
@@ -118,11 +117,13 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    *        Class loader to use. May be <code>null</code> in which case the
    *        default class loader is used.
    * @return <code>null</code> if package is <code>null</code>.
+   * @deprecated Use the {@link JAXBContextCacheKey} factory methods instead
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public JAXBContext getFromCache (@Nonnull final Package aPackage, @Nullable final ClassLoader aClassLoader)
   {
-    return getFromCache (new JAXBContextCacheKey (aPackage, aClassLoader));
+    return getFromCache (JAXBContextCacheKey.createForPackage (aPackage, aClassLoader));
   }
 
   /**
@@ -135,11 +136,13 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    *        The class for which the JAXB context is to be created. May not be
    *        <code>null</code>.
    * @return May be <code>null</code>.
+   * @deprecated Use the {@link JAXBContextCacheKey} factory methods instead
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public JAXBContext getFromCache (@Nonnull final Class <?> aClass)
   {
-    return getFromCache (aClass, (ClassLoader) null);
+    return getFromCache (JAXBContextCacheKey.createForClass (aClass));
   }
 
   /**
@@ -154,20 +157,13 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    *        Class loader to use. May be <code>null</code> in which case the
    *        default class loader is used.
    * @return May be <code>null</code>.
+   * @deprecated Use the {@link JAXBContextCacheKey} factory methods instead
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public JAXBContext getFromCache (@Nonnull final Class <?> aClass, @Nullable final ClassLoader aClassLoader)
   {
-    ValueEnforcer.notNull (aClass, "Class");
-
-    final Package aPackage = aClass.getPackage ();
-    if (aPackage.getAnnotation (XmlSchema.class) != null)
-    {
-      // Redirect to cached version
-      return getFromCache (aPackage, aClassLoader);
-    }
-
-    return getFromCache (new CommonsArrayList <> (aClass), (Map <String, ?>) null);
+    return getFromCache (JAXBContextCacheKey.createForClass (aClass, aClassLoader));
   }
 
   /**
@@ -178,11 +174,13 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    *        <code>null</code> nor empty.
    * @return May be <code>null</code>.
    * @since v9.4.2
+   * @deprecated Use the {@link JAXBContextCacheKey} factory methods instead
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public JAXBContext getFromCache (@Nonnull final ICommonsList <Class <?>> aClasses)
   {
-    return getFromCache (aClasses, (Map <String, ?>) null);
+    return getFromCache (JAXBContextCacheKey.createForClasses (aClasses));
   }
 
   /**
@@ -196,35 +194,42 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    *        JAXB context properties. May be <code>null</code>.
    * @return May be <code>null</code>.
    * @since v9.4.2
+   * @deprecated Use the {@link JAXBContextCacheKey} factory methods instead
    */
   @Nullable
-  public JAXBContext getFromCache (@Nonnull final ICommonsList <Class <?>> aClasses, @Nullable final Map <String, ?> aProperties)
+  @Deprecated (forRemoval = true, since = "11.0.4")
+  public JAXBContext getFromCache (@Nonnull final ICommonsList <Class <?>> aClasses,
+                                   @Nullable final Map <String, ?> aProperties)
   {
-    ValueEnforcer.notEmptyNoNullValue (aClasses, "Classes");
-    return getFromCache (new JAXBContextCacheKey (aClasses, aProperties));
+    return getFromCache (JAXBContextCacheKey.createForClasses (aClasses, aProperties));
   }
 
   @Nonnull
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public EChange removeFromCache (@Nonnull final Package aPackage)
   {
-    return removeFromCache (aPackage, (ClassLoader) null);
+    return removeFromCache (JAXBContextCacheKey.createForPackage (aPackage));
   }
 
   @Nonnull
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public EChange removeFromCache (@Nonnull final Package aPackage, @Nullable final ClassLoader aClassLoader)
   {
-    return removeFromCache (new JAXBContextCacheKey (aPackage, aClassLoader));
+    return removeFromCache (JAXBContextCacheKey.createForPackage (aPackage, aClassLoader));
   }
 
   @Nonnull
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public EChange removeFromCache (@Nonnull final ICommonsList <Class <?>> aClasses)
   {
-    return removeFromCache (aClasses, (Map <String, ?>) null);
+    return removeFromCache (JAXBContextCacheKey.createForClasses (aClasses));
   }
 
   @Nonnull
-  public EChange removeFromCache (@Nonnull final ICommonsList <Class <?>> aClasses, @Nullable final Map <String, ?> aProperties)
+  @Deprecated (forRemoval = true, since = "11.0.4")
+  public EChange removeFromCache (@Nonnull final ICommonsList <Class <?>> aClasses,
+                                  @Nullable final Map <String, ?> aProperties)
   {
-    return removeFromCache (new JAXBContextCacheKey (aClasses, aProperties));
+    return removeFromCache (JAXBContextCacheKey.createForClasses (aClasses, aProperties));
   }
 }

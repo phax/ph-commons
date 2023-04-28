@@ -26,6 +26,7 @@ import org.junit.Test;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.jaxb.JAXBContextCache;
+import com.helger.jaxb.JAXBContextCacheKey;
 import com.helger.jaxb.mock.external.MockJAXBArchive;
 import com.helger.xml.transform.TransformSourceFactory;
 
@@ -44,7 +45,8 @@ public final class CollectingValidationEventHandlerTest
   @Test
   public void testReadWrite () throws JAXBException
   {
-    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (MockJAXBArchive.class);
+    final JAXBContext aCtx = JAXBContextCache.getInstance ()
+                                             .getFromCache (JAXBContextCacheKey.createForClass (MockJAXBArchive.class));
     final Unmarshaller um = aCtx.createUnmarshaller ();
 
     {

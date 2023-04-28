@@ -53,7 +53,7 @@ public final class JAXBContextCacheTest
     try
     {
       // null not allowed
-      JAXBContextCache.getInstance ().getFromCache ((Class <?>) null);
+      JAXBContextCache.getInstance ().getFromCache (JAXBContextCacheKey.createForClass (null));
       fail ();
     }
     catch (final NullPointerException ex)
@@ -62,7 +62,7 @@ public final class JAXBContextCacheTest
     try
     {
       // null not allowed
-      JAXBContextCache.getInstance ().getFromCache ((Package) null);
+      JAXBContextCache.getInstance ().getFromCache (JAXBContextCacheKey.createForPackage (null));
       fail ();
     }
     catch (final NullPointerException ex)
@@ -71,16 +71,19 @@ public final class JAXBContextCacheTest
 
   private <T> void _testReadWrite (final Class <T> aClass) throws JAXBException
   {
-    JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (aClass);
+    final JAXBContextCacheKey ck = JAXBContextCacheKey.createForClass (aClass);
+
+    JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (ck);
     assertNotNull (aCtx);
 
     // retrieve again
-    assertSame (aCtx, JAXBContextCache.getInstance ().getFromCache (aClass));
+    assertSame (aCtx, JAXBContextCache.getInstance ().getFromCache (ck));
 
     final Unmarshaller um = aCtx.createUnmarshaller ();
 
     // read valid
-    JAXBElement <T> o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/test-archive-01.xml")), aClass);
+    JAXBElement <T> o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/test-archive-01.xml")),
+                                      aClass);
     assertNotNull (o);
 
     // read invalid
@@ -96,12 +99,12 @@ public final class JAXBContextCacheTest
     assertFalse (JAXBContextCache.getInstance ().clearCache ().isChanged ());
 
     // Get context again
-    aCtx = JAXBContextCache.getInstance ().getFromCache (aClass);
+    aCtx = JAXBContextCache.getInstance ().getFromCache (ck);
     assertNotNull (aCtx);
 
     // And remove manually
-    assertTrue (JAXBContextCache.getInstance ().removeFromCache (aClass.getPackage ()).isChanged ());
-    assertFalse (JAXBContextCache.getInstance ().removeFromCache (aClass.getPackage ()).isChanged ());
+    assertTrue (JAXBContextCache.getInstance ().removeFromCache (ck).isChanged ());
+    assertFalse (JAXBContextCache.getInstance ().removeFromCache (ck).isChanged ());
   }
 
   @Test
@@ -114,21 +117,30 @@ public final class JAXBContextCacheTest
   public void testMarshalString () throws JAXBException
   {
     final String sMsg = "Hello world";
-    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (String.class);
+    final JAXBContext aCtx = JAXBContextCache.getInstance ()
+                                             .getFromCache (JAXBContextCacheKey.createForClass (String.class));
     final Marshaller m = aCtx.createMarshaller ();
-    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>", aSW.getAsString ());
+    try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+    {
+      m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);
+      assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>",
+                    aSW.getAsString ());
+    }
   }
 
   @Test
   public void testMarshalStringWithClassLoader () throws JAXBException
   {
     final String sMsg = "Hello world";
-    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (String.class, ClassLoaderHelper.getSystemClassLoader ());
+    final JAXBContext aCtx = JAXBContextCache.getInstance ()
+                                             .getFromCache (JAXBContextCacheKey.createForClass (String.class,
+                                                                                                ClassLoaderHelper.getSystemClassLoader ()));
     final Marshaller m = aCtx.createMarshaller ();
-    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>", aSW.getAsString ());
+    try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+    {
+      m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);
+      assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>",
+                    aSW.getAsString ());
+    }
   }
 }

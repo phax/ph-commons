@@ -483,7 +483,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   {
     final Package aPackage = m_aType.getPackage ();
     if (m_bUseContextCache)
-      return JAXBContextCache.getInstance ().getFromCache (aPackage, aClassLoader);
+      return JAXBContextCache.getInstance ()
+                             .getFromCache (JAXBContextCacheKey.createForPackage (aPackage, aClassLoader));
     return JAXBContext.newInstance (aPackage.getName (), aClassLoader);
   }
 

@@ -57,7 +57,7 @@ public final class JAXBMarshallerHelperTest
 
   private void _testAll (@Nonnull final Class <?> aClass) throws JAXBException
   {
-    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (aClass);
+    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (JAXBContextCacheKey.createForClass (aClass));
     assertNotNull (aCtx);
 
     final Marshaller aMarshaller = aCtx.createMarshaller ();

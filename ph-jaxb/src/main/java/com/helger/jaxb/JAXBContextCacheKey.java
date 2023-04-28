@@ -55,7 +55,7 @@ public class JAXBContextCacheKey
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBContextCacheKey.class);
 
-  private final Package m_aPackage;
+  private final ICommonsList <Package> m_aPackages;
   private final WeakReference <ClassLoader> m_aClassLoader;
   private final ICommonsList <WeakReference <Class <?>>> m_aClasses;
   private final Map <String, ?> m_aProperties;
@@ -69,14 +69,39 @@ public class JAXBContextCacheKey
    * @param aClassLoader
    *        Class loader. May be <code>null</code>.
    */
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public JAXBContextCacheKey (@Nonnull final Package aPackage, @Nullable final ClassLoader aClassLoader)
   {
-    ValueEnforcer.notNull (aPackage, "Package");
-    m_aPackage = aPackage;
+    this (new CommonsArrayList <> (aPackage), aClassLoader);
+  }
+
+  /**
+   * Cache key using package and optional class loader
+   *
+   * @param aPackages
+   *        Packages to be used. May not be <code>null</code>.
+   * @param aClassLoader
+   *        Class loader. May be <code>null</code>.
+   * @since 11.0.4
+   */
+  public JAXBContextCacheKey (@Nonnull final ICommonsList <Package> aPackages, @Nullable final ClassLoader aClassLoader)
+  {
+    ValueEnforcer.notEmptyNoNullValue (aPackages, "Packages");
+    m_aPackages = aPackages.getClone ();
     m_aClassLoader = new WeakReference <> (aClassLoader);
     m_aClasses = null;
     m_aProperties = null;
-    m_sEqualsHashCodeKey = m_aPackage.getName ();
+    m_sEqualsHashCodeKey = StringHelper.imploder ().source (aPackages, Package::getName).separator (':').build ();
+
+    // When using "-npa" on JAXB no package-info class is created!
+    for (final Package aPackage : aPackages)
+      if (aPackage.getAnnotation (XmlSchema.class) == null &&
+          GenericReflection.getClassFromNameSafe (aPackage.getName () + ".ObjectFactory") == null)
+      {
+        LOGGER.warn ("The package '" +
+                     aPackage.getName () +
+                     "' does not seem to be JAXB generated! Trying to create a JAXBContext anyway.");
+      }
   }
 
   /**
@@ -92,11 +117,11 @@ public class JAXBContextCacheKey
                               @Nullable final Map <String, ?> aProperties)
   {
     ValueEnforcer.notEmptyNoNullValue (aClasses, "Classes");
-    m_aPackage = null;
+    m_aPackages = null;
     m_aClassLoader = null;
     m_aClasses = new CommonsArrayList <> (aClasses, WeakReference::new);
     m_aProperties = new CommonsHashMap <> (aProperties);
-    m_sEqualsHashCodeKey = StringHelper.getImplodedMapped (':', aClasses, Class::getName);
+    m_sEqualsHashCodeKey = StringHelper.imploder ().source (aClasses, Class::getName).separator (':').build ();
   }
 
   /**
@@ -126,7 +151,7 @@ public class JAXBContextCacheKey
    *         loader. May be <code>null</code>.
    */
   @Nullable
-  private final ClassLoader _getClassLoader ()
+  private ClassLoader _getClassLoader ()
   {
     ClassLoader ret = null;
     if (m_aClassLoader != null)
@@ -141,29 +166,26 @@ public class JAXBContextCacheKey
 
     if (!bSilentMode)
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Creating JAXB context for package " +
-                     m_aPackage.getName () +
+        LOGGER.info ("Creating JAXB context for packages " +
+                     StringHelper.imploder ()
+                                 .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                                 .separator (", ")
+                                 .build () +
                      " using ClassLoader " +
                      aClassLoader.toString ());
 
     try
     {
-      // When using "-npa" on JAXB no package-info class is created!
-      if (m_aPackage.getAnnotation (XmlSchema.class) == null &&
-          GenericReflection.getClassFromNameSafe (m_aPackage.getName () + ".ObjectFactory") == null)
-      {
-        LOGGER.warn ("The package " +
-                     m_aPackage.getName () +
-                     " does not seem to be JAXB generated! Trying to create a JAXBContext anyway.");
-      }
-
-      return JAXBContext.newInstance (m_aPackage.getName (), aClassLoader);
+      // Use all packages, colon separated
+      return JAXBContext.newInstance (m_sEqualsHashCodeKey, aClassLoader);
     }
     catch (final JAXBException ex)
     {
-      final String sMsg = "Failed to create JAXB context for package '" +
-                          m_aPackage.getName () +
-                          "'" +
+      final String sMsg = "Failed to create JAXB context for packages " +
+                          StringHelper.imploder ()
+                                      .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                                      .separator (", ")
+                                      .build () +
                           " using ClassLoader " +
                           aClassLoader;
       LOGGER.error (sMsg + ": " + ex.getMessage ());
@@ -180,7 +202,10 @@ public class JAXBContextCacheKey
     if (!bSilentMode)
       if (LOGGER.isInfoEnabled ())
         LOGGER.info ("Creating JAXB context for classes " +
-                     StringHelper.getImplodedMapped (", ", aClasses, x -> '\'' + x.getName () + '\'') +
+                     StringHelper.imploder ()
+                                 .source (aClasses, x -> '\'' + x.getName () + '\'')
+                                 .separator (", ")
+                                 .build () +
                      (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
 
     try
@@ -193,7 +218,10 @@ public class JAXBContextCacheKey
     catch (final JAXBException ex)
     {
       final String sMsg = "Failed to create JAXB context for classes " +
-                          StringHelper.getImplodedMapped (", ", aClasses, x -> '\'' + x.getName () + '\'') +
+                          StringHelper.imploder ()
+                                      .source (aClasses, x -> '\'' + x.getName () + '\'')
+                                      .separator (", ")
+                                      .build () +
                           (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ());
       LOGGER.error (sMsg + ": " + ex.getMessage ());
       throw new IllegalArgumentException (sMsg, ex);
@@ -203,7 +231,7 @@ public class JAXBContextCacheKey
   @Nonnull
   public JAXBContext createJAXBContext (final boolean bSilentMode)
   {
-    if (m_aPackage != null)
+    if (m_aPackages != null)
       return _createFromPackageAndClassLoader (bSilentMode);
     return _createFromClassesAndProperties (bSilentMode);
   }
@@ -233,11 +261,157 @@ public class JAXBContextCacheKey
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("Package", m_aPackage)
+    return new ToStringGenerator (this).appendIfNotNull ("Packages", m_aPackages)
                                        .appendIfNotNull ("ClassLoader", m_aClassLoader)
                                        .appendIfNotNull ("Classes", m_aClasses)
                                        .appendIfNotNull ("Properties", m_aProperties)
                                        .appendIfNotNull ("EqualsHashCodeKey", m_sEqualsHashCodeKey)
                                        .getToString ();
+  }
+
+  /**
+   * Factory method with a single package and the default {@link ClassLoader}.
+   *
+   * @param aPackage
+   *        Package to load. May not be <code>null</code>.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForPackage (@Nonnull final Package aPackage)
+  {
+    return createForPackage (aPackage, null);
+  }
+
+  /**
+   * Factory method with a single package and the provided {@link ClassLoader}.
+   *
+   * @param aPackage
+   *        Package to load. May not be <code>null</code>.
+   * @param aClassLoader
+   *        Class loader. May be <code>null</code>.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForPackage (@Nonnull final Package aPackage,
+                                                      @Nullable final ClassLoader aClassLoader)
+  {
+    ValueEnforcer.notNull (aPackage, "Package");
+    return new JAXBContextCacheKey (new CommonsArrayList <> (aPackage), aClassLoader);
+  }
+
+  /**
+   * Factory method with a list of packages and the default {@link ClassLoader}.
+   *
+   * @param aPackages
+   *        List of packages to load. May not be <code>null</code>.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForPackages (@Nonnull final ICommonsList <Package> aPackages)
+  {
+    return createForPackages (aPackages, null);
+  }
+
+  /**
+   * Factory method with a list of packages and the provided
+   * {@link ClassLoader}.
+   *
+   * @param aPackages
+   *        List of packages to load. May not be <code>null</code>.
+   * @param aClassLoader
+   *        Class loader. May be <code>null</code>.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForPackages (@Nonnull final ICommonsList <Package> aPackages,
+                                                       @Nullable final ClassLoader aClassLoader)
+  {
+    return new JAXBContextCacheKey (aPackages, aClassLoader);
+  }
+
+  /**
+   * Get the {@link JAXBContext} from an existing {@link Class} object. If the
+   * class's owning package is a valid JAXB package, this method redirects to
+   * {@link #createForPackage(Package)}
+   *
+   * @param aClass
+   *        The class for which the JAXB context is to be created. May not be
+   *        <code>null</code>.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForClass (@Nonnull final Class <?> aClass)
+  {
+    return createForClass (aClass, null);
+  }
+
+  /**
+   * Get the {@link JAXBContext} from an existing {@link Class} object. If the
+   * class's owning package is a valid JAXB package, this method redirects to
+   * {@link #createForPackage(Package, ClassLoader)}
+   *
+   * @param aClass
+   *        The class for which the JAXB context is to be created. May not be
+   *        <code>null</code>.
+   * @param aClassLoader
+   *        Class loader to use. May be <code>null</code> in which case the
+   *        default class loader is used.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForClass (@Nonnull final Class <?> aClass,
+                                                    @Nullable final ClassLoader aClassLoader)
+  {
+    ValueEnforcer.notNull (aClass, "Class");
+
+    final Package aPackage = aClass.getPackage ();
+    if (aPackage.getAnnotation (XmlSchema.class) != null)
+    {
+      // Redirect to cached version
+      return createForPackage (aPackage, aClassLoader);
+    }
+
+    return new JAXBContextCacheKey (new CommonsArrayList <> (aClass), (Map <String, ?>) null);
+  }
+
+  /**
+   * Get the {@link JAXBContext} from existing {@link Class} objects.
+   *
+   * @param aClasses
+   *        The classes for which the JAXB context is to be created. May not be
+   *        <code>null</code> nor empty.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForClasses (@Nonnull final ICommonsList <Class <?>> aClasses)
+  {
+    return createForClasses (aClasses, null);
+  }
+
+  /**
+   * Get the {@link JAXBContext} from existing {@link Class} objects and
+   * optional JAXB Context properties.
+   *
+   * @param aClasses
+   *        The classes for which the JAXB context is to be created. May not be
+   *        <code>null</code> nor empty.
+   * @param aProperties
+   *        JAXB context properties. May be <code>null</code>.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForClasses (@Nonnull final ICommonsList <Class <?>> aClasses,
+                                                      @Nullable final Map <String, ?> aProperties)
+  {
+    ValueEnforcer.notEmptyNoNullValue (aClasses, "Classes");
+    return new JAXBContextCacheKey (aClasses, aProperties);
   }
 }
