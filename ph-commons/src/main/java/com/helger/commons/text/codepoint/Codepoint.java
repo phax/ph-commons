@@ -183,7 +183,7 @@ public class Codepoint implements IComparable <Codepoint>
   }
 
   /**
-   * @return <code>true</code> if this codepoint is supplementary
+   * @return <code>true</code> if this codepoint is supplementary (&gt; 0xffff)
    */
   public final boolean isSupplementary ()
   {
@@ -195,7 +195,7 @@ public class Codepoint implements IComparable <Codepoint>
    */
   public final boolean isLowSurrogate ()
   {
-    return Character.isLowSurrogate ((char) m_nValue);
+    return m_nValue >= Character.MIN_LOW_SURROGATE && m_nValue < (Character.MAX_LOW_SURROGATE + 1);
   }
 
   /**
@@ -203,7 +203,8 @@ public class Codepoint implements IComparable <Codepoint>
    */
   public final boolean isHighSurrogate ()
   {
-    return Character.isHighSurrogate ((char) m_nValue);
+    // Help VM constant-fold; MAX_HIGH_SURROGATE + 1 == MIN_LOW_SURROGATE
+    return m_nValue >= Character.MIN_HIGH_SURROGATE && m_nValue < (Character.MAX_HIGH_SURROGATE + 1);
   }
 
   /**
@@ -300,7 +301,7 @@ public class Codepoint implements IComparable <Codepoint>
   @Nonnull
   public final Codepoint next ()
   {
-    if (m_nValue == 0x10ffff)
+    if (m_nValue == Character.MAX_CODE_POINT)
       throw new IndexOutOfBoundsException ();
     return new Codepoint (m_nValue + 1);
   }
@@ -311,7 +312,7 @@ public class Codepoint implements IComparable <Codepoint>
   @Nonnull
   public final Codepoint previous ()
   {
-    if (m_nValue == 0)
+    if (m_nValue == Character.MIN_CODE_POINT)
       throw new IndexOutOfBoundsException ();
     return new Codepoint (m_nValue - 1);
   }
