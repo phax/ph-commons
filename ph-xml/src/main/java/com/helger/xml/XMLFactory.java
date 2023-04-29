@@ -463,9 +463,13 @@ public final class XMLFactory
     try
     {
       final TransformerFactory aFactory = TransformerFactory.newInstance ();
-      _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
-      _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
-      _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+      if (false)
+      {
+        // Not needed for Java 11
+        _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+        _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+        _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+      }
       return aFactory;
     }
     catch (final TransformerFactoryConfigurationError ex)
