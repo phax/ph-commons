@@ -42,7 +42,7 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
     super (sScopeID);
 
     if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
-      LOGGER.info ("Created global scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
+      LOGGER.info ("Created global scope '" + sScopeID + "'", ScopeHelper.getDebugException ());
   }
 
   public void initScope ()
@@ -53,7 +53,7 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   {
     if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
       LOGGER.info ("Destroying global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                   ScopeHelper.getDebugStackTrace ());
+                   ScopeHelper.getDebugException ());
   }
 
   @Override
@@ -61,6 +61,6 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   {
     if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
       LOGGER.info ("Destroyed global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                   ScopeHelper.getDebugStackTrace ());
+                   ScopeHelper.getDebugException ());
   }
 }

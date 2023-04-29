@@ -42,7 +42,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
 
     // Sessions are always displayed to see what's happening
     if (ScopeHelper.isDebugSessionScopeLifeCycle ())
-      LOGGER.info ("Created session scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
+      LOGGER.info ("Created session scope '" + sScopeID + "'", ScopeHelper.getDebugException ());
   }
 
   public void initScope ()
@@ -53,7 +53,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
   {
     if (ScopeHelper.isDebugSessionScopeLifeCycle ())
       LOGGER.info ("Destroying session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                   ScopeHelper.getDebugStackTrace ());
+                   ScopeHelper.getDebugException ());
   }
 
   @Override
@@ -61,7 +61,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
   {
     if (ScopeHelper.isDebugSessionScopeLifeCycle ())
       LOGGER.info ("Destroyed session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                   ScopeHelper.getDebugStackTrace ());
+                   ScopeHelper.getDebugException ());
   }
 
   @Nonnull

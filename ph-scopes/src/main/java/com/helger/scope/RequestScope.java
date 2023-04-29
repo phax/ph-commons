@@ -44,7 +44,7 @@ public class RequestScope extends AbstractScope implements IRequestScope
 
     // done initialization
     if (ScopeHelper.isDebugRequestScopeLifeCycle ())
-      LOGGER.info ("Created request scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
+      LOGGER.info ("Created request scope '" + sScopeID + "'", ScopeHelper.getDebugException ());
   }
 
   @Nonnull
@@ -62,7 +62,7 @@ public class RequestScope extends AbstractScope implements IRequestScope
   {
     if (ScopeHelper.isDebugRequestScopeLifeCycle ())
       LOGGER.info ("Destroying request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                   ScopeHelper.getDebugStackTrace ());
+                   ScopeHelper.getDebugException ());
   }
 
   @Override
@@ -70,7 +70,7 @@ public class RequestScope extends AbstractScope implements IRequestScope
   {
     if (ScopeHelper.isDebugRequestScopeLifeCycle ())
       LOGGER.info ("Destroyed request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                   ScopeHelper.getDebugStackTrace ());
+                   ScopeHelper.getDebugException ());
   }
 
   @Override

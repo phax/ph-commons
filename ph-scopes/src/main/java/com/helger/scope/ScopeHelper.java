@@ -277,9 +277,24 @@ public final class ScopeHelper
    * @return An exception with the current stack trace or <code>null</code> if
    *         {@link #isDebugWithStackTrace()} is <code>false</code>
    * @see #isDebugWithStackTrace()
+   * @deprecated In favour of {@link ScopeHelper#getDebugException()} as we
+   *             should not return Throwable
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "11.0.5")
   public static Throwable getDebugStackTrace ()
+  {
+    return isDebugWithStackTrace () ? new DebugScopeException () : null;
+  }
+
+  /**
+   * @return An exception with the current stack trace or <code>null</code> if
+   *         {@link #isDebugWithStackTrace()} is <code>false</code>
+   * @see #isDebugWithStackTrace()
+   * @since 11.0.5
+   */
+  @Nullable
+  public static Exception getDebugException ()
   {
     return isDebugWithStackTrace () ? new DebugScopeException () : null;
   }

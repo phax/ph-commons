@@ -108,7 +108,7 @@ public final class ScopeManager
     // Outside of write lock
     aGlobalScope.initScope ();
     if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
-      LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
+      LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugException ());
 
     // Invoke SPIs
     ScopeSPIManager.getInstance ().onGlobalScopeBegin (aGlobalScope);
@@ -189,7 +189,7 @@ public final class ScopeManager
 
       // done
       if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
-        LOGGER.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugStackTrace ());
+        LOGGER.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugException ());
     }
     else
       LOGGER.warn ("No global scope present that could be shut down!");
