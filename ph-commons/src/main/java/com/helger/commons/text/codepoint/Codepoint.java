@@ -195,7 +195,7 @@ public class Codepoint implements IComparable <Codepoint>
    */
   public final boolean isLowSurrogate ()
   {
-    return Character.isLowSurrogate ((char) m_nValue);
+    return m_nValue >= Character.MIN_LOW_SURROGATE && m_nValue < (Character.MAX_LOW_SURROGATE + 1);
   }
 
   /**
@@ -203,7 +203,8 @@ public class Codepoint implements IComparable <Codepoint>
    */
   public final boolean isHighSurrogate ()
   {
-    return Character.isHighSurrogate ((char) m_nValue);
+    // Help VM constant-fold; MAX_HIGH_SURROGATE + 1 == MIN_LOW_SURROGATE
+    return m_nValue >= Character.MIN_HIGH_SURROGATE && m_nValue < (Character.MAX_HIGH_SURROGATE + 1);
   }
 
   /**
