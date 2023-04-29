@@ -123,9 +123,14 @@ public final class XMLFactory
     {
       aFactory.setFeature (eFeature.getName (), bValue);
     }
-    catch (final ParserConfigurationException ex1)
+    catch (final ParserConfigurationException ex)
     {
-      LOGGER.warn ("Failed to set feature " + eFeature + " to " + bValue + " on XML DocumentBuilderFactory");
+      LOGGER.warn ("Failed to set feature " +
+                   eFeature +
+                   " to " +
+                   bValue +
+                   " on XML DocumentBuilderFactory: " +
+                   ex.getMessage ());
     }
   }
 
@@ -426,7 +431,12 @@ public final class XMLFactory
     }
     catch (final SAXException | ParserConfigurationException ex)
     {
-      LOGGER.warn ("Failed to set feature " + eFeature + " to " + bValue + " on XML SAXParserFactory");
+      LOGGER.warn ("Failed to set feature " +
+                   eFeature +
+                   " to " +
+                   bValue +
+                   " on XML SAXParserFactory: " +
+                   ex.getMessage ());
     }
   }
 
