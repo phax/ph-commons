@@ -87,7 +87,6 @@ public final class DOMReaderTest
     doc = DOMReader.readXMLDOM (new StringInputStream ("<?xml version=\"1.0\"?>\n<root/>",
                                                        StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
-
     try
     {
       // null reader not allowed
@@ -96,7 +95,6 @@ public final class DOMReaderTest
     }
     catch (final NullPointerException ex)
     {}
-
     // non-XML
     assertNull (DOMReader.readXMLDOM (new StringSAXInputSource ("")));
 
@@ -118,7 +116,6 @@ public final class DOMReaderTest
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM ("<?xml version=\"1.0\"?>\n" + "<root><![CDATA[x<>]]></root>");
     assertNotNull (doc);
-
     try
     {
       // null reader not allowed
@@ -127,7 +124,6 @@ public final class DOMReaderTest
     }
     catch (final NullPointerException ex)
     {}
-
     try
     {
       // null string not allowed
@@ -136,7 +132,6 @@ public final class DOMReaderTest
     }
     catch (final NullPointerException ex)
     {}
-
     // non-XML
     assertNull (DOMReader.readXMLDOM (""));
   }
@@ -152,7 +147,6 @@ public final class DOMReaderTest
     doc = DOMReader.readXMLDOM (new StringInputStream ("<?xml version=\"1.0\"?>\n<root/>",
                                                        StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
-
     try
     {
       // null reader not allowed
@@ -161,7 +155,6 @@ public final class DOMReaderTest
     }
     catch (final NullPointerException ex)
     {}
-
     // non-XML
     assertNull (DOMReader.readXMLDOM (new NonBlockingByteArrayInputStream (new byte [0])));
 
@@ -263,7 +256,6 @@ public final class DOMReaderTest
                                 new DOMReaderSettings ().setSchema (aSchema)
                                                         .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNull (doc);
-
     try
     {
       DOMReader.readXMLDOM ((Reader) null, new DOMReaderSettings ());
@@ -417,8 +409,7 @@ public final class DOMReaderTest
                   aDoc.getDocumentElement ().getTextContent ());
 
     // Should fail because too many entity expansions
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Current XML Entity Expansion Limit is " + XMLSystemProperties.getXMLEntityExpansionLimit ());
+    LOGGER.info ("Current XML Entity Expansion Limit is " + XMLSystemProperties.getXMLEntityExpansionLimit ());
     final CollectingSAXErrorHandler aCEH = new CollectingSAXErrorHandler ();
     assertNull (DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>", aDRS.getClone ().setErrorHandler (aCEH)));
     assertEquals (1, aCEH.getErrorList ().size ());
@@ -467,6 +458,5 @@ public final class DOMReaderTest
     {
       XMLSystemProperties.setXMLEntityExpansionLimit (null);
     }
-
   }
 }

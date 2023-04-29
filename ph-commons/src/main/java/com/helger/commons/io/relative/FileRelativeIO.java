@@ -50,8 +50,7 @@ public class FileRelativeIO implements IFileRelativeIO
   {
     // Check read/write/execute
     final StopWatch aSW = StopWatch.createdStarted ();
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Checking file access in " + aBasePath);
+    LOGGER.info ("Checking file access in " + aBasePath);
     int nFiles = 0;
     int nDirs = 0;
     for (final File aFile : new FileSystemRecursiveIterator (aBasePath))
@@ -61,8 +60,7 @@ public class FileRelativeIO implements IFileRelativeIO
         if (!aFile.canRead ())
           throw new IllegalArgumentException ("Cannot read file " + aFile);
         if (!aFile.canWrite ())
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Cannot write file " + aFile);
+          LOGGER.warn ("Cannot write file " + aFile);
         ++nFiles;
       }
       else
@@ -71,31 +69,23 @@ public class FileRelativeIO implements IFileRelativeIO
           if (!aFile.canRead ())
             throw new IllegalArgumentException ("Cannot read in directory " + aFile);
           if (!aFile.canWrite ())
-          {
-            if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("Cannot write in directory " + aFile);
-          }
+            LOGGER.warn ("Cannot write in directory " + aFile);
           if (!aFile.canExecute ())
-          {
-            if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("Cannot execute in directory " + aFile);
-          }
+            LOGGER.warn ("Cannot execute in directory " + aFile);
           ++nDirs;
         }
         else
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Neither file nor directory: " + aFile);
+          LOGGER.warn ("Neither file nor directory: " + aFile);
         }
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Finished checking file access for " +
-                   nFiles +
-                   " files and " +
-                   nDirs +
-                   " directories in " +
-                   aSW.stopAndGetMillis () +
-                   " milliseconds");
+    LOGGER.info ("Finished checking file access for " +
+                 nFiles +
+                 " files and " +
+                 nDirs +
+                 " directories in " +
+                 aSW.stopAndGetMillis () +
+                 " milliseconds");
   }
 
   public FileRelativeIO (@Nonnull final File aBasePath)

@@ -49,7 +49,6 @@ public class LoggingJsonParseExceptionCallback implements IJsonParseExceptionCal
 
   public void onException (@Nonnull final JsonParseException ex)
   {
-    if (LOGGER.isErrorEnabled ())
-      LOGGER.error (createLoggingStringParseError (ex));
+    LOGGER.error (createLoggingStringParseError (ex));
   }
 }

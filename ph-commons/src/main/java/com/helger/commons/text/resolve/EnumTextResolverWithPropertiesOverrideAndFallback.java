@@ -60,7 +60,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
 
   private static final Logger LOGGER = LoggerFactory.getLogger (EnumTextResolverWithPropertiesOverrideAndFallback.class);
   private static final IMutableStatisticsHandlerKeyedCounter STATS_FAILED = StatisticsManager.getKeyedCounterHandler (EnumTextResolverWithPropertiesOverrideAndFallback.class.getName () +
-                                                                                                                        "$failed");
+                                                                                                                      "$failed");
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
@@ -115,13 +115,11 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
         // Do not use the cache!
         return ResourceBundleHelper.getResourceBundle (sBundleName, aLocale);
       }
-
       // Existing cache value? May be null!
       if (m_aResourceBundleCache.containsKey (sBundleName))
         return m_aResourceBundleCache.get (sBundleName);
       return null;
     });
-
     if (ret == null)
     {
       ret = m_aRWLock.writeLockedGet ( () -> {
@@ -135,13 +133,13 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
         return aWLRB;
       });
     }
-
     return ret;
   }
 
   @Override
   @Nullable
-  protected String internalGetOverrideString (@Nonnull @PropertyKey final String sID, @Nonnull final Locale aContentLocale)
+  protected String internalGetOverrideString (@Nonnull @PropertyKey final String sID,
+                                              @Nonnull final Locale aContentLocale)
   {
     // Try all possible locales of the passed locale
     for (final Locale aLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
@@ -162,7 +160,8 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
 
   @Override
   @Nullable
-  protected String internalGetFallbackString (@Nonnull @PropertyKey final String sID, @Nonnull final Locale aContentLocale)
+  protected String internalGetFallbackString (@Nonnull @PropertyKey final String sID,
+                                              @Nonnull final Locale aContentLocale)
   {
     // Try all possible locales of the passed locale
     for (final Locale aLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
@@ -177,12 +176,10 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
         return ret;
       }
     }
-
     STATS_FAILED.increment (PREFIX_FALLBACK + aContentLocale.toString () + ':' + sID);
     if (GlobalDebug.isDebugMode ())
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("getFallbackString (" + sID + "; " + aContentLocale.toString () + ") failed!");
+      LOGGER.warn ("getFallbackString (" + sID + "; " + aContentLocale.toString () + ") failed!");
 
       // Return consistent results
       if (false)

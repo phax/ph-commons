@@ -155,7 +155,6 @@ public final class KeyStoreHelper
     {
       aIS = null;
     }
-
     try
     {
       if (LOGGER.isDebugEnabled ())
@@ -260,8 +259,7 @@ public final class KeyStoreHelper
     }
     catch (final IllegalArgumentException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("No such key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
+      LOGGER.warn ("No such key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
 
       return new LoadedKeyStore (null,
                                  EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_NON_EXISTING,
@@ -272,14 +270,13 @@ public final class KeyStoreHelper
     {
       final boolean bInvalidPW = _isInvalidPasswordException (ex);
 
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to load key store '" +
-                     sKeyStorePath +
-                     "' of type " +
-                     aKeyStoreType.getID () +
-                     ": " +
-                     ex.getMessage (),
-                     bInvalidPW ? null : ex.getCause ());
+      LOGGER.warn ("Failed to load key store '" +
+                   sKeyStorePath +
+                   "' of type " +
+                   aKeyStoreType.getID () +
+                   ": " +
+                   ex.getMessage (),
+                   bInvalidPW ? null : ex.getCause ());
 
       return new LoadedKeyStore (null,
                                  bInvalidPW ? EKeyStoreLoadError.KEYSTORE_INVALID_PASSWORD
@@ -287,7 +284,6 @@ public final class KeyStoreHelper
                                  sKeyStorePath,
                                  ex.getMessage ());
     }
-
     // Finally success
     return new LoadedKeyStore (aKeyStore, null);
   }
@@ -353,7 +349,6 @@ public final class KeyStoreHelper
                                sKeyStorePath,
                                ex.getMessage ());
     }
-
     // Finally success
     return new LoadedKey <> (aKeyEntry, null);
   }

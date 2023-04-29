@@ -44,12 +44,11 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
    * The default implementation that just logs a warning.
    */
   public static final IConfigKeyOutdatedNotifier DEFAULT_OUTDATED_NOTIFIER = (sOld, sNew) -> {
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Please rename the configuration property '" +
-                   sOld +
-                   "' to '" +
-                   sNew +
-                   "'. The old name is deprecated.");
+    LOGGER.warn ("Please rename the configuration property '" +
+                 sOld +
+                 "' to '" +
+                 sNew +
+                 "'. The old name is deprecated.");
   };
 
   private IConfigKeyOutdatedNotifier m_aOutdatedNotifier = DEFAULT_OUTDATED_NOTIFIER;

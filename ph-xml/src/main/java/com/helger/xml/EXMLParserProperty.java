@@ -144,7 +144,9 @@ public enum EXMLParserProperty implements IHasName
    * instance if the document contains a name which is longer than the input
    * buffer.
    */
-  GENERAL_INPUT_BUFFER_SIZE (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/input-buffer-size", Integer.class),
+  GENERAL_INPUT_BUFFER_SIZE (EXMLParserPropertyType.GENERAL,
+                             "http://apache.org/xml/properties/input-buffer-size",
+                             Integer.class),
   /**
    * The locale to use for reporting errors and warnings. When the value of this
    * property is null the platform default returned from
@@ -187,14 +189,18 @@ public enum EXMLParserProperty implements IHasName
    * default document factory, the deferred node expansion feature does not
    * work.
    */
-  DOM_DOCUMENT_CLASS_NAME (EXMLParserPropertyType.DOM, "http://apache.org/xml/properties/dom/document-class-name", String.class),
+  DOM_DOCUMENT_CLASS_NAME (EXMLParserPropertyType.DOM,
+                           "http://apache.org/xml/properties/dom/document-class-name",
+                           String.class),
 
   /** The handler for DTD declarations. */
   SAX_DECLARATION_HANDLER (EXMLParserPropertyType.SAX,
                            "http://xml.org/sax/properties/declaration-handler",
                            org.xml.sax.ext.DeclHandler.class),
   /** The handler for lexical parsing events. */
-  SAX_LEXICAL_HANDLER (EXMLParserPropertyType.SAX, "http://xml.org/sax/properties/lexical-handler", org.xml.sax.ext.LexicalHandler.class),
+  SAX_LEXICAL_HANDLER (EXMLParserPropertyType.SAX,
+                       "http://xml.org/sax/properties/lexical-handler",
+                       org.xml.sax.ext.LexicalHandler.class),
   /**
    * The DOM node currently being visited, if SAX is being used as a DOM
    * iterator. If the parser recognizes and supports this property but is not
@@ -214,7 +220,9 @@ public enum EXMLParserProperty implements IHasName
    * The Schema language to be used. E.g.
    * <code>http://www.w3.org/2001/XMLSchema</code>.
    */
-  JAXP_SCHEMA_LANGUAGE (EXMLParserPropertyType.GENERAL, "http://java.sun.com/xml/jaxp/properties/schemaLanguage", String.class),
+  JAXP_SCHEMA_LANGUAGE (EXMLParserPropertyType.GENERAL,
+                        "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+                        String.class),
   /**
    * Sets the location of the schema. This is the one of most interest. It
    * accepts many values, such as:
@@ -228,7 +236,9 @@ public enum EXMLParserProperty implements IHasName
    * application accepts documents that can conform to different schemas.</li>
    * </ul>
    */
-  JAXP_SCHEMA_SORUCE (EXMLParserPropertyType.GENERAL, "http://java.sun.com/xml/jaxp/properties/schemaSource", Object.class);
+  JAXP_SCHEMA_SORUCE (EXMLParserPropertyType.GENERAL,
+                      "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                      Object.class);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (EXMLParserProperty.class);
 
@@ -294,6 +304,7 @@ public enum EXMLParserProperty implements IHasName
     if (this == EXMLParserProperty.GENERAL_LOCALE && aValue instanceof Locale)
     {
       final Locale aLocale = (Locale) aValue;
+
       if (Locale.ENGLISH.getLanguage ().equals (aLocale.getLanguage ()))
       {
         /**
@@ -319,8 +330,7 @@ public enum EXMLParserProperty implements IHasName
     ValueEnforcer.notNull (aParser, "Parser");
 
     if (m_ePropertyType != EXMLParserPropertyType.GENERAL && m_ePropertyType != EXMLParserPropertyType.SAX)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Parser property '" + name () + "' is not applicable for SAX parsers!");
+      LOGGER.warn ("Parser property '" + name () + "' is not applicable for SAX parsers!");
 
     try
     {
@@ -332,14 +342,12 @@ public enum EXMLParserProperty implements IHasName
       if (!m_bWarnedOnceXMLReader)
       {
         LOGGER.warn ("XML Parser does not recognize property '" + name () + "'");
-        if (LOGGER.isWarnEnabled ())
-          m_bWarnedOnceXMLReader = true;
+        m_bWarnedOnceXMLReader = true;
       }
     }
     catch (final SAXNotSupportedException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("XML Parser does not support property '" + name () + "'");
+      LOGGER.warn ("XML Parser does not support property '" + name () + "'");
     }
   }
 
@@ -348,8 +356,7 @@ public enum EXMLParserProperty implements IHasName
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
 
     if (m_ePropertyType != EXMLParserPropertyType.GENERAL && m_ePropertyType != EXMLParserPropertyType.DOM)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Parser property '" + name () + "' is not applicable for DOM parsers!");
+      LOGGER.warn ("Parser property '" + name () + "' is not applicable for DOM parsers!");
 
     try
     {
@@ -358,8 +365,7 @@ public enum EXMLParserProperty implements IHasName
     }
     catch (final IllegalArgumentException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("DOM parser does not support property '" + name () + "'");
+      LOGGER.warn ("DOM parser does not support property '" + name () + "'");
     }
   }
 
@@ -379,8 +385,7 @@ public enum EXMLParserProperty implements IHasName
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
 
     if (m_ePropertyType != EXMLParserPropertyType.GENERAL)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Parser property '" + name () + "' is not applicable for SchemaFactory!");
+      LOGGER.warn ("Parser property '" + name () + "' is not applicable for SchemaFactory!");
 
     try
     {
@@ -391,15 +396,13 @@ public enum EXMLParserProperty implements IHasName
     {
       if (!m_bWarnedOnceSchemaFactory)
       {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("SchemaFactory does not recognize property '" + name () + "'");
+        LOGGER.warn ("SchemaFactory does not recognize property '" + name () + "'");
         m_bWarnedOnceSchemaFactory = true;
       }
     }
     catch (final SAXNotSupportedException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("SchemaFactory does not support property '" + name () + "'");
+      LOGGER.warn ("SchemaFactory does not support property '" + name () + "'");
     }
   }
 
@@ -419,8 +422,7 @@ public enum EXMLParserProperty implements IHasName
     ValueEnforcer.notNull (aValidator, "Validator");
 
     if (m_ePropertyType != EXMLParserPropertyType.GENERAL)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Parser property '" + name () + "' is not applicable for Validator!");
+      LOGGER.warn ("Parser property '" + name () + "' is not applicable for Validator!");
 
     try
     {
@@ -431,15 +433,13 @@ public enum EXMLParserProperty implements IHasName
     {
       if (!m_bWarnedOnceValidator)
       {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Validator does not recognize property '" + name () + "'");
+        LOGGER.warn ("Validator does not recognize property '" + name () + "'");
         m_bWarnedOnceValidator = true;
       }
     }
     catch (final SAXNotSupportedException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Validator does not support property '" + name () + "'");
+      LOGGER.warn ("Validator does not support property '" + name () + "'");
     }
   }
 

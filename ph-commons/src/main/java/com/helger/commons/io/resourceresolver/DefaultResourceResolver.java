@@ -110,8 +110,7 @@ public class DefaultResourceResolver
 
     final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
     if (isDebugResolve ())
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("  [ClassPath] resolved base + system to " + ret);
+      LOGGER.info ("  [ClassPath] resolved base + system to " + ret);
     return ret;
   }
 
@@ -157,8 +156,7 @@ public class DefaultResourceResolver
 
     final URLResource ret = new URLResource (sAggregatedPath);
     if (isDebugResolve ())
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("  [JarFile] resolved base + system to " + ret);
+      LOGGER.info ("  [JarFile] resolved base + system to " + ret);
     return ret;
   }
 
@@ -193,8 +191,7 @@ public class DefaultResourceResolver
                                  URLHelper.getURLString (sNewPath, aBaseURL.getQuery (), aBaseURL.getRef ()));
     final URLResource ret = new URLResource (aNewURL);
     if (isDebugResolve ())
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("  [URL] resolved base + system to " + ret);
+      LOGGER.info ("  [URL] resolved base + system to " + ret);
     return ret;
   }
 
@@ -246,8 +243,7 @@ public class DefaultResourceResolver
                     (aClassLoader == null ? "" : " with ClassLoader " + aClassLoader));
 
     if (bDebugResolve)
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
+      LOGGER.info ("doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
 
     // It happens quite often that some resolution does not work here
     final URL aSystemURL = URLHelper.getAsURL (sSystemId, false);
@@ -261,8 +257,7 @@ public class DefaultResourceResolver
       {
         final URLResource ret = new URLResource (aSystemURL);
         if (bDebugResolve)
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("  resolved system URL to " + ret);
+          LOGGER.info ("  resolved system URL to " + ret);
         return ret;
       }
     }
@@ -311,8 +306,7 @@ public class DefaultResourceResolver
       // Note: BaseFile should always be set here!
       final FileSystemResource ret = new FileSystemResource (aBaseFile);
       if (bDebugResolve)
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("  resolved base URL to " + ret);
+        LOGGER.info ("  resolved base URL to " + ret);
       return ret;
     }
 
@@ -336,8 +330,7 @@ public class DefaultResourceResolver
         if (aMerged.exists ())
         {
           if (bDebugResolve)
-            if (LOGGER.isInfoEnabled ())
-              LOGGER.info ("  resolved base + system URL to " + aMerged);
+            LOGGER.info ("  resolved base + system URL to " + aMerged);
           return aMerged;
         }
       }
@@ -345,15 +338,13 @@ public class DefaultResourceResolver
       // If the absolute version exists, or if both the absolute and the merged
       // version do NOT exist, return the absolute version anyway.
       if (bDebugResolve)
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("  resolved system URL to " + aAbsFile);
+        LOGGER.info ("  resolved system URL to " + aAbsFile);
       return aAbsFile;
     }
 
     final FileSystemResource ret = _getChildResource (aBaseFile, aSystemFile);
     if (bDebugResolve)
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("  resolved base + system URL to " + ret);
+      LOGGER.info ("  resolved base + system URL to " + ret);
     return ret;
   }
 }

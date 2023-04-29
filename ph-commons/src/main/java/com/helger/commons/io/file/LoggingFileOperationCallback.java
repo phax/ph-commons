@@ -34,7 +34,9 @@ public class LoggingFileOperationCallback implements IFileOperationCallback
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingFileOperationCallback.class);
 
   @Override
-  public void onSuccess (@Nonnull final EFileIOOperation eOperation, @Nonnull final File aFile1, @Nullable final File aFile2)
+  public void onSuccess (@Nonnull final EFileIOOperation eOperation,
+                         @Nonnull final File aFile1,
+                         @Nullable final File aFile2)
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("File operation " +
@@ -52,15 +54,14 @@ public class LoggingFileOperationCallback implements IFileOperationCallback
                        @Nullable final File aFile2,
                        @Nullable final Exception aException)
   {
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("File operation " +
-                   eOperation.name () +
-                   " failed with error code " +
-                   eErrorCode.name () +
-                   " on '" +
-                   aFile1 +
-                   "'" +
-                   (aFile2 == null ? "" : " and '" + aFile2 + "'"),
-                   aException);
+    LOGGER.warn ("File operation " +
+                 eOperation.name () +
+                 " failed with error code " +
+                 eErrorCode.name () +
+                 " on '" +
+                 aFile1 +
+                 "'" +
+                 (aFile2 == null ? "" : " and '" + aFile2 + "'"),
+                 aException);
   }
 }

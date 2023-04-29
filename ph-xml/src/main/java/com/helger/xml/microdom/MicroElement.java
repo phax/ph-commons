@@ -79,20 +79,20 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     else
     {
       // Cut the prefix
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Removing micro element namespace prefix '" +
-                     sTagName.substring (0, nPrefixEnd) +
-                     "' from tag name '" +
-                     sTagName +
-                     "'");
+      LOGGER.warn ("Removing micro element namespace prefix '" +
+                   sTagName.substring (0, nPrefixEnd) +
+                   "' from tag name '" +
+                   sTagName +
+                   "'");
       m_sTagName = sTagName.substring (nPrefixEnd + 1);
     }
-
     // Only for the debug version, as this slows things down heavily
     if (GlobalDebug.isDebugMode ())
       if (!CXMLRegEx.PATTERN_NAME_QUICK.matcher (m_sTagName).matches ())
         if (!CXMLRegEx.PATTERN_NAME.matcher (m_sTagName).matches ())
-          throw new IllegalArgumentException ("The micro element tag name '" + m_sTagName + "' is not a valid element name!");
+          throw new IllegalArgumentException ("The micro element tag name '" +
+                                              m_sTagName +
+                                              "' is not a valid element name!");
   }
 
   @Nonnull
@@ -148,7 +148,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    return new CommonsLinkedHashMap <> (m_aAttrs.values (), IMicroAttribute::getAttributeQName, IMicroAttribute::getAttributeValue);
+    return new CommonsLinkedHashMap <> (m_aAttrs.values (),
+                                        IMicroAttribute::getAttributeQName,
+                                        IMicroAttribute::getAttributeValue);
   }
 
   @Nullable
@@ -175,7 +177,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public void forAllAttributes (@Nonnull final ITriConsumer <? super String, ? super String, ? super String> aConsumer)
   {
     if (m_aAttrs != null)
-      m_aAttrs.forEachValue (x -> aConsumer.accept (x.getNamespaceURI (), x.getAttributeName (), x.getAttributeValue ()));
+      m_aAttrs.forEachValue (x -> aConsumer.accept (x.getNamespaceURI (),
+                                                    x.getAttributeName (),
+                                                    x.getAttributeValue ()));
   }
 
   @Nullable
@@ -185,7 +189,8 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
-  private static <DSTTYPE> DSTTYPE _getConvertedToType (@Nullable final String sAttrValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  private static <DSTTYPE> DSTTYPE _getConvertedToType (@Nullable final String sAttrValue,
+                                                        @Nonnull final Class <DSTTYPE> aDstClass)
   {
     // Avoid having a conversion issue with empty strings!
     if (StringHelper.hasNoText (sAttrValue))
@@ -195,7 +200,8 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
-  public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final IMicroQName aAttrName, @Nonnull final Class <DSTTYPE> aDstClass)
+  public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final IMicroQName aAttrName,
+                                                            @Nonnull final Class <DSTTYPE> aDstClass)
   {
     final String sAttrValue = getAttributeValue (aAttrName);
     return _getConvertedToType (sAttrValue, aDstClass);

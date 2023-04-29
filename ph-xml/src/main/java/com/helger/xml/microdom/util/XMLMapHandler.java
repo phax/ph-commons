@@ -131,7 +131,6 @@ public final class XMLMapHandler
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");
-
     try (final InputStream aCloseMe = aIS)
     {
       // open file
@@ -144,8 +143,7 @@ public final class XMLMapHandler
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to read mapping resource '" + aIS + "'", ex);
+      LOGGER.warn ("Failed to read mapping resource '" + aIS + "'", ex);
     }
     return ESuccess.FAILURE;
   }
@@ -156,7 +154,6 @@ public final class XMLMapHandler
   {
     ValueEnforcer.notNull (aParentElement, "ParentElement");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");
-
     try
     {
       // and insert all elements
@@ -173,8 +170,7 @@ public final class XMLMapHandler
           else
           {
             if (aTargetMap.containsKey (sName))
-              if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("Key '" + sName + "' is already contained - overwriting!");
+              LOGGER.warn ("Key '" + sName + "' is already contained - overwriting!");
             aTargetMap.put (sName, sValue);
           }
         }
@@ -183,8 +179,7 @@ public final class XMLMapHandler
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to read mapping document", ex);
+      LOGGER.warn ("Failed to read mapping document", ex);
     }
     return ESuccess.FAILURE;
   }
@@ -230,7 +225,6 @@ public final class XMLMapHandler
   {
     ValueEnforcer.notNull (aMap, "Map");
     ValueEnforcer.notNull (aOS, "OutputStream");
-
     try
     {
       final IMicroDocument aDoc = createMapDocument (aMap);

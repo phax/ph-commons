@@ -99,7 +99,6 @@ public final class TextVariableHelper
         bLastCharWasMask = false;
       }
     }
-
     // End of string and not found
     return -1;
   }
@@ -117,13 +116,11 @@ public final class TextVariableHelper
     {
       // "$" may be the last char of the string
       final boolean bIsLastChar = nAbsOfs == nOfs + nLen - 1;
-
       if (!bIsLastChar && aChars[nAbsOfs + 1] == OPENING_BRACKET)
       {
         // It's a variable start if the "$" is followed by a "{"
         return nAbsOfs + 2;
       }
-
       // Just a plain "$" in the text - continue
       aSB.append (DOLLAR);
       if (bIsLastChar)
@@ -131,7 +128,6 @@ public final class TextVariableHelper
         // End of string
         return -1;
       }
-
       // Find next "$" starting from where we are atm
       nAbsOfs = _nextCharConsiderMasking (aChars, nAbsOfs + 1, nLen - (nAbsOfs - nStartOfs + 1), DOLLAR, aSB);
     }
@@ -174,7 +170,6 @@ public final class TextVariableHelper
 
     // Find the beginning of the next variable starting outside of a variable
     int nNextVar = _findStartOfVarName (aTextChars, nStart, nTextLen - nStart, aTarget);
-
     while (nNextVar >= 0)
     {
       // Add the stuff before the variable
@@ -191,8 +186,7 @@ public final class TextVariableHelper
                                                       aTarget);
       if (nEndOfVar < 0)
       {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("End of variable was not found in '" + sText + "' starting from ofs " + nNextVar);
+        LOGGER.warn ("End of variable was not found in '" + sText + "' starting from ofs " + nNextVar);
 
         // Add the remaining part "as-is"
         // Go back 2 chars to include "${"
@@ -210,7 +204,6 @@ public final class TextVariableHelper
         aTarget.setLength (0);
         break;
       }
-
       // Add variable
       ret.add (aTarget.toString ());
       aTarget.setLength (0);
@@ -219,7 +212,6 @@ public final class TextVariableHelper
       nStart = nEndOfVar + 1;
       nNextVar = _findStartOfVarName (aTextChars, nStart, nTextLen - nStart, aTarget);
     }
-
     // Take whatever is left
     if (aTarget.length () > 0)
       ret.add (aTarget.toString ());
@@ -260,7 +252,6 @@ public final class TextVariableHelper
   {
     ValueEnforcer.notNull (aTextFragmentHandler, "TextFragmentHandler");
     ValueEnforcer.notNull (aVariableNameHandler, "VariableNameHandler");
-
     if (StringHelper.hasNoText (sSourceString))
     {
       // Surely no variables
@@ -287,7 +278,6 @@ public final class TextVariableHelper
             else
               aVariableNameHandler.accept (sPiece);
           }
-
           bText = !bText;
         }
       }

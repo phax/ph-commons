@@ -66,8 +66,7 @@ public class ReadableResourceSAXInputSource extends InputSource
   {
     final InputStream aIS = m_aISP.getInputStream ();
     if (aIS == null)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to open input stream for " + m_aISP);
+      LOGGER.warn ("Failed to open input stream for " + m_aISP);
     return aIS;
   }
 

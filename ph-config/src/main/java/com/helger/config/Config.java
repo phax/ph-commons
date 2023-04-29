@@ -228,7 +228,6 @@ public class Config implements IConfig
                                          sVarName +
                                          '"');
       }
-
       // First time usage of variable name
       final ConfiguredValue aCV = getConfiguredValue (sVarName);
       if (aCV == null)
@@ -239,14 +238,12 @@ public class Config implements IConfig
 
         return m_aUnresolvedVariableProvider.apply (sVarName);
       }
-
       String sNestedConfiguredValue = aCV.getValue ();
       if (StringHelper.hasText (sNestedConfiguredValue))
       {
         // Recursive call
         sNestedConfiguredValue = _getWithVariablesReplacedRecursive (sNestedConfiguredValue, aUsedVarContainer);
       }
-
       // Remove the variable again, because resolution worked so far
       aUsedVarContainer.remove (sVarName);
 
@@ -277,11 +274,10 @@ public class Config implements IConfig
       catch (final IllegalStateException ex)
       {
         // Handle exception only on top-level
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to replace variables in configuration value '" +
-                        sConfiguredValue +
-                        "': " +
-                        ex.getMessage ());
+        LOGGER.error ("Failed to replace variables in configuration value '" +
+                      sConfiguredValue +
+                      "': " +
+                      ex.getMessage ());
       }
     }
     return sConfiguredValue;
@@ -295,10 +291,9 @@ public class Config implements IConfig
     {
       final MultiConfigurationValueProvider aMulti = (MultiConfigurationValueProvider) aValueProvider;
       // Descend recursively
-      aMulti.forEachConfigurationValueProvider ( (cvp,
-                                                  prio) -> _forEachConfigurationValueProviderRecursive (cvp,
-                                                                                                        prio,
-                                                                                                        aCallback));
+      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> _forEachConfigurationValueProviderRecursive (cvp,
+                                                                                                             prio,
+                                                                                                             aCallback));
     }
     else
     {

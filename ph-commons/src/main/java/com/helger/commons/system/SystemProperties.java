@@ -129,8 +129,7 @@ public final class SystemProperties
       {
         // Warn about each property once
         if (!isSilentMode ())
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("System property '" + sKey + "' cannot be read because it is not set");
+          LOGGER.warn ("System property '" + sKey + "' cannot be read because it is not set");
       }
     }
     return ret;
@@ -233,8 +232,7 @@ public final class SystemProperties
       bChanged = sOld != null && !sValue.equals (sOld);
       if (bChanged)
         if (!isSilentMode ())
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("Set system property '" + sKey + "' to '" + sValue + "'");
+          LOGGER.info ("Set system property '" + sKey + "' to '" + sValue + "'");
     }
     return EChange.valueOf (bChanged);
   }
@@ -256,15 +254,9 @@ public final class SystemProperties
     if (!isSilentMode ())
     {
       if (sOldValue != null)
-      {
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("Removed system property '" + sKey + "' with value '" + sOldValue + "'");
-      }
+        LOGGER.info ("Removed system property '" + sKey + "' with value '" + sOldValue + "'");
       else
-      {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Remove system property '" + sKey + "' failed");
-      }
+        LOGGER.warn ("Remove system property '" + sKey + "' failed");
     }
     return sOldValue;
   }

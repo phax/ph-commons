@@ -75,10 +75,7 @@ public class AdapterOffsetTime extends XmlAdapter <String, OffsetTime>
       if (aLT != null)
         ret = OffsetTime.of (aLT, getFallbackZoneOffsetSupplier ().apply (aLT));
       else
-      {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Failed to parse '" + sValue + "' to an OffsetTime");
-      }
+        LOGGER.warn ("Failed to parse '" + sValue + "' to an OffsetTime");
     }
     return ret;
   }

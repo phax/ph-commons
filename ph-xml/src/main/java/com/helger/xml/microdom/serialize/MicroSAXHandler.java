@@ -103,8 +103,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
       // Handle location
       final SimpleLocation aLocation = SimpleLocation.create (m_aLocator);
       if (false)
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info (sWhat + " " + aLocation.toString ());
+        LOGGER.info (sWhat + " " + aLocation.toString ());
     }
   }
 
@@ -179,7 +178,6 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
           aElement.setAttribute (sAttrNamespaceURI, sAttrName, sAttrValue);
       }
     }
-
     m_aParent = aElement;
   }
 
@@ -245,9 +243,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
-  public void comment (@Nonnull final char [] aChars,
-                       @Nonnegative final int nStart,
-                       @Nonnegative final int nLength) throws SAXException
+  public void comment (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
+                                                                                                                     throws SAXException
   {
     _updatePosition ("comment");
     // Ignore comments in DTD
@@ -296,21 +293,12 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     // If using XHTML this should be replaced by using the LocalEntityResolver
     // instead
     if (sPublicId == null)
-    {
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Need to resolve entity with system ID '" + sSystemId + "'");
-    }
+      LOGGER.info ("Need to resolve entity with system ID '" + sSystemId + "'");
     else
       if (sSystemId == null)
-      {
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("Need to resolve entity with public ID '" + sPublicId + "'");
-      }
+        LOGGER.info ("Need to resolve entity with public ID '" + sPublicId + "'");
       else
-      {
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("Need to resolve entity with public ID '" + sPublicId + "' and system ID '" + sSystemId + "'");
-      }
+        LOGGER.info ("Need to resolve entity with public ID '" + sPublicId + "' and system ID '" + sSystemId + "'");
     return null;
   }
 
@@ -340,16 +328,15 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     if (aER != null)
       return aER.resolveEntity (sPublicId, sSystemId);
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Need to resolve entity with name '" +
-                   sName +
-                   "', public ID '" +
-                   sPublicId +
-                   "' base URI '" +
-                   sBaseURI +
-                   "' and system ID '" +
-                   sSystemId +
-                   "'");
+    LOGGER.info ("Need to resolve entity with name '" +
+                 sName +
+                 "', public ID '" +
+                 sPublicId +
+                 "' base URI '" +
+                 sBaseURI +
+                 "' and system ID '" +
+                 sSystemId +
+                 "'");
     return null;
   }
 
@@ -359,38 +346,33 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
                                   final String sNotationName)
   {
     _updatePosition ("unparsedEntityDecl");
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Unparsed entity decl: " + sName + "--" + sPublicId + "--" + sSystemId + "--" + sNotationName);
+    LOGGER.warn ("Unparsed entity decl: " + sName + "--" + sPublicId + "--" + sSystemId + "--" + sNotationName);
   }
 
   public void notationDecl (final String sName, final String sPublicId, final String sSystemId) throws SAXException
   {
     _updatePosition ("notationDecl");
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Unparsed notation decl: " + sName + "--" + sPublicId + "--" + sSystemId);
+    LOGGER.warn ("Unparsed notation decl: " + sName + "--" + sPublicId + "--" + sSystemId);
   }
 
   public void skippedEntity (final String sName)
   {
     _updatePosition ("skippedEntity");
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Skipped entity: " + sName);
+    LOGGER.warn ("Skipped entity: " + sName);
   }
 
   public void startEntity (final String sName) throws SAXException
   {
     _updatePosition ("startEntity");
     if (false)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Start entity: " + sName);
+      LOGGER.warn ("Start entity: " + sName);
   }
 
   public void endEntity (final String sName) throws SAXException
   {
     _updatePosition ("endEntity");
     if (false)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("End entity: " + sName);
+      LOGGER.warn ("End entity: " + sName);
   }
 
   public void startCDATA () throws SAXException
@@ -408,8 +390,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   // For namespace handling
-  public void startPrefixMapping (@Nonnull final String sPrefix,
-                                  @Nonnull final String sNamespaceURI) throws SAXException
+  public void startPrefixMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
+                                                                                                      throws SAXException
   {}
 
   // for namespace handling
@@ -425,20 +407,17 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
   public void warning (final SAXParseException ex)
   {
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn (_getMsg (EErrorLevel.WARN, ex));
+    LOGGER.warn (_getMsg (EErrorLevel.WARN, ex));
   }
 
   public void error (final SAXParseException ex)
   {
-    if (LOGGER.isErrorEnabled ())
-      LOGGER.error (_getMsg (EErrorLevel.ERROR, ex));
+    LOGGER.error (_getMsg (EErrorLevel.ERROR, ex));
   }
 
   public void fatalError (final SAXParseException ex)
   {
-    if (LOGGER.isErrorEnabled ())
-      LOGGER.error (_getMsg (EErrorLevel.FATAL_ERROR, ex));
+    LOGGER.error (_getMsg (EErrorLevel.FATAL_ERROR, ex));
   }
 
   /**

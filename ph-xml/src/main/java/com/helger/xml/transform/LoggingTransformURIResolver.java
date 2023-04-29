@@ -49,8 +49,7 @@ public class LoggingTransformURIResolver extends AbstractTransformURIResolver
   @Override
   protected Source internalResolve (final String sHref, final String sBase) throws TransformerException
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("URIResolver.resolve (" + sHref + ", " + sBase + ")");
+    LOGGER.info ("URIResolver.resolve (" + sHref + ", " + sBase + ")");
     return null;
   }
 }

@@ -35,8 +35,7 @@ public class StatisticsHandlerSize extends AbstractStatisticsHandlerNumeric impl
   public void addSize (@Nonnegative final long nSize)
   {
     if (nSize < 0)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("A negative value (" + nSize + ") is added to " + getClass ().getName ());
+      LOGGER.warn ("A negative value (" + nSize + ") is added to " + getClass ().getName ());
     addValue (nSize);
   }
 }

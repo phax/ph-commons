@@ -203,12 +203,11 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     if (aPropertyValue != null &&
         eProperty.getValueClass () != null &&
         !eProperty.getValueClass ().isAssignableFrom (aPropertyValue.getClass ()))
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Setting the XML parser property '" +
-                     eProperty +
-                     "' to a value of " +
-                     aPropertyValue.getClass () +
-                     " will most likely not be interpreted!");
+      LOGGER.warn ("Setting the XML parser property '" +
+                   eProperty +
+                   "' to a value of " +
+                   aPropertyValue.getClass () +
+                   " will most likely not be interpreted!");
 
     if (aPropertyValue != null)
       m_aProperties.put (eProperty, aPropertyValue);
@@ -421,7 +420,6 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
       // Create plain object
       return new SAXReaderSettings ();
     }
-
     // Create a clone
     return new SAXReaderSettings (aOther);
   }

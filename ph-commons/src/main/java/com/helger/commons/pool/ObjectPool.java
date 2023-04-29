@@ -142,7 +142,6 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
       Thread.currentThread ().interrupt ();
       return null;
     }
-
     m_aLock.lock ();
     try
     {
@@ -185,8 +184,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           return ESuccess.SUCCESS;
         }
       if (!isSilentMode ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Object " + aItem + " is not pooled!");
+        LOGGER.warn ("Object " + aItem + " is not pooled!");
       return ESuccess.FAILURE;
     }
     finally

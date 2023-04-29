@@ -76,13 +76,13 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  private static InputStream _getMappedInputStream (@Nonnull @WillNotClose final FileChannel aChannel, @Nonnull final File aFile)
+  private static InputStream _getMappedInputStream (@Nonnull @WillNotClose final FileChannel aChannel,
+                                                    @Nonnull final File aFile)
   {
     try
     {
       final MappedByteBuffer aBuffer = aChannel.map (MapMode.READ_ONLY, 0, aChannel.size ());
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Created memory mapped input stream for " + aFile);
+      LOGGER.info ("Created memory mapped input stream for " + aFile);
       return new ByteBufferInputStream (aBuffer);
     }
     catch (final IOException ex)
@@ -154,20 +154,19 @@ public final class FileChannelHelper
       return aIS;
 
     // Memory mapping failed - return the original input stream
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Failed to map file " + aFile + ". Falling though to regular FileInputStream");
+    LOGGER.warn ("Failed to map file " + aFile + ". Falling though to regular FileInputStream");
     return aFIS;
   }
 
   @Nullable
-  private static OutputStream _getMappedOutputStream (@Nonnull @WillNotClose final FileChannel aChannel, @Nonnull final File aFile)
+  private static OutputStream _getMappedOutputStream (@Nonnull @WillNotClose final FileChannel aChannel,
+                                                      @Nonnull final File aFile)
   {
     try
     {
       // Maximum is Integer.MAX_VALUE even if a long is taken!
       final MappedByteBuffer aBuffer = aChannel.map (MapMode.READ_WRITE, 0, Integer.MAX_VALUE);
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Created memory mapped output stream for " + aFile);
+      LOGGER.info ("Created memory mapped output stream for " + aFile);
       return new ByteBufferOutputStream (aBuffer, false);
     }
     catch (final IOException ex)
@@ -237,11 +236,9 @@ public final class FileChannelHelper
     final RandomAccessFile aRAF = FileHelper.getRandomAccessFile (aFile, ERandomAccessFileMode.READ_WRITE);
     if (aRAF == null)
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Failed to open random access file " + aFile);
+      LOGGER.error ("Failed to open random access file " + aFile);
       return null;
     }
-
     // Try to memory map it
     final OutputStream aOS = _getMappedOutputStream (aRAF.getChannel (), aFile);
     if (aOS != null)
@@ -249,8 +246,7 @@ public final class FileChannelHelper
 
     // Memory mapping failed - return the original output stream
     StreamHelper.close (aRAF);
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Failed to map file " + aFile + ". Falling though to regular FileOutputStream");
+    LOGGER.warn ("Failed to map file " + aFile + ". Falling though to regular FileOutputStream");
     return FileHelper.getOutputStream (aFile, eAppend);
   }
 }

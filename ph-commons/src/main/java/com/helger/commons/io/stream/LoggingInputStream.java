@@ -59,36 +59,31 @@ public class LoggingInputStream extends WrappedInputStream
   @OverrideOnDemand
   protected void onRead (final int nBytesRead, final long nNewPosition)
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Read " + nBytesRead + " byte(s); now at " + nNewPosition);
+    LOGGER.info ("Read " + nBytesRead + " byte(s); now at " + nNewPosition);
   }
 
   @OverrideOnDemand
   protected void onSkip (final long nBytesSkipped, final long nNewPosition)
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Skipped " + nBytesSkipped + " byte(s); now at " + nNewPosition);
+    LOGGER.info ("Skipped " + nBytesSkipped + " byte(s); now at " + nNewPosition);
   }
 
   @OverrideOnDemand
   protected void onMark (final int nReadLimit, final long nCurrentPosition)
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Marked at " + nCurrentPosition + " with read-limit of " + nReadLimit);
+    LOGGER.info ("Marked at " + nCurrentPosition + " with read-limit of " + nReadLimit);
   }
 
   @OverrideOnDemand
   protected void onReset (final long nCurrentPosition)
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Reset at " + nCurrentPosition);
+    LOGGER.info ("Reset at " + nCurrentPosition);
   }
 
   @OverrideOnDemand
   protected void onClose (final long nCurrentPosition)
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Close at " + nCurrentPosition);
+    LOGGER.info ("Close at " + nCurrentPosition);
   }
 
   @Override

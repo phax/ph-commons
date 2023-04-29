@@ -205,10 +205,8 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
         }
       }
     }
-
     if (aSettings == null)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to resolve config file paths: " + m_aPaths);
+      LOGGER.warn ("Failed to resolve config file paths: " + m_aPaths);
 
     return new ConfigFile (aSettings != null ? aRes : null, aSettings);
   }

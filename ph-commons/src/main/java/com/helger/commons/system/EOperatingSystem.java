@@ -89,8 +89,7 @@ public enum EOperatingSystem implements IHasDisplayName
     final String sCurrentOSName = getCurrentOSName ();
     INSTANCE = forName (sCurrentOSName);
     if (INSTANCE == UNKNOWN)
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
+      LOGGER.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
   }
 
   /** The human-readable name for this operating system. */

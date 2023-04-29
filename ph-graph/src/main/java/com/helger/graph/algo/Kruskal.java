@@ -92,7 +92,8 @@ public final class Kruskal
   private Kruskal ()
   {}
 
-  private static String _getWeightInfo (@Nonnull final IMutableGraphRelation aRel, @Nonnull @Nonempty final String sRelationCostAttr)
+  private static String _getWeightInfo (@Nonnull final IMutableGraphRelation aRel,
+                                        @Nonnull @Nonempty final String sRelationCostAttr)
   {
     return "{" +
            StringHelper.getImploded (',', new CommonsTreeSet <> (aRel.getAllConnectedNodeIDs ())) +
@@ -102,18 +103,17 @@ public final class Kruskal
   }
 
   @Nonnull
-  public static Kruskal.Result applyKruskal (@Nonnull final ISimpleGraph aGraph, @Nonnull @Nonempty final String sRelationCostAttr)
+  public static Kruskal.Result applyKruskal (@Nonnull final ISimpleGraph aGraph,
+                                             @Nonnull @Nonempty final String sRelationCostAttr)
   {
     final ICommonsList <IMutableGraphRelation> aSortedRelations = aGraph.getAllRelationObjs ()
                                                                         .getSortedInline (Comparator.comparingInt (x -> x.attrs ()
                                                                                                                          .getAsInt (sRelationCostAttr)));
     if (GlobalDebug.isDebugMode ())
     {
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Starting Kruskal on " + aSortedRelations.size () + " relations");
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Sorted relations: " +
-                     StringHelper.getImplodedMapped (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
+      LOGGER.info ("Starting Kruskal on " + aSortedRelations.size () + " relations");
+      LOGGER.info ("Sorted relations: " +
+                   StringHelper.getImplodedMapped (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
     }
 
     final SimpleGraph ret = new SimpleGraph (new SimpleGraphObjectFastFactory ());
@@ -135,15 +135,15 @@ public final class Kruskal
       if (ret.containsCycles ())
       {
         if (GlobalDebug.isDebugMode ())
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("Ignoring " + _getWeightInfo (aNewRelation, sRelationCostAttr) + " because it introduces a cycle!");
+          LOGGER.info ("Ignoring " +
+                       _getWeightInfo (aNewRelation, sRelationCostAttr) +
+                       " because it introduces a cycle!");
         ret.removeRelation (aNewRelation);
       }
       else
       {
         if (GlobalDebug.isDebugMode ())
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("Added " + _getWeightInfo (aNewRelation, sRelationCostAttr) + "!");
+          LOGGER.info ("Added " + _getWeightInfo (aNewRelation, sRelationCostAttr) + "!");
         nTotalWeight += nWeight;
         nRemainingRelations--;
         if (nRemainingRelations == 0)
@@ -152,8 +152,7 @@ public final class Kruskal
     }
 
     if (GlobalDebug.isDebugMode ())
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Having a total weight of " + nTotalWeight);
+      LOGGER.info ("Having a total weight of " + nTotalWeight);
 
     return new Kruskal.Result (ret, nTotalWeight);
   }

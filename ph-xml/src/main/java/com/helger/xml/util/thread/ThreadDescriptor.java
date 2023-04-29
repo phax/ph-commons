@@ -101,8 +101,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Failed to get ThreadInfo for thread " + m_nID + ":", ex);
+      LOGGER.error ("Failed to get ThreadInfo for thread " + m_nID + ":", ex);
     }
     m_aThreadInfo = aThreadInfo;
   }
@@ -224,7 +223,6 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
               eMonitor.setAttribute ("stackdepth", aMonitorInfo.getLockedStackDepth ());
           }
         }
-
         final LockInfo [] aSynchronizers = m_aThreadInfo.getLockedSynchronizers ();
         if (ArrayHelper.isNotEmpty (aSynchronizers))
         {

@@ -79,11 +79,10 @@ public enum EXMLIncorrectCharacterHandling
     public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
                                              @Nonnull final Set <Character> aInvalidChars)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("XML content contains invalid character data (no replacement): '" +
-                     sText +
-                     "'. Invalid chars are: " +
-                     _getAsString (aInvalidChars));
+      LOGGER.warn ("XML content contains invalid character data (no replacement): '" +
+                   sText +
+                   "'. Invalid chars are: " +
+                   _getAsString (aInvalidChars));
     }
   },
 
@@ -111,11 +110,10 @@ public enum EXMLIncorrectCharacterHandling
     public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
                                              @Nonnull final Set <Character> aInvalidChars)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("XML content contains invalid character data (will replace): '" +
-                     sText +
-                     "'. Invalid chars are: " +
-                     _getAsString (aInvalidChars));
+      LOGGER.warn ("XML content contains invalid character data (will replace): '" +
+                   sText +
+                   "'. Invalid chars are: " +
+                   _getAsString (aInvalidChars));
     }
   };
 
@@ -178,8 +176,7 @@ public enum EXMLIncorrectCharacterHandling
       return "NONE";
     return StringHelper.imploder ()
                        .separator (", ")
-                       .source (aInvalidChars,
-                                x -> "0x" + StringHelper.getHexStringLeadingZero (x.charValue (), 2))
+                       .source (aInvalidChars, x -> "0x" + StringHelper.getHexStringLeadingZero (x.charValue (), 2))
                        .build ();
   }
 

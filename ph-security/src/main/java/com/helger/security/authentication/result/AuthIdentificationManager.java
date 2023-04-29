@@ -61,11 +61,9 @@ public final class AuthIdentificationManager
     final ICredentialValidationResult aValidationResult = AuthCredentialValidatorManager.validateCredentials (aCredentials);
     if (aValidationResult.isFailure ())
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Credentials have been rejected: " + aCredentials);
+      LOGGER.warn ("Credentials have been rejected: " + aCredentials);
       return AuthIdentificationResult.createFailure (aValidationResult);
     }
-
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Credentials have been accepted: " + aCredentials);
 
@@ -78,15 +76,14 @@ public final class AuthIdentificationManager
     }
     else
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Failed to resolve credentials " + aCredentials + " to an auth subject!");
+      LOGGER.error ("Failed to resolve credentials " + aCredentials + " to an auth subject!");
     }
-
     // Create the identification element
     final AuthIdentification aIdentification = new AuthIdentification (aSubject);
 
     // create the token (without expiration seconds)
-    final IAuthToken aNewAuthToken = AuthTokenRegistry.createToken (aIdentification, IAuthToken.EXPIRATION_SECONDS_INFINITE);
+    final IAuthToken aNewAuthToken = AuthTokenRegistry.createToken (aIdentification,
+                                                                    IAuthToken.EXPIRATION_SECONDS_INFINITE);
     return AuthIdentificationResult.createSuccess (aNewAuthToken);
   }
 }

@@ -165,14 +165,13 @@ public class JAXBContextCacheKey
     final ClassLoader aClassLoader = _getClassLoader ();
 
     if (!bSilentMode)
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Creating JAXB context for packages " +
-                     StringHelper.imploder ()
-                                 .source (m_aPackages, x -> '\'' + x.getName () + '\'')
-                                 .separator (", ")
-                                 .build () +
-                     " using ClassLoader " +
-                     aClassLoader.toString ());
+      LOGGER.info ("Creating JAXB context for packages " +
+                   StringHelper.imploder ()
+                               .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                               .separator (", ")
+                               .build () +
+                   " using ClassLoader " +
+                   aClassLoader.toString ());
 
     try
     {
@@ -200,13 +199,12 @@ public class JAXBContextCacheKey
 
     // E.g. an internal class - try anyway!
     if (!bSilentMode)
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Creating JAXB context for classes " +
-                     StringHelper.imploder ()
-                                 .source (aClasses, x -> '\'' + x.getName () + '\'')
-                                 .separator (", ")
-                                 .build () +
-                     (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
+      LOGGER.info ("Creating JAXB context for classes " +
+                   StringHelper.imploder ()
+                               .source (aClasses, x -> '\'' + x.getName () + '\'')
+                               .separator (", ")
+                               .build () +
+                   (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
 
     try
     {

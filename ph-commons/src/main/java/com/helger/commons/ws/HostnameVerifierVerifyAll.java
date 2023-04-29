@@ -57,8 +57,7 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
   public boolean verify (final String sURLHostname, final SSLSession aSession)
   {
     if (m_bDebug)
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Hostname '" + sURLHostname + "' is accepted by default in SSL session " + aSession + "!");
+      LOGGER.info ("Hostname '" + sURLHostname + "' is accepted by default in SSL session " + aSession + "!");
     return true;
   }
 

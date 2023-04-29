@@ -45,8 +45,7 @@ public class AdapterDuration extends XmlAdapter <String, Duration>
 
     final Duration ret = Duration.parse (sValue.trim ());
     if (ret == null)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to parse '" + sValue + "' to a Duration");
+      LOGGER.warn ("Failed to parse '" + sValue + "' to a Duration");
     return ret;
   }
 

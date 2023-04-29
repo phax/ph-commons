@@ -29,15 +29,15 @@ import org.slf4j.LoggerFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-public class StatisticsHandlerKeyedSize extends AbstractStatisticsHandlerKeyedNumeric implements IMutableStatisticsHandlerKeyedSize
+public class StatisticsHandlerKeyedSize extends AbstractStatisticsHandlerKeyedNumeric implements
+                                        IMutableStatisticsHandlerKeyedSize
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerKeyedSize.class);
 
   public void addSize (@Nullable final String sKey, @Nonnegative final long nSize)
   {
     if (nSize < 0)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("A negative value (" + nSize + ") for key '" + sKey + "' is added to " + getClass ().getName ());
+      LOGGER.warn ("A negative value (" + nSize + ") for key '" + sKey + "' is added to " + getClass ().getName ());
     addValue (sKey, nSize);
   }
 }

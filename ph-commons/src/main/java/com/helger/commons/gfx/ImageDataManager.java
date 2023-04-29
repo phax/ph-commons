@@ -109,15 +109,11 @@ public final class ImageDataManager
         if (aImage != null)
           aData = new SizeInt (aImage.getWidth (), aImage.getHeight ());
         else
-        {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Does not seem to be an image resource: " + aRes);
-        }
+          LOGGER.warn ("Does not seem to be an image resource: " + aRes);
       }
       else
       {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Failed to resolve image resource: " + aRes);
+        LOGGER.warn ("Failed to resolve image resource: " + aRes);
       }
     }
     catch (final UnsatisfiedLinkError | NoClassDefFoundError ex)
@@ -171,7 +167,6 @@ public final class ImageDataManager
         STATS_COUNTER.cacheHit ();
         return aData;
       }
-
       // Known non-existing image data?
       if (m_aNonExistingResources.contains (aRes))
       {
@@ -183,7 +178,6 @@ public final class ImageDataManager
     {
       m_aRWLock.readLock ().unlock ();
     }
-
     // Main read data outside of lock!
     final SizeInt aData = _readImageData (aRes);
 

@@ -61,15 +61,13 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
       if (aFile.isFile ())
       {
         if (!aFile.canRead ())
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is not readable");
+          LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is not readable");
       }
       else
       {
         // Non existing files are okay
         if (aFile.isDirectory ())
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is a directory");
+          LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is a directory");
       }
     }
   }

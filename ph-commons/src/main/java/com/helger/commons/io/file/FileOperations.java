@@ -199,7 +199,6 @@ public final class FileOperations
       if (aDir.getAbsoluteFile ().getParent () == null)
         throw new IllegalArgumentException ("Aren't we deleting the full drive: '" + aDir.getAbsolutePath () + "'");
     }
-
     // Is the parent directory writable?
     final File aParentDir = aDir.getParentFile ();
     if (aParentDir != null && !aParentDir.canWrite ())
@@ -268,7 +267,6 @@ public final class FileOperations
       if (aDir.getAbsoluteFile ().getParent () == null)
         throw new IllegalArgumentException ("Aren't we deleting the full drive: '" + aDir.getAbsolutePath () + "'");
     }
-
     // Is the parent directory writable?
     final File aParentDir = aDir.getParentFile ();
     if (aParentDir != null && !aParentDir.canWrite ())
@@ -303,7 +301,6 @@ public final class FileOperations
           return EFileIOErrorCode.OBJECT_CANNOT_BE_HANDLED.getAsIOError (EFileIOOperation.DELETE_DIR_RECURSIVE, aChild);
         }
     }
-
     // Now this directory should be empty -> delete as if empty
     return deleteDir (aDir);
   }
@@ -425,7 +422,8 @@ public final class FileOperations
 
     try
     {
-      final EFileIOErrorCode eError = aSourceFile.renameTo (aTargetFile) ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
+      final EFileIOErrorCode eError = aSourceFile.renameTo (aTargetFile) ? EFileIOErrorCode.NO_ERROR
+                                                                         : EFileIOErrorCode.OPERATION_FAILED;
       return eError.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile, aTargetFile);
     }
     catch (final SecurityException ex)
@@ -463,7 +461,9 @@ public final class FileOperations
 
     // Is the source a parent of target?
     if (FileHelper.isParentDirectory (aSourceDir, aTargetDir))
-      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir, aTargetDir);
+      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR,
+                                                                      aSourceDir,
+                                                                      aTargetDir);
 
     // Is the source parent directory writable?
     final File aSourceParentDir = aSourceDir.getParentFile ();
@@ -480,7 +480,8 @@ public final class FileOperations
 
     try
     {
-      final EFileIOErrorCode eError = aSourceDir.renameTo (aTargetDir) ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
+      final EFileIOErrorCode eError = aSourceDir.renameTo (aTargetDir) ? EFileIOErrorCode.NO_ERROR
+                                                                       : EFileIOErrorCode.OPERATION_FAILED;
       return eError.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir, aTargetDir);
     }
     catch (final SecurityException ex)
@@ -533,8 +534,7 @@ public final class FileOperations
 
           if (nBytesToRead != nBytesWritten)
           {
-            if (LOGGER.isErrorEnabled ())
-              LOGGER.error ("Failed to copy file. Meant to read " + nBytesToRead + " bytes but wrote " + nBytesWritten);
+            LOGGER.error ("Failed to copy file. Meant to read " + nBytesToRead + " bytes but wrote " + nBytesWritten);
             return ESuccess.FAILURE;
           }
           return ESuccess.SUCCESS;
@@ -652,7 +652,8 @@ public final class FileOperations
       // Streams are slower but more interoperable
       eSuccess = _copyFileViaStreams (aSourceFile, aTargetFile);
     }
-    final EFileIOErrorCode eError = eSuccess.isSuccess () ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
+    final EFileIOErrorCode eError = eSuccess.isSuccess () ? EFileIOErrorCode.NO_ERROR
+                                                          : EFileIOErrorCode.OPERATION_FAILED;
     return eError.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile, aTargetFile);
   }
 
@@ -682,7 +683,9 @@ public final class FileOperations
 
     // Is the source a parent of target?
     if (FileHelper.isParentDirectory (aSourceDir, aTargetDir))
-      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir, aTargetDir);
+      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
+                                                                      aSourceDir,
+                                                                      aTargetDir);
 
     // Does the target directory already exist?
     if (aTargetDir.exists ())
@@ -731,7 +734,6 @@ public final class FileOperations
           return EFileIOErrorCode.OBJECT_CANNOT_BE_HANDLED.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aChild);
         }
     }
-
     // Done
     return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir, aTargetDir);
   }

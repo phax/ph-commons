@@ -132,8 +132,7 @@ public class BasicThreadFactory implements ThreadFactory
   private static final Logger LOGGER = LoggerFactory.getLogger (BasicThreadFactory.class);
 
   private static Thread.UncaughtExceptionHandler s_aDefaultUncaughtExceptionHandler = (t, e) -> {
-    if (LOGGER.isErrorEnabled ())
-      LOGGER.error ("Uncaught exception from Thread " + t.getName (), e);
+    LOGGER.error ("Uncaught exception from Thread " + t.getName (), e);
   };
 
   /**
@@ -292,7 +291,6 @@ public class BasicThreadFactory implements ThreadFactory
       final Long aCount = Long.valueOf (m_aThreadCounter.incrementAndGet ());
       aThread.setName (String.format ((Locale) null, m_sNamingPattern, aCount));
     }
-
     if (m_aUncaughtExceptionHandler != null)
       aThread.setUncaughtExceptionHandler (m_aUncaughtExceptionHandler);
 

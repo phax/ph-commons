@@ -127,7 +127,6 @@ public final class PathHelper
     // if (aParent == null || Files.exists (aParent))
     // {
     // if (aParent != null && !Files.isDirectory (aParent))
-    // if (LOGGER.isWarnEnabled ())
     // LOGGER.warn ("Parent object specified is not a directory: '" + aParent
     // + "'");
     // return EChange.UNCHANGED;
@@ -277,7 +276,6 @@ public final class PathHelper
   public static InputStream getInputStream (@Nonnull final Path aFile)
   {
     ValueEnforcer.notNull (aFile, "Path");
-
     try
     {
       return Files.newInputStream (aFile);
@@ -366,7 +364,8 @@ public final class PathHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final Path aFile, @Nonnull final EAppend eAppend)
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final Path aFile,
+                                                                         @Nonnull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -378,7 +377,9 @@ public final class PathHelper
   }
 
   @Nullable
-  public static Writer getWriter (@Nonnull final Path aFile, @Nonnull final EAppend eAppend, @Nonnull final Charset aCharset)
+  public static Writer getWriter (@Nonnull final Path aFile,
+                                  @Nonnull final EAppend eAppend,
+                                  @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -592,7 +593,6 @@ public final class PathHelper
         return FileVisitResult.CONTINUE;
       }
     });
-
     if (ret.isEmpty ())
     {
       // No content returned
@@ -602,28 +602,24 @@ public final class PathHelper
         final File aDirectoryFile = aDirectory.toFile ();
         if (!aDirectoryFile.isDirectory ())
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Cannot list non-directory: " + aDirectory.toAbsolutePath ());
+          LOGGER.warn ("Cannot list non-directory: " + aDirectory.toAbsolutePath ());
         }
         else
           if (!Files.isExecutable (aDirectory))
           {
             // If this happens, the resulting Path objects are neither files nor
             // directories (isFile() and isDirectory() both return false!!)
-            if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("Existing directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
+            LOGGER.warn ("Existing directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
           }
           else
             if (!Files.isReadable (aDirectory))
             {
-              if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("Cannot list directory because of no read-rights: " + aDirectory.toAbsolutePath ());
+              LOGGER.warn ("Cannot list directory because of no read-rights: " + aDirectory.toAbsolutePath ());
             }
             else
               if (!aDirectoryFile.exists ())
               {
-                if (LOGGER.isWarnEnabled ())
-                  LOGGER.warn ("Cannot list non-existing: " + aDirectory.toAbsolutePath ());
+                LOGGER.warn ("Cannot list non-existing: " + aDirectory.toAbsolutePath ());
               }
       }
     }
@@ -633,8 +629,7 @@ public final class PathHelper
       {
         // If this happens, the resulting Path objects are neither files nor
         // directories (isFile() and isDirectory() both return false!!)
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
+        LOGGER.warn ("Directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
       }
     }
     return ret;
@@ -683,15 +678,13 @@ public final class PathHelper
   public static URL getAsURL (@Nonnull final Path aPath)
   {
     ValueEnforcer.notNull (aPath, "Path");
-
     try
     {
       return aPath.toUri ().toURL ();
     }
     catch (final MalformedURLException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to convert path to URL: " + aPath, ex);
+      LOGGER.warn ("Failed to convert path to URL: " + aPath, ex);
       return null;
     }
   }

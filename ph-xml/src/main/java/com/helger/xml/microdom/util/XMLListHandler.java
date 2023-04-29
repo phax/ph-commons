@@ -130,7 +130,6 @@ public final class XMLListHandler
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aTargetList, "TargetList");
-
     try
     {
       // open file
@@ -143,14 +142,12 @@ public final class XMLListHandler
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to read list resource '" + aIS + "'", ex);
+      LOGGER.warn ("Failed to read list resource '" + aIS + "'", ex);
     }
     finally
     {
       StreamHelper.close (aIS);
     }
-
     return ESuccess.FAILURE;
   }
 
@@ -160,7 +157,6 @@ public final class XMLListHandler
   {
     ValueEnforcer.notNull (aParentElement, "ParentElement");
     ValueEnforcer.notNull (aTargetList, "TargetList");
-
     try
     {
       // and insert all elements
@@ -171,10 +167,7 @@ public final class XMLListHandler
           LOGGER.warn ("Ignoring list item because value is null");
         else
           if (!aTargetList.add (sValue))
-          {
-            if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("Ignoring list item '" + sValue + "' because value is already contained");
-          }
+            LOGGER.warn ("Ignoring list item '" + sValue + "' because value is already contained");
       }
       return ESuccess.SUCCESS;
     }
@@ -227,7 +220,6 @@ public final class XMLListHandler
   {
     ValueEnforcer.notNull (aCollection, "Collection");
     ValueEnforcer.notNull (aOS, "OutputStream");
-
     try
     {
       final IMicroDocument aDoc = createListDocument (aCollection);

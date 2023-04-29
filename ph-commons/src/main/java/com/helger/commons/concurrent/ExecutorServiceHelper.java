@@ -87,8 +87,7 @@ public final class ExecutorServiceHelper
     }
     catch (final InterruptedException ex)
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Error waiting for Executor service " + aES + " to end", ex);
+      LOGGER.error ("Error waiting for Executor service " + aES + " to end", ex);
       Thread.currentThread ().interrupt ();
       return EInterrupt.INTERRUPTED;
     }

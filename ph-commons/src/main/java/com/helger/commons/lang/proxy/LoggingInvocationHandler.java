@@ -85,14 +85,20 @@ public class LoggingInvocationHandler implements InvocationHandler
         final Object aArg = aArgs[i];
         if (aSB.length () > 0)
           aSB.append (", ");
-        aSB.append (aParam.getType ().getSimpleName ()).append (' ').append (aParam.getName ()).append (" = ").append (aArg);
+        aSB.append (aParam.getType ().getSimpleName ())
+           .append (' ')
+           .append (aParam.getName ())
+           .append (" = ")
+           .append (aArg);
       }
     }
     return aSB.toString ();
   }
 
   @Nullable
-  public Object invoke (@Nonnull final Object aProxy, @Nonnull final Method aMethod, @Nonnull final Object [] aArgs) throws Throwable
+  public Object invoke (@Nonnull final Object aProxy,
+                        @Nonnull final Method aMethod,
+                        @Nonnull final Object [] aArgs) throws Throwable
   {
     final Class <?> aReturnType = aMethod.getReturnType ();
     final String sMethod = m_sLogPrefix +
@@ -104,24 +110,20 @@ public class LoggingInvocationHandler implements InvocationHandler
                            " (" +
                            _getParameter (aMethod.getParameters (), aArgs) +
                            ")";
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info (sMethod + " - invoke");
+    LOGGER.info (sMethod + " - invoke");
     final Object ret = aMethod.invoke (m_aActualTarget, aArgs);
 
     if (aReturnType == Void.TYPE)
     {
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info (sMethod + " - return");
+      LOGGER.info (sMethod + " - return");
       return null;
     }
     if (ret == null)
     {
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info (sMethod + " - return null");
+      LOGGER.info (sMethod + " - return null");
       return null;
     }
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info (sMethod + " - return " + ret);
+    LOGGER.info (sMethod + " - return " + ret);
     if (m_bProxyReturnValues && aReturnType.isInterface ())
     {
       // Proxy result type only if it is an interface

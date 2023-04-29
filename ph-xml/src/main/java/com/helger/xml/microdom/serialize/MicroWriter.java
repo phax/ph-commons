@@ -273,8 +273,7 @@ public final class MicroWriter
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
+      LOGGER.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
     }
     return null;
   }
@@ -313,7 +312,8 @@ public final class MicroWriter
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (50 * CGlobal.BYTES_PER_KILOBYTE))
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (50 *
+                                                                                              CGlobal.BYTES_PER_KILOBYTE))
     {
       // start serializing
       if (writeToStream (aNode, aBAOS, aSettings).isSuccess ())
@@ -321,8 +321,7 @@ public final class MicroWriter
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
+      LOGGER.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
     }
     return null;
   }

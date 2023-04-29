@@ -96,8 +96,7 @@ public final class VerySecureRandom
       if (nReSeedInterval >= 0)
       {
         // Log only, if a system property is present
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("VerySecureRandom uses by default re-seed interval " + nReSeedInterval);
+        LOGGER.info ("VerySecureRandom uses by default re-seed interval " + nReSeedInterval);
         RE_SEED_INTERVAL.set (nReSeedInterval);
       }
     }
@@ -189,13 +188,11 @@ public final class VerySecureRandom
       // May happen, if setSeed tries to write to disk
       LOGGER.error ("Error setting initial seed on SecureRandom", ex);
     }
-
     final long nDurationMillis = aSW.stopAndGetMillis ();
     if (nDurationMillis > WARNING_MILLISECONDS_THRESHOLD)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Initially seeding VerySecureRandom took too long (" +
-                     nDurationMillis +
-                     " milliseconds) - you may consider using '/dev/urandom'");
+      LOGGER.warn ("Initially seeding VerySecureRandom took too long (" +
+                   nDurationMillis +
+                   " milliseconds) - you may consider using '/dev/urandom'");
   }
 
   @PresentForCodeCoverage
@@ -248,10 +245,9 @@ public final class VerySecureRandom
         // Re-seed
         final Duration aDuration = StopWatch.runMeasured ( () -> SECURE_RANDOM.setSeed (SECURE_RANDOM.generateSeed (SEED_BYTE_COUNT)));
         if (aDuration.toMillis () > WARNING_MILLISECONDS_THRESHOLD)
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Re-seeding VerySecureRandom took too long (" +
-                         aDuration.toMillis () +
-                         " milliseconds) - you may consider using '/dev/urandom'");
+          LOGGER.warn ("Re-seeding VerySecureRandom took too long (" +
+                       aDuration.toMillis () +
+                       " milliseconds) - you may consider using '/dev/urandom'");
       }
 
     return SECURE_RANDOM;

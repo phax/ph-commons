@@ -107,7 +107,7 @@ public final class ScopeManager
 
     // Outside of write lock
     aGlobalScope.initScope ();
-    if (ScopeHelper.isDebugGlobalScopeLifeCycle (LOGGER))
+    if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
       LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
 
     // Invoke SPIs
@@ -175,7 +175,6 @@ public final class ScopeManager
       s_aGlobalScope = null;
       return ret;
     });
-
     if (aGlobalScope != null)
     {
       // This part should not be within the writelock to avoid a dead lock if
@@ -189,7 +188,7 @@ public final class ScopeManager
       aGlobalScope.destroyScope ();
 
       // done
-      if (ScopeHelper.isDebugGlobalScopeLifeCycle (LOGGER))
+      if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
         LOGGER.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugStackTrace ());
     }
     else
@@ -258,11 +257,9 @@ public final class ScopeManager
         // And register in the Session Manager
         aSSM.onScopeBegin (aSessionScope);
       }
-
       // We're done - maybe null
       return aSessionScope;
     }
-
     // If we want a session scope, we expect the return value to be non-null!
     if (bCreateIfNotExisting)
       throw new IllegalStateException ("No request scope is present, so no session scope can be created!");
@@ -303,8 +300,7 @@ public final class ScopeManager
     final IRequestScope aExistingRequestScope = REQUEST_SCOPE_THREAD_LOCAL.get ();
     if (aExistingRequestScope != null)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("A request scope is already present - will overwrite it: " + aExistingRequestScope.toString ());
+      LOGGER.warn ("A request scope is already present - will overwrite it: " + aExistingRequestScope.toString ());
       if (aExistingRequestScope.isValid ())
       {
         // The scope shall be destroyed here, as this is most probably a
@@ -313,7 +309,6 @@ public final class ScopeManager
         _destroyRequestScope (aExistingRequestScope);
       }
     }
-
     // set request context
     REQUEST_SCOPE_THREAD_LOCAL.set (aRequestScope);
 
@@ -325,7 +320,8 @@ public final class ScopeManager
   }
 
   @Nonnull
-  public static IRequestScope onRequestBegin (@Nonnull @Nonempty final String sScopeID, @Nonnull @Nonempty final String sSessionID)
+  public static IRequestScope onRequestBegin (@Nonnull @Nonempty final String sScopeID,
+                                              @Nonnull @Nonempty final String sSessionID)
   {
     return onRequestBegin (sScopeID, sSessionID, RequestScope::new);
   }

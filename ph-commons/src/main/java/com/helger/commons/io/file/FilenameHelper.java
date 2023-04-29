@@ -105,9 +105,9 @@ public final class FilenameHelper
   private static final char [] ILLEGAL_CHARACTERS_WINDOWS = { 0, '<', '>', '?', '*', ':', '|', '"' };
   private static final char [] ILLEGAL_CHARACTERS_OTHERS = { 0, '<', '>', '?', '*', '|', '"' };
   // separate by OS - allow ":" as name part on Linux
-  private static final char [] ILLEGAL_CHARACTERS = EOperatingSystem.getCurrentOS ()
-                                                                    .isWindowsBased () ? ILLEGAL_CHARACTERS_WINDOWS
-                                                                                       : ILLEGAL_CHARACTERS_OTHERS;
+  private static final char [] ILLEGAL_CHARACTERS = EOperatingSystem.getCurrentOS ().isWindowsBased ()
+                                                                                                       ? ILLEGAL_CHARACTERS_WINDOWS
+                                                                                                       : ILLEGAL_CHARACTERS_OTHERS;
 
   /**
    * see http://www.w3.org/TR/widgets/#zip-relative <br>
@@ -137,7 +137,7 @@ public final class FilenameHelper
                                                       "LPT8",
                                                       "LPT9" };
 
-  private static final char [] ILLEGAL_SUFFIXES = new char [] { '.', ' ', '\t' };
+  private static final char [] ILLEGAL_SUFFIXES = { '.', ' ', '\t' };
 
   static
   {
@@ -447,8 +447,9 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingUnixSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null
-                                     : StringHelper.replaceAll (sAbsoluteFilename, WINDOWS_SEPARATOR, UNIX_SEPARATOR);
+    return sAbsoluteFilename == null ? null : StringHelper.replaceAll (sAbsoluteFilename,
+                                                                       WINDOWS_SEPARATOR,
+                                                                       UNIX_SEPARATOR);
   }
 
   /**
@@ -479,8 +480,9 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingWindowsSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null
-                                     : StringHelper.replaceAll (sAbsoluteFilename, UNIX_SEPARATOR, WINDOWS_SEPARATOR);
+    return sAbsoluteFilename == null ? null : StringHelper.replaceAll (sAbsoluteFilename,
+                                                                       UNIX_SEPARATOR,
+                                                                       WINDOWS_SEPARATOR);
   }
 
   /**
@@ -656,7 +658,6 @@ public final class FilenameHelper
       if (ArrayHelper.containsAny (ILLEGAL_PREFIXES, x -> sUCFilename.startsWith (x + ".")))
         ret = ILLEGAL_FILENAME_CHAR_REPLACEMENT + ret;
     }
-
     // Avoid returning an empty string as valid file name
     return StringHelper.hasNoText (ret) ? null : ret;
   }
@@ -934,8 +935,7 @@ public final class FilenameHelper
         // Use our method
         // This is most likely an IOException from "File.getCanonicalPath ()"
         // stating "Invalid file path"
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Using getCleanPath on an invalid file '" + aFile + "' - " + ex.getMessage ());
+        LOGGER.warn ("Using getCleanPath on an invalid file '" + aFile + "' - " + ex.getMessage ());
       }
 
     // Fallback: do it manually
@@ -970,7 +970,6 @@ public final class FilenameHelper
       sPathToUse = sPathToUse.substring (2);
       bForceWindowsSeparator = sPrefix.startsWith (WINDOWS_SEPARATOR_STR);
     }
-
     // Strip prefix from path to analyze, to not treat it as part of the
     // first path element. This is necessary to correctly parse paths like
     // "file://core/../core/io/Resource.class", where the ".." should just
@@ -1008,7 +1007,6 @@ public final class FilenameHelper
         bPrefixIsAbsolute = true;
       }
     }
-
     // Unify all remaining path separators to be "/"
     // Unify after the prefixes where removed
     sPathToUse = getPathUsingUnixSeparator (sPathToUse);
@@ -1023,7 +1021,6 @@ public final class FilenameHelper
       sPrefix += bForceWindowsSeparator ? WINDOWS_SEPARATOR : UNIX_SEPARATOR;
       sPathToUse = sPathToUse.substring (1);
     }
-
     // Start splitting into paths
     final ICommonsList <String> aElements = new CommonsArrayList <> ();
     int nParentFolders = 0;
@@ -1038,7 +1035,6 @@ public final class FilenameHelper
       // ignored
       if (sElement.length () == 0 || PATH_CURRENT.equals (sElement))
         continue;
-
       if (PATH_PARENT.equals (sElement))
       {
         // Remember that we have a parent path to skip
@@ -1056,14 +1052,12 @@ public final class FilenameHelper
           aElements.add (0, sElement);
         }
     }
-
     if (!bPrefixIsAbsolute)
     {
       // Remaining top paths need to be retained.
       for (int i = 0; i < nParentFolders; i++)
         aElements.add (0, PATH_PARENT);
     }
-
     return sPrefix + StringHelper.getImploded (bForceWindowsSeparator ? WINDOWS_SEPARATOR : UNIX_SEPARATOR, aElements);
   }
 
@@ -1189,7 +1183,6 @@ public final class FilenameHelper
       // The passed file contains a path traversal!
       return null;
     }
-
     if (startsWithPathSeparatorChar (sRelative))
     {
       // Ignore any leading path separator char
@@ -1230,12 +1223,11 @@ public final class FilenameHelper
     {
       if (!aParentDirectory.isAbsolute ())
       {
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Cannot express absolute child file ('" +
-                        aSubFile +
-                        "') relative to a relative parent file ('" +
-                        aParentDirectory +
-                        "')!");
+        LOGGER.error ("Cannot express absolute child file ('" +
+                      aSubFile +
+                      "') relative to a relative parent file ('" +
+                      aParentDirectory +
+                      "')!");
         return null;
       }
       sRelativeSubPath = getRelativeToParentDirectory (aSubFile, aParentDirectory);

@@ -246,13 +246,12 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
       catch (final Exception | NoClassDefFoundError ex)
       {
         // Might be an IllegalArgumentException or a NoClassDefFoundError
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to set the namespace context " +
-                        m_aNSContext +
-                        ": " +
-                        ex.getClass ().getName () +
-                        " -- " +
-                        ex.getMessage ());
+        LOGGER.error ("Failed to set the namespace context " +
+                      m_aNSContext +
+                      ": " +
+                      ex.getClass ().getName () +
+                      " -- " +
+                      ex.getMessage ());
       }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);
@@ -286,15 +285,13 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
       // Avoid class cast exception later on
       if (!m_aDocType.getImplementationClass ().getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
       {
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("You cannot write a '" +
-                        aJAXBDocument.getClass () +
-                        "' as a " +
-                        m_aDocType.getImplementationClass ().getPackage ().getName ());
+        LOGGER.error ("You cannot write a '" +
+                      aJAXBDocument.getClass () +
+                      "' as a " +
+                      m_aDocType.getImplementationClass ().getPackage ().getName ());
         return ESuccess.FAILURE;
       }
     }
-
     try
     {
       final Marshaller aMarshaller = createMarshaller ();

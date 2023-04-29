@@ -51,8 +51,8 @@ public class ThreadDeadlockDetector
    */
   public void findDeadlockedThreads ()
   {
-    final long [] aThreadIDs = m_aMBean.isSynchronizerUsageSupported () ? m_aMBean.findDeadlockedThreads ()
-                                                                        : m_aMBean.findMonitorDeadlockedThreads ();
+    final long [] aThreadIDs = m_aMBean.isSynchronizerUsageSupported () ? m_aMBean.findDeadlockedThreads () : m_aMBean
+                                                                                                                      .findMonitorDeadlockedThreads ();
     if (ArrayHelper.isNotEmpty (aThreadIDs))
     {
       // Get all stack traces
@@ -85,12 +85,10 @@ public class ThreadDeadlockDetector
         // Remember
         aThreadInfos[i] = new ThreadDeadlockInfo (aThreadInfo, aFoundThread, aFoundStackTrace);
       }
-
       // Invoke all callbacks
       if (m_aCallbacks.isEmpty ())
       {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Found a deadlock of " + aThreadInfos.length + " threads but no callbacks are present!");
+        LOGGER.warn ("Found a deadlock of " + aThreadInfos.length + " threads but no callbacks are present!");
       }
       else
         m_aCallbacks.forEach (x -> x.onDeadlockDetected (aThreadInfos));

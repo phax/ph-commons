@@ -54,12 +54,10 @@ public class AdapterLocalTime extends XmlAdapter <String, LocalTime>
       // Get as canonical LocalDateTime
       return aOT.toLocalTime ().minusSeconds (aOT.getOffset ().getTotalSeconds ());
     }
-
     // Parse without Timezone
     final LocalTime ret = PDTWebDateHelper.getLocalTimeFromXSD (sTrimmed);
     if (ret == null)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalTime");
+      LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalTime");
     return ret;
   }
 

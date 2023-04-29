@@ -77,8 +77,7 @@ public final class StaxFuncTest
 
     // document encoding from the XML declaration
     final String encoding = aReader.getEncoding ();
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Using encoding " + encoding + " and version " + aReader.getVersion ());
+    LOGGER.info ("Using encoding " + encoding + " and version " + aReader.getVersion ());
 
     // loop through document for XML constructs of interest
     IMicroDocument aDoc = null;
@@ -98,7 +97,6 @@ public final class StaxFuncTest
             aDoc = new MicroDocument (aDocType);
             aParent = aDoc;
           }
-
           final String sNamespaceURI = aReader.getNamespaceURI ();
           final String sLocalName = aReader.getLocalName ();
 
@@ -138,7 +136,6 @@ public final class StaxFuncTest
             aDoc = new MicroDocument (aDocType);
             aParent = aDoc;
           }
-
           final String sTarget = aReader.getPITarget ();
           final String sData = aReader.getPIData ();
           aParent.appendProcessingInstruction (sTarget, sData);
@@ -191,7 +188,6 @@ public final class StaxFuncTest
         case XMLStreamConstants.SPACE:
         {
           final String sText = aReader.getText ();
-
           if (bSaveIgnorableWhitespaces)
           {
             final IMicroNode aLastChild = aParent.getLastChild ();

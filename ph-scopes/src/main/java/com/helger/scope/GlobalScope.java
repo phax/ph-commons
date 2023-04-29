@@ -41,9 +41,8 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   {
     super (sScopeID);
 
-    if (ScopeHelper.isDebugGlobalScopeLifeCycle (LOGGER))
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Created global scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
+      LOGGER.info ("Created global scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()
@@ -52,18 +51,16 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   @Override
   protected void preDestroy ()
   {
-    if (ScopeHelper.isDebugGlobalScopeLifeCycle (LOGGER))
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Destroying global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                     ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
+      LOGGER.info ("Destroying global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                   ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeHelper.isDebugGlobalScopeLifeCycle (LOGGER))
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Destroyed global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                     ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
+      LOGGER.info ("Destroyed global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                   ScopeHelper.getDebugStackTrace ());
   }
 }

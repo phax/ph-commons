@@ -120,7 +120,6 @@ public final class FileHelper
   {
     if (aFile == null)
       return false;
-
     if (aFile.exists ())
     {
       // File exists
@@ -148,11 +147,9 @@ public final class FileHelper
     if (aParent == null || aParent.exists ())
     {
       if (aParent != null && !aParent.isDirectory ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Parent object specified is not a directory: '" + aParent + "'");
+        LOGGER.warn ("Parent object specified is not a directory: '" + aParent + "'");
       return EChange.UNCHANGED;
     }
-
     // Now try to create the directory
     final FileIOError aError = FileOperations.createDirRecursive (aParent);
     if (aError.isFailure ())
@@ -295,7 +292,6 @@ public final class FileHelper
   public static FileInputStream getInputStream (@Nonnull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
-
     try
     {
       return new CountingFileInputStream (aFile);
@@ -376,15 +372,14 @@ public final class FileHelper
     }
     catch (final FileNotFoundException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to create output stream for '" +
-                     aFile +
-                     "'; append: " +
-                     eAppend +
-                     ": " +
-                     ex.getClass ().getName () +
-                     " - " +
-                     ex.getMessage ());
+      LOGGER.warn ("Failed to create output stream for '" +
+                   aFile +
+                   "'; append: " +
+                   eAppend +
+                   ": " +
+                   ex.getClass ().getName () +
+                   " - " +
+                   ex.getMessage ());
       return null;
     }
   }
@@ -396,7 +391,8 @@ public final class FileHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile,
+                                                                         @Nonnull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -414,7 +410,9 @@ public final class FileHelper
   }
 
   @Nullable
-  public static OutputStreamWriter getWriter (@Nonnull final File aFile, @Nonnull final EAppend eAppend, @Nonnull final Charset aCharset)
+  public static OutputStreamWriter getWriter (@Nonnull final File aFile,
+                                              @Nonnull final EAppend eAppend,
+                                              @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -450,7 +448,9 @@ public final class FileHelper
   }
 
   @Nullable
-  public static PrintWriter getPrintWriter (@Nonnull final File aFile, @Nonnull final EAppend eAppend, @Nonnull final Charset aCharset)
+  public static PrintWriter getPrintWriter (@Nonnull final File aFile,
+                                            @Nonnull final EAppend eAppend,
+                                            @Nonnull final Charset aCharset)
   {
     return new PrintWriter (getBufferedWriter (aFile, eAppend, aCharset));
   }
@@ -465,42 +465,39 @@ public final class FileHelper
     catch (final IllegalStateException ex)
     {
       // Happens e.g. when the parent directory is " "
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to create parent directory of '" + aFile + "'", ex);
+      LOGGER.warn ("Failed to create parent directory of '" + aFile + "'", ex);
       return EValidity.INVALID;
     }
-
     // Check if parent directory is writable, to avoid catching the
     // FileNotFoundException with "permission denied" afterwards
     final File aParentDir = aFile.getParentFile ();
     if (aParentDir != null && !aParentDir.canWrite ())
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Parent directory '" +
-                     aParentDir +
-                     "' of '" +
-                     aFile +
-                     "' is not writable for current user '" +
-                     SystemProperties.getUserName () +
-                     "'");
+      LOGGER.warn ("Parent directory '" +
+                   aParentDir +
+                   "' of '" +
+                   aFile +
+                   "' is not writable for current user '" +
+                   SystemProperties.getUserName () +
+                   "'");
       return EValidity.INVALID;
     }
-
     return EValidity.VALID;
   }
 
   @Nullable
-  public static RandomAccessFile getRandomAccessFile (@Nonnull final String sFilename, @Nonnull final ERandomAccessFileMode eMode)
+  public static RandomAccessFile getRandomAccessFile (@Nonnull final String sFilename,
+                                                      @Nonnull final ERandomAccessFileMode eMode)
   {
     return getRandomAccessFile (new File (sFilename), eMode);
   }
 
   @Nullable
-  public static RandomAccessFile getRandomAccessFile (@Nonnull final File aFile, @Nonnull final ERandomAccessFileMode eMode)
+  public static RandomAccessFile getRandomAccessFile (@Nonnull final File aFile,
+                                                      @Nonnull final ERandomAccessFileMode eMode)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eMode, "Mode");
-
     try
     {
       return new RandomAccessFile (aFile, eMode.getMode ());
@@ -638,7 +635,8 @@ public final class FileHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  private static ICommonsList <File> _getDirectoryContent (@Nonnull final File aDirectory, @Nullable final File [] aSelectedContent)
+  private static ICommonsList <File> _getDirectoryContent (@Nonnull final File aDirectory,
+                                                           @Nullable final File [] aSelectedContent)
   {
     if (aSelectedContent == null)
     {
@@ -701,7 +699,8 @@ public final class FileHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory, @Nonnull final FilenameFilter aFilenameFilter)
+  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory,
+                                                         @Nonnull final FilenameFilter aFilenameFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.notNull (aFilenameFilter, "FilenameFilter");
@@ -722,7 +721,8 @@ public final class FileHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory, @Nonnull final FileFilter aFileFilter)
+  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory,
+                                                         @Nonnull final FileFilter aFileFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.notNull (aFileFilter, "FileFilter");
@@ -734,7 +734,6 @@ public final class FileHelper
   public static URL getAsURL (@Nonnull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
-
     try
     {
       return aFile.toURI ().toURL ();
@@ -750,7 +749,6 @@ public final class FileHelper
   public static String getAsURLString (@Nonnull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
-
     try
     {
       return aFile.toURI ().toURL ().toExternalForm ();

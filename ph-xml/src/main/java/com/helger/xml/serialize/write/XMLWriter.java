@@ -213,8 +213,7 @@ public final class XMLWriter
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
+      LOGGER.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
     }
     return null;
   }
@@ -253,7 +252,8 @@ public final class XMLWriter
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (50 * CGlobal.BYTES_PER_KILOBYTE))
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (50 *
+                                                                                              CGlobal.BYTES_PER_KILOBYTE))
     {
       // start serializing
       if (writeToStream (aNode, aBAOS, aSettings).isSuccess ())
@@ -261,8 +261,7 @@ public final class XMLWriter
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
+      LOGGER.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
     }
     return null;
   }

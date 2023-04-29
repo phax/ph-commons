@@ -61,15 +61,13 @@ public class LoggingOutputStream extends WrappedOutputStream
   @OverrideOnDemand
   protected void onWrite (@Nonnegative final int nBytesWritten, final long nTotalBytesWritten)
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Wrote " + nBytesWritten + " byte(s); now at " + nTotalBytesWritten);
+    LOGGER.info ("Wrote " + nBytesWritten + " byte(s); now at " + nTotalBytesWritten);
   }
 
   @OverrideOnDemand
   protected void onClose (final long nTotalBytesWritten)
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Close at " + nTotalBytesWritten);
+    LOGGER.info ("Close at " + nTotalBytesWritten);
   }
 
   @Override
@@ -98,6 +96,8 @@ public class LoggingOutputStream extends WrappedOutputStream
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("totalBytesWritten", m_nTotalBytesWritten).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("totalBytesWritten", m_nTotalBytesWritten)
+                            .getToString ();
   }
 }

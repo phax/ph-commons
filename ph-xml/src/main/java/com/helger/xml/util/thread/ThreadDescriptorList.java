@@ -129,7 +129,6 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
         aSB.append (": ").append (aThreadIDs.toString ());
       aSB.append ('\n');
     }
-
     // Append all stack traces at the end
     for (final ThreadDescriptor aDescriptor : m_aList)
       aSB.append ('\n').append (aDescriptor.getAsString ());
@@ -159,7 +158,6 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
       if (nSize > 0)
         eThreadState.appendText (StringHelper.getImploded (',', aThreadIDs));
     }
-
     // Append all stack traces at the end
     for (final ThreadDescriptor aDescriptor : m_aList)
       eRet.appendChild (aDescriptor.getAsMicroNode ());
@@ -187,8 +185,9 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
                                                                                    .entrySet ())
       {
         final StackTraceElement [] aStackTrace = aEntry.getValue ();
-        final String sStackTrace = ArrayHelper.isEmpty (aStackTrace) ? "No stack trace available!\n"
-                                                                     : StackTraceHelper.getStackAsString (aStackTrace, false);
+        final String sStackTrace = ArrayHelper.isEmpty (aStackTrace) ? "No stack trace available!\n" : StackTraceHelper
+                                                                                                                       .getStackAsString (aStackTrace,
+                                                                                                                                          false);
         ret.addDescriptor (new ThreadDescriptor (aEntry.getKey (), sStackTrace));
       }
     }
@@ -201,8 +200,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     {
       final long nMillis = aSW.stopAndGetMillis ();
       if (nMillis > 1000)
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Took " + nMillis + " ms to get all thread descriptors!");
+        LOGGER.warn ("Took " + nMillis + " ms to get all thread descriptors!");
     }
     return ret;
   }

@@ -99,9 +99,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   {
     // String contains masked newline? warning only!
     if (sValue.contains ("\\n"))
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Passed string contains a masked newline - replace with an inline one:\n" + sValue);
-
+      LOGGER.warn ("Passed string contains a masked newline - replace with an inline one:\n" + sValue);
     if (sValue.contains ("{0}"))
     {
       // When formatting is used, 2 single quotes are required!

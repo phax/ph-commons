@@ -99,8 +99,7 @@ public final class SPITestHelper
         if (aFile.isFile ())
         {
           if (bDoResolve)
-            if (LOGGER.isInfoEnabled ())
-              LOGGER.info ("Checking SPI file " + aFile.getAbsolutePath ());
+            LOGGER.info ("Checking SPI file " + aFile.getAbsolutePath ());
           final String sInterfaceClassName = aFile.getName ();
 
           // Check if interface exists
@@ -108,9 +107,9 @@ public final class SPITestHelper
             try
             {
               final Class <?> aInterfaceClass = aCL.loadClass (sInterfaceClassName);
-              if (sInterfaceClassName.startsWith ("com.helger.") && !ServiceLoaderHelper.CACHE_INTERFACE.hasAnnotation (aInterfaceClass))
-                if (LOGGER.isWarnEnabled ())
-                  LOGGER.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
+              if (sInterfaceClassName.startsWith ("com.helger.") &&
+                  !ServiceLoaderHelper.CACHE_INTERFACE.hasAnnotation (aInterfaceClass))
+                LOGGER.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
             }
             catch (final Exception ex)
             {
@@ -120,15 +119,15 @@ public final class SPITestHelper
                                   ClassHelper.getClassLocalName (ex) +
                                   " - " +
                                   ex.getMessage ();
-              if (LOGGER.isWarnEnabled ())
-                LOGGER.warn (sMsg);
+              LOGGER.warn (sMsg);
               if (eMode.isStrict ())
                 throw new IllegalStateException (sMsg);
             }
 
           // Check content - must be UTF8
-          try (final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                                   StandardCharsets.UTF_8)))
+          try (
+              final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
+                                                                                                                  StandardCharsets.UTF_8)))
           {
             int nCount = 0;
             String sLine;
@@ -144,17 +143,16 @@ public final class SPITestHelper
                   {
                     final Class <?> aImplClass = aCL.loadClass (sImplClassName);
                     if (!ServiceLoaderHelper.CACHE_IMPLEMENTATION.hasAnnotation (aImplClass))
-                      if (LOGGER.isWarnEnabled ())
-                        LOGGER.warn (aImplClass + " should have the @IsSPIImplementation annotation");
+                      LOGGER.warn (aImplClass + " should have the @IsSPIImplementation annotation");
                     ++nCount;
-                    aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ()).add (sImplClassName);
+                    aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
+                                       .add (sImplClassName);
                   }
                   catch (final Exception ex)
                   {
                     // Ensure the path name of the currently checked file is
                     // contained in the exception text!
-                    if (LOGGER.isWarnEnabled ())
-                      LOGGER.warn ("  Error checking content: " + ex.getMessage ());
+                    LOGGER.warn ("  Error checking content: " + ex.getMessage ());
                     if (eMode.isStrict ())
                       throw new IllegalStateException ("Error checking SPI file " + aFile.getAbsolutePath (), ex);
                   }
@@ -162,7 +160,8 @@ public final class SPITestHelper
                 else
                 {
                   ++nCount;
-                  aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ()).add (sImplClassName);
+                  aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
+                                     .add (sImplClassName);
                 }
               }
             }
@@ -171,10 +170,7 @@ public final class SPITestHelper
               if (nCount == 0)
                 LOGGER.warn ("  Contains no single valid implementation!");
               else
-              {
-                if (LOGGER.isInfoEnabled ())
-                  LOGGER.info ("  All implementations (" + nCount + ") are valid!");
-              }
+                LOGGER.info ("  All implementations (" + nCount + ") are valid!");
             }
           }
         }

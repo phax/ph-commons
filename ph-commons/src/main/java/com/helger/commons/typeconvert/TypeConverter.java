@@ -498,17 +498,15 @@ public final class TypeConverter
     if (aConverter == null)
     {
       if (!isSilentMode ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("No type converter from '" +
-                       aSrcClass.getName () +
-                       "' to '" +
-                       aUsableDstClass.getName () +
-                       "' was found (using provider '" +
-                       aTypeConverterProvider.getClass ().getName () +
-                       "')");
+        LOGGER.warn ("No type converter from '" +
+                     aSrcClass.getName () +
+                     "' to '" +
+                     aUsableDstClass.getName () +
+                     "' was found (using provider '" +
+                     aTypeConverterProvider.getClass ().getName () +
+                     "')");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.NO_CONVERTER_FOUND);
     }
-
     // Okay, converter was found -> invoke it
     Object aRetVal;
     try
@@ -523,16 +521,15 @@ public final class TypeConverter
     if (aRetVal == null)
     {
       if (!isSilentMode ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Type conversion from '" +
-                       aSrcValue +
-                       "' of class '" +
-                       aSrcClass.getName () +
-                       "' to '" +
-                       aUsableDstClass.getName () +
-                       "' with converter '" +
-                       aConverter.toString () +
-                       "' failed; null was returned from converter!");
+        LOGGER.warn ("Type conversion from '" +
+                     aSrcValue +
+                     "' of class '" +
+                     aSrcClass.getName () +
+                     "' to '" +
+                     aUsableDstClass.getName () +
+                     "' with converter '" +
+                     aConverter.toString () +
+                     "' failed; null was returned from converter!");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED);
     }
     return aRetVal;

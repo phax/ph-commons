@@ -657,9 +657,8 @@ public enum EXMLParserFeature implements IHasName
     ValueEnforcer.notNull (aParser, "Parser");
 
     if (m_eType != EXMLParserFeatureType.GENERAL && m_eType != EXMLParserFeatureType.SAX)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Parser feature '" + name () + "' is not applicable for SAX parsers!");
 
+      LOGGER.warn ("Parser feature '" + name () + "' is not applicable for SAX parsers!");
     try
     {
       // This call is very slow as it might throw an XMLConfigurationException
@@ -671,15 +670,13 @@ public enum EXMLParserFeature implements IHasName
     {
       if (!m_bWarnedOnce)
       {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("XML Parser does not recognize feature '" + name () + "'");
+        LOGGER.warn ("XML Parser does not recognize feature '" + name () + "'");
         m_bWarnedOnce = true;
       }
     }
     catch (final SAXNotSupportedException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("XML Parser does not support feature '" + name () + "'");
+      LOGGER.warn ("XML Parser does not support feature '" + name () + "'");
     }
   }
 
@@ -688,17 +685,15 @@ public enum EXMLParserFeature implements IHasName
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
 
     if (m_eType != EXMLParserFeatureType.GENERAL && m_eType != EXMLParserFeatureType.DOM)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Parser feature '" + name () + "' is not applicable for DOM parsers!");
 
+      LOGGER.warn ("Parser feature '" + name () + "' is not applicable for DOM parsers!");
     try
     {
       aDocumentBuilderFactory.setFeature (m_sName, bValue);
     }
     catch (final ParserConfigurationException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("DOM parser does not support feature '" + name () + "'");
+      LOGGER.warn ("DOM parser does not support feature '" + name () + "'");
     }
   }
 
@@ -707,17 +702,15 @@ public enum EXMLParserFeature implements IHasName
     ValueEnforcer.notNull (aXPathFactory, "XPathFactory");
 
     if (m_eType != EXMLParserFeatureType.GENERAL)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Parser feature '" + name () + "' is not applicable for XPathFactory!");
 
+      LOGGER.warn ("Parser feature '" + name () + "' is not applicable for XPathFactory!");
     try
     {
       aXPathFactory.setFeature (m_sName, bValue);
     }
     catch (final XPathFactoryConfigurationException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("XPathFactory does not support feature '" + name () + "'");
+      LOGGER.warn ("XPathFactory does not support feature '" + name () + "'");
     }
   }
 

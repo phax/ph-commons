@@ -158,15 +158,12 @@ public class MultiConfigurationValueProvider implements
   public final MultiConfigurationValueProvider addConfigurationSource (@Nonnull final IConfigurationSource aSource)
   {
     ValueEnforcer.notNull (aSource, "ConfigSource");
-
     if (m_bUseOnlyInitializedConfigSources && !aSource.isInitializedAndUsable ())
     {
       // Don't add
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Not adding the configuration source " + aSource + " because it is not yet initialized");
+      LOGGER.warn ("Not adding the configuration source " + aSource + " because it is not yet initialized");
       return this;
     }
-
     return addConfigurationSource (aSource, aSource.getPriority ());
   }
 
@@ -227,7 +224,6 @@ public class MultiConfigurationValueProvider implements
         break;
       }
     }
-
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug (ret != null ? "Successfully resolved configuration value of key '" + sKey + "' to " + ret
                                 : "Failed to resolve configuration value of key '" + sKey + "'");
@@ -336,14 +332,11 @@ public class MultiConfigurationValueProvider implements
       while (aEnum.hasMoreElements ())
       {
         final URL aURL = aEnum.nextElement ();
-
         if (!aUsedURLs.add (aURL.toExternalForm ()))
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
+          LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
           continue;
         }
-
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Try to load configuration source from '" + aURL.toExternalForm () + "'");
 
@@ -358,7 +351,6 @@ public class MultiConfigurationValueProvider implements
     {
       throw new UncheckedIOException (ex);
     }
-
     if (bCheckForFile)
     {
       // Check for file system as well
@@ -368,8 +360,7 @@ public class MultiConfigurationValueProvider implements
         final URL aURL = aRes.getAsURL ();
         if (!aUsedURLs.add (aURL.toExternalForm ()))
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
+          LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
         }
         else
         {
@@ -383,13 +374,11 @@ public class MultiConfigurationValueProvider implements
         }
       }
     }
-
     if (ret.getConfigurationSourceCount () == 0)
     {
       // Avoid returning an empty object
       return null;
     }
-
     return ret;
   }
 }

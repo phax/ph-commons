@@ -63,8 +63,17 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
                                       @Nullable final String sBaseURI)
   {
     if (DEBUG_RESOLVE)
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("mainResolveResource (" + sType + ", " + sNamespaceURI + ", " + sPublicId + ", " + sSystemId + ", " + sBaseURI + ")");
+      LOGGER.info ("mainResolveResource (" +
+                   sType +
+                   ", " +
+                   sNamespaceURI +
+                   ", " +
+                   sPublicId +
+                   ", " +
+                   sSystemId +
+                   ", " +
+                   sBaseURI +
+                   ")");
 
     final LSResourceData aData = new LSResourceData (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
     m_aRWLock.writeLockedBoolean ( () -> m_aList.add (aData));

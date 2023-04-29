@@ -78,8 +78,7 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
       case ValidationEvent.FATAL_ERROR:
         return EErrorLevel.FATAL_ERROR;
       default:
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Unknown JAXB validation severity: " + nSeverity + "; defaulting to error");
+        LOGGER.warn ("Unknown JAXB validation severity: " + nSeverity + "; defaulting to error");
         return EErrorLevel.ERROR;
     }
   }

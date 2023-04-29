@@ -82,7 +82,8 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass, @Nonnull final ClassLoader aClassLoader)
+  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+                                                               @Nonnull final ClassLoader aClassLoader)
   {
     return getAllSPIImplementations (aSPIClass, aClassLoader, null);
   }
@@ -101,7 +102,8 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass, @Nullable final Logger aLogger)
+  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+                                                               @Nullable final Logger aLogger)
   {
     return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), aLogger);
   }
@@ -137,12 +139,12 @@ public final class ServiceLoaderHelper
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
     if (!CACHE_INTERFACE.hasAnnotation (aSPIClass))
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn (aSPIClass + " should have the @IsSPIInterface annotation");
+      LOGGER.warn (aSPIClass + " should have the @IsSPIInterface annotation");
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
     final ICommonsList <T> ret = new CommonsArrayList <> ();
-
+    
+    // @formatter:off
     // We use the iterator to be able to catch exceptions thrown
     // when loading SPI implementations (e.g. the SPI implementation class does
     // not exist)
@@ -153,7 +155,6 @@ public final class ServiceLoaderHelper
       {
         final T aInstance = aIterator.next ();
         if (!CACHE_IMPLEMENTATION.hasAnnotation (aInstance))
-          if (LOGGER.isWarnEnabled ())
             LOGGER.warn (aInstance + " should have the @IsSPIImplementation annotation");
         ret.add (aInstance);
       }
@@ -162,6 +163,7 @@ public final class ServiceLoaderHelper
         aRealLogger.error ("Unable to load an SPI implementation of " + aSPIClass, ex);
       }
     }
+    // @formatter:on
 
     if (aRealLogger.isDebugEnabled ())
       aRealLogger.debug ("Finished retrieving all " + ret.size () + " SPI implementations of " + aSPIClass);
@@ -201,7 +203,8 @@ public final class ServiceLoaderHelper
    *         <code>null</code>.
    */
   @Nullable
-  public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass, @Nonnull final ClassLoader aClassLoader)
+  public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass,
+                                                 @Nonnull final ClassLoader aClassLoader)
   {
     return getFirstSPIImplementation (aSPIClass, aClassLoader, null);
   }
@@ -253,11 +256,9 @@ public final class ServiceLoaderHelper
       // No SPI implementation found
       return null;
     }
-
     if (aAll.size () > 1)
     {
       // More than one implementation found
-      if (aRealLogger.isWarnEnabled ())
         aRealLogger.warn ("Requested only one SPI implementation of " +
                           aSPIClass +
                           " but found " +

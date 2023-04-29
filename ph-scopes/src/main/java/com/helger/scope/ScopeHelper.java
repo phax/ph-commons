@@ -183,10 +183,25 @@ public final class ScopeHelper
    * @return <code>true</code> if global scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
    * @since 9.4.7
+   * @deprecated Use {@link #isDebugGlobalScopeLifeCycle()} instead
    */
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public static boolean isDebugGlobalScopeLifeCycle (@Nonnull final Logger aLogger)
   {
-    return (isLifeCycleDebuggingEnabled () || isDebugGlobalScopeEnabled ()) && aLogger.isInfoEnabled ();
+    return isDebugGlobalScopeLifeCycle ();
+  }
+
+  /**
+   * This is a just a helper method to determine whether global scope
+   * creation/deletion issues should be logged or not.
+   *
+   * @return <code>true</code> if global scope creation/deletion should be
+   *         logged, <code>false</code> otherwise.
+   * @since 9.4.7
+   */
+  public static boolean isDebugGlobalScopeLifeCycle ()
+  {
+    return isLifeCycleDebuggingEnabled () || isDebugGlobalScopeEnabled ();
   }
 
   /**
@@ -198,10 +213,25 @@ public final class ScopeHelper
    * @return <code>true</code> if session scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
    * @since 9.4.7
+   * @deprecated Use {@link #isDebugSessionScopeLifeCycle()} instead
    */
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public static boolean isDebugSessionScopeLifeCycle (@Nonnull final Logger aLogger)
   {
-    return (isLifeCycleDebuggingEnabled () || isDebugSessionScopeEnabled ()) && aLogger.isInfoEnabled ();
+    return isDebugSessionScopeLifeCycle ();
+  }
+
+  /**
+   * This is a just a helper method to determine whether session scope
+   * creation/deletion issues should be logged or not.
+   *
+   * @return <code>true</code> if session scope creation/deletion should be
+   *         logged, <code>false</code> otherwise.
+   * @since 9.4.7
+   */
+  public static boolean isDebugSessionScopeLifeCycle ()
+  {
+    return isLifeCycleDebuggingEnabled () || isDebugSessionScopeEnabled ();
   }
 
   /**
@@ -213,10 +243,25 @@ public final class ScopeHelper
    * @return <code>true</code> if request scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
    * @since 9.4.7
+   * @deprecated Use {@link #isDebugRequestScopeLifeCycle()} instead
    */
+  @Deprecated (forRemoval = true, since = "11.0.4")
   public static boolean isDebugRequestScopeLifeCycle (@Nonnull final Logger aLogger)
   {
-    return (isLifeCycleDebuggingEnabled () || isDebugRequestScopeEnabled ()) && aLogger.isInfoEnabled ();
+    return isDebugRequestScopeLifeCycle ();
+  }
+
+  /**
+   * This is a just a helper method to determine whether request scope
+   * creation/deletion issues should be logged or not.
+   *
+   * @return <code>true</code> if request scope creation/deletion should be
+   *         logged, <code>false</code> otherwise.
+   * @since 9.4.7
+   */
+  public static boolean isDebugRequestScopeLifeCycle ()
+  {
+    return isLifeCycleDebuggingEnabled () || isDebugRequestScopeEnabled ();
   }
 
   /**

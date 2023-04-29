@@ -41,9 +41,8 @@ public class SessionScope extends AbstractScope implements ISessionScope
     super (sScopeID);
 
     // Sessions are always displayed to see what's happening
-    if (ScopeHelper.isDebugSessionScopeLifeCycle (LOGGER))
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Created session scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.isDebugSessionScopeLifeCycle ())
+      LOGGER.info ("Created session scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()
@@ -52,19 +51,17 @@ public class SessionScope extends AbstractScope implements ISessionScope
   @Override
   protected void preDestroy ()
   {
-    if (ScopeHelper.isDebugSessionScopeLifeCycle (LOGGER))
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Destroying session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                     ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.isDebugSessionScopeLifeCycle ())
+      LOGGER.info ("Destroying session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                   ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeHelper.isDebugSessionScopeLifeCycle (LOGGER))
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Destroyed session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                     ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.isDebugSessionScopeLifeCycle ())
+      LOGGER.info ("Destroyed session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                   ScopeHelper.getDebugStackTrace ());
   }
 
   @Nonnull

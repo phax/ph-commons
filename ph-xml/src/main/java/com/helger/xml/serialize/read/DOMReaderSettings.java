@@ -247,19 +247,16 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
                                                    @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
-
     if (aPropertyValue != null &&
         eProperty.getValueClass () != null &&
         !eProperty.getValueClass ().isAssignableFrom (aPropertyValue.getClass ()))
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Setting the XML parser property '" +
-                     eProperty +
-                     "' to a value of " +
-                     aPropertyValue.getClass () +
-                     " will most likely not be interpreted!");
+      LOGGER.warn ("Setting the XML parser property '" +
+                   eProperty +
+                   "' to a value of " +
+                   aPropertyValue.getClass () +
+                   " will most likely not be interpreted!");
     }
-
     if (aPropertyValue != null)
       m_aProperties.put (eProperty, aPropertyValue);
     else
@@ -463,8 +460,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     }
     catch (final UnsupportedOperationException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("DocumentBuilderFactory does not support XML Schema: " + ex.getMessage ());
+      LOGGER.warn ("DocumentBuilderFactory does not support XML Schema: " + ex.getMessage ());
     }
     try
     {
@@ -472,10 +468,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     }
     catch (final UnsupportedOperationException ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("DocumentBuilderFactory does not support XInclude setting: " + ex.getMessage ());
+      LOGGER.warn ("DocumentBuilderFactory does not support XInclude setting: " + ex.getMessage ());
     }
-
     // Apply properties
     if (hasAnyProperties ())
       for (final Map.Entry <EXMLParserProperty, Object> aEntry : getAllPropertyValues ().entrySet ())

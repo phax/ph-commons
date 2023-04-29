@@ -48,8 +48,7 @@ public class AdapterXMLOffsetDate extends XmlAdapter <String, XMLOffsetDate>
     final String sTrimmed = sValue.trim ();
     final XMLOffsetDate ret = PDTWebDateHelper.getXMLOffsetDateFromXSD (sTrimmed);
     if (ret == null)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to parse '" + sValue + "' to an XMLOffsetDate");
+      LOGGER.warn ("Failed to parse '" + sValue + "' to an XMLOffsetDate");
     return ret;
   }
 

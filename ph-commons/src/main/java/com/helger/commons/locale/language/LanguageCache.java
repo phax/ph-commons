@@ -192,7 +192,8 @@ public final class LanguageCache
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
-    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler : aLC.getDefaultMissingLocaleHandler ();
+    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler : aLC
+                                                                                      .getDefaultMissingLocaleHandler ();
 
     // Was something like "de_" passed in? -> indirect recursion
     if (sLanguage.indexOf (LocaleHelper.LOCALE_SEPARATOR) >= 0)
@@ -201,8 +202,7 @@ public final class LanguageCache
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (!containsLanguage (sValidLanguage))
       if (!isSilentMode ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
+        LOGGER.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
     return aLC.getLocale (sValidLanguage, "", "", aMLH);
   }
 
@@ -267,7 +267,6 @@ public final class LanguageCache
   public void reinitialize ()
   {
     m_aRWLock.writeLocked (m_aLanguages::clear);
-
     for (final Locale aLocale : LocaleCache.getAllDefaultLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();
@@ -277,7 +276,6 @@ public final class LanguageCache
         addLanguage (sLanguage);
       }
     }
-
     if (!isSilentMode ())
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Reinitialized " + LanguageCache.class.getName ());

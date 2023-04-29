@@ -52,7 +52,6 @@ public final class CloneHelper
     // 1. check ICloneable interface
     if (aObject instanceof ICloneable <?>)
       return GenericReflection.<DATATYPE, ICloneable <DATATYPE>> uncheckedCast (aObject).getClone ();
-
     try
     {
       // 2. find Object.clone method
@@ -60,9 +59,7 @@ public final class CloneHelper
     }
     catch (final Exception ex)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Failed to invoke clone on " + aObject.getClass ().getName ());
-
+      LOGGER.warn ("Failed to invoke clone on " + aObject.getClass ().getName ());
       try
       {
         // 3. find copy-constructor
@@ -72,25 +69,22 @@ public final class CloneHelper
       }
       catch (final IllegalAccessException ex2)
       {
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to clone object of type '" +
-                        aObject.getClass ().getName () +
-                        "' because it has neither a (visible) clone method nor a copy constructor or the methods are invisible.");
+        LOGGER.error ("Failed to clone object of type '" +
+                      aObject.getClass ().getName () +
+                      "' because it has neither a (visible) clone method nor a copy constructor or the methods are invisible.");
       }
       catch (final NoSuchMethodException ex2)
       {
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to clone object of type '" +
-                        aObject.getClass ().getName () +
-                        "' because it has neither a clone method nor a (visible) copy constructor or the methods are invisible.");
+        LOGGER.error ("Failed to clone object of type '" +
+                      aObject.getClass ().getName () +
+                      "' because it has neither a clone method nor a (visible) copy constructor or the methods are invisible.");
       }
       catch (final Exception ex2)
       {
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to clone object of type '" +
-                        aObject.getClass ().getName () +
-                        "' because it has neither a (visible) clone method nor a copy constructor.",
-                        ex2);
+        LOGGER.error ("Failed to clone object of type '" +
+                      aObject.getClass ().getName () +
+                      "' because it has neither a (visible) clone method nor a copy constructor.",
+                      ex2);
       }
     }
     return null;
@@ -126,7 +120,9 @@ public final class CloneHelper
     final Class <?> aClass = aObject.getClass ();
 
     // special handling for immutable objects without equals or clone
-    if (ClassHelper.isPrimitiveWrapperType (aClass) || aObject instanceof String || aClass.getAnnotation (Immutable.class) != null)
+    if (ClassHelper.isPrimitiveWrapperType (aClass) ||
+        aObject instanceof String ||
+        aClass.getAnnotation (Immutable.class) != null)
       return aObject;
 
     // generic clone

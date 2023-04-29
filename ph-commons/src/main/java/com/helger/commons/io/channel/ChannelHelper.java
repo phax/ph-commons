@@ -123,7 +123,6 @@ public final class ChannelHelper
       // If buffer is empty, same as doing clear()
       aBuffer.compact ();
     }
-
     // EOF will leave buffer in fill state
     aBuffer.flip ();
 
@@ -189,11 +188,9 @@ public final class ChannelHelper
       }
       catch (final IOException ex)
       {
-        if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to release object " + aFileLock, ex instanceof IMockException ? null : ex);
+        LOGGER.error ("Failed to release object " + aFileLock, ex instanceof IMockException ? null : ex);
       }
     }
-
     return ESuccess.FAILURE;
   }
 }

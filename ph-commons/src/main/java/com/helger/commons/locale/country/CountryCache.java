@@ -194,7 +194,8 @@ public class CountryCache
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
-    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler : aLC.getDefaultMissingLocaleHandler ();
+    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler : aLC
+                                                                                      .getDefaultMissingLocaleHandler ();
 
     // Was something like "_AT" (e.g. the result of getCountry (...).toString
     // ()) passed in? -> indirect recursion
@@ -204,8 +205,7 @@ public class CountryCache
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
       if (!isSilentMode ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
+        LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
 
     // And use the locale cache
     return aLC.getLocale ("", sValidCountry, "", aMLH);
@@ -272,14 +272,12 @@ public class CountryCache
   public final void reinitialize ()
   {
     m_aRWLock.writeLocked (m_aCountries::clear);
-
     for (final Locale aLocale : LocaleCache.getAllDefaultLocales ())
     {
       final String sCountry = aLocale.getCountry ();
       if (StringHelper.hasText (sCountry))
         addCountry (sCountry);
     }
-
     if (!isSilentMode ())
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Reinitialized " + getClass ().getName ());

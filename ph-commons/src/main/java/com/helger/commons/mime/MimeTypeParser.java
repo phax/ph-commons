@@ -41,21 +41,21 @@ import com.helger.commons.string.StringHelper;
 public final class MimeTypeParser
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MimeTypeParser.class);
-  private static final char [] TSPECIAL = new char [] { '(',
-                                                        ')',
-                                                        '<',
-                                                        '>',
-                                                        '@',
-                                                        ',',
-                                                        ';',
-                                                        ':',
-                                                        '\\',
-                                                        '"',
-                                                        '/',
-                                                        '[',
-                                                        ']',
-                                                        '?',
-                                                        '=' };
+  private static final char [] TSPECIAL = { '(',
+                                            ')',
+                                            '<',
+                                            '>',
+                                            '@',
+                                            ',',
+                                            ';',
+                                            ':',
+                                            '\\',
+                                            '"',
+                                            '/',
+                                            '[',
+                                            ']',
+                                            '?',
+                                            '=' };
 
   @PresentForCodeCoverage
   private static final MimeTypeParser INSTANCE = new MimeTypeParser ();
@@ -220,17 +220,14 @@ public final class MimeTypeParser
                                              "'",
                                              ex);
         }
-
         // Search for separator of next parameter
         while (nIndex < nMax && aParamChars[nIndex] != CMimeType.SEPARATOR_PARAMETER)
           ++nIndex;
-
         if (nIndex == nMax)
         {
           // End of string
           break;
         }
-
         // Another parameter is present
         ++nIndex;
 
@@ -273,7 +270,6 @@ public final class MimeTypeParser
           {
             throw new MimeTypeParserException ("Failed to unquote the string '" + sParameterValue + "'", ex);
           }
-
           try
           {
             aMimeType.addParameter (sParameterName, sParameterValue);
@@ -323,8 +319,8 @@ public final class MimeTypeParser
    *         In case of an error
    */
   @Nullable
-  public static MimeType parseMimeType (@Nullable final String sMimeType,
-                                        @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
+  public static MimeType parseMimeType (@Nullable final String sMimeType, @Nonnull final EMimeQuoting eQuotingAlgorithm)
+                                                                                                                         throws MimeTypeParserException
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 
@@ -341,7 +337,6 @@ public final class MimeTypeParser
       // Interpret as "*/*"
       return new MimeType (EMimeContentType._STAR, "*");
     }
-
     // Find the separator between content type and sub type ("/")
     final int nSlashIndex = sRealMimeType.indexOf (CMimeType.SEPARATOR_CONTENTTYPE_SUBTYPE);
     if (nSlashIndex < 0)
@@ -373,7 +368,6 @@ public final class MimeTypeParser
       sContentSubType = sRest.trim ();
       sParameters = null;
     }
-
     if (StringHelper.hasNoText (sContentSubType))
       throw new MimeTypeParserException ("MimeType '" +
                                          sRealMimeType +
@@ -443,7 +437,6 @@ public final class MimeTypeParser
         // Ignore and continue with the original one
       }
     }
-
     try
     {
       return parseMimeType (sRealMimeType, eQuotingAlgorithm);
@@ -453,8 +446,7 @@ public final class MimeTypeParser
       if ("*".equals (sRealMimeType))
         return new MimeType (EMimeContentType._STAR, "*");
     }
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Unparsable MIME type '" + sMimeType + "'");
+    LOGGER.warn ("Unparsable MIME type '" + sMimeType + "'");
     return null;
   }
 }

@@ -113,24 +113,21 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       // namespace prefix uniqueness check
       final String sExistingNamespaceURI = getNamespaceURIOfPrefix (sPrefix);
       if (sExistingNamespaceURI != null && !sExistingNamespaceURI.equals (sNamespaceURI))
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Overwriting namespace prefix '" +
-                       sPrefix +
-                       "' to use URL '" +
-                       sNamespaceURI +
-                       "' instead of '" +
-                       sExistingNamespaceURI +
-                       "'");
-
+        LOGGER.warn ("Overwriting namespace prefix '" +
+                     sPrefix +
+                     "' to use URL '" +
+                     sNamespaceURI +
+                     "' instead of '" +
+                     sExistingNamespaceURI +
+                     "'");
       if (StringHelper.hasNoText (sPrefix))
       {
         if (m_sDefaultNamespaceURI != null)
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Overwriting default namespace '" +
-                         m_sDefaultNamespaceURI +
-                         "' with namespace '" +
-                         sNamespaceURI +
-                         "'");
+          LOGGER.warn ("Overwriting default namespace '" +
+                       m_sDefaultNamespaceURI +
+                       "' with namespace '" +
+                       sNamespaceURI +
+                       "'");
         m_sDefaultNamespaceURI = sNamespaceURI;
       }
       else
@@ -247,7 +244,6 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         if (StringHelper.hasText (sDefaultNamespaceURI))
           return sDefaultNamespaceURI;
       }
-
       // no default namespace
       return null;
     }
@@ -273,7 +269,6 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         if (sPrefix != null)
           return sPrefix;
       }
-
       // no matching prefix found
       return null;
     }
@@ -336,7 +331,6 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         // Use the default namespace
         return null;
       }
-
       // find a unique prefix
       int nCount = 0;
       do
@@ -359,7 +353,6 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         // It's the default namespace
         return null;
       }
-
       // Check if an existing prefix is in use
       String sNSPrefix = _getUsedPrefixOfNamespace (sNamespaceURI);
 
@@ -393,7 +386,6 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         // It's the default namespace
         return null;
       }
-
       String sNSPrefix = _getUsedPrefixOfNamespace (sNamespaceURI);
 
       // Do we need to create a prefix?
@@ -425,10 +417,8 @@ public abstract class AbstractXMLSerializer <NODETYPE>
               // namespace URI
               return null;
             }
-
             sNSPrefix = _createUniquePrefix ();
           }
-
           // Don't emit "xmlns:xml"
           if (!XMLConstants.XML_NS_PREFIX.equals (sNSPrefix))
           {

@@ -76,8 +76,7 @@ public class AdapterOffsetDateTime extends XmlAdapter <String, OffsetDateTime>
         ret = OffsetDateTime.of (aLDT, getFallbackZoneOffsetSupplier ().apply (aLDT));
       else
       {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Failed to parse '" + sValue + "' to an OffsetDateTime");
+        LOGGER.warn ("Failed to parse '" + sValue + "' to an OffsetDateTime");
       }
     }
     return ret;
