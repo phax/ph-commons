@@ -716,7 +716,7 @@ public final class XMLCharHelper
                                   (c == 0x7f) ||
                                   // (c >= 0x80 && c <= 0x9f) ||
                                   // Surrogate chars
-                                  (c >= 0xd800 && c <= 0xdfff) ||
+                                  // (c >= 0xd800 && c <= 0xdfff) ||
                                   (c >= 0xfffe && c <= 0xffff));
       }
     }
