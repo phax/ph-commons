@@ -155,8 +155,7 @@ public final class JAXBBuilderFuncTest
     aWriter.write (aArc,
                    SafeXMLStreamWriter.create (aSW,
                                                new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY)
-                                                                       .setNewLineMode (ENewLineMode.UNIX))
-                                      .setDebugMode (true));
+                                                                       .setNewLineMode (ENewLineMode.UNIX)));
     final String sXML = aSW.getAsString ();
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                   "<Root Version=\"1.23\">\n" +
