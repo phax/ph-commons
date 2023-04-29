@@ -453,7 +453,12 @@ public final class XMLFactory
     }
     catch (final TransformerConfigurationException ex)
     {
-      LOGGER.warn ("Failed to set feature " + eFeature + " to " + bValue + " on XML TransformerFactory", ex);
+      LOGGER.warn ("Failed to set feature " +
+                   eFeature +
+                   " to " +
+                   bValue +
+                   " on XML TransformerFactory: " +
+                   ex.getMessage ());
     }
   }
 
