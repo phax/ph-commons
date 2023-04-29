@@ -17,7 +17,6 @@
 package com.helger.commons.locale.language;
 
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +37,8 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleCache.IMissingLocaleHandler;
 import com.helger.commons.locale.LocaleHelper;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 
@@ -51,7 +52,7 @@ import com.helger.commons.string.StringHelper;
  */
 @ThreadSafe
 @Singleton
-public final class LanguageCache
+public final class LanguageCache implements IHasConditionalLogger
 {
   private static final class SingletonHolder
   {
@@ -59,7 +60,7 @@ public final class LanguageCache
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LanguageCache.class);
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -81,7 +82,7 @@ public final class LanguageCache
    */
   public static boolean isSilentMode ()
   {
-    return SILENT_MODE.get ();
+    return CONDLOG.isDisabled ();
   }
 
   /**
@@ -95,7 +96,7 @@ public final class LanguageCache
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return SILENT_MODE.getAndSet (bSilentMode);
+    return !CONDLOG.setEnabled (!bSilentMode);
   }
 
   public static boolean isInstantiated ()
@@ -201,8 +202,7 @@ public final class LanguageCache
 
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (!containsLanguage (sValidLanguage))
-      if (!isSilentMode ())
-        LOGGER.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
+      CONDLOG.warn ( () -> "Trying to retrieve unsupported language '" + sLanguage + "'");
     return aLC.getLocale (sValidLanguage, "", "", aMLH);
   }
 
@@ -276,8 +276,6 @@ public final class LanguageCache
         addLanguage (sLanguage);
       }
     }
-    if (!isSilentMode ())
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Reinitialized " + LanguageCache.class.getName ());
+    CONDLOG.debug ( () -> "Reinitialized " + LanguageCache.class.getName ());
   }
 }

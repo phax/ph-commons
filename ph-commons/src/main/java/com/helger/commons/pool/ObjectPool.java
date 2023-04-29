@@ -18,7 +18,6 @@ package com.helger.commons.pool;
 
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
@@ -33,6 +32,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.ESuccess;
 
 /**
@@ -43,10 +44,10 @@ import com.helger.commons.state.ESuccess;
  *        The type of the objects contained in the pool.
  */
 @ThreadSafe
-public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE>
+public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE>, IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ObjectPool.class);
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   // Lock for this object
   private final SimpleLock m_aLock = new SimpleLock ();
@@ -70,7 +71,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    */
   public static boolean isSilentMode ()
   {
-    return SILENT_MODE.get ();
+    return CONDLOG.isDisabled ();
   }
 
   /**
@@ -84,7 +85,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return SILENT_MODE.getAndSet (bSilentMode);
+    return !CONDLOG.setEnabled (!bSilentMode);
   }
 
   /**
@@ -137,8 +138,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     catch (final InterruptedException ex)
     {
       // In case of acquisition interruption -> return null
-      if (!isSilentMode ())
-        LOGGER.error ("ObjectPool interrupted", ex);
+      CONDLOG.error ("ObjectPool interrupted", ex);
       Thread.currentThread ().interrupt ();
       return null;
     }
@@ -183,8 +183,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           m_aAvailable.release ();
           return ESuccess.SUCCESS;
         }
-      if (!isSilentMode ())
-        LOGGER.warn ("Object " + aItem + " is not pooled!");
+      CONDLOG.warn ( () -> "Object " + aItem + " is not pooled!");
       return ESuccess.FAILURE;
     }
     finally

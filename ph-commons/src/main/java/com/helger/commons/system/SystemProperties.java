@@ -17,7 +17,6 @@
 package com.helger.commons.system;
 
 import java.util.Properties;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +36,8 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.EChange;
 
 /**
@@ -45,7 +46,7 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @ThreadSafe
-public final class SystemProperties
+public final class SystemProperties implements IHasConditionalLogger
 {
   public static final String SYSTEM_PROPERTY_FILE_SEPARATOR = "file.separator";
   public static final String SYSTEM_PROPERTY_JAVA_CLASS_PATH = "java.class.path";
@@ -81,7 +82,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SystemProperties.class);
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
   private static final ICommonsSet <String> WARNED_PROP_NAMES = new CommonsCopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage
@@ -96,7 +97,7 @@ public final class SystemProperties
    */
   public static boolean isSilentMode ()
   {
-    return SILENT_MODE.get ();
+    return CONDLOG.isDisabled ();
   }
 
   /**
@@ -109,7 +110,7 @@ public final class SystemProperties
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return SILENT_MODE.getAndSet (bSilentMode);
+    return !CONDLOG.setEnabled (!bSilentMode);
   }
 
   @Nullable
@@ -128,8 +129,7 @@ public final class SystemProperties
       if (ret == null && WARNED_PROP_NAMES.add (sKey))
       {
         // Warn about each property once
-        if (!isSilentMode ())
-          LOGGER.warn ("System property '" + sKey + "' cannot be read because it is not set");
+        CONDLOG.warn ( () -> "System property '" + sKey + "' cannot be read because it is not set");
       }
     }
     return ret;
@@ -231,8 +231,7 @@ public final class SystemProperties
       final String sOld = IPrivilegedAction.systemSetProperty (sKey, sValue).invokeSafe ();
       bChanged = sOld != null && !sValue.equals (sOld);
       if (bChanged)
-        if (!isSilentMode ())
-          LOGGER.info ("Set system property '" + sKey + "' to '" + sValue + "'");
+        CONDLOG.info ( () -> "Set system property '" + sKey + "' to '" + sValue + "'");
     }
     return EChange.valueOf (bChanged);
   }
@@ -251,13 +250,10 @@ public final class SystemProperties
   public static String removePropertyValue (@Nonnull final String sKey)
   {
     final String sOldValue = IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
-    if (!isSilentMode ())
-    {
-      if (sOldValue != null)
-        LOGGER.info ("Removed system property '" + sKey + "' with value '" + sOldValue + "'");
-      else
-        LOGGER.warn ("Remove system property '" + sKey + "' failed");
-    }
+    if (sOldValue != null)
+      CONDLOG.info ( () -> "Removed system property '" + sKey + "' with value '" + sOldValue + "'");
+    else
+      CONDLOG.warn ( () -> "Remove system property '" + sKey + "' failed");
     return sOldValue;
   }
 

@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.UncheckedIOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,6 +33,8 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 
@@ -45,24 +46,22 @@ import com.helger.commons.url.URLHelper;
  * @since 8.6.6
  */
 @Immutable
-public class DefaultResourceResolver
+public class DefaultResourceResolver implements IHasConditionalLogger
 {
-  /** Internal debug flag for console debugging */
-  private static final AtomicBoolean DEBUG_RESOLVE = new AtomicBoolean (false);
-
   private static final Logger LOGGER = LoggerFactory.getLogger (DefaultResourceResolver.class);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, false);
 
   protected DefaultResourceResolver ()
   {}
 
   public static boolean isDebugResolve ()
   {
-    return DEBUG_RESOLVE.get ();
+    return CONDLOG.isEnabled ();
   }
 
   public static void setDebugResolve (final boolean bDebugResolve)
   {
-    DEBUG_RESOLVE.set (bDebugResolve);
+    CONDLOG.setEnabled (bDebugResolve);
   }
 
   public static boolean isExplicitJarFileResource (@Nullable final String sName)
@@ -105,18 +104,18 @@ public class DefaultResourceResolver
     final File aBaseFile = new File (sBaseURIWithoutPrefix).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
-                                                                           : aBaseFile.getPath () + '/' + sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () +
+                                                                                         '/' +
+                                                                                         sSystemId);
 
     final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
-    if (isDebugResolve ())
-      LOGGER.info ("  [ClassPath] resolved base + system to " + ret);
+    CONDLOG.info ( () -> "  [ClassPath] resolved base + system to " + ret);
     return ret;
   }
 
   @Nonnull
-  private static URLResource _resolveJarFileResource (@Nonnull final String sSystemId,
-                                                      @Nonnull final String sBaseURI) throws MalformedURLException
+  private static URLResource _resolveJarFileResource (@Nonnull final String sSystemId, @Nonnull final String sBaseURI)
+                                                                                                                       throws MalformedURLException
   {
     // Base URI is inside a jar file? Skip the JAR file
     // See issue #8 - use lastIndexOf here
@@ -133,7 +132,6 @@ public class DefaultResourceResolver
       sPrefix = sBaseURI.substring (0, i + 2);
       sBasePath = sBaseURI.substring (i + 2);
     }
-
     // Skip any potentially leading path separator
     if (FilenameHelper.startsWithPathSeparatorChar (sBasePath))
       sBasePath = sBasePath.substring (1);
@@ -142,8 +140,9 @@ public class DefaultResourceResolver
     final File aBaseFile = new File (sBasePath).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
-                                                                           : aBaseFile.getPath () + '/' + sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () +
+                                                                                         '/' +
+                                                                                         sSystemId);
 
     final String sAggregatedPath;
     if (sPrefix.endsWith ("/") && sNewPath.startsWith ("/"))
@@ -153,16 +152,14 @@ public class DefaultResourceResolver
     }
     else
       sAggregatedPath = sPrefix + sNewPath;
-
     final URLResource ret = new URLResource (sAggregatedPath);
-    if (isDebugResolve ())
-      LOGGER.info ("  [JarFile] resolved base + system to " + ret);
+    CONDLOG.info ( () -> "  [JarFile] resolved base + system to " + ret);
     return ret;
   }
 
   @Nonnull
-  private static URLResource _resolveURLResource (final String sSystemId,
-                                                  @Nonnull final URL aBaseURL) throws MalformedURLException
+  private static URLResource _resolveURLResource (final String sSystemId, @Nonnull final URL aBaseURL)
+                                                                                                       throws MalformedURLException
   {
     // Take only the path
     String sBasePath = aBaseURL.getPath ();
@@ -180,7 +177,6 @@ public class DefaultResourceResolver
       // Take only the path
       sBasePath = FilenameHelper.getPath (sBasePath);
     }
-
     // Concatenate the path with the URI to search
     final String sNewPath = FilenameHelper.getCleanConcatenatedUrlPath (sBasePath, sSystemId);
 
@@ -190,8 +186,7 @@ public class DefaultResourceResolver
                                  aBaseURL.getPort (),
                                  URLHelper.getURLString (sNewPath, aBaseURL.getQuery (), aBaseURL.getRef ()));
     final URLResource ret = new URLResource (aNewURL);
-    if (isDebugResolve ())
-      LOGGER.info ("  [URL] resolved base + system to " + ret);
+    CONDLOG.info ( () -> "  [URL] resolved base + system to " + ret);
     return ret;
   }
 
@@ -232,9 +227,6 @@ public class DefaultResourceResolver
     if (StringHelper.hasNoText (sSystemId) && StringHelper.hasNoText (sBaseURI))
       throw new IllegalArgumentException ("Both systemID and baseURI are null!");
 
-    // Retrieve only once
-    final boolean bDebugResolve = isDebugResolve ();
-
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Trying to resolve resource " +
                     sSystemId +
@@ -242,8 +234,7 @@ public class DefaultResourceResolver
                     sBaseURI +
                     (aClassLoader == null ? "" : " with ClassLoader " + aClassLoader));
 
-    if (bDebugResolve)
-      LOGGER.info ("doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
+    CONDLOG.info ( () -> "doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
 
     // It happens quite often that some resolution does not work here
     final URL aSystemURL = URLHelper.getAsURL (sSystemId, false);
@@ -256,12 +247,10 @@ public class DefaultResourceResolver
       if (!aSystemURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
       {
         final URLResource ret = new URLResource (aSystemURL);
-        if (bDebugResolve)
-          LOGGER.info ("  resolved system URL to " + ret);
+        CONDLOG.info ( () -> "  resolved system URL to " + ret);
         return ret;
       }
     }
-
     if (ClassPathResource.isExplicitClassPathResource (sBaseURI))
       return _resolveClassPathResource (sSystemId, sBaseURI, aClassLoader);
 
@@ -305,11 +294,9 @@ public class DefaultResourceResolver
       // Nothing to resolve
       // Note: BaseFile should always be set here!
       final FileSystemResource ret = new FileSystemResource (aBaseFile);
-      if (bDebugResolve)
-        LOGGER.info ("  resolved base URL to " + ret);
+      CONDLOG.info ( () -> "  resolved base URL to " + ret);
       return ret;
     }
-
     // Get the system ID file
     final File aSystemFile;
     if (aSystemURL != null)
@@ -329,22 +316,17 @@ public class DefaultResourceResolver
         final FileSystemResource aMerged = _getChildResource (aBaseFile, aSystemFile);
         if (aMerged.exists ())
         {
-          if (bDebugResolve)
-            LOGGER.info ("  resolved base + system URL to " + aMerged);
+          CONDLOG.info ( () -> "  resolved base + system URL to " + aMerged);
           return aMerged;
         }
       }
-
       // If the absolute version exists, or if both the absolute and the merged
       // version do NOT exist, return the absolute version anyway.
-      if (bDebugResolve)
-        LOGGER.info ("  resolved system URL to " + aAbsFile);
+      CONDLOG.info ( () -> "  resolved system URL to " + aAbsFile);
       return aAbsFile;
     }
-
     final FileSystemResource ret = _getChildResource (aBaseFile, aSystemFile);
-    if (bDebugResolve)
-      LOGGER.info ("  resolved base + system URL to " + ret);
+    CONDLOG.info ( () -> "  resolved base + system URL to " + ret);
     return ret;
   }
 }

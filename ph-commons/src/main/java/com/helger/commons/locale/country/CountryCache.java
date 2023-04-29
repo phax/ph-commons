@@ -17,7 +17,6 @@
 package com.helger.commons.locale.country;
 
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +37,8 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleCache.IMissingLocaleHandler;
 import com.helger.commons.locale.LocaleHelper;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 
@@ -50,7 +51,7 @@ import com.helger.commons.string.StringHelper;
  */
 @ThreadSafe
 @Singleton
-public class CountryCache
+public class CountryCache implements IHasConditionalLogger
 {
   private static final class SingletonHolder
   {
@@ -58,7 +59,7 @@ public class CountryCache
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CountryCache.class);
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -80,7 +81,7 @@ public class CountryCache
    */
   public static boolean isSilentMode ()
   {
-    return SILENT_MODE.get ();
+    return CONDLOG.isDisabled ();
   }
 
   /**
@@ -94,7 +95,7 @@ public class CountryCache
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return SILENT_MODE.getAndSet (bSilentMode);
+    return !CONDLOG.setEnabled (!bSilentMode);
   }
 
   public static boolean isInstantiated ()
@@ -204,8 +205,7 @@ public class CountryCache
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
-      if (!isSilentMode ())
-        LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
+      CONDLOG.warn ( () -> "Trying to retrieve unsupported country '" + sCountry + "'");
 
     // And use the locale cache
     return aLC.getLocale ("", sValidCountry, "", aMLH);
@@ -278,8 +278,6 @@ public class CountryCache
       if (StringHelper.hasText (sCountry))
         addCountry (sCountry);
     }
-    if (!isSilentMode ())
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Reinitialized " + getClass ().getName ());
+    CONDLOG.debug ( () -> "Reinitialized " + getClass ().getName ());
   }
 }

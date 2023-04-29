@@ -17,7 +17,6 @@
 package com.helger.commons.locale;
 
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +37,8 @@ import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -49,7 +50,7 @@ import com.helger.commons.string.StringHelper;
  */
 @ThreadSafe
 @Singleton
-public class LocaleCache
+public class LocaleCache implements IHasConditionalLogger
 {
   /**
    * Internal interface for a callback handler to be invoked, if a non-existing
@@ -75,7 +76,10 @@ public class LocaleCache
      * @return The created Locale or <code>null</code>.
      */
     @Nullable
-    Locale onMissingLocale (@Nonnull String sLocaleKey, @Nonnull String sLanguage, @Nonnull String sCountry, @Nonnull String sVariant);
+    Locale onMissingLocale (@Nonnull String sLocaleKey,
+                            @Nonnull String sLanguage,
+                            @Nonnull String sCountry,
+                            @Nonnull String sVariant);
   }
 
   private static final class SingletonHolder
@@ -84,7 +88,7 @@ public class LocaleCache
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LocaleCache.class);
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -113,7 +117,7 @@ public class LocaleCache
    */
   public static boolean isSilentMode ()
   {
-    return SILENT_MODE.get ();
+    return CONDLOG.isDisabled ();
   }
 
   /**
@@ -127,7 +131,7 @@ public class LocaleCache
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return SILENT_MODE.getAndSet (bSilentMode);
+    return !CONDLOG.setEnabled (!bSilentMode);
   }
 
   public static boolean isInstantiated ()
@@ -225,7 +229,9 @@ public class LocaleCache
    *         <code>null</code> or empty
    */
   @Nullable
-  public Locale getLocale (@Nullable final String sLanguage, @Nullable final String sCountry, @Nullable final String sVariant)
+  public Locale getLocale (@Nullable final String sLanguage,
+                           @Nullable final String sCountry,
+                           @Nullable final String sVariant)
   {
     // Try fetching again in writeLock
     // not yet in cache, create a new one
@@ -247,7 +253,9 @@ public class LocaleCache
    * @return String
    */
   @Nonnull
-  private static String _buildLocaleString (@Nonnull final String sLanguage, @Nonnull final String sCountry, @Nonnull final String sVariant)
+  private static String _buildLocaleString (@Nonnull final String sLanguage,
+                                            @Nonnull final String sCountry,
+                                            @Nonnull final String sVariant)
   {
     final StringBuilder aLocaleSB = new StringBuilder ();
     if (sLanguage.length () > 0)
@@ -292,7 +300,6 @@ public class LocaleCache
       // try to resolve locale
       aLocale = m_aRWLock.readLockedGet ( () -> m_aLocales.get (sLocaleKey));
     }
-
     if (aLocale == null && aMissingHandler != null)
       aLocale = aMissingHandler.onMissingLocale (sLocaleKey, sRealLanguage, sRealCountry, sRealVariant);
 
@@ -395,7 +402,9 @@ public class LocaleCache
    * @return <code>true</code> if it is in the cache, <code>false</code>
    *         otherwise.
    */
-  public boolean containsLocale (@Nullable final String sLanguage, @Nullable final String sCountry, @Nullable final String sVariant)
+  public boolean containsLocale (@Nullable final String sLanguage,
+                                 @Nullable final String sCountry,
+                                 @Nullable final String sVariant)
   {
     final String sLocaleKey = _createLocaleKey (sLanguage, sCountry, sVariant);
     if (sLocaleKey.length () == 0)
@@ -429,7 +438,6 @@ public class LocaleCache
         ret.add (new Locale (sLanguage, ""));
       }
     }
-
     // http://forums.sun.com/thread.jspa?threadID=525482&tstart=1411
     for (final String sCountry : Locale.getISOCountries ())
       ret.add (new Locale ("", sCountry));
@@ -454,8 +462,6 @@ public class LocaleCache
         m_aLocales.put (aLocale.toString (), aLocale);
     });
 
-    if (!isSilentMode ())
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Reinitialized " + LocaleCache.class.getName ());
+    CONDLOG.debug ( () -> "Reinitialized " + LocaleCache.class.getName ());
   }
 }

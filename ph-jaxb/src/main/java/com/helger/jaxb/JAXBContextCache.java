@@ -17,16 +17,20 @@
 package com.helger.jaxb;
 
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.EChange;
 
 import jakarta.xml.bind.JAXBContext;
@@ -39,14 +43,15 @@ import jakarta.xml.bind.JAXBContext;
  */
 @ThreadSafe
 @Singleton
-public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBContext>
+public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBContext> implements IHasConditionalLogger
 {
   private static final class SingletonHolder
   {
     static final JAXBContextCache INSTANCE = new JAXBContextCache ();
   }
 
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JAXBContextCache.class);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -57,7 +62,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    */
   public static boolean isSilentMode ()
   {
-    return SILENT_MODE.get ();
+    return CONDLOG.isDisabled ();
   }
 
   /**
@@ -71,12 +76,12 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return SILENT_MODE.getAndSet (bSilentMode);
+    return !CONDLOG.setEnabled (!bSilentMode);
   }
 
   private JAXBContextCache ()
   {
-    super (aCacheKey -> aCacheKey.createJAXBContext (isSilentMode ()), 500, JAXBContextCache.class.getName ());
+    super (aCacheKey -> aCacheKey.createJAXBContext (CONDLOG), 500, JAXBContextCache.class.getName ());
   }
 
   public static boolean isInstantiated ()

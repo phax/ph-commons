@@ -16,7 +16,6 @@
  */
 package com.helger.commons.lang;
 
-import java.util.Iterator;
 import java.util.ServiceLoader;
 
 import javax.annotation.Nonnull;
@@ -143,19 +142,13 @@ public final class ServiceLoaderHelper
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
     final ICommonsList <T> ret = new CommonsArrayList <> ();
-    
-    // @formatter:off
-    // We use the iterator to be able to catch exceptions thrown
-    // when loading SPI implementations (e.g. the SPI implementation class does
-    // not exist)
-    final Iterator <T> aIterator = aServiceLoader.iterator ();
-    while (aIterator.hasNext ())
+
+    for (T aInstance : aServiceLoader)
     {
       try
       {
-        final T aInstance = aIterator.next ();
         if (!CACHE_IMPLEMENTATION.hasAnnotation (aInstance))
-            LOGGER.warn (aInstance + " should have the @IsSPIImplementation annotation");
+          LOGGER.warn (aInstance + " should have the @IsSPIImplementation annotation");
         ret.add (aInstance);
       }
       catch (final Exception ex)
@@ -259,12 +252,12 @@ public final class ServiceLoaderHelper
     if (aAll.size () > 1)
     {
       // More than one implementation found
-        aRealLogger.warn ("Requested only one SPI implementation of " +
-                          aSPIClass +
-                          " but found " +
-                          aAll.size () +
-                          " - using the first one. Details: " +
-                          aAll);
+      aRealLogger.warn ("Requested only one SPI implementation of " +
+                        aSPIClass +
+                        " but found " +
+                        aAll.size () +
+                        " - using the first one. Details: " +
+                        aAll);
     }
     return aAll.getFirst ();
   }

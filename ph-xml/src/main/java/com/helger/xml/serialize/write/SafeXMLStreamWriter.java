@@ -42,6 +42,8 @@ import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.iterate.CombinedIterator;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -57,7 +59,7 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  * @author Philip Helger
  * @since 9.0.0
  */
-public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
+public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHasConditionalLogger
 {
   private static final class ElementState
   {
@@ -153,6 +155,16 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   private static final Logger LOGGER = LoggerFactory.getLogger (SafeXMLStreamWriter.class);
   private static final AtomicBoolean DEFAULT_DEBUG_MODE = new AtomicBoolean (false);
 
+  public static boolean isDefaultDebugMode ()
+  {
+    return DEFAULT_DEBUG_MODE.get ();
+  }
+
+  public static void setDefaultDebugMode (final boolean bDefaultDebugMode)
+  {
+    DEFAULT_DEBUG_MODE.set (bDefaultDebugMode);
+  }
+
   private final XMLEmitter m_aEmitter;
   private final boolean m_bIndent;
   private final String m_sIndent;
@@ -178,17 +190,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     }
   };
   private boolean m_bInElementStart = false;
-  private boolean m_bDebugMode = DEFAULT_DEBUG_MODE.get ();
-
-  public static boolean isDefaultDebugMode ()
-  {
-    return DEFAULT_DEBUG_MODE.get ();
-  }
-
-  public static void setDefaultDebugMode (final boolean bDefaultDebugMode)
-  {
-    DEFAULT_DEBUG_MODE.set (bDefaultDebugMode);
-  }
+  private final ConditionalLogger m_aCondLog = new ConditionalLogger (LOGGER, DEFAULT_DEBUG_MODE.get ());
 
   public SafeXMLStreamWriter (@Nonnull final XMLEmitter aEmitter)
   {
@@ -205,7 +207,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
    */
   public final boolean isDebugMode ()
   {
-    return m_bDebugMode;
+    return m_aCondLog.isEnabled ();
   }
 
   /**
@@ -220,7 +222,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   @Nonnull
   public final SafeXMLStreamWriter setDebugMode (final boolean bDebugMode)
   {
-    m_bDebugMode = bDebugMode;
+    m_aCondLog.setEnabled (bDebugMode);
     return this;
   }
 
@@ -300,8 +302,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   @OverrideOnDemand
   protected void debug (@Nonnull final Supplier <String> aSupplier)
   {
-    if (m_bDebugMode)
-      LOGGER.info (aSupplier.get ());
+    m_aCondLog.info (aSupplier);
   }
 
   @Nonnull
@@ -609,7 +610,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
                                        .append ("NamespaceContext", m_aNamespaceContext)
                                        .append ("ElementStateStack", m_aElementStateStack)
                                        .append ("InElementStart", m_bInElementStart)
-                                       .append ("DebugMode", m_bDebugMode)
+                                       .append ("ConditionalLogger", m_aCondLog)
                                        .getToString ();
   }
 

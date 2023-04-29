@@ -37,6 +37,7 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -160,18 +161,17 @@ public class JAXBContextCacheKey
   }
 
   @Nonnull
-  private JAXBContext _createFromPackageAndClassLoader (final boolean bSilentMode)
+  private JAXBContext _createFromPackageAndClassLoader (@Nonnull final ConditionalLogger aCondLog)
   {
     final ClassLoader aClassLoader = _getClassLoader ();
 
-    if (!bSilentMode)
-      LOGGER.info ("Creating JAXB context for packages " +
-                   StringHelper.imploder ()
-                               .source (m_aPackages, x -> '\'' + x.getName () + '\'')
-                               .separator (", ")
-                               .build () +
-                   " using ClassLoader " +
-                   aClassLoader.toString ());
+    aCondLog.info ( () -> "Creating JAXB context for packages " +
+                          StringHelper.imploder ()
+                                      .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                                      .separator (", ")
+                                      .build () +
+                          " using ClassLoader " +
+                          aClassLoader.toString ());
 
     try
     {
@@ -193,18 +193,17 @@ public class JAXBContextCacheKey
   }
 
   @Nonnull
-  private JAXBContext _createFromClassesAndProperties (final boolean bSilentMode)
+  private JAXBContext _createFromClassesAndProperties (@Nonnull final ConditionalLogger aCondLog)
   {
     final ICommonsList <Class <?>> aClasses = _getAllClasses ();
 
     // E.g. an internal class - try anyway!
-    if (!bSilentMode)
-      LOGGER.info ("Creating JAXB context for classes " +
-                   StringHelper.imploder ()
-                               .source (aClasses, x -> '\'' + x.getName () + '\'')
-                               .separator (", ")
-                               .build () +
-                   (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
+    aCondLog.info ( () -> "Creating JAXB context for classes " +
+                          StringHelper.imploder ()
+                                      .source (aClasses, x -> '\'' + x.getName () + '\'')
+                                      .separator (", ")
+                                      .build () +
+                          (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
 
     try
     {
@@ -226,12 +225,13 @@ public class JAXBContextCacheKey
     }
   }
 
+  // 11.0.4 did an incompatible change from boolean to ConditionalLogger
   @Nonnull
-  public JAXBContext createJAXBContext (final boolean bSilentMode)
+  public JAXBContext createJAXBContext (@Nonnull final ConditionalLogger aCondLog)
   {
     if (m_aPackages != null)
-      return _createFromPackageAndClassLoader (bSilentMode);
-    return _createFromClassesAndProperties (bSilentMode);
+      return _createFromPackageAndClassLoader (aCondLog);
+    return _createFromClassesAndProperties (aCondLog);
   }
 
   @Override
@@ -374,7 +374,6 @@ public class JAXBContextCacheKey
       // Redirect to cached version
       return createForPackage (aPackage, aClassLoader);
     }
-
     return new JAXBContextCacheKey (new CommonsArrayList <> (aClass), (Map <String, ?>) null);
   }
 

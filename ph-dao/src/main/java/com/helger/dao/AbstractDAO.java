@@ -17,11 +17,13 @@
 package com.helger.dao;
 
 import java.io.File;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
@@ -33,6 +35,8 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.file.FileIOError;
 import com.helger.commons.io.file.FileOperationManager;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -41,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractDAO implements IDAO
+public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
 {
   /** By default auto-save is enabled */
   public static final boolean DEFAULT_AUTO_SAVE_ENABLED = true;
@@ -60,7 +64,8 @@ public abstract class AbstractDAO implements IDAO
   private static final CallbackList <IDAOWriteExceptionCallback> EX_HANDLERS_WRITE = new CallbackList <> ();
 
   protected static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractDAO.class);
+  protected static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
@@ -78,7 +83,7 @@ public abstract class AbstractDAO implements IDAO
    */
   public static boolean isSilentMode ()
   {
-    return SILENT_MODE.get ();
+    return CONDLOG.isDisabled ();
   }
 
   /**
@@ -92,7 +97,7 @@ public abstract class AbstractDAO implements IDAO
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return SILENT_MODE.getAndSet (bSilentMode);
+    return !CONDLOG.setEnabled (!bSilentMode);
   }
 
   protected AbstractDAO ()

@@ -411,8 +411,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     if (sFilename == null)
     {
       // required for testing
-      if (!isSilentMode ())
-        LOGGER.info ("This DAO of class " + getClass ().getName () + " will not be able to read from a file");
+      CONDLOG.info ( () -> "This DAO of class " + getClass ().getName () + " will not be able to read from a file");
 
       // do not return - run initialization anyway
       aFile = null;
@@ -436,9 +435,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
         if (bIsInitialization)
         {
           // initial setup for non-existing file
-          if (!isSilentMode ())
-            LOGGER.info ("Trying to initialize WAL DAO" +
-                         (aFile == null ? "" : " XML file '" + aFile.getAbsolutePath () + "'"));
+          CONDLOG.info ( () -> "Trying to initialize WAL DAO" +
+                               (aFile == null ? "" : " XML file '" + aFile.getAbsolutePath () + "'"));
 
           beginWithoutAutoSave ();
           try
@@ -467,8 +465,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
         else
         {
           // Read existing file (aFile must be set)
-          if (!isSilentMode ())
-            LOGGER.info ("Trying to read WAL DAO XML file '" + aFile.getAbsolutePath () + "'");
+          CONDLOG.info ( () -> "Trying to read WAL DAO XML file '" + aFile.getAbsolutePath () + "'");
 
           m_aStatsCounterReadTotal.increment ();
           aDoc = MicroReader.readMicroXML (aFile);
@@ -531,8 +528,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
       final File aWALFile = sWALFilename == null ? null : m_aIO.getFile (sWALFilename);
       if (aWALFile != null && aWALFile.exists ())
       {
-        if (!isSilentMode ())
-          LOGGER.info ("Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
+        CONDLOG.info ( () -> "Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
         boolean bPerformedAtLeastOnRecovery = false;
         boolean bRecoveryContainedErrors = false;
 
@@ -556,8 +552,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
 
             // Read number of elements
             final int nElements = aOIS.readInt ();
-            if (!isSilentMode ())
-              LOGGER.info ("Trying to recover " + nElements + " " + eActionType + " actions from WAL file");
+            CONDLOG.info ( () -> "Trying to recover " + nElements + " " + eActionType + " actions from WAL file");
 
             // Read all elements
             for (int i = 0; i < nElements; ++i)
@@ -571,8 +566,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
                 onRecoveryErrorConvertToNative (eActionType, i, sElement);
                 continue;
               }
-              if (!isSilentMode ())
-                LOGGER.info ("Trying to recover object [" + i + "] with " + sElement.length () + " chars");
+              final int nIdx = i;
+              CONDLOG.info ( () -> "Trying to recover object [" + nIdx + "] with " + sElement.length () + " chars");
 
               switch (eActionType)
               {
@@ -581,8 +576,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
                   {
                     onRecoveryCreate (aElement);
                     bPerformedAtLeastOnRecovery = true;
-                    if (!isSilentMode ())
-                      LOGGER.info ("[WAL] wal-recovery create " + aElement);
+                    CONDLOG.info ( () -> "[WAL] wal-recovery create " + aElement);
                   }
                   catch (final RuntimeException ex)
                   {
@@ -600,8 +594,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
                   {
                     onRecoveryUpdate (aElement);
                     bPerformedAtLeastOnRecovery = true;
-                    if (!isSilentMode ())
-                      LOGGER.info ("[WAL] wal-recovery update " + aElement);
+                    CONDLOG.info ( () -> "[WAL] wal-recovery update " + aElement);
                     break;
                   }
                   catch (final RuntimeException ex)
@@ -619,8 +612,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
                   {
                     onRecoveryDelete (aElement);
                     bPerformedAtLeastOnRecovery = true;
-                    if (!isSilentMode ())
-                      LOGGER.info ("[WAL] wal-recovery delete " + aElement);
+                    CONDLOG.info ( () -> "[WAL] wal-recovery delete " + aElement);
                     break;
                   }
                   catch (final RuntimeException ex)
@@ -638,8 +630,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
               }
             }
           }
-          if (!isSilentMode ())
-            LOGGER.info ("Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
+          CONDLOG.info ( () -> "Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
         }
         catch (final IOException | RuntimeException ex)
         {
@@ -783,8 +774,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     if (sFilename == null)
     {
       // We're not operating on a file! Required for testing
-      if (!isSilentMode ())
-        LOGGER.info ("The DAO of class " + getClass ().getName () + " cannot write to a file");
+      CONDLOG.info ( () -> "The DAO of class " + getClass ().getName () + " cannot write to a file");
       return ESuccess.FAILURE;
     }
     // Check for a filename change before writing
@@ -793,8 +783,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
       onFilenameChange (m_sPreviousFilename, sFilename);
       m_sPreviousFilename = sFilename;
     }
-    if (!isSilentMode ())
-      LOGGER.info ("Trying to write WAL DAO file '" + sFilename + "'");
+    CONDLOG.info ( () -> "Trying to write WAL DAO file '" + sFilename + "'");
 
     File aFileNew = null;
     IMicroDocument aDoc = null;
@@ -932,12 +921,11 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     }
     else
     {
-      if (!isSilentMode ())
-        LOGGER.info ("Maintained WAL file '" +
-                     aWALFile.getAbsolutePath () +
-                     "' as '" +
-                     aNewFile.getAbsolutePath () +
-                     "' for debugging purposes");
+      CONDLOG.info ( () -> "Maintained WAL file '" +
+                           aWALFile.getAbsolutePath () +
+                           "' as '" +
+                           aNewFile.getAbsolutePath () +
+                           "' for debugging purposes");
     }
   }
 
@@ -955,8 +943,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     }
     else
     {
-      if (!isSilentMode ())
-        LOGGER.info ("Deleted successfully imported WAL file '" + aWALFile.getAbsolutePath () + "'");
+      CONDLOG.info ( () -> "Deleted successfully imported WAL file '" + aWALFile.getAbsolutePath () + "'");
     }
   }
 

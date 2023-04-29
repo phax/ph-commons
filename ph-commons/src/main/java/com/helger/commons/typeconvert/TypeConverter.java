@@ -16,8 +16,6 @@
  */
 package com.helger.commons.typeconvert;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -30,6 +28,8 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
 
 /**
@@ -43,10 +43,10 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
  */
 @SuppressWarnings ("javadoc")
 @Immutable
-public final class TypeConverter
+public final class TypeConverter implements IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TypeConverter.class);
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   @PresentForCodeCoverage
   private static final TypeConverter INSTANCE = new TypeConverter ();
@@ -61,7 +61,7 @@ public final class TypeConverter
    */
   public static boolean isSilentMode ()
   {
-    return SILENT_MODE.get ();
+    return CONDLOG.isDisabled ();
   }
 
   /**
@@ -75,7 +75,7 @@ public final class TypeConverter
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return SILENT_MODE.getAndSet (bSilentMode);
+    return !CONDLOG.setEnabled (!bSilentMode);
   }
 
   @Nullable
@@ -497,14 +497,13 @@ public final class TypeConverter
                                                                                                 aUsableDstClass);
     if (aConverter == null)
     {
-      if (!isSilentMode ())
-        LOGGER.warn ("No type converter from '" +
-                     aSrcClass.getName () +
-                     "' to '" +
-                     aUsableDstClass.getName () +
-                     "' was found (using provider '" +
-                     aTypeConverterProvider.getClass ().getName () +
-                     "')");
+      CONDLOG.warn ( () -> "No type converter from '" +
+                           aSrcClass.getName () +
+                           "' to '" +
+                           aUsableDstClass.getName () +
+                           "' was found (using provider '" +
+                           aTypeConverterProvider.getClass ().getName () +
+                           "')");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.NO_CONVERTER_FOUND);
     }
     // Okay, converter was found -> invoke it
@@ -520,16 +519,15 @@ public final class TypeConverter
     }
     if (aRetVal == null)
     {
-      if (!isSilentMode ())
-        LOGGER.warn ("Type conversion from '" +
-                     aSrcValue +
-                     "' of class '" +
-                     aSrcClass.getName () +
-                     "' to '" +
-                     aUsableDstClass.getName () +
-                     "' with converter '" +
-                     aConverter.toString () +
-                     "' failed; null was returned from converter!");
+      CONDLOG.warn ( () -> "Type conversion from '" +
+                           aSrcValue +
+                           "' of class '" +
+                           aSrcClass.getName () +
+                           "' to '" +
+                           aUsableDstClass.getName () +
+                           "' with converter '" +
+                           aConverter.toString () +
+                           "' failed; null was returned from converter!");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED);
     }
     return aRetVal;
