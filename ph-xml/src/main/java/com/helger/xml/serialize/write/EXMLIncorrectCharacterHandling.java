@@ -40,7 +40,8 @@ public enum EXMLIncorrectCharacterHandling
   THROW_EXCEPTION (true, false)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText, @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
+                                             @Nonnull final Set <Character> aInvalidChars)
     {
       throw new IllegalArgumentException ("XML content contains invalid character data: '" +
                                           sText +
@@ -59,7 +60,8 @@ public enum EXMLIncorrectCharacterHandling
   WRITE_TO_FILE_NO_LOG (false, false)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText, @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
+                                             @Nonnull final Set <Character> aInvalidChars)
     {
       // Do nothing
     }
@@ -74,7 +76,8 @@ public enum EXMLIncorrectCharacterHandling
   WRITE_TO_FILE_LOG_WARNING (true, false)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText, @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
+                                             @Nonnull final Set <Character> aInvalidChars)
     {
       if (LOGGER.isWarnEnabled ())
         LOGGER.warn ("XML content contains invalid character data (no replacement): '" +
@@ -91,7 +94,8 @@ public enum EXMLIncorrectCharacterHandling
   DO_NOT_WRITE_NO_LOG (false, true)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText, @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
+                                             @Nonnull final Set <Character> aInvalidChars)
     {
       // Do nothing
     }
@@ -104,7 +108,8 @@ public enum EXMLIncorrectCharacterHandling
   DO_NOT_WRITE_LOG_WARNING (true, true)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText, @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
+                                             @Nonnull final Set <Character> aInvalidChars)
     {
       if (LOGGER.isWarnEnabled ())
         LOGGER.warn ("XML content contains invalid character data (will replace): '" +
@@ -171,9 +176,11 @@ public enum EXMLIncorrectCharacterHandling
   {
     if (aInvalidChars.isEmpty ())
       return "NONE";
-    return StringHelper.getImplodedMapped (", ",
-                                           aInvalidChars,
-                                           aChar -> "0x" + StringHelper.getHexStringLeadingZero (aChar.charValue (), 2));
+    return StringHelper.imploder ()
+                       .separator (", ")
+                       .source (aInvalidChars,
+                                x -> "0x" + StringHelper.getHexStringLeadingZero (x.charValue (), 2))
+                       .build ();
   }
 
   /**
@@ -184,5 +191,6 @@ public enum EXMLIncorrectCharacterHandling
    * @param aInvalidChars
    *        The invalid characters detected within the text
    */
-  public abstract void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty String sText, @Nonnull Set <Character> aInvalidChars);
+  public abstract void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty String sText,
+                                                    @Nonnull Set <Character> aInvalidChars);
 }

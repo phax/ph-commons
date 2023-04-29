@@ -66,8 +66,8 @@ public final class StringEncoder
     m_aEncoder = aCharset.newEncoder ();
     // set the buffer to "filled" so it gets filled by encode()
     m_aInChar.position (m_aInChar.limit ());
-    // Needed for U+D800 - U+DBFF = High Surrogate; U+DC00 - U+DFFF = Low
-    // Surrogates
+    // Needed for U+D800 - U+DBFF = High Surrogates;
+    // U+DC00 - U+DFFF = Low Surrogates
     // Maybe others in the future? This is what the JDK does for
     // String.getBytes().
     m_aEncoder.onMalformedInput (CodingErrorAction.REPLACE);
