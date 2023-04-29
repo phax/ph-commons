@@ -483,19 +483,23 @@ public final class XMLWriterTest
   @Test
   public void testNumericReferencesXML10 () throws TransformerException
   {
-    for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; ++i)
-      if (!XMLCharHelper.isInvalidXMLTextChar (EXMLSerializeVersion.XML_10, (char) i))
+    // Use regular transformer
+    final Transformer aTransformer = XMLTransformerFactory.newTransformer ();
+    aTransformer.setOutputProperty (OutputKeys.ENCODING, StandardCharsets.UTF_8.name ());
+    aTransformer.setOutputProperty (OutputKeys.INDENT, "yes");
+    aTransformer.setOutputProperty (OutputKeys.VERSION, EXMLVersion.XML_10.getVersion ());
+
+    // Must be int to avoid endless loop
+    for (int c = Character.MIN_VALUE; c <= Character.MAX_VALUE; ++c)
+      if (!XMLCharHelper.isInvalidXMLTextChar (EXMLSerializeVersion.XML_10, c) &&
+          !Character.isHighSurrogate ((char) c) &&
+          !Character.isLowSurrogate ((char) c))
       {
-        final String sText = "abc" + (char) i + "def";
+        final String sText = "abc" + ((char) c) + "def";
         final Document aDoc = XMLFactory.newDocument (EXMLVersion.XML_10);
         final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
         eRoot.appendChild (aDoc.createTextNode (sText));
 
-        // Use regular transformer
-        final Transformer aTransformer = XMLTransformerFactory.newTransformer ();
-        aTransformer.setOutputProperty (OutputKeys.ENCODING, StandardCharsets.UTF_8.name ());
-        aTransformer.setOutputProperty (OutputKeys.INDENT, "yes");
-        aTransformer.setOutputProperty (OutputKeys.VERSION, EXMLVersion.XML_10.getVersion ());
         final StringStreamResult aRes = new StringStreamResult ();
         aTransformer.transform (new DOMSource (aDoc), aRes);
 
@@ -508,18 +512,22 @@ public final class XMLWriterTest
   @Test
   public void testNumericReferencesXML11 () throws TransformerException
   {
-    for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; ++i)
-      if (!XMLCharHelper.isInvalidXMLTextChar (EXMLSerializeVersion.XML_11, (char) i))
+    final Transformer aTransformer = XMLTransformerFactory.newTransformer ();
+    aTransformer.setOutputProperty (OutputKeys.ENCODING, StandardCharsets.UTF_8.name ());
+    aTransformer.setOutputProperty (OutputKeys.INDENT, "no");
+    aTransformer.setOutputProperty (OutputKeys.VERSION, EXMLVersion.XML_11.getVersion ());
+
+    // Must be int to avoid endless loop
+    for (int c = Character.MIN_VALUE; c <= Character.MAX_VALUE; ++c)
+      if (!XMLCharHelper.isInvalidXMLTextChar (EXMLSerializeVersion.XML_11, c) &&
+          !Character.isHighSurrogate ((char) c) &&
+          !Character.isLowSurrogate ((char) c))
       {
-        final String sText = "abc" + (char) i + "def";
+        final String sText = "abc" + ((char) c) + "def";
         final Document aDoc = XMLFactory.newDocument (EXMLVersion.XML_11);
         final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
         eRoot.appendChild (aDoc.createTextNode (sText));
 
-        final Transformer aTransformer = XMLTransformerFactory.newTransformer ();
-        aTransformer.setOutputProperty (OutputKeys.ENCODING, StandardCharsets.UTF_8.name ());
-        aTransformer.setOutputProperty (OutputKeys.INDENT, "no");
-        aTransformer.setOutputProperty (OutputKeys.VERSION, EXMLVersion.XML_11.getVersion ());
         final StringStreamResult aRes = new StringStreamResult ();
         aTransformer.transform (new DOMSource (aDoc), aRes);
 
@@ -759,10 +767,9 @@ public final class XMLWriterTest
                                                                                           false)
                                                                         .setFeatureValue (EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES,
                                                                                           true)
-                                                                        .setEntityResolver ( (x, y) -> {
-                                                                          return "world.txt".equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
-                                                                                                                              : new StringSAXInputSource ("");
-                                                                        }));
+                                                                        .setEntityResolver ( (x,
+                                                                                              y) -> ("world.txt".equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
+                                                                                                                                                  : new StringSAXInputSource (""))));
     assertNotNull (aDoc);
 
     final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
