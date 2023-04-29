@@ -314,6 +314,20 @@ public class JAXBContextCacheKey
   }
 
   /**
+   * Factory method with a list of packages and the default {@link ClassLoader}.
+   *
+   * @param aPackages
+   *        List of packages to load. May not be <code>null</code>.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForPackages (@Nonnull final Package... aPackages)
+  {
+    return createForPackages (new CommonsArrayList <> (aPackages), null);
+  }
+
+  /**
    * Factory method with a list of packages and the provided
    * {@link ClassLoader}.
    *
@@ -390,6 +404,21 @@ public class JAXBContextCacheKey
   public static JAXBContextCacheKey createForClasses (@Nonnull final ICommonsList <Class <?>> aClasses)
   {
     return createForClasses (aClasses, null);
+  }
+
+  /**
+   * Get the {@link JAXBContext} from existing {@link Class} objects.
+   *
+   * @param aClasses
+   *        The classes for which the JAXB context is to be created. May not be
+   *        <code>null</code> nor empty.
+   * @return The created object. Never <code>null</code>.
+   * @since 11.0.4
+   */
+  @Nonnull
+  public static JAXBContextCacheKey createForClasses (@Nonnull final Class <?>... aClasses)
+  {
+    return createForClasses (new CommonsArrayList <> (aClasses), null);
   }
 
   /**
