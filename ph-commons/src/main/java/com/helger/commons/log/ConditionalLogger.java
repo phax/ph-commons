@@ -71,10 +71,22 @@ public final class ConditionalLogger implements IEnabledIndicator
       m_aLogger.trace (aMsgSupplier.get ());
   }
 
+  public void trace (@Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  {
+    if (isEnabled () && m_aLogger.isTraceEnabled ())
+      m_aLogger.trace (aMsgSupplier.get (), ex);
+  }
+
   public void debug (@Nonnull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled () && m_aLogger.isDebugEnabled ())
       m_aLogger.debug (aMsgSupplier.get ());
+  }
+
+  public void debug (@Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  {
+    if (isEnabled () && m_aLogger.isDebugEnabled ())
+      m_aLogger.debug (aMsgSupplier.get (), ex);
   }
 
   public void info (@Nonnull final String sMsg)
@@ -87,6 +99,18 @@ public final class ConditionalLogger implements IEnabledIndicator
   {
     if (isEnabled ())
       m_aLogger.info (aMsgSupplier.get ());
+  }
+
+  public void info (@Nonnull final String sMsg, @Nullable final Exception ex)
+  {
+    if (isEnabled ())
+      m_aLogger.info (sMsg, ex);
+  }
+
+  public void info (@Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  {
+    if (isEnabled ())
+      m_aLogger.info (aMsgSupplier.get (), ex);
   }
 
   public void warn (@Nonnull final String sMsg)
