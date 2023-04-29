@@ -279,7 +279,8 @@ public final class XMLCharHelper
                                               (c >= 0x30fb && c <= 0x3104) ||
                                               (c >= 0x312d && c <= 0x4dff) ||
                                               (c >= 0x9fa6 && c <= 0xabff) ||
-                                              (c >= 0xd7a4 && c <= 0xffff));
+                                              (c >= 0xd7a4 && c < Character.MIN_SURROGATE) ||
+                                              (c > Character.MAX_SURROGATE && c <= 0xffff));
         INVALID_NAME_CHAR_XML10.set (c,
                                      (c >= 0x0 && c <= 0x2c) ||
                                         (c == 0x2f) ||
@@ -568,12 +569,14 @@ public final class XMLCharHelper
                                         (c >= 0x30ff && c <= 0x3104) ||
                                         (c >= 0x312d && c <= 0x4dff) ||
                                         (c >= 0x9fa6 && c <= 0xabff) ||
-                                        (c >= 0xd7a4 && c <= 0xffff));
+                                        (c >= 0xd7a4 && c < Character.MIN_SURROGATE) ||
+                                        (c > Character.MAX_SURROGATE && c <= 0xffff));
         INVALID_VALUE_CHAR_XML10.set (c,
                                       (c >= 0x0 && c <= 0x8) ||
                                          (c >= 0xb && c <= 0xc) ||
                                          (c >= 0xe && c <= 0x1f) ||
-                                         (c >= 0xd800 && c <= 0xdfff) ||
+                                         // Surrogate chars
+                                         // (c >= 0xd800 && c <= 0xdfff) ||
                                          (c >= 0xfffe && c <= 0xffff));
       }
     }
@@ -627,7 +630,7 @@ public final class XMLCharHelper
                                               (c >= 0x200e && c <= 0x206f) ||
                                               (c >= 0x2190 && c <= 0x2bff) ||
                                               (c >= 0x2ff0 && c <= 0x3000) ||
-                                              (c >= 0xd800 && c <= 0xf8ff) ||
+                                              (c > Character.MAX_SURROGATE && c <= 0xf8ff) ||
                                               (c >= 0xfdd0 && c <= 0xfdef) ||
                                               (c >= 0xfffe && c <= 0xffff));
         INVALID_NAME_CHAR_XML11.set (c,
@@ -646,23 +649,28 @@ public final class XMLCharHelper
                                         (c >= 0x2041 && c <= 0x206f) ||
                                         (c >= 0x2190 && c <= 0x2bff) ||
                                         (c >= 0x2ff0 && c <= 0x3000) ||
-                                        (c >= 0xd800 && c <= 0xf8ff) ||
+                                        (c > Character.MAX_SURROGATE && c <= 0xf8ff) ||
                                         (c >= 0xfdd0 && c <= 0xfdef) ||
                                         (c >= 0xfffe && c <= 0xffff));
         INVALID_TEXT_VALUE_CHAR_XML11.set (c,
-                                           (c == 0x0) || (c >= 0xd800 && c <= 0xdfff) || (c >= 0xfffe && c <= 0xffff));
+                                           (c == 0x0) ||
+                                              (c > Character.MAX_SURROGATE && c <= 0xdfff) ||
+                                              (c >= 0xfffe && c <= 0xffff));
         INVALID_CDATA_VALUE_CHAR_XML11.set (c,
                                             (c >= 0x0 && c <= 0x8) ||
                                                (c >= 0xb && c <= 0xc) ||
                                                (c >= 0xe && c <= 0x1f) ||
                                                (c >= 0x7f && c <= 0x9f) ||
-                                               (c >= 0xd800 && c <= 0xdfff) ||
+                                               // Surrogate chars
+                                               // (c >= 0xd800 && c <= 0xdfff)
+                                               // ||
                                                (c >= 0xfffe && c <= 0xffff));
         INVALID_ATTR_VALUE_CHAR_XML11.set (c,
                                            (c == 0x0) ||
                                               (c >= 0x7f && c <= 0x84) ||
                                               (c >= 0x86 && c <= 0x9f) ||
-                                              (c >= 0xd800 && c <= 0xdfff) ||
+                                              // Surrogate chars
+                                              // (c >= 0xd800 && c <= 0xdfff) ||
                                               (c >= 0xfffe && c <= 0xffff));
       }
     }
@@ -707,6 +715,7 @@ public final class XMLCharHelper
                                   (c >= 0xe && c <= 0x1f) ||
                                   (c == 0x7f) ||
                                   // (c >= 0x80 && c <= 0x9f) ||
+                                  // Surrogate chars
                                   (c >= 0xd800 && c <= 0xdfff) ||
                                   (c >= 0xfffe && c <= 0xffff));
       }
@@ -781,11 +790,6 @@ public final class XMLCharHelper
     return aChars != null && aChars.length > 0 && containsInvalidXMLNameChar (eXMLVersion, aChars, 0, aChars.length);
   }
 
-  private static boolean _isSurrogate (final char c)
-  {
-    return Character.isHighSurrogate (c) || Character.isLowSurrogate (c);
-  }
-
   public static boolean containsInvalidXMLNameChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                     @Nullable final char [] aChars,
                                                     @Nonnegative final int nOfs,
@@ -799,7 +803,7 @@ public final class XMLCharHelper
         final char c = aChars[nOfs + i];
         final boolean bInvalid = nIndex == 0 ? isInvalidXMLNameStartChar (eXMLVersion, c)
                                              : isInvalidXMLNameChar (eXMLVersion, c);
-        if (bInvalid && !_isSurrogate (c))
+        if (bInvalid)
           return true;
         ++nIndex;
       }
@@ -834,18 +838,18 @@ public final class XMLCharHelper
     if (aChars == null || nLen <= 0)
       return null;
 
-    final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <Character> ret = new CommonsLinkedHashSet <> ();
     int nIndex = 0;
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
       final boolean bInvalid = nIndex == 0 ? isInvalidXMLNameStartChar (eXMLVersion, c)
                                            : isInvalidXMLNameChar (eXMLVersion, c);
-      if (bInvalid && !_isSurrogate (c))
-        aRes.add (Character.valueOf (c));
+      if (bInvalid)
+        ret.add (Character.valueOf (c));
       ++nIndex;
     }
-    return aRes;
+    return ret;
   }
 
   /**
@@ -893,7 +897,7 @@ public final class XMLCharHelper
       for (int i = 0; i < nLen; ++i)
       {
         final char c = aChars[nOfs + i];
-        if (isInvalidXMLTextChar (eXMLVersion, c) && !_isSurrogate (c))
+        if (isInvalidXMLTextChar (eXMLVersion, c))
           return true;
       }
     return false;
@@ -927,14 +931,14 @@ public final class XMLCharHelper
     if (aChars == null || nLen <= 0)
       return null;
 
-    final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <Character> ret = new CommonsLinkedHashSet <> ();
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
-      if (isInvalidXMLTextChar (eXMLVersion, c) && !_isSurrogate (c))
-        aRes.add (Character.valueOf (c));
+      if (isInvalidXMLTextChar (eXMLVersion, c))
+        ret.add (Character.valueOf (c));
     }
-    return aRes;
+    return ret;
   }
 
   /**
@@ -982,7 +986,7 @@ public final class XMLCharHelper
       for (int i = 0; i < nLen; ++i)
       {
         final char c = aChars[nOfs + i];
-        if (isInvalidXMLCDATAChar (eXMLVersion, c) && !_isSurrogate (c))
+        if (isInvalidXMLCDATAChar (eXMLVersion, c))
           return true;
       }
     return false;
@@ -1016,14 +1020,14 @@ public final class XMLCharHelper
     if (aChars == null || nLen <= 0)
       return null;
 
-    final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <Character> ret = new CommonsLinkedHashSet <> ();
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
-      if (isInvalidXMLCDATAChar (eXMLVersion, c) && !_isSurrogate (c))
-        aRes.add (Character.valueOf (c));
+      if (isInvalidXMLCDATAChar (eXMLVersion, c))
+        ret.add (Character.valueOf (c));
     }
-    return aRes;
+    return ret;
   }
 
   /**
@@ -1075,7 +1079,7 @@ public final class XMLCharHelper
       for (int i = 0; i < nLen; ++i)
       {
         final char c = aChars[nOfs + i];
-        if (isInvalidXMLAttributeValueChar (eXMLVersion, c) && !_isSurrogate (c))
+        if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
           return true;
       }
     return false;
@@ -1110,14 +1114,14 @@ public final class XMLCharHelper
     if (aChars == null || nLen <= 0)
       return null;
 
-    final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <Character> ret = new CommonsLinkedHashSet <> ();
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
-      if (isInvalidXMLAttributeValueChar (eXMLVersion, c) && !_isSurrogate (c))
-        aRes.add (Character.valueOf (c));
+      if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
+        ret.add (Character.valueOf (c));
     }
-    return aRes;
+    return ret;
   }
 
   public static boolean containsInvalidXMLChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
