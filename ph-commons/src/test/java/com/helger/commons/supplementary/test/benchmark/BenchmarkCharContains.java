@@ -32,7 +32,7 @@ public final class BenchmarkCharContains
     boolean containsPathSep (String s);
   }
 
-  public static final IDoIt s_a1 = s -> {
+  public static final IDoIt A1 = s -> {
     if (s != null)
       for (final char c : s.toCharArray ())
         if (c == '/' || c == '\\')
@@ -40,7 +40,7 @@ public final class BenchmarkCharContains
     return false;
   };
 
-  public static final IDoIt s_a2 = s -> s.indexOf ('/') >= 0 || s.indexOf ('\\') >= 0;
+  public static final IDoIt A2 = s -> s.indexOf ('/') >= 0 || s.indexOf ('\\') >= 0;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (BenchmarkCharContains.class);
 
@@ -68,14 +68,14 @@ public final class BenchmarkCharContains
     final StopWatch aSW1 = StopWatch.createdStarted ();
     int nSum1 = 0;
     for (final String s : aStrs)
-      nSum1 += s_a1.containsPathSep (s) ? 1 : 0;
+      nSum1 += A1.containsPathSep (s) ? 1 : 0;
     aSW1.stop ();
     LOGGER.info ("Version 1 took " + aSW1.getMillis ());
 
     final StopWatch aSW2 = StopWatch.createdStarted ();
     int nSum2 = 0;
     for (final String s : aStrs)
-      nSum2 += s_a2.containsPathSep (s) ? 1 : 0;
+      nSum2 += A2.containsPathSep (s) ? 1 : 0;
     aSW2.stop ();
     LOGGER.info ("Version 2 took " + aSW2.getMillis ());
 

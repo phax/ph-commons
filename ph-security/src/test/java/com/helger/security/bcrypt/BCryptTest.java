@@ -48,7 +48,7 @@ public final class BCryptTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (BCryptTest.class);
 
-  private static final String test_vectors[][] = { { "",
+  private static final String TEST_VECTORS[][] = { { "",
                                                      "$2a$06$DCq7YPn5Rq63x1Lad4cll.",
                                                      "$2a$06$DCq7YPn5Rq63x1Lad4cll.TV4S6ytwfsfvkgY8jIucDrjc8deX1s." },
                                                    { "",
@@ -116,7 +116,7 @@ public final class BCryptTest
   public void testHashpw ()
   {
     LOGGER.info ("BCrypt.hashpw(): ");
-    for (final String [] test_vector : test_vectors)
+    for (final String [] test_vector : TEST_VECTORS)
     {
       final String plain = test_vector[0];
       final String salt = test_vector[1];
@@ -138,9 +138,9 @@ public final class BCryptTest
     for (int i = 4; i <= 12; i++)
     {
       LOGGER.info (" " + Integer.toString (i) + ":");
-      for (int j = 0; j < test_vectors.length; j += 4)
+      for (int j = 0; j < TEST_VECTORS.length; j += 4)
       {
-        final String plain = test_vectors[j][0];
+        final String plain = TEST_VECTORS[j][0];
         final String salt = BCrypt.gensalt (i);
         final String hashed1 = BCrypt.hashpw (plain, salt);
         final String hashed2 = BCrypt.hashpw (plain, hashed1);
@@ -158,9 +158,9 @@ public final class BCryptTest
   public void testGensalt ()
   {
     LOGGER.info ("BCrypt.gensalt(): ");
-    for (int i = 0; i < test_vectors.length; i += 4)
+    for (int i = 0; i < TEST_VECTORS.length; i += 4)
     {
-      final String plain = test_vectors[i][0];
+      final String plain = TEST_VECTORS[i][0];
       final String salt = BCrypt.gensalt ();
       final String hashed1 = BCrypt.hashpw (plain, salt);
       final String hashed2 = BCrypt.hashpw (plain, hashed1);
@@ -177,7 +177,7 @@ public final class BCryptTest
   public void testCheckpw_success ()
   {
     LOGGER.info ("BCrypt.checkpw w/ good passwords: ");
-    for (final String [] test_vector : test_vectors)
+    for (final String [] test_vector : TEST_VECTORS)
     {
       final String plain = test_vector[0];
       final String expected = test_vector[2];
@@ -194,11 +194,11 @@ public final class BCryptTest
   public void testCheckpw_failure ()
   {
     LOGGER.info ("BCrypt.checkpw w/ bad passwords: ");
-    for (int i = 0; i < test_vectors.length; i++)
+    for (int i = 0; i < TEST_VECTORS.length; i++)
     {
-      final int broken_index = (i + 4) % test_vectors.length;
-      final String plain = test_vectors[i][0];
-      final String expected = test_vectors[broken_index][2];
+      final int broken_index = (i + 4) % TEST_VECTORS.length;
+      final String plain = TEST_VECTORS[i][0];
+      final String expected = TEST_VECTORS[broken_index][2];
       assertFalse (BCrypt.checkpw (plain, expected));
       LOGGER.info (".");
     }
