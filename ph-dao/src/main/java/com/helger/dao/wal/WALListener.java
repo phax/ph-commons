@@ -20,6 +20,7 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -116,8 +117,18 @@ public final class WALListener extends AbstractGlobalSingleton
       m_aScheduledItems.clear ();
     });
 
+    final int nRemaining = m_aRWLock.readLockedInt ( () -> m_aWaitingDAOs.size ());
+    if (nRemaining > 0)
+      LOGGER.info ("Waiting for all remaining " + nRemaining + " DAO writing to be finalized");
+    else
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Shutting down the ExecutorService");
+
     // Wait until all tasks finished
     ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (m_aES);
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.info ("All DAO writing is now finalized");
   }
 
   /**
@@ -171,12 +182,22 @@ public final class WALListener extends AbstractGlobalSingleton
         });
       };
 
-      // Schedule exactly once in the specified waiting time
-      final ScheduledFuture <?> aFuture = m_aES.schedule (r, aWaitingWime.toMillis (), TimeUnit.MILLISECONDS);
+      try
+      {
+        // Schedule exactly once in the specified waiting time
+        final ScheduledFuture <?> aFuture = m_aES.schedule (r, aWaitingWime.toMillis (), TimeUnit.MILLISECONDS);
 
-      // Remember the scheduled item and the runnable so that the task can
-      // be rescheduled upon shutdown.
-      m_aRWLock.writeLocked ( () -> m_aScheduledItems.put (sKey, new WALItem (aFuture, r)));
+        // Remember the scheduled item and the runnable so that the task can
+        // be rescheduled upon shutdown.
+        m_aRWLock.writeLocked ( () -> m_aScheduledItems.put (sKey, new WALItem (aFuture, r)));
+      }
+      catch (final RejectedExecutionException ex)
+      {
+        LOGGER.error ("Failed to schedule task - most likely because the ExecutorService is already shutting down. Running it now.",
+                      ex);
+        // Run task now to avoid it is lost
+        r.run ();
+      }
     }
     // else the writing of the passed DAO is already scheduled and no further
     // action is necessary
