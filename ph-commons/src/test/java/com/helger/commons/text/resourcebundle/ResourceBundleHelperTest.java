@@ -36,26 +36,28 @@ public final class ResourceBundleHelperTest
   @Test
   public void testGetString ()
   {
-    assertEquals ("äöü", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key1"));
+    final String sBundle = "external/properties/test-iso8859";
+    assertEquals ("äöü", ResourceBundleHelper.getString (sBundle, L_DE, "key1"));
     assertNull (ResourceBundleHelper.getString ("properties/test-iso8859-noway", L_DE, "key1"));
-    assertEquals ("äöü", ResourceBundleHelper.getString ("properties/test-iso8859", L_FR, "key1"));
-    assertNull (ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key-noway"));
-    assertEquals ("abc", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key2"));
-    assertEquals ("colon", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key3"));
-    assertEquals ("a:b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key4"));
-    assertEquals ("a=b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key5"));
-    assertEquals ("a#b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key6"));
-    assertEquals ("a:b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key7"));
-    assertEquals ("a=b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key8"));
-    assertEquals ("a#b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key9"));
+    assertEquals ("äöü", ResourceBundleHelper.getString (sBundle, L_FR, "key1"));
+    assertNull (ResourceBundleHelper.getString (sBundle, L_DE, "key-noway"));
+    assertEquals ("abc", ResourceBundleHelper.getString (sBundle, L_DE, "key2"));
+    assertEquals ("colon", ResourceBundleHelper.getString (sBundle, L_DE, "key3"));
+    assertEquals ("a:b", ResourceBundleHelper.getString (sBundle, L_DE, "key4"));
+    assertEquals ("a=b", ResourceBundleHelper.getString (sBundle, L_DE, "key5"));
+    assertEquals ("a#b", ResourceBundleHelper.getString (sBundle, L_DE, "key6"));
+    assertEquals ("a:b", ResourceBundleHelper.getString (sBundle, L_DE, "key7"));
+    assertEquals ("a=b", ResourceBundleHelper.getString (sBundle, L_DE, "key8"));
+    assertEquals ("a#b", ResourceBundleHelper.getString (sBundle, L_DE, "key9"));
   }
 
   @Test
   public void testGetUtf8String ()
   {
-    assertEquals ("äöü", ResourceBundleHelper.getUtf8String ("properties/test-utf8", L_DE, "key1"));
+    final String sBundle = "external/properties/test-utf8";
+    assertEquals ("äöü", ResourceBundleHelper.getUtf8String (sBundle, L_DE, "key1"));
     assertNull (ResourceBundleHelper.getUtf8String ("properties/test-utf8-noway", L_DE, "key1"));
-    assertEquals ("äöü", ResourceBundleHelper.getUtf8String ("properties/test-utf8", L_FR, "key1"));
-    assertNull (ResourceBundleHelper.getUtf8String ("properties/test-utf8", L_DE, "key-noway"));
+    assertEquals ("äöü", ResourceBundleHelper.getUtf8String (sBundle, L_FR, "key1"));
+    assertNull (ResourceBundleHelper.getUtf8String (sBundle, L_DE, "key-noway"));
   }
 }
