@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
@@ -89,6 +90,10 @@ public class JsonUnmappedException extends Exception
   {
     return new JsonObject ().add (JsonMapper.JSON_CLASS, m_sClassName)
                             .addIfNotNull (JsonMapper.JSON_MESSAGE, m_sMessage)
-                            .add (JsonMapper.JSON_STACK_TRACE, StringHelper.getImploded ('\n', m_aStackTraceLines));
+                            .add (JsonMapper.JSON_STACK_TRACE,
+                                  StringHelper.imploder ()
+                                              .separator (StackTraceHelper.DEFAULT_LINE_SEPARATOR)
+                                              .source (m_aStackTraceLines)
+                                              .build ());
   }
 }

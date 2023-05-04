@@ -37,8 +37,9 @@ public final class ResourceBundleTextProviderTest
   @Test
   public void testISO8859 ()
   {
-    final ResourceBundleKey key = new ResourceBundleKey ("properties/test-iso8859", "key1");
-    assertEquals ("properties/test-iso8859", key.getBundleName ());
+    final String sBundle = "external/properties/test-iso8859";
+    final ResourceBundleKey key = new ResourceBundleKey (sBundle, "key1");
+    assertEquals (sBundle, key.getBundleName ());
     assertEquals ("key1", key.getKey ());
     assertEquals ("äöü", key.getString (L_DE));
 
@@ -49,9 +50,10 @@ public final class ResourceBundleTextProviderTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                        new ResourceBundleTextProvider (key));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
-                                                                       new ResourceBundleTextProvider ("properties/test-iso8859", "key1"));
+                                                                       new ResourceBundleTextProvider (sBundle,
+                                                                                                       "key1"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
-                                                                           new ResourceBundleTextProvider ("properties/test-iso8859",
+                                                                           new ResourceBundleTextProvider (sBundle,
                                                                                                            "key2"));
 
     try

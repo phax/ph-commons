@@ -52,12 +52,14 @@ public final class ResourceBundleKeyTest
     catch (final IllegalArgumentException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859", "key1"),
-                                                                       new ResourceBundleKey ("properties/test-iso8859", "key1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859", "key1"),
-                                                                           new ResourceBundleKey ("properties/test-iso8859-1", "key1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859", "key1"),
-                                                                           new ResourceBundleKey ("properties/test-iso8859", "key2"));
+    final String sBundle = "external/properties/test-iso8859";
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey (sBundle, "key1"),
+                                                                       new ResourceBundleKey (sBundle, "key1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey (sBundle, "key1"),
+                                                                           new ResourceBundleKey ("external/properties/test-iso8859-1",
+                                                                                                  "key1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey (sBundle, "key1"),
+                                                                           new ResourceBundleKey (sBundle, "key2"));
 
     ResourceBundleHelper.clearCache ();
   }
@@ -65,8 +67,9 @@ public final class ResourceBundleKeyTest
   @Test
   public void testISO8859 ()
   {
-    final ResourceBundleKey key = new ResourceBundleKey ("properties/test-iso8859", "key1");
-    assertEquals ("properties/test-iso8859", key.getBundleName ());
+    final String sBundle = "external/properties/test-iso8859";
+    final ResourceBundleKey key = new ResourceBundleKey (sBundle, "key1");
+    assertEquals (sBundle, key.getBundleName ());
     assertEquals ("key1", key.getKey ());
     assertEquals ("äöü", key.getString (L_DE));
   }
@@ -74,8 +77,9 @@ public final class ResourceBundleKeyTest
   @Test
   public void testUTF8 ()
   {
-    final ResourceBundleKey key = new ResourceBundleKey ("properties/test-utf8", "key1");
-    assertEquals ("properties/test-utf8", key.getBundleName ());
+    final String sBundle = "external/properties/test-utf8";
+    final ResourceBundleKey key = new ResourceBundleKey (sBundle, "key1");
+    assertEquals (sBundle, key.getBundleName ());
     assertEquals ("key1", key.getKey ());
     assertEquals ("äöü", key.getUtf8String (L_DE));
   }
