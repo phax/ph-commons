@@ -20,6 +20,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsTreeMap;
@@ -41,6 +44,7 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
                                                IIterableConfigurationSource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.SYSTEM_PROPERTY;
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceSystemProperty.class);
 
   public ConfigurationSourceSystemProperty ()
   {
@@ -63,7 +67,16 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
   {
     // Uses PrivilegedAction internally
     final String sValue = SystemProperties.getPropertyValueOrNull (sKey);
-    return sValue == null ? null : new ConfiguredValue (this, sValue);
+    if (sValue == null)
+      return null;
+
+    // Consistency check
+    if (hasTrailingWhitespace (sValue))
+      LOGGER.warn ("The value of the system property '" +
+                   sKey +
+                   "' has a trailing whitespace. This may lead to unintended side effects.");
+
+    return new ConfiguredValue (this, sValue);
   }
 
   @Nonnull

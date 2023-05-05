@@ -80,7 +80,16 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource imple
     {
       LOGGER.error ("Security violation accessing environment variable '" + sRealName + "'", ex);
     }
-    return sValue == null ? null : new ConfiguredValue (this, sValue);
+    if (sValue == null)
+      return null;
+
+    // Consistency check
+    if (hasTrailingWhitespace (sValue))
+      LOGGER.warn ("The value of the environment variable '" +
+                   sRealName +
+                   "' has a trailing whitespace. This may lead to unintended side effects.");
+
+    return new ConfiguredValue (this, sValue);
   }
 
   @Nonnull

@@ -23,6 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.ToStringGenerator;
@@ -42,6 +45,7 @@ import com.helger.config.value.ConfiguredValue;
 public class ConfigurationSourceFunction extends AbstractConfigurationSource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.APPLICATION;
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceFunction.class);
 
   private final UnaryOperator <String> m_aValueProvider;
 
@@ -90,7 +94,16 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
   public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     final String sValue = m_aValueProvider.apply (sKey);
-    return sValue == null ? null : new ConfiguredValue (this, sValue);
+    if (sValue == null)
+      return null;
+
+    // Consistency check
+    if (hasTrailingWhitespace (sValue))
+      LOGGER.warn ("The value of the configuration key '" +
+                   sKey +
+                   "' has a trailing whitespace. This may lead to unintended side effects.");
+
+    return new ConfiguredValue (this, sValue);
   }
 
   @Override

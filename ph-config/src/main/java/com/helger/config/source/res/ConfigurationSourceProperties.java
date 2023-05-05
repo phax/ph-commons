@@ -17,11 +17,15 @@
 package com.helger.config.source.res;
 
 import java.nio.charset.Charset;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -45,6 +49,8 @@ import com.helger.config.value.ConfiguredValue;
 @ThreadSafe
 public class ConfigurationSourceProperties extends AbstractConfigurationSourceResource
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceProperties.class);
+
   private final Charset m_aCharset;
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
@@ -105,11 +111,21 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceProperties (final int nPriority, @Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
+  public ConfigurationSourceProperties (final int nPriority,
+                                        @Nonnull final IReadableResource aRes,
+                                        @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
     m_aCharset = aCharset;
     m_aProps = _load (aRes, aCharset);
+
+    // Consistency check
+    if (m_aProps != null)
+      for (final Map.Entry <String, String> aEntry : m_aProps.entrySet ())
+        if (hasTrailingWhitespace (aEntry.getValue ()))
+          LOGGER.warn ("The value of the configuration property '" +
+                       aEntry.getKey () +
+                       "' has a trailing whitespace. This may lead to unintended side effects.");
   }
 
   /**

@@ -87,7 +87,8 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   }
 
   @Nullable
-  private static ICommonsOrderedMap <String, String> _load (@Nonnull final IReadableResource aRes, @Nonnull final Charset aCharset)
+  private static ICommonsOrderedMap <String, String> _load (@Nonnull final IReadableResource aRes,
+                                                            @Nonnull final Charset aCharset)
   {
     final JsonReader.Builder aBuilder = JsonReader.builder ()
                                                   .source (aRes, aCharset)
@@ -156,11 +157,21 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceJson (final int nPriority, @Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
+  public ConfigurationSourceJson (final int nPriority,
+                                  @Nonnull final IReadableResource aRes,
+                                  @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
     m_aCharset = aCharset != null ? aCharset : JsonReader.DEFAULT_CHARSET;
     m_aProps = _load (aRes, m_aCharset);
+
+    // Consistency check
+    if (m_aProps != null)
+      for (final Map.Entry <String, String> aEntry : m_aProps.entrySet ())
+        if (hasTrailingWhitespace (aEntry.getValue ()))
+          LOGGER.warn ("The value of the JSON configuration property '" +
+                       aEntry.getKey () +
+                       "' has a trailing whitespace. This may lead to unintended side effects.");
   }
 
   /**

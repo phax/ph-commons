@@ -17,11 +17,13 @@
 package com.helger.config.source;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -35,6 +37,11 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
 {
   private final EConfigSourceType m_eSourceType;
   private final int m_nPriority;
+
+  protected static final boolean hasTrailingWhitespace (@Nullable final String s)
+  {
+    return StringHelper.hasText (s) && Character.isWhitespace (s.charAt (s.length () - 1));
+  }
 
   /**
    * Constructor
@@ -82,6 +89,8 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("SourceType", m_eSourceType).append ("Priority", m_nPriority).getToString ();
+    return new ToStringGenerator (this).append ("SourceType", m_eSourceType)
+                                       .append ("Priority", m_nPriority)
+                                       .getToString ();
   }
 }
