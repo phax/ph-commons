@@ -51,7 +51,7 @@ public final class BenchmarkCharContains
   {
     final ICommonsList <String> aStrs = new CommonsArrayList <> ();
 
-    for (int j = 0; j < 100; ++j)
+    for (int j = 0; j < 100000; ++j)
       for (int i = 'a'; i <= 'z'; ++i)
       {
         final char c = (char) i;
