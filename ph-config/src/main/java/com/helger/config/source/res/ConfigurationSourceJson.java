@@ -229,6 +229,8 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("Properties", m_aProps).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("Properties", mapToStringNoSecrets (m_aProps))
+                            .getToString ();
   }
 }

@@ -16,6 +16,10 @@
  */
 package com.helger.config.source;
 
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -67,6 +71,41 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
   public final int getPriority ()
   {
     return m_nPriority;
+  }
+
+  protected static boolean isSecretKey (@Nonnull final String sKey)
+  {
+    // Bad heuristics but better then nothing
+    final String sRealKey = sKey.toLowerCase (Locale.ROOT);
+    return sRealKey.contains ("password") || sRealKey.contains ("passwd");
+  }
+
+  @Nonnull
+  protected static <V> String mapToStringNoSecrets (@Nonnull final Map <String, V> aMap)
+  {
+    final Iterator <Map.Entry <String, V>> aIter = aMap.entrySet ().iterator ();
+    if (!aIter.hasNext ())
+      return "{}";
+
+    final StringBuilder aSB = new StringBuilder ();
+    aSB.append ('{');
+    while (true)
+    {
+      final Map.Entry <String, V> aEntry = aIter.next ();
+      final String sKey = aEntry.getKey ();
+      aSB.append (sKey).append ('=');
+
+      // Avoid logging passwords
+      if (isSecretKey (sKey))
+        aSB.append (ToStringGenerator.CONSTANT_PASSWORD);
+      else
+        aSB.append (aEntry.getValue ());
+
+      if (!aIter.hasNext ())
+        break;
+      aSB.append (',').append (' ');
+    }
+    return aSB.append ('}').toString ();
   }
 
   @Override
