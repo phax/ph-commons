@@ -31,7 +31,9 @@ import com.helger.commons.ValueEnforcer;
 /**
  * Extension to {@link PrivilegedAction} with an {@link #invokeSafe()} method
  * that invokes the {@link java.security.AccessController} only if a security
- * manager is present.
+ * manager is present.<br>
+ * This class is deprecated per Java 17, as the Java Security Manager is
+ * deprecated in that version. See https://openjdk.org/jeps/411 for details.
  *
  * @author Philip Helger
  * @param <T>

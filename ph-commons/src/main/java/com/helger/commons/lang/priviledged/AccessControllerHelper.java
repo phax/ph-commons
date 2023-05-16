@@ -30,7 +30,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 
 /**
- * Simple wrapper around {@link AccessController} to catch exceptions centrally.
+ * Simple wrapper around {@link AccessController} to catch exceptions
+ * centrally.<br>
+ * This class is deprecated per Java 17, as the Java Security Manager is
+ * deprecated in that version. See https://openjdk.org/jeps/411 for details.
  *
  * @author Philip Helger
  */
