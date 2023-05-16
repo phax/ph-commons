@@ -207,8 +207,8 @@ public class MultiConfigurationValueProvider implements
   @Nullable
   public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Trying to resolve configuration value of key '" +
+    if (LOGGER.isTraceEnabled ())
+      LOGGER.trace ("Trying to resolve configuration value of key '" +
                     sKey +
                     "' in " +
                     m_aSources.size () +
@@ -224,9 +224,17 @@ public class MultiConfigurationValueProvider implements
         break;
       }
     }
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (ret != null ? "Successfully resolved configuration value of key '" + sKey + "' to " + ret
-                                : "Failed to resolve configuration value of key '" + sKey + "'");
+
+    if (ret != null)
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Successfully resolved configuration value of key '" + sKey + "' to " + ret);
+    }
+    else
+    {
+      if (LOGGER.isTraceEnabled ())
+        LOGGER.trace ("Failed to resolve configuration value of key '" + sKey + "'");
+    }
 
     return ret;
   }
