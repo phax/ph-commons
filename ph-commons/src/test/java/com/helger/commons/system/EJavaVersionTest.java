@@ -67,7 +67,8 @@ public final class EJavaVersionTest
     assertEquals (EJavaVersion.JDK_17, EJavaVersion.getFromVersionNumber (61.0));
     assertEquals (EJavaVersion.JDK_18, EJavaVersion.getFromVersionNumber (62.0));
     assertEquals (EJavaVersion.JDK_19, EJavaVersion.getFromVersionNumber (63.0));
-    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (64.0));
+    assertEquals (EJavaVersion.JDK_20, EJavaVersion.getFromVersionNumber (64.0));
+    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (65.0));
 
     for (final EJavaVersion e : EJavaVersion.values ())
       if (e.isOlderOrEqualsThan (EJavaVersion.JDK_11))
@@ -111,6 +112,7 @@ public final class EJavaVersionTest
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_17));
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_18));
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_19));
+    assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_20));
   }
 
   @Test
@@ -135,5 +137,6 @@ public final class EJavaVersionTest
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_17));
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_18));
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_19));
+    assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_20));
   }
 }
