@@ -81,8 +81,11 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
   }
 
   @Nonnull
-  protected static <V> String mapToStringNoSecrets (@Nonnull final Map <String, V> aMap)
+  protected static <V> String mapToStringNoSecrets (@Nullable final Map <String, V> aMap)
   {
+    if (aMap == null)
+      return "null";
+
     final Iterator <Map.Entry <String, V>> aIter = aMap.entrySet ().iterator ();
     if (!aIter.hasNext ())
       return "{}";
