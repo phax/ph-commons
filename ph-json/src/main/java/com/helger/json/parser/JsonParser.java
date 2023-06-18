@@ -25,6 +25,9 @@ import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingPushbackReader;
 import com.helger.commons.state.EEOI;
@@ -47,7 +50,7 @@ public class JsonParser
     DOUBLE ('"'),
     SINGLE ('\'');
 
-    private char m_cQuote;
+    private final char m_cQuote;
 
     EStringQuoteMode (final char cQuote)
     {
@@ -77,7 +80,9 @@ public class JsonParser
   public static final boolean DEFAULT_REQUIRE_STRING_QUOTES = true;
   public static final boolean DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING = false;
   public static final boolean DEFAULT_CHECK_FOR_EOI = true;
+  public static final int DEFAULT_MAX_NESTING_DEPTH = 1000;
 
+  private static final Logger LOGGER = LoggerFactory.getLogger (JsonParser.class);
   private static final int MAX_PUSH_BACK_CHARS = 2;
 
   // Constructor parameters
@@ -91,11 +96,13 @@ public class JsonParser
   private boolean m_bRequireStringQuotes = DEFAULT_REQUIRE_STRING_QUOTES;
   private boolean m_bAllowSpecialCharsInStrings = DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING;
   private boolean m_bCheckForEOI = DEFAULT_CHECK_FOR_EOI;
+  private int m_nMaxNestingDepth = DEFAULT_MAX_NESTING_DEPTH;
 
   // Status variables
   // Position tracking
   private final JsonParsePosition m_aParsePos = new JsonParsePosition ();
   private int m_nBackupChars = 0;
+  private int m_nNestingLevel = 0;
   // string reading cache
   private final JsonStringBuilder m_aSB1 = new JsonStringBuilder (256);
   private final JsonStringBuilder m_aSB2 = new JsonStringBuilder (256);
@@ -206,6 +213,30 @@ public class JsonParser
   public JsonParser setCheckForEOI (final boolean bCheckForEOI)
   {
     m_bCheckForEOI = bCheckForEOI;
+    return this;
+  }
+
+  /**
+   * @return The maximum nesting depth of the JSON to read. Always &gt; 0.
+   * @since 11.0.5
+   */
+  @Nonnegative
+  public final int getMaxNestingDepth ()
+  {
+    return m_nMaxNestingDepth;
+  }
+
+  /**
+   * @param nMaxNestingDepth
+   *        The maximum nesting depth of the JSON to read. Must be &gt; 0.
+   * @return this for chaining
+   * @since 11.0.5
+   */
+  @Nonnull
+  public final JsonParser setMaxNestingDepth (@Nonnegative final int nMaxNestingDepth)
+  {
+    ValueEnforcer.isGT0 (nMaxNestingDepth, "MaxNestingDepth");
+    m_nMaxNestingDepth = nMaxNestingDepth;
     return this;
   }
 
@@ -894,6 +925,24 @@ public class JsonParser
     m_aCallback.onObjectEnd ();
   }
 
+  private void _incNestingLevel (@Nullable final IJsonParsePosition aTokenStart) throws JsonParseException
+  {
+    m_nNestingLevel++;
+    if (m_nNestingLevel > m_nMaxNestingDepth)
+      throw _parseEx (aTokenStart,
+                      "The nesting level " +
+                                   m_nNestingLevel +
+                                   " exceeds the maximum nesting level of " +
+                                   m_nMaxNestingDepth);
+  }
+
+  private void _decNestingLevel ()
+  {
+    m_nNestingLevel--;
+    if (m_nNestingLevel < 0)
+      LOGGER.warn ("Internal inconsistency: nesting level < 0: " + m_nNestingLevel);
+  }
+
   /**
    * Read a single value
    *
@@ -956,10 +1005,14 @@ public class JsonParser
         m_aCallback.onNull ();
         break;
       case CJson.ARRAY_START:
+        _incNestingLevel (aStartPos);
         _readArray ();
+        _decNestingLevel ();
         break;
       case CJson.OBJECT_START:
+        _incNestingLevel (aStartPos);
         _readObject ();
+        _decNestingLevel ();
         break;
       case EOI:
         return EEOI.EOI;
