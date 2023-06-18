@@ -39,7 +39,7 @@ public final class EJavaVersionTest
 
     boolean bAny = false;
     for (final EJavaVersion e : EJavaVersion.values ())
-      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_10))
+      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_1_7))
         assertFalse (e.isCurrentVersion ());
       else
         bAny = bAny || e.isCurrentVersion ();
@@ -47,7 +47,7 @@ public final class EJavaVersionTest
 
     final EJavaVersion eJV = EJavaVersion.getCurrentVersion ();
     assertNotNull (eJV);
-    assertTrue (eJV.isNewerOrEqualsThan (EJavaVersion.JDK_11));
+    assertTrue (eJV.isNewerOrEqualsThan (EJavaVersion.JDK_1_8));
 
     assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (44.0));
     assertEquals (EJavaVersion.JDK_1_5, EJavaVersion.getFromMajorAndMinor (49, 0));
@@ -71,7 +71,7 @@ public final class EJavaVersionTest
     assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (65.0));
 
     for (final EJavaVersion e : EJavaVersion.values ())
-      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_11))
+      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_1_8))
         assertTrue (e.isSupportedVersion ());
 
     boolean bShouldBeSupported = true;
