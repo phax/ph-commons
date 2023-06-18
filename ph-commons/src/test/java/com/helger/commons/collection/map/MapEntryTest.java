@@ -43,20 +43,16 @@ public final class MapEntryTest
     assertNotEquals (e, null);
     assertNotEquals (e, "bla");
     assertEquals (e, e);
-    assertEquals (e, new MapEntry <String, Object> ("Key", "new"));
-    assertNotEquals (e, new MapEntry <String, Object> ("Key", Integer.valueOf (17)));
+    assertEquals (e, new MapEntry <> ("Key", "new"));
+    assertNotEquals (e, new MapEntry <> ("Key", Integer.valueOf (17)));
     assertEquals (e.hashCode (), new MapEntry <String, Object> ("Key", "new").hashCode ());
     assertNotNull (e.toString ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapEntry <String, Object> ("Key", "value"),
-                                                                       new MapEntry <String, Object> ("Key", "value"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
-                                                                                                          "value"),
-                                                                           new MapEntry <String, Object> ("Key",
-                                                                                                          "value2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
-                                                                                                          "value"),
-                                                                           new MapEntry <String, Object> ("Key2",
-                                                                                                          "value"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapEntry <> ("Key", "value"),
+                                                                       new MapEntry <> ("Key", "value"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <> ("Key", "value"),
+                                                                           new MapEntry <> ("Key", "value2"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <> ("Key", "value"),
+                                                                           new MapEntry <> ("Key2", "value"));
   }
 }

@@ -44,7 +44,7 @@ public final class VectorHelperTest
     VectorHelper.newVector ((Iterable <String>) new CommonsArrayList <> ("a"));
     VectorHelper.newVector (new CommonsArrayList <> ("a").iterator ());
     VectorHelper.newVector (new CommonsArrayList <> ("a"), Objects::nonNull);
-    VectorHelper.newVectorMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    VectorHelper.newVectorMapped (new CommonsArrayList <> ("a"), Object::toString);
     VectorHelper.newVectorMapped (new Object [] { "a" }, Object::toString);
   }
 }

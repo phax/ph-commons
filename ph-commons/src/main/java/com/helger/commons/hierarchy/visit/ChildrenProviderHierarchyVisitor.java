@@ -161,6 +161,7 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     }
   }
 
+  @SuppressWarnings ("unused")
   public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                                                             final boolean bInvokeOnStartObject)
   {
@@ -178,7 +179,7 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
                                                                              @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                                                              final boolean bInvokeOnStartObject)
   {
-    visitFrom (aStartObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback, bInvokeOnStartObject);
+    visitFrom (aStartObject, new ChildrenProviderHasChildren <> (), aCallback, bInvokeOnStartObject);
   }
 
   public static <CHILDTYPE> void visitFrom (@Nullable final CHILDTYPE aStartObject,

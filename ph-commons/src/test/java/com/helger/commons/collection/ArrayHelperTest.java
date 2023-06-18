@@ -151,7 +151,7 @@ public final class ArrayHelperTest
   public void testContains ()
   {
     {
-      final String [] x = new String [] { "Hallo", "Welt", "aus", "Kopenhagen" };
+      final String [] x = { "Hallo", "Welt", "aus", "Kopenhagen" };
       assertTrue (contains (x, "Hallo"));
       assertTrue (contains (x, "Kopenhagen"));
       assertFalse (contains (x, "hallo"));
@@ -160,56 +160,56 @@ public final class ArrayHelperTest
     }
 
     {
-      final boolean [] x = new boolean [] { true, true };
+      final boolean [] x = { true, true };
       assertTrue (contains (x, true));
       assertFalse (contains (x, false));
       assertFalse (contains ((boolean []) null, false));
     }
 
     {
-      final byte [] x = new byte [] { 1, 2, 3 };
+      final byte [] x = { 1, 2, 3 };
       assertTrue (contains (x, (byte) 1));
       assertFalse (contains (x, (byte) 4));
       assertFalse (contains ((byte []) null, (byte) 1));
     }
 
     {
-      final char [] x = new char [] { 1, 2, 3 };
+      final char [] x = { 1, 2, 3 };
       assertTrue (contains (x, (char) 1));
       assertFalse (contains (x, (char) 4));
       assertFalse (contains ((char []) null, 'c'));
     }
 
     {
-      final double [] x = new double [] { 1, 2, 3 };
+      final double [] x = { 1, 2, 3 };
       assertTrue (contains (x, 1.0));
       assertFalse (contains (x, 1.1));
       assertFalse (contains ((double []) null, 1.0));
     }
 
     {
-      final float [] x = new float [] { 1, 2, 3 };
+      final float [] x = { 1, 2, 3 };
       assertTrue (contains (x, 1.0F));
       assertFalse (contains (x, 1.1F));
       assertFalse (contains ((float []) null, 1.5f));
     }
 
     {
-      final int [] x = new int [] { 1, 2, 3 };
+      final int [] x = { 1, 2, 3 };
       assertTrue (contains (x, 1));
       assertFalse (contains (x, 4));
       assertFalse (contains ((int []) null, 7));
     }
 
     {
-      final long [] x = new long [] { 1, 2, 3 };
+      final long [] x = { 1, 2, 3 };
       assertTrue (contains (x, 1L));
       assertFalse (contains (x, 4L));
       assertFalse (contains ((long []) null, 7));
     }
 
     {
-      final short [] x = new short [] { 1, 2, 3 };
+      final short [] x = { 1, 2, 3 };
       assertTrue (contains (x, (short) 1));
       assertFalse (contains (x, (short) 4));
       assertFalse (contains ((short []) null, (short) 6));
@@ -220,7 +220,7 @@ public final class ArrayHelperTest
   public void testGetIndex ()
   {
     {
-      final String [] x = new String [] { "Hallo", "Welt", "aus", "Kopenhagen", "Welt" };
+      final String [] x = { "Hallo", "Welt", "aus", "Kopenhagen", "Welt" };
       assertEquals (0, getFirstIndex (x, "Hallo"));
       assertEquals (0, getLastIndex (x, "Hallo"));
       assertEquals (3, getFirstIndex (x, "Kopenhagen"));
@@ -235,7 +235,7 @@ public final class ArrayHelperTest
     }
 
     {
-      final boolean [] x = new boolean [] { true, true };
+      final boolean [] x = { true, true };
       assertEquals (0, getFirstIndex (x, true));
       assertEquals (1, getLastIndex (x, true));
       assertEquals (CGlobal.ILLEGAL_UINT, getFirstIndex (x, false));
@@ -245,7 +245,7 @@ public final class ArrayHelperTest
     }
 
     {
-      final byte [] x = new byte [] { 1, 2, 3 };
+      final byte [] x = { 1, 2, 3 };
       assertEquals (0, getFirstIndex (x, (byte) 1));
       assertEquals (0, getLastIndex (x, (byte) 1));
       assertEquals (CGlobal.ILLEGAL_UINT, getFirstIndex (x, (byte) 4));
@@ -255,7 +255,7 @@ public final class ArrayHelperTest
     }
 
     {
-      final char [] x = new char [] { 1, 2, 3 };
+      final char [] x = { 1, 2, 3 };
       assertEquals (0, getFirstIndex (x, (char) 1));
       assertEquals (0, getLastIndex (x, (char) 1));
       assertEquals (CGlobal.ILLEGAL_UINT, getFirstIndex (x, (char) 4));
@@ -265,7 +265,7 @@ public final class ArrayHelperTest
     }
 
     {
-      final double [] x = new double [] { 1, 2, 3 };
+      final double [] x = { 1, 2, 3 };
       assertEquals (0, getFirstIndex (x, 1.0));
       assertEquals (0, getLastIndex (x, 1.0));
       assertEquals (CGlobal.ILLEGAL_UINT, getFirstIndex (x, 1.1));
@@ -275,7 +275,7 @@ public final class ArrayHelperTest
     }
 
     {
-      final float [] x = new float [] { 1, 2, 3 };
+      final float [] x = { 1, 2, 3 };
       assertEquals (0, getFirstIndex (x, 1.0F));
       assertEquals (0, getLastIndex (x, 1.0F));
       assertEquals (CGlobal.ILLEGAL_UINT, getFirstIndex (x, 1.1F));
@@ -285,7 +285,7 @@ public final class ArrayHelperTest
     }
 
     {
-      final int [] x = new int [] { 1, 2, 3 };
+      final int [] x = { 1, 2, 3 };
       assertEquals (0, getFirstIndex (x, 1));
       assertEquals (0, getLastIndex (x, 1));
       assertEquals (CGlobal.ILLEGAL_UINT, getFirstIndex (x, 4));
@@ -295,7 +295,7 @@ public final class ArrayHelperTest
     }
 
     {
-      final long [] x = new long [] { 1, 2, 3 };
+      final long [] x = { 1, 2, 3 };
       assertEquals (0, getFirstIndex (x, 1L));
       assertEquals (0, getLastIndex (x, 1L));
       assertEquals (CGlobal.ILLEGAL_UINT, getFirstIndex (x, 4L));
@@ -305,7 +305,7 @@ public final class ArrayHelperTest
     }
 
     {
-      final short [] x = new short [] { 1, 2, 3 };
+      final short [] x = { 1, 2, 3 };
       assertEquals (0, getFirstIndex (x, (short) 1));
       assertEquals (0, getLastIndex (x, (short) 1));
       assertEquals (CGlobal.ILLEGAL_UINT, getFirstIndex (x, (short) 4));
@@ -319,7 +319,7 @@ public final class ArrayHelperTest
   public void testGetAllExcept ()
   {
     {
-      final String [] x = new String [] { "Hallo", "Welt", "aus", "Kopenhagen", "Welt" };
+      final String [] x = { "Hallo", "Welt", "aus", "Kopenhagen", "Welt" };
       assertArrayEquals (new String [] { "Hallo", "aus", "Kopenhagen" }, getAllExcept (x, "Welt"));
       assertArrayEquals (new String [] { "aus", "Kopenhagen" }, getAllExcept (x, "Hallo", "Welt"));
       assertArrayEquals (x, getAllExcept (x));
@@ -362,7 +362,7 @@ public final class ArrayHelperTest
   public void testGetCopy ()
   {
     {
-      final Object [] x = new Object [] { "Any", Integer.valueOf (1), " is ", Double.valueOf (1) };
+      final Object [] x = { "Any", Integer.valueOf (1), " is ", Double.valueOf (1) };
       assertNull (getCopy ((Object []) null));
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((Object []) null, 1));
@@ -373,7 +373,7 @@ public final class ArrayHelperTest
 
     {
       assertNull (getCopy ((boolean []) null));
-      final boolean [] x = new boolean [] { true, true, true, false };
+      final boolean [] x = { true, true, true, false };
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((boolean []) null, 1, 1));
       assertEquals (Boolean.valueOf (x[1]), Boolean.valueOf (getCopy (x, 1, 1)[0]));
@@ -383,7 +383,7 @@ public final class ArrayHelperTest
 
     {
       assertNull (getCopy ((byte []) null));
-      final byte [] x = new byte [] { (byte) 17, (byte) 22, (byte) 255, (byte) 0 };
+      final byte [] x = { (byte) 17, (byte) 22, (byte) 255, (byte) 0 };
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((byte []) null, 1, 1));
       assertEquals (x[1], getCopy (x, 1, 1)[0]);
@@ -393,7 +393,7 @@ public final class ArrayHelperTest
 
     {
       assertNull (getCopy ((char []) null));
-      final char [] x = new char [] { 'a', 'Z', '0', '#' };
+      final char [] x = { 'a', 'Z', '0', '#' };
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((char []) null, 1, 1));
       assertEquals (x[1], getCopy (x, 1, 1)[0]);
@@ -403,7 +403,7 @@ public final class ArrayHelperTest
 
     {
       assertNull (getCopy ((double []) null));
-      final double [] x = new double [] { 3.14, 22.45, -34, 255.99 };
+      final double [] x = { 3.14, 22.45, -34, 255.99 };
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((double []) null, 1, 1));
       assertEquals (x[1], getCopy (x, 1, 1)[0], 0);
@@ -413,7 +413,7 @@ public final class ArrayHelperTest
 
     {
       assertNull (getCopy ((float []) null));
-      final float [] x = new float [] { 3.14f, 22.45f, -34f, 255.99f };
+      final float [] x = { 3.14f, 22.45f, -34f, 255.99f };
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((float []) null, 1, 1));
       assertEquals (x[1], getCopy (x, 1, 1)[0], 0);
@@ -423,7 +423,7 @@ public final class ArrayHelperTest
 
     {
       assertNull (getCopy ((int []) null));
-      final int [] x = new int [] { 314, 2245, -34, 25599 };
+      final int [] x = { 314, 2245, -34, 25599 };
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((int []) null, 1, 1));
       assertEquals (x[1], getCopy (x, 1, 1)[0]);
@@ -433,7 +433,7 @@ public final class ArrayHelperTest
 
     {
       assertNull (getCopy ((long []) null));
-      final long [] x = new long [] { 314, 2245, -34, 25599 };
+      final long [] x = { 314, 2245, -34, 25599 };
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((long []) null, 1, 1));
       assertEquals (x[1], getCopy (x, 1, 1)[0]);
@@ -443,7 +443,7 @@ public final class ArrayHelperTest
 
     {
       assertNull (getCopy ((short []) null));
-      final short [] x = new short [] { 14, 22, -34, 127 };
+      final short [] x = { 14, 22, -34, 127 };
       assertTrue (isArrayEquals (x, getCopy (x)));
       assertNull (getCopy ((short []) null, 1, 1));
       assertEquals (x[1], getCopy (x, 1, 1)[0]);
@@ -459,7 +459,7 @@ public final class ArrayHelperTest
   public void testAsObjectArray ()
   {
     assertNull (getAsObjectArray (null));
-    assertNull (getAsObjectArray (new CommonsArrayList <String> ()));
+    assertNull (getAsObjectArray (new CommonsArrayList <> ()));
     assertArrayEquals (new Object [] { "Hallo" }, getAsObjectArray (CollectionHelper.newList ("Hallo")));
     assertArrayEquals (new Object [] { "Hallo", "Welt" },
                        getAsObjectArray (CollectionHelper.newList ("Hallo", "Welt")));
@@ -472,7 +472,7 @@ public final class ArrayHelperTest
   @Test
   public void testSafeGetElement ()
   {
-    final String [] x = new String [] { "a", "b", "c" };
+    final String [] x = { "a", "b", "c" };
     assertEquals ("a", getSafeElement (x, 0));
     assertEquals ("b", getSafeElement (x, 1));
     assertEquals ("c", getSafeElement (x, 2));
@@ -490,8 +490,8 @@ public final class ArrayHelperTest
   public void testGetConcatenated ()
   {
     {
-      final String [] a = new String [] { "a", "b" };
-      final String [] b = new String [] { "c", "c2" };
+      final String [] a = { "a", "b" };
+      final String [] b = { "c", "c2" };
       assertArrayEquals (new String [] { "a", "b", "c", "c2" }, getConcatenated (a, b));
       assertArrayEquals (new String [] { "c", "c2", "a", "b" }, getConcatenated (b, a));
       assertArrayEquals (a, getConcatenated (a, (String []) null));
@@ -503,8 +503,8 @@ public final class ArrayHelperTest
     }
 
     {
-      final Integer [] a = new Integer [] { I1, I2 };
-      final Integer [] b = new Integer [] { I3, I4 };
+      final Integer [] a = { I1, I2 };
+      final Integer [] b = { I3, I4 };
 
       // Generic
       assertArrayEquals (new Integer [] { I1, I2, I3, I4 }, getConcatenated (a, b));
@@ -672,7 +672,7 @@ public final class ArrayHelperTest
     assertNotNull (x);
     assertEquals (3, x.length);
 
-    x = newArray (new CommonsArrayList <String> (), String.class);
+    x = newArray (new CommonsArrayList <> (), String.class);
     assertNotNull (x);
 
     x = newArray ((List <String>) null, String.class);
@@ -744,9 +744,9 @@ public final class ArrayHelperTest
   {
     // Generic
     {
-      final String [] x = new String [] { "s1", "s2", "s3" };
-      final String [] y = new String [] { "s2", "s3" };
-      final String [] z = new String [] { "s3" };
+      final String [] x = { "s1", "s2", "s3" };
+      final String [] y = { "s2", "s3" };
+      final String [] z = { "s3" };
       assertArrayEquals (y, getAllExceptFirst (x));
       assertArrayEquals (x, getAllExceptFirst (x, 0));
       assertArrayEquals (y, getAllExceptFirst (x, 1));
@@ -767,9 +767,9 @@ public final class ArrayHelperTest
 
     // boolean
     {
-      final boolean [] x = new boolean [] { true, false, true };
-      final boolean [] y = new boolean [] { false, true };
-      final boolean [] z = new boolean [] { true };
+      final boolean [] x = { true, false, true };
+      final boolean [] y = { false, true };
+      final boolean [] z = { true };
       assertArrayEquals (y, getAllExceptFirst (x));
       assertArrayEquals (x, getAllExceptFirst (x, 0));
       assertArrayEquals (y, getAllExceptFirst (x, 1));
@@ -790,9 +790,9 @@ public final class ArrayHelperTest
 
     // byte
     {
-      final byte [] x = new byte [] { 5, 9, 14 };
-      final byte [] y = new byte [] { 9, 14 };
-      final byte [] z = new byte [] { 14 };
+      final byte [] x = { 5, 9, 14 };
+      final byte [] y = { 9, 14 };
+      final byte [] z = { 14 };
       assertArrayEquals (y, getAllExceptFirst (x));
       assertArrayEquals (x, getAllExceptFirst (x, 0));
       assertArrayEquals (y, getAllExceptFirst (x, 1));
@@ -813,9 +813,9 @@ public final class ArrayHelperTest
 
     // char
     {
-      final char [] x = new char [] { 'a', 'B', 'c' };
-      final char [] y = new char [] { 'B', 'c' };
-      final char [] z = new char [] { 'c' };
+      final char [] x = { 'a', 'B', 'c' };
+      final char [] y = { 'B', 'c' };
+      final char [] z = { 'c' };
       assertArrayEquals (y, getAllExceptFirst (x));
       assertArrayEquals (x, getAllExceptFirst (x, 0));
       assertArrayEquals (y, getAllExceptFirst (x, 1));
@@ -836,9 +836,9 @@ public final class ArrayHelperTest
 
     // double
     {
-      final double [] x = new double [] { -1.1, 0, 1.1 };
-      final double [] y = new double [] { 0, 1.1 };
-      final double [] z = new double [] { 1.1 };
+      final double [] x = { -1.1, 0, 1.1 };
+      final double [] y = { 0, 1.1 };
+      final double [] z = { 1.1 };
       assertArrayEquals (y, getAllExceptFirst (x), CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (x, getAllExceptFirst (x, 0), CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (y, getAllExceptFirst (x, 1), CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
@@ -859,9 +859,9 @@ public final class ArrayHelperTest
 
     // float
     {
-      final float [] x = new float [] { -3.2f, -0.01f, 99.8f };
-      final float [] y = new float [] { -0.01f, 99.8f };
-      final float [] z = new float [] { 99.8f };
+      final float [] x = { -3.2f, -0.01f, 99.8f };
+      final float [] y = { -0.01f, 99.8f };
+      final float [] z = { 99.8f };
       assertArrayEquals (y, getAllExceptFirst (x), CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (x, getAllExceptFirst (x, 0), CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (y, getAllExceptFirst (x, 1), CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
@@ -882,9 +882,9 @@ public final class ArrayHelperTest
 
     // int
     {
-      final int [] x = new int [] { -5, 2, 9 };
-      final int [] y = new int [] { 2, 9 };
-      final int [] z = new int [] { 9 };
+      final int [] x = { -5, 2, 9 };
+      final int [] y = { 2, 9 };
+      final int [] z = { 9 };
       assertArrayEquals (y, getAllExceptFirst (x));
       assertArrayEquals (x, getAllExceptFirst (x, 0));
       assertArrayEquals (y, getAllExceptFirst (x, 1));
@@ -905,9 +905,9 @@ public final class ArrayHelperTest
 
     // long
     {
-      final long [] x = new long [] { -6, 2, 10 };
-      final long [] y = new long [] { 2, 10 };
-      final long [] z = new long [] { 10 };
+      final long [] x = { -6, 2, 10 };
+      final long [] y = { 2, 10 };
+      final long [] z = { 10 };
       assertArrayEquals (y, getAllExceptFirst (x));
       assertArrayEquals (x, getAllExceptFirst (x, 0));
       assertArrayEquals (y, getAllExceptFirst (x, 1));
@@ -928,9 +928,9 @@ public final class ArrayHelperTest
 
     // short
     {
-      final short [] x = new short [] { -100, -10, 1 };
-      final short [] y = new short [] { -10, 1 };
-      final short [] z = new short [] { 1 };
+      final short [] x = { -100, -10, 1 };
+      final short [] y = { -10, 1 };
+      final short [] z = { 1 };
       assertArrayEquals (y, getAllExceptFirst (x));
       assertArrayEquals (x, getAllExceptFirst (x, 0));
       assertArrayEquals (y, getAllExceptFirst (x, 1));
@@ -958,9 +958,9 @@ public final class ArrayHelperTest
   {
     // Generic
     {
-      final String [] x = new String [] { "s1", "s2", "s3" };
-      final String [] y = new String [] { "s1", "s2" };
-      final String [] z = new String [] { "s1" };
+      final String [] x = { "s1", "s2", "s3" };
+      final String [] y = { "s1", "s2" };
+      final String [] z = { "s1" };
       assertArrayEquals (y, getAllExceptLast (x));
       assertArrayEquals (x, getAllExceptLast (x, 0));
       assertArrayEquals (y, getAllExceptLast (x, 1));
@@ -981,9 +981,9 @@ public final class ArrayHelperTest
 
     // boolean
     {
-      final boolean [] x = new boolean [] { true, false, true };
-      final boolean [] y = new boolean [] { true, false };
-      final boolean [] z = new boolean [] { true };
+      final boolean [] x = { true, false, true };
+      final boolean [] y = { true, false };
+      final boolean [] z = { true };
       assertArrayEquals (y, getAllExceptLast (x));
       assertArrayEquals (x, getAllExceptLast (x, 0));
       assertArrayEquals (y, getAllExceptLast (x, 1));
@@ -1004,9 +1004,9 @@ public final class ArrayHelperTest
 
     // byte
     {
-      final byte [] x = new byte [] { 5, 9, 14 };
-      final byte [] y = new byte [] { 5, 9 };
-      final byte [] z = new byte [] { 5 };
+      final byte [] x = { 5, 9, 14 };
+      final byte [] y = { 5, 9 };
+      final byte [] z = { 5 };
       assertArrayEquals (y, getAllExceptLast (x));
       assertArrayEquals (x, getAllExceptLast (x, 0));
       assertArrayEquals (y, getAllExceptLast (x, 1));
@@ -1027,9 +1027,9 @@ public final class ArrayHelperTest
 
     // char
     {
-      final char [] x = new char [] { 'a', 'B', 'c' };
-      final char [] y = new char [] { 'a', 'B' };
-      final char [] z = new char [] { 'a' };
+      final char [] x = { 'a', 'B', 'c' };
+      final char [] y = { 'a', 'B' };
+      final char [] z = { 'a' };
       assertArrayEquals (y, getAllExceptLast (x));
       assertArrayEquals (x, getAllExceptLast (x, 0));
       assertArrayEquals (y, getAllExceptLast (x, 1));
@@ -1050,9 +1050,9 @@ public final class ArrayHelperTest
 
     // double
     {
-      final double [] x = new double [] { -1.1, 0, 1.1 };
-      final double [] y = new double [] { -1.1, 0 };
-      final double [] z = new double [] { -1.1 };
+      final double [] x = { -1.1, 0, 1.1 };
+      final double [] y = { -1.1, 0 };
+      final double [] z = { -1.1 };
       assertArrayEquals (y, getAllExceptLast (x), CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (x, getAllExceptLast (x, 0), CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (y, getAllExceptLast (x, 1), CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
@@ -1073,9 +1073,9 @@ public final class ArrayHelperTest
 
     // float
     {
-      final float [] x = new float [] { -3.2f, -0.01f, 99.8f };
-      final float [] y = new float [] { -3.2f, -0.01f };
-      final float [] z = new float [] { -3.2f };
+      final float [] x = { -3.2f, -0.01f, 99.8f };
+      final float [] y = { -3.2f, -0.01f };
+      final float [] z = { -3.2f };
       assertArrayEquals (y, getAllExceptLast (x), CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (x, getAllExceptLast (x, 0), CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (y, getAllExceptLast (x, 1), CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
@@ -1096,9 +1096,9 @@ public final class ArrayHelperTest
 
     // int
     {
-      final int [] x = new int [] { -5, 2, 9 };
-      final int [] y = new int [] { -5, 2 };
-      final int [] z = new int [] { -5 };
+      final int [] x = { -5, 2, 9 };
+      final int [] y = { -5, 2 };
+      final int [] z = { -5 };
       assertArrayEquals (y, getAllExceptLast (x));
       assertArrayEquals (x, getAllExceptLast (x, 0));
       assertArrayEquals (y, getAllExceptLast (x, 1));
@@ -1119,9 +1119,9 @@ public final class ArrayHelperTest
 
     // long
     {
-      final long [] x = new long [] { -6, 2, 10 };
-      final long [] y = new long [] { -6, 2 };
-      final long [] z = new long [] { -6 };
+      final long [] x = { -6, 2, 10 };
+      final long [] y = { -6, 2 };
+      final long [] z = { -6 };
       assertArrayEquals (y, getAllExceptLast (x));
       assertArrayEquals (x, getAllExceptLast (x, 0));
       assertArrayEquals (y, getAllExceptLast (x, 1));
@@ -1142,9 +1142,9 @@ public final class ArrayHelperTest
 
     // short
     {
-      final short [] x = new short [] { -100, -10, 1 };
-      final short [] y = new short [] { -100, -10 };
-      final short [] z = new short [] { -100 };
+      final short [] x = { -100, -10, 1 };
+      final short [] y = { -100, -10 };
+      final short [] z = { -100 };
       assertArrayEquals (y, getAllExceptLast (x));
       assertArrayEquals (x, getAllExceptLast (x, 0));
       assertArrayEquals (y, getAllExceptLast (x, 1));
@@ -1202,7 +1202,7 @@ public final class ArrayHelperTest
     assertEquals (2, x[1].intValue ());
     assertEquals (3, x[2].intValue ());
 
-    x = newArrayMapped (new CommonsArrayList <String> (), aMapper, Integer.class);
+    x = newArrayMapped (new CommonsArrayList <> (), aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (0, x.length);
 
@@ -1298,7 +1298,7 @@ public final class ArrayHelperTest
   @Test
   public void testForEach ()
   {
-    final String [] aArray = new String [] { "a", "b", "c" };
+    final String [] aArray = { "a", "b", "c" };
     final StringBuilder aSB = new StringBuilder ();
     ArrayHelper.forEach (aArray, x -> aSB.append (x));
     assertEquals ("abc", aSB.toString ());

@@ -63,7 +63,9 @@ public final class CommonsConcurrentHashMapTest
                                              Function.identity (),
                                              x -> Integer.valueOf (x.length ()));
     assertEquals (3, aTest.size ());
-    aTest = new CommonsConcurrentHashMap <> (new CommonsConcurrentHashMap <String, Integer> (new CommonsArrayList <> ("test", "any", "foo"),
+    aTest = new CommonsConcurrentHashMap <> (new CommonsConcurrentHashMap <String, Integer> (new CommonsArrayList <> ("test",
+                                                                                                                      "any",
+                                                                                                                      "foo"),
                                                                                              Function.identity (),
                                                                                              x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());

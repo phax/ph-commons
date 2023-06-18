@@ -50,7 +50,7 @@ public final class CombinedIteratorTest
     {}
 
     // both empty
-    es = CombinedIterator.create (new EmptyIterator <String> (), new EmptyIterator <String> ());
+    es = CombinedIterator.create (new EmptyIterator <> (), new EmptyIterator <> ());
     assertFalse (es.hasNext ());
     try
     {
@@ -112,7 +112,7 @@ public final class CombinedIteratorTest
     {}
 
     // other one empty
-    es = CombinedIterator.create (new EmptyIterator <String> (), IteratorHelper.getIterator ("a", "b", "c"));
+    es = CombinedIterator.create (new EmptyIterator <> (), IteratorHelper.getIterator ("a", "b", "c"));
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());

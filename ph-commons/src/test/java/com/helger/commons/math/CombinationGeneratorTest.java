@@ -102,7 +102,7 @@ public final class CombinationGeneratorTest
     {}
     try
     {
-      new CombinationGenerator <> (new CommonsArrayList <String> (), 3);
+      new CombinationGenerator <> (new CommonsArrayList <> (), 3);
       fail ();
     }
     catch (final IllegalArgumentException ex)

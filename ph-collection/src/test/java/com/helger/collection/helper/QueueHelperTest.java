@@ -49,7 +49,7 @@ public final class QueueHelperTest
     QueueHelper.newQueue ((Iterable <String>) new CommonsArrayList <> ("a"));
     QueueHelper.newQueue (new CommonsArrayList <> ("a").iterator ());
     QueueHelper.newQueue (new CommonsArrayList <> ("a"), Objects::nonNull);
-    QueueHelper.newQueueMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    QueueHelper.newQueueMapped (new CommonsArrayList <> ("a"), Object::toString);
     QueueHelper.newQueueMapped (new Object [] { "a" }, Object::toString);
 
     final ICommonsList <String> aCont = new CommonsArrayList <> ("a", "b", "c");

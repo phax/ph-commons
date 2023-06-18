@@ -50,7 +50,7 @@ public final class IAggregatorTest
     assertNotNull (a1.toString ());
     final ICommonsList <String> l = new CommonsArrayList <> ("a", null, "b", "", "c");
     assertEquals ("a", a1.apply (l));
-    assertNull (a1.apply (new CommonsArrayList <String> ()));
+    assertNull (a1.apply (new CommonsArrayList <> ()));
     assertNull (a1.apply ((Collection <String>) null));
   }
 
@@ -67,7 +67,7 @@ public final class IAggregatorTest
     assertNotNull (a1.toString ());
     final ICommonsList <String> l = new CommonsArrayList <> ("a", null, "b", "", "c");
     assertEquals ("c", a1.apply (l));
-    assertNull (a1.apply (new CommonsArrayList <String> ()));
+    assertNull (a1.apply (new CommonsArrayList <> ()));
     assertNull (a1.apply ((Collection <String>) null));
   }
 

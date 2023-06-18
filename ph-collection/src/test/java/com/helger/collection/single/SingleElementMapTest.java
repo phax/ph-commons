@@ -117,7 +117,7 @@ public final class SingleElementMapTest
     aMap.putAll (aMap);
 
     // Empty map also ok
-    aMap.putAll (new HashMap <String, Integer> ());
+    aMap.putAll (new HashMap <> ());
 
     try
     {
@@ -156,19 +156,19 @@ public final class SingleElementMapTest
   public void testCollections ()
   {
     final Map <String, Integer> aMap = new SingleElementMap <> ();
-    assertEquals (0, aMap.keySet ().size ());
-    assertEquals (0, aMap.values ().size ());
+    assertEquals (0, aMap.size ());
+    assertEquals (0, aMap.size ());
     assertEquals (0, aMap.entrySet ().size ());
     aMap.put ("any", I4);
-    assertEquals (1, aMap.keySet ().size ());
-    assertEquals (1, aMap.values ().size ());
+    assertEquals (1, aMap.size ());
+    assertEquals (1, aMap.size ());
     assertEquals (1, aMap.entrySet ().size ());
     aMap.put ("other", I5);
-    assertEquals (1, aMap.keySet ().size ());
-    assertEquals (1, aMap.values ().size ());
+    assertEquals (1, aMap.size ());
+    assertEquals (1, aMap.size ());
     assertEquals (1, aMap.entrySet ().size ());
-    assertTrue (aMap.keySet ().contains ("other"));
-    assertTrue (aMap.values ().contains (I5));
+    assertTrue (aMap.containsKey ("other"));
+    assertTrue (aMap.containsValue (I5));
     assertTrue (aMap.entrySet ().iterator ().next ().getKey ().equals ("other"));
   }
 }

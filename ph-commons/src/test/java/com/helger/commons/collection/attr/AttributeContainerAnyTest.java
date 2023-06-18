@@ -50,7 +50,7 @@ public final class AttributeContainerAnyTest
   {
     final AttributeContainerAny <String> x = new AttributeContainerAny <> ();
     assertNotNull (x.keySet ());
-    assertTrue (x.keySet ().isEmpty ());
+    assertTrue (x.isEmpty ());
     assertTrue (x.isEmpty ());
     assertTrue (x.putIn ("key", "value").isChanged ());
     assertFalse (x.isEmpty ());
@@ -80,7 +80,7 @@ public final class AttributeContainerAnyTest
     assertFalse (x.removeAll ().isChanged ());
     assertFalse (x.containsKey ("key2"));
     assertTrue (x.isEmpty ());
-    assertTrue (x.keySet ().isEmpty ());
+    assertTrue (x.isEmpty ());
     assertFalse (x.removeObject ("key2").isChanged ());
 
     assertTrue (x.putIn ("key", Integer.valueOf (17)).isChanged ());
@@ -106,8 +106,8 @@ public final class AttributeContainerAnyTest
     assertFalse (x.containsKey ("null1"));
     assertTrue (x.removeObject ("null1").isUnchanged ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <String> (),
-                                                                       new AttributeContainerAny <String> ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (),
+                                                                       new AttributeContainerAny <> ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                               "key2" },
                                                                                                                               new Object [] { "value",

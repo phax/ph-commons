@@ -52,7 +52,7 @@ public final class StackHelperTest
     assertEquals ("Hallo", aStack.pop ());
     assertTrue (aStack.isEmpty ());
 
-    assertNull (StackHelper.getStackCopyWithoutTop (new NonBlockingStack <String> ()));
+    assertNull (StackHelper.getStackCopyWithoutTop (new NonBlockingStack <> ()));
   }
 
   @Test
@@ -67,7 +67,7 @@ public final class StackHelperTest
     StackHelper.newStack ((Iterable <String>) new CommonsArrayList <> ("a"));
     StackHelper.newStack (new CommonsArrayList <> ("a").iterator ());
     StackHelper.newStack (new CommonsArrayList <> ("a"), Objects::nonNull);
-    StackHelper.newStackMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    StackHelper.newStackMapped (new CommonsArrayList <> ("a"), Object::toString);
     StackHelper.newStackMapped (new Object [] { "a" }, Object::toString);
   }
 
