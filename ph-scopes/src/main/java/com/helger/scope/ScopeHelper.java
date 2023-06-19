@@ -197,7 +197,7 @@ public final class ScopeHelper
    *
    * @return <code>true</code> if global scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
-   * @since 9.4.7
+   * @since 11.0.4
    */
   public static boolean isDebugGlobalScopeLifeCycle ()
   {
@@ -227,7 +227,7 @@ public final class ScopeHelper
    *
    * @return <code>true</code> if session scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
-   * @since 9.4.7
+   * @since 11.0.4
    */
   public static boolean isDebugSessionScopeLifeCycle ()
   {
@@ -257,7 +257,7 @@ public final class ScopeHelper
    *
    * @return <code>true</code> if request scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
-   * @since 9.4.7
+   * @since 11.0.4
    */
   public static boolean isDebugRequestScopeLifeCycle ()
   {
