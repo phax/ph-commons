@@ -632,14 +632,15 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("filenameProvider", m_aFilenameProvider)
-                            .append ("previousFilename", m_sPreviousFilename)
-                            .append ("initCount", m_nInitCount)
-                            .appendIfNotNull ("lastInitDT", m_aLastInitDT)
-                            .append ("readCount", m_nReadCount)
-                            .appendIfNotNull ("lastReadDT", m_aLastReadDT)
-                            .append ("writeCount", m_nWriteCount)
-                            .appendIfNotNull ("lastWriteDT", m_aLastWriteDT)
+                            .append ("IO", m_aIO)
+                            .append ("FilenameProvider", m_aFilenameProvider)
+                            .append ("PreviousFilename", m_sPreviousFilename)
+                            .append ("InitCount", m_nInitCount)
+                            .appendIfNotNull ("LastInitDT", m_aLastInitDT)
+                            .append ("ReadCount", m_nReadCount)
+                            .appendIfNotNull ("LastReadDT", m_aLastReadDT)
+                            .append ("WriteCount", m_nWriteCount)
+                            .appendIfNotNull ("LastWriteDT", m_aLastWriteDT)
                             .getToString ();
   }
 }

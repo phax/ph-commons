@@ -169,31 +169,40 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
         // performed.
         final File aFileNew = getSafeFile (_getFilenameNew (sFilename), EMode.WRITE);
         if (aFileNew.exists ())
-          throw new IllegalStateException ("The temporary WAL file '" +
-                                           aFileNew.getAbsolutePath () +
-                                           "' already exists! If the '" +
-                                           FILENAME_EXTENSION_NEW +
-                                           "' file is complete, rename it to match '" +
-                                           sFilename +
-                                           "'. Please resolve this conflict manually.");
+        {
+          final String sMsg = "The temporary WAL file '" +
+                              aFileNew.getAbsolutePath () +
+                              "' already exists! If the '" +
+                              FILENAME_EXTENSION_NEW +
+                              "' file is complete, rename it to match '" +
+                              sFilename +
+                              "'. Please resolve this conflict manually.";
+          LOGGER.error (sMsg);
+          throw new IllegalStateException (sMsg);
+        }
       }
       catch (final DAOException ex)
       {
         // Ignore
       }
+
       try
       {
         // A ".prev" file still exist, meaning the deletion failed. Most likely
         // this happens together with the ".new" error above
         final File aFilePrev = getSafeFile (_getFilenamePrev (sFilename), EMode.WRITE);
         if (aFilePrev.exists ())
-          throw new IllegalStateException ("The temporary WAL file '" +
-                                           aFilePrev.getAbsolutePath () +
-                                           "' already exists! If the target filename '" +
-                                           sFilename +
-                                           "' exists and is complete, you may consider deleting this '" +
-                                           FILENAME_EXTENSION_PREV +
-                                           "' file. Please resolve this conflict manually.");
+        {
+          final String sMsg = "The temporary WAL file '" +
+                              aFilePrev.getAbsolutePath () +
+                              "' already exists! If the target filename '" +
+                              sFilename +
+                              "' exists and is complete, you may consider deleting this '" +
+                              FILENAME_EXTENSION_PREV +
+                              "' file. Please resolve this conflict manually.";
+          LOGGER.error (sMsg);
+          throw new IllegalStateException (sMsg);
+        }
       }
       catch (final DAOException ex)
       {
@@ -420,6 +429,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     {
       // Check consistency
       aFile = getSafeFile (sFilename, EMode.READ);
+
+      CONDLOG.info ( () -> "This DAO of class " + getClass ().getName () + " is initially read from file ");
     }
     final boolean bIsInitialization = aFile == null || !aFile.exists ();
 
@@ -626,7 +637,11 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
                     throw ex;
                   }
                 default:
-                  throw new IllegalStateException ("Unsupported action type provided: " + eActionType);
+                {
+                  final String sMsg = "Unsupported action type provided: " + eActionType;
+                  LOGGER.error (sMsg);
+                  throw new IllegalStateException (sMsg);
+                }
               }
             }
           }
@@ -702,6 +717,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   @MustBeLocked (ELockType.WRITE)
   protected void modifyWriteData (@Nonnull final IMicroDocument aDoc)
   {
+    CONDLOG.info ( () -> "Inserting automatic 'do NOT modify' header to XML");
+
     final IMicroComment aComment = new MicroComment ("This file was generated automatically - do NOT modify!\n" +
                                                      "Written at " +
                                                      PDTToString.getAsString (ZonedDateTime.now (Clock.systemUTC ()),
@@ -777,6 +794,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
       CONDLOG.info ( () -> "The DAO of class " + getClass ().getName () + " cannot write to a file");
       return ESuccess.FAILURE;
     }
+
     // Check for a filename change before writing
     if (!sFilename.equals (m_sPreviousFilename))
     {
@@ -815,8 +833,13 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
       }
       // Write to file (closes the OS)
       final IXMLWriterSettings aXWS = getXMLWriterSettings ();
+
+      CONDLOG.info ( () -> "Now serializing XML to stream with XWS " + aXWS);
+
       if (MicroWriter.writeToStream (aDoc, aOS, aXWS).isFailure ())
         throw new DAOException ("Failed to write DAO XML data to file");
+
+      CONDLOG.info ( () -> "Finished serializing XML to stream");
 
       // Rename existing file to old
       FileIOError aIOError;
@@ -827,7 +850,10 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
         bRenamedToPrev = true;
       }
       else
+      {
         aIOError = new FileIOError (EFileIOOperation.RENAME_FILE, EFileIOErrorCode.NO_ERROR);
+      }
+
       if (aIOError.isSuccess ())
       {
         // Rename new file to final
@@ -846,7 +872,11 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
         }
       }
       if (aIOError.isFailure ())
-        throw new IllegalStateException ("Error on rename(existing-old)/rename(new-existing)/delete(old): " + aIOError);
+      {
+        final String sMsg = "Error on rename(existing-old)/rename(new-existing)/delete(old): " + aIOError;
+        LOGGER.error (sMsg);
+        throw new IllegalStateException (sMsg);
+      }
 
       // Update stats etc.
       m_aStatsCounterWriteTimer.addTime (aSW.stopAndGetMillis ());
@@ -963,11 +993,15 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   {
     final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aModifiedElement, "item");
     if (aElement == null)
-      throw new IllegalStateException ("Failed to convert " +
-                                       aModifiedElement +
-                                       " of class " +
-                                       aModifiedElement.getClass ().getName () +
-                                       " to XML!");
+    {
+      final String sMsg = "Failed to convert " +
+                          aModifiedElement +
+                          " of class " +
+                          aModifiedElement.getClass ().getName () +
+                          " to XML!";
+      LOGGER.error (sMsg);
+      throw new IllegalStateException (sMsg);
+    }
     return MicroWriter.getNodeAsString (aElement, getWALXMLWriterSettings ());
   }
 
@@ -978,18 +1012,24 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
                                   @Nonnull @Nonempty final String sWALFilename)
   {
     final FileSystemResource aWALRes = m_aIO.getResource (sWALFilename);
+    CONDLOG.info ( () -> "Writing WAL file " + aWALRes);
+
     try (final DataOutputStream aDOS = new DataOutputStream (aWALRes.getOutputStream (EAppend.APPEND)))
     {
       // Write action type ID
       StreamHelper.writeSafeUTF (aDOS, eActionType.getID ());
+
       // Write number of elements
       aDOS.writeInt (aModifiedElements.size ());
+
       // Write all data elements as XML Strings :)
       for (final DATATYPE aModifiedElement : aModifiedElements)
       {
         final String sElement = convertNativeToWALString (aModifiedElement);
         StreamHelper.writeSafeUTF (aDOS, sElement);
       }
+
+      CONDLOG.info ( () -> "Finished writing WAL file " + aWALRes);
       return ESuccess.SUCCESS;
     }
     catch (final Exception ex)
@@ -1022,6 +1062,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   {
     ValueEnforcer.notNull (aWaitingTime, "WaitingTime");
     m_aWaitingTime = aWaitingTime;
+    CONDLOG.info ( () -> "Set WAL DAO waiting time to " + aWaitingTime);
   }
 
   /**
@@ -1051,6 +1092,12 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   {
     ValueEnforcer.notNull (aModifiedElements, "ModifiedElements");
     ValueEnforcer.notNull (eActionType, "ActionType");
+
+    CONDLOG.info ( () -> "Now processing WAL DAO action " +
+                         eActionType +
+                         " for " +
+                         aModifiedElements.size () +
+                         " elements");
 
     // Just remember that something changed
     internalSetPendingChanges (true);
@@ -1133,6 +1180,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
+                            .append ("DataTypeClass", m_aDataTypeClass)
+                            .append ("IO", m_aIO)
                             .append ("FilenameProvider", m_aFilenameProvider)
                             .append ("PreviousFilename", m_sPreviousFilename)
                             .append ("InitCount", m_nInitCount)
@@ -1141,6 +1190,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
                             .appendIfNotNull ("LastReadDT", m_aLastReadDT)
                             .append ("WriteCount", m_nWriteCount)
                             .appendIfNotNull ("LastWriteDT", m_aLastWriteDT)
+                            .append ("CanWriteWAL", m_bCanWriteWAL)
+                            .append ("WaitingTime", m_aWaitingTime)
                             .getToString ();
   }
 }

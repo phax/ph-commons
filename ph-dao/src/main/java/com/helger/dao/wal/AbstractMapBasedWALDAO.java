@@ -814,6 +814,10 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("Map", m_aMap).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("Map", m_aMap)
+                            .append ("Callbacks", m_aCallbacks)
+                            .appendIfNotNull ("ReadElementFilter", m_aReadElementFilter)
+                            .getToString ();
   }
 }

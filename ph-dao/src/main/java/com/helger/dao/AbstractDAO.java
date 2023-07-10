@@ -150,6 +150,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   public final void internalSetPendingChanges (final boolean bPendingChanges)
   {
     m_bPendingChanges = bPendingChanges;
+    CONDLOG.info ( () -> "Pending changes now: " + bPendingChanges);
   }
 
   /**
@@ -175,6 +176,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
       // Save old auto save state
       m_aAutoSaveStack.push (Boolean.valueOf (m_bAutoSaveEnabled));
       m_bAutoSaveEnabled = false;
+      CONDLOG.info ( () -> "Begin autosave");
     });
   }
 
@@ -184,6 +186,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
     final boolean bPreviouslyAutoSaveEnabled = m_aRWLock.writeLockedBoolean ( () -> {
       final boolean bPreviously = m_aAutoSaveStack.pop ().booleanValue ();
       m_bAutoSaveEnabled = bPreviously;
+      CONDLOG.info ( () -> "End autosave");
       return bPreviously;
     });
 
@@ -192,15 +195,6 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
       // And in case something was changed - writeLocked itself
       writeToFileOnPendingChanges ();
     }
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("autoSaveStack", m_aAutoSaveStack)
-                                       .append ("pendingChanges", m_bPendingChanges)
-                                       .append ("autoSaveEnabled", m_bAutoSaveEnabled)
-                                       .getToString ();
   }
 
   /**
@@ -219,6 +213,8 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eMode, "Mode");
+
+    CONDLOG.debug ( () -> "Checking file access for " + eMode + " for file '" + aFile.getAbsolutePath () + "'");
 
     final String sFilename = aFile.toString ();
     if (aFile.exists ())
@@ -261,5 +257,14 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
                                   aError);
       }
     }
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("autoSaveStack", m_aAutoSaveStack)
+                                       .append ("pendingChanges", m_bPendingChanges)
+                                       .append ("autoSaveEnabled", m_bAutoSaveEnabled)
+                                       .getToString ();
   }
 }
