@@ -111,6 +111,29 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     m_aFactory = aFactory;
   }
 
+  /**
+   * @return The maximum number of items in the pool. Always &gt; 0.
+   * @see #getBorrowedObjectCount()
+   * @since 11.0.6
+   */
+  @Nonnegative
+  public int getPoolSize ()
+  {
+    return m_aItems.length;
+  }
+
+  /**
+   * @return The number of objects currently borrowed from the pool. Something
+   *         between 0 and {@link #getPoolSize()}
+   * @see #getPoolSize()
+   * @since 11.0.6
+   */
+  @Nonnegative
+  public int getBorrowedObjectCount ()
+  {
+    return m_aItems.length - m_aAvailable.availablePermits ();
+  }
+
   public void clearUnusedItems ()
   {
     // Reset all cached items
@@ -142,6 +165,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
       Thread.currentThread ().interrupt ();
       return null;
     }
+
     m_aLock.lock ();
     try
     {
@@ -160,7 +184,8 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           m_aUsed[i] = true;
           return GenericReflection.uncheckedCast (m_aItems[i]);
         }
-      throw new IllegalStateException ("Should never be reached!");
+
+      throw new IllegalStateException ("Should never be reached - ObjectPool exceeds its limit. Looks like a programming error.");
     }
     finally
     {
