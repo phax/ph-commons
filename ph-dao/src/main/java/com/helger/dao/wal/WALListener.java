@@ -204,7 +204,7 @@ public final class WALListener extends AbstractGlobalSingleton
       // writing of the passed DAO is already scheduled and no further
       // action is necessary
       if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("No need to schedulie writing of DAO " + sKey + " because it is already scheduled");
+        LOGGER.debug ("No need to schedule writing of DAO " + sKey + " because it is already scheduled");
     }
   }
 }

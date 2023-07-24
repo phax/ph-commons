@@ -815,6 +815,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
       m_aStatsCounterWriteTotal.increment ();
       final StopWatch aSW = StopWatch.createdStarted ();
 
+      CONDLOG.info ( () -> "Creating XML file to write");
+
       // Create XML document to write
       aDoc = createWriteData ();
       if (aDoc == null)
@@ -822,6 +824,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
 
       // Generic modification
       modifyWriteData (aDoc);
+
+      CONDLOG.info ( () -> "Opening output stream of '" + sFilenameNew + "'");
 
       // Get the output stream
       final OutputStream aOS = FileHelper.getOutputStream (aFileNew);
