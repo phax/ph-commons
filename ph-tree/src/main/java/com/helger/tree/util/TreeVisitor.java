@@ -44,7 +44,8 @@ import com.helger.tree.IBasicTreeItem;
 @Immutable
 public final class TreeVisitor
 {
-  public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends DefaultHierarchyVisitorCallback <ITEMTYPE>
+  public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends
+                                                             DefaultHierarchyVisitorCallback <ITEMTYPE>
   {
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
     private final Function <? super ITEMTYPE, ? extends DATATYPE> m_aConverter;
@@ -110,7 +111,7 @@ public final class TreeVisitor
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTree (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                  @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
   {
-    visitTree (aTree, new ChildrenProviderHasChildren <ITEMTYPE> (), aCallback);
+    visitTree (aTree, new ChildrenProviderHasChildren <> (), aCallback);
   }
 
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTree (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
@@ -164,6 +165,8 @@ public final class TreeVisitor
     ValueEnforcer.notNull (aDataCallback, "DataCallback");
 
     // Wrap callback
-    visitTreeItem (aTreeItem, aChildrenProvider, new HierarchyVisitorCallbackWithConversion <> (aDataCallback, ITEMTYPE::getData));
+    visitTreeItem (aTreeItem,
+                   aChildrenProvider,
+                   new HierarchyVisitorCallbackWithConversion <> (aDataCallback, ITEMTYPE::getData));
   }
 }

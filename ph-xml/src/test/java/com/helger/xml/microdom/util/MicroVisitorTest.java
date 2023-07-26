@@ -79,7 +79,7 @@ public final class MicroVisitorTest
 
     try
     {
-      MicroVisitor.visit (null, new DefaultHierarchyVisitorCallback <IMicroNode> ());
+      MicroVisitor.visit (null, new DefaultHierarchyVisitorCallback <> ());
       fail ();
     }
     catch (final NullPointerException ex)

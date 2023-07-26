@@ -38,7 +38,7 @@ public final class DefaultTreeWithIDTest
     final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
     assertNotNull (t.getRootItem ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <String, String> ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <> ());
     final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <> ();
     t2.getRootItem ().createChildItem ("dataid", "data");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, t2);

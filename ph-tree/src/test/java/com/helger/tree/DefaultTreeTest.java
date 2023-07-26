@@ -68,9 +68,9 @@ public final class DefaultTreeTest
   public void testEqualsHashCode ()
   {
     final DefaultTree <String> t = new DefaultTree <> ();
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <String> ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <> ());
     t.getRootItem ().createChildItem ("data");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <String> ());
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <> ());
   }
 
   @Test
