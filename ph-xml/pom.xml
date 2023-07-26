@@ -65,6 +65,12 @@
       <optional>true</optional>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+      <optional>true</optional>
+      <scope>compile</scope>
+    </dependency>
     
     <dependency>
       <groupId>org.dom4j</groupId>
