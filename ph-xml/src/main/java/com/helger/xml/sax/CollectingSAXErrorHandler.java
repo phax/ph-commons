@@ -54,13 +54,12 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   /**
    * Protected constructor to use a different {@link ErrorList} - e.g. for
    * existing error lists.<br>
-   * TODO use "? extends" in the next minor release
    *
    * @param aErrorListProvider
    *        The error list provider. May not be <code>null</code>.
    * @since 9.2.0
    */
-  protected CollectingSAXErrorHandler (@Nonnull final Supplier <ErrorList> aErrorListProvider)
+  protected CollectingSAXErrorHandler (@Nonnull final Supplier <? extends ErrorList> aErrorListProvider)
   {
     m_aErrors = aErrorListProvider.get ();
     if (m_aErrors == null)
