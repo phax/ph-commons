@@ -23,6 +23,7 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.ESuccess;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A simple generic object pool with a fixed size determined in the constructor.
@@ -52,17 +54,19 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   // Lock for this object
   private final SimpleLock m_aLock = new SimpleLock ();
 
+  // The factory for creating objects
+  private final IObjectPoolFactory <DATATYPE> m_aFactory;
+
   // Semaphore for the number of items
   private final Semaphore m_aAvailable;
 
   // The items itself
+  @GuardedBy ("m_aLock")
   private final Object [] m_aItems;
 
   // Holds the "used/unused" state, because null items may be stored
+  @GuardedBy ("m_aLock")
   private final boolean [] m_aUsed;
-
-  // The factory for creating objects
-  private final IObjectPoolSupplier <DATATYPE> m_aFactory;
 
   /**
    * @return <code>true</code> if logging is disabled, <code>false</code> if it
@@ -101,7 +105,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    */
   public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final Supplier <? extends DATATYPE> aFactory)
   {
-    this (nItemCount, IObjectPoolSupplier.wrap (aFactory));
+    this (nItemCount, IObjectPoolFactory.wrap (aFactory));
   }
 
   /**
@@ -115,7 +119,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    *        factory may not create <code>null</code> objects, as this leads to
    *        an error!
    */
-  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final IObjectPoolSupplier <DATATYPE> aFactory)
+  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final IObjectPoolFactory <DATATYPE> aFactory)
   {
     ValueEnforcer.isGT0 (nItemCount, "ItemCount");
     ValueEnforcer.notNull (aFactory, "Factory");
@@ -200,7 +204,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
 
             m_aItems[i] = ret = m_aFactory.create ();
             if (ret == null)
-              throw new IllegalStateException ("The factory returned a null object!");
+              throw new IllegalStateException ("The factory returned a null object [1]!");
           }
           else
           {
@@ -215,13 +219,15 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
 
               m_aItems[i] = ret = m_aFactory.create ();
               if (ret == null)
-                throw new IllegalStateException ("The factory returned a null object!");
+                throw new IllegalStateException ("The factory returned a null object [2]!");
             }
             else
             {
               CONDLOG.debug ( () -> "ObjectPool successfully activated object for index " + index);
             }
           }
+
+          // As the last activity
           m_aUsed[i] = true;
           return ret;
         }
@@ -262,5 +268,11 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     {
       m_aLock.unlock ();
     }
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("Factory", m_aFactory).getToString ();
   }
 }
