@@ -62,7 +62,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   private final boolean [] m_aUsed;
 
   // The factory for creating objects
-  private final Supplier <? extends DATATYPE> m_aFactory;
+  private final IObjectPoolSupplier <DATATYPE> m_aFactory;
 
   /**
    * @return <code>true</code> if logging is disabled, <code>false</code> if it
@@ -100,6 +100,22 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    *        an error!
    */
   public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final Supplier <? extends DATATYPE> aFactory)
+  {
+    this (nItemCount, IObjectPoolSupplier.wrap (aFactory));
+  }
+
+  /**
+   * Create a new object pool for a certain amount of items and a factory that
+   * creates the objects on demand.
+   *
+   * @param nItemCount
+   *        The number of items in the pool. Must be &ge; 1.
+   * @param aFactory
+   *        The factory to create object. May not be <code>null</code>. The
+   *        factory may not create <code>null</code> objects, as this leads to
+   *        an error!
+   */
+  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final IObjectPoolSupplier <DATATYPE> aFactory)
   {
     ValueEnforcer.isGT0 (nItemCount, "ItemCount");
     ValueEnforcer.notNull (aFactory, "Factory");
@@ -173,16 +189,41 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
       for (int i = 0; i < m_aItems.length; ++i)
         if (!m_aUsed[i])
         {
+          final int index = i;
+
+          DATATYPE ret;
           if (m_aItems[i] == null)
           {
             // if the object is used for the first time, create a new object
             // via the factory
-            m_aItems[i] = m_aFactory.get ();
-            if (m_aItems[i] == null)
+            CONDLOG.debug ( () -> "ObjectPool creates a new object for index " + index);
+
+            m_aItems[i] = ret = m_aFactory.create ();
+            if (ret == null)
               throw new IllegalStateException ("The factory returned a null object!");
           }
+          else
+          {
+            // An object is already existing and may be reused
+            CONDLOG.debug ( () -> "ObjectPool reuses object for index " + index);
+
+            ret = GenericReflection.uncheckedCast (m_aItems[i]);
+            if (m_aFactory.activate (ret).isFailure ())
+            {
+              // Object cannot be reused - create a new one
+              CONDLOG.info ( () -> "ObjectPool failed to activate object for index " + index);
+
+              m_aItems[i] = ret = m_aFactory.create ();
+              if (ret == null)
+                throw new IllegalStateException ("The factory returned a null object!");
+            }
+            else
+            {
+              CONDLOG.debug ( () -> "ObjectPool successfully activated object for index " + index);
+            }
+          }
           m_aUsed[i] = true;
-          return GenericReflection.uncheckedCast (m_aItems[i]);
+          return ret;
         }
 
       throw new IllegalStateException ("Should never be reached - ObjectPool exceeds its limit. Looks like a programming error.");
@@ -202,13 +243,19 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
       for (int i = 0; i < m_aItems.length; ++i)
         if (m_aUsed[i] && aItem == m_aItems[i])
         {
+          final int index = i;
+
+          CONDLOG.debug ( () -> "ObjectPool passivates object for index " + index);
+
+          m_aFactory.passivate (aItem);
           m_aUsed[i] = false;
 
           // Okay, we have one more unused item
           m_aAvailable.release ();
           return ESuccess.SUCCESS;
         }
-      CONDLOG.warn ( () -> "Object " + aItem + " is not pooled!");
+
+      CONDLOG.error ( () -> "Object " + aItem + " is not pooled!");
       return ESuccess.FAILURE;
     }
     finally
