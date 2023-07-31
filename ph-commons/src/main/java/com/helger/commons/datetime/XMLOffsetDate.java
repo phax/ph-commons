@@ -105,8 +105,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
  * <p>
  * This class does not store or represent a time. For example, the value "2nd
  * October 2007 +02:00" can be stored in an {@code XMLOffsetDate}.
- * <h3>Implementation Requirements:</h3> This class is immutable and
- * thread-safe.
+ * <b>Implementation Requirements:</b> This class is immutable and thread-safe.
  * <p>
  * This class must be treated as a value type. Do not synchronize, rely on the
  * identity hash code or use the distinction between equals() and ==.
@@ -268,7 +267,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year, final int month, final int dayOfMonth, @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year,
+                                  final int month,
+                                  final int dayOfMonth,
+                                  @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -297,7 +299,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *         is invalid for the month-year
    */
   @Nonnull
-  public static XMLOffsetDate of (final int year, final Month month, final int dayOfMonth, @Nullable final ZoneOffset offset)
+  public static XMLOffsetDate of (final int year,
+                                  final Month month,
+                                  final int dayOfMonth,
+                                  @Nullable final ZoneOffset offset)
   {
     final LocalDate d = LocalDate.of (year, month, dayOfMonth);
     return new XMLOffsetDate (d, offset);
@@ -1238,7 +1243,8 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public XMLOffsetDate minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract, unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract,
+                                                                                                   unit);
   }
 
   /**
