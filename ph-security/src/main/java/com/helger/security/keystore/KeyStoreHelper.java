@@ -23,6 +23,7 @@ import java.security.KeyStore;
 import java.security.KeyStore.PasswordProtection;
 import java.security.KeyStore.ProtectionParameter;
 import java.security.KeyStoreException;
+import java.security.Provider;
 import java.security.UnrecoverableKeyException;
 
 import javax.annotation.Nonnull;
@@ -79,7 +80,19 @@ public final class KeyStoreHelper
   @Nonnull
   public static KeyStore getSimiliarKeyStore (@Nonnull final KeyStore aOther) throws KeyStoreException
   {
-    return KeyStore.getInstance (aOther.getType (), aOther.getProvider ());
+    ValueEnforcer.notNull (aOther, "Other");
+
+    return getSimiliarKeyStore (aOther, null);
+  }
+
+  @Nonnull
+  public static KeyStore getSimiliarKeyStore (@Nonnull final KeyStore aOther,
+                                              @Nullable final Provider aSecurityProvider) throws KeyStoreException
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+
+    return KeyStore.getInstance (aOther.getType (),
+                                 aSecurityProvider != null ? aSecurityProvider : aOther.getProvider ());
   }
 
   /**
@@ -107,9 +120,42 @@ public final class KeyStoreHelper
                                              @Nullable final String sKeyStorePassword) throws GeneralSecurityException,
                                                                                        IOException
   {
+    return loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, sKeyStorePassword, null);
+  }
+
+  /**
+   * Load a key store from a resource.
+   *
+   * @param aKeyStoreType
+   *        Type of key store. May not be <code>null</code>.
+   * @param sKeyStorePath
+   *        The path pointing to the key store. May only be <code>null</code>
+   *        for {@link EKeyStoreType#PKCS11}.
+   * @param sKeyStorePassword
+   *        The key store password. May be <code>null</code> to indicate that no
+   *        password is required.
+   * @param aSecurityProvider
+   *        The Security Provider to use. May be <code>null</code>.
+   * @return The Java key-store object.
+   * @throws GeneralSecurityException
+   *         In case of a key store error
+   * @throws IOException
+   *         In case key store loading fails
+   * @throws IllegalArgumentException
+   *         If the key store path is invalid
+   * @since 11.1.1
+   */
+  @Nonnull
+  public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
+                                             @Nullable final String sKeyStorePath,
+                                             @Nullable final String sKeyStorePassword,
+                                             @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
+                                                                                         IOException
+  {
     return loadKeyStoreDirect (aKeyStoreType,
                                sKeyStorePath,
-                               sKeyStorePassword == null ? null : sKeyStorePassword.toCharArray ());
+                               sKeyStorePassword == null ? null : sKeyStorePassword.toCharArray (),
+                               aSecurityProvider);
   }
 
   /**
@@ -139,6 +185,40 @@ public final class KeyStoreHelper
                                              @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException,
                                                                                         IOException
   {
+    return loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, aKeyStorePassword, null);
+  }
+
+  /**
+   * Load a key store from a resource.
+   *
+   * @param aKeyStoreType
+   *        Type of key store. May not be <code>null</code>.
+   * @param sKeyStorePath
+   *        The path pointing to the key store. May only be <code>null</code>
+   *        for {@link EKeyStoreType#PKCS11} or other key store types that don't
+   *        require a path.
+   * @param aKeyStorePassword
+   *        The key store password. May be <code>null</code> to indicate that no
+   *        password is required.
+   * @param aSecurityProvider
+   *        The Security Provider to use. May be <code>null</code>.
+   * @return The Java key-store object.
+   * @see KeyStore#load(InputStream, char[])
+   * @throws GeneralSecurityException
+   *         In case of a key store error
+   * @throws IOException
+   *         In case key store loading fails
+   * @throws IllegalArgumentException
+   *         If the key store path is invalid
+   * @since 11.1.1
+   */
+  @Nonnull
+  public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
+                                             @Nullable final String sKeyStorePath,
+                                             @Nullable final char [] aKeyStorePassword,
+                                             @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
+                                                                                         IOException
+  {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
 
     final InputStream aIS;
@@ -163,7 +243,8 @@ public final class KeyStoreHelper
                       "' using type " +
                       aKeyStoreType.getID ());
 
-      final KeyStore aKeyStore = aKeyStoreType.getKeyStore ();
+      final KeyStore aKeyStore = aSecurityProvider != null ? aKeyStoreType.getKeyStore (aSecurityProvider)
+                                                           : aKeyStoreType.getKeyStore ();
       aKeyStore.load (aIS, aKeyStorePassword);
       return aKeyStore;
     }
@@ -201,13 +282,44 @@ public final class KeyStoreHelper
                                                         @Nullable final char [] aAliasPassword) throws GeneralSecurityException,
                                                                                                 IOException
   {
+    return createKeyStoreWithOnlyOneItem (aBaseKeyStore, sAliasToCopy, aAliasPassword, null);
+  }
+
+  /**
+   * Create a new key store based on an existing key store
+   *
+   * @param aBaseKeyStore
+   *        The source key store. May not be <code>null</code>
+   * @param sAliasToCopy
+   *        The name of the alias in the source key store that should be put in
+   *        the new key store
+   * @param aAliasPassword
+   *        The optional password to access the alias in the source key store.
+   *        If it is not <code>null</code> the same password will be used in the
+   *        created key store
+   * @param aSecurityProvider
+   *        The Security Provider to use. May be <code>null</code>.
+   * @return The created in-memory key store
+   * @throws GeneralSecurityException
+   *         In case of a key store error
+   * @throws IOException
+   *         In case key store loading fails
+   * @since 11.1.1
+   */
+  @Nonnull
+  public static KeyStore createKeyStoreWithOnlyOneItem (@Nonnull final KeyStore aBaseKeyStore,
+                                                        @Nonnull final String sAliasToCopy,
+                                                        @Nullable final char [] aAliasPassword,
+                                                        @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
+                                                                                                    IOException
+  {
     ValueEnforcer.notNull (aBaseKeyStore, "BaseKeyStore");
     ValueEnforcer.notNull (sAliasToCopy, "AliasToCopy");
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Create a new key store using type " + aBaseKeyStore.getType ());
 
-    final KeyStore aKeyStore = getSimiliarKeyStore (aBaseKeyStore);
+    final KeyStore aKeyStore = getSimiliarKeyStore (aBaseKeyStore, aSecurityProvider);
     // null stream means: create new key store
     aKeyStore.load (null, null);
 
@@ -245,6 +357,30 @@ public final class KeyStoreHelper
                                              @Nullable final String sKeyStorePath,
                                              @Nullable final String sKeyStorePassword)
   {
+    return loadKeyStore (aKeyStoreType, sKeyStorePath, sKeyStorePassword, null);
+  }
+
+  /**
+   * Load the provided key store in a safe manner.
+   *
+   * @param aKeyStoreType
+   *        Type of key store. May not be <code>null</code>.
+   * @param sKeyStorePath
+   *        Path to the key store. May not be <code>null</code> for all key
+   *        store types that require a path.
+   * @param sKeyStorePassword
+   *        Password for the key store. May not be <code>null</code> to succeed.
+   * @param aSecurityProvider
+   *        The Security Provider to use. May be <code>null</code>.
+   * @return The key store loading result. Never <code>null</code>.
+   * @since 11.1.1
+   */
+  @Nonnull
+  public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
+                                             @Nullable final String sKeyStorePath,
+                                             @Nullable final String sKeyStorePassword,
+                                             @Nullable final Provider aSecurityProvider)
+  {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
 
     // Get the parameters for the key store
@@ -255,7 +391,7 @@ public final class KeyStoreHelper
     // Try to load key store
     try
     {
-      aKeyStore = loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, sKeyStorePassword);
+      aKeyStore = loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, sKeyStorePassword, aSecurityProvider);
     }
     catch (final IllegalArgumentException ex)
     {
@@ -284,6 +420,7 @@ public final class KeyStoreHelper
                                  sKeyStorePath,
                                  ex.getMessage ());
     }
+
     // Finally success
     return new LoadedKeyStore (aKeyStore, null);
   }
@@ -306,7 +443,7 @@ public final class KeyStoreHelper
       return new LoadedKey <> (null, EKeyStoreLoadError.KEY_NO_PASSWORD, sKeyStoreKeyAlias, sKeyStorePath);
 
     // Try to load the key.
-    T aKeyEntry;
+    final T aKeyEntry;
     try
     {
       if (LOGGER.isDebugEnabled ())
@@ -349,6 +486,7 @@ public final class KeyStoreHelper
                                sKeyStorePath,
                                ex.getMessage ());
     }
+
     // Finally success
     return new LoadedKey <> (aKeyEntry, null);
   }
