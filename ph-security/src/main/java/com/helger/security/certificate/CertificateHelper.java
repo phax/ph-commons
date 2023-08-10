@@ -56,7 +56,10 @@ public final class CertificateHelper
 {
   public static final String BEGIN_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
   public static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
+
+  @Deprecated (forRemoval = true, since = "11.1.1")
   public static final String BEGIN_CERTIFICATE_INVALID = "-----BEGINCERTIFICATE-----";
+  @Deprecated (forRemoval = true, since = "11.1.1")
   public static final String END_CERTIFICATE_INVALID = "-----ENDCERTIFICATE-----";
 
   public static final String BEGIN_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----";
@@ -81,8 +84,33 @@ public final class CertificateHelper
     return CertificateFactory.getInstance ("X.509");
   }
 
+  /**
+   * Make sure, the provided String is surrounded by the PEM headers
+   * {@link #BEGIN_CERTIFICATE} and {@link #END_CERTIFICATE}
+   *
+   * @param sCertString
+   *        Certificate string to use.
+   * @return The String with the surrounding headers and footers
+   * @deprecated Use {@link #getCertificateWithPEMHeader(String)} instead
+   */
+  @Deprecated (forRemoval = true, since = "11.1.1")
   @Nonnull
   public static String getWithPEMHeader (@Nonnull final String sCertString)
+  {
+    return getCertificateWithPEMHeader (sCertString);
+  }
+
+  /**
+   * Make sure, the provided String is surrounded by the PEM headers
+   * {@link #BEGIN_CERTIFICATE} and {@link #END_CERTIFICATE}
+   *
+   * @param sCertString
+   *        Certificate string to use.
+   * @return The String with the surrounding headers and footers
+   * @since 11.1.1
+   */
+  @Nonnull
+  public static String getCertificateWithPEMHeader (@Nonnull final String sCertString)
   {
     String sRealCertString = sCertString;
     // Check without newline in case there are blanks between the string the
@@ -305,9 +333,35 @@ public final class CertificateHelper
    *         certificate.
    * @throws IllegalArgumentException
    *         If the input string is e.g. invalid Base64 encoded.
+   * @since 2.1.1
    */
   @Nullable
   public static X509Certificate convertStringToCertficate (@Nullable final String sCertString) throws CertificateException
+  {
+    return convertStringToCertficate (sCertString, false);
+  }
+
+  /**
+   * Convert the passed String to an X.509 certificate.
+   *
+   * @param sCertString
+   *        The original text string. May be <code>null</code> or empty. The
+   *        String must be ISO-8859-1 encoded for the binary certificate to be
+   *        read!
+   * @param bWithFallback
+   *        <code>true</code> to enable legacy fallback parsing
+   * @return <code>null</code> if the passed string is <code>null</code> or
+   *         empty
+   * @throws CertificateException
+   *         In case the passed string cannot be converted to an X.509
+   *         certificate.
+   * @throws IllegalArgumentException
+   *         If the input string is e.g. invalid Base64 encoded.
+   * @since 2.1.1
+   */
+  @Nullable
+  public static X509Certificate convertStringToCertficate (@Nullable final String sCertString,
+                                                           final boolean bWithFallback) throws CertificateException
   {
     if (StringHelper.hasNoText (sCertString))
     {
@@ -330,6 +384,9 @@ public final class CertificateHelper
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Failed to decode provided X.509 certificate string: " + sCertString);
 
+      if (!bWithFallback)
+        throw ex;
+
       String sHexDecodedString;
       try
       {
@@ -338,7 +395,7 @@ public final class CertificateHelper
       catch (final IllegalArgumentException ex2)
       {
         // Can happen, when the source string has an odd length (like 3 or 117).
-        // In this case the original exception is rethrown
+        // In this case the original exception is re-thrown
         throw ex;
       }
 
