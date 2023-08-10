@@ -307,6 +307,7 @@
             <exclude>**/IPrivilegedAction.class</exclude>
             <exclude>**/PropertiesHelper.class</exclude>
             <exclude>**/PBCProvider.class</exclude>
+            <exclude>**/KeyStoreHelper.class</exclude>
             <!-- java.security.provider extends java.util.properties -->
             <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
             <exclude>**/EMacAlgorithm.class</exclude>
