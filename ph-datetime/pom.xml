@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.1.2</version>
+    <version>11.1.3-SNAPSHOT</version>
   </parent>
   <artifactId>ph-datetime</artifactId>
   <packaging>bundle</packaging>
