@@ -50,12 +50,24 @@ public enum EKeyStoreType implements IKeyStoreType
    */
   PKCS12 ("PKCS12", true),
   /**
+   * The first "BKS" is a keystore that will work with the keytool in the same
+   * fashion as the Sun "JKS" keystore. The keystore is resistant to tampering
+   * but not inspection.<br>
+   * This keystore type requires the BouncyCastle Security Provider.
+   *
+   * @since 11.1.2
+   */
+  BKS ("BKS", true),
+  /**
    * The BCFKS key store is designed to be FIPS compliant. It is available in
    * approved-mode operation and is also capable of storing some secret key
    * types in addition to public/private keys and certificates. The BCFKS key
    * store uses PBKDF2 with HMAC SHA512 for password to key conversion and AES
    * CCM for encryption. Passwords are encoded for conversion into keys using
-   * PKCS#12 format (as in each 16 bit character is converted into 2 bytes).
+   * PKCS#12 format (as in each 16 bit character is converted into 2 bytes).<br>
+   * This keystore type requires the BouncyCastle FIPS Security Provider.
+   *
+   * @since 9.2.1
    */
   BCFKS ("BCFKS", true);
 

@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -50,7 +51,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.bc.PBCProvider;
+import com.helger.commons.CGlobal;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 
@@ -86,9 +89,9 @@ public final class KeyStoreHelperTest
     final X509CertificateHolder aCertHolder = new JcaX509v1CertificateBuilder (new X500Principal ("CN=Test Certificate"),
                                                                                BigInteger.valueOf (System.currentTimeMillis ()),
                                                                                new Date (System.currentTimeMillis () -
-                                                                                         50000),
+                                                                                         CGlobal.MILLISECONDS_PER_MINUTE),
                                                                                new Date (System.currentTimeMillis () +
-                                                                                         50000),
+                                                                                         CGlobal.MILLISECONDS_PER_MINUTE),
                                                                                new X500Principal ("CN=Test Certificate"),
                                                                                aPublicKey).build (aContentSigner);
     // Convert to JCA X509Certificate
@@ -327,5 +330,42 @@ public final class KeyStoreHelperTest
     final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
     assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
                   sSubjectName);
+  }
+
+  @Test
+  public void testCreateBKSKeyStore () throws Exception
+  {
+    final KeyStore aKS = EKeyStoreType.BKS.getKeyStore (PBCProvider.getProvider ());
+    assertNotNull (aKS);
+
+    aKS.load (null, null);
+
+    // Add key
+    final KeyPair aKeyPair = _createKeyPair (1024);
+    final Certificate [] certs = { _createX509V1Certificate (aKeyPair) };
+
+    aKS.setKeyEntry ("alias", aKeyPair.getPrivate (), "test".toCharArray (), certs);
+
+    try (OutputStream aOS = FileHelper.getOutputStream (new File ("target/test.bks")))
+    {
+      aKS.store (aOS, "test".toCharArray ());
+    }
+  }
+
+  @Test
+  public void testLoadBKSKeyStore () throws Exception
+  {
+    final LoadedKeyStore ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.BKS,
+                                                           "keystores/keystore-pw-test.bks",
+                                                           "test",
+                                                           PBCProvider.getProvider ());
+    assertNotNull (ks);
+    assertTrue (ks.isSuccess ());
+    assertNotNull (ks.getKeyStore ());
+    assertNull (ks.getError ());
+    assertEquals (1, CollectionHelper.getSize (ks.getKeyStore ().aliases ()));
+
+    final String sAlias = ks.getKeyStore ().aliases ().nextElement ();
+    assertEquals ("alias", sAlias);
   }
 }

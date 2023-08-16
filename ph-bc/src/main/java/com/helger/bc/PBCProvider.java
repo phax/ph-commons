@@ -38,6 +38,13 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class PBCProvider
 {
   /**
+   * Special provider name for the non-FIPS version of BouncyCastle. Certain
+   * APIs take the provider name instead of the object. The constant is here for
+   * the sake of completeness only.
+   */
+  public static final String PROVIDER_NAME_BC = BouncyCastleProvider.PROVIDER_NAME;
+
+  /**
    * Special provider name for the FIPS version of BouncyCastle. As there is no
    * Maven artefact, the constant is here for the sake of completeness only.
    */
@@ -46,28 +53,29 @@ public final class PBCProvider
   private static final Logger LOGGER = LoggerFactory.getLogger (PBCProvider.class);
 
   // Singleton instance
-  private static final Provider PROVIDER;
+  private static final Provider PROVIDER_BC;
 
   static
   {
-    Provider aProvider = Security.getProvider (BouncyCastleProvider.PROVIDER_NAME);
+    Provider aProvider = Security.getProvider (PROVIDER_NAME_BC);
     if (aProvider == null)
     {
       // Create and add a new one
       aProvider = new BouncyCastleProvider ();
       Security.addProvider (aProvider);
+      LOGGER.info ("Just added the BouncyCastleProvider to the list of Security providers");
     }
     else
     {
       // Check if existing one is from BC
       if (!(aProvider instanceof BouncyCastleProvider))
         LOGGER.warn ("Security provider '" +
-                     BouncyCastleProvider.PROVIDER_NAME +
+                     PROVIDER_NAME_BC +
                      "' is not of type org.bouncycastle.jce.provider.BouncyCastleProvider but it is a '" +
                      aProvider.getClass ().getName () +
                      "'");
     }
-    PROVIDER = aProvider;
+    PROVIDER_BC = aProvider;
   }
 
   @PresentForCodeCoverage
@@ -77,11 +85,12 @@ public final class PBCProvider
   {}
 
   /**
-   * @return The non-<code>null</code> BouncyCastleProvider instance
+   * @return The non-<code>null</code> BouncyCastleProvider instance. Never
+   *         <code>null</code>.
    */
   @Nonnull
   public static Provider getProvider ()
   {
-    return PROVIDER;
+    return PROVIDER_BC;
   }
 }
