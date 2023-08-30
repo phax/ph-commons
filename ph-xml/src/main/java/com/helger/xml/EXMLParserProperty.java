@@ -236,9 +236,13 @@ public enum EXMLParserProperty implements IHasName
    * application accepts documents that can conform to different schemas.</li>
    * </ul>
    */
-  JAXP_SCHEMA_SORUCE (EXMLParserPropertyType.GENERAL,
+  JAXP_SCHEMA_SOURCE (EXMLParserPropertyType.GENERAL,
                       "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                      Object.class);
+                      Object.class),
+  @Deprecated (forRemoval = true, since = "11.1.3")
+  JAXP_SCHEMA_SORUCE(EXMLParserPropertyType.GENERAL,
+                     "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                     Object.class);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (EXMLParserProperty.class);
 
