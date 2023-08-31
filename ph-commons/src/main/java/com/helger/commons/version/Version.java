@@ -39,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class Version implements IComparable <Version>
+public class Version implements IComparable <Version>
 {
   /** default version if nothing is specified. */
   public static final String DEFAULT_VERSION_STRING = "0";
@@ -140,30 +140,30 @@ public final class Version implements IComparable <Version>
   }
 
   @Nonnegative
-  public int getMajor ()
+  public final int getMajor ()
   {
     return m_nMajor;
   }
 
   @Nonnegative
-  public int getMinor ()
+  public final int getMinor ()
   {
     return m_nMinor;
   }
 
   @Nonnegative
-  public int getMicro ()
+  public final int getMicro ()
   {
     return m_nMicro;
   }
 
   @Nullable
-  public String getQualifier ()
+  public final String getQualifier ()
   {
     return m_sQualifier;
   }
 
-  public boolean hasQualifier ()
+  public final boolean hasQualifier ()
   {
     return StringHelper.hasText (m_sQualifier);
   }
