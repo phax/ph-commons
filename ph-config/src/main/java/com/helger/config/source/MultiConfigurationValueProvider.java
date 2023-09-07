@@ -228,7 +228,14 @@ public class MultiConfigurationValueProvider implements
     if (ret != null)
     {
       if (LOGGER.isTraceEnabled ())
-        LOGGER.trace ("Successfully resolved configuration value of key '" + sKey + "' to " + ret);
+        LOGGER.trace ("Successfully resolved configuration value of key '" +
+                      sKey +
+                      "' to '" +
+                      ret.getValue () +
+                      "' from " +
+                      ret.getConfigurationSource ().getSourceType () +
+                      " with prio " +
+                      ret.getConfigurationSource ().getPriority ());
     }
     else
     {
