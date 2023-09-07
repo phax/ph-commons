@@ -65,6 +65,9 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
   @Nullable
   public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
+    if (LOGGER.isTraceEnabled ())
+      LOGGER.trace ("Querying configuration property '" + sKey + "' as SystemProperty");
+
     // Uses PrivilegedAction internally
     final String sValue = SystemProperties.getPropertyValueOrNull (sKey);
     if (sValue == null)

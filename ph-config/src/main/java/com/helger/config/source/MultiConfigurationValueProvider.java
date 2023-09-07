@@ -227,8 +227,8 @@ public class MultiConfigurationValueProvider implements
 
     if (ret != null)
     {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Successfully resolved configuration value of key '" + sKey + "' to " + ret);
+      if (LOGGER.isTraceEnabled ())
+        LOGGER.trace ("Successfully resolved configuration value of key '" + sKey + "' to " + ret);
     }
     else
     {
