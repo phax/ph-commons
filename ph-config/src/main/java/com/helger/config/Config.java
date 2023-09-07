@@ -264,8 +264,8 @@ public class Config implements IConfig
     String sConfiguredValue = aCV.getValue ();
     if (m_bReplaceVariables && StringHelper.hasText (sConfiguredValue))
     {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Resolving variables in configuration value '" + sConfiguredValue + "'");
+      if (LOGGER.isTraceEnabled ())
+        LOGGER.trace ("Resolving variables in configuration value '" + sConfiguredValue + "'");
 
       try
       {
