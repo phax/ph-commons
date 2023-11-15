@@ -254,7 +254,7 @@ public final class CertificateHelper
       return null;
 
     // Certificate is always ISO-8859-1 encoded
-    return convertStringToCertficate (new String (aCertBytes, CERT_CHARSET));
+    return convertStringToCertficate (new String (aCertBytes, CERT_CHARSET), false);
   }
 
   /**
@@ -417,7 +417,7 @@ public final class CertificateHelper
   {
     try
     {
-      return convertStringToCertficate (sCertString);
+      return convertStringToCertficate (sCertString, false);
     }
     catch (final CertificateException | IllegalArgumentException ex)
     {
