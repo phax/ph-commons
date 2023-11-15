@@ -29,6 +29,7 @@ import com.helger.commons.collection.iterate.FilterIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.MapperIterator;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.traits.IGenericAdderTrait;
 import com.helger.commons.traits.IGetterByIndexTrait;
 import com.helger.commons.traits.IPrimitiveConverterTo;
@@ -38,12 +39,24 @@ import com.helger.commons.traits.IPrimitiveConverterTo;
  *
  * @author Philip Helger
  */
-public interface IJsonArray extends IJsonCollection, ICommonsIterable <IJson>, IGetterByIndexTrait, IGenericAdderTrait <IJson, IJsonArray>
+public interface IJsonArray extends
+                            IJsonCollection,
+                            ICommonsIterable <IJson>,
+                            IGetterByIndexTrait,
+                            IGenericAdderTrait <IJson, IJsonArray>
 {
   @Nonnull
   default IPrimitiveConverterTo <IJson> getPrimitiveConverterTo ()
   {
     return PrimitiveConvererToIJson.INSTANCE;
+  }
+
+  @Nonnull
+  default IJsonArray addIfNotEmpty (@Nullable final String sValue)
+  {
+    if (StringHelper.hasText (sValue))
+      add (sValue);
+    return thisAsT ();
   }
 
   @Nullable
