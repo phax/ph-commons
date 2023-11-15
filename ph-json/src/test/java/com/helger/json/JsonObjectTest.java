@@ -77,12 +77,15 @@ public final class JsonObjectTest
     assertNotNull (aObject.getAsArray ("key4"));
     assertNull (aObject.getAsObject ("key4"));
 
-    aObject.addJson ("key5", new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", BigDecimal.valueOf (12.34)));
+    aObject.addJson ("key5",
+                     new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", BigDecimal.valueOf (12.34)));
     assertTrue (aObject.containsValue (5));
     assertTrue (aObject.containsValue (3.1234));
     assertTrue (aObject.containsValue ("This is a string"));
     assertTrue (aObject.containsValue (new JsonArray ().add ("nested").add (0).add (BigDecimal.valueOf (12.34))));
-    assertTrue (aObject.containsValue (new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", BigDecimal.valueOf (12.34))));
+    assertTrue (aObject.containsValue (new JsonObject ().add ("n1", "nested")
+                                                        .add ("n2", 0)
+                                                        .add ("n3", BigDecimal.valueOf (12.34))));
     assertFalse (aObject.containsValue ((IJson) null));
     assertNull (aObject.getAsValue ("key5"));
     assertNull (aObject.getAsArray ("key5"));
@@ -94,6 +97,14 @@ public final class JsonObjectTest
 
     aObject.add ("key7", 1.2f);
     assertTrue (aObject.containsValue (1.2f));
+
+    assertFalse (aObject.containsKey ("key8"));
+    aObject.addIfNotEmpty ("key8", null);
+    assertFalse (aObject.containsKey ("key8"));
+    aObject.addIfNotEmpty ("key8", "");
+    assertFalse (aObject.containsKey ("key8"));
+    aObject.addIfNotEmpty ("key8", "something");
+    assertTrue (aObject.containsKey ("key8"));
   }
 
   @Test

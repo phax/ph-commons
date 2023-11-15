@@ -31,6 +31,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.json.convert.JsonConverter;
 
@@ -91,6 +92,16 @@ public interface IJsonObject extends
   }
 
   @Nonnull
+  default <T> IJsonObject addIf (@Nonnull final String sName,
+                                 @Nullable final T aValue,
+                                 @Nonnull final Predicate <? super T> aFilter)
+  {
+    if (aFilter.test (aValue))
+      add (sName, aValue);
+    return this;
+  }
+
+  @Nonnull
   default IJsonObject addIfNotNull (@Nonnull final String sName, @Nullable final Object aValue)
   {
     if (aValue != null)
@@ -99,12 +110,10 @@ public interface IJsonObject extends
   }
 
   @Nonnull
-  default <T> IJsonObject addIf (@Nonnull final String sName,
-                                 @Nullable final T aValue,
-                                 @Nonnull final Predicate <? super T> aFilter)
+  default IJsonObject addIfNotEmpty (@Nonnull final String sName, @Nullable final String sValue)
   {
-    if (aFilter.test (aValue))
-      add (sName, aValue);
+    if (StringHelper.hasText (sValue))
+      add (sName, sValue);
     return this;
   }
 

@@ -84,6 +84,14 @@ public final class JsonArrayTest
                                                   .add ("n2", 0)
                                                   .add ("n3", BigDecimal.valueOf (12.34))));
     assertFalse (aArray.contains ((IJson) null));
+
+    assertEquals (5, aArray.size ());
+    aArray.addIfNotEmpty (null);
+    assertEquals (5, aArray.size ());
+    aArray.addIfNotEmpty ("");
+    assertEquals (5, aArray.size ());
+    aArray.addIfNotEmpty ("bla");
+    assertEquals (6, aArray.size ());
   }
 
   @Test
