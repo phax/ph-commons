@@ -31,27 +31,27 @@ import com.helger.commons.string.StringParser;
 public enum EJavaVersion
 {
   UNKNOWN (),
-  JDK_1_1 (45.3, 46.0),
-  JDK_1_2 (46.0, 47.0),
-  JDK_1_3 (47.0, 48.0),
-  JDK_1_4 (48.0, 49.0),
-  JDK_1_5 (49.0, 50.0),
-  JDK_1_6 (50.0, 51.0),
-  JDK_1_7 (51.0, 52.0),
-  JDK_1_8 (52.0, 53.0),
-  JDK_9 (53.0, 54.0),
-  JDK_10 (54.0, 55.0),
-  JDK_11 (55.0, 56.0),
-  JDK_12 (56.0, 57.0),
-  JDK_13 (57.0, 58.0),
-  JDK_14 (58.0, 59.0),
-  JDK_15 (59.0, 60.0),
-  JDK_16 (60.0, 61.0),
-  JDK_17 (61.0, 62.0),
-  JDK_18 (62.0, 63.0),
-  JDK_19 (63.0, 64.0),
-  JDK_20 (64.0, 65.0),
-  JDK_21 (65.0, 66.0);
+  JDK_1_1 (45.3, 46.0, false),
+  JDK_1_2 (46.0, 47.0, false),
+  JDK_1_3 (47.0, 48.0, false),
+  JDK_1_4 (48.0, 49.0, false),
+  JDK_1_5 (49.0, 50.0, false),
+  JDK_1_6 (50.0, 51.0, false),
+  JDK_1_7 (51.0, 52.0, false),
+  JDK_1_8 (52.0, 53.0, true),
+  JDK_9 (53.0, 54.0, false),
+  JDK_10 (54.0, 55.0, false),
+  JDK_11 (55.0, 56.0, true),
+  JDK_12 (56.0, 57.0, false),
+  JDK_13 (57.0, 58.0, false),
+  JDK_14 (58.0, 59.0, false),
+  JDK_15 (59.0, 60.0, false),
+  JDK_16 (60.0, 61.0, false),
+  JDK_17 (61.0, 62.0, true),
+  JDK_18 (62.0, 63.0, false),
+  JDK_19 (63.0, 64.0, false),
+  JDK_20 (64.0, 65.0, false),
+  JDK_21 (65.0, 66.0, true);
 
   /** The current version. */
   private static final EJavaVersion INSTANCE;
@@ -70,6 +70,7 @@ public enum EJavaVersion
 
   private final double m_dMinVersionIncl;
   private final double m_dMaxVersionExcl;
+  private final boolean m_bLTS;
   private final boolean m_bIsIt;
 
   /**
@@ -79,6 +80,7 @@ public enum EJavaVersion
   {
     m_dMinVersionIncl = CGlobal.ILLEGAL_DOUBLE;
     m_dMaxVersionExcl = CGlobal.ILLEGAL_DOUBLE;
+    m_bLTS = false;
     m_bIsIt = EqualsHelper.equals (CGlobal.ILLEGAL_DOUBLE, JavaVersionHelper.JAVA_CLASS_VERSION);
   }
 
@@ -89,11 +91,17 @@ public enum EJavaVersion
    *        Minimum version (inclusive)
    * @param dMaxVersionExcl
    *        Maximum version (exclusive)
+   * @param bLTS
+   *        <code>true</code> if it is a "Long Term Support" (LTS) version,
+   *        <code>false</code> if not
    */
-  EJavaVersion (@Nonnegative final double dMinVersionIncl, @Nonnegative final double dMaxVersionExcl)
+  EJavaVersion (@Nonnegative final double dMinVersionIncl,
+                @Nonnegative final double dMaxVersionExcl,
+                final boolean bLTS)
   {
     m_dMinVersionIncl = dMinVersionIncl;
     m_dMaxVersionExcl = dMaxVersionExcl;
+    m_bLTS = bLTS;
     m_bIsIt = isMatchingVersion (JavaVersionHelper.JAVA_CLASS_VERSION);
   }
 
@@ -145,6 +153,15 @@ public enum EJavaVersion
   public boolean isNewerOrEqualsThan (@Nonnull final EJavaVersion eJavaVersion)
   {
     return m_dMinVersionIncl >= eJavaVersion.m_dMinVersionIncl;
+  }
+
+  /**
+   * @return <code>true</code> if it is a "Long Term Support" (LTS) version,
+   *         <code>false</code> if not
+   */
+  public boolean isLTS ()
+  {
+    return m_bLTS;
   }
 
   /**
