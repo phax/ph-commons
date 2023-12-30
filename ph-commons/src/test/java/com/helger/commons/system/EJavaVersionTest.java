@@ -68,7 +68,8 @@ public final class EJavaVersionTest
     assertEquals (EJavaVersion.JDK_18, EJavaVersion.getFromVersionNumber (62.0));
     assertEquals (EJavaVersion.JDK_19, EJavaVersion.getFromVersionNumber (63.0));
     assertEquals (EJavaVersion.JDK_20, EJavaVersion.getFromVersionNumber (64.0));
-    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (65.0));
+    assertEquals (EJavaVersion.JDK_21, EJavaVersion.getFromVersionNumber (65.0));
+    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (66.0));
 
     for (final EJavaVersion e : EJavaVersion.values ())
       if (e.isOlderOrEqualsThan (EJavaVersion.JDK_11))
@@ -113,6 +114,7 @@ public final class EJavaVersionTest
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_18));
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_19));
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_20));
+    assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_21));
   }
 
   @Test
@@ -138,5 +140,32 @@ public final class EJavaVersionTest
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_18));
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_19));
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_20));
+    assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_21));
+  }
+
+  @Test
+  public void testIsLTS ()
+  {
+    assertFalse (EJavaVersion.JDK_1_1.isLTS ());
+    assertFalse (EJavaVersion.JDK_1_2.isLTS ());
+    assertFalse (EJavaVersion.JDK_1_3.isLTS ());
+    assertFalse (EJavaVersion.JDK_1_4.isLTS ());
+    assertFalse (EJavaVersion.JDK_1_5.isLTS ());
+    assertFalse (EJavaVersion.JDK_1_6.isLTS ());
+    assertFalse (EJavaVersion.JDK_1_7.isLTS ());
+    assertTrue (EJavaVersion.JDK_1_8.isLTS ());
+    assertFalse (EJavaVersion.JDK_9.isLTS ());
+    assertFalse (EJavaVersion.JDK_10.isLTS ());
+    assertTrue (EJavaVersion.JDK_11.isLTS ());
+    assertFalse (EJavaVersion.JDK_12.isLTS ());
+    assertFalse (EJavaVersion.JDK_13.isLTS ());
+    assertFalse (EJavaVersion.JDK_14.isLTS ());
+    assertFalse (EJavaVersion.JDK_15.isLTS ());
+    assertFalse (EJavaVersion.JDK_16.isLTS ());
+    assertTrue (EJavaVersion.JDK_17.isLTS ());
+    assertFalse (EJavaVersion.JDK_18.isLTS ());
+    assertFalse (EJavaVersion.JDK_19.isLTS ());
+    assertFalse (EJavaVersion.JDK_20.isLTS ());
+    assertTrue (EJavaVersion.JDK_21.isLTS ());
   }
 }
