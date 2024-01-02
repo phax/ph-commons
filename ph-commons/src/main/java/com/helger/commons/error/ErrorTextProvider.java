@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
@@ -97,12 +98,26 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
    */
   public interface IFormattableItem
   {
+    /**
+     * @return the error field this is about. Never <code>null</code>.
+     */
     @Nonnull
     EField getField ();
 
+    /**
+     * @return The unformatted text. Never <code>null</code>.
+     */
     @Nonnull
     String getUnformattedText ();
 
+    /**
+     * Return a formatted version of {@link #getUnformattedText()} by replacing
+     * all {@link #PLACEHOLDER} chars with the provided replacement.
+     *
+     * @param sReplacement
+     *        The replacement string. Must not be <code>null</code>.
+     * @return The formatted text with the replacement applied.
+     */
     @Nonnull
     String getFormattedText (@Nonnull String sReplacement);
   }
@@ -112,7 +127,8 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
    *
    * @author Philip Helger
    */
-  public static final class FormattableItem implements IFormattableItem
+  @Immutable
+  public static class FormattableItem implements IFormattableItem
   {
     private final EField m_eField;
     private final String m_sText;
@@ -128,7 +144,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     }
 
     @Nonnull
-    public EField getField ()
+    public final EField getField ()
     {
       return m_eField;
     }
