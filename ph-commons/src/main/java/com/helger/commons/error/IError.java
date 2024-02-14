@@ -197,11 +197,31 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * @param aContentLocale
    *        Locale to resolve the error text
    * @return The default string representation
+   * @see ErrorTextProvider#DEFAULT
+   * @see #getAsStringLocaleIndepdent()
    */
   @Nonnull
   @Nonempty
   default String getAsString (@Nonnull final Locale aContentLocale)
   {
     return ErrorTextProvider.DEFAULT.getErrorText (this, aContentLocale);
+  }
+
+  /**
+   * Get the error as a string representation, including error ID, error
+   * location, error text and the linked exception.
+   *
+   * @param aContentLocale
+   *        Locale to resolve the error text
+   * @return The default string representation
+   * @see ErrorTextProvider#DEFAULT
+   * @see #getAsString(Locale)
+   * @since 11.1.4
+   */
+  @Nonnull
+  @Nonempty
+  default String getAsStringLocaleIndepdent ()
+  {
+    return getAsString (Locale.ROOT);
   }
 }
