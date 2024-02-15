@@ -211,9 +211,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * Get the error as a string representation, including error ID, error
    * location, error text and the linked exception.
    *
-   * @param aContentLocale
-   *        Locale to resolve the error text
-   * @return The default string representation
+   * @return The default string representation in the default locale.
    * @see ErrorTextProvider#DEFAULT
    * @see #getAsString(Locale)
    * @since 11.1.4

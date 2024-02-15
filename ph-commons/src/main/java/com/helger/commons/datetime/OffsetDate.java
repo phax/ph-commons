@@ -77,7 +77,6 @@ import com.helger.commons.hashcode.HashCodeGenerator;
  * <p>
  * This class must be treated as a value type. Do not synchronize, rely on the
  * identity hash code or use the distinction between equals() and ==.
- * <p>
  *
  * @since v10.0.0
  * @see XMLOffsetDate
