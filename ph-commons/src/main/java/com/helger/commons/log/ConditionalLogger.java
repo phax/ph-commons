@@ -37,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @since 11.0.4
  */
 @ThreadSafe
-public final class ConditionalLogger implements IEnabledIndicator
+public final class ConditionalLogger implements IConditionalLogger, IEnabledIndicator
 {
   private final Logger m_aLogger;
   private final AtomicBoolean m_aEnabled;
