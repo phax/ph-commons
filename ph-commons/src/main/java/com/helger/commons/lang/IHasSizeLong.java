@@ -19,17 +19,17 @@ package com.helger.commons.lang;
 import javax.annotation.Nonnegative;
 
 /**
- * Base interface for all objects having a certain size with int precision.
+ * Base interface for all objects having a certain size with long precision.
  *
  * @author Philip Helger
  */
-public interface IHasSize
+public interface IHasSizeLong
 {
   /**
    * @return The number of contained elements. Always &ge; 0.
    */
   @Nonnegative
-  int size ();
+  long size ();
 
   /**
    * @return <code>true</code> if no items are present, <code>false</code> if at
