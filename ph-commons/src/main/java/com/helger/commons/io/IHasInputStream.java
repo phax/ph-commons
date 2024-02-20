@@ -16,10 +16,14 @@
  */
 package com.helger.commons.io;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.function.Function;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.StreamHelper;
 
 /**
@@ -49,8 +53,57 @@ public interface IHasInputStream
   @Nullable
   default InputStream getBufferedInputStream ()
   {
-    final InputStream aIS = getInputStream ();
-    return aIS == null ? null : StreamHelper.getBuffered (aIS);
+    return StreamHelper.getBuffered (getInputStream ());
+  }
+
+  /**
+   * Perform something with the {@link InputStream} of this object and making
+   * sure, that it gets closed correctly afterwards.
+   *
+   * @param <T>
+   *        The result type of handling the {@link InputStream}
+   * @param aFunc
+   *        The function to be invoked to read from the {@link InputStream}.
+   *        This function needs to be able to deal with a
+   *        <code>null</code>-parameter.
+   * @return The result of the function. May be <code>null</code>.
+   * @throws IOException
+   *         In case reading from the InputStream fails
+   * @since 11.1.5
+   */
+  @Nullable
+  default <T> T withInputStreamDo (@Nonnull final Function <InputStream, T> aFunc) throws IOException
+  {
+    ValueEnforcer.notNull (aFunc, "Func");
+    try (final InputStream aIS = getInputStream ())
+    {
+      return aFunc.apply (aIS);
+    }
+  }
+
+  /**
+   * Perform something with the buffered {@link InputStream} of this object and
+   * making sure, that it gets closed correctly afterwards.
+   *
+   * @param <T>
+   *        The result type of handling the buffered {@link InputStream}
+   * @param aFunc
+   *        The function to be invoked to read from the buffered
+   *        {@link InputStream}. This function needs to be able to deal with a
+   *        <code>null</code>-parameter.
+   * @return The result of the function. May be <code>null</code>.
+   * @throws IOException
+   *         In case reading from the InputStream fails
+   * @since 11.1.5
+   */
+  @Nullable
+  default <T> T withBufferedInputStreamDo (@Nonnull final Function <InputStream, T> aFunc) throws IOException
+  {
+    ValueEnforcer.notNull (aFunc, "Func");
+    try (final InputStream aIS = getBufferedInputStream ())
+    {
+      return aFunc.apply (aIS);
+    }
   }
 
   /**

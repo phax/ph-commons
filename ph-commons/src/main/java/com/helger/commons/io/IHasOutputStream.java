@@ -54,8 +54,7 @@ public interface IHasOutputStream
   @Nullable
   default OutputStream getBufferedOutputStream (@Nonnull final EAppend eAppend)
   {
-    final OutputStream aOS = getOutputStream (eAppend);
-    return aOS == null ? null : StreamHelper.getBuffered (aOS);
+    return StreamHelper.getBuffered (getOutputStream (eAppend));
   }
 
   /**
