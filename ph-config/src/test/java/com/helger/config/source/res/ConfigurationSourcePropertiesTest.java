@@ -53,6 +53,8 @@ public final class ConfigurationSourcePropertiesTest
     assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
     assertNull (c.getConfigurationValue ("what a mess"));
     assertEquals ("true", c.getConfigurationValue ("element99").getValue ());
+    assertEquals ("mixed # EOL", c.getConfigurationValue ("element_ws").getValue ());
+    assertEquals ("multiline", c.getConfigurationValue ("element_ml").getValue ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceProperties (RES));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
