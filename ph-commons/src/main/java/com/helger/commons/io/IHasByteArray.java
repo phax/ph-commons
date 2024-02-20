@@ -79,6 +79,18 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   byte [] bytes ();
 
   /**
+   * @return <code>true</code> if this object deals with a partial array that
+   *         either has an offset or which is not completely used. Based on this
+   *         method, some performance optimizations might be used to avoid
+   *         copying data.
+   * @since 11.1.5
+   */
+  default boolean isPartialArray ()
+  {
+    return hasOffset () || bytes ().length != size ();
+  }
+
+  /**
    * @return The offset into the byte array to start reading. This is always 0
    *         when copied. Must be ge; 0.
    * @see #bytes()
@@ -147,8 +159,8 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   /**
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
-   * @return The byte array converted to a String, honouring
-   *         {@link #getOffset()} and {@link #size()}.
+   * @return The byte array converted to a String, honoring {@link #getOffset()}
+   *         and {@link #size()}.
    * @since 10.1.3
    */
   @Nonnull
