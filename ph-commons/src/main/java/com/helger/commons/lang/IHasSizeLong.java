@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
  * Base interface for all objects having a certain size with long precision.
  *
  * @author Philip Helger
+ * @since 11.1.5
  */
 public interface IHasSizeLong
 {
