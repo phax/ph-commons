@@ -72,7 +72,8 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
       final String sResourceName = toResourceName (sBundleName, sFormat);
       final URL aResourceUrl = ClassLoaderHelper.getResource (aClassLoader, sResourceName);
       if (aResourceUrl != null)
-        try (final InputStream aIS = StreamHelper.getBuffered (URLResource.getInputStream (aResourceUrl)))
+        try (final InputStream aSrcIS = URLResource.getInputStream (aResourceUrl);
+             final InputStream aIS = StreamHelper.getBuffered (aSrcIS))
         {
           return new XMLResourceBundle (aIS);
         }
