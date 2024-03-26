@@ -17,6 +17,7 @@
 package com.helger.commons.collection.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -48,6 +49,17 @@ public final class CommonsArrayListTest
   }
 
   @Test
+  public void testGetFirstAndLast ()
+  {
+    final ICommonsList <String> aTest = new CommonsArrayList <> ();
+    assertTrue (aTest.isEmpty ());
+    assertNull (aTest.getFirst ());
+    assertNull (aTest.getLast ());
+    assertNull (aTest.removeFirst ());
+    assertNull (aTest.removeLast ());
+  }
+
+  @Test
   public void testCtor ()
   {
     CommonsArrayList <String> aTest = new CommonsArrayList <> ();
@@ -68,7 +80,8 @@ public final class CommonsArrayListTest
     aTest = new CommonsArrayList <> ((Iterable <String>) new CommonsArrayList <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsArrayList <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)), x -> x.toString ());
+    aTest = new CommonsArrayList <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)),
+                                     x -> x.toString ());
     assertEquals (2, aTest.size ());
 
     aTest = new CommonsArrayList <> ((Iterable <Integer>) new CommonsArrayList <> (Integer.valueOf (1),
