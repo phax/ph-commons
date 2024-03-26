@@ -34,9 +34,6 @@ jobs:
     strategy:
       matrix:
         java: [ '11', '17', '21' ]
-        include:
-          - java: '11'
-          - deploy: true
     name: Java ${{ matrix.Java }} build
 
     steps:
@@ -59,7 +56,6 @@ jobs:
           ${{ runner.os }}-maven-
 
     - name: Build and deploy with Maven
-      if: ${{ matrix.deploy }}
       run: mvn --batch-mode --update-snapshots deploy
       env:
         MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
