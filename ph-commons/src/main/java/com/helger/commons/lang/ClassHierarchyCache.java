@@ -66,7 +66,7 @@ public final class ClassHierarchyCache
       aOpenSrc.add (aClass);
       while (!aOpenSrc.isEmpty ())
       {
-        final Class <?> aCurClass = aOpenSrc.removeFirst ();
+        final Class <?> aCurClass = aOpenSrc.removeFirstOrNull ();
         aUniqueOrderedClasses.add (aCurClass);
 
         // Add super-classes and interfaces

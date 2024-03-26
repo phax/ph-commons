@@ -542,7 +542,7 @@ public class HttpHeaderMap implements
     {
       final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
-        return aValues.getFirst ();
+        return aValues.getFirstOrNull ();
     }
     return null;
   }
@@ -651,7 +651,8 @@ public class HttpHeaderMap implements
    * @see #getUnifiedValue(String,boolean)
    * @since 9.3.6
    */
-  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer, final boolean bUnifyValue)
+  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer,
+                                   final boolean bUnifyValue)
   {
     forEachSingleHeader (aConsumer, bUnifyValue, DEFAULT_QUOTE_IF_NECESSARY);
   }
@@ -726,7 +727,9 @@ public class HttpHeaderMap implements
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
       {
-        final String sHeaderLine = sKey + SEPARATOR_KEY_VALUE + (bUnifyValue ? getUnifiedValue (sValue, bQuoteIfNecessary) : sValue);
+        final String sHeaderLine = sKey +
+                                   SEPARATOR_KEY_VALUE +
+                                   (bUnifyValue ? getUnifiedValue (sValue, bQuoteIfNecessary) : sValue);
         aConsumer.accept (sHeaderLine);
       }
     }

@@ -147,7 +147,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
       throw new NoSuchElementException ();
 
     // Get and remove the first element
-    final File aFile = m_aFilesLeft.removeFirst ();
+    final File aFile = m_aFilesLeft.removeFirstOrNull ();
 
     m_nLevel = _getLevel (aFile) - m_nStartLevel;
     if (aFile.isDirectory ())

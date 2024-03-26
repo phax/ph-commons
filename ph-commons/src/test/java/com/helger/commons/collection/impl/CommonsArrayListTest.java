@@ -53,10 +53,10 @@ public final class CommonsArrayListTest
   {
     final ICommonsList <String> aTest = new CommonsArrayList <> ();
     assertTrue (aTest.isEmpty ());
-    assertNull (aTest.getFirst ());
-    assertNull (aTest.getLast ());
-    assertNull (aTest.removeFirst ());
-    assertNull (aTest.removeLast ());
+    assertNull (aTest.getFirstOrNull ());
+    assertNull (aTest.getLastOrNull ());
+    assertNull (aTest.removeFirstOrNull ());
+    assertNull (aTest.removeLastOrNull ());
   }
 
   @Test

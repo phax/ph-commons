@@ -77,7 +77,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected final void onInsertBefore (@Nonnull final AbstractMicroNode aChildNode, @Nonnull final IMicroNode aSuccessor)
+  protected final void onInsertBefore (@Nonnull final AbstractMicroNode aChildNode,
+                                       @Nonnull final IMicroNode aSuccessor)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to nodes");
@@ -91,7 +92,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected final void onInsertAfter (@Nonnull final AbstractMicroNode aChildNode, @Nonnull final IMicroNode aPredecessor)
+  protected final void onInsertAfter (@Nonnull final AbstractMicroNode aChildNode,
+                                      @Nonnull final IMicroNode aPredecessor)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to nodes");
@@ -258,7 +260,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public final IMicroNode getFirstChild ()
   {
-    return m_aChildren == null ? null : m_aChildren.getFirst ();
+    return m_aChildren == null ? null : m_aChildren.getFirstOrNull ();
   }
 
   @Override
@@ -280,7 +282,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public final IMicroNode getLastChild ()
   {
-    return m_aChildren == null ? null : m_aChildren.getLast ();
+    return m_aChildren == null ? null : m_aChildren.getLastOrNull ();
   }
 
   @Nullable

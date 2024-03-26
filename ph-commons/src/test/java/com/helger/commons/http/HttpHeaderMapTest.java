@@ -64,10 +64,10 @@ public final class HttpHeaderMapTest
     assertEquals (1, h.size ());
     assertNotNull (h.getAllHeaderLines (true));
     assertEquals (1, h.getAllHeaderLines (true).size ());
-    assertEquals ("key1: val1", h.getAllHeaderLines (true).getFirst ());
+    assertEquals ("key1: val1", h.getAllHeaderLines (true).getFirstOrNull ());
     assertNotNull (h.getAllHeaderLines (false));
     assertEquals (1, h.getAllHeaderLines (false).size ());
-    assertEquals ("key1: val1", h.getAllHeaderLines (false).getFirst ());
+    assertEquals ("key1: val1", h.getAllHeaderLines (false).getFirstOrNull ());
     assertNotNull (h.getAllHeaderNames ());
     assertEquals (1, h.getAllHeaderNames ().size ());
     assertEquals ("key1", h.getAllHeaderNames ().getFirst ());
@@ -76,7 +76,7 @@ public final class HttpHeaderMapTest
     assertEquals ("key1", h.getAllHeaders ().getFirstKey ());
     assertNotNull (h.getAllHeaderValues ("key1"));
     assertEquals (1, h.getAllHeaderValues ("key1").size ());
-    assertEquals ("val1", h.getAllHeaderValues ("key1").getFirst ());
+    assertEquals ("val1", h.getAllHeaderValues ("key1").getFirstOrNull ());
 
     CommonsTestHelper.testGetClone (h);
   }
@@ -93,12 +93,12 @@ public final class HttpHeaderMapTest
     assertEquals (3, h.size ());
     assertNotNull (h.getAllHeaderLines (true));
     assertEquals (3, h.getAllHeaderLines (true).size ());
-    assertEquals ("key1: val1", h.getAllHeaderLines (true).getFirst ());
+    assertEquals ("key1: val1", h.getAllHeaderLines (true).getFirstOrNull ());
     assertEquals ("key2: val2", h.getAllHeaderLines (true).get (1));
     assertEquals ("key3: val3", h.getAllHeaderLines (true).get (2));
     assertNotNull (h.getAllHeaderLines (false));
     assertEquals (3, h.getAllHeaderLines (false).size ());
-    assertEquals ("key1: val1", h.getAllHeaderLines (false).getFirst ());
+    assertEquals ("key1: val1", h.getAllHeaderLines (false).getFirstOrNull ());
     assertEquals ("key2: val2", h.getAllHeaderLines (false).get (1));
     assertEquals ("key3: val3", h.getAllHeaderLines (false).get (2));
     assertNotNull (h.getAllHeaderNames ());
@@ -114,17 +114,17 @@ public final class HttpHeaderMapTest
 
     assertNotNull (h.getAllHeaderValues ("key1"));
     assertEquals (1, h.getAllHeaderValues ("key1").size ());
-    assertEquals ("val1", h.getAllHeaderValues ("key1").getFirst ());
+    assertEquals ("val1", h.getAllHeaderValues ("key1").getFirstOrNull ());
     assertNotNull (h.getAllHeaderValues ("key2"));
     assertEquals (1, h.getAllHeaderValues ("key2").size ());
-    assertEquals ("val2", h.getAllHeaderValues ("key2").getFirst ());
+    assertEquals ("val2", h.getAllHeaderValues ("key2").getFirstOrNull ());
     assertNotNull (h.getAllHeaderValues ("key3"));
     assertEquals (1, h.getAllHeaderValues ("key3").size ());
-    assertEquals ("val3", h.getAllHeaderValues ("key3").getFirst ());
+    assertEquals ("val3", h.getAllHeaderValues ("key3").getFirstOrNull ());
 
     assertNotNull (h.getAllHeaderValues ("KEY1"));
     assertEquals (1, h.getAllHeaderValues ("kEy1").size ());
-    assertEquals ("val1", h.getAllHeaderValues ("keY1").getFirst ());
+    assertEquals ("val1", h.getAllHeaderValues ("keY1").getFirstOrNull ());
 
     CommonsTestHelper.testGetClone (h);
   }
@@ -141,12 +141,12 @@ public final class HttpHeaderMapTest
     assertEquals (1, h.size ());
     assertNotNull (h.getAllHeaderLines (true));
     assertEquals (3, h.getAllHeaderLines (true).size ());
-    assertEquals ("key1: val1", h.getAllHeaderLines (true).getFirst ());
+    assertEquals ("key1: val1", h.getAllHeaderLines (true).getFirstOrNull ());
     assertEquals ("key1: val2", h.getAllHeaderLines (true).get (1));
     assertEquals ("key1: val3", h.getAllHeaderLines (true).get (2));
     assertNotNull (h.getAllHeaderLines (false));
     assertEquals (3, h.getAllHeaderLines (false).size ());
-    assertEquals ("key1: val1", h.getAllHeaderLines (false).getFirst ());
+    assertEquals ("key1: val1", h.getAllHeaderLines (false).getFirstOrNull ());
     assertEquals ("key1: val2", h.getAllHeaderLines (false).get (1));
     assertEquals ("key1: val3", h.getAllHeaderLines (false).get (2));
     assertNotNull (h.getAllHeaderNames ());
@@ -157,7 +157,7 @@ public final class HttpHeaderMapTest
     assertEquals ("key1", h.getAllHeaders ().getFirstKey ());
     assertNotNull (h.getAllHeaderValues ("key1"));
     assertEquals (3, h.getAllHeaderValues ("key1").size ());
-    assertEquals ("val1", h.getAllHeaderValues ("key1").getFirst ());
+    assertEquals ("val1", h.getAllHeaderValues ("key1").getFirstOrNull ());
     assertEquals ("val2", h.getAllHeaderValues ("key1").get (1));
     assertEquals ("val3", h.getAllHeaderValues ("key1").get (2));
 

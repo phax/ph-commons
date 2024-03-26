@@ -364,7 +364,7 @@ public final class DOMReaderTest
     // Expected
     assertEquals (1, aCEH.getErrorList ().size ());
     assertTrue (aCEH.getErrorList ()
-                    .getFirst ()
+                    .getFirstOrNull ()
                     .getErrorText (Locale.ROOT)
                     .contains ("http://apache.org/xml/features/disallow-doctype-decl"));
   }
@@ -414,7 +414,7 @@ public final class DOMReaderTest
     assertNull (DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>", aDRS.getClone ().setErrorHandler (aCEH)));
     assertEquals (1, aCEH.getErrorList ().size ());
     assertTrue (aCEH.getErrorList ()
-                    .getFirst ()
+                    .getFirstOrNull ()
                     .getErrorText (Locale.ROOT)
                     .contains (Integer.toString (XMLSystemProperties.getXMLEntityExpansionLimit ())));
 

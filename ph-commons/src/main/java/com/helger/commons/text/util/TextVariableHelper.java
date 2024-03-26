@@ -194,7 +194,7 @@ public final class TextVariableHelper
         if ((ret.size () % 2) == 1)
         {
           // Append to last text block
-          ret.setLast (ret.getLast () + sRestToAdd);
+          ret.setLast (ret.getLastOrNull () + sRestToAdd);
         }
         else
         {

@@ -57,7 +57,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *        tree item implementation type
  */
 @NotThreadSafe
-public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> implements
+public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                 implements
                                  ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   // item factory
@@ -95,7 +96,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aDataID
    *        The data ID to use for the root item. May be <code>null</code>.
    */
-  public BasicTreeItemWithID (@Nonnull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory, @Nullable final KEYTYPE aDataID)
+  public BasicTreeItemWithID (@Nonnull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory,
+                              @Nullable final KEYTYPE aDataID)
   {
     m_aFactory = ValueEnforcer.notNull (aFactory, "Factory");
     m_aDataID = aDataID;
@@ -292,7 +294,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   @Nullable
   public final ITEMTYPE getFirstChild ()
   {
-    return m_aChildren == null ? null : m_aChildren.getFirst ();
+    return m_aChildren == null ? null : m_aChildren.getFirstOrNull ();
   }
 
   @Override
@@ -314,7 +316,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   @Nullable
   public final ITEMTYPE getLastChild ()
   {
-    return m_aChildren == null ? null : m_aChildren.getLast ();
+    return m_aChildren == null ? null : m_aChildren.getLastOrNull ();
   }
 
   public final void setData (@Nullable final DATATYPE aData)
@@ -331,7 +333,9 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   @Nullable
-  public final ITEMTYPE createChildItem (@Nullable final KEYTYPE aDataID, @Nullable final DATATYPE aData, final boolean bAllowOverwrite)
+  public final ITEMTYPE createChildItem (@Nullable final KEYTYPE aDataID,
+                                         @Nullable final DATATYPE aData,
+                                         final boolean bAllowOverwrite)
   {
     if (!isValidDataID (aDataID))
       throw new IllegalArgumentException ("Illegal data ID provided");
@@ -415,7 +419,9 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   @Nonnull
-  public final EChange internalAddChild (@Nonnull final KEYTYPE aDataID, @Nonnull final ITEMTYPE aChild, final boolean bAllowOverwrite)
+  public final EChange internalAddChild (@Nonnull final KEYTYPE aDataID,
+                                         @Nonnull final ITEMTYPE aChild,
+                                         final boolean bAllowOverwrite)
   {
     ValueEnforcer.notNull (aChild, "Child");
 

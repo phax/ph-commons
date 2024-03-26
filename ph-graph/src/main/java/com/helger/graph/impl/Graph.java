@@ -148,7 +148,8 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
   }
 
   @Nonnull
-  public IMutableGraphRelation createRelation (@Nonnull final IMutableGraphNode aFrom, @Nonnull final IMutableGraphNode aTo)
+  public IMutableGraphRelation createRelation (@Nonnull final IMutableGraphNode aFrom,
+                                               @Nonnull final IMutableGraphNode aTo)
   {
     return _connect (m_aFactory.createRelation (aFrom, aTo));
   }
@@ -234,7 +235,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
       while (aAllNodes.isNotEmpty ())
       {
         // Iterate from the first node
-        final GraphIterator it = new GraphIterator (aAllNodes.removeFirst ());
+        final GraphIterator it = new GraphIterator (aAllNodes.removeFirstOrNull ());
         if (it.hasCycles ())
         {
           m_eCacheHasCycles = ETriState.TRUE;

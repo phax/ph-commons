@@ -212,7 +212,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     public void addNamespaceMapping (@Nullable final String sPrefix, @Nonnull @Nonempty final String sNamespaceURI)
     {
       // Add the namespace to the current level
-      m_aStack.getFirst ().addPrefixNamespaceMapping (sPrefix, sNamespaceURI);
+      m_aStack.getFirstOrNull ().addPrefixNamespaceMapping (sPrefix, sNamespaceURI);
     }
 
     /**
@@ -221,7 +221,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     public void pop ()
     {
       // remove at front
-      m_aStack.removeFirst ();
+      m_aStack.removeFirstOrNull ();
     }
 
     @Nonnegative

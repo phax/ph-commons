@@ -143,7 +143,7 @@ public final class ServiceLoaderHelper
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
     final ICommonsList <T> ret = new CommonsArrayList <> ();
 
-    for (T aInstance : aServiceLoader)
+    for (final T aInstance : aServiceLoader)
     {
       try
       {
@@ -259,6 +259,6 @@ public final class ServiceLoaderHelper
                         " - using the first one. Details: " +
                         aAll);
     }
-    return aAll.getFirst ();
+    return aAll.getFirstOrNull ();
   }
 }

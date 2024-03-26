@@ -93,7 +93,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   {
     if (isEmpty ())
       throw new EmptyStackException ();
-    return removeLast ();
+    return removeLastOrNull ();
   }
 
   /**
@@ -109,7 +109,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   {
     if (isEmpty ())
       throw new EmptyStackException ();
-    return getLast ();
+    return getLastOrNull ();
   }
 
   /**
@@ -138,7 +138,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   {
     if (isEmpty ())
       throw new EmptyStackException ();
-    return getFirst ();
+    return getFirstOrNull ();
   }
 
   /**

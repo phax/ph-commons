@@ -106,14 +106,14 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
   public String getValue (@Nonnull final IOptionBase aOption)
   {
     final ICommonsList <String> aValues = _find (aOption);
-    return aValues == null ? null : aValues.getFirst ();
+    return aValues == null ? null : aValues.getFirstOrNull ();
   }
 
   @Nullable
   public String getValue (@Nullable final String sOption)
   {
     final ICommonsList <String> aValues = _find (sOption);
-    return aValues == null ? null : aValues.getFirst ();
+    return aValues == null ? null : aValues.getFirstOrNull ();
   }
 
   @Nullable
@@ -142,6 +142,8 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Params", m_aParams).append ("UnknownTokens", m_aUnknownTokens).getToString ();
+    return new ToStringGenerator (null).append ("Params", m_aParams)
+                                       .append ("UnknownTokens", m_aUnknownTokens)
+                                       .getToString ();
   }
 }

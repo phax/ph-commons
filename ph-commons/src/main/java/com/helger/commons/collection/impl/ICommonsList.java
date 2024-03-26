@@ -149,13 +149,31 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
+   * Note: this methods conflicts with a method added in Java SE 21 in class
+   * ArrayList. Therefore {@link #getFirstOrNull()} should be used instead.
+   *
    * @return The first element of the list or <code>null</code> if the list is
    *         empty.
    * @see #getFirst(Object)
    * @see #findFirst(Predicate)
+   * @deprecated Use {@link #getFirstOrNull()} instead
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "11.1.5")
   default ELEMENTTYPE getFirst ()
+  {
+    return getFirst (null);
+  }
+
+  /**
+   * @return The first element of the list or <code>null</code> if the list is
+   *         empty.
+   * @see #getFirst(Object)
+   * @see #findFirst(Predicate)
+   * @since 11.1.5
+   */
+  @Nullable
+  default ELEMENTTYPE getFirstOrNull ()
   {
     return getFirst (null);
   }
@@ -166,7 +184,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *        <code>null</code>.
    * @return The first element of the list or the provided default value if the
    *         list is empty.
-   * @see #getFirst()
+   * @see #getFirstOrNull()
    * @see #findFirst(Predicate)
    */
   @Nullable
@@ -176,12 +194,29 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
+   * Note: this methods conflicts with a method added in Java SE 21 in class
+   * ArrayList. Therefore {@link #getLastOrNull()} should be used instead.
+   *
    * @return The last element of the list or <code>null</code> if the list is
    *         empty.
    * @see #getLast(Object)
+   * @deprecated Use {@link #getLastOrNull()} instead
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "11.1.5")
   default ELEMENTTYPE getLast ()
+  {
+    return getLast (null);
+  }
+
+  /**
+   * @return The last element of the list or <code>null</code> if the list is
+   *         empty.
+   * @see #getLast(Object)
+   * @since 11.1.5
+   */
+  @Nullable
+  default ELEMENTTYPE getLastOrNull ()
   {
     return getLast (null);
   }
@@ -192,7 +227,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *        <code>null</code>.
    * @return The last element of the list or <code>null</code> if the list is
    *         empty.
-   * @see #getLast()
+   * @see #getLastOrNull()
    */
   @Nullable
   default ELEMENTTYPE getLast (@Nullable final ELEMENTTYPE aDefault)
@@ -277,15 +312,47 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
+   * Remove the first element of the list.<br>
+   * Note: this methods conflicts with a method added in Java SE 21 in class
+   * ArrayList. Therefore {@link #removeFirstOrNull()} should be used instead.
+   *
+   * @return <code>null</code> if the list is empty or the previously contained
+   *         element at index 0.
+   * @deprecated Use {@link #removeFirstOrNull()} instead
+   */
+  @Nullable
+  @Deprecated (forRemoval = true, since = "11.1.5")
+  default ELEMENTTYPE removeFirst ()
+  {
+    return removeFirstOrNull ();
+  }
+
+  /**
    * Remove the first element of the list.
    *
    * @return <code>null</code> if the list is empty or the previously contained
    *         element at index 0.
+   * @since 11.1.5
    */
   @Nullable
-  default ELEMENTTYPE removeFirst ()
+  default ELEMENTTYPE removeFirstOrNull ()
   {
     return isEmpty () ? null : remove (0);
+  }
+
+  /**
+   * Remove the last element of the list.<br>
+   * Note: this methods conflicts with a method added in Java SE 21 in class
+   * ArrayList. Therefore {@link #removeLastOrNull()} should be used instead.
+   *
+   * @return <code>null</code> if the list is empty or the previously contained
+   *         element at index <code>size()-1</code>.
+   */
+  @Nullable
+  @Deprecated (forRemoval = true, since = "11.1.5")
+  default ELEMENTTYPE removeLast ()
+  {
+    return removeLastOrNull ();
   }
 
   /**
@@ -293,9 +360,10 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *
    * @return <code>null</code> if the list is empty or the previously contained
    *         element at index <code>size()-1</code>.
+   * @since 11.1.5
    */
   @Nullable
-  default ELEMENTTYPE removeLast ()
+  default ELEMENTTYPE removeLastOrNull ()
   {
     final int nSize = size ();
     return nSize == 0 ? null : remove (nSize - 1);

@@ -214,7 +214,7 @@ public final class PDTDisplayHelper
         aSB.append (aTextProvider.getComma ());
       aSB.append (aParts.get (i));
     }
-    return aSB.append (aTextProvider.getAnd ()).append (aParts.getLast ()).toString ();
+    return aSB.append (aTextProvider.getAnd ()).append (aParts.getLastOrNull ()).toString ();
   }
 
   @Nonnull

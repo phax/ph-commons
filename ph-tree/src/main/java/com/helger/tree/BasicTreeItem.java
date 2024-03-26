@@ -51,7 +51,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *        tree item implementation type
  */
 @NotThreadSafe
-public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> implements ITreeItem <DATATYPE, ITEMTYPE>
+public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> implements
+                           ITreeItem <DATATYPE, ITEMTYPE>
 {
   // item factory
   private final ITreeItemFactory <DATATYPE, ITEMTYPE> m_aFactory;
@@ -259,7 +260,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   @Nullable
   public final ITEMTYPE getFirstChild ()
   {
-    return m_aChildren == null ? null : m_aChildren.getFirst ();
+    return m_aChildren == null ? null : m_aChildren.getFirstOrNull ();
   }
 
   @Override
@@ -281,7 +282,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   @Nullable
   public final ITEMTYPE getLastChild ()
   {
-    return m_aChildren == null ? null : m_aChildren.getLast ();
+    return m_aChildren == null ? null : m_aChildren.getLastOrNull ();
   }
 
   @SuppressFBWarnings ("IL_INFINITE_LOOP")

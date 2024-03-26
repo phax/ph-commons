@@ -250,7 +250,7 @@ public final class JAXBMarshallerHelperTest
       assertTrue (aEL.containsAtLeastOneFailure ());
       assertEquals (1, aEL.getErrorCount ());
 
-      final String sError = aEL.getAllErrors ().getFirst ().getErrorText (Locale.ROOT);
+      final String sError = aEL.getAllErrors ().getFirstOrNull ().getErrorText (Locale.ROOT);
       assertTrue (sError, sError.contains ("'{Collection}'"));
     }
   }
