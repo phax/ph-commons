@@ -51,14 +51,17 @@
   </developers>
   
   <dependencies>
+    <!-- We need jsr305 and not annotations because SuppressFBWarnings is contained! -->
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
+      <version>${jsr305.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
+      <version>${spotbugs-annotations.version}</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
