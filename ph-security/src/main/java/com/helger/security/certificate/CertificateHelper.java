@@ -16,6 +16,7 @@
  */
 package com.helger.security.certificate;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
@@ -34,6 +35,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.x509.BasicConstraints;
+import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -538,5 +544,39 @@ public final class CertificateHelper
     final KeyFactory aKeyFactory = KeyFactory.getInstance ("RSA");
     final PKCS8EncodedKeySpec aKeySpec = new PKCS8EncodedKeySpec (aPrivateKeyBytes);
     return aKeyFactory.generatePrivate (aKeySpec);
+  }
+
+  /**
+   * Check if the provided certificate is a CA (Certificate Authority) or not.
+   *
+   * @param aCert
+   *        The certificate to check. May not be <code>null</code>.
+   * @return <code>true</code> if it is a CA, <code>false</code> if not.
+   */
+  public static boolean isCA (@Nonnull final X509Certificate aCert)
+  {
+    ValueEnforcer.notNull (aCert, "Cert");
+
+    final byte [] aBCBytes = aCert.getExtensionValue (Extension.basicConstraints.getId ());
+    if (aBCBytes != null)
+    {
+      try
+      {
+        final ASN1Encodable aBCDecoded = JcaX509ExtensionUtils.parseExtensionValue (aBCBytes);
+        if (aBCDecoded instanceof ASN1Sequence)
+        {
+          final ASN1Sequence aBCSequence = (ASN1Sequence) aBCDecoded;
+          final BasicConstraints aBasicConstraints = BasicConstraints.getInstance (aBCSequence);
+          if (aBasicConstraints != null)
+            return aBasicConstraints.isCA ();
+        }
+      }
+      catch (final IOException e)
+      {
+        // Fall through
+      }
+    }
+    // Defaults to "no"
+    return false;
   }
 }
