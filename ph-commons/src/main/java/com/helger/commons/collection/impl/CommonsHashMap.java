@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
@@ -37,7 +38,8 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTYPE, VALUETYPE>
+public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUETYPE> implements
+                            ICommonsMap <KEYTYPE, VALUETYPE>
 {
   public CommonsHashMap ()
   {}
@@ -57,6 +59,14 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
     super (CollectionHelper.getSize (aMap));
     if (aMap != null)
       putAll (aMap);
+  }
+
+  public <COLLTYPE> CommonsHashMap (@Nullable final COLLTYPE [] aValues,
+                                    @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                    @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    super (ArrayHelper.getSize (aValues));
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <COLLTYPE> CommonsHashMap (@Nullable final Collection <? extends COLLTYPE> aValues,

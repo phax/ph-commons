@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
@@ -61,9 +62,19 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
       putAll (aMap);
   }
 
-  public CommonsLinkedHashMap (@Nonnegative final int nInitialCapacity, final float fLoadFactor, final boolean bAccessOrder)
+  public CommonsLinkedHashMap (@Nonnegative final int nInitialCapacity,
+                               final float fLoadFactor,
+                               final boolean bAccessOrder)
   {
     super (nInitialCapacity, fLoadFactor, bAccessOrder);
+  }
+
+  public <COLLTYPE> CommonsLinkedHashMap (@Nullable final COLLTYPE [] aValues,
+                                          @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                          @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    super (ArrayHelper.getSize (aValues));
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <COLLTYPE> CommonsLinkedHashMap (@Nullable final Collection <? extends COLLTYPE> aValues,

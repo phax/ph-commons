@@ -37,7 +37,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUETYPE> implements ICommonsNavigableMap <KEYTYPE, VALUETYPE>
+public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUETYPE> implements
+                            ICommonsNavigableMap <KEYTYPE, VALUETYPE>
 {
   public CommonsTreeMap ()
   {}
@@ -51,6 +52,13 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
   {
     if (aMap != null)
       putAll (aMap);
+  }
+
+  public <COLLTYPE> CommonsTreeMap (@Nullable final COLLTYPE [] aValues,
+                                    @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                    @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <COLLTYPE> CommonsTreeMap (@Nullable final Collection <? extends COLLTYPE> aValues,

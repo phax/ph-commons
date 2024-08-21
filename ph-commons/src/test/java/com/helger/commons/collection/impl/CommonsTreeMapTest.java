@@ -61,5 +61,9 @@ public final class CommonsTreeMapTest
                                                                          Function.identity (),
                                                                          x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());
+    aTest = new CommonsTreeMap <> (new CommonsTreeMap <String, Integer> (new String [] { "test", "any", "foo" },
+                                                                         Function.identity (),
+                                                                         x -> Integer.valueOf (x.length ())));
+    assertEquals (3, aTest.size ());
   }
 }

@@ -71,6 +71,10 @@ public final class CommonsHashMapTest
                                                                          Function.identity (),
                                                                          x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());
+    aTest = new CommonsHashMap <> (new CommonsHashMap <String, Integer> (new String [] { "test", "any", "foo" },
+                                                                         Function.identity (),
+                                                                         x -> Integer.valueOf (x.length ())));
+    assertEquals (3, aTest.size ());
   }
 
   @Test
