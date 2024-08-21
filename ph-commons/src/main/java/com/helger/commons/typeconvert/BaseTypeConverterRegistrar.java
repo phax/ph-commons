@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.IsSPIImplementation;
@@ -44,6 +45,8 @@ import com.helger.commons.string.StringParser;
 @IsSPIImplementation
 public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (BaseTypeConverterRegistrar.class);
+
   /**
    * Register all type converters for the 15 base types:<br>
    * <ul>
@@ -70,18 +73,28 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     // to Boolean
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Boolean.class,
-                                                                         aSource -> Boolean.valueOf (aSource.intValue () != 0));
-    aRegistry.registerTypeConverter (Character.class, Boolean.class, aSource -> Boolean.valueOf (aSource.charValue () != 0));
+                                                                         aSource -> Boolean.valueOf (aSource.intValue () !=
+                                                                                                     0));
+    aRegistry.registerTypeConverter (Character.class,
+                                     Boolean.class,
+                                     aSource -> Boolean.valueOf (aSource.charValue () != 0));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Boolean.class,
-                                                                  aSource -> StringParser.parseBoolObj (aSource, (Boolean) null));
+                                                                  aSource -> StringParser.parseBoolObj (aSource,
+                                                                                                        (Boolean) null));
 
     // to Byte
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Byte.class,
                                                                          aSource -> Byte.valueOf (aSource.byteValue ()));
-    aRegistry.registerTypeConverter (Boolean.class, Byte.class, aSource -> Byte.valueOf (aSource.booleanValue () ? (byte) 1 : (byte) 0));
-    aRegistry.registerTypeConverter (Character.class, Byte.class, aSource -> Byte.valueOf ((byte) aSource.charValue ()));
-    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Byte.class, aSource -> StringParser.parseByteObj (aSource, (Byte) null));
+    aRegistry.registerTypeConverter (Boolean.class,
+                                     Byte.class,
+                                     aSource -> Byte.valueOf (aSource.booleanValue () ? (byte) 1 : (byte) 0));
+    aRegistry.registerTypeConverter (Character.class,
+                                     Byte.class,
+                                     aSource -> Byte.valueOf ((byte) aSource.charValue ()));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Byte.class,
+                                                                  aSource -> StringParser.parseByteObj (aSource,
+                                                                                                        (Byte) null));
 
     // to Character
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
@@ -99,44 +112,57 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Double.class,
                                                                          aSource -> Double.valueOf (aSource.doubleValue ()));
-    aRegistry.registerTypeConverter (Boolean.class, Double.class, aSource -> Double.valueOf (aSource.booleanValue () ? 1d : 0d));
+    aRegistry.registerTypeConverter (Boolean.class,
+                                     Double.class,
+                                     aSource -> Double.valueOf (aSource.booleanValue () ? 1d : 0d));
     aRegistry.registerTypeConverter (Character.class, Double.class, aSource -> Double.valueOf (aSource.charValue ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Double.class,
-                                                                  aSource -> StringParser.parseDoubleObj (aSource, (Double) null));
+                                                                  aSource -> StringParser.parseDoubleObj (aSource,
+                                                                                                          (Double) null));
 
     // to Float
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Float.class,
                                                                          aSource -> Float.valueOf (aSource.floatValue ()));
-    aRegistry.registerTypeConverter (Boolean.class, Float.class, aSource -> Float.valueOf (aSource.booleanValue () ? 1f : 0f));
+    aRegistry.registerTypeConverter (Boolean.class,
+                                     Float.class,
+                                     aSource -> Float.valueOf (aSource.booleanValue () ? 1f : 0f));
     aRegistry.registerTypeConverter (Character.class, Float.class, aSource -> Float.valueOf (aSource.charValue ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Float.class,
-                                                                  aSource -> StringParser.parseFloatObj (aSource, (Float) null));
+                                                                  aSource -> StringParser.parseFloatObj (aSource,
+                                                                                                         (Float) null));
 
     // to Integer
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Integer.class,
                                                                          aSource -> Integer.valueOf (aSource.intValue ()));
-    aRegistry.registerTypeConverter (Boolean.class, Integer.class, aSource -> Integer.valueOf (aSource.booleanValue () ? 1 : 0));
+    aRegistry.registerTypeConverter (Boolean.class,
+                                     Integer.class,
+                                     aSource -> Integer.valueOf (aSource.booleanValue () ? 1 : 0));
     aRegistry.registerTypeConverter (Character.class, Integer.class, aSource -> Integer.valueOf (aSource.charValue ()));
     aRegistry.registerTypeConverter (String.class, Integer.class, aSource -> {
       final BigDecimal aBD = StringParser.parseBigDecimal (aSource, (BigDecimal) null);
       return aBD == null ? null : Integer.valueOf (aBD.intValue ());
     });
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Integer.class,
-                                                                  aSource -> StringParser.parseIntObj (aSource, (Integer) null));
+                                                                  aSource -> StringParser.parseIntObj (aSource,
+                                                                                                       (Integer) null));
 
     // to Long
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Long.class,
                                                                          aSource -> Long.valueOf (aSource.longValue ()));
-    aRegistry.registerTypeConverter (Boolean.class, Long.class, aSource -> Long.valueOf (aSource.booleanValue () ? 1L : 0L));
+    aRegistry.registerTypeConverter (Boolean.class,
+                                     Long.class,
+                                     aSource -> Long.valueOf (aSource.booleanValue () ? 1L : 0L));
     aRegistry.registerTypeConverter (Character.class, Long.class, aSource -> Long.valueOf (aSource.charValue ()));
     aRegistry.registerTypeConverter (String.class, Long.class, aSource -> {
       final BigDecimal aBD = StringParser.parseBigDecimal (aSource, (BigDecimal) null);
       return aBD == null ? null : Long.valueOf (aBD.longValue ());
     });
-    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Long.class, aSource -> StringParser.parseLongObj (aSource, (Long) null));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Long.class,
+                                                                  aSource -> StringParser.parseLongObj (aSource,
+                                                                                                        (Long) null));
 
     // to Short
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
@@ -145,13 +171,16 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     aRegistry.registerTypeConverter (Boolean.class,
                                      Short.class,
                                      aSource -> Short.valueOf (aSource.booleanValue () ? (short) 1 : (short) 0));
-    aRegistry.registerTypeConverter (Character.class, Short.class, aSource -> Short.valueOf ((short) aSource.charValue ()));
+    aRegistry.registerTypeConverter (Character.class,
+                                     Short.class,
+                                     aSource -> Short.valueOf ((short) aSource.charValue ()));
     aRegistry.registerTypeConverter (String.class, Short.class, aSource -> {
       final BigDecimal aBD = StringParser.parseBigDecimal (aSource, (BigDecimal) null);
       return aBD == null ? null : Short.valueOf (aBD.shortValue ());
     });
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Short.class,
-                                                                  aSource -> StringParser.parseShortObj (aSource, (Short) null));
+                                                                  aSource -> StringParser.parseShortObj (aSource,
+                                                                                                         (Short) null));
 
     // to String
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (String.class, Object::toString);
@@ -164,11 +193,19 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     aRegistry.registerTypeConverter (Boolean.class,
                                      BigDecimal.class,
                                      aSource -> aSource.booleanValue () ? BigDecimal.ONE : BigDecimal.ZERO);
-    aRegistry.registerTypeConverter (Character.class, BigDecimal.class, aSource -> BigDecimal.valueOf (aSource.charValue ()));
+    aRegistry.registerTypeConverter (Character.class,
+                                     BigDecimal.class,
+                                     aSource -> BigDecimal.valueOf (aSource.charValue ()));
     aRegistry.registerTypeConverter (Byte.class, BigDecimal.class, aSource -> BigDecimal.valueOf (aSource.intValue ()));
-    aRegistry.registerTypeConverter (Integer.class, BigDecimal.class, aSource -> BigDecimal.valueOf (aSource.intValue ()));
-    aRegistry.registerTypeConverter (Long.class, BigDecimal.class, aSource -> BigDecimal.valueOf (aSource.longValue ()));
-    aRegistry.registerTypeConverter (Short.class, BigDecimal.class, aSource -> BigDecimal.valueOf (aSource.shortValue ()));
+    aRegistry.registerTypeConverter (Integer.class,
+                                     BigDecimal.class,
+                                     aSource -> BigDecimal.valueOf (aSource.intValue ()));
+    aRegistry.registerTypeConverter (Long.class,
+                                     BigDecimal.class,
+                                     aSource -> BigDecimal.valueOf (aSource.longValue ()));
+    aRegistry.registerTypeConverter (Short.class,
+                                     BigDecimal.class,
+                                     aSource -> BigDecimal.valueOf (aSource.shortValue ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (BigDecimal.class,
                                                                   aSource -> StringParser.parseBigDecimal (aSource.toString (),
                                                                                                            (BigDecimal) null));
@@ -181,7 +218,9 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     aRegistry.registerTypeConverter (Boolean.class,
                                      BigInteger.class,
                                      aSource -> aSource.booleanValue () ? BigInteger.ONE : BigInteger.ZERO);
-    aRegistry.registerTypeConverter (Character.class, BigInteger.class, aSource -> BigInteger.valueOf (aSource.charValue ()));
+    aRegistry.registerTypeConverter (Character.class,
+                                     BigInteger.class,
+                                     aSource -> BigInteger.valueOf (aSource.charValue ()));
     aRegistry.registerTypeConverter (String.class, BigInteger.class, aSource -> {
       final BigDecimal aBD = StringParser.parseBigDecimal (aSource, (BigDecimal) null);
       return aBD == null ? null : aBD.toBigInteger ();
@@ -191,22 +230,26 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
                                                                                                            (BigInteger) null));
 
     // AtomicBoolean
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicBoolean.class, aSource -> Boolean.valueOf (aSource.get ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicBoolean.class,
+                                                                  aSource -> Boolean.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicBoolean.class,
                                                                   aSource -> new AtomicBoolean (TypeConverter.convert (aSource,
                                                                                                                        Boolean.class)
                                                                                                              .booleanValue ()));
     // AtomicInteger
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicInteger.class, aSource -> Integer.valueOf (aSource.get ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicInteger.class,
+                                                                  aSource -> Integer.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicInteger.class,
                                                                   aSource -> new AtomicInteger (TypeConverter.convert (aSource,
                                                                                                                        Integer.class)
                                                                                                              .intValue ()));
 
     // AtomicLong
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicLong.class, aSource -> Long.valueOf (aSource.get ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicLong.class,
+                                                                  aSource -> Long.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicLong.class,
-                                                                  aSource -> new AtomicLong (TypeConverter.convert (aSource, Long.class)
+                                                                  aSource -> new AtomicLong (TypeConverter.convert (aSource,
+                                                                                                                    Long.class)
                                                                                                           .longValue ()));
 
     // to StringBuilder
@@ -230,7 +273,9 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
      */
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Enum.class,
                                                                          String.class,
-                                                                         aSource -> aSource.getClass ().getName () + ':' + aSource.name ());
+                                                                         aSource -> aSource.getClass ().getName () +
+                                                                                    ':' +
+                                                                                    aSource.name ());
 
     aRegistry.registerTypeConverterRuleFixedSourceAssignableDestination (String.class, Enum.class, x -> {
       /*
@@ -261,10 +306,7 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
       if (x.length == 0)
         return null;
       if (x.length > 1)
-      {
-        LoggerFactory.getLogger ("TypeConverter")
-                     .warn ("An array with " + x.length + " items is present; using the first value: " + Arrays.toString (x));
-      }
+        LOGGER.warn ("An array with " + x.length + " items is present; using the first value: " + Arrays.toString (x));
       return x[0];
     });
   }
