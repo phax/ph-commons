@@ -1451,7 +1451,7 @@ public final class ValueEnforcer
                               @Nullable final T aExpectedValue)
   {
     if (isEnabled ())
-      if (!EqualsHelper.identityEqual (aValue, aExpectedValue))
+      if (EqualsHelper.identityDifferent (aValue, aExpectedValue))
         throw new IllegalArgumentException ("The value of '" +
                                             aName.get () +
                                             "' does not match the expected value. Passed value: " +
@@ -3070,7 +3070,6 @@ public final class ValueEnforcer
                                             ") exceeds array length (" +
                                             nArrayLen +
                                             ")");
-
   }
 
   public static void isArrayOfsLen (final Object [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLen)

@@ -346,7 +346,7 @@ public class IntObjectMap <T> implements IHasSize
       if (nKey != FREE_KEY)
       {
         final T aValue = m_aValues[i];
-        if (!EqualsHelper.identityEqual (aValue, m_aNoValue))
+        if (EqualsHelper.identityDifferent (aValue, m_aNoValue))
           aConsumer.accept (nKey, aValue);
       }
     }

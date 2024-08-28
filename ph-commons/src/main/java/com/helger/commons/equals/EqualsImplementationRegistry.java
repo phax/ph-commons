@@ -109,7 +109,8 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     return ret;
   }
 
-  public <T> void registerEqualsImplementation (@Nonnull final Class <T> aClass, @Nonnull final IEqualsImplementation <T> aImpl)
+  public <T> void registerEqualsImplementation (@Nonnull final Class <T> aClass,
+                                                @Nonnull final IEqualsImplementation <T> aImpl)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aImpl, "Implementation");
@@ -125,7 +126,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
       {
         // Avoid the warning when the passed implementation equals the stored
         // implementation
-        if (!EqualsHelper.identityEqual (aOldImpl, aImpl))
+        if (EqualsHelper.identityDifferent (aOldImpl, aImpl))
           LOGGER.warn ("Another equals implementation for class " +
                        aClass +
                        " is already registered (" +
@@ -215,7 +216,10 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
                 aMatchingImplementation = GenericReflection.uncheckedCast (aImpl);
                 aMatchingClass = aCurClass;
                 if (LOGGER.isDebugEnabled ())
-                  LOGGER.debug ("Found hierarchical match with class " + aMatchingClass + " when searching for " + aClass);
+                  LOGGER.debug ("Found hierarchical match with class " +
+                                aMatchingClass +
+                                " when searching for " +
+                                aClass);
                 break;
               }
             }

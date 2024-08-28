@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.BiPredicate;
 
@@ -66,6 +67,24 @@ public final class EqualsHelper
   public static <T> boolean identityEqual (@Nullable final T aObj1, @Nullable final T aObj2)
   {
     return aObj1 == aObj2;
+  }
+
+  /**
+   * The only place where objects are compared by identity.
+   *
+   * @param aObj1
+   *        First object. May be <code>null</code>.
+   * @param aObj2
+   *        Second object. May be <code>null</code>.
+   * @return <code>true</code> if one object is <code>null</code> or if they
+   *         reference a different object.
+   * @param <T>
+   *        Type to check.
+   * @since 11.1.7
+   */
+  public static <T> boolean identityDifferent (@Nullable final T aObj1, @Nullable final T aObj2)
+  {
+    return aObj1 != aObj2;
   }
 
   /**
@@ -236,17 +255,16 @@ public final class EqualsHelper
     return EqualsImplementationRegistry.areEqual (aObj1, aObj2);
   }
 
-  public static <T> boolean equalsCollectionOnly (@Nonnull final Collection <T> aCont1, @Nonnull final Collection <?> aCont2)
+  public static <T> boolean equalsCollectionOnly (@Nonnull final Collection <T> aCont1,
+                                                  @Nonnull final Collection <?> aCont2)
   {
     if (aCont1.isEmpty () && aCont2.isEmpty ())
       return true;
     if (aCont1.size () != aCont2.size ())
       return false;
-    final Iterator <T> aIter1 = aCont1.iterator ();
     final Iterator <?> aIter2 = aCont2.iterator ();
-    while (aIter1.hasNext ())
+    for (T aChildObj1 : aCont1)
     {
-      final T aChildObj1 = aIter1.next ();
       final Object aChildObj2 = aIter2.next ();
       if (!_areChildrenEqual (aChildObj1, aChildObj2))
         return false;
@@ -259,10 +277,8 @@ public final class EqualsHelper
     if (aCont1.size () != aCont2.size ())
       return false;
 
-    final Iterator <Map.Entry <K, V>> it = aCont1.entrySet ().iterator ();
-    while (it.hasNext ())
+    for (Entry <K, V> aEntry : aCont1.entrySet ())
     {
-      final Map.Entry <K, V> aEntry = it.next ();
       final K aKey = aEntry.getKey ();
       final V aValue = aEntry.getValue ();
       if (aValue == null)
@@ -396,7 +412,8 @@ public final class EqualsHelper
         // Check if it is an array of collections (e.g. List<String>[])
         final Class <?> aComponentClass1 = aObj1.getClass ().getComponentType ();
         final Class <?> aComponentClass2 = aObj2.getClass ().getComponentType ();
-        if (CollectionHelper.isCollectionClass (aComponentClass1) && CollectionHelper.isCollectionClass (aComponentClass2))
+        if (CollectionHelper.isCollectionClass (aComponentClass1) &&
+            CollectionHelper.isCollectionClass (aComponentClass2))
         {
           // Special handling for arrays of containers
           final Object [] aArray1 = (Object []) aObj1;
@@ -489,7 +506,9 @@ public final class EqualsHelper
    *         otherwise
    * @since 9.4.5
    */
-  public static <T> boolean equalsCustom (@Nullable final T aObj1, @Nullable final T aObj2, @Nonnull final BiPredicate <T, T> aPredicate)
+  public static <T> boolean equalsCustom (@Nullable final T aObj1,
+                                          @Nullable final T aObj2,
+                                          @Nonnull final BiPredicate <T, T> aPredicate)
   {
     ValueEnforcer.notNull (aPredicate, "Predicate");
 
