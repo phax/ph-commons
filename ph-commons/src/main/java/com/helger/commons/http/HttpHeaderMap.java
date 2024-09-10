@@ -142,10 +142,27 @@ public class HttpHeaderMap implements
   public static String getUnifiedValue (@Nullable final String sValue, final boolean bQuoteIfNecessary)
   {
     final char [] aOneLiner;
+    int nLineLength = 0;
     if (StringHelper.hasText (sValue))
     {
       // First replace special characters with space
-      aOneLiner = StringHelper.replaceMultiple (sValue, new char [] { '\r', '\n', '\t' }, ' ');
+      // Make sure to merge all consecutive chars to a single space
+      aOneLiner = new char [sValue.length ()];
+      boolean bLastWasSpace = false;
+      for (final char c : sValue.toCharArray ())
+      {
+        if (c == '\r' || c == '\n' || c == '\t')
+        {
+          if (!bLastWasSpace)
+            aOneLiner[nLineLength++] = ' ';
+          bLastWasSpace = true;
+        }
+        else
+        {
+          aOneLiner[nLineLength++] = c;
+          bLastWasSpace = false;
+        }
+      }
     }
     else
     {
@@ -164,14 +181,15 @@ public class HttpHeaderMap implements
       else
       {
         // Quote is necessary
-        aQuoted = new RFC2616Codec ().getEncoded (aOneLiner);
+        aQuoted = new RFC2616Codec ().getEncoded (aOneLiner, 0, nLineLength);
+        nLineLength = aQuoted.length;
       }
     }
     else
       aQuoted = aOneLiner;
 
     // to string
-    final String ret = new String (aQuoted);
+    final String ret = new String (aQuoted, 0, nLineLength);
     if (LOGGER.isDebugEnabled ())
     {
       if (!EqualsHelper.equals (sValue, ret))
