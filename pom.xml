@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.commons</groupId>
   <artifactId>ph-commons-parent-pom</artifactId>
-  <version>11.1.7</version>
+  <version>11.1.8-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ph-commons-parent-pom</name>
   <description>Base POM to build the ph-commons projects</description>
@@ -45,7 +45,7 @@
     <connection>scm:git:https://github.com/phax/ph-commons.git</connection>
     <developerConnection>scm:git:https://github.com/phax/ph-commons.git</developerConnection>
     <url>https://github.com/phax/ph-commons</url>
-    <tag>ph-commons-parent-pom-11.1.7</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <organization>
