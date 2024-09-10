@@ -153,8 +153,14 @@ public class HttpHeaderMap implements
       {
         if (Character.isWhitespace (c))
         {
-          if (!bLastWasSpace)
-            aOneLiner[nLineLength++] = ' ';
+          // Only merge whitespaces outside of values
+          if (c == '\r' || c == '\n' || c == '\t')
+          {
+            if (!bLastWasSpace)
+              aOneLiner[nLineLength++] = ' ';
+          }
+          else
+            aOneLiner[nLineLength++] = c;
           bLastWasSpace = true;
         }
         else
