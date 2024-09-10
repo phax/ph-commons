@@ -443,7 +443,17 @@ public final class XMLFactory
   @Nonnull
   public static SAXParserFactory createDefaultSAXParserFactory ()
   {
-    final SAXParserFactory aFactory = SAXParserFactory.newDefaultInstance ();
+    SAXParserFactory aFactory;
+    try
+    {
+      // Java 9 method
+      aFactory = SAXParserFactory.newDefaultInstance ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {
+      // Java 8 method - see #41
+      aFactory = SAXParserFactory.newInstance ();
+    }
     _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
     _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
     _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
