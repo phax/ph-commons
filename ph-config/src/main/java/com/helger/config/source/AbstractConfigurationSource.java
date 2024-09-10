@@ -73,6 +73,7 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
     return m_nPriority;
   }
 
+  // TODO for 11.2: make public
   protected static boolean isSecretKey (@Nonnull final String sKey)
   {
     // Bad heuristics but better then nothing
@@ -80,6 +81,7 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
     return sRealKey.contains ("password") || sRealKey.contains ("passwd");
   }
 
+  // TODO for 11.2: rename to mapToStringIgnoreSecrets
   @Nonnull
   protected static <V> String mapToStringNoSecrets (@Nullable final Map <String, V> aMap)
   {
