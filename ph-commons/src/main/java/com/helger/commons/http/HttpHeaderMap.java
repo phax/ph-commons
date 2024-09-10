@@ -151,7 +151,7 @@ public class HttpHeaderMap implements
       boolean bLastWasSpace = false;
       for (final char c : sValue.toCharArray ())
       {
-        if (c == '\r' || c == '\n' || c == '\t')
+        if (Character.isWhitespace (c))
         {
           if (!bLastWasSpace)
             aOneLiner[nLineLength++] = ' ';
