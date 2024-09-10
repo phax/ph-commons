@@ -46,6 +46,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import javax.annotation.Nonnull;
 
@@ -155,7 +156,6 @@ public final class CSVWriterTest
     final String [] quoteLine = { "This is a \" multiline entry", "so is \n this" };
     output = _invokeWriter (quoteLine);
     assertEquals ("'This is a \"\" multiline entry','so is \n this'\n", output);
-
   }
 
   @Test
@@ -185,7 +185,6 @@ public final class CSVWriterTest
   @Test
   public void testParseLineWithNoEscapeChar () throws IOException
   {
-
     // test normal case
     final String [] normal = { "a", "b", "c" };
     String output = _invokeNoEscapeWriter (normal);
@@ -300,7 +299,6 @@ public final class CSVWriterTest
   @Test
   public void testNoQuoteCharsAndNoEscapeChars () throws IOException
   {
-
     final String [] line = { "Foo", "Bar", "Baz" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -343,7 +341,6 @@ public final class CSVWriterTest
   @Test
   public void testNullValues () throws IOException
   {
-
     final String [] line = { "Foo", null, "Bar", "baz" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -358,9 +355,10 @@ public final class CSVWriterTest
   public void testStreamFlushing () throws IOException
   {
     final String WRITE_FILE = "target/myfile.csv";
-    final String [] nextLine = new String [] { "aaaa", "bbbb", "cccc", "dddd" };
+    final String [] nextLine = { "aaaa", "bbbb", "cccc", "dddd" };
 
-    try (final Writer fileWriter = new NonClosingWriter (new OutputStreamWriter (new FileOutputStream (WRITE_FILE), CHARSET)))
+    try (final Writer fileWriter = new NonClosingWriter (new OutputStreamWriter (new FileOutputStream (WRITE_FILE),
+                                                                                 CHARSET)))
     {
       @SuppressWarnings ("resource")
       final CSVWriter writer = new CSVWriter (fileWriter);
@@ -422,10 +420,10 @@ public final class CSVWriterTest
   @Test
   public void testNestedQuotes () throws IOException
   {
-    final String [] data = new String [] { "\"\"", "test" };
+    final String [] data = { "\"\"", "test" };
     final String oracle = "\"\\\"\\\"\",\"test\"\n";
 
-    final File tempFile = File.createTempFile ("csvWriterTest", ".csv");
+    final File tempFile = Files.createTempFile ("csvWriterTest", ".csv").toFile ();
     tempFile.deleteOnExit ();
     final Writer fwriter = new OutputStreamWriter (new FileOutputStream (tempFile), CHARSET);
     try (final CSVWriter writer = new CSVWriter (fwriter))

@@ -42,6 +42,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +56,7 @@ public final class IntegrationFuncTest
   @Before
   public void setUp () throws IOException
   {
-    m_aTempFile = File.createTempFile ("csvWriterTest", ".csv");
+    m_aTempFile = Files.createTempFile ("csvWriterTest", ".csv").toFile ();
     m_aTempFile.deleteOnExit ();
   }
 
@@ -68,7 +69,7 @@ public final class IntegrationFuncTest
   @Test
   public void testWriteRead () throws IOException
   {
-    final String [] [] data = new String [] [] { { "hello, a test", "one nested \" test" }, { "\"\"", "test", null, "8" } };
+    final String [] [] data = { { "hello, a test", "one nested \" test" }, { "\"\"", "test", null, "8" } };
     final Charset aCharset = StandardCharsets.UTF_8;
 
     try (final CSVWriter writer = new CSVWriter (new OutputStreamWriter (new FileOutputStream (m_aTempFile), aCharset)))
