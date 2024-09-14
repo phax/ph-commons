@@ -49,7 +49,7 @@ public class LoggingJAXBReadExceptionHandler implements IExceptionCallback <JAXB
       // must behave when attempting to unmarshal invalid XML data. In
       // those cases, the JAXB provider is allowed to terminate the
       // call to unmarshal with an UnmarshalException.
-      final Throwable aLinked = ((UnmarshalException) ex).getLinkedException ();
+      final Throwable aLinked = ex.getLinkedException ();
       if (aLinked instanceof SAXParseException)
         LOGGER.error ("Failed to parse XML document: " + aLinked.getMessage ());
       else

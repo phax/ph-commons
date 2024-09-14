@@ -60,6 +60,7 @@ public final class JavaPrivateMethodFuncTest
   {
     assertEquals ("Super.method", new Super ().wrapper ());
     assertEquals ("Child.method", new Child ().wrapper ());
-    assertEquals ("Child.method", ((Super) new Child ()).wrapper ());
+    final Super sup = new Child ();
+    assertEquals ("Child.method", sup.wrapper ());
   }
 }
