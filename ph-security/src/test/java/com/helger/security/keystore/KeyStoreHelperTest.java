@@ -107,7 +107,7 @@ public final class KeyStoreHelperTest
     final String sBasePath = new File ("").getAbsolutePath ();
 
     // Load from classpath
-    KeyStore ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/keystore-no-pw.jks", (String) null);
+    KeyStore ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/keystore-no-pw.jks", (char []) null);
     assertEquals (JKS, ks.getType ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
@@ -119,7 +119,7 @@ public final class KeyStoreHelperTest
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
                                             new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ()
                                                                                                   .getAbsolutePath (),
-                                            (String) null);
+                                            (char []) null);
     assertEquals (JKS, ks.getType ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
@@ -132,7 +132,7 @@ public final class KeyStoreHelperTest
                                                                                                   .getAbsolutePath ()
                                                                                                   .substring (sBasePath.length () +
                                                                                                               1),
-                                            (String) null);
+                                            (char []) null);
     assertEquals (JKS, ks.getType ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
@@ -140,7 +140,7 @@ public final class KeyStoreHelperTest
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
     // Load from classpath
-    ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/keystore-pw-peppol.jks", (String) null);
+    ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/keystore-pw-peppol.jks", (char []) null);
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
     final Certificate c2 = ks.getCertificate ("1");
@@ -152,7 +152,7 @@ public final class KeyStoreHelperTest
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
                                             new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ()
                                                                                                       .getAbsolutePath (),
-                                            (String) null);
+                                            (char []) null);
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
     assertNotNull (ks.getCertificate ("1"));
@@ -164,13 +164,15 @@ public final class KeyStoreHelperTest
                                                                                                       .getAbsolutePath ()
                                                                                                       .substring (sBasePath.length () +
                                                                                                                   1),
-                                            (String) null);
+                                            (char []) null);
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
     assertNotNull (ks.getCertificate ("1"));
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
-    ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/keystore-pw-peppol.jks", "peppol");
+    ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
+                                            "keystores/keystore-pw-peppol.jks",
+                                            "peppol".toCharArray ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
     final Certificate c3 = ks.getCertificate ("1");
@@ -181,7 +183,7 @@ public final class KeyStoreHelperTest
     try
     {
       // Non-existing file
-      KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/keystore-not-existing.jks", (String) null);
+      KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/keystore-not-existing.jks", (char []) null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -190,7 +192,9 @@ public final class KeyStoreHelperTest
     try
     {
       // Invalid password
-      KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/keystore-pw-peppol.jks", "wrongpw");
+      KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
+                                         "keystores/keystore-pw-peppol.jks",
+                                         "wrongpw".toCharArray ());
       fail ();
     }
     catch (final IOException ex)
@@ -216,7 +220,9 @@ public final class KeyStoreHelperTest
       Security.removeProvider ("SunrPKCS11");
       Security.addProvider (aMockPkcs11Provider);
 
-      final LoadedKeyStore loadedKeyStore = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS11, null, "111111");
+      final LoadedKeyStore loadedKeyStore = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS11,
+                                                                         null,
+                                                                         "111111".toCharArray ());
       assertNotNull (loadedKeyStore);
       assertNotNull (loadedKeyStore.getKeyStore ());
       assertEquals (PKCS11, loadedKeyStore.getKeyStore ().getType ());
@@ -228,14 +234,14 @@ public final class KeyStoreHelperTest
   @Test
   public void testLoadKeyStore () throws Exception
   {
-    LoadedKeyStore ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/keystore-no-pw.jks", (String) null);
+    LoadedKeyStore ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/keystore-no-pw.jks", (char []) null);
     assertNotNull (ks);
     assertTrue (ks.isSuccess ());
     assertNotNull (ks.getKeyStore ());
     assertNull (ks.getError ());
     assertEquals (1, CollectionHelper.getSize (ks.getKeyStore ().aliases ()));
 
-    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/keystore-pw-peppol.jks", "peppol");
+    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/keystore-pw-peppol.jks", "peppol".toCharArray ());
     assertNotNull (ks);
     assertTrue (ks.isSuccess ());
     assertNotNull (ks.getKeyStore ());
@@ -243,7 +249,7 @@ public final class KeyStoreHelperTest
     assertEquals (1, CollectionHelper.getSize (ks.getKeyStore ().aliases ()));
 
     // Non-existing file
-    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/keystore-not-existing.jks", (String) null);
+    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/keystore-not-existing.jks", (char []) null);
     assertNotNull (ks);
     assertTrue (ks.isFailure ());
     assertNull (ks.getKeyStore ());
@@ -251,7 +257,7 @@ public final class KeyStoreHelperTest
     assertNotNull (ks.getErrorText (Locale.GERMANY));
 
     // Invalid password
-    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/keystore-pw-peppol.jks", "wrongpw");
+    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/keystore-pw-peppol.jks", "wrongpw".toCharArray ());
     assertNotNull (ks);
     assertTrue (ks.isFailure ());
     assertNull (ks.getKeyStore ());
@@ -259,7 +265,7 @@ public final class KeyStoreHelperTest
     assertNotNull (ks.getErrorText (Locale.GERMANY));
 
     // Not a key store
-    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/no-keystore.txt", "wrongpw");
+    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/no-keystore.txt", "wrongpw".toCharArray ());
     assertNotNull (ks);
     assertTrue (ks.isFailure ());
     assertNull (ks.getKeyStore ());
@@ -267,7 +273,7 @@ public final class KeyStoreHelperTest
     assertNotNull (ks.getErrorText (Locale.GERMANY));
 
     // Non existing file
-    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/non-existing-keystore.jks", "any");
+    ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/non-existing-keystore.jks", "any".toCharArray ());
     assertNotNull (ks);
     assertTrue (ks.isFailure ());
     assertNull (ks.getKeyStore ());
@@ -288,7 +294,7 @@ public final class KeyStoreHelperTest
     // Load trust store
     final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
                                                                     "keystores/truststore-peppol-prod.jks",
-                                                                    "peppol");
+                                                                    "peppol".toCharArray ());
     assertNotNull (aTrustStore);
 
     // Additionally the STS certificate is contained
@@ -312,7 +318,7 @@ public final class KeyStoreHelperTest
     // Load trust store
     final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
                                                                     "keystores/truststore-peppol-pilot.jks",
-                                                                    "peppol");
+                                                                    "peppol".toCharArray ());
     assertNotNull (aTrustStore);
 
     // Additionally the STS certificate is contained
@@ -357,7 +363,7 @@ public final class KeyStoreHelperTest
   {
     final LoadedKeyStore ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.BKS,
                                                            "keystores/keystore-pw-test.bks",
-                                                           "test",
+                                                           "test".toCharArray (),
                                                            PBCProvider.getProvider ());
     assertNotNull (ks);
     assertTrue (ks.isSuccess ());

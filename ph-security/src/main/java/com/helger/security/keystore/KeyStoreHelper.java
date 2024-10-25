@@ -113,8 +113,10 @@ public final class KeyStoreHelper
    *         In case key store loading fails
    * @throws IllegalArgumentException
    *         If the key store path is invalid
+   * @deprecated Use the version with char[] as password type
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "11.1.9")
   public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
                                              @Nullable final String sKeyStorePassword) throws GeneralSecurityException,
@@ -144,8 +146,10 @@ public final class KeyStoreHelper
    * @throws IllegalArgumentException
    *         If the key store path is invalid
    * @since 11.1.1
+   * @deprecated Use the version with char[] as password type
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "11.1.9")
   public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
                                              @Nullable final String sKeyStorePassword,
@@ -351,8 +355,10 @@ public final class KeyStoreHelper
    * @param sKeyStorePassword
    *        Password for the key store. May not be <code>null</code> to succeed.
    * @return The key store loading result. Never <code>null</code>.
+   * @deprecated Use the version with char[] as password type
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "11.1.9")
   public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
                                              @Nullable final String sKeyStorePassword)
@@ -374,11 +380,61 @@ public final class KeyStoreHelper
    *        The Security Provider to use. May be <code>null</code>.
    * @return The key store loading result. Never <code>null</code>.
    * @since 11.1.1
+   * @deprecated Use the version with char[] as password type
+   */
+  @Nonnull
+  @Deprecated (forRemoval = true, since = "11.1.9")
+  public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
+                                             @Nullable final String sKeyStorePath,
+                                             @Nullable final String sKeyStorePassword,
+                                             @Nullable final Provider aSecurityProvider)
+  {
+    return loadKeyStore (aKeyStoreType,
+                         sKeyStorePath,
+                         sKeyStorePassword == null ? null : sKeyStorePassword.toCharArray (),
+                         null);
+  }
+
+  /**
+   * Load the provided key store in a safe manner.
+   *
+   * @param aKeyStoreType
+   *        Type of key store. May not be <code>null</code>.
+   * @param sKeyStorePath
+   *        Path to the key store. May not be <code>null</code> for all key
+   *        store types that require a path.
+   * @param aKeyStorePassword
+   *        Password for the key store. May not be <code>null</code> to succeed.
+   * @return The key store loading result. Never <code>null</code>.
+   * @since 11.1.9
    */
   @Nonnull
   public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
-                                             @Nullable final String sKeyStorePassword,
+                                             @Nullable final char [] aKeyStorePassword)
+  {
+    return loadKeyStore (aKeyStoreType, sKeyStorePath, aKeyStorePassword, null);
+  }
+
+  /**
+   * Load the provided key store in a safe manner.
+   *
+   * @param aKeyStoreType
+   *        Type of key store. May not be <code>null</code>.
+   * @param sKeyStorePath
+   *        Path to the key store. May not be <code>null</code> for all key
+   *        store types that require a path.
+   * @param aKeyStorePassword
+   *        Password for the key store. May not be <code>null</code> to succeed.
+   * @param aSecurityProvider
+   *        The Security Provider to use. May be <code>null</code>.
+   * @return The key store loading result. Never <code>null</code>.
+   * @since 11.1.9
+   */
+  @Nonnull
+  public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
+                                             @Nullable final String sKeyStorePath,
+                                             @Nullable final char [] aKeyStorePassword,
                                              @Nullable final Provider aSecurityProvider)
   {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
@@ -391,7 +447,7 @@ public final class KeyStoreHelper
     // Try to load key store
     try
     {
-      aKeyStore = loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, sKeyStorePassword, aSecurityProvider);
+      aKeyStore = loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, aKeyStorePassword, aSecurityProvider);
     }
     catch (final IllegalArgumentException ex)
     {
