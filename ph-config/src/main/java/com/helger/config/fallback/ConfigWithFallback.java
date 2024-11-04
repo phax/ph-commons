@@ -129,6 +129,27 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   @Nullable
+  public char [] getAsCharArrayOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
+  {
+    char [] ret = getAsCharArray (sPrimary);
+    if (ret != null)
+    {
+      // Try the old names
+      for (final String sOld : aOldOnes)
+      {
+        ret = getAsCharArray (sOld);
+        if (ret != null)
+        {
+          // Notify on old name usage
+          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
+          break;
+        }
+      }
+    }
+    return ret;
+  }
+
+  @Nullable
   public BigDecimal getAsBigDecimalOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
   {
     BigDecimal ret = getAsBigDecimal (sPrimary);

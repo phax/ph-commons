@@ -66,6 +66,22 @@ public interface IConfigWithFallback extends IConfig
   String getAsStringOrFallback (@Nonnull String sPrimary, @Nonnull @Nonempty String... aOldOnes);
 
   /**
+   * Get the configuration value as a char array based on the primary or the
+   * alternative keys.
+   *
+   * @param sPrimary
+   *        Primary configuration key. Should not be <code>null</code>.
+   * @param aOldOnes
+   *        The alternative keys to be resolved in the provided order. May
+   *        neither be <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration
+   *         property keys could be resolved.
+   * @since 11.1.10
+   */
+  @Nullable
+  char [] getAsCharArrayOrFallback (@Nonnull String sPrimary, @Nonnull @Nonempty String... aOldOnes);
+
+  /**
    * Get the configuration value as a BigDecimal based on the primary or the
    * alternative keys.
    *
