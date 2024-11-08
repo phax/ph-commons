@@ -25,6 +25,7 @@ import java.security.KeyStore.ProtectionParameter;
 import java.security.KeyStoreException;
 import java.security.Provider;
 import java.security.UnrecoverableKeyException;
+import java.util.Enumeration;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.functional.IThrowingConsumer;
 import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.commons.io.resourceprovider.IReadableResourceProvider;
@@ -624,5 +626,35 @@ public final class KeyStoreHelper
                      sKeyStoreKeyAlias,
                      aKeyStoreKeyPassword,
                      KeyStore.TrustedCertificateEntry.class);
+  }
+
+  /**
+   * Helper method to iterate all aliases of a key store
+   *
+   * @param aKeyStore
+   *        The key store to be iterated. May not be <code>null</code>.
+   * @param aAliasConsumer
+   *        The consumer for each alias. May not be <code>null</code>.
+   * @since 11.1.10
+   */
+  public static void iterateKeyStore (@Nonnull final KeyStore aKeyStore,
+                                      @Nonnull final IThrowingConsumer <String, KeyStoreException> aAliasConsumer)
+  {
+    ValueEnforcer.notNull (aKeyStore, "KeyStore");
+    ValueEnforcer.notNull (aAliasConsumer, "AliasConsumer");
+
+    try
+    {
+      final Enumeration <String> aAliases = aKeyStore.aliases ();
+      while (aAliases.hasMoreElements ())
+      {
+        final String sAlias = aAliases.nextElement ();
+        aAliasConsumer.accept (sAlias);
+      }
+    }
+    catch (final KeyStoreException ex)
+    {
+      LOGGER.warn ("Failed to iterate key store", ex);
+    }
   }
 }
