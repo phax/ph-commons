@@ -67,7 +67,7 @@
     <argLine>-Xmx1024m</argLine>
     <bc.version>1.79</bc.version>
     <bcpg.version>${bc.version}</bcpg.version>
-    <bcprov-ext.version>${bc.version}</bcprov-ext.version>
+    <bcprov-ext.version>1.78.1</bcprov-ext.version>
     <jsr305.version>3.0.2</jsr305.version>
     <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
   </properties>
