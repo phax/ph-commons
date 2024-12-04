@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.util.TextVariableHelper;
@@ -213,9 +213,14 @@ public class Config implements IConfig
   @Nonnull
   @Nonempty
   private String _getWithVariablesReplacedRecursive (@Nonnull @Nonempty final String sConfiguredValue,
-                                                     @Nonnull final ICommonsSet <String> aUsedVarContainer)
+                                                     @Nonnull final ICommonsOrderedSet <String> aUsedVarContainer)
   {
-    final UnaryOperator <String> aVarProvider = sVarName -> {
+    final UnaryOperator <String> aVarProvider = sVarDecl -> {
+
+      final int nColonIdx = sVarDecl.indexOf (':');
+      final String sVarName = nColonIdx < 0 ? sVarDecl : sVarDecl.substring (0, nColonIdx);
+      final String sVarDefaultValue = nColonIdx < 0 ? null : sVarDecl.substring (nColonIdx + 1);
+
       if (!aUsedVarContainer.add (sVarName))
       {
         // Variable is used more then once
@@ -230,15 +235,28 @@ public class Config implements IConfig
       }
       // First time usage of variable name
       final ConfiguredValue aCV = getConfiguredValue (sVarName);
+      String sNestedConfiguredValue;
       if (aCV == null)
       {
         // Failed to resolve variable
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Failed to resolve configuration variable '" + sVarName + "'");
 
-        return m_aUnresolvedVariableProvider.apply (sVarName);
+        if (sVarDefaultValue != null)
+        {
+          // Default value might be an empty string
+          sNestedConfiguredValue = sVarDefaultValue;
+        }
+        else
+        {
+          // No default value provided
+          return m_aUnresolvedVariableProvider.apply (sVarName);
+        }
       }
-      String sNestedConfiguredValue = aCV.getValue ();
+      else
+      {
+        sNestedConfiguredValue = aCV.getValue ();
+      }
       if (StringHelper.hasText (sNestedConfiguredValue))
       {
         // Recursive call

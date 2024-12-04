@@ -19,7 +19,8 @@ package com.helger.config.value;
 import javax.annotation.Nonnull;
 
 /**
- * Callback interface for enumeration.
+ * Callback interface for enumeration of available configuration value
+ * providers.
  *
  * @author Philip Helger
  */

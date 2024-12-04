@@ -191,6 +191,85 @@ public final class ConfigTest
   }
 
   @Test
+  public void testWithVariableDefaults ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "Prefix ${key2:default}");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("Prefix default", aConfig.getAsString ("key1"));
+
+    // Now define it
+    aMap.put ("key2", "xyz");
+    assertEquals ("Prefix xyz", aConfig.getAsString ("key1"));
+  }
+
+  @Test
+  public void testWithVariableEmptyDefault ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "Prefix ${key2:}");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("Prefix ", aConfig.getAsString ("key1"));
+
+    // Now define it
+    aMap.put ("key2", "xyz");
+    assertEquals ("Prefix xyz", aConfig.getAsString ("key1"));
+  }
+
+  @Test
+  public void testWithVariableNestedVariableDefault ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "Prefix ${key2:${key3}}");
+    aMap.put ("key3", "fallback");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("Prefix fallback", aConfig.getAsString ("key1"));
+
+    // Now define it
+    aMap.put ("key2", "xyz");
+    assertEquals ("Prefix xyz", aConfig.getAsString ("key1"));
+  }
+
+  @Test
+  public void testWithVariableMultipleNestedVariableDefault ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "Prefix ${key2:${key3:${key4:${key5}}}}");
+    aMap.put ("key5", "fallback");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("Prefix fallback", aConfig.getAsString ("key1"));
+
+    // Now define it
+    aMap.put ("key4", "abc");
+    assertEquals ("Prefix abc", aConfig.getAsString ("key1"));
+
+    // Now define it
+    aMap.put ("key3", "qwe");
+    assertEquals ("Prefix qwe", aConfig.getAsString ("key1"));
+
+    // Now define it
+    aMap.put ("key2", "xyz");
+    assertEquals ("Prefix xyz", aConfig.getAsString ("key1"));
+  }
+
+  @Test
+  public void testWithVariableBrokenDefault ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("key1", "Prefix ${key2:$$$}");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get)).setReplaceVariables (true);
+    assertEquals ("Prefix $$$", aConfig.getAsString ("key1"));
+
+    // Broken definition
+    aMap.put ("key1", "Prefix ${key2:${}");
+    assertEquals ("Prefix ${key2:${}", aConfig.getAsString ("key1"));
+
+    // Masked brackets
+    aMap.put ("key1", "Prefix ${key2:\\{\\}}");
+    assertEquals ("Prefix {}", aConfig.getAsString ("key1"));
+  }
+
+  @Test
   public void testIssueSmp234 ()
   {
     final String s = "# Global flags for initializer\r\n" +
