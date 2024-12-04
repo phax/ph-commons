@@ -52,6 +52,10 @@ public class Config implements IConfig
    * default since v11.0.2.
    */
   public static final boolean DEFAULT_REPLACE_VARIABLES = true;
+  /**
+   * By default the usage of variable default is allowed. Since 11.1.11
+   */
+  public static final boolean DEFAULT_USE_VARIABLE_DEFAULT_VALUES = true;
   public static final UnaryOperator <String> DEFAULT_UNRESOLVED_VARIABLE_PROVIDER = x -> "unresolved-var(" + x + ")";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (Config.class);
@@ -60,6 +64,7 @@ public class Config implements IConfig
   private BiConsumer <String, ConfiguredValue> m_aKeyFoundConsumer;
   private Consumer <String> m_aKeyNotFoundConsumer;
   private boolean m_bReplaceVariables = DEFAULT_REPLACE_VARIABLES;
+  private boolean m_bUseVariableDefaultValues = DEFAULT_USE_VARIABLE_DEFAULT_VALUES;
   private UnaryOperator <String> m_aUnresolvedVariableProvider = DEFAULT_UNRESOLVED_VARIABLE_PROVIDER;
 
   /**
@@ -160,6 +165,35 @@ public class Config implements IConfig
   }
 
   /**
+   * @return <code>true</code> if variables are allowed to have default values
+   *         in the form <code>${variable:default}</code>, <code>false</code> if
+   *         not. The default value is
+   *         {@value #DEFAULT_USE_VARIABLE_DEFAULT_VALUES}.
+   * @since 11.1.1
+   */
+  public final boolean isUseVariableDefaultValues ()
+  {
+    return m_bUseVariableDefaultValues;
+  }
+
+  /**
+   * Enable or disable the usage of default values in variables of configuration
+   * values.
+   *
+   * @param bUseVariableDefaultValues
+   *        <code>true</code> to allow the usage, <code>false</code> to disable
+   *        it.
+   * @return this for chaining
+   * @since 11.1.1
+   */
+  @Nonnull
+  public final Config setUseVariableDefaultValues (final boolean bUseVariableDefaultValues)
+  {
+    m_bUseVariableDefaultValues = bUseVariableDefaultValues;
+    return this;
+  }
+
+  /**
    * @return The unresolved variable provider to be used. Never
    *         <code>null</code>.
    */
@@ -216,10 +250,21 @@ public class Config implements IConfig
                                                      @Nonnull final ICommonsOrderedSet <String> aUsedVarContainer)
   {
     final UnaryOperator <String> aVarProvider = sVarDecl -> {
-
-      final int nColonIdx = sVarDecl.indexOf (':');
-      final String sVarName = nColonIdx < 0 ? sVarDecl : sVarDecl.substring (0, nColonIdx);
-      final String sVarDefaultValue = nColonIdx < 0 ? null : sVarDecl.substring (nColonIdx + 1);
+      final String sVarName;
+      final String sVarDefaultValue;
+      if (m_bUseVariableDefaultValues)
+      {
+        // Default values are allowed
+        final int nColonIdx = sVarDecl.indexOf (':');
+        sVarName = nColonIdx < 0 ? sVarDecl : sVarDecl.substring (0, nColonIdx);
+        sVarDefaultValue = nColonIdx < 0 ? null : sVarDecl.substring (nColonIdx + 1);
+      }
+      else
+      {
+        // Default values are disabled
+        sVarName = sVarDecl;
+        sVarDefaultValue = null;
+      }
 
       if (!aUsedVarContainer.add (sVarName))
       {
@@ -255,11 +300,13 @@ public class Config implements IConfig
       }
       else
       {
+        // We take the configured value
         sNestedConfiguredValue = aCV.getValue ();
       }
       if (StringHelper.hasText (sNestedConfiguredValue))
       {
-        // Recursive call
+        // Recursive call to replace variables in the resolved configuration
+        // value
         sNestedConfiguredValue = _getWithVariablesReplacedRecursive (sNestedConfiguredValue, aUsedVarContainer);
       }
       // Remove the variable again, because resolution worked so far
@@ -346,6 +393,7 @@ public class Config implements IConfig
                                        .append ("KeyFoundConsumer", m_aKeyFoundConsumer)
                                        .append ("KeyNotFoundConsumer", m_aKeyNotFoundConsumer)
                                        .append ("ReplaceVariables", m_bReplaceVariables)
+                                       .append ("UseVariableDefaultValues", m_bUseVariableDefaultValues)
                                        .append ("UnresolvedVariableProvider", m_aUnresolvedVariableProvider)
                                        .getToString ();
   }
