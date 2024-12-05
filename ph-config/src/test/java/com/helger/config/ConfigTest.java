@@ -264,9 +264,21 @@ public final class ConfigTest
     aMap.put ("key1", "Prefix ${key2:${}");
     assertEquals ("Prefix ${key2:${}", aConfig.getAsString ("key1"));
 
-    // Masked brackets
-    aMap.put ("key1", "Prefix ${key2:\\{\\}}");
+    // double masked brackets are kept
+    aMap.put ("key1", "Prefix ${key2:\\\\{\\\\}}");
+    assertEquals ("Prefix \\{\\}", aConfig.getAsString ("key1"));
+
+    // Unmasked brackets work as well
+    aMap.put ("key1", "Prefix ${key2:{}}");
     assertEquals ("Prefix {}", aConfig.getAsString ("key1"));
+
+    // Masked nested variable
+    aMap.put ("key1", "Prefix ${key2:\\\\${literal}}");
+    assertEquals ("Prefix \\${literal}", aConfig.getAsString ("key1"));
+
+    // Masked nested variable
+    aMap.put ("key1", "Prefix ${key2:\\\\${literal:\\\\whocares}}");
+    assertEquals ("Prefix \\${literal:\\whocares}", aConfig.getAsString ("key1"));
   }
 
   @Test

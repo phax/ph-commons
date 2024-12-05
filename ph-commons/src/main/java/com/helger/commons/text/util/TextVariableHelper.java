@@ -61,8 +61,55 @@ public final class TextVariableHelper
                                                @Nonnegative final int nOfs,
                                                @Nonnegative final int nLen,
                                                @Nonnegative final char cSearch,
-                                               @Nonnegative final char cLevelChar,
                                                @Nonnull final StringBuilder aTarget)
+  {
+    boolean bLastCharWasMask = false;
+    for (int nIndex = nOfs; nIndex < nOfs + nLen; ++nIndex)
+    {
+      final char c = aChars[nIndex];
+      if (c == MASKING_CHAR)
+      {
+        // in "\\" the first "\" switches to true and the second again to
+        // false
+        bLastCharWasMask = !bLastCharWasMask;
+        if (!bLastCharWasMask)
+          aTarget.append (c);
+      }
+      else
+      {
+        // Not a masking char
+        if (c == cSearch)
+        {
+          if (bLastCharWasMask)
+          {
+            // It's masked, so we can't use it
+            aTarget.append (c);
+          }
+          else
+          {
+            // Begin of variable
+            return nIndex;
+          }
+        }
+        else
+        {
+          // Some other char
+          aTarget.append (c);
+        }
+        bLastCharWasMask = false;
+      }
+    }
+    // End of string and not found
+    return -1;
+  }
+
+  @CheckForSigned
+  private static int _nextCharConsiderMaskingBalancedBrackets (@Nonnull final char [] aChars,
+                                                               @Nonnegative final int nOfs,
+                                                               @Nonnegative final int nLen,
+                                                               @Nonnegative final char cClosingBracket,
+                                                               @Nonnegative final char cLevelChar,
+                                                               @Nonnull final StringBuilder aTarget)
   {
     boolean bLastCharWasMask = false;
     int nLevel = 0;
@@ -80,7 +127,7 @@ public final class TextVariableHelper
       else
       {
         // Not a masking char
-        if (c == cSearch)
+        if (c == cClosingBracket)
         {
           if (bLastCharWasMask || nLevel > 0)
           {
@@ -97,7 +144,7 @@ public final class TextVariableHelper
         else
         {
           // Make sure that nested variables work, by counting bracket depth
-          if (cLevelChar != 0 && c == cLevelChar)
+          if (c == cLevelChar)
             nLevel++;
 
           // Some other char
@@ -118,7 +165,7 @@ public final class TextVariableHelper
   {
     final int nStartOfs = nOfs;
     // Find start of variable with "$"
-    int nAbsOfs = _nextCharConsiderMasking (aChars, nOfs, nLen, DOLLAR, (char) 0, aSB);
+    int nAbsOfs = _nextCharConsiderMasking (aChars, nOfs, nLen, DOLLAR, aSB);
     while (nAbsOfs >= nOfs && nAbsOfs <= nOfs + nLen - 1)
     {
       // "$" may be the last char of the string
@@ -136,7 +183,7 @@ public final class TextVariableHelper
         return -1;
       }
       // Find next "$" starting from where we are atm
-      nAbsOfs = _nextCharConsiderMasking (aChars, nAbsOfs + 1, nLen - (nAbsOfs - nStartOfs + 1), DOLLAR, (char) 0, aSB);
+      nAbsOfs = _nextCharConsiderMasking (aChars, nAbsOfs + 1, nLen - (nAbsOfs - nStartOfs + 1), DOLLAR, aSB);
     }
     return nAbsOfs;
   }
@@ -186,12 +233,12 @@ public final class TextVariableHelper
       aTarget.setLength (0);
 
       // Search for unmasked end of variable
-      final int nEndOfVar = _nextCharConsiderMasking (aTextChars,
-                                                      nNextVar,
-                                                      nTextLen - nNextVar,
-                                                      CLOSING_BRACKET,
-                                                      OPENING_BRACKET,
-                                                      aTarget);
+      final int nEndOfVar = _nextCharConsiderMaskingBalancedBrackets (aTextChars,
+                                                                      nNextVar,
+                                                                      nTextLen - nNextVar,
+                                                                      CLOSING_BRACKET,
+                                                                      OPENING_BRACKET,
+                                                                      aTarget);
       if (nEndOfVar < 0)
       {
         LOGGER.warn ("End of variable was not found in '" + sText + "' starting from ofs " + nNextVar);
