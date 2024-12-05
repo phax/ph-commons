@@ -25,9 +25,9 @@ import com.helger.commons.lang.EnumHelper;
 
 /**
  * Determines the indentation and alignment mode of XML serialization. Alignment
- * means: newlines after certain elements. Indent means: adding blanks at the
- * beginning of the line to reflect the tree structure of an XML document more
- * visibly.
+ * means: newlines after certain elements. Indent means: adding whitespaces at
+ * the beginning of the line to reflect the tree structure of an XML document
+ * more visibly.
  *
  * @author Philip Helger
  */
@@ -37,8 +37,9 @@ public enum EXMLSerializeIndent implements IHasID <String>
   NONE ("none", false, false),
   /** No indent but align */
   ALIGN_ONLY ("align", false, true),
-  /** Indent but no align. */
-  INDENT_ONLY ("indent", true, false),
+  /** Indent but no align. Makes no sense */
+  @Deprecated (forRemoval = true, since = "11.1.11")
+  INDENT_ONLY("indent", true, false),
   /** Both indent and align. */
   INDENT_AND_ALIGN ("indentalign", true, true);
 
@@ -82,13 +83,17 @@ public enum EXMLSerializeIndent implements IHasID <String>
     return m_bAlign ? ALIGN_ONLY : NONE;
   }
 
+  // Always use "INDENT_AND_ALIGN" instead
   @Nonnull
+  @Deprecated (forRemoval = true, since = "11.1.11")
   public EXMLSerializeIndent getWithIndent ()
   {
     return m_bAlign ? INDENT_AND_ALIGN : INDENT_ONLY;
   }
 
+  // Always use "NONE" instead
   @Nonnull
+  @Deprecated (forRemoval = true, since = "11.1.11")
   public EXMLSerializeIndent getWithoutAlign ()
   {
     return m_bIndent ? INDENT_ONLY : NONE;
