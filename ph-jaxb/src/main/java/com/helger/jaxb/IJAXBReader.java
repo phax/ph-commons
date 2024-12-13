@@ -95,7 +95,7 @@ public interface IJAXBReader <JAXBTYPE>
     ValueEnforcer.notNull (aSettings, "Settings");
     ValueEnforcer.notNull (aInputSource, "InputSource");
 
-    // Create new XML reader
+    // Create new XML reader (secured by default)
     final XMLReader aParser = SAXReaderFactory.createXMLReader ();
     aSettings.applyToSAXReader (aParser);
 
