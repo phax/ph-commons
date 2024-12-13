@@ -134,6 +134,35 @@ public final class XMLFactory
     }
   }
 
+  public static void defaultCustomizeDocumentBuilderFactory (@Nonnull final DocumentBuilderFactory aFactory)
+  {
+    /*
+     * Secure processing is enabled by default since JDK 8. See class
+     * "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"
+     * field "fSecure" is initially "true". However, if someone uses an external
+     * XML parser library (like Xerces) it might be disabled.
+     */
+    _setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
+    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+    _setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false);
+    aFactory.setNamespaceAware (DEFAULT_DOM_NAMESPACE_AWARE);
+    aFactory.setValidating (DEFAULT_DOM_VALIDATING);
+    aFactory.setIgnoringElementContentWhitespace (DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE);
+    aFactory.setExpandEntityReferences (DEFAULT_DOM_EXPAND_ENTITY_REFERENCES);
+    aFactory.setIgnoringComments (DEFAULT_DOM_IGNORING_COMMENTS);
+    aFactory.setCoalescing (DEFAULT_DOM_COALESCING);
+    try
+    {
+      aFactory.setXIncludeAware (DEFAULT_DOM_XINCLUDE_AWARE);
+    }
+    catch (final UnsupportedOperationException ex)
+    {
+      // Ignore
+    }
+  }
+
   /**
    * Create a new {@link DocumentBuilderFactory} using the defaults defined in
    * this class ({@link #DEFAULT_DOM_NAMESPACE_AWARE},
@@ -148,26 +177,8 @@ public final class XMLFactory
   @Nonnull
   public static DocumentBuilderFactory createDefaultDocumentBuilderFactory ()
   {
-    // Secure processing is enabled by default since JDK 8
     final DocumentBuilderFactory aFactory = DocumentBuilderFactory.newInstance ();
-    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
-    aFactory.setNamespaceAware (DEFAULT_DOM_NAMESPACE_AWARE);
-    aFactory.setValidating (DEFAULT_DOM_VALIDATING);
-    aFactory.setIgnoringElementContentWhitespace (DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE);
-    aFactory.setExpandEntityReferences (DEFAULT_DOM_EXPAND_ENTITY_REFERENCES);
-    aFactory.setIgnoringComments (DEFAULT_DOM_IGNORING_COMMENTS);
-    aFactory.setCoalescing (DEFAULT_DOM_COALESCING);
-
-    try
-    {
-      aFactory.setXIncludeAware (DEFAULT_DOM_XINCLUDE_AWARE);
-    }
-    catch (final UnsupportedOperationException ex)
-    {
-      // Ignore
-    }
+    defaultCustomizeDocumentBuilderFactory (aFactory);
     return aFactory;
   }
 
@@ -440,6 +451,18 @@ public final class XMLFactory
     }
   }
 
+  public static void defaultCustomizeSAXParserFactory (@Nonnull final SAXParserFactory aFactory)
+  {
+    _setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
+    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+    _setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false);
+    aFactory.setNamespaceAware (DEFAULT_SAX_NAMESPACE_AWARE);
+    aFactory.setValidating (DEFAULT_SAX_VALIDATING);
+    aFactory.setXIncludeAware (DEFAULT_SAX_XINCLUDE_AWARE);
+  }
+
   @Nonnull
   public static SAXParserFactory createDefaultSAXParserFactory ()
   {
@@ -454,12 +477,7 @@ public final class XMLFactory
       // Java 8 method - see #41
       aFactory = SAXParserFactory.newInstance ();
     }
-    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
-    aFactory.setNamespaceAware (DEFAULT_SAX_NAMESPACE_AWARE);
-    aFactory.setValidating (DEFAULT_SAX_VALIDATING);
-    aFactory.setXIncludeAware (DEFAULT_SAX_XINCLUDE_AWARE);
+    defaultCustomizeSAXParserFactory (aFactory);
     return aFactory;
   }
 
@@ -482,19 +500,26 @@ public final class XMLFactory
     }
   }
 
+  public static void defaultCustomizeTransformerFactory (@Nonnull final TransformerFactory aFactory)
+  {
+    if (false)
+    {
+      // This prevents to use XSLT includes
+      _setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
+    }
+    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+    _setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false);
+  }
+
   @Nonnull
   public static TransformerFactory createDefaultTransformerFactory ()
   {
     try
     {
       final TransformerFactory aFactory = TransformerFactory.newInstance ();
-      if (false)
-      {
-        // Not needed for Java 11
-        _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
-        _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
-        _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
-      }
+      defaultCustomizeTransformerFactory (aFactory);
       return aFactory;
     }
     catch (final TransformerFactoryConfigurationError ex)
