@@ -483,7 +483,8 @@ public final class XMLFactory
 
   private static void _setFeature (@Nonnull final TransformerFactory aFactory,
                                    @Nonnull final EXMLParserFeature eFeature,
-                                   final boolean bValue)
+                                   final boolean bValue,
+                                   final boolean bLogOnError)
   {
     try
     {
@@ -491,12 +492,13 @@ public final class XMLFactory
     }
     catch (final TransformerConfigurationException ex)
     {
-      LOGGER.warn ("Failed to set feature " +
-                   eFeature +
-                   " to " +
-                   bValue +
-                   " on XML TransformerFactory: " +
-                   ex.getMessage ());
+      if (bLogOnError)
+        LOGGER.warn ("Failed to set feature " +
+                     eFeature +
+                     " to " +
+                     bValue +
+                     " on XML TransformerFactory: " +
+                     ex.getMessage ());
     }
   }
 
@@ -505,12 +507,16 @@ public final class XMLFactory
     if (false)
     {
       // This prevents to use XSLT includes
-      _setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
+      _setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true, true);
     }
-    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
-    _setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false);
+    /*
+     * The following properties might not be applied - e.g. default JDK does not
+     * support them. But as other implementations might allow it...
+     */
+    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true, false);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false, false);
+    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false, false);
+    _setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false, false);
   }
 
   @Nonnull
