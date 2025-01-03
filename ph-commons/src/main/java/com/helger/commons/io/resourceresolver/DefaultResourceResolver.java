@@ -104,9 +104,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     final File aBaseFile = new File (sBaseURIWithoutPrefix).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () +
-                                                                                         '/' +
-                                                                                         sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
+                                                                           : aBaseFile.getPath () + '/' + sSystemId);
 
     final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
     CONDLOG.info ( () -> "  [ClassPath] resolved base + system to " + ret);
@@ -114,8 +113,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
   }
 
   @Nonnull
-  private static URLResource _resolveJarFileResource (@Nonnull final String sSystemId, @Nonnull final String sBaseURI)
-                                                                                                                       throws MalformedURLException
+  private static URLResource _resolveJarFileResource (@Nonnull final String sSystemId,
+                                                      @Nonnull final String sBaseURI) throws MalformedURLException
   {
     // Base URI is inside a jar file? Skip the JAR file
     // See issue #8 - use lastIndexOf here
@@ -140,9 +139,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     final File aBaseFile = new File (sBasePath).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () +
-                                                                                         '/' +
-                                                                                         sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
+                                                                           : aBaseFile.getPath () + '/' + sSystemId);
 
     final String sAggregatedPath;
     if (sPrefix.endsWith ("/") && sNewPath.startsWith ("/"))
@@ -158,8 +156,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
   }
 
   @Nonnull
-  private static URLResource _resolveURLResource (final String sSystemId, @Nonnull final URL aBaseURL)
-                                                                                                       throws MalformedURLException
+  private static URLResource _resolveURLResource (final String sSystemId,
+                                                  @Nonnull final URL aBaseURL) throws MalformedURLException
   {
     // Take only the path
     String sBasePath = aBaseURL.getPath ();
@@ -228,11 +226,11 @@ public class DefaultResourceResolver implements IHasConditionalLogger
       throw new IllegalArgumentException ("Both systemID and baseURI are null!");
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Trying to resolve resource " +
+      LOGGER.debug ("Trying to resolve resource '" +
                     sSystemId +
-                    " from base " +
+                    "' from base '" +
                     sBaseURI +
-                    (aClassLoader == null ? "" : " with ClassLoader " + aClassLoader));
+                    (aClassLoader == null ? "'" : "' with ClassLoader " + aClassLoader));
 
     CONDLOG.info ( () -> "doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
 
