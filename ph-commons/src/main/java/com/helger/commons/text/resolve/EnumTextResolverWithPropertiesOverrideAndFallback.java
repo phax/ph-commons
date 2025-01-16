@@ -83,7 +83,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
    */
   public void setUseResourceBundleCache (final boolean bUseResourceBundleCache)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_bUseResourceBundleCache = bUseResourceBundleCache);
+    m_aRWLock.writeLocked ( () -> m_bUseResourceBundleCache = bUseResourceBundleCache);
   }
 
   /**
@@ -151,7 +151,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       if (ret != null)
       {
         // Match!
-        m_aRWLock.writeLockedBoolean ( () -> m_aUsedOverrideBundles.add (sBundleName));
+        m_aRWLock.writeLocked ( () -> m_aUsedOverrideBundles.add (sBundleName));
         return ret;
       }
     }
@@ -172,7 +172,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       final String ret = ResourceBundleHelper.getString (_getResourceBundle (sBundleName, aLocale), sID);
       if (ret != null)
       {
-        m_aRWLock.writeLockedBoolean ( () -> m_aUsedFallbackBundles.add (sBundleName));
+        m_aRWLock.writeLocked ( () -> m_aUsedFallbackBundles.add (sBundleName));
         return ret;
       }
     }
