@@ -65,7 +65,7 @@
   <properties>
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
-    <bc.version>1.79</bc.version>
+    <bc.version>1.80</bc.version>
     <bcpg.version>${bc.version}</bcpg.version>
     <jsr305.version>3.0.2</jsr305.version>
     <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
