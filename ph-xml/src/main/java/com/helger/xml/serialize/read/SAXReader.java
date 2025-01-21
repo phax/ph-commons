@@ -27,10 +27,12 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
 import javax.annotation.concurrent.ThreadSafe;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.XMLReader;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -205,19 +207,28 @@ public final class SAXReader
 
     try
     {
+      final XMLReader aParser;
       final boolean bFromPool;
-      final org.xml.sax.XMLReader aParser;
-      if (aSettings.requiresNewXMLParser ())
+
+      final SAXParserFactory aCustomSaxParserFactory = aSettings.getCustomSAXParserFactory ();
+      if (aCustomSaxParserFactory != null)
       {
-        aParser = SAXReaderFactory.createXMLReader ();
+        // Using the customer XMLReader
+        aParser = SAXReaderFactory.createXMLReader (aCustomSaxParserFactory);
         bFromPool = false;
       }
       else
-      {
-        // use parser from pool
-        aParser = POOL.borrowObject ();
-        bFromPool = true;
-      }
+        if (aSettings.requiresNewXMLParser ())
+        {
+          aParser = SAXReaderFactory.createXMLReader ();
+          bFromPool = false;
+        }
+        else
+        {
+          // use parser from pool
+          aParser = POOL.borrowObject ();
+          bFromPool = true;
+        }
 
       try
       {

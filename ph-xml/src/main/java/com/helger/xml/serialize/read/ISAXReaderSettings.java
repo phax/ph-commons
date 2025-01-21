@@ -18,6 +18,7 @@ package com.helger.xml.serialize.read;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
@@ -65,13 +66,20 @@ public interface ISAXReaderSettings extends IBaseXMLReaderSettings
   boolean isRequiresNewXMLParserExplicitly ();
 
   /**
+   * @return A custom SAX parser factory. This is only needed to work around
+   *         some of the default SAXParserFactory configuration cannot be
+   *         applied.
+   * @since 11.1.13
+   */
+  @Nullable
+  SAXParserFactory getCustomSAXParserFactory ();
+
+  /**
    * Check if the current settings require a separate
-   * {@link javax.xml.parsers.DocumentBuilderFactory} or if a pooled default
-   * object can be used.
+   * {@link org.xml.sax.XMLReader} or if a pooled default object can be used.
    *
-   * @return <code>true</code> if a separate
-   *         {@link javax.xml.parsers.DocumentBuilderFactory} is required,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a separate {@link org.xml.sax.XMLReader} is
+   *         required, <code>false</code> if not.
    */
   boolean requiresNewXMLParser ();
 

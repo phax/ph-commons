@@ -39,9 +39,15 @@ public final class SAXReaderFactory implements Supplier <XMLReader>
   @Nonnull
   public static XMLReader createXMLReader ()
   {
+    final SAXParserFactory aFactory = XMLFactory.createDefaultSAXParserFactory ();
+    return createXMLReader (aFactory);
+  }
+
+  @Nonnull
+  public static XMLReader createXMLReader (@Nonnull final SAXParserFactory aFactory)
+  {
     try
     {
-      final SAXParserFactory aFactory = XMLFactory.createDefaultSAXParserFactory ();
       return aFactory.newSAXParser ().getXMLReader ();
     }
     catch (final ParserConfigurationException | SAXException ex)

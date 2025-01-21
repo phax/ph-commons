@@ -22,6 +22,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
   private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
   private final CallbackList <IExceptionCallback <Throwable>> m_aExceptionCallbacks = new CallbackList <> ();
+  private SAXParserFactory m_aCustomSAXParserFactory;
   private boolean m_bRequiresNewXMLParserExplicitly;
 
   /**
@@ -76,6 +78,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     setPropertyValues (SAXReaderDefaultSettings.getAllPropertyValues ());
     setFeatureValues (SAXReaderDefaultSettings.getAllFeatureValues ());
     exceptionCallbacks ().set (SAXReaderDefaultSettings.exceptionCallbacks ());
+    // Custom factory is always null
+    setCustomSAXParserFactory (null);
     setRequiresNewXMLParserExplicitly (SAXReaderDefaultSettings.isRequiresNewXMLParserExplicitly ());
   }
 
@@ -97,6 +101,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     setPropertyValues (aOther.getAllPropertyValues ());
     setFeatureValues (aOther.getAllFeatureValues ());
     exceptionCallbacks ().set (aOther.exceptionCallbacks ());
+    setCustomSAXParserFactory (aOther.getCustomSAXParserFactory ());
     setRequiresNewXMLParserExplicitly (aOther.isRequiresNewXMLParserExplicitly ());
   }
 
@@ -351,6 +356,19 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return m_aExceptionCallbacks;
   }
 
+  @Nullable
+  public SAXParserFactory getCustomSAXParserFactory ()
+  {
+    return m_aCustomSAXParserFactory;
+  }
+
+  @Nonnull
+  public final SAXReaderSettings setCustomSAXParserFactory (@Nullable final SAXParserFactory a)
+  {
+    m_aCustomSAXParserFactory = a;
+    return this;
+  }
+
   public boolean isRequiresNewXMLParserExplicitly ()
   {
     return m_bRequiresNewXMLParserExplicitly;
@@ -392,14 +410,15 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("entityResolver", m_aEntityResolver)
-                                       .append ("dtdHandler", m_aDTDHandler)
-                                       .append ("contentHandler", m_aContentHandler)
-                                       .append ("errorHandler", m_aErrorHandler)
-                                       .append ("properties", m_aProperties)
-                                       .append ("features", m_aFeatures)
-                                       .append ("exceptionHandler", m_aExceptionCallbacks)
-                                       .append ("requiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
+    return new ToStringGenerator (this).append ("EntityResolver", m_aEntityResolver)
+                                       .append ("DtdHandler", m_aDTDHandler)
+                                       .append ("ContentHandler", m_aContentHandler)
+                                       .append ("ErrorHandler", m_aErrorHandler)
+                                       .append ("Properties", m_aProperties)
+                                       .append ("Features", m_aFeatures)
+                                       .append ("ExceptionHandler", m_aExceptionCallbacks)
+                                       .append ("CustomSAXParserFactory", m_aCustomSAXParserFactory)
+                                       .append ("RequiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
                                        .getToString ();
   }
 
