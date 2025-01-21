@@ -30,6 +30,7 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
+import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 
@@ -363,9 +364,9 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public final SAXReaderSettings setCustomSAXParserFactory (@Nullable final SAXParserFactory a)
+  public final SAXReaderSettings setCustomSAXParserFactory (@Nullable final SAXParserFactory aCustomSAXParserFactory)
   {
-    m_aCustomSAXParserFactory = a;
+    m_aCustomSAXParserFactory = aCustomSAXParserFactory;
     return this;
   }
 
@@ -387,7 +388,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return new SAXReaderSettings (this);
   }
 
-  public void applyToSAXReader (@Nonnull final org.xml.sax.XMLReader aParser)
+  public void applyToSAXReader (@Nonnull final XMLReader aParser)
   {
     ValueEnforcer.notNull (aParser, "Parser");
 
