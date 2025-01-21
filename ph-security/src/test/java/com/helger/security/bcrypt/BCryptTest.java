@@ -123,9 +123,8 @@ public final class BCryptTest
       final String expected = test_vector[2];
       final String hashed = BCrypt.hashpw (plain, salt);
       assertEquals (hashed, expected);
-      LOGGER.info (".");
     }
-    LOGGER.info ("");
+    LOGGER.info ("done");
   }
 
   /**
@@ -145,10 +144,9 @@ public final class BCryptTest
         final String hashed1 = BCrypt.hashpw (plain, salt);
         final String hashed2 = BCrypt.hashpw (plain, hashed1);
         assertEquals (hashed1, hashed2);
-        LOGGER.info (".");
       }
     }
-    LOGGER.info ("");
+    LOGGER.info ("done");
   }
 
   /**
@@ -165,9 +163,8 @@ public final class BCryptTest
       final String hashed1 = BCrypt.hashpw (plain, salt);
       final String hashed2 = BCrypt.hashpw (plain, hashed1);
       assertEquals (hashed1, hashed2);
-      LOGGER.info (".");
     }
-    LOGGER.info ("");
+    LOGGER.info ("done");
   }
 
   /**
@@ -182,9 +179,8 @@ public final class BCryptTest
       final String plain = test_vector[0];
       final String expected = test_vector[2];
       assertTrue (BCrypt.checkpw (plain, expected));
-      LOGGER.info (".");
     }
-    LOGGER.info ("");
+    LOGGER.info ("done");
   }
 
   /**
@@ -200,9 +196,8 @@ public final class BCryptTest
       final String plain = TEST_VECTORS[i][0];
       final String expected = TEST_VECTORS[broken_index][2];
       assertFalse (BCrypt.checkpw (plain, expected));
-      LOGGER.info (".");
     }
-    LOGGER.info ("");
+    LOGGER.info ("done");
   }
 
   /**
@@ -217,12 +212,10 @@ public final class BCryptTest
 
     final String h1 = BCrypt.hashpw (pw1, BCrypt.gensalt ());
     assertFalse (BCrypt.checkpw (pw2, h1));
-    LOGGER.info (".");
 
     final String h2 = BCrypt.hashpw (pw2, BCrypt.gensalt ());
     assertFalse (BCrypt.checkpw (pw1, h2));
-    LOGGER.info (".");
-    LOGGER.info ("");
+    LOGGER.info ("done");
   }
 
   @Test
