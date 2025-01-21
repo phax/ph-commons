@@ -115,9 +115,9 @@ public final class XMLFactory
   private XMLFactory ()
   {}
 
-  private static void _setFeature (@Nonnull final DocumentBuilderFactory aFactory,
-                                   @Nonnull final EXMLParserFeature eFeature,
-                                   final boolean bValue)
+  public static void setFeature (@Nonnull final DocumentBuilderFactory aFactory,
+                                 @Nonnull final EXMLParserFeature eFeature,
+                                 final boolean bValue)
   {
     try
     {
@@ -142,11 +142,11 @@ public final class XMLFactory
      * field "fSecure" is initially "true". However, if someone uses an external
      * XML parser library (like Xerces) it might be disabled.
      */
-    _setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
-    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
-    _setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false);
+    setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
+    setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+    setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+    setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+    setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false);
     aFactory.setNamespaceAware (DEFAULT_DOM_NAMESPACE_AWARE);
     aFactory.setValidating (DEFAULT_DOM_VALIDATING);
     aFactory.setIgnoringElementContentWhitespace (DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE);
@@ -432,9 +432,9 @@ public final class XMLFactory
     return aDoc;
   }
 
-  private static void _setFeature (@Nonnull final SAXParserFactory aFactory,
-                                   @Nonnull final EXMLParserFeature eFeature,
-                                   final boolean bValue)
+  public static void setFeature (@Nonnull final SAXParserFactory aFactory,
+                                 @Nonnull final EXMLParserFeature eFeature,
+                                 final boolean bValue)
   {
     try
     {
@@ -453,11 +453,11 @@ public final class XMLFactory
 
   public static void defaultCustomizeSAXParserFactory (@Nonnull final SAXParserFactory aFactory)
   {
-    _setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
-    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
-    _setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false);
+    setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
+    setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
+    setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false);
+    setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false);
+    setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false);
     aFactory.setNamespaceAware (DEFAULT_SAX_NAMESPACE_AWARE);
     aFactory.setValidating (DEFAULT_SAX_VALIDATING);
     aFactory.setXIncludeAware (DEFAULT_SAX_XINCLUDE_AWARE);
@@ -481,10 +481,10 @@ public final class XMLFactory
     return aFactory;
   }
 
-  private static void _setFeature (@Nonnull final TransformerFactory aFactory,
-                                   @Nonnull final EXMLParserFeature eFeature,
-                                   final boolean bValue,
-                                   final boolean bLogOnError)
+  public static void setFeature (@Nonnull final TransformerFactory aFactory,
+                                 @Nonnull final EXMLParserFeature eFeature,
+                                 final boolean bValue,
+                                 final boolean bLogOnError)
   {
     try
     {
@@ -507,16 +507,16 @@ public final class XMLFactory
     if (false)
     {
       // This prevents to use XSLT includes
-      _setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true, true);
+      setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true, true);
     }
     /*
      * The following properties might not be applied - e.g. default JDK does not
      * support them. But as other implementations might allow it...
      */
-    _setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true, false);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false, false);
-    _setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false, false);
-    _setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false, false);
+    setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true, false);
+    setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false, false);
+    setFeature (aFactory, EXMLParserFeature.EXTERNAL_PARAMETER_ENTITIES, false, false);
+    setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false, false);
   }
 
   @Nonnull
