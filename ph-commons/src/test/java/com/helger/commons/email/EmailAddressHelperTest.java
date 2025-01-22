@@ -10,7 +10,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
-public class EmailAddressHelperTest
+public final class EmailAddressHelperTest
 {
   // "aa@bb" or "aa.bb@cc" are valid according to the spec, but not correctly
   // handled by the RegEx
