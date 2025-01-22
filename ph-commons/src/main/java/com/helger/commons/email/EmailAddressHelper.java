@@ -35,8 +35,18 @@ public final class EmailAddressHelper
   /** This is the email RegEx :) */
   public static final String EMAIL_ADDRESS_PATTERN = "[a-z0-9!#\\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\\$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
-  /** Compile this little pattern only once */
+  /**
+   * This is the simple email RegEx that deals with Unicode email addresses.
+   * Based on
+   * https://github.com/itplr-kosit/validator-configuration-xrechnung/issues/109
+   */
+  public static final String EMAIL_ADDRESS_PATTERN_SIMPLE = "[^@]+@([^@.]+\\.)+[^@.]+";
+
+  /** Compile this pattern only once */
   private static final Pattern PATTERN = RegExCache.getPattern (EMAIL_ADDRESS_PATTERN);
+
+  /** Compile this pattern only once */
+  private static final Pattern PATTERN_SIMPLE = RegExCache.getPattern (EMAIL_ADDRESS_PATTERN_SIMPLE);
 
   private EmailAddressHelper ()
   {}
@@ -57,8 +67,8 @@ public final class EmailAddressHelper
   }
 
   /**
-   * Checks if a value is a valid e-mail address according to a certain regular
-   * expression.
+   * Checks if a value is a valid e-mail address according to the original,
+   * complex regular expression (see {@link #EMAIL_ADDRESS_PATTERN}).
    *
    * @param sEmailAddress
    *        The value validation is being performed on. A <code>null</code>
@@ -76,5 +86,29 @@ public final class EmailAddressHelper
 
     // Pattern matching
     return PATTERN.matcher (sUnifiedEmail).matches ();
+  }
+
+  /**
+   * Checks if a value is a valid e-mail address according to the simple regular
+   * expression (see {@link #EMAIL_ADDRESS_PATTERN_SIMPLE}). The idea is, that
+   * all email addresses valid with {@link #isValid(String)} are still valid
+   * with this one.
+   *
+   * @param sEmailAddress
+   *        The value validation is being performed on. A <code>null</code>
+   *        value is considered invalid.
+   * @return <code>true</code> if the email address is valid, <code>false</code>
+   *         otherwise.
+   */
+  public static boolean isValidForSimplePattern (@Nullable final String sEmailAddress)
+  {
+    if (sEmailAddress == null)
+      return false;
+
+    // Unify (lowercase)
+    final String sUnifiedEmail = getUnifiedEmailAddress (sEmailAddress);
+
+    // Pattern matching
+    return PATTERN_SIMPLE.matcher (sUnifiedEmail).matches ();
   }
 }
