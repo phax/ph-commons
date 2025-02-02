@@ -137,4 +137,44 @@ public class HasInputStream implements IHasInputStream
     ValueEnforcer.notNull (aBAOS, "BAOS");
     return new HISNBBAOS (aBAOS);
   }
+
+  private static final class HISByteArray implements IHasInputStream
+  {
+    private final byte [] m_aBytes;
+
+    public HISByteArray (@Nonnull final byte [] aBytes)
+    {
+      m_aBytes = aBytes;
+    }
+
+    @Nonnull
+    public InputStream getInputStream ()
+    {
+      return new NonBlockingByteArrayInputStream (m_aBytes);
+    }
+
+    public boolean isReadMultiple ()
+    {
+      return true;
+    }
+  }
+
+  /**
+   * Get a special implementation of {@link IHasInputStream} for byte array.
+   * This input stream can be read multiple times. <br>
+   * Note: don't alter the byte array after passing it in. It is not copied for
+   * performance reasons.
+   *
+   * @param aBytes
+   *        Source byte array. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @since 11.1.13
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static IHasInputStream create (@Nonnull final byte [] aBytes)
+  {
+    ValueEnforcer.notNull (aBytes, "Bytes");
+    return new HISByteArray (aBytes);
+  }
 }
