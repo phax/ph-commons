@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.cache.Cache;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.datetime.expiration.ExpiringObject;
@@ -145,6 +146,12 @@ public class CRLCache
     ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
     ValueEnforcer.notNull (aCRL, "CRL");
     m_aCache.insertManually (sCRLURL, ExpiringObject.ofDuration (aCRL, m_aCachingDuration));
+  }
+
+  @Nonnull
+  public EChange clearCache ()
+  {
+    return m_aCache.clearCache ();
   }
 
   @Override

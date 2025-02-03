@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.cache.MappedCache;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.datetime.expiration.ExpiringObject;
 
@@ -107,6 +108,12 @@ public class RevocationCheckResultCache
       aObject = m_aCache.getFromCache (aCert);
     }
     return aObject.getObject ().isRevoked ();
+  }
+
+  @Nonnull
+  public EChange clearCache ()
+  {
+    return m_aCache.clearCache ();
   }
 
   @Override
