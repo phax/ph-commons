@@ -16,6 +16,7 @@
  */
 package com.helger.datetime.expiration;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
@@ -75,5 +76,23 @@ public interface IExpirable
   default boolean isExpiredAt (@Nonnull final LocalDateTime aDT)
   {
     return isExpirationDefined () && aDT.isAfter (getExpirationDateTime ());
+  }
+
+  /**
+   * Check if this object is expired within now plus the provided duration. This
+   * is only possible if an expiration date is defined.
+   *
+   * @param aDuration
+   *        The duration to check against. May not be <code>null</code>.
+   * @return <code>true</code> if an expiration date is defined and the
+   *         expiration date is within now plus the provided duration,
+   *         <code>false</code> otherwise.
+   * @see #isExpirationDefined()
+   * @see #isExpiredAt(LocalDateTime)
+   * @since 11.1.13
+   */
+  default boolean isExpiredIn (@Nonnull final Duration aDuration)
+  {
+    return isExpiredAt (PDTFactory.getCurrentLocalDateTime ().plus (aDuration));
   }
 }
