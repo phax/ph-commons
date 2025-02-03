@@ -77,13 +77,14 @@ public class CRLCache
    */
   public CRLCache (@Nonnull final CRLDownloader aDownloader, @Nonnull final Duration aCachingDuration)
   {
-    m_aCache = new MyCache (url -> {
-      final CRL aCRL = aDownloader.downloadCRL (url);
-      return aCRL == null ? null : ExpiringObject.ofDuration (aCRL, aCachingDuration);
-    }, 100, "PeppolCRLCache", true);
     ValueEnforcer.notNull (aDownloader, "CRLDownloader");
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
+
+    m_aCache = new MyCache (url -> {
+      final CRL aCRL = aDownloader.downloadCRL (url);
+      return aCRL == null ? null : ExpiringObject.ofDuration (aCRL, aCachingDuration);
+    }, 100, "CRLCache", true);
     m_aDownloader = aDownloader;
     m_aCachingDuration = aCachingDuration;
   }

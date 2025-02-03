@@ -33,7 +33,7 @@ import org.junit.Test;
 /**
  * Test class for class {@link CertificateHelper}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public final class CertificateHelperTest
 {

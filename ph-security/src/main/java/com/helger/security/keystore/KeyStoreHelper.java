@@ -53,9 +53,10 @@ import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Helper methods to access Java key stores of type JKS (Java KeyStore).
+ * Helper methods to access Java key stores of type JKS (Java KeyStore) or
+ * PKCS12.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @ThreadSafe
 public final class KeyStoreHelper

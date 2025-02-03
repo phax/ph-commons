@@ -70,12 +70,13 @@ public class RevocationCheckResultCache
                                      @Nonnull final Duration aCachingDuration,
                                      final int nMaxSize)
   {
+    ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
+    ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
+
     m_aCache = new MappedCache <> (RevocationCheckResultCache::_getKey, cert -> {
       final ERevoked eRevoked = aRevocationChecker.apply (cert);
       return ExpiringObject.ofDuration (eRevoked, aCachingDuration);
     }, nMaxSize, "CertificateRevocationCache", false);
-    ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
-    ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
     m_aRevocationChecker = aRevocationChecker;
     m_aCachingDuration = aCachingDuration;
   }

@@ -33,7 +33,7 @@ import com.helger.settings.exchange.xml.SettingsPersistenceXML;
 /**
  * Test class for class {@link ConfigFile}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public final class ConfigFileTest
 {
