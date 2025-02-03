@@ -168,7 +168,7 @@ public class HasInputStream implements IHasInputStream
    * @param aBytes
    *        Source byte array. May not be <code>null</code>.
    * @return Never <code>null</code>.
-   * @since 11.1.13
+   * @since 11.2.0
    */
   @Nonnull
   @ReturnsMutableCopy

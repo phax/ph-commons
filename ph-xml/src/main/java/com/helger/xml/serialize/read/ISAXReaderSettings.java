@@ -69,7 +69,7 @@ public interface ISAXReaderSettings extends IBaseXMLReaderSettings
    * @return A custom SAX parser factory. This is only needed to work around
    *         some of the default SAXParserFactory configuration cannot be
    *         applied.
-   * @since 11.1.13
+   * @since 11.2.0
    */
   @Nullable
   SAXParserFactory getCustomSAXParserFactory ();

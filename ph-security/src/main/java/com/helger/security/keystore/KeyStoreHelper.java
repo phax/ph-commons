@@ -25,6 +25,8 @@ import java.security.KeyStore.ProtectionParameter;
 import java.security.KeyStoreException;
 import java.security.Provider;
 import java.security.UnrecoverableKeyException;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
 import javax.annotation.Nonnull;
@@ -37,6 +39,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.functional.IThrowingConsumer;
 import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
@@ -656,5 +661,31 @@ public final class KeyStoreHelper
     {
       LOGGER.warn ("Failed to iterate key store", ex);
     }
+  }
+
+  /**
+   * Get all trusted certificates
+   *
+   * @param aTrustStore
+   *        Trust store to iterate
+   * @return A non-<code>null</code> set of all trusted certificates. Never
+   *         <code>null</code>.
+   * @since 11.2.0
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ICommonsSet <X509Certificate> getAllTrustedCertificates (@Nullable final KeyStore aTrustStore)
+  {
+    final ICommonsSet <X509Certificate> aCerts = new CommonsHashSet <> ();
+    if (aTrustStore != null)
+      iterateKeyStore (aTrustStore, alias -> {
+        if (aTrustStore.isCertificateEntry (alias))
+        {
+          final Certificate aCert = aTrustStore.getCertificate (alias);
+          if (aCert instanceof X509Certificate)
+            aCerts.add ((X509Certificate) aCert);
+        }
+      });
+    return aCerts;
   }
 }

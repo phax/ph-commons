@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type of the object that can expire.
- * @since 11.1.13
+ * @since 11.2.0
  */
 public class ExpiringObject <DATATYPE> implements IExpirable
 {

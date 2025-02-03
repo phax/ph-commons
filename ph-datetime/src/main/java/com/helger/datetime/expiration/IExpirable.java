@@ -89,7 +89,7 @@ public interface IExpirable
    *         <code>false</code> otherwise.
    * @see #isExpirationDefined()
    * @see #isExpiredAt(LocalDateTime)
-   * @since 11.1.13
+   * @since 11.2.0
    */
   default boolean isExpiredIn (@Nonnull final Duration aDuration)
   {
