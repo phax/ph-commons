@@ -40,7 +40,7 @@ public final class EmailAddressHelper
    * Based on
    * https://github.com/itplr-kosit/validator-configuration-xrechnung/issues/109
    */
-  public static final String EMAIL_ADDRESS_PATTERN_SIMPLE = "[^@]+@([^@.]+\\.)+[^@.]+";
+  public static final String EMAIL_ADDRESS_PATTERN_SIMPLE = "[^@\\s]+@([^@.\\s]+\\.)+[^@.\\s]+";
 
   /** Compile this pattern only once */
   private static final Pattern PATTERN = RegExCache.getPattern (EMAIL_ADDRESS_PATTERN);

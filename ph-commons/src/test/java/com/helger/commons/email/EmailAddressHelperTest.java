@@ -24,7 +24,11 @@ public final class EmailAddressHelperTest
                                            "a.b@c.d",
                                            "abc@bcd.def" };
   private static final String [] VALID_SIMPLE = { "info@kfz-sachverständiger-müller.de" };
-  private static final String [] INVALID = { "ph@helger", "karin@gmx-net", "tim@test.com." };
+  private static final String [] INVALID = { "ph@helger",
+                                             "karin@gmx-net",
+                                             "tim@test.com.",
+                                             "tim @example.com",
+                                             "tim@example .com" };
 
   @Test
   public void testIsValid ()
