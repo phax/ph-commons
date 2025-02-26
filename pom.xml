@@ -68,7 +68,7 @@
     <bc.version>1.80</bc.version>
     <bcpg.version>${bc.version}</bcpg.version>
     <jsr305.version>3.0.2</jsr305.version>
-    <spotbugs-annotations.version>4.9.0</spotbugs-annotations.version>
+    <spotbugs-annotations.version>4.9.1</spotbugs-annotations.version>
   </properties>
   
   <dependencyManagement>
