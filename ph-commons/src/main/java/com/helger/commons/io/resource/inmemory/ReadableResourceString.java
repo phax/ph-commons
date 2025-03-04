@@ -23,10 +23,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.string.StringHelper;
 
 /**
- * An in-memory {@link IReadableResource} based on a {@link String} which is
- * converted to a byte array with the provided charset.
+ * An in-memory {@link IReadableResource} based on a {@link String} which is converted to a byte
+ * array with the provided charset.
  *
  * @author Philip Helger
  */
@@ -37,10 +38,14 @@ public class ReadableResourceString extends ReadableResourceByteArray
     this (null, sString, aCharset);
   }
 
-  public ReadableResourceString (@Nullable final String sResourceID, @Nonnull final String sString, @Nonnull final Charset aCharset)
+  public ReadableResourceString (@Nullable final String sResourceID,
+                                 @Nonnull final String sString,
+                                 @Nonnull final Charset aCharset)
   {
     // No copy needed
-    super (sResourceID, sString.getBytes (aCharset), false);
+    super (StringHelper.hasText (sResourceID) ? sResourceID : "string-" + sString.length () + "-" + sString.hashCode (),
+           sString.getBytes (aCharset),
+           false);
   }
 
   @Nonnull

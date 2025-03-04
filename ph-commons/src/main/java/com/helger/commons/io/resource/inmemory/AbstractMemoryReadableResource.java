@@ -29,22 +29,22 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Abstract base class for an {@link IReadableResource} that is not really a
- * resource but where the API does not offer alternatives. These resources
- * cannot be converted to a file or to a URL.
+ * Abstract base class for an {@link IReadableResource} that is not really a resource but where the
+ * API does not offer alternatives. These resources cannot be converted to a file or to a URL.
  *
  * @author Philip Helger
  */
 public abstract class AbstractMemoryReadableResource implements IMemoryReadableResource
 {
   private final String m_sResourceID;
+  private String m_sPath = "";
 
   /**
    * Constructor.
    *
    * @param sResourceID
-   *        The mandatory resource ID, used as the cache key. May neither be
-   *        <code>null</code> nor empty.
+   *        The mandatory resource ID, used as the cache key. May neither be <code>null</code> nor
+   *        empty.
    */
   protected AbstractMemoryReadableResource (@Nonnull @Nonempty final String sResourceID)
   {
@@ -52,8 +52,7 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
   }
 
   /**
-   * @return The resource ID as provided in the constructor. Neither
-   *         <code>null</code> nor empty.
+   * @return The resource ID as provided in the constructor. Neither <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
@@ -65,7 +64,13 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
   @Nonnull
   public String getPath ()
   {
-    return "";
+    return m_sPath;
+  }
+
+  public void setPath (@Nonnull final String sPath)
+  {
+    ValueEnforcer.notNull (sPath, "Path");
+    m_sPath = sPath;
   }
 
   @Nullable
@@ -99,6 +104,6 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ResourceID", m_sResourceID).getToString ();
+    return new ToStringGenerator (this).append ("ResourceID", m_sResourceID).append ("Path", m_sPath).getToString ();
   }
 }
