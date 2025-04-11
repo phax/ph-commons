@@ -35,6 +35,9 @@ import java.util.Date;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.naming.InvalidNameException;
+import javax.naming.ldap.LdapName;
+import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.ASN1Encodable;
@@ -80,6 +83,9 @@ public final class CertificateHelper
 
   /** Character set used for String-Certificate conversion */
   public static final Charset CERT_CHARSET = StandardCharsets.ISO_8859_1;
+
+  public static final String PRINCIPAL_TYPE_CN = "CN";
+  public static final String PRINCIPAL_TYPE_O = "O";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CertificateHelper.class);
 
@@ -695,5 +701,79 @@ public final class CertificateHelper
       LOGGER.debug ("The Certificate seems to be valid");
 
     return ECertificateCheckResult.VALID;
+  }
+
+  @Nullable
+  public static String getPrincipalTypeValue (@Nullable final String sPrincipal, @Nonnull final String sType)
+                                                                                                              throws InvalidNameException
+  {
+    ValueEnforcer.notNull (sType, "Type");
+    if (sPrincipal != null)
+      for (final Rdn aRdn : new LdapName (sPrincipal).getRdns ())
+        if (aRdn.getType ().equalsIgnoreCase (sType))
+          return (String) aRdn.getValue ();
+    return null;
+  }
+
+  @Nullable
+  public static String getCN (@Nullable final String sPrincipal) throws InvalidNameException
+  {
+    return getPrincipalTypeValue (sPrincipal, PRINCIPAL_TYPE_CN);
+  }
+
+  @Nullable
+  public static String getSubjectCN (@Nullable final X509Certificate aCert)
+  {
+    return aCert != null ? getCNOrNull (aCert.getSubjectX500Principal ()) : null;
+  }
+
+  @Nullable
+  public static String getCNOrNull (@Nullable final X500Principal aPrincipal)
+  {
+    return aPrincipal != null ? getCNOrNull (aPrincipal.getName ()) : null;
+  }
+
+  @Nullable
+  public static String getCNOrNull (@Nullable final String sPrincipal)
+  {
+    try
+    {
+      return getCN (sPrincipal);
+    }
+    catch (final InvalidNameException ex)
+    {
+      return null;
+    }
+  }
+
+  @Nullable
+  public static String getO (@Nullable final String sPrincipal) throws InvalidNameException
+  {
+    return getPrincipalTypeValue (sPrincipal, PRINCIPAL_TYPE_O);
+  }
+
+  @Nullable
+  public static String getSubjectO (@Nullable final X509Certificate aCert)
+  {
+    return aCert != null ? getOOrNull (aCert.getSubjectX500Principal ()) : null;
+  }
+
+  @Nullable
+  public static String getOOrNull (@Nullable final X500Principal aPrincipal)
+  {
+    return aPrincipal != null ? getOOrNull (aPrincipal.getName ()) : null;
+  }
+
+  @Nullable
+  public static String getOOrNull (@Nullable final String sPrincipal)
+  {
+    try
+    {
+      return getO (sPrincipal);
+    }
+    catch (final InvalidNameException ex)
+    {
+      return null;
+    }
   }
 }
