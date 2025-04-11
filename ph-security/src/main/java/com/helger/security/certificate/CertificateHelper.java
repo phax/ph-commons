@@ -30,10 +30,12 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Date;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1Sequence;
@@ -48,9 +50,12 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.string.StringHelper;
+import com.helger.security.revocation.AbstractRevocationCheckBuilder;
+import com.helger.security.revocation.RevocationCheckResultCache;
 
 /**
  * Some utility methods handling X.509 certificates.
@@ -91,8 +96,8 @@ public final class CertificateHelper
   }
 
   /**
-   * Make sure, the provided String is surrounded by the PEM headers
-   * {@link #BEGIN_CERTIFICATE} and {@link #END_CERTIFICATE}
+   * Make sure, the provided String is surrounded by the PEM headers {@link #BEGIN_CERTIFICATE} and
+   * {@link #END_CERTIFICATE}
    *
    * @param sCertString
    *        Certificate string to use.
@@ -107,8 +112,8 @@ public final class CertificateHelper
   }
 
   /**
-   * Make sure, the provided String is surrounded by the PEM headers
-   * {@link #BEGIN_CERTIFICATE} and {@link #END_CERTIFICATE}
+   * Make sure, the provided String is surrounded by the PEM headers {@link #BEGIN_CERTIFICATE} and
+   * {@link #END_CERTIFICATE}
    *
    * @param sCertString
    *        Certificate string to use.
@@ -130,13 +135,13 @@ public final class CertificateHelper
 
   /**
    * Remove any eventually preceding {@value #BEGIN_CERTIFICATE} and succeeding
-   * {@value #END_CERTIFICATE} values from the passed certificate string.
-   * Additionally all whitespaces of the string are removed.
+   * {@value #END_CERTIFICATE} values from the passed certificate string. Additionally all
+   * whitespaces of the string are removed.
    *
    * @param sCertificate
    *        The source certificate string. May be <code>null</code>.
-   * @return <code>null</code> if the input string is <code>null</code> or
-   *         empty, the stripped down string otherwise.
+   * @return <code>null</code> if the input string is <code>null</code> or empty, the stripped down
+   *         string otherwise.
    */
   @Nullable
   public static String getWithoutPEMHeader (@Nullable final String sCertificate)
@@ -166,19 +171,18 @@ public final class CertificateHelper
   }
 
   /**
-   * The certificate string needs to be emitted in portions of 64 characters. If
-   * characters are left, than &lt;CR&gt;&lt;LF&gt; ("\r\n") must be added to
-   * the string so that the next characters start on a new line. After the last
-   * part, no &lt;CR&gt;&lt;LF&gt; is needed. Respective RFC parts are 1421
-   * 4.3.2.2 and 4.3.2.4
+   * The certificate string needs to be emitted in portions of 64 characters. If characters are
+   * left, than &lt;CR&gt;&lt;LF&gt; ("\r\n") must be added to the string so that the next
+   * characters start on a new line. After the last part, no &lt;CR&gt;&lt;LF&gt; is needed.
+   * Respective RFC parts are 1421 4.3.2.2 and 4.3.2.4
    *
    * @param sCertificate
    *        Original certificate string as stored in the DB
    * @param bIncludePEMHeader
    *        <code>true</code> to include {@link #BEGIN_CERTIFICATE} header and
    *        {@link #END_CERTIFICATE} footer.
-   * @return The RFC 1421 compliant string. May be <code>null</code> if the
-   *         original string is <code>null</code> or empty.
+   * @return The RFC 1421 compliant string. May be <code>null</code> if the original string is
+   *         <code>null</code> or empty.
    */
   @Nullable
   public static String getRFC1421CompliantString (@Nullable final String sCertificate, final boolean bIncludePEMHeader)
@@ -187,11 +191,10 @@ public final class CertificateHelper
   }
 
   /**
-   * The certificate string needs to be emitted in portions of 64 characters. If
-   * characters are left, than a line separator (e.g. &lt;CR&gt;&lt;LF&gt; -
-   * "\r\n") must be added to the string so that the next characters start on a
-   * new line. After the last part, no line separator is needed. Respective RFC
-   * parts are 1421 4.3.2.2 and 4.3.2.4
+   * The certificate string needs to be emitted in portions of 64 characters. If characters are
+   * left, than a line separator (e.g. &lt;CR&gt;&lt;LF&gt; - "\r\n") must be added to the string so
+   * that the next characters start on a new line. After the last part, no line separator is needed.
+   * Respective RFC parts are 1421 4.3.2.2 and 4.3.2.4
    *
    * @param sCertificate
    *        Original certificate string as stored in the DB
@@ -199,10 +202,10 @@ public final class CertificateHelper
    *        <code>true</code> to include {@link #BEGIN_CERTIFICATE} header and
    *        {@link #END_CERTIFICATE} footer.
    * @param sLineSeparator
-   *        The line separator to be used. May not be <code>null</code>. Usually
-   *        this is "\r\n" but may also be just "\n".
-   * @return The RFC 1421 compliant string. May be <code>null</code> if the
-   *         original string is <code>null</code> or empty.
+   *        The line separator to be used. May not be <code>null</code>. Usually this is "\r\n" but
+   *        may also be just "\n".
+   * @return The RFC 1421 compliant string. May be <code>null</code> if the original string is
+   *         <code>null</code> or empty.
    * @since 8.5.5
    */
   @Nullable
@@ -247,11 +250,9 @@ public final class CertificateHelper
    *
    * @param aCertBytes
    *        The original certificate bytes. May be <code>null</code> or empty.
-   * @return <code>null</code> if the passed byte array is <code>null</code> or
-   *         empty
+   * @return <code>null</code> if the passed byte array is <code>null</code> or empty
    * @throws CertificateException
-   *         In case the passed string cannot be converted to an X.509
-   *         certificate.
+   *         In case the passed string cannot be converted to an X.509 certificate.
    */
   @Nullable
   public static X509Certificate convertByteArrayToCertficate (@Nullable final byte [] aCertBytes) throws CertificateException
@@ -268,8 +269,8 @@ public final class CertificateHelper
    *
    * @param aCertBytes
    *        The original certificate bytes. May be <code>null</code> or empty.
-   * @return <code>null</code> if the passed byte array is <code>null</code>,
-   *         empty or not a valid certificate.
+   * @return <code>null</code> if the passed byte array is <code>null</code>, empty or not a valid
+   *         certificate.
    * @since 9.4.0
    */
   @Nullable
@@ -286,15 +287,13 @@ public final class CertificateHelper
   }
 
   /**
-   * Convert the passed String to an X.509 certificate without converting it to
-   * a String first.
+   * Convert the passed String to an X.509 certificate without converting it to a String first.
    *
    * @param aCertBytes
    *        The certificate bytes. May be <code>null</code>.
    * @return <code>null</code> if the passed array is <code>null</code> or empty
    * @throws CertificateException
-   *         In case the passed bytes[] cannot be converted to an X.509
-   *         certificate.
+   *         In case the passed bytes[] cannot be converted to an X.509 certificate.
    * @since 9.3.4
    */
   @Nullable
@@ -329,14 +328,11 @@ public final class CertificateHelper
    * Convert the passed String to an X.509 certificate.
    *
    * @param sCertString
-   *        The original text string. May be <code>null</code> or empty. The
-   *        String must be ISO-8859-1 encoded for the binary certificate to be
-   *        read!
-   * @return <code>null</code> if the passed string is <code>null</code> or
-   *         empty
+   *        The original text string. May be <code>null</code> or empty. The String must be
+   *        ISO-8859-1 encoded for the binary certificate to be read!
+   * @return <code>null</code> if the passed string is <code>null</code> or empty
    * @throws CertificateException
-   *         In case the passed string cannot be converted to an X.509
-   *         certificate.
+   *         In case the passed string cannot be converted to an X.509 certificate.
    * @throws IllegalArgumentException
    *         If the input string is e.g. invalid Base64 encoded.
    * @since 2.1.1
@@ -351,16 +347,13 @@ public final class CertificateHelper
    * Convert the passed String to an X.509 certificate.
    *
    * @param sCertString
-   *        The original text string. May be <code>null</code> or empty. The
-   *        String must be ISO-8859-1 encoded for the binary certificate to be
-   *        read!
+   *        The original text string. May be <code>null</code> or empty. The String must be
+   *        ISO-8859-1 encoded for the binary certificate to be read!
    * @param bWithFallback
    *        <code>true</code> to enable legacy fallback parsing
-   * @return <code>null</code> if the passed string is <code>null</code> or
-   *         empty
+   * @return <code>null</code> if the passed string is <code>null</code> or empty
    * @throws CertificateException
-   *         In case the passed string cannot be converted to an X.509
-   *         certificate.
+   *         In case the passed string cannot be converted to an X.509 certificate.
    * @throws IllegalArgumentException
    *         If the input string is e.g. invalid Base64 encoded.
    * @since 2.1.1
@@ -436,8 +429,8 @@ public final class CertificateHelper
    *
    * @param sCertificate
    *        The original certificate string. May be <code>null</code> or empty.
-   * @return <code>null</code> if the passed string is <code>null</code> or
-   *         empty or an invalid Base64 string
+   * @return <code>null</code> if the passed string is <code>null</code> or empty or an invalid
+   *         Base64 string
    */
   @Nullable
   public static byte [] convertCertificateStringToByteArray (@Nullable final String sCertificate)
@@ -482,8 +475,7 @@ public final class CertificateHelper
    *
    * @param aCert
    *        The certificate to encode. May not be <code>null</code>.
-   * @return The PEM string with {@link #BEGIN_CERTIFICATE} and
-   *         {@link #END_CERTIFICATE}.
+   * @return The PEM string with {@link #BEGIN_CERTIFICATE} and {@link #END_CERTIFICATE}.
    * @throws IllegalArgumentException
    *         If the certificate could not be encoded. Cause is a
    *         {@link CertificateEncodingException}.
@@ -506,8 +498,8 @@ public final class CertificateHelper
   }
 
   /**
-   * Check if the "not valid before"/"not valid after" of the provided X509
-   * certificate is valid per "now".
+   * Check if the "not valid before"/"not valid after" of the provided X509 certificate is valid per
+   * "now".
    *
    * @param aCert
    *        The certificate to check. May not be <code>null</code>.
@@ -578,5 +570,130 @@ public final class CertificateHelper
     }
     // Defaults to "no"
     return false;
+  }
+
+  /**
+   * Check if the provided certificate (from the revocation checker) is a valid certificate. It
+   * checks:
+   * <ol>
+   * <li>Validity at the provided date time (aRevocationChecker.checkDate) or per now if none was
+   * provided</li>
+   * <li>If the certificate issuer is part of the provided list of issuers</li>
+   * <li>If the certificate is revoked</li>
+   * </ol>
+   *
+   * @param aIssuers
+   *        The list of valid certificate issuers to check against. May be <code>null</code> to not
+   *        perform this check.
+   * @param aRevocationCache
+   *        The cache. May be <code>null</code> to disable caching.
+   * @param aRevocationChecker
+   *        The revocation checker builder with all necessary parameters already set. May not be
+   *        <code>null</code>.
+   * @return {@link ECertificateCheckResult} and never <code>null</code>.
+   * @since 11.2.1
+   */
+  @Nonnull
+  public static ECertificateCheckResult checkCertificate (@Nullable final ICommonsSet <X500Principal> aIssuers,
+                                                          @Nullable final RevocationCheckResultCache aRevocationCache,
+                                                          @Nonnull final AbstractRevocationCheckBuilder <?> aRevocationChecker)
+  {
+    ValueEnforcer.notNull (aRevocationChecker, "RevocationChecker");
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Running Certificate Check" +
+                    (aIssuers != null ? " against a list of " + aIssuers.size () + " certificate issuers" : "") +
+                    (aRevocationCache != null ? "; a cache is provided" : "; not using a cache"));
+
+    // Get the certificate to be validated
+    final X509Certificate aCert = aRevocationChecker.certificate ();
+    if (aCert == null)
+    {
+      LOGGER.warn ("No Certificate was provided to the certificate check");
+      return ECertificateCheckResult.NO_CERTIFICATE_PROVIDED;
+    }
+
+    // Check validity date
+    final Date aCheckDate = aRevocationChecker.checkDate ();
+    try
+    {
+      // null means now
+      if (aCheckDate == null)
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Checking the Certificate validity against the current date time");
+        aCert.checkValidity ();
+      }
+      else
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Checking the Certificate validity against the provided date time " + aCheckDate);
+        aCert.checkValidity (aCheckDate);
+      }
+    }
+    catch (final CertificateNotYetValidException ex)
+    {
+      LOGGER.warn ("The provided Certificate is not yet valid per " +
+                   (aCheckDate == null ? "now" : aCheckDate.toString ()));
+      return ECertificateCheckResult.NOT_YET_VALID;
+    }
+    catch (final CertificateExpiredException ex)
+    {
+      LOGGER.warn ("The provided Certificate is expired per " + (aCheckDate == null ? "now" : aCheckDate.toString ()));
+      return ECertificateCheckResult.EXPIRED;
+    }
+
+    if (aIssuers != null)
+    {
+      // Check if issuer is known
+      final X500Principal aIssuer = aCert.getIssuerX500Principal ();
+      if (!aIssuers.contains (aIssuer))
+      {
+        // Not a valid certificate
+        LOGGER.warn ("The provided Certificate issuer '" +
+                     aIssuer +
+                     "' is not in the list of trusted issuers " +
+                     aIssuers);
+        return ECertificateCheckResult.UNSUPPORTED_ISSUER;
+      }
+    }
+    else
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Not testing against known Certificate issuers");
+    }
+
+    // Check revocation OCSP/CLR
+    if (aRevocationCache != null)
+    {
+      // Caching is enabled
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Testing if the Certificate is revoked, using a cache");
+
+      final boolean bRevoked = aRevocationCache.isRevoked (aCert);
+      if (bRevoked)
+      {
+        LOGGER.warn ("The Certificate is revoked [caching used]");
+        return ECertificateCheckResult.REVOKED;
+      }
+    }
+    else
+    {
+      // No caching desired
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Testing if the Certificate is revoked, without a cache");
+
+      if (aRevocationChecker.build ().isRevoked ())
+      {
+        LOGGER.warn ("The Certificate is revoked [no caching]");
+        return ECertificateCheckResult.REVOKED;
+      }
+    }
+
+    // Done
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("The Certificate seems to be valid");
+
+    return ECertificateCheckResult.VALID;
   }
 }
