@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.Since;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.IValidityIndicator;
@@ -29,7 +28,6 @@ import com.helger.commons.state.IValidityIndicator;
  * Enumeration for all potential certificate check outcomes.
  *
  * @author Philip Helger
- * @since 7.0.4
  */
 public enum ECertificateCheckResult implements IHasID <String>, IValidityIndicator
 {
@@ -39,8 +37,7 @@ public enum ECertificateCheckResult implements IHasID <String>, IValidityIndicat
   EXPIRED ("expired", "certificate is already expired"),
   UNSUPPORTED_ISSUER ("unsupportedissuer", "unsupported certificate issuer"),
   REVOKED ("revoked", "certificate is revoked"),
-  @Since ("9.0.8")
-  NOT_CHECKED("not-checked", "the certificate was not checked");
+  NOT_CHECKED ("not-checked", "the certificate was not checked");
 
   private final String m_sID;
   private final String m_sReason;
