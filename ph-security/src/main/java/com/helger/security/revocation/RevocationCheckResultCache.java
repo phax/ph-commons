@@ -33,8 +33,8 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.datetime.expiration.ExpiringObject;
 
 /**
- * An revocation cache that checks the revocation status of each certificate and
- * keeps the status for a provided duration.
+ * An revocation cache that checks the revocation status of each certificate and keeps the status
+ * for a provided duration.
  *
  * @author Philip Helger
  * @since 11.2.0
@@ -73,10 +73,11 @@ public class RevocationCheckResultCache
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
 
+    final boolean bAllowNullValues = false;
     m_aCache = new MappedCache <> (RevocationCheckResultCache::_getKey, cert -> {
       final ERevoked eRevoked = aRevocationChecker.apply (cert);
       return ExpiringObject.ofDuration (eRevoked, aCachingDuration);
-    }, nMaxSize, "CertificateRevocationCache", false);
+    }, nMaxSize, "CertificateRevocationCache", bAllowNullValues);
     m_aRevocationChecker = aRevocationChecker;
     m_aCachingDuration = aCachingDuration;
   }

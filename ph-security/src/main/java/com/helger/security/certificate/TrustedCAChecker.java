@@ -21,11 +21,12 @@ import java.time.OffsetDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.state.EChange;
 import com.helger.commons.state.ETriState;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.security.revocation.RevocationCheckBuilder;
@@ -33,12 +34,14 @@ import com.helger.security.revocation.RevocationCheckResultCache;
 
 /**
  * This is a specific helper class to check the validity of certificates based on specific trusted
- * CAs. This class assumes the Peppol trust model.
+ * CAs. This class assumes the trust model with explicit, non-shared CAs (like in the Peppol
+ * Network).
  *
  * @author Philip Helger
  * @since 11.2.1
  */
-public final class TrustedCAChecker
+@NotThreadSafe
+public class TrustedCAChecker
 {
   private final TrustedCACertificates m_aTrustedCAs = new TrustedCACertificates ();
   private final RevocationCheckResultCache m_aRevocationCache;
@@ -79,17 +82,6 @@ public final class TrustedCAChecker
   public RevocationCheckResultCache getRevocationCache ()
   {
     return m_aRevocationCache;
-  }
-
-  /**
-   * Remove all elements from the this revocation check result cache.
-   *
-   * @return {@link EChange#CHANGED} if at least one entry was removed
-   */
-  @Nonnull
-  public EChange clearRevocationCache ()
-  {
-    return m_aRevocationCache.clearCache ();
   }
 
   /**
@@ -152,5 +144,13 @@ public final class TrustedCAChecker
                                                                             .checkDate (aCheckDT)
                                                                             .validCAs (m_aTrustedCAs.getAllTrustedCACertificates ())
                                                                             .checkMode (eCheckMode));
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (null).append ("TrustedCAs", m_aTrustedCAs)
+                                       .append ("RevocationCache", m_aRevocationCache)
+                                       .getToString ();
   }
 }
