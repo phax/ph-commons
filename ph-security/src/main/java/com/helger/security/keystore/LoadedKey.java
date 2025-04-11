@@ -27,8 +27,8 @@ import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This class contains the result of loading the configured private key as
- * configured in the configuration file.
+ * This class contains the result of loading the configured private key as configured in the
+ * configuration file.
  *
  * @author Philip Helger
  * @param <T>
@@ -40,7 +40,9 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
   private final EKeyStoreLoadError m_eError;
   private final String [] m_aErrorParams;
 
-  public LoadedKey (@Nullable final T aKeyEntry, @Nullable final EKeyStoreLoadError eError, @Nullable final String... aErrorParams)
+  public LoadedKey (@Nullable final T aKeyEntry,
+                    @Nullable final EKeyStoreLoadError eError,
+                    @Nullable final String... aErrorParams)
   {
     m_aKeyEntry = aKeyEntry;
     m_eError = eError;
@@ -53,8 +55,8 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
   }
 
   /**
-   * @return The loaded key entry. Never <code>null</code> in case of success.
-   *         Always <code>null</code> in case of failure.
+   * @return The loaded key entry. Never <code>null</code> in case of success. Always
+   *         <code>null</code> in case of failure.
    */
   @Nullable
   public T getKeyEntry ()
@@ -63,8 +65,8 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
   }
 
   /**
-   * @return The error code. Never <code>null</code> in case of failure. Always
-   *         <code>null</code> in case of success.
+   * @return The error code. Never <code>null</code> in case of failure. Always <code>null</code> in
+   *         case of success.
    */
   @Nullable
   public EKeyStoreLoadError getError ()
@@ -73,8 +75,8 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
   }
 
   /**
-   * @return The error parameters. Never <code>null</code> in case of failure.
-   *         Always <code>null</code> in case of success.
+   * @return The error parameters. Never <code>null</code> in case of failure. Always
+   *         <code>null</code> in case of success.
    */
   @Nullable
   public String [] getErrorParams ()
@@ -93,6 +95,12 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
   public String getErrorText (@Nonnull final Locale aContentLocale)
   {
     return m_eError == null ? null : m_eError.getDisplayTextWithArgs (aContentLocale, (Object []) m_aErrorParams);
+  }
+
+  @Nullable
+  public static String getLoadError (@Nonnull final LoadedKey <?> aLK)
+  {
+    return aLK == null ? null : aLK.getErrorText (Locale.ROOT);
   }
 
   @Override

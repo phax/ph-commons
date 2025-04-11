@@ -27,8 +27,7 @@ import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This class contains the result of loading a key store from e.g. a
- * configuration file.
+ * This class contains the result of loading a key store from e.g. a configuration file.
  *
  * @author Philip Helger
  */
@@ -53,8 +52,8 @@ public class LoadedKeyStore implements ISuccessIndicator
   }
 
   /**
-   * @return The loaded key store. Never <code>null</code> in case of success.
-   *         Always <code>null</code> in case of failure.
+   * @return The loaded key store. Never <code>null</code> in case of success. Always
+   *         <code>null</code> in case of failure.
    */
   @Nullable
   public KeyStore getKeyStore ()
@@ -63,8 +62,8 @@ public class LoadedKeyStore implements ISuccessIndicator
   }
 
   /**
-   * @return The error code. Never <code>null</code> in case of failure. Always
-   *         <code>null</code> in case of success.
+   * @return The error code. Never <code>null</code> in case of failure. Always <code>null</code> in
+   *         case of success.
    */
   @Nullable
   public EKeyStoreLoadError getError ()
@@ -73,8 +72,8 @@ public class LoadedKeyStore implements ISuccessIndicator
   }
 
   /**
-   * @return The error parameters. Never <code>null</code> in case of failure.
-   *         Always <code>null</code> in case of success.
+   * @return The error parameters. Never <code>null</code> in case of failure. Always
+   *         <code>null</code> in case of success.
    */
   @Nullable
   public String [] getErrorParams ()
@@ -84,7 +83,7 @@ public class LoadedKeyStore implements ISuccessIndicator
 
   /**
    * Get the error text
-   * 
+   *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
    * @return <code>null</code> if no error occurred, the error text otherwise.
@@ -93,6 +92,12 @@ public class LoadedKeyStore implements ISuccessIndicator
   public String getErrorText (@Nonnull final Locale aContentLocale)
   {
     return m_eError == null ? null : m_eError.getDisplayTextWithArgs (aContentLocale, (Object []) m_aErrorParams);
+  }
+
+  @Nullable
+  public static String getLoadError (@Nonnull final LoadedKeyStore aLKS)
+  {
+    return aLKS == null ? null : aLKS.getErrorText (Locale.ROOT);
   }
 
   @Override
