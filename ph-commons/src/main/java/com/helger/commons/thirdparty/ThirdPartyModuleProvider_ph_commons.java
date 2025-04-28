@@ -22,8 +22,7 @@ import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.version.Version;
 
 /**
- * Implement this SPI interface if your JAR file contains external third party
- * modules.
+ * Implement this SPI interface if your JAR file contains external third party modules.
  *
  * @author Philip Helger
  */
@@ -38,7 +37,7 @@ public final class ThirdPartyModuleProvider_ph_commons implements IThirdPartyMod
   public static final IThirdPartyModule SLF4J = new ThirdPartyModule ("SLF4J API",
                                                                       "QOS.ch",
                                                                       ELicense.MIT,
-                                                                      new Version (2, 0, 9),
+                                                                      new Version (2, 0, 17),
                                                                       "http://www.slf4j.org/");
   public static final IThirdPartyModule BASE64 = new ThirdPartyModule ("Base64",
                                                                        "Robert Harder",
