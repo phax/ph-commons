@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * This class contains the result of loading a key store from e.g. a configuration file.
@@ -97,7 +98,8 @@ public class LoadedKeyStore implements ISuccessIndicator
   @Nullable
   public static String getLoadError (@Nonnull final LoadedKeyStore aLKS)
   {
-    return aLKS == null ? null : aLKS.getErrorText (Locale.ROOT);
+    // Cannot be Locale.ROOT
+    return aLKS == null ? null : aLKS.getErrorText (TextHelper.EN);
   }
 
   @Override

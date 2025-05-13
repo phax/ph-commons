@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * This class contains the result of loading the configured private key as configured in the
@@ -100,7 +101,8 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
   @Nullable
   public static String getLoadError (@Nonnull final LoadedKey <?> aLK)
   {
-    return aLK == null ? null : aLK.getErrorText (Locale.ROOT);
+    // Cannot be Locale.ROOT
+    return aLK == null ? null : aLK.getErrorText (TextHelper.EN);
   }
 
   @Override
