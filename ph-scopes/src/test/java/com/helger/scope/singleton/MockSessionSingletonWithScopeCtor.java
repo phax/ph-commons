@@ -33,7 +33,7 @@ public final class MockSessionSingletonWithScopeCtor extends AbstractSessionSing
   private int i = 0;
   private final IScope m_aScope;
 
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public MockSessionSingletonWithScopeCtor (@Nonnull final IScope aScope)
   {

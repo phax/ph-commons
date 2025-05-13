@@ -28,15 +28,13 @@ import com.helger.commons.ValueEnforcer;
 
 /**
  * A small hash code creation class based on the article found in the net. See
- * <a href=
- * "http://www.angelikalanger.com/Articles/JavaSpektrum/03.HashCode/03.HashCode.html"
- * >this article</a> for details.<br>
- * After calling {@link #append(Object)} for all objects use
- * {@link #getHashCode()} to retrieve the calculated hash code. Once the hash
- * code was calculated no modifications are allowed.<br>
+ * <a href= "http://www.angelikalanger.com/Articles/JavaSpektrum/03.HashCode/03.HashCode.html" >this
+ * article</a> for details.<br>
+ * After calling {@link #append(Object)} for all objects use {@link #getHashCode()} to retrieve the
+ * calculated hash code. Once the hash code was calculated no modifications are allowed.<br>
  * <p>
- * A real world example for a final class derived from {@link Object} or a base
- * class looks like this:
+ * A real world example for a final class derived from {@link Object} or a base class looks like
+ * this:
  * </p>
  *
  * <pre>
@@ -47,8 +45,8 @@ import com.helger.commons.ValueEnforcer;
  * }
  * </pre>
  * <p>
- * For a derived class, the typical code looks like this, assuming the base
- * class also uses {@link HashCodeGenerator}:
+ * For a derived class, the typical code looks like this, assuming the base class also uses
+ * {@link HashCodeGenerator}:
  * </p>
  *
  * <pre>
@@ -68,8 +66,8 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   public static final int INITIAL_HASHCODE = 17;
 
   /**
-   * Once the hash code generation has been queried, no further changes may be
-   * done. This flag indicates, whether new items can be added or not.
+   * Once the hash code generation has been queried, no further changes may be done. This flag
+   * indicates, whether new items can be added or not.
    */
   private boolean m_bClosed = false;
 
@@ -77,13 +75,11 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   private int m_nHC = INITIAL_HASHCODE;
 
   /**
-   * This is a sanity constructor that allows for any object to be passed in the
-   * constructor (e.g. <code>this</code>) from which the class is extracted as
-   * the initial value of the hash code.
+   * This is a sanity constructor that allows for any object to be passed in the constructor (e.g.
+   * <code>this</code>) from which the class is extracted as the initial value of the hash code.
    *
    * @param aSrcObject
-   *        The source object from which the class is extracted. May not be
-   *        <code>null</code>.
+   *        The source object from which the class is extracted. May not be <code>null</code>.
    */
   public HashCodeGenerator (@Nonnull final Object aSrcObject)
   {
@@ -91,13 +87,12 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * This constructor requires a class name, because in case a class has no
-   * instance variables the hash code may be the same for different instances of
-   * different classes.
+   * This constructor requires a class name, because in case a class has no instance variables the
+   * hash code may be the same for different instances of different classes.
    *
    * @param aClass
-   *        The class this instance is about to create a hash code for. May not
-   *        be <code>null</code>.
+   *        The class this instance is about to create a hash code for. May not be
+   *        <code>null</code>.
    */
   public HashCodeGenerator (@Nonnull final Class <?> aClass)
   {
@@ -429,8 +424,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * Type specific hash code generation because parameter class has no
-   * overloaded equals method.
+   * Type specific hash code generation because parameter class has no overloaded equals method.
    *
    * @param x
    *        object to add
@@ -445,8 +439,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * Type specific hash code generation because parameter class has no
-   * overloaded equals method.
+   * Type specific hash code generation because parameter class has no overloaded equals method.
    *
    * @param x
    *        object to add
@@ -500,12 +493,12 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * Retrieve the final hash code. Once this method has been called, no further
-   * calls to append can be done since the hash value is locked!
+   * Retrieve the final hash code. Once this method has been called, no further calls to append can
+   * be done since the hash value is locked!
    *
-   * @return The finally completed hash code. The returned value is never
-   *         {@link #ILLEGAL_HASHCODE}. If the calculated hash code would be
-   *         {@link #ILLEGAL_HASHCODE} it is changed to -1 instead.
+   * @return The finally completed hash code. The returned value is never {@link #ILLEGAL_HASHCODE}.
+   *         If the calculated hash code would be {@link #ILLEGAL_HASHCODE} it is changed to -1
+   *         instead.
    */
   public int getHashCode ()
   {
@@ -523,7 +516,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *
    * @deprecated Don't call this
    */
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @Override
   public boolean equals (final Object o)
   {
@@ -538,16 +531,16 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @deprecated Don't call this
    */
   @Override
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public int hashCode ()
   {
     return getHashCode ();
   }
 
   /**
-   * Create a {@link HashCodeGenerator} for derived classes where the base class
-   * also uses the {@link HashCodeGenerator}. This avoid calculating the hash
-   * code of the class name more than once.
+   * Create a {@link HashCodeGenerator} for derived classes where the base class also uses the
+   * {@link HashCodeGenerator}. This avoid calculating the hash code of the class name more than
+   * once.
    *
    * @param nSuperHashCode
    *        Always pass in <code>super.hashCode ()</code>
@@ -562,9 +555,8 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * Static helper method to create the hashcode of an object with a single
-   * invocation. This method must be used by objects that directly derive from
-   * Object.
+   * Static helper method to create the hashcode of an object with a single invocation. This method
+   * must be used by objects that directly derive from Object.
    *
    * @param aThis
    *        <code>this</code>
@@ -583,9 +575,8 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * Static helper method to create the hashcode of an object with a single
-   * invocation. This method must be used by objects that derive from a class
-   * other than Object.
+   * Static helper method to create the hashcode of an object with a single invocation. This method
+   * must be used by objects that derive from a class other than Object.
    *
    * @param nSuperHashCode
    *        The result of <code>super.hashCode()</code>

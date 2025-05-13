@@ -71,11 +71,6 @@ public final class CertificateHelper
   public static final String BEGIN_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
   public static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
 
-  @Deprecated (forRemoval = true, since = "11.1.1")
-  public static final String BEGIN_CERTIFICATE_INVALID = "-----BEGINCERTIFICATE-----";
-  @Deprecated (forRemoval = true, since = "11.1.1")
-  public static final String END_CERTIFICATE_INVALID = "-----ENDCERTIFICATE-----";
-
   public static final String BEGIN_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----";
   public static final String END_PRIVATE_KEY = "-----END PRIVATE KEY-----";
 
@@ -99,22 +94,6 @@ public final class CertificateHelper
   public static CertificateFactory getX509CertificateFactory () throws CertificateException
   {
     return CertificateFactory.getInstance ("X.509");
-  }
-
-  /**
-   * Make sure, the provided String is surrounded by the PEM headers {@link #BEGIN_CERTIFICATE} and
-   * {@link #END_CERTIFICATE}
-   *
-   * @param sCertString
-   *        Certificate string to use.
-   * @return The String with the surrounding headers and footers
-   * @deprecated Use {@link #getCertificateWithPEMHeader(String)} instead
-   */
-  @Deprecated (forRemoval = true, since = "11.1.1")
-  @Nonnull
-  public static String getWithPEMHeader (@Nonnull final String sCertString)
-  {
-    return getCertificateWithPEMHeader (sCertString);
   }
 
   /**
@@ -157,16 +136,6 @@ public final class CertificateHelper
 
     // Remove special begin and end stuff
     String sRealCertificate = sCertificate.trim ();
-
-    /**
-     * Handle certain misconfiguration issues. E.g. for 9906:testconsip on
-     *
-     * <pre>
-     * http://b-c073e04afb234f70e74d3444ba3f8eaa.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis%3A%3A9906%3Atestconsip/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AOrder-2%3A%3AOrder%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns001%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol3a%3Aver2.0%3A%3A2.1
-     * </pre>
-     */
-    sRealCertificate = StringHelper.trimStart (sRealCertificate, BEGIN_CERTIFICATE_INVALID);
-    sRealCertificate = StringHelper.trimEnd (sRealCertificate, END_CERTIFICATE_INVALID);
 
     // Remove regular PEM headers also
     sRealCertificate = StringHelper.trimStart (sRealCertificate, BEGIN_CERTIFICATE);

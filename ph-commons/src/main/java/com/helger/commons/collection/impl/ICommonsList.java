@@ -32,8 +32,7 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 
 /**
- * A special {@link List} interface with extended functionality based on
- * {@link ICommonsCollection}.
+ * A special {@link List} interface with extended functionality based on {@link ICommonsCollection}.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
@@ -45,8 +44,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
                               ICloneable <ICommonsList <ELEMENTTYPE>>
 {
   /**
-   * Create a new empty list. Overwrite this if you don't want to use
-   * {@link CommonsArrayList}.
+   * Create a new empty list. Overwrite this if you don't want to use {@link CommonsArrayList}.
    *
    * @return A new empty list. Never <code>null</code>.
    * @param <T>
@@ -60,13 +58,13 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Get all elements matching the provided filter. If no filter is provided,
-   * the return value is same as {@link #getClone()}.
+   * Get all elements matching the provided filter. If no filter is provided, the return value is
+   * same as {@link #getClone()}.
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return A non-<code>null</code> copy of this list containing all matching
-   *         entries (or all entries if no filter is provided).
+   * @return A non-<code>null</code> copy of this list containing all matching entries (or all
+   *         entries if no filter is provided).
    * @see #findAll(Predicate, java.util.function.Consumer)
    */
   @Nonnull
@@ -82,8 +80,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Create a new list where all existing elements are mapped with the provided
-   * function.
+   * Create a new list where all existing elements are mapped with the provided function.
    *
    * @param aMapper
    *        The mapping function to be executed. May not be <code>null</code>.
@@ -103,16 +100,14 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Create a new list where all elements matching the filter are mapped with
-   * the provided function.
+   * Create a new list where all elements matching the filter are mapped with the provided function.
    *
    * @param aFilter
    *        The filter to be applied. Maybe <code>null</code>.
    * @param aMapper
    *        The mapping function to be executed. May not be <code>null</code>.
-   * @return A new non-<code>null</code> list with all mapped elements. If no
-   *         filter is provided the result is the same as of
-   *         {@link #getAllMapped(Function)}.
+   * @return A new non-<code>null</code> list with all mapped elements. If no filter is provided the
+   *         result is the same as of {@link #getAllMapped(Function)}.
    * @param <DSTTYPE>
    *        The destination type to be mapped to
    * @see #getAllMapped(Function)
@@ -133,8 +128,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *
    * @param aDstClass
    *        The class to search all instances of. May not be <code>null</code>.
-   * @return A list with all instances of the provided class, already casted.
-   *         Never <code>null</code>.
+   * @return A list with all instances of the provided class, already casted. Never
+   *         <code>null</code>.
    * @param <DSTTYPE>
    *        The destination type to be casted to
    * @see #findAllInstanceOf(Class, java.util.function.Consumer)
@@ -149,25 +144,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Note: this methods conflicts with a method added in Java SE 21 in class
-   * ArrayList. Therefore {@link #getFirstOrNull()} should be used instead.
-   *
-   * @return The first element of the list or <code>null</code> if the list is
-   *         empty.
-   * @see #getFirst(Object)
-   * @see #findFirst(Predicate)
-   * @deprecated Use {@link #getFirstOrNull()} instead
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "11.1.5")
-  default ELEMENTTYPE getFirst ()
-  {
-    return getFirst (null);
-  }
-
-  /**
-   * @return The first element of the list or <code>null</code> if the list is
-   *         empty.
+   * @return The first element of the list or <code>null</code> if the list is empty.
    * @see #getFirst(Object)
    * @see #findFirst(Predicate)
    * @since 11.1.5
@@ -180,10 +157,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
 
   /**
    * @param aDefault
-   *        The default value to be returned if this list is empty. May be
-   *        <code>null</code>.
-   * @return The first element of the list or the provided default value if the
-   *         list is empty.
+   *        The default value to be returned if this list is empty. May be <code>null</code>.
+   * @return The first element of the list or the provided default value if the list is empty.
    * @see #getFirstOrNull()
    * @see #findFirst(Predicate)
    */
@@ -194,24 +169,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Note: this methods conflicts with a method added in Java SE 21 in class
-   * ArrayList. Therefore {@link #getLastOrNull()} should be used instead.
-   *
-   * @return The last element of the list or <code>null</code> if the list is
-   *         empty.
-   * @see #getLast(Object)
-   * @deprecated Use {@link #getLastOrNull()} instead
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "11.1.5")
-  default ELEMENTTYPE getLast ()
-  {
-    return getLast (null);
-  }
-
-  /**
-   * @return The last element of the list or <code>null</code> if the list is
-   *         empty.
+   * @return The last element of the list or <code>null</code> if the list is empty.
    * @see #getLast(Object)
    * @since 11.1.5
    */
@@ -223,10 +181,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
 
   /**
    * @param aDefault
-   *        The default value to be returned if this list is empty. May be
-   *        <code>null</code>.
-   * @return The last element of the list or <code>null</code> if the list is
-   *         empty.
+   *        The default value to be returned if this list is empty. May be <code>null</code>.
+   * @return The last element of the list or <code>null</code> if the list is empty.
    * @see #getLastOrNull()
    */
   @Nullable
@@ -275,9 +231,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Remove the element at the specified index from the passed list. This works
-   * if the list is not <code>null</code> and the index is &ge; 0 and &lt;
-   * <code>list.size()</code>
+   * Remove the element at the specified index from the passed list. This works if the list is not
+   * <code>null</code> and the index is &ge; 0 and &lt; <code>list.size()</code>
    *
    * @param nIndex
    *        The index to be removed. May be arbitrary.
@@ -294,15 +249,14 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Remove the element at the specified index from the passed list. This works
-   * if the list is not <code>null</code> and the index is &ge; 0 and &lt;
-   * <code>list.size()</code>
+   * Remove the element at the specified index from the passed list. This works if the list is not
+   * <code>null</code> and the index is &ge; 0 and &lt; <code>list.size()</code>
    *
    * @param nIndex
    *        The index to be removed. May be arbitrary.
-   * @return <code>null</code> if removal failed or the removed element. Note:
-   *         the removed element may also be <code>null</code> so it may be
-   *         tricky to determine if removal succeeded or not!
+   * @return <code>null</code> if removal failed or the removed element. Note: the removed element
+   *         may also be <code>null</code> so it may be tricky to determine if removal succeeded or
+   *         not!
    * @see #removeAtIndex(int)
    */
   @Nullable
@@ -312,26 +266,9 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Remove the first element of the list.<br>
-   * Note: this methods conflicts with a method added in Java SE 21 in class
-   * ArrayList. Therefore {@link #removeFirstOrNull()} should be used instead.
-   *
-   * @return <code>null</code> if the list is empty or the previously contained
-   *         element at index 0.
-   * @deprecated Use {@link #removeFirstOrNull()} instead
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "11.1.5")
-  default ELEMENTTYPE removeFirst ()
-  {
-    return removeFirstOrNull ();
-  }
-
-  /**
    * Remove the first element of the list.
    *
-   * @return <code>null</code> if the list is empty or the previously contained
-   *         element at index 0.
+   * @return <code>null</code> if the list is empty or the previously contained element at index 0.
    * @since 11.1.5
    */
   @Nullable
@@ -341,25 +278,10 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   /**
-   * Remove the last element of the list.<br>
-   * Note: this methods conflicts with a method added in Java SE 21 in class
-   * ArrayList. Therefore {@link #removeLastOrNull()} should be used instead.
-   *
-   * @return <code>null</code> if the list is empty or the previously contained
-   *         element at index <code>size()-1</code>.
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "11.1.5")
-  default ELEMENTTYPE removeLast ()
-  {
-    return removeLastOrNull ();
-  }
-
-  /**
    * Remove the last element of the list.
    *
-   * @return <code>null</code> if the list is empty or the previously contained
-   *         element at index <code>size()-1</code>.
+   * @return <code>null</code> if the list is empty or the previously contained element at index
+   *         <code>size()-1</code>.
    * @since 11.1.5
    */
   @Nullable

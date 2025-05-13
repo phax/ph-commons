@@ -21,9 +21,10 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
-public final class MockSessionSingletonTreeWithUniqueID extends AbstractSessionSingletonTreeWithUniqueID <String, String>
+public final class MockSessionSingletonTreeWithUniqueID extends
+                                                        AbstractSessionSingletonTreeWithUniqueID <String, String>
 {
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public MockSessionSingletonTreeWithUniqueID ()
   {}

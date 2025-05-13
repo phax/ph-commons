@@ -30,7 +30,7 @@ public final class MockSessionSingleton extends AbstractSessionSingleton
 {
   private int i = 0;
 
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public MockSessionSingleton ()
   {}

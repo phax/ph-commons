@@ -28,7 +28,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
  */
 public final class MockGlobalSingletonTreeWithUniqueID extends AbstractGlobalSingletonTreeWithUniqueID <String, String>
 {
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public MockGlobalSingletonTreeWithUniqueID ()
   {}

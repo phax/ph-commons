@@ -33,7 +33,7 @@ public final class MockGlobalSingleton extends AbstractGlobalSingleton
   private static int s_nCtorCount = 0;
   private static int s_nDtorCount = 0;
 
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   @SuppressFBWarnings ("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
   public MockGlobalSingleton ()

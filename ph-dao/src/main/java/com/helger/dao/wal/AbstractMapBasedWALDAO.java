@@ -63,8 +63,7 @@ import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
 /**
- * Base class for WAL based DAO that uses a simple {@link ICommonsMap} for data
- * storage.
+ * Base class for WAL based DAO that uses a simple {@link ICommonsMap} for data storage.
  *
  * @author Philip Helger
  * @param <INTERFACETYPE>
@@ -79,8 +78,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
                                              IMapBasedDAO <INTERFACETYPE>
 {
   /**
-   * Extensible constructor parameter builder. Must be static because it is used
-   * in the constructor and no <code>this</code> is present.
+   * Extensible constructor parameter builder. Must be static because it is used in the constructor
+   * and no <code>this</code> is present.
    *
    * @author Philip Helger
    * @param <IMPLTYPE>
@@ -129,9 +128,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   private final Predicate <IMicroElement> m_aReadElementFilter;
 
   /**
-   * Default constructor. Automatically tries to read the file in the
-   * constructor (except this is changed in the init settings). WAL based
-   * classes must have a fixed filename!
+   * Default constructor. Automatically tries to read the file in the constructor (except this is
+   * changed in the init settings). WAL based classes must have a fixed filename!
    *
    * @param aImplClass
    *        Implementation class. May not be <code>null</code>.
@@ -140,8 +138,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @param sFilename
    *        The filename to read and write.
    * @param aInitSettings
-   *        Optional initialization settings to be used. May not be
-   *        <code>null</code>.
+   *        Optional initialization settings to be used. May not be <code>null</code>.
    * @throws DAOException
    *         If reading and reading fails
    */
@@ -233,8 +230,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @param eActionType
    *        The action type. Must be CREATE or UPDATE!
    * @throws IllegalArgumentException
-   *         If on CREATE an item with the same ID is already contained. If on
-   *         UPDATE an item with the provided ID does NOT exist.
+   *         If on CREATE an item with the same ID is already contained. If on UPDATE an item with
+   *         the provided ID does NOT exist.
    */
   @MustBeLocked (ELockType.WRITE)
   private void _addItem (@Nonnull final IMPLTYPE aItem, @Nonnull final EDAOActionType eActionType)
@@ -271,9 +268,9 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * The super method must be called every time something changed in the DAO. It
-   * triggers the writing to a file if auto-save is active. This method must be
-   * called within a write-lock as it is not locked!
+   * The super method must be called every time something changed in the DAO. It triggers the
+   * writing to a file if auto-save is active. This method must be called within a write-lock as it
+   * is not locked!
    *
    * @param aModifiedElement
    *        The modified data element. May not be <code>null</code>.
@@ -283,7 +280,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    */
   @Override
   @MustBeLocked (ELockType.WRITE)
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @DevelopersNote ("Avoid that this method is overridden")
   protected final void markAsChanged (@Nonnull final IMPLTYPE aModifiedElement,
                                       @Nonnull final EDAOActionType eActionType)
@@ -292,8 +289,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Add an item including invoking the callback. Must only be invoked inside a
-   * write-lock.
+   * Add an item including invoking the callback. Must only be invoked inside a write-lock.
    *
    * @param aNewItem
    *        The item to be added. May not be <code>null</code>.
@@ -309,14 +305,12 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Add an item including invoking the callback. Must only be invoked inside a
-   * write-lock.
+   * Add an item including invoking the callback. Must only be invoked inside a write-lock.
    *
    * @param aNewItem
    *        The item to be added. May not be <code>null</code>.
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
    * @return The passed parameter as-is. Never <code>null</code>.
    * @throws IllegalArgumentException
    *         If an item with the same ID is already contained
@@ -341,8 +335,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Update an existing item including invoking the callback. Must only be
-   * invoked inside a write-lock.
+   * Update an existing item including invoking the callback. Must only be invoked inside a
+   * write-lock.
    *
    * @param aItem
    *        The item to be updated. May not be <code>null</code>.
@@ -356,14 +350,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Update an existing item including invoking the callback. Must only be
-   * invoked inside a write-lock.
+   * Update an existing item including invoking the callback. Must only be invoked inside a
+   * write-lock.
    *
    * @param aItem
    *        The item to be updated. May not be <code>null</code>.
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
    * @throws IllegalArgumentException
    *         If no item with the same ID is already contained
    * @since 9.2.1
@@ -385,13 +378,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Delete the item by removing it from the map. If something was remove the
-   * onDeleteItem callback is invoked. Must only be invoked inside a write-lock.
+   * Delete the item by removing it from the map. If something was remove the onDeleteItem callback
+   * is invoked. Must only be invoked inside a write-lock.
    *
    * @param sID
    *        The ID to be removed. May be <code>null</code>.
-   * @return The deleted item. If <code>null</code> no such item was found and
-   *         therefore nothing was removed.
+   * @return The deleted item. If <code>null</code> no such item was found and therefore nothing was
+   *         removed.
    */
   @MustBeLocked (ELockType.WRITE)
   @Nullable
@@ -401,16 +394,15 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Delete the item by removing it from the map. If something was remove the
-   * onDeleteItem callback is invoked. Must only be invoked inside a write-lock.
+   * Delete the item by removing it from the map. If something was remove the onDeleteItem callback
+   * is invoked. Must only be invoked inside a write-lock.
    *
    * @param sID
    *        The ID to be removed. May be <code>null</code>.
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
-   * @return The deleted item. If <code>null</code> no such item was found and
-   *         therefore nothing was removed.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
+   * @return The deleted item. If <code>null</code> no such item was found and therefore nothing was
+   *         removed.
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
@@ -436,9 +428,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Mark an item as "deleted" without actually deleting it from the map. This
-   * method only triggers the update action but does not alter the item. Must
-   * only be invoked inside a write-lock.
+   * Mark an item as "deleted" without actually deleting it from the map. This method only triggers
+   * the update action but does not alter the item. Must only be invoked inside a write-lock.
    *
    * @param aItem
    *        The item that was marked as "deleted"
@@ -450,15 +441,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Mark an item as "deleted" without actually deleting it from the map. This
-   * method only triggers the update action but does not alter the item. Must
-   * only be invoked inside a write-lock.
+   * Mark an item as "deleted" without actually deleting it from the map. This method only triggers
+   * the update action but does not alter the item. Must only be invoked inside a write-lock.
    *
    * @param aItem
    *        The item that was marked as "deleted"
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
@@ -475,9 +464,9 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Mark an item as "no longer deleted" without actually adding it to the map.
-   * This method only triggers the update action but does not alter the item.
-   * Must only be invoked inside a write-lock.
+   * Mark an item as "no longer deleted" without actually adding it to the map. This method only
+   * triggers the update action but does not alter the item. Must only be invoked inside a
+   * write-lock.
    *
    * @param aItem
    *        The item that was marked as "no longer deleted"
@@ -489,15 +478,14 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Mark an item as "no longer deleted" without actually adding it to the map.
-   * This method only triggers the update action but does not alter the item.
-   * Must only be invoked inside a write-lock.
+   * Mark an item as "no longer deleted" without actually adding it to the map. This method only
+   * triggers the update action but does not alter the item. Must only be invoked inside a
+   * write-lock.
    *
    * @param aItem
    *        The item that was marked as "no longer deleted"
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
@@ -514,11 +502,10 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Remove all items without triggering any callback. Must only be invoked
-   * inside a write-lock.
+   * Remove all items without triggering any callback. Must only be invoked inside a write-lock.
    *
-   * @return {@link EChange#CHANGED} if something was contained,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something was contained, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @MustBeLocked (ELockType.WRITE)
   @Nonnull
@@ -704,8 +691,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Same as {@link #getOfID(String)} but the locking must happen on the called
-   * side.
+   * Same as {@link #getOfID(String)} but the locking must happen on the called side.
    *
    * @param sID
    *        The ID to search. May be <code>null</code>.
@@ -740,8 +726,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Get the item at the specified index. This method only returns defined
-   * results if an ordered map is used for data storage.
+   * Get the item at the specified index. This method only returns defined results if an ordered map
+   * is used for data storage.
    *
    * @param nIndex
    *        The index to retrieve. Should be &ge; 0.

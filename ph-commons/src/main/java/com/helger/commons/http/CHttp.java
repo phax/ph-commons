@@ -271,14 +271,6 @@ public final class CHttp
    */
   public static final int HTTP_UNAVAILABLE_FOR_LEGAL_REASONS = 451;
 
-  /**
-   * HTTP Status-Code 451: Unavailable For Legal Reasons.
-   *
-   * @deprecated Use {@link #HTTP_UNAVAILABLE_FOR_LEGAL_REASONS} instead
-   */
-  @Deprecated (since = "11.0.3", forRemoval = true)
-  public static final int HTTP_UNAVAILABLE_FOR_LEGA_REASONS = HTTP_UNAVAILABLE_FOR_LEGAL_REASONS;
-
   /* 5XX: server error */
 
   /**
@@ -520,9 +512,8 @@ public final class CHttp
   }
 
   /**
-   * Get milliseconds suitable for HTTP requests/responses. Rounds down to the
-   * nearest second for a proper compare. Java has milliseconds, HTTP
-   * requests/responses have not.
+   * Get milliseconds suitable for HTTP requests/responses. Rounds down to the nearest second for a
+   * proper compare. Java has milliseconds, HTTP requests/responses have not.
    *
    * @param nMillis
    *        Milliseconds to use

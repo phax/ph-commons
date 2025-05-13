@@ -21,9 +21,10 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
-public final class MockRequestSingletonTreeWithUniqueID extends AbstractRequestSingletonTreeWithUniqueID <String, String>
+public final class MockRequestSingletonTreeWithUniqueID extends
+                                                        AbstractRequestSingletonTreeWithUniqueID <String, String>
 {
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public MockRequestSingletonTreeWithUniqueID ()
   {}

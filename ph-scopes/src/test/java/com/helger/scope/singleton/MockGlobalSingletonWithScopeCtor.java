@@ -35,7 +35,7 @@ public final class MockGlobalSingletonWithScopeCtor extends AbstractGlobalSingle
   private static int s_nDtorCount = 0;
   private final IScope m_aScope;
 
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   @SuppressFBWarnings ("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
   public MockGlobalSingletonWithScopeCtor (@Nonnull final IScope aScope)

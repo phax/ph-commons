@@ -103,15 +103,6 @@ public final class CertificateHelperTest
                                                          "\r\n");
     assertNotNull (aCert);
 
-    aCert = CertificateHelper.convertStringToCertficate ("\r\n" +
-                                                         CertificateHelper.BEGIN_CERTIFICATE_INVALID +
-                                                         "\r\n" +
-                                                         sValidCert +
-                                                         "\r\n" +
-                                                         CertificateHelper.END_CERTIFICATE_INVALID +
-                                                         "\r\n");
-    assertNotNull (aCert);
-
     try
     {
       CertificateHelper.convertStringToCertficate ("abc");

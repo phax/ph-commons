@@ -32,7 +32,7 @@ public final class MockRequestSingletonWithScopeCtor extends AbstractRequestSing
   private int i = 0;
   private final IScope m_aScope;
 
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public MockRequestSingletonWithScopeCtor (@Nonnull final IScope aScope)
   {
