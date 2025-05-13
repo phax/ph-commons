@@ -63,6 +63,10 @@
   </developers>
   
   <properties>
+    <!-- for testing purposes only
+    <maven.compiler.target>24</maven.compiler.target>
+    <maven.compiler.source>24</maven.compiler.source>
+    -->
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
     <bc.version>1.80</bc.version>
@@ -98,17 +102,31 @@
         <artifactId>bcpg-jdk18on</artifactId>
         <version>${bcpg.version}</version>
       </dependency>
+
+      <!-- JAXB -->
       <dependency>
-        <groupId>com.helger</groupId>
-        <artifactId>ph-jaxb-pom</artifactId>
-        <version>2.0.4</version>
-        <type>pom</type>
-        <scope>import</scope>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>4.0.2</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
-        <artifactId>ph-jaxws-pom</artifactId>
-        <version>2.0.4</version>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-bom-ext</artifactId>
+        <version>4.0.5</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+
+      <!-- JAXWS -->
+      <dependency>
+        <groupId>jakarta.xml.ws</groupId>
+        <artifactId>jakarta.xml.ws-api</artifactId>
+        <version>4.0.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>jaxws-ri-bom</artifactId>
+        <version>4.0.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
