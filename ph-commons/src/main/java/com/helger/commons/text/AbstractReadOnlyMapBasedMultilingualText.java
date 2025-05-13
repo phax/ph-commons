@@ -40,9 +40,8 @@ import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A {@link Map} based implementation of {@link IMultilingualText} that does not
- * provide writing methods to the outside and is only to be used as a
- * non-abstract base class.
+ * A {@link Map} based implementation of {@link IMultilingualText} that does not provide writing
+ * methods to the outside and is only to be used as a non-abstract base class.
  *
  * @author Philip Helger
  */
@@ -57,13 +56,13 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
 
   protected AbstractReadOnlyMapBasedMultilingualText ()
   {
-    // Use a HashMap by default
+    // Use a CommonsLinkedHashMap by default
     this (new CommonsLinkedHashMap <> ());
   }
 
   /**
-   * Protected constructor that specifies the underlying {@link Map} to use. Use
-   * this constructor to e.g. provide a concurrent {@link HashMap} or similar.
+   * Protected constructor that specifies the underlying {@link Map} to use. Use this constructor to
+   * e.g. provide a concurrent {@link HashMap} or similar.
    *
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.
@@ -77,8 +76,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
    * Enable or disable the internal consistency checks.
    *
    * @param bPerformConsistencyChecks
-   *        <code>true</code> to enable them, <code>false</code> to disable
-   *        them.
+   *        <code>true</code> to enable them, <code>false</code> to disable them.
    */
   public static void setPerformConsistencyChecks (final boolean bPerformConsistencyChecks)
   {
@@ -86,9 +84,8 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   }
 
   /**
-   * @return <code>true</code> if consistency checks are enabled,
-   *         <code>false</code> if not. The default value is
-   *         {@link GlobalDebug#isDebugMode()}.
+   * @return <code>true</code> if consistency checks are enabled, <code>false</code> if not. The
+   *         default value is {@link GlobalDebug#isDebugMode()}.
    */
   public static boolean isPerformConsistencyChecks ()
   {
