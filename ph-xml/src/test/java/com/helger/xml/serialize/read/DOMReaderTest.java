@@ -374,8 +374,6 @@ public final class DOMReaderTest
   public void testEntityExpansionLimit ()
   {
     final boolean bIsJava24Plus = EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_24);
-    // 64.000 is the default value for JDK7+
-    assertEquals (bIsJava24Plus ? 2_500 : 64_000, XMLSystemProperties.getXMLEntityExpansionLimit ());
 
     // The XML with XXE problem
     final String sXMLEntities = "<?xml version='1.0' encoding='utf-8'?>" +
@@ -423,7 +421,8 @@ public final class DOMReaderTest
                     .getErrorText (Locale.ROOT)
                     .contains (Integer.toString (XMLSystemProperties.getXMLEntityExpansionLimit ())));
 
-    XMLSystemProperties.setXMLEntityExpansionLimit (111111);
+    XMLSystemProperties.setXMLEntityExpansionLimit (111_111);
+    XMLSystemProperties.setXMLTotalEntitySizeLimit (111_111 * 5);
     try
     {
       // Use default DOMReaderSettings
@@ -462,6 +461,7 @@ public final class DOMReaderTest
     finally
     {
       XMLSystemProperties.setXMLEntityExpansionLimit (null);
+      XMLSystemProperties.setXMLTotalEntitySizeLimit (null);
     }
   }
 }

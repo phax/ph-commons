@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.commons.system.EJavaVersion;
+
 /**
  * Test class for class {@link XMLSystemProperties}
  *
@@ -30,10 +32,12 @@ public final class XMLSystemPropertiesTest
   @Test
   public void testXMLProperties ()
   {
-    assertEquals (64000, XMLSystemProperties.getXMLEntityExpansionLimit ());
-    assertEquals (10000, XMLSystemProperties.getXMLElementAttributeLimit ());
+    final boolean bIsJava24Plus = EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_24);
+
+    assertEquals (bIsJava24Plus ? 2_500 : 64_000, XMLSystemProperties.getXMLEntityExpansionLimit ());
+    assertEquals (bIsJava24Plus ? 200 : 10_000, XMLSystemProperties.getXMLElementAttributeLimit ());
     assertEquals (5000, XMLSystemProperties.getXMLMaxOccur ());
-    assertEquals (5 * (long) 10E7, XMLSystemProperties.getXMLTotalEntitySizeLimit ());
+    assertEquals (bIsJava24Plus ? 100_000 : 50_000_000, XMLSystemProperties.getXMLTotalEntitySizeLimit ());
     assertEquals (0, XMLSystemProperties.getXMLMaxGeneralEntitySizeLimit ());
     assertEquals (0, XMLSystemProperties.getXMLMaxParameterEntitySizeLimit ());
   }

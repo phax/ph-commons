@@ -28,7 +28,9 @@ import com.helger.commons.system.SystemProperties;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**
- * This class wraps all the special Java XML system properties.
+ * This class wraps all the special Java XML system properties. <br>
+ * JDK 24 changes are here:
+ * https://github.com/openjdk/jdk/commit/28c8729019292820f17002cc007305418f2d2676
  *
  * @author Philip Helger
  */
@@ -193,11 +195,16 @@ public final class XMLSystemProperties
   {
     // Default value depends.
     // JDK 1.7+: 10.0000
+    // JDK 24+: 200
     String sPropertyValue = SystemProperties.getPropertyValueOrNull (SYSTEM_PROPERTY_JDX_XML_ELEMENT_ATTRIBUTE_LIMIT);
     if (sPropertyValue == null)
       sPropertyValue = SystemProperties.getPropertyValueOrNull (SYSTEM_PROPERTY_ELEMENT_ATTRIBUTE_LIMIT);
     if (sPropertyValue == null)
+    {
+      if (EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_24))
+        return 200;
       return 10000;
+    }
     return Integer.parseInt (sPropertyValue);
   }
 
@@ -329,10 +336,15 @@ public final class XMLSystemProperties
   public static int getXMLTotalEntitySizeLimit ()
   {
     // Default value:
-    // JDK 1.7.0_45: 5x10^7
+    // JDK 1.7.0_45: 5*10^7
+    // Java 24+: 100000
     final String sPropertyValue = SystemProperties.getPropertyValueOrNull (SYSTEM_PROPERTY_JDX_XML_TOTAL_ENTITY_SIZE_LIMIT);
     if (sPropertyValue == null)
-      return 5 * (int) 10e7;
+    {
+      if (EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_24))
+        return 100_000;
+      return 50_000_000;
+    }
     return Integer.parseInt (sPropertyValue);
   }
 
