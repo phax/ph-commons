@@ -53,7 +53,8 @@ public enum EJavaVersion
   JDK_20 (64.0, 65.0, false),
   JDK_21 (65.0, 66.0, true),
   JDK_22 (66.0, 67.0, false),
-  JDK_23 (67.0, 68.0, false);
+  JDK_23 (67.0, 68.0, false),
+  JDK_24 (68.0, 69.0, true);
 
   /** The current version. */
   private static final EJavaVersion INSTANCE;
@@ -94,8 +95,8 @@ public enum EJavaVersion
    * @param dMaxVersionExcl
    *        Maximum version (exclusive)
    * @param bLTS
-   *        <code>true</code> if it is a "Long Term Support" (LTS) version,
-   *        <code>false</code> if not
+   *        <code>true</code> if it is a "Long Term Support" (LTS) version, <code>false</code> if
+   *        not
    */
   EJavaVersion (@Nonnegative final double dMinVersionIncl,
                 @Nonnegative final double dMaxVersionExcl,
@@ -113,8 +114,7 @@ public enum EJavaVersion
   }
 
   /**
-   * @return <code>true</code> if this is the current version,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if this is the current version, <code>false</code> otherwise
    */
   public boolean isCurrentVersion ()
   {
@@ -122,9 +122,8 @@ public enum EJavaVersion
   }
 
   /**
-   * @return <code>true</code> if this Java version is supported by the current
-   *         Java Version. It is expected that all versions are backward
-   *         compatible.
+   * @return <code>true</code> if this Java version is supported by the current Java Version. It is
+   *         expected that all versions are backward compatible.
    */
   public boolean isSupportedVersion ()
   {
@@ -136,8 +135,7 @@ public enum EJavaVersion
    *
    * @param eJavaVersion
    *        the Java version to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if this Java version is old or equal than the
-   *         passed version.
+   * @return <code>true</code> if this Java version is old or equal than the passed version.
    */
   public boolean isOlderOrEqualsThan (@Nonnull final EJavaVersion eJavaVersion)
   {
@@ -149,8 +147,7 @@ public enum EJavaVersion
    *
    * @param eJavaVersion
    *        the Java version to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if this Java version is newer or equal than the
-   *         passed version.
+   * @return <code>true</code> if this Java version is newer or equal than the passed version.
    */
   public boolean isNewerOrEqualsThan (@Nonnull final EJavaVersion eJavaVersion)
   {
@@ -158,8 +155,8 @@ public enum EJavaVersion
   }
 
   /**
-   * @return <code>true</code> if it is a "Long Term Support" (LTS) version,
-   *         <code>false</code> if not
+   * @return <code>true</code> if it is a "Long Term Support" (LTS) version, <code>false</code> if
+   *         not
    */
   public boolean isLTS ()
   {
@@ -167,9 +164,8 @@ public enum EJavaVersion
   }
 
   /**
-   * @return The current Java version. If the Java version could not be
-   *         determined, {@link #UNKNOWN} is returned and never
-   *         <code>null</code>.
+   * @return The current Java version. If the Java version could not be determined, {@link #UNKNOWN}
+   *         is returned and never <code>null</code>.
    */
   @Nonnull
   public static EJavaVersion getCurrentVersion ()
