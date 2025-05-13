@@ -19,7 +19,6 @@ package com.helger.commons.gfx;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.AccessControlException;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -47,9 +46,9 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
 import com.helger.commons.statistics.StatisticsManager;
 
 /**
- * This service class is used to cache information about images. It is used to
- * set the HTML attributes width and height for images. It has an internal cache
- * to avoid querying the data every time.
+ * This service class is used to cache information about images. It is used to set the HTML
+ * attributes width and height for images. It has an internal cache to avoid querying the data every
+ * time.
  *
  * @author Philip Helger
  */
@@ -133,11 +132,6 @@ public final class ImageDataManager
     {
       LOGGER.error ("Failed to read image data from resource " + aRes, ex);
     }
-    catch (final AccessControlException ex)
-    {
-      // can be thrown by f.exist!
-      LOGGER.error ("Whatsoever on " + aRes, ex);
-    }
     catch (final IllegalArgumentException ex)
     {
       // can be thrown by the BMP reader :)
@@ -153,9 +147,8 @@ public final class ImageDataManager
       return null;
 
     /*
-     * Use containsKey here instead of "get () != null" in case an image is
-     * queried over and over but is not existing. The implementation inserts
-     * null values for all elements that are invalid
+     * Use containsKey here instead of "get () != null" in case an image is queried over and over
+     * but is not existing. The implementation inserts null values for all elements that are invalid
      */
     m_aRWLock.readLock ().lock ();
     try

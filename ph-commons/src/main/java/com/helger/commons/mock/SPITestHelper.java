@@ -36,7 +36,6 @@ import com.helger.commons.io.file.FileSystemIterator;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.lang.ReflectionSecurityManager;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
 
@@ -70,15 +69,13 @@ public final class SPITestHelper
   }
 
   /**
-   * Test if all SPI configurations and implementations are correctly
-   * configured.
+   * Test if all SPI configurations and implementations are correctly configured.
    *
    * @param sBaseDir
    *        Base directory. May not be <code>null</code>.
    * @param eMode
    *        Validation mode. May not be <code>null</code>.
-   * @return A map from interface to all found implementations in the order of
-   *         appearance.
+   * @return A map from interface to all found implementations in the order of appearance.
    * @throws IOException
    *         In case of read error
    */
@@ -91,7 +88,9 @@ public final class SPITestHelper
     ValueEnforcer.notNull (eMode, "Mode");
 
     final boolean bDoResolve = eMode.isResolve ();
-    final ClassLoader aCL = ReflectionSecurityManager.INSTANCE.getCallerClass (1).getClassLoader ();
+    final ClassLoader aCL = StackWalker.getInstance (StackWalker.Option.RETAIN_CLASS_REFERENCE)
+                                       .getCallerClass ()
+                                       .getClassLoader ();
     final ICommonsSortedMap <String, ICommonsSortedSet <String>> aAllImplementations = new CommonsTreeMap <> ();
     final File aBaseDir = new File (sBaseDir);
     if (aBaseDir.exists () && aBaseDir.isDirectory ())
@@ -125,9 +124,8 @@ public final class SPITestHelper
             }
 
           // Check content - must be UTF8
-          try (
-              final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                                  StandardCharsets.UTF_8)))
+          try (final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
+                                                                                                                   StandardCharsets.UTF_8)))
           {
             int nCount = 0;
             String sLine;

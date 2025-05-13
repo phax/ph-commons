@@ -35,54 +35,50 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * <p>
- * An implementation of the {@code ThreadFactory} interface that provides some
- * configuration options for the threads it creates.
+ * An implementation of the {@code ThreadFactory} interface that provides some configuration options
+ * for the threads it creates.
  * </p>
  * <p>
- * A {@code ThreadFactory} is used for instance by an {@code ExecutorService} to
- * create the threads it uses for executing tasks. In many cases users do not
- * have to care about a {@code ThreadFactory} because the default one used by an
- * {@code ExecutorService} will do. However, if there are special requirements
- * for the threads, a custom {@code ThreadFactory} has to be created.
+ * A {@code ThreadFactory} is used for instance by an {@code ExecutorService} to create the threads
+ * it uses for executing tasks. In many cases users do not have to care about a
+ * {@code ThreadFactory} because the default one used by an {@code ExecutorService} will do.
+ * However, if there are special requirements for the threads, a custom {@code ThreadFactory} has to
+ * be created.
  * </p>
  * <p>
- * This class provides some frequently needed configuration options for the
- * threads it creates. These are the following:
+ * This class provides some frequently needed configuration options for the threads it creates.
+ * These are the following:
  * </p>
  * <ul>
- * <li>A name pattern for the threads created by this factory can be specified.
- * This is often useful if an application uses multiple executor services for
- * different purposes. If the names of the threads used by these services have
- * meaningful names, log output or exception traces can be much easier to read.
- * Naming patterns are <em>format strings</em> as used by the {@code
- * String.format()} method. The string can contain the place holder {@code %d}
- * which will be replaced by the number of the current thread ({@code
- * ThreadFactoryImpl} keeps a counter of the threads it has already created).
- * For instance, the naming pattern {@code "My %d. worker thread"} will result
- * in thread names like {@code "My 1. worker thread"}, {@code
+ * <li>A name pattern for the threads created by this factory can be specified. This is often useful
+ * if an application uses multiple executor services for different purposes. If the names of the
+ * threads used by these services have meaningful names, log output or exception traces can be much
+ * easier to read. Naming patterns are <em>format strings</em> as used by the {@code
+ * String.format()} method. The string can contain the place holder {@code %d} which will be
+ * replaced by the number of the current thread ({@code
+ * ThreadFactoryImpl} keeps a counter of the threads it has already created). For instance, the
+ * naming pattern {@code "My %d. worker thread"} will result in thread names like
+ * {@code "My 1. worker thread"}, {@code
  * "My 2. worker thread"} and so on.</li>
- * <li>A flag whether the threads created by this factory should be daemon
- * threads. This can impact the exit behavior of the current Java application
- * because the JVM shuts down if there are only daemon threads running.</li>
+ * <li>A flag whether the threads created by this factory should be daemon threads. This can impact
+ * the exit behavior of the current Java application because the JVM shuts down if there are only
+ * daemon threads running.</li>
  * <li>The priority of the thread. Here an integer value can be provided. The
- * {@code java.lang.Thread} class defines constants for valid ranges of priority
- * values.</li>
- * <li>The {@code UncaughtExceptionHandler} for the thread. This handler is
- * called if an uncaught exception occurs within the thread.</li>
+ * {@code java.lang.Thread} class defines constants for valid ranges of priority values.</li>
+ * <li>The {@code UncaughtExceptionHandler} for the thread. This handler is called if an uncaught
+ * exception occurs within the thread.</li>
  * </ul>
  * <p>
- * {@code BasicThreadFactory} wraps another thread factory which actually
- * creates new threads. The configuration options are set on the threads created
- * by the wrapped thread factory. On construction time the factory to be wrapped
- * can be specified. If none is provided, a default {@code ThreadFactory} is
- * used.
+ * {@code BasicThreadFactory} wraps another thread factory which actually creates new threads. The
+ * configuration options are set on the threads created by the wrapped thread factory. On
+ * construction time the factory to be wrapped can be specified. If none is provided, a default
+ * {@code ThreadFactory} is used.
  * </p>
  * <p>
- * Instances of {@code BasicThreadFactory} are not created directly, but the
- * nested {@code Builder} class is used for this purpose. Using the builder only
- * the configuration options an application is interested in need to be set. The
- * following example shows how a {@code BasicThreadFactory} is created and
- * installed in an {@code ExecutorService}:
+ * Instances of {@code BasicThreadFactory} are not created directly, but the nested {@code Builder}
+ * class is used for this purpose. Using the builder only the configuration options an application
+ * is interested in need to be set. The following example shows how a {@code BasicThreadFactory} is
+ * created and installed in an {@code ExecutorService}:
  * </p>
  *
  * <pre>
@@ -112,8 +108,7 @@ public class BasicThreadFactory implements ThreadFactory
 
     ExtendedDefaultThreadFactory (@Nullable final ThreadGroup aTG)
     {
-      final SecurityManager s = System.getSecurityManager ();
-      m_aGroup = s != null ? s.getThreadGroup () : aTG != null ? aTG : Thread.currentThread ().getThreadGroup ();
+      m_aGroup = aTG != null ? aTG : Thread.currentThread ().getThreadGroup ();
       m_sNamePrefix = "factory-" + FACTORY_ID.getAndIncrement () + "-thread-";
     }
 
@@ -136,8 +131,8 @@ public class BasicThreadFactory implements ThreadFactory
   };
 
   /**
-   * Set the default uncaught exception handler for future instances of
-   * BasicThreadFactory. By default a logging exception handler is present.
+   * Set the default uncaught exception handler for future instances of BasicThreadFactory. By
+   * default a logging exception handler is present.
    *
    * @param aHdl
    *        The handlers to be used. May not be <code>null</code>.
@@ -150,8 +145,7 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * @return The default uncaught exception handler used. Never
-   *         <code>null</code>.
+   * @return The default uncaught exception handler used. Never <code>null</code>.
    */
   @Nonnull
   public static Thread.UncaughtExceptionHandler getDefaultUncaughtExceptionHandler ()
@@ -178,8 +172,8 @@ public class BasicThreadFactory implements ThreadFactory
   private final ETriState m_eDaemon;
 
   /**
-   * Creates a new instance of {@code ThreadFactoryImpl} and configures it from
-   * the specified {@code Builder} object.
+   * Creates a new instance of {@code ThreadFactoryImpl} and configures it from the specified
+   * {@code Builder} object.
    *
    * @param aBuilder
    *        the {@code Builder} object
@@ -200,10 +194,9 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Returns the wrapped {@code ThreadFactory}. This factory is used for
-   * actually creating threads. This method never returns <b>null</b>. If no
-   * {@code ThreadFactory} was passed when this object was created, a default
-   * thread factory is returned.
+   * Returns the wrapped {@code ThreadFactory}. This factory is used for actually creating threads.
+   * This method never returns <b>null</b>. If no {@code ThreadFactory} was passed when this object
+   * was created, a default thread factory is returned.
    *
    * @return the wrapped {@code ThreadFactory}
    */
@@ -214,8 +207,8 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Returns the naming pattern for naming newly created threads. Result can be
-   * <b>null</b> if no naming pattern was provided.
+   * Returns the naming pattern for naming newly created threads. Result can be <b>null</b> if no
+   * naming pattern was provided.
    *
    * @return the naming pattern
    */
@@ -226,10 +219,9 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Returns the daemon flag. This flag determines whether newly created threads
-   * should be daemon threads. If <b>true</b>, this factory object calls
-   * {@code setDaemon(true)} on the newly created threads. Result can be
-   * <b>null</b> if no daemon flag was provided at creation time.
+   * Returns the daemon flag. This flag determines whether newly created threads should be daemon
+   * threads. If <b>true</b>, this factory object calls {@code setDaemon(true)} on the newly created
+   * threads. Result can be <b>null</b> if no daemon flag was provided at creation time.
    *
    * @return the daemon flag
    */
@@ -240,8 +232,8 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Returns the priority of the threads created by this factory. Result can be
-   * <b>null</b> if no priority was specified.
+   * Returns the priority of the threads created by this factory. Result can be <b>null</b> if no
+   * priority was specified.
    *
    * @return the priority for newly created threads
    */
@@ -252,8 +244,8 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Returns the {@code UncaughtExceptionHandler} for the threads created by
-   * this factory. Result can be <b>null</b> if no handler was provided.
+   * Returns the {@code UncaughtExceptionHandler} for the threads created by this factory. Result
+   * can be <b>null</b> if no handler was provided.
    *
    * @return the {@code UncaughtExceptionHandler}
    */
@@ -263,9 +255,9 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Returns the number of threads this factory has already created. This class
-   * maintains an internal counter that is incremented each time the
-   * {@link #newThread(Runnable)} method is invoked.
+   * Returns the number of threads this factory has already created. This class maintains an
+   * internal counter that is incremented each time the {@link #newThread(Runnable)} method is
+   * invoked.
    *
    * @return the number of threads created by this factory
    */
@@ -275,10 +267,9 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Initializes the specified thread. This method is called by
-   * {@link #newThread(Runnable)} after a new thread has been obtained from the
-   * wrapped thread factory. It initializes the thread according to the options
-   * set for this factory.
+   * Initializes the specified thread. This method is called by {@link #newThread(Runnable)} after a
+   * new thread has been obtained from the wrapped thread factory. It initializes the thread
+   * according to the options set for this factory.
    *
    * @param aThread
    *        the thread to be initialized
@@ -302,9 +293,8 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Creates a new thread. This implementation delegates to the wrapped factory
-   * for creating the thread. Then, on the newly created thread the
-   * corresponding configuration options are set.
+   * Creates a new thread. This implementation delegates to the wrapped factory for creating the
+   * thread. Then, on the newly created thread the corresponding configuration options are set.
    *
    * @param aRunnable
    *        the {@code Runnable} to be executed by the new thread
@@ -343,10 +333,10 @@ public class BasicThreadFactory implements ThreadFactory
    * BasicThreadFactory}.
    * </p>
    * <p>
-   * Using this builder class instances of {@code BasicThreadFactory} can be
-   * created and initialized. The class provides methods that correspond to the
-   * configuration options supported by {@code BasicThreadFactory}. Method
-   * chaining is supported. Refer to the documentation of {@code
+   * Using this builder class instances of {@code BasicThreadFactory} can be created and
+   * initialized. The class provides methods that correspond to the configuration options supported
+   * by {@code BasicThreadFactory}. Method chaining is supported. Refer to the documentation of
+   * {@code
    * BasicThreadFactory} for a usage example.
    * </p>
    *
@@ -428,9 +418,8 @@ public class BasicThreadFactory implements ThreadFactory
 
     /**
      * Sets the naming pattern to be used by the new {@code
-     * BasicThreadFactory}. The formatting is done with
-     * {@link String#format(String, Object...)} using the thread counter (type
-     * long) as the only parameter.
+     * BasicThreadFactory}. The formatting is done with {@link String#format(String, Object...)}
+     * using the thread counter (type long) as the only parameter.
      *
      * @param sNamingPattern
      *        the naming pattern (must not be <b>null</b>)
@@ -462,8 +451,8 @@ public class BasicThreadFactory implements ThreadFactory
     }
 
     /**
-     * Sets the daemon flag for the new {@code BasicThreadFactory}. If this flag
-     * is set to <b>true</b> the new thread factory will create daemon threads.
+     * Sets the daemon flag for the new {@code BasicThreadFactory}. If this flag is set to
+     * <b>true</b> the new thread factory will create daemon threads.
      *
      * @param bDaemon
      *        the value of the daemon flag
@@ -477,9 +466,9 @@ public class BasicThreadFactory implements ThreadFactory
     }
 
     /**
-     * Resets this builder. All configuration options are set to default values.
-     * Note: If the {@link #build()} method was called, it is not necessary to
-     * call {@code reset()} explicitly because this is done automatically.
+     * Resets this builder. All configuration options are set to default values. Note: If the
+     * {@link #build()} method was called, it is not necessary to call {@code reset()} explicitly
+     * because this is done automatically.
      */
     public void reset ()
     {
@@ -492,9 +481,9 @@ public class BasicThreadFactory implements ThreadFactory
     }
 
     /**
-     * Creates a new {@code BasicThreadFactory} with all configuration options
-     * that have been specified by calling methods on this builder. After
-     * creating the factory {@link #reset()} is called.
+     * Creates a new {@code BasicThreadFactory} with all configuration options that have been
+     * specified by calling methods on this builder. After creating the factory {@link #reset()} is
+     * called.
      *
      * @return the new {@code BasicThreadFactory}
      */

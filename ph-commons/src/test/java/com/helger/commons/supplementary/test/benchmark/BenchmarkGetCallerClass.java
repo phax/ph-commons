@@ -18,8 +18,6 @@ package com.helger.commons.supplementary.test.benchmark;
 
 import java.math.BigDecimal;
 
-import com.helger.commons.lang.ReflectionSecurityManager;
-
 /**
  * http://stackoverflow.com/questions/421280/how-do-i-find-the-caller-of-a-method-using-stacktrace-or-reflection?noredirect=1&lq=1
  * Output:
@@ -59,17 +57,17 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
     final double t3 = benchmarkTask (new ThrowableStackTraceMethod (nRuns));
     LOGGER.info ("Time using new Throwable ().getStackTrace ()         " + BigDecimal.valueOf (t3).toString () + " us");
 
-    final double t4 = benchmarkTask (new SecurityManagerMethod (nRuns));
-    LOGGER.info ("Time using mySecurityManager.getCallerClassName      " + BigDecimal.valueOf (t4).toString () + " us");
+    final double t4 = benchmarkTask (new StackWalkerMethod (nRuns));
+    LOGGER.info ("Time using StackWalker.walk                          " + BigDecimal.valueOf (t4).toString () + " us");
   }
 
   /**
-   * Abstract class for testing different methods of getting the caller class
-   * name
+   * Abstract class for testing different methods of getting the caller class name
    */
   private abstract static class AbstractDoIt implements Runnable
   {
     private final int m_nRuns;
+    private boolean m_bShow = false;
 
     protected AbstractDoIt (final int runs)
     {
@@ -81,7 +79,14 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
     public void run ()
     {
       for (int i = 0; i < m_nRuns; ++i)
-        getCallerClassName (2);
+      {
+        final String s = getCallerClassName (2);
+        if (!m_bShow)
+        {
+          LOGGER.info (" ==> " + s);
+          m_bShow = true;
+        }
+      }
     }
   }
 
@@ -113,10 +118,11 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
       super (runs);
     }
 
+    // Returns: com.helger.commons.supplementary.test.benchmark.AbstractBenchmarkTask
     @Override
     public String getCallerClassName (final int nCallStackDepth)
     {
-      return Thread.currentThread ().getStackTrace ()[nCallStackDepth].getClassName ();
+      return Thread.currentThread ().getStackTrace ()[nCallStackDepth + 1].getClassName ();
     }
   }
 
@@ -130,6 +136,7 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
       super (runs);
     }
 
+    // Returns: com.helger.commons.supplementary.test.benchmark.AbstractBenchmarkTask
     @Override
     public String getCallerClassName (final int nCallStackDepth)
     {
@@ -138,19 +145,25 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
   }
 
   /**
-   * Use the SecurityManager.getClassContext()
+   * Use the StackWalker.walk() <br>
+   * This is the fastest version
    */
-  static class SecurityManagerMethod extends AbstractDoIt
+  static class StackWalkerMethod extends AbstractDoIt
   {
-    public SecurityManagerMethod (final int runs)
+    public StackWalkerMethod (final int runs)
     {
       super (runs);
     }
 
+    // Returns: com.helger.commons.supplementary.test.benchmark.AbstractBenchmarkTask
     @Override
     public String getCallerClassName (final int nCallStackDepth)
     {
-      return ReflectionSecurityManager.INSTANCE.getCallerClassName (nCallStackDepth);
+      final StackWalker aWalker = StackWalker.getInstance (StackWalker.Option.RETAIN_CLASS_REFERENCE);
+      return aWalker.walk (s -> s.map (x -> x.getDeclaringClass ().getName ())
+                                 .skip (nCallStackDepth)
+                                 .findFirst ()
+                                 .orElse (null));
     }
   }
 }
