@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.system.EJavaVersion;
 import com.helger.commons.system.SystemProperties;
 import com.helger.xml.serialize.read.DOMReader;
 
@@ -64,8 +65,8 @@ public final class XMLSystemProperties
 
   /**
    * Limit the number of entity expansions.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param nEntityExpansionLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -77,12 +78,12 @@ public final class XMLSystemProperties
 
   /**
    * Limit the number of entity expansions.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param sEntityExpansionLimit
-   *        A positive integer as a String. Values &le; 0 are treated as no
-   *        limit. <code>null</code> means the property is deleted
+   *        A positive integer as a String. Values &le; 0 are treated as no limit. <code>null</code>
+   *        means the property is deleted
    */
   public static void setXMLEntityExpansionLimit (@Nullable final String sEntityExpansionLimit)
   {
@@ -92,8 +93,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * The same as {@link #setXMLEntityExpansionLimit(int)} but just that the
-   * value is only set, if the limit is increased!
+   * The same as {@link #setXMLEntityExpansionLimit(int)} but just that the value is only set, if
+   * the limit is increased!
    *
    * @param nMaxOccur
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -120,19 +121,24 @@ public final class XMLSystemProperties
     // Default value depends.
     // JDK 1.6: 100.000
     // JDK 1.7+: 64.0000
+    // JDK 24+: 2.500
     // Source: https://docs.oracle.com/javase/tutorial/jaxp/limits/limits.html
     String sPropertyValue = SystemProperties.getPropertyValueOrNull (SYSTEM_PROPERTY_JDX_XML_ENTITY_EXPANSION_LIMIT);
     if (sPropertyValue == null)
       sPropertyValue = SystemProperties.getPropertyValueOrNull (SYSTEM_PROPERTY_ENTITY_EXPANSION_LIMIT);
     if (sPropertyValue == null)
-      return 64000;
+    {
+      if (EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_24))
+        return 2_500;
+      return 64_000;
+    }
     return Integer.parseInt (sPropertyValue);
   }
 
   /**
    * Limit the number of attributes an element can have.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param nElementAttributeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -144,12 +150,12 @@ public final class XMLSystemProperties
 
   /**
    * Limit the number of attributes an element can have.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param sElementAttributeLimit
-   *        A positive integer. Values &le; 0 are treated as no limit.
-   *        <code>null</code> means the property is deleted
+   *        A positive integer. Values &le; 0 are treated as no limit. <code>null</code> means the
+   *        property is deleted
    * @since 8.6.2
    */
   public static void setXMLElementAttributeLimit (@Nullable final String sElementAttributeLimit)
@@ -160,8 +166,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * The same as {@link #setXMLElementAttributeLimit(int)} but just that the
-   * value is only set, if the limit is increased!
+   * The same as {@link #setXMLElementAttributeLimit(int)} but just that the value is only set, if
+   * the limit is increased!
    *
    * @param nElementAttributeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -196,11 +202,10 @@ public final class XMLSystemProperties
   }
 
   /**
-   * Limit the number of content model nodes that may be created when building a
-   * grammar for a W3C XML Schema that contains maxOccurs attributes with values
-   * other than "unbounded".<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * Limit the number of content model nodes that may be created when building a grammar for a W3C
+   * XML Schema that contains maxOccurs attributes with values other than "unbounded".<br>
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param nMaxOccur
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -211,15 +216,14 @@ public final class XMLSystemProperties
   }
 
   /**
-   * Limit the number of content model nodes that may be created when building a
-   * grammar for a W3C XML Schema that contains maxOccurs attributes with values
-   * other than "unbounded".<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * Limit the number of content model nodes that may be created when building a grammar for a W3C
+   * XML Schema that contains maxOccurs attributes with values other than "unbounded".<br>
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param sMaxOccur
-   *        A positive integer. Values &le; 0 are treated as no limit.
-   *        <code>null</code> means the property is deleted.
+   *        A positive integer. Values &le; 0 are treated as no limit. <code>null</code> means the
+   *        property is deleted.
    * @since 8.6.2
    */
   public static void setXMLMaxOccur (@Nullable final String sMaxOccur)
@@ -230,8 +234,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * The same as {@link #setXMLMaxOccur(int)} but just that the value is only
-   * set, if the limit is increased!
+   * The same as {@link #setXMLMaxOccur(int)} but just that the value is only set, if the limit is
+   * increased!
    *
    * @param nMaxOccur
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -266,11 +270,11 @@ public final class XMLSystemProperties
   }
 
   /**
-   * Limit the total size of all entities that include general and parameter
-   * entities. The size is calculated as an aggregation of all entities.<br>
+   * Limit the total size of all entities that include general and parameter entities. The size is
+   * calculated as an aggregation of all entities.<br>
    * This is available since JDK 1.7.0_45/1.8.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param nTotalEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -281,15 +285,15 @@ public final class XMLSystemProperties
   }
 
   /**
-   * Limit the total size of all entities that include general and parameter
-   * entities. The size is calculated as an aggregation of all entities.<br>
+   * Limit the total size of all entities that include general and parameter entities. The size is
+   * calculated as an aggregation of all entities.<br>
    * This is available since JDK 1.7.0_45/1.8.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param sTotalEntitySizeLimit
-   *        A positive integer. Values &le; 0 are treated as no limit.
-   *        <code>null</code> means the property is deleted.
+   *        A positive integer. Values &le; 0 are treated as no limit. <code>null</code> means the
+   *        property is deleted.
    * @since 8.6.2
    */
   public static void setXMLTotalEntitySizeLimit (@Nullable final String sTotalEntitySizeLimit)
@@ -299,8 +303,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * The same as {@link #setXMLTotalEntitySizeLimit(int)} but just that the
-   * value is only set, if the limit is increased!
+   * The same as {@link #setXMLTotalEntitySizeLimit(int)} but just that the value is only set, if
+   * the limit is increased!
    *
    * @param nTotalEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -333,12 +337,11 @@ public final class XMLSystemProperties
   }
 
   /**
-   * Limit the maximum size of any general entities. It is recommended that
-   * users set the limit to the smallest possible number so that malformed xml
-   * files can be caught quickly.<br>
+   * Limit the maximum size of any general entities. It is recommended that users set the limit to
+   * the smallest possible number so that malformed xml files can be caught quickly.<br>
    * This is available since JDK 1.7.0_45/1.8.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param nMaxGeneralEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -349,16 +352,15 @@ public final class XMLSystemProperties
   }
 
   /**
-   * Limit the maximum size of any general entities. It is recommended that
-   * users set the limit to the smallest possible number so that malformed xml
-   * files can be caught quickly.<br>
+   * Limit the maximum size of any general entities. It is recommended that users set the limit to
+   * the smallest possible number so that malformed xml files can be caught quickly.<br>
    * This is available since JDK 1.7.0_45/1.8.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param sMaxGeneralEntitySizeLimit
-   *        A positive integer. Values &le; 0 are treated as no limit.
-   *        <code>null</code> means the property is deleted.
+   *        A positive integer. Values &le; 0 are treated as no limit. <code>null</code> means the
+   *        property is deleted.
    * @since 8.6.2
    */
   public static void setXMLMaxGeneralEntitySizeLimit (@Nullable final String sMaxGeneralEntitySizeLimit)
@@ -369,8 +371,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * The same as {@link #setXMLMaxGeneralEntitySizeLimit(int)} but just that the
-   * value is only set, if the limit is increased!
+   * The same as {@link #setXMLMaxGeneralEntitySizeLimit(int)} but just that the value is only set,
+   * if the limit is increased!
    *
    * @param nMaxGeneralEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -403,13 +405,12 @@ public final class XMLSystemProperties
   }
 
   /**
-   * Limit the maximum size of any parameter entities, including the result of
-   * nesting multiple parameter entities. It is recommended that users set the
-   * limit to the smallest possible number so that malformed xml files can be
-   * caught quickly.<br>
+   * Limit the maximum size of any parameter entities, including the result of nesting multiple
+   * parameter entities. It is recommended that users set the limit to the smallest possible number
+   * so that malformed xml files can be caught quickly.<br>
    * This is available since JDK 1.7.0_45/1.8.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param nMaxParameterEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
@@ -420,17 +421,16 @@ public final class XMLSystemProperties
   }
 
   /**
-   * Limit the maximum size of any parameter entities, including the result of
-   * nesting multiple parameter entities. It is recommended that users set the
-   * limit to the smallest possible number so that malformed xml files can be
-   * caught quickly.<br>
+   * Limit the maximum size of any parameter entities, including the result of nesting multiple
+   * parameter entities. It is recommended that users set the limit to the smallest possible number
+   * so that malformed xml files can be caught quickly.<br>
    * This is available since JDK 1.7.0_45/1.8.<br>
-   * This setting only takes effect if a parser with <b>explicitly</b> disabled
-   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled "Secure processing"
+   * feature is used. Otherwise this setting has no effect!
    *
    * @param sMaxParameterEntitySizeLimit
-   *        A positive integer. Values &le; 0 are treated as no limit.
-   *        <code>null</code> means the property is deleted.
+   *        A positive integer. Values &le; 0 are treated as no limit. <code>null</code> means the
+   *        property is deleted.
    * @since 8.6.2
    */
   public static void setXMLMaxParameterEntitySizeLimit (@Nullable final String sMaxParameterEntitySizeLimit)
@@ -441,8 +441,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * The same as {@link #setXMLMaxParameterEntitySizeLimit(int)} but just that
-   * the value is only set, if the limit is increased!
+   * The same as {@link #setXMLMaxParameterEntitySizeLimit(int)} but just that the value is only
+   * set, if the limit is increased!
    *
    * @param nMaxParameterEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.

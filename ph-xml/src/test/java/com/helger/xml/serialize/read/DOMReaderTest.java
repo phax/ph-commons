@@ -49,6 +49,7 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.EJavaVersion;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLSystemProperties;
 import com.helger.xml.sax.CachingSAXInputSource;
@@ -372,8 +373,9 @@ public final class DOMReaderTest
   @Test
   public void testEntityExpansionLimit ()
   {
+    final boolean bIsJava24Plus = EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_24);
     // 64.000 is the default value for JDK7+
-    assertEquals (64000, XMLSystemProperties.getXMLEntityExpansionLimit ());
+    assertEquals (bIsJava24Plus ? 2_500 : 64_000, XMLSystemProperties.getXMLEntityExpansionLimit ());
 
     // The XML with XXE problem
     final String sXMLEntities = "<?xml version='1.0' encoding='utf-8'?>" +
@@ -402,11 +404,14 @@ public final class DOMReaderTest
     assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 3)),
                   aDoc.getDocumentElement ().getTextContent ());
 
-    // Read successful - entity expansion!
-    aDoc = DOMReader.readXMLDOM (sXMLEntities + "<root>&e5;</root>", aDRS);
-    assertNotNull (aDoc);
-    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 4)),
-                  aDoc.getDocumentElement ().getTextContent ());
+    if (!bIsJava24Plus)
+    {
+      // Read successful - entity expansion!
+      aDoc = DOMReader.readXMLDOM (sXMLEntities + "<root>&e5;</root>", aDRS);
+      assertNotNull (aDoc);
+      assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 4)),
+                    aDoc.getDocumentElement ().getTextContent ());
+    }
 
     // Should fail because too many entity expansions
     LOGGER.info ("Current XML Entity Expansion Limit is " + XMLSystemProperties.getXMLEntityExpansionLimit ());
