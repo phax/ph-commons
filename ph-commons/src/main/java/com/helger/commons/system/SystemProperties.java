@@ -35,7 +35,6 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.PropertiesHelper;
-import com.helger.commons.lang.priviledged.IPrivilegedAction;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.EChange;
@@ -92,8 +91,7 @@ public final class SystemProperties implements IHasConditionalLogger
   {}
 
   /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it
-   *         is enabled.
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it is enabled.
    */
   public static boolean isSilentMode ()
   {
@@ -104,8 +102,7 @@ public final class SystemProperties implements IHasConditionalLogger
    * Enable or disable certain regular log messages.
    *
    * @param bSilentMode
-   *        <code>true</code> to disable logging, <code>false</code> to enable
-   *        logging
+   *        <code>true</code> to disable logging, <code>false</code> to enable logging
    * @return The previous value of the silent mode.
    */
   public static boolean setSilentMode (final boolean bSilentMode)
@@ -116,7 +113,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getPropertyValueOrNull (@Nullable final String sKey)
   {
-    return sKey == null ? null : IPrivilegedAction.systemGetProperty (sKey).invokeSafe ();
+    return sKey == null ? null : System.getProperty (sKey);
   }
 
   @Nullable
@@ -136,8 +133,7 @@ public final class SystemProperties implements IHasConditionalLogger
   }
 
   /**
-   * Clear the cache with the property names, for which warnings were emitted
-   * that keys don't exist.
+   * Clear the cache with the property names, for which warnings were emitted that keys don't exist.
    */
   public static void clearWarnedPropertyNames ()
   {
@@ -145,8 +141,7 @@ public final class SystemProperties implements IHasConditionalLogger
   }
 
   /**
-   * @return A copy of the set with all property names for which warnings were
-   *         emitted.
+   * @return A copy of the set with all property names for which warnings were emitted.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -190,8 +185,7 @@ public final class SystemProperties implements IHasConditionalLogger
   }
 
   /**
-   * Set a system property value under consideration of an eventually present
-   * {@link SecurityManager}.
+   * Set a system property value
    *
    * @param sKey
    *        The key of the system property. May not be <code>null</code>.
@@ -207,14 +201,13 @@ public final class SystemProperties implements IHasConditionalLogger
   }
 
   /**
-   * Set a system property value under consideration of an eventually present
-   * {@link SecurityManager}.
+   * Set a system property value
    *
    * @param sKey
    *        The key of the system property. May not be <code>null</code>.
    * @param sValue
-   *        The value of the system property. If the value is <code>null</code>
-   *        the property is removed.
+   *        The value of the system property. If the value is <code>null</code> the property is
+   *        removed.
    * @return {@link EChange}
    */
   @Nonnull
@@ -228,7 +221,7 @@ public final class SystemProperties implements IHasConditionalLogger
     }
     else
     {
-      final String sOld = IPrivilegedAction.systemSetProperty (sKey, sValue).invokeSafe ();
+      final String sOld = System.setProperty (sKey, sValue);
       bChanged = sOld != null && !sValue.equals (sOld);
       if (bChanged)
         CONDLOG.info ( () -> "Set system property '" + sKey + "' to '" + sValue + "'");
@@ -237,19 +230,17 @@ public final class SystemProperties implements IHasConditionalLogger
   }
 
   /**
-   * Remove a system property value under consideration of an eventually present
-   * {@link SecurityManager}.
+   * Remove a system property value
    *
    * @param sKey
-   *        The key of the system property to be removed. May not be
-   *        <code>null</code>.
-   * @return the previous string value of the system property, or
-   *         <code>null</code> if there was no property with that key.
+   *        The key of the system property to be removed. May not be <code>null</code>.
+   * @return the previous string value of the system property, or <code>null</code> if there was no
+   *         property with that key.
    */
   @Nullable
   public static String removePropertyValue (@Nonnull final String sKey)
   {
-    final String sOldValue = IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
+    final String sOldValue = System.clearProperty (sKey);
     if (sOldValue != null)
       CONDLOG.info ( () -> "Removed system property '" + sKey + "' with value '" + sOldValue + "'");
     else
@@ -530,14 +521,14 @@ public final class SystemProperties implements IHasConditionalLogger
   }
 
   /**
-   * @return A map with all system properties where the key is the system
-   *         property name and the value is the system property value.
+   * @return A map with all system properties where the key is the system property name and the
+   *         value is the system property value.
    */
   @Nonnull
   @ReturnsMutableCopy
   public static ICommonsMap <String, String> getAllProperties ()
   {
-    final Properties aProperties = IPrivilegedAction.systemGetProperties ().invokeSafe ();
+    final Properties aProperties = System.getProperties ();
     if (aProperties == null)
       return new CommonsHashMap <> ();
     return PropertiesHelper.getAsStringMap (aProperties);
@@ -548,8 +539,7 @@ public final class SystemProperties implements IHasConditionalLogger
    *
    * @param sPropertyName
    *        The name of the property.
-   * @return <code>true</code> if such a system property is present,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if such a system property is present, <code>false</code> otherwise
    */
   public static boolean containsPropertyName (final String sPropertyName)
   {
@@ -557,13 +547,11 @@ public final class SystemProperties implements IHasConditionalLogger
   }
 
   /**
-   * Get a set of system property names which are relevant for network
-   * debugging/proxy handling. This method is meant to be used for reading the
-   * appropriate settings from a configuration file.
+   * Get a set of system property names which are relevant for network debugging/proxy handling.
+   * This method is meant to be used for reading the appropriate settings from a configuration file.
    *
-   * @return An array with all system property names which are relevant for
-   *         debugging/proxy handling. Never <code>null</code> and never empty.
-   *         Each call returns a new array.
+   * @return An array with all system property names which are relevant for debugging/proxy
+   *         handling. Never <code>null</code> and never empty. Each call returns a new array.
    */
   @Nonnull
   @ReturnsMutableCopy

@@ -42,7 +42,6 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.http.HttpHeaderMap;
 import com.helger.commons.lang.ClassLoaderHelper;
-import com.helger.commons.lang.priviledged.IPrivilegedAction;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.ws.HostnameVerifierVerifyAll;
@@ -85,8 +84,8 @@ public class WSClientConfig
    * Creates a service caller for the service meta data interface
    *
    * @param aEndpointAddress
-   *        The endpoint address of the WS server to be invoked. May be
-   *        <code>null</code> if the endpoint from the WSDL should be used.
+   *        The endpoint address of the WS server to be invoked. May be <code>null</code> if the
+   *        endpoint from the WSDL should be used.
    */
   public WSClientConfig (@Nullable final URL aEndpointAddress)
   {
@@ -97,8 +96,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The endpoint address as specified in the constructor. May be
-   *         <code>null</code> if the endpoint from the WSDL should be used.
+   * @return The endpoint address as specified in the constructor. May be <code>null</code> if the
+   *         endpoint from the WSDL should be used.
    */
   @Nullable
   public final URL getEndpointAddress ()
@@ -107,8 +106,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The {@link SSLSocketFactory} to be used by this client. Is
-   *         <code>null</code> by default.
+   * @return The {@link SSLSocketFactory} to be used by this client. Is <code>null</code> by
+   *         default.
    */
   @Nullable
   public SSLSocketFactory getSSLSocketFactory ()
@@ -117,9 +116,9 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link SSLSocketFactory} to be used by this client to one that
-   * trusts all servers. It defaults to at least TLS 1.2 and disables
-   * certificate checks. This is NOT recommended for secure, production code!
+   * Set the {@link SSLSocketFactory} to be used by this client to one that trusts all servers. It
+   * defaults to at least TLS 1.2 and disables certificate checks. This is NOT recommended for
+   * secure, production code!
    *
    * @throws KeyManagementException
    *         if initializing the SSL context failed
@@ -132,13 +131,12 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link SSLSocketFactory} to be used by this client to one that
-   * trusts all servers. It defaults to at least TLS 1.2 and disables
-   * certificate checks. This is NOT recommended for secure, production code!
+   * Set the {@link SSLSocketFactory} to be used by this client to one that trusts all servers. It
+   * defaults to at least TLS 1.2 and disables certificate checks. This is NOT recommended for
+   * secure, production code!
    *
    * @param bDebugMode
-   *        <code>true</code> for extended debug logging, <code>false</code> for
-   *        production.
+   *        <code>true</code> for extended debug logging, <code>false</code> for production.
    * @throws KeyManagementException
    *         if initializing the SSL context failed
    * @return this for chaining
@@ -164,8 +162,8 @@ public class WSClientConfig
    * Change the {@link SSLSocketFactory} to be used by this client.
    *
    * @param aSSLSocketFactory
-   *        The factory to use. Maybe <code>null</code> to indicate, that the
-   *        default {@link SSLSocketFactory} is to be used.
+   *        The factory to use. Maybe <code>null</code> to indicate, that the default
+   *        {@link SSLSocketFactory} is to be used.
    * @return this for chaining
    */
   @Nonnull
@@ -176,8 +174,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The {@link HostnameVerifier} to be used by this client. Is
-   *         <code>null</code> by default.
+   * @return The {@link HostnameVerifier} to be used by this client. Is <code>null</code> by
+   *         default.
    */
   @Nullable
   public HostnameVerifier getHostnameVerifier ()
@@ -186,8 +184,8 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link HostnameVerifier} to a "trust all" verifier. This is NOT
-   * recommended for secure, production code!
+   * Set the {@link HostnameVerifier} to a "trust all" verifier. This is NOT recommended for secure,
+   * production code!
    *
    * @return this for chaining
    */
@@ -198,12 +196,11 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link HostnameVerifier} to a "trust all" verifier. This is NOT
-   * recommended for secure, production code!
+   * Set the {@link HostnameVerifier} to a "trust all" verifier. This is NOT recommended for secure,
+   * production code!
    *
    * @param bDebugMode
-   *        <code>true</code> for extended debug logging, <code>false</code> for
-   *        production.
+   *        <code>true</code> for extended debug logging, <code>false</code> for production.
    * @return this for chaining
    * @since 9.1.5
    */
@@ -217,8 +214,8 @@ public class WSClientConfig
    * Change the {@link HostnameVerifier} to be used by this client.
    *
    * @param aHostnameVerifier
-   *        The factory to use. Maybe <code>null</code> to indicate, that the
-   *        default {@link HostnameVerifier} is to be used.
+   *        The factory to use. Maybe <code>null</code> to indicate, that the default
+   *        {@link HostnameVerifier} is to be used.
    * @return this for chaining
    */
   @Nonnull
@@ -238,8 +235,7 @@ public class WSClientConfig
   }
 
   /**
-   * @return <code>true</code> if a connection timeout is defined,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a connection timeout is defined, <code>false</code> if not.
    * @since 9.1.5
    */
   public boolean hasConnectionTimeoutMS ()
@@ -271,8 +267,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return <code>true</code> if a request (response) timeout is defined,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a request (response) timeout is defined, <code>false</code> if
+   *         not.
    * @since 9.1.5
    */
   public boolean hasRequestTimeoutMS ()
@@ -295,8 +291,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The chunk size in bytes. Default is {@link #DEFAULT_CHUNK_SIZE}.
-   *         Only values &gt; 0 are considered.
+   * @return The chunk size in bytes. Default is {@link #DEFAULT_CHUNK_SIZE}. Only values &gt; 0 are
+   *         considered.
    * @since 8.5.7
    */
   public int getChunkSize ()
@@ -305,8 +301,7 @@ public class WSClientConfig
   }
 
   /**
-   * @return <code>true</code> if a chunk size is defined, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if a chunk size is defined, <code>false</code> if not.
    * @since 9.1.5
    */
   public boolean hasChunkSize ()
@@ -318,9 +313,8 @@ public class WSClientConfig
    * Set the chunk size to enable HTTP chunked encoding.
    *
    * @param nChunkSize
-   *        Number of bytes. Only values &ge; 0 are considered. If the value is
-   *        0 than the JDK default chunk size (Oracle: 4096 bytes) is used.
-   *        Values &lt; 0 mean no chunked encoding!
+   *        Number of bytes. Only values &ge; 0 are considered. If the value is 0 than the JDK
+   *        default chunk size (Oracle: 4096 bytes) is used. Values &lt; 0 mean no chunked encoding!
    * @return this for chaining
    * @since 8.5.7
    */
@@ -332,8 +326,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The user name for HTTP Basic Auth. May be <code>null</code>.
-   *         Default is <code>null</code>.
+   * @return The user name for HTTP Basic Auth. May be <code>null</code>. Default is
+   *         <code>null</code>.
    */
   @Nullable
   public String getUserName ()
@@ -342,8 +336,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return <code>true</code> if a HTTP Basic Auth user name is defined,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if a HTTP Basic Auth user name is defined, <code>false</code>
+   *         otherwise.
    */
   public boolean hasUserName ()
   {
@@ -365,8 +359,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The password for HTTP Basic Auth. May be <code>null</code>. Default
-   *         is <code>null</code>.
+   * @return The password for HTTP Basic Auth. May be <code>null</code>. Default is
+   *         <code>null</code>.
    */
   @Nullable
   public String getPassword ()
@@ -375,8 +369,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return <code>true</code> if a HTTP Basic Auth password is defined,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if a HTTP Basic Auth password is defined, <code>false</code>
+   *         otherwise.
    */
   public boolean hasPassword ()
   {
@@ -398,8 +392,7 @@ public class WSClientConfig
   }
 
   /**
-   * @return The SOAP Action to be used. May be <code>null</code>. Default is
-   *         <code>null</code>.
+   * @return The SOAP Action to be used. May be <code>null</code>. Default is <code>null</code>.
    */
   @Nullable
   public String getSOAPAction ()
@@ -408,8 +401,7 @@ public class WSClientConfig
   }
 
   /**
-   * @return <code>true</code> if a SOAP Action is defined, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if a SOAP Action is defined, <code>false</code> otherwise.
    */
   public boolean hasSOAPAction ()
   {
@@ -458,8 +450,7 @@ public class WSClientConfig
   }
 
   /**
-   * Add a hint that this client understands compressed HTTP content. Disabled
-   * by default.
+   * Add a hint that this client understands compressed HTTP content. Disabled by default.
    *
    * @param bCompress
    *        <code>true</code> to enable, <code>false</code> to disable.
@@ -585,7 +576,7 @@ public class WSClientConfig
       // MASM0003: Default [ jaxws-tubes-default.xml ] configuration file was
       // not loaded
       final ClassLoader aContextClassLoader = ClassLoaderHelper.getContextClassLoader ();
-      final ClassLoader aThisClassLoader = IPrivilegedAction.getClassLoader (getClass ()).invokeSafe ();
+      final ClassLoader aThisClassLoader = getClass ().getClassLoader ();
       if (aContextClassLoader == null)
       {
         LOGGER.info ("Manually setting thread context class loader to work around MASM0003 bug");

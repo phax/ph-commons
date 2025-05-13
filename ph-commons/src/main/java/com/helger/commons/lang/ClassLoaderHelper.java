@@ -32,7 +32,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
 /**
  * {@link ClassLoader} utility methods.
@@ -53,7 +52,7 @@ public final class ClassLoaderHelper
   @Nonnull
   public static ClassLoader getSystemClassLoader ()
   {
-    return IPrivilegedAction.getSystemClassLoader ().invokeSafe ();
+    return ClassLoader.getSystemClassLoader ();
   }
 
   @Nullable
@@ -61,26 +60,26 @@ public final class ClassLoaderHelper
   {
     // the context ClassLoader for this Thread, or null indicating the system
     // class loader
-    return IPrivilegedAction.getContextClassLoader ().invokeSafe ();
+    return Thread.currentThread ().getContextClassLoader ();
   }
 
   public static void setContextClassLoader (@Nonnull final ClassLoader aClassLoader)
   {
-    IPrivilegedAction.setContextClassLoader (aClassLoader).invokeSafe ();
+    Thread.currentThread ().setContextClassLoader (aClassLoader);
   }
 
   @Nullable
   public static ClassLoader getClassClassLoader (@Nonnull final Class <?> aClass)
   {
     // If the class represents a primitive type or void, null is returned.
-    return IPrivilegedAction.getClassLoader (aClass).invokeSafe ();
+    return aClass.getClassLoader ();
   }
 
   @Nullable
   public static ClassLoader getParentClassLoader (@Nonnull final ClassLoader aClassLoader)
   {
-    // Some implementations mayuse null to represent the bootstrap class loader.
-    return IPrivilegedAction.classLoaderGetParent (aClassLoader).invokeSafe ();
+    // Some implementations may use null to represent the bootstrap class loader.
+    return aClassLoader.getParent ();
   }
 
   @Nonnull
@@ -110,18 +109,15 @@ public final class ClassLoaderHelper
   }
 
   /**
-   * Get the URL of the passed resource using the specified class loader only.
-   * This is a sanity wrapper around
-   * <code>classLoader.getResource (sPath)</code>.
+   * Get the URL of the passed resource using the specified class loader only. This is a sanity
+   * wrapper around <code>classLoader.getResource (sPath)</code>.
    *
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @param sPath
-   *        The path to be resolved. May neither be <code>null</code> nor empty.
-   *        Internally it is ensured that the provided path does NOT start with
-   *        a slash.
-   * @return <code>null</code> if the path could not be resolved using the
-   *         specified class loader.
+   *        The path to be resolved. May neither be <code>null</code> nor empty. Internally it is
+   *        ensured that the provided path does NOT start with a slash.
+   * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
   public static URL getResource (@Nonnull final ClassLoader aClassLoader, @Nonnull @Nonempty final String sPath)
@@ -162,18 +158,15 @@ public final class ClassLoaderHelper
   }
 
   /**
-   * Get all URLs of the passed resource using the specified class loader only.
-   * This is a sanity wrapper around
-   * <code>classLoader.getResources (sPath)</code>.
+   * Get all URLs of the passed resource using the specified class loader only. This is a sanity
+   * wrapper around <code>classLoader.getResources (sPath)</code>.
    *
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @param sPath
-   *        The path to be resolved. May neither be <code>null</code> nor empty.
-   *        Internally it is ensured that the provided path does NOT start with
-   *        a slash.
-   * @return <code>null</code> if the path could not be resolved using the
-   *         specified class loader.
+   *        The path to be resolved. May neither be <code>null</code> nor empty. Internally it is
+   *        ensured that the provided path does NOT start with a slash.
+   * @return <code>null</code> if the path could not be resolved using the specified class loader.
    * @throws IOException
    *         In case an internal error occurs.
    */
@@ -192,21 +185,19 @@ public final class ClassLoaderHelper
   }
 
   /**
-   * Get the input stream of the passed resource using the specified class
-   * loader only. This is a sanity wrapper around
-   * <code>classLoader.getResourceAsStream (sPath)</code>.
+   * Get the input stream of the passed resource using the specified class loader only. This is a
+   * sanity wrapper around <code>classLoader.getResourceAsStream (sPath)</code>.
    *
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @param sPath
-   *        The path to be resolved. May neither be <code>null</code> nor empty.
-   *        Internally it is ensured that the provided path does NOT start with
-   *        a slash.
-   * @return <code>null</code> if the path could not be resolved using the
-   *         specified class loader.
+   *        The path to be resolved. May neither be <code>null</code> nor empty. Internally it is
+   *        ensured that the provided path does NOT start with a slash.
+   * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
-  public static InputStream getResourceAsStream (@Nonnull final ClassLoader aClassLoader, @Nonnull @Nonempty final String sPath)
+  public static InputStream getResourceAsStream (@Nonnull final ClassLoader aClassLoader,
+                                                 @Nonnull @Nonempty final String sPath)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     ValueEnforcer.notEmpty (sPath, "Path");
