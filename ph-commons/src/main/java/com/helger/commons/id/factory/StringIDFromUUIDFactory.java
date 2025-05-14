@@ -27,6 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
  * An {@link IStringIDFactory} implementation that uses a random UUIDs.
  *
  * @author Philip Helger
+ * @since 11.2.4
  */
 public class StringIDFromUUIDFactory implements IStringIDFactory
 {
