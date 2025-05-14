@@ -31,8 +31,8 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
 
 /**
- * This class should not be static since it may have an impact if this class is
- * used by different projects which have a separate IntID factory.
+ * This class should not be static since it may have an impact if this class is used by different
+ * projects which have a separate IntID factory.
  *
  * @author Philip Helger
  */
@@ -43,9 +43,10 @@ public final class GlobalIDFactory
   public static final String DEFAULT_PREFIX = "id";
 
   /**
-   * The maximum string length of IDs created by the String based ID factory.
+   * The maximum string length of IDs created by the String based ID factory. This length should at
+   * least fit a UUID v4 (36 chars)
    */
-  public static final int STRING_ID_MAX_LENGTH = 20;
+  public static final int STRING_ID_MAX_LENGTH = 40;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (GlobalIDFactory.class);
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
@@ -69,8 +70,7 @@ public final class GlobalIDFactory
   }
 
   /**
-   * @return The factory to create non-persistent int IDs. May be
-   *         <code>null</code>.
+   * @return The factory to create non-persistent int IDs. May be <code>null</code>.
    */
   @Nullable
   public static IIntIDFactory getIntIDFactory ()
@@ -124,8 +124,7 @@ public final class GlobalIDFactory
   }
 
   /**
-   * @return The factory to create non-persistent long IDs. May be
-   *         <code>null</code>.
+   * @return The factory to create non-persistent long IDs. May be <code>null</code>.
    */
   @Nullable
   public static ILongIDFactory getLongIDFactory ()
@@ -152,8 +151,7 @@ public final class GlobalIDFactory
   }
 
   /**
-   * @return The factory to create persistent long IDs. May be
-   *         <code>null</code>.
+   * @return The factory to create persistent long IDs. May be <code>null</code>.
    */
   @Nullable
   public static ILongIDFactory getPersistentLongIDFactory ()
@@ -180,8 +178,7 @@ public final class GlobalIDFactory
   }
 
   /**
-   * @return The factory to create non-persistent string IDs. May be
-   *         <code>null</code>.
+   * @return The factory to create non-persistent string IDs. May be <code>null</code>.
    */
   @Nullable
   public static IStringIDFactory getStringIDFactory ()
@@ -208,8 +205,7 @@ public final class GlobalIDFactory
   }
 
   /**
-   * @return The factory to create persistent string IDs. May be
-   *         <code>null</code>.
+   * @return The factory to create persistent string IDs. May be <code>null</code>.
    */
   @Nullable
   public static IStringIDFactory getPersistentStringIDFactory ()
