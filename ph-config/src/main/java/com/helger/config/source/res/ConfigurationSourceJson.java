@@ -89,16 +89,15 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
                                                             @Nonnull final Charset aCharset)
   {
     final JsonReader.JsonBuilder aBuilder = JsonReader.builder ()
-                                                  .source (aRes, aCharset)
-                                                  .customizeCallback (aParser -> aParser.jsonParserSettings ()
-                                                                                        .setRequireStringQuotes (false)
-                                                                                        .setAllowSpecialCharsInStrings (true)
-                                                                                        .setAlwaysUseBigNumber (true)
-                                                                                        .setTrackPosition (true))
-                                                  .customExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
-                                                                                                aRes.getPath () +
-                                                                                                "' to JSON: " +
-                                                                                                ex.getMessage ()));
+                                                      .source (aRes, aCharset)
+                                                      .requireStringQuotes (false)
+                                                      .allowSpecialCharsInStrings (true)
+                                                      .alwaysUseBigNumber (true)
+                                                      .trackPosition (true)
+                                                      .customExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
+                                                                                                    aRes.getPath () +
+                                                                                                    "' to JSON: " +
+                                                                                                    ex.getMessage ()));
     final IJsonObject aProps = aBuilder.hasSource () ? aBuilder.readAsObject () : null;
     if (aProps == null)
       return null;

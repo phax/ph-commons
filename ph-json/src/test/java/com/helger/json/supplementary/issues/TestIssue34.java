@@ -97,10 +97,10 @@ public final class TestIssue34
     IJsonArray aJson = JsonReader.builder ().source ("[[0]]").readAsArray ();
     assertNotNull (aJson);
     // Nested too deep
-    aJson = JsonReader.builder ().source ("[[0]]").customizeCallback (p -> p.setMaxNestingDepth (1)).readAsArray ();
+    aJson = JsonReader.builder ().source ("[[0]]").maxNestingDepth (1).readAsArray ();
     assertNull (aJson);
     // Nesting okay
-    aJson = JsonReader.builder ().source ("[0]").customizeCallback (p -> p.setMaxNestingDepth (1)).readAsArray ();
+    aJson = JsonReader.builder ().source ("[0]").maxNestingDepth (1).readAsArray ();
     assertNotNull (aJson);
   }
 
@@ -135,13 +135,10 @@ public final class TestIssue34
     IJsonObject aJson = JsonReader.builder ().source ("{'a':{'a':0}}").readAsObject ();
     assertNotNull (aJson);
     // Nested too deep
-    aJson = JsonReader.builder ()
-                      .source ("{'a':{'a':0}}")
-                      .customizeCallback (p -> p.setMaxNestingDepth (1))
-                      .readAsObject ();
+    aJson = JsonReader.builder ().source ("{'a':{'a':0}}").maxNestingDepth (1).readAsObject ();
     assertNull (aJson);
     // Nesting okay
-    aJson = JsonReader.builder ().source ("{'a':0}").customizeCallback (p -> p.setMaxNestingDepth (1)).readAsObject ();
+    aJson = JsonReader.builder ().source ("{'a':0}").maxNestingDepth (1).readAsObject ();
     assertNotNull (aJson);
   }
 }

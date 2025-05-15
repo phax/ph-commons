@@ -50,8 +50,9 @@ public class JsonProfileTest
         while (true)
         {
           final JsonParser aParser = new JsonParser (aReader,
-                                                     false ? new CollectingJsonParserHandler () : new DoNothingJsonParserHandler ());
-          aParser.setCheckForEOI (false);
+                                                     false ? new CollectingJsonParserHandler ()
+                                                           : new DoNothingJsonParserHandler ());
+          aParser.jsonParserSettings ().setCheckForEOI (false);
           try
           {
             if (aParser.parse ().isEndOfInput ())

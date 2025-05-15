@@ -85,6 +85,11 @@ public final class JsonParserSettings implements IJsonParserSettings
     return m_nTabSize;
   }
 
+  /**
+   * @param nTabSize
+   *        The tab-size to use. Must be &gt; 0.
+   * @return this for chaining
+   */
   @Nonnull
   public JsonParserSettings setTabSize (@Nonnegative final int nTabSize)
   {
@@ -98,6 +103,12 @@ public final class JsonParserSettings implements IJsonParserSettings
     return m_bAlwaysUseBigNumber;
   }
 
+  /**
+   * @param bAlwaysUseBigNumber
+   *        <code>true</code> to always use <code>BigDecimal</code> or <code>BigInteger</code> when
+   *        reading numerical values.
+   * @return this for chaining
+   */
   @Nonnull
   public JsonParserSettings setAlwaysUseBigNumber (final boolean bAlwaysUseBigNumber)
   {
@@ -110,6 +121,12 @@ public final class JsonParserSettings implements IJsonParserSettings
     return m_bRequireStringQuotes;
   }
 
+  /**
+   * @param bRequireStringQuotes
+   *        <code>true</code> if string values always needs to be quoted, <code>false</code> if
+   *        certain non-quoted values are also supported.
+   * @return this for chaining
+   */
   @Nonnull
   public JsonParserSettings setRequireStringQuotes (final boolean bRequireStringQuotes)
   {
@@ -122,6 +139,12 @@ public final class JsonParserSettings implements IJsonParserSettings
     return m_bAllowSpecialCharsInStrings;
   }
 
+  /**
+   * @param bAllowSpecialCharsInStrings
+   *        <code>true</code> if special characters are allowed in a JSON string, <code>false</code>
+   *        if not.
+   * @return this for chaining
+   */
   @Nonnull
   public JsonParserSettings setAllowSpecialCharsInStrings (final boolean bAllowSpecialCharsInStrings)
   {

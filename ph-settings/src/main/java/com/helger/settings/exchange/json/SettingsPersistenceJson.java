@@ -129,9 +129,11 @@ public class SettingsPersistenceJson implements ISettingsPersistence
     final ISettings aSettings = m_aSettingsFactory.apply (getReadSettingsName ());
 
     // Read the properties file from the input stream
-    final IJsonObject aProps = JsonReader.builder ().source (aIS, m_aCharset).customizeCallback (aParser -> {
-      aParser.jsonParserSettings ().setRequireStringQuotes (false).setAlwaysUseBigNumber (true);
-    }).readAsObject ();
+    final IJsonObject aProps = JsonReader.builder ()
+                                         .source (aIS, m_aCharset)
+                                         .requireStringQuotes (false)
+                                         .alwaysUseBigNumber (true)
+                                         .readAsObject ();
     if (aProps != null)
       for (final Map.Entry <String, IJson> aEntry : aProps)
         _recursiveReadSettings (aEntry.getKey (), aEntry.getValue (), aSettings);

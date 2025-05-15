@@ -25,14 +25,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 import com.helger.commons.io.stream.LoggingInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StringInputStream;
@@ -51,10 +50,10 @@ public final class JsonParserTest
   private static final Logger LOGGER = LoggerFactory.getLogger (JsonParserTest.class);
 
   @Nullable
-  private static IJson _read (@Nonnull final String sJson, @Nullable final IJsonParserCustomizeCallback aCustomizer)
+  private static IJson _read (@Nonnull final String sJson, @Nullable final IJsonParserSettings aParserSettings)
   {
     final CollectingJsonParserHandler aHandler = new CollectingJsonParserHandler ();
-    if (JsonReader.parseJson (new NonBlockingStringReader (sJson), aHandler, aCustomizer, null).isFailure ())
+    if (JsonReader.parseJson (new NonBlockingStringReader (sJson), aHandler, aParserSettings, null).isFailure ())
       return null;
     return aHandler.getJson ();
   }
@@ -65,7 +64,9 @@ public final class JsonParserTest
     final String sJson = "5";
 
     assertEquals (Integer.class, ((IJsonValue) _read (sJson, null)).getValueClass ());
-    assertEquals (BigInteger.class, ((IJsonValue) _read (sJson, aParser -> aParser.setAlwaysUseBigNumber (true))).getValueClass ());
+    assertEquals (BigInteger.class,
+                  ((IJsonValue) _read (sJson, new JsonParserSettings ().setAlwaysUseBigNumber (true)))
+                                                                                                      .getValueClass ());
   }
 
   @Test
@@ -74,7 +75,9 @@ public final class JsonParserTest
     final String sJson = "5.1";
 
     assertEquals (Double.class, ((IJsonValue) _read (sJson, null)).getValueClass ());
-    assertEquals (BigDecimal.class, ((IJsonValue) _read (sJson, aParser -> aParser.setAlwaysUseBigNumber (true))).getValueClass ());
+    assertEquals (BigDecimal.class,
+                  ((IJsonValue) _read (sJson, new JsonParserSettings ().setAlwaysUseBigNumber (true)))
+                                                                                                      .getValueClass ());
   }
 
   @Test
@@ -122,8 +125,7 @@ public final class JsonParserTest
   }
 
   /**
-   * Does not work with InputStream, because the used StreamDecoder reads to
-   * eagerly:
+   * Does not work with InputStream, because the used StreamDecoder reads to eagerly:
    *
    * <pre>
   StringInputStream(NonBlockingByteArrayInputStream).read(byte[], int, int) line: 216
@@ -149,7 +151,7 @@ public final class JsonParserTest
   JsonReader$Builder.read() line: 1138
   JsonParserTest.testReadMultipleObjectsFromStream() line: 137
    * </pre>
-   * 
+   *
    * @throws IOException
    *         hopefully never
    */
