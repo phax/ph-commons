@@ -1,0 +1,40 @@
+/*
+ * Original copyright by Apache Software Foundation
+ * Copyright (C) 2025 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.annotation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import com.helger.annotation.meta.TypeQualifierNickname;
+import com.helger.annotation.meta.When;
+
+/**
+ * Used to annotate a value of unknown sign.
+ *
+ * @author Findbugs JSR 305
+ * @since 12.0.0 in this package
+ */
+@Documented
+@TypeQualifierNickname
+@Nonnegative (when = When.UNKNOWN)
+@Retention (RetentionPolicy.RUNTIME)
+public @interface Signed
+{
+  /* empty */
+}
