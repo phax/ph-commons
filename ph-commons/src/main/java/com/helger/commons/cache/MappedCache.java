@@ -28,9 +28,9 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.IsLocked;
 import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.misc.CodingStyleguideUnaware;
-import com.helger.annotation.misc.OverrideOnDemand;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

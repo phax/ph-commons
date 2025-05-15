@@ -21,7 +21,7 @@ import java.security.cert.X509Certificate;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 import javax.security.auth.x500.X500Principal;
 

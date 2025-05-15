@@ -17,7 +17,7 @@
 package com.helger.graph;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.ReturnsMutableObject;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.id.IHasID;
 

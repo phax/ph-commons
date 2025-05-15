@@ -21,7 +21,7 @@ import java.net.URL;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Base interface for an abstract readable resource.

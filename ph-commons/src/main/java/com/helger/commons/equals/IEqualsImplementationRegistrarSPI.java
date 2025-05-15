@@ -17,7 +17,7 @@
 package com.helger.commons.equals;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.IsSPIInterface;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * SPI registry interface to implement your custom equals implementations.

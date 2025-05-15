@@ -28,7 +28,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 import org.xml.sax.InputSource;
 

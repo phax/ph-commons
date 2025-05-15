@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -24,19 +24,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marker interface that claims that this class implements an SPI interface that is resolved via the
- * {@link java.util.ServiceLoader}. This is mainly for checking that this class must be public and
- * requires a public no-argument constructor and that no references from any other Java source file
- * may be present. If this annotation is used, it implies that the semantics of
- * {@link UsedViaReflection} also apply.
+ * Just to indicate that a method is meant to be overridden in sub classes.
  *
  * @author Philip Helger
- * @see IsSPIInterface
  */
-@Retention (RetentionPolicy.RUNTIME)
-@Target ({ ElementType.TYPE })
+@Retention (RetentionPolicy.CLASS)
+@Target (ElementType.METHOD)
 @Documented
-public @interface IsSPIImplementation
+public @interface OverrideOnDemand
 {
   String value() default "";
 }

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.resource;
 
-import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Base interface for an abstract resource that is both readable and writable.

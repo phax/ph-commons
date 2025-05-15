@@ -16,7 +16,7 @@
  */
 package com.helger.security.authentication.subject;
 
-import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
 

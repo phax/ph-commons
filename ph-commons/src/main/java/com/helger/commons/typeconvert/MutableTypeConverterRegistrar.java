@@ -21,7 +21,7 @@ import java.math.BigInteger;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.mutable.MutableBigDecimal;
 import com.helger.commons.mutable.MutableBigInteger;
 import com.helger.commons.mutable.MutableBoolean;

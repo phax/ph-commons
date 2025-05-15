@@ -21,8 +21,8 @@ import java.util.Locale;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.CodingStyleguideUnaware;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.SchemaFactory;

@@ -22,7 +22,7 @@ import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.UnsupportedOperation;
+import com.helger.annotation.style.UnsupportedOperation;
 
 import org.w3c.dom.ls.LSInput;
 

@@ -21,8 +21,8 @@ import java.util.SortedSet;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.CodingStyleguideUnaware;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * A special {@link SortedSet} based interface with extended functionality based

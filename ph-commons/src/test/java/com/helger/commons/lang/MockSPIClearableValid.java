@@ -17,7 +17,7 @@
 package com.helger.commons.lang;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
 

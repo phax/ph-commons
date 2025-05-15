@@ -23,7 +23,7 @@ import java.util.Locale;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.OverrideOnDemand;
+import com.helger.annotation.style.OverrideOnDemand;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;

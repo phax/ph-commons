@@ -17,7 +17,7 @@
 package com.helger.tree.singleton;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.UsedViaReflection;
+import com.helger.annotation.style.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 public final class MockSessionSingletonTreeWithUniqueID extends

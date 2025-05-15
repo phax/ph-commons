@@ -17,7 +17,7 @@
 package com.helger.scope.spi;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.IsSPIInterface;
+import com.helger.annotation.style.IsSPIInterface;
 import com.helger.scope.IRequestScope;
 
 /**

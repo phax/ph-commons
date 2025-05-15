@@ -17,7 +17,7 @@
 package com.helger.xml.util;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.xml.microdom.convert.MicroTypeConverterRegistry;
 import com.helger.xml.schema.XMLSchemaCache;
 import com.helger.xml.util.mime.MimeTypeInfoManager;

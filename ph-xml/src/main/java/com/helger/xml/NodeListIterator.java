@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

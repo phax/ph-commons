@@ -22,7 +22,7 @@ import java.util.Locale;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.location.ILocation;

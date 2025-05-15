@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 import org.xml.sax.SAXParseException;
 

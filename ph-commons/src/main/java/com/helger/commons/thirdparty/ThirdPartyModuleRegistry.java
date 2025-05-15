@@ -22,8 +22,8 @@ import com.helger.annotation.concurrent.ELockType;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.annotation.misc.Singleton;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

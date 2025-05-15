@@ -26,7 +26,7 @@ import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
-import com.helger.annotation.misc.UseDirectEqualsAndHashCode;
+import com.helger.annotation.style.UseDirectEqualsAndHashCode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

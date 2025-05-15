@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
-import com.helger.annotation.misc.ReturnsMutableObject;
+import com.helger.annotation.style.ReturnsMutableObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -28,7 +28,7 @@ import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -236,24 +236,24 @@ public final class JsonReader
   }
 
   /**
-   * @return Create a new {@link Builder} instance.
+   * @return Create a new {@link JsonBuilder} instance.
    * @since 9.3.3
    */
   @Nonnull
-  public static Builder builder ()
+  public static JsonBuilder builder ()
   {
-    return new Builder ();
+    return new JsonBuilder ();
   }
 
   /**
-   * @return Create a new {@link Builder} instance that is configured to read
+   * @return Create a new {@link JsonBuilder} instance that is configured to read
    *         multiple instances. Never <code>null</code>. Use
-   *         {@link Builder#source(Reader)} to ensure this works. When using
+   *         {@link JsonBuilder#source(Reader)} to ensure this works. When using
    *         {@link InputStream} or the like, there is too much pre read.
    * @since 9.3.8
    */
   @Nonnull
-  public static Builder builderMultiObject ()
+  public static JsonBuilder builderMultiObject ()
   {
     return builder ().dontCloseSource (true)
                      .useBufferedReader (false)
@@ -269,7 +269,7 @@ public final class JsonReader
    * @author Philip Helger
    * @since 9.3.3
    */
-  public static class Builder implements AutoCloseable
+  public static class JsonBuilder implements AutoCloseable
   {
     private boolean m_bDontCloseSource = false;
     private boolean m_bUseBufferedReader = true;
@@ -277,7 +277,7 @@ public final class JsonReader
     private IJsonParserCustomizeCallback m_aCustomizeCallback;
     private IJsonParseExceptionCallback m_aCustomExceptionCallback;
 
-    public Builder ()
+    public JsonBuilder ()
     {}
 
     public void close ()
@@ -295,7 +295,7 @@ public final class JsonReader
      * @since 9.3.8
      */
     @Nonnull
-    public Builder dontCloseSource (final boolean bDontCloseSource)
+    public JsonBuilder dontCloseSource (final boolean bDontCloseSource)
     {
       m_bDontCloseSource = bDontCloseSource;
       return this;
@@ -313,7 +313,7 @@ public final class JsonReader
      * @since 9.3.8
      */
     @Nonnull
-    public Builder useBufferedReader (final boolean bUseBufferedReader)
+    public JsonBuilder useBufferedReader (final boolean bUseBufferedReader)
     {
       m_bUseBufferedReader = bUseBufferedReader;
       return this;
@@ -327,7 +327,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull final String sJson)
+    public JsonBuilder source (@Nonnull final String sJson)
     {
       ValueEnforcer.notNull (sJson, "Json");
 
@@ -343,7 +343,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull final File aFile)
+    public JsonBuilder source (@Nonnull final File aFile)
     {
       return source (aFile, JsonReader.DEFAULT_CHARSET);
     }
@@ -359,7 +359,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
+    public JsonBuilder source (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aFile, "File");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
@@ -376,7 +376,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull final Path aPath)
+    public JsonBuilder source (@Nonnull final Path aPath)
     {
       return source (aPath, JsonReader.DEFAULT_CHARSET);
     }
@@ -392,7 +392,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
+    public JsonBuilder source (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aPath, "Path");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
@@ -410,7 +410,7 @@ public final class JsonReader
      * @since 9.3.4
      */
     @Nonnull
-    public Builder source (@Nonnull final byte [] aBytes)
+    public JsonBuilder source (@Nonnull final byte [] aBytes)
     {
       return source (aBytes, JsonReader.DEFAULT_CHARSET);
     }
@@ -427,7 +427,7 @@ public final class JsonReader
      * @since 9.3.4
      */
     @Nonnull
-    public Builder source (@Nonnull final byte [] aBytes, @Nonnull final Charset aFallbackCharset)
+    public JsonBuilder source (@Nonnull final byte [] aBytes, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aBytes, "Bytes");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
@@ -444,7 +444,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull final IHasInputStream aISP)
+    public JsonBuilder source (@Nonnull final IHasInputStream aISP)
     {
       return source (aISP, JsonReader.DEFAULT_CHARSET);
     }
@@ -460,7 +460,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull final IHasInputStream aISP, @Nonnull final Charset aFallbackCharset)
+    public JsonBuilder source (@Nonnull final IHasInputStream aISP, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aISP, "InputStreamProvider");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
@@ -480,7 +480,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull @WillClose final InputStream aIS)
+    public JsonBuilder source (@Nonnull @WillClose final InputStream aIS)
     {
       return source (aIS, JsonReader.DEFAULT_CHARSET);
     }
@@ -495,7 +495,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aFallbackCharset)
+    public JsonBuilder source (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aIS, "InputStream");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
@@ -512,7 +512,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder source (@Nonnull @WillClose final Reader aReader)
+    public JsonBuilder source (@Nonnull @WillClose final Reader aReader)
     {
       ValueEnforcer.notNull (aReader, "Reader");
       if (m_aReader != null)
@@ -530,7 +530,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder customizeCallback (@Nullable final IJsonParserCustomizeCallback aCustomizeCallback)
+    public JsonBuilder customizeCallback (@Nullable final IJsonParserCustomizeCallback aCustomizeCallback)
     {
       m_aCustomizeCallback = aCustomizeCallback;
       return this;
@@ -544,7 +544,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder customExceptionCallback (@Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
+    public JsonBuilder customExceptionCallback (@Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
     {
       m_aCustomExceptionCallback = aCustomExceptionCallback;
       return this;

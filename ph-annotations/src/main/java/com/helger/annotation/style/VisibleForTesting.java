@@ -15,26 +15,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
- * Indicate that a class's native implementations of {@link #equals(Object)} and
- * {@link #hashCode()} should be used and no wrapper. This is only important to
- * the classes {@link com.helger.commons.equals.EqualsImplementationRegistry}
- * and {@link com.helger.commons.hashcode.HashCodeImplementationRegistry}.
+ * Indicates that a method has only increased visibility for testing purposes.
+ * This usually means that this API is not-public.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.RUNTIME)
-@Target ({ ElementType.TYPE })
+@Retention (RetentionPolicy.SOURCE)
 @Documented
-public @interface UseDirectEqualsAndHashCode
+public @interface VisibleForTesting
 {
   String value() default "";
 }

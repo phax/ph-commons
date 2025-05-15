@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

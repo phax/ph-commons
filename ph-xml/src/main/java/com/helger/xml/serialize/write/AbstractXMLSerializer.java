@@ -25,7 +25,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
-import com.helger.annotation.misc.OverrideOnDemand;
+import com.helger.annotation.style.OverrideOnDemand;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;

@@ -15,21 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Indicates that a method has only increased visibility for testing purposes.
- * This usually means that this API is not-public.
+ * Indicate methods that are supposed to throw an
+ * {@link UnsupportedOperationException}.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.SOURCE)
+@Target ({ ElementType.METHOD, ElementType.CONSTRUCTOR })
 @Documented
-public @interface VisibleForTesting
+public @interface UnsupportedOperation
 {
   String value() default "";
 }

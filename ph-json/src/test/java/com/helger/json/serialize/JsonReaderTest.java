@@ -250,14 +250,14 @@ public final class JsonReaderTest
     for (final File f : new FileSystemIterator ("src/test/resources/json"))
       if (f.isFile () && f.getName ().endsWith (".json"))
       {
-        try (final JsonReader.Builder aBuilder = JsonReader.builder ().source (f))
+        try (final JsonReader.JsonBuilder aBuilder = JsonReader.builder ().source (f))
         {
           LOGGER.info ("Reading file " + f.getName ());
           final StopWatch aSW1 = StopWatch.createdStarted ();
           assertTrue ("Failed to parse file: " + f.getName (), aBuilder.isValidJson ());
           LOGGER.info ("  Validation: " + aSW1.stopAndGetMillis () + " ms");
         }
-        try (final JsonReader.Builder aBuilder = JsonReader.builder ().source (f))
+        try (final JsonReader.JsonBuilder aBuilder = JsonReader.builder ().source (f))
         {
           final StopWatch aSW2 = StopWatch.createdStarted ();
           final IJson aJson = aBuilder.read ();
@@ -272,7 +272,7 @@ public final class JsonReaderTest
   {
     for (final File f : new FileSystemIterator ("src/test/resources/json/fail"))
       if (f.isFile () && f.getName ().endsWith (".json"))
-        try (final JsonReader.Builder aBuilder = JsonReader.builder ().source (f))
+        try (final JsonReader.JsonBuilder aBuilder = JsonReader.builder ().source (f))
         {
           LOGGER.info ("Reading file " + f.getName ());
           assertFalse ("Parsed even if error expected: " + f.getName (), aBuilder.isValidJson ());

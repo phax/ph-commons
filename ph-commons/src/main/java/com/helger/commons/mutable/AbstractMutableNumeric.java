@@ -16,7 +16,7 @@
  */
 package com.helger.commons.mutable;
 
-import com.helger.annotation.misc.OverrideOnDemand;
+import com.helger.annotation.style.OverrideOnDemand;
 
 /**
  * Base implementation class for {@link IMutableNumeric} extending

@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.charset.CharsetHelper;
 
 /**

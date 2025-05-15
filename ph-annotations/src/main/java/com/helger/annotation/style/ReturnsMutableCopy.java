@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -24,16 +24,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Just to indicate that a class is required to implement {@link Comparable}.
- * This is e.g. important if an interface or class is used as the key in a
- * {@link java.util.TreeMap}.
+ * Indicates that a method returns a mutable object but containing a copy of the
+ * internal state. The different to {@link ReturnsMutableObject} is, that this
+ * annotation indicates a copy is used, whereas {@link ReturnsMutableObject}
+ * means that the internal contained is returned <b>and</b> is mutable!
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.TYPE, ElementType.FIELD })
+@Target ({ ElementType.METHOD })
 @Documented
-public @interface MustImplementComparable
+public @interface ReturnsMutableCopy
 {
   String value() default "";
 }

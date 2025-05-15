@@ -37,7 +37,6 @@ import org.junit.Test;
  */
 public final class CertificateHelperTest
 {
-  @SuppressWarnings ("removal")
   @Test
   public void testConvertStringToCertficate () throws CertificateException
   {

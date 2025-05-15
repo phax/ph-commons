@@ -18,7 +18,7 @@ package com.helger.commons.lang;
 
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Misc helper methods for handling booleans.

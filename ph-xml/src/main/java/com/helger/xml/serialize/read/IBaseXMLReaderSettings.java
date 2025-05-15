@@ -20,8 +20,8 @@ import java.util.Locale;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.ReturnsMutableCopy;
-import com.helger.annotation.misc.ReturnsMutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;

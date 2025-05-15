@@ -20,7 +20,7 @@ import java.io.File;
 
 import org.junit.rules.ExternalResource;
 
-import com.helger.annotation.misc.OverrideOnDemand;
+import com.helger.annotation.style.OverrideOnDemand;
 
 /**
  * Special JUnit test rule to initialize scopes correctly.

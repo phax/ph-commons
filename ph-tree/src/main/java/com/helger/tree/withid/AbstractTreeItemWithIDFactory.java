@@ -18,7 +18,7 @@ package com.helger.tree.withid;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.misc.OverrideOnDemand;
+import com.helger.annotation.style.OverrideOnDemand;
 
 /**
  * Abstract tree item with ID factory implementation

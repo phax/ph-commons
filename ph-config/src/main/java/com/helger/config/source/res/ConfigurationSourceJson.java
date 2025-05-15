@@ -19,16 +19,15 @@ package com.helger.config.source.res;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.misc.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -43,8 +42,7 @@ import com.helger.json.IJsonObject;
 import com.helger.json.serialize.JsonReader;
 
 /**
- * Implementation of {@link IConfigurationSource} for properties file based
- * configuration sources.
+ * Implementation of {@link IConfigurationSource} for properties file based configuration sources.
  *
  * @author Philip Helger
  */
@@ -90,9 +88,10 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   private static ICommonsOrderedMap <String, String> _load (@Nonnull final IReadableResource aRes,
                                                             @Nonnull final Charset aCharset)
   {
-    final JsonReader.Builder aBuilder = JsonReader.builder ()
+    final JsonReader.JsonBuilder aBuilder = JsonReader.builder ()
                                                   .source (aRes, aCharset)
-                                                  .customizeCallback (aParser -> aParser.setRequireStringQuotes (false)
+                                                  .customizeCallback (aParser -> aParser.jsonParserSettings ()
+                                                                                        .setRequireStringQuotes (false)
                                                                                         .setAllowSpecialCharsInStrings (true)
                                                                                         .setAlwaysUseBigNumber (true)
                                                                                         .setTrackPosition (true))

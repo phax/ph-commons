@@ -16,7 +16,7 @@
  */
 package com.helger.graph;
 
-import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Base interface for a single undirected graph relation.

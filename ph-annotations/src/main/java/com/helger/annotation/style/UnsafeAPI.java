@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -24,17 +24,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicates that a method returns a mutable object but containing a copy of the
- * internal state. The different to {@link ReturnsMutableObject} is, that this
- * annotation indicates a copy is used, whereas {@link ReturnsMutableObject}
- * means that the internal contained is returned <b>and</b> is mutable!
+ * Indicate methods that are unsafe but are helpful in very rare scenarios. This
+ * is a marker annotation that just helps easily identifying these APIs.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.METHOD })
+@Retention (RetentionPolicy.SOURCE)
+@Target ({ ElementType.METHOD, ElementType.CONSTRUCTOR })
 @Documented
-public @interface ReturnsMutableCopy
+public @interface UnsafeAPI
 {
   String value() default "";
 }

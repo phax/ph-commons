@@ -18,7 +18,7 @@ package com.helger.scope.singleton;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.mgr.ScopeManager;

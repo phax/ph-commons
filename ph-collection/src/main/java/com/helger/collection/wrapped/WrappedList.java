@@ -25,9 +25,9 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.misc.CodingStyleguideUnaware;
-import com.helger.annotation.misc.ReturnsMutableCopy;
-import com.helger.annotation.misc.ReturnsMutableObject;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.ICommonsList;
 

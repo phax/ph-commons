@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.UseDirectEqualsAndHashCode;
+import com.helger.annotation.style.UseDirectEqualsAndHashCode;
 
 import org.junit.Test;
 import org.slf4j.Logger;

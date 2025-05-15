@@ -20,7 +20,7 @@ import java.util.function.Function;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 import org.w3c.dom.traversal.TreeWalker;
 

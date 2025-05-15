@@ -25,7 +25,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.ReturnsMutableObject;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.ByteArrayWrapper;

@@ -19,8 +19,8 @@ package com.helger.matrix;
 import java.util.Arrays;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.ReturnsMutableCopy;
-import com.helger.annotation.misc.ReturnsMutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.math.MathHelper;
 

@@ -24,8 +24,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.CodingStyleguideUnaware;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;

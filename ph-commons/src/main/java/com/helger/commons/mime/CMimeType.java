@@ -17,7 +17,7 @@
 package com.helger.commons.mime;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Contains a collection of well-known constant MIME types.

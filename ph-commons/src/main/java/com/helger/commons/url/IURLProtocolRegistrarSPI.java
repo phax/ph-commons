@@ -17,7 +17,7 @@
 package com.helger.commons.url;
 
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.IsSPIInterface;
+import com.helger.annotation.style.IsSPIInterface;
 import com.helger.commons.collection.impl.ICommonsSet;
 
 /**

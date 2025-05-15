@@ -17,7 +17,7 @@
 package com.helger.xml.microdom.convert;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.IsSPIInterface;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * SPI interface to be implemented by other modules wishing to register their

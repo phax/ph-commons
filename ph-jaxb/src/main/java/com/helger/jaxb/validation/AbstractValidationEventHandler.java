@@ -21,7 +21,7 @@ import java.net.URL;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.misc.OverrideOnDemand;
+import com.helger.annotation.style.OverrideOnDemand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

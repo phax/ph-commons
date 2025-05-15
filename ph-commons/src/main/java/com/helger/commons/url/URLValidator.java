@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.regex.RegExCache;
 import com.helger.commons.string.StringHelper;
 

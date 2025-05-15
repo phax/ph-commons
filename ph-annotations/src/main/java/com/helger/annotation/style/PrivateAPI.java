@@ -15,24 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * This is an indicator, that an object is aware to break the style guide. This
- * may be evaluated in coding style guide checks.
+ * Indicate that a public element is not meant for public use, but only for
+ * project internal use. Because of dependencies it is not possible to lower the
+ * visibility of this object.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.CLASS)
+@Retention (RetentionPolicy.SOURCE)
 @Documented
-public @interface CodingStyleguideUnaware
+public @interface PrivateAPI
 {
-  /**
-   * @return Optional comment why this element is coding styleguide unaware.
-   */
   String value() default "";
 }

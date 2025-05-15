@@ -28,7 +28,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Some date/time related constants.

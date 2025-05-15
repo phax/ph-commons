@@ -20,7 +20,7 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.UnsupportedOperation;
+import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

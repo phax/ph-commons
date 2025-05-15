@@ -20,7 +20,7 @@ import java.util.Comparator;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

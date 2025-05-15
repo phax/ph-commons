@@ -21,7 +21,7 @@ import java.lang.ref.WeakReference;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.OverrideOnDemand;
+import com.helger.annotation.style.OverrideOnDemand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

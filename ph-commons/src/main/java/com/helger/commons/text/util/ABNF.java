@@ -17,7 +17,7 @@
 package com.helger.commons.text.util;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * This class contains the ABNF (RFC 5234 https://tools.ietf.org/html/rfc5234)

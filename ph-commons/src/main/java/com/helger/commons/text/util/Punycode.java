@@ -19,7 +19,7 @@ package com.helger.commons.text.util;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.EncodeException;
 import com.helger.commons.text.codepoint.CodepointHelper;

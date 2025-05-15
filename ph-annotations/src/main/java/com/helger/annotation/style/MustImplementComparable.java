@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -24,15 +24,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicate methods that are unsafe but are helpful in very rare scenarios. This
- * is a marker annotation that just helps easily identifying these APIs.
+ * Just to indicate that a class is required to implement {@link Comparable}.
+ * This is e.g. important if an interface or class is used as the key in a
+ * {@link java.util.TreeMap}.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.SOURCE)
-@Target ({ ElementType.METHOD, ElementType.CONSTRUCTOR })
+@Retention (RetentionPolicy.CLASS)
+@Target ({ ElementType.TYPE, ElementType.FIELD })
 @Documented
-public @interface UnsafeAPI
+public @interface MustImplementComparable
 {
   String value() default "";
 }

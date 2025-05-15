@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 
 import org.junit.Test;
 
-import com.helger.annotation.misc.UsedViaReflection;
+import com.helger.annotation.style.UsedViaReflection;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

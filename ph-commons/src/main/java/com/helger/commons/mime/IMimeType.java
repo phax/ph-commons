@@ -20,9 +20,9 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.MustImplementComparable;
-import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.MustImplementComparable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ICloneable;
 

@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -24,15 +24,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Just to indicate that a class is required to implement
- * {@link #equals(Object)} and {@link #hashCode()}.
+ * Marker interface that claims that implementations of this interface are
+ * loaded via the {@link java.util.ServiceLoader}. This implies that the package
+ * and source file name should never change. SPI interfaces should also have the
+ * suffix SPI in their name (e.g. <code>IServiceSPI</code>).
  *
  * @author Philip Helger
+ * @see IsSPIImplementation
  */
-@Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.TYPE, ElementType.FIELD })
+@Retention (RetentionPolicy.RUNTIME)
+@Target ({ ElementType.TYPE })
 @Documented
-public @interface MustImplementEqualsAndHashcode
+public @interface IsSPIInterface
 {
   String value() default "";
 }

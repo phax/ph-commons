@@ -26,9 +26,9 @@ import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.misc.OverrideOnDemand;
-import com.helger.annotation.misc.ReturnsMutableCopy;
-import com.helger.annotation.misc.UsedViaReflection;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.UsedViaReflection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

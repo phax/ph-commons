@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Helper class to handle read-only property resource bundles reading only UTF-8

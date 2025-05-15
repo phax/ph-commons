@@ -15,27 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
- * Marker interface that claims that implementations of this interface are
- * loaded via the {@link java.util.ServiceLoader}. This implies that the package
- * and source file name should never change. SPI interfaces should also have the
- * suffix SPI in their name (e.g. <code>IServiceSPI</code>).
+ * Just to indicate that a class is used via reflection and not by direct
+ * references. This is helpful to identify that classes are indeed use even
+ * though no direct reference exists.
  *
  * @author Philip Helger
- * @see IsSPIImplementation
  */
-@Retention (RetentionPolicy.RUNTIME)
-@Target ({ ElementType.TYPE })
+@Retention (RetentionPolicy.CLASS)
 @Documented
-public @interface IsSPIInterface
+public @interface UsedViaReflection
 {
   String value() default "";
 }

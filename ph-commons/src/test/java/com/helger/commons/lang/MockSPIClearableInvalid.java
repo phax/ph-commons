@@ -16,7 +16,7 @@
  */
 package com.helger.commons.lang;
 
-import com.helger.annotation.misc.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 
 /**
  * Claims to be an SPI but does not implement the required

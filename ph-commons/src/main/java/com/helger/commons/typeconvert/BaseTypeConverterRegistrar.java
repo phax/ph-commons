@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -17,7 +17,7 @@
 package com.helger.jaxb.adapter.config;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistry;

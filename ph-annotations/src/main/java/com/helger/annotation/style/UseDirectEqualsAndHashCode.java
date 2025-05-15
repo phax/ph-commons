@@ -15,22 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Just to indicate that a class is used via reflection and not by direct
- * references. This is helpful to identify that classes are indeed use even
- * though no direct reference exists.
+ * Indicate that a class's native implementations of {@link #equals(Object)} and
+ * {@link #hashCode()} should be used and no wrapper. This is only important to
+ * the classes {@link com.helger.commons.equals.EqualsImplementationRegistry}
+ * and {@link com.helger.commons.hashcode.HashCodeImplementationRegistry}.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.CLASS)
+@Retention (RetentionPolicy.RUNTIME)
+@Target ({ ElementType.TYPE })
 @Documented
-public @interface UsedViaReflection
+public @interface UseDirectEqualsAndHashCode
 {
   String value() default "";
 }

@@ -23,13 +23,12 @@ import java.nio.charset.Charset;
 import java.util.Comparator;
 import java.util.Map;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.WillClose;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.WillClose;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.stream.StreamHelper;
@@ -46,8 +45,8 @@ import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
 
 /**
- * A special {@link ISettingsPersistence} implementation that reads and writes
- * .json files. It assumes the ISO-8859-1 charset.
+ * A special {@link ISettingsPersistence} implementation that reads and writes .json files. It
+ * assumes the ISO-8859-1 charset.
  *
  * @author Philip Helger
  */
@@ -90,8 +89,7 @@ public class SettingsPersistenceJson implements ISettingsPersistence
   }
 
   /**
-   * @return The settings factory as specified in the constructor. Never
-   *         <code>null</code>.
+   * @return The settings factory as specified in the constructor. Never <code>null</code>.
    */
   @Nonnull
   public final ISettingsFactory <?> getSettingsFactory ()
@@ -132,8 +130,7 @@ public class SettingsPersistenceJson implements ISettingsPersistence
 
     // Read the properties file from the input stream
     final IJsonObject aProps = JsonReader.builder ().source (aIS, m_aCharset).customizeCallback (aParser -> {
-      aParser.setRequireStringQuotes (false);
-      aParser.setAlwaysUseBigNumber (true);
+      aParser.jsonParserSettings ().setRequireStringQuotes (false).setAlwaysUseBigNumber (true);
     }).readAsObject ();
     if (aProps != null)
       for (final Map.Entry <String, IJson> aEntry : aProps)

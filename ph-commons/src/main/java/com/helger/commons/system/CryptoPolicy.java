@@ -21,7 +21,7 @@ import java.security.InvalidKeyException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 import javax.crypto.Cipher;
 import javax.crypto.ExemptionMechanism;

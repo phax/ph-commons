@@ -24,7 +24,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;

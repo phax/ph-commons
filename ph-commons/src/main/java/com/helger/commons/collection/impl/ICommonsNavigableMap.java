@@ -20,8 +20,8 @@ import java.util.Collections;
 import java.util.NavigableMap;
 
 import com.helger.annotation.Nonnull;
-import com.helger.annotation.misc.CodingStyleguideUnaware;
-import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * A special {@link NavigableMap} interface based on {@link ICommonsSortedMap}.

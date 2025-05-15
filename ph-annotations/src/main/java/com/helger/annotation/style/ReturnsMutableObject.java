@@ -15,22 +15,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.annotation.misc;
+package com.helger.annotation.style;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Indicate that a public element is not meant for public use, but only for
- * project internal use. Because of dependencies it is not possible to lower the
- * visibility of this object.
+ * Indicates that a method returns a mutable object. This annotation is meant to
+ * indicate that the internal object is returned in a mutable way. If a copy of
+ * the internal object is returned and is mutable, please use the
+ * {@link ReturnsMutableCopy} annotation.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.SOURCE)
+@Retention (RetentionPolicy.CLASS)
+@Target ({ ElementType.METHOD })
 @Documented
-public @interface PrivateAPI
+public @interface ReturnsMutableObject
 {
+  /**
+   * @return developer comment to explain why the mutable object is returned.
+   */
   String value() default "";
 }

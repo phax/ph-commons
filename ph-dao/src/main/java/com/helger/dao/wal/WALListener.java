@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.UsedViaReflection;
+import com.helger.annotation.style.UsedViaReflection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
