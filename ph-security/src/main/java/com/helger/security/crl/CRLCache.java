@@ -20,14 +20,13 @@ import java.security.cert.CRL;
 import java.time.Duration;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.state.EChange;
@@ -44,9 +43,9 @@ import com.helger.datetime.expiration.ExpiringObject;
 public class CRLCache
 {
   @ThreadSafe
-  private static class MyCache extends Cache <String, ExpiringObject <CRL>>
+  private static class CRLInternalCache extends Cache <String, ExpiringObject <CRL>>
   {
-    public MyCache (@Nonnull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
+    public CRLInternalCache (@Nonnull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
                     final int nMaxSize,
                     @Nonnull @Nonempty final String sCacheName,
                     final boolean bAllowNullValues)
@@ -63,7 +62,7 @@ public class CRLCache
   public static final Duration DEFAULT_CACHING_DURATION = Duration.ofHours (24);
   private static final Logger LOGGER = LoggerFactory.getLogger (CRLCache.class);
 
-  private final MyCache m_aCache;
+  private final CRLInternalCache m_aCache;
   private final CRLDownloader m_aDownloader;
   private final Duration m_aCachingDuration;
 
@@ -81,10 +80,10 @@ public class CRLCache
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
 
-    m_aCache = new MyCache (url -> {
+    m_aCache = new CRLInternalCache (url -> {
       final CRL aCRL = aDownloader.downloadCRL (url);
       return aCRL == null ? null : ExpiringObject.ofDuration (aCRL, aCachingDuration);
-    }, 100, "CRLCache", true);
+    }, 200, "CRLCache", true);
     m_aDownloader = aDownloader;
     m_aCachingDuration = aCachingDuration;
   }
@@ -133,12 +132,11 @@ public class CRLCache
   }
 
   /**
-   * Allow to manually add a downloaded CRL into the cache, for the provided
-   * URL.
+   * Allow to manually add a downloaded CRL into the cache, for the provided URL.
    *
    * @param sCRLURL
-   *        The URL for which the cached URL should be used. May neither be
-   *        <code>null</code> nor empty.
+   *        The URL for which the cached URL should be used. May neither be <code>null</code> nor
+   *        empty.
    * @param aCRL
    *        The CRL to be used. May not be <code>null</code>.
    */

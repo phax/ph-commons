@@ -37,8 +37,8 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
- * Basic implementation class for the micro document object model. It overrides
- * all methods required for correct parent/child handling.
+ * Basic implementation class for the micro document object model. It overrides all methods required
+ * for correct parent/child handling.
  *
  * @author Philip Helger
  */
@@ -48,8 +48,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   private ICommonsList <IMicroNode> m_aChildren;
 
   /**
-   * @return The writable list of all child nodes - handle with care. May be
-   *         <code>null</code>.
+   * @return The writable list of all child nodes - handle with care. May be <code>null</code>.
    */
   @Nullable
   @ReturnsMutableObject ("efficient access")
@@ -308,10 +307,10 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
           aSB.append (aCDATA.getNodeValue ());
         }
         else
-          if (aChild instanceof IMicroNodeWithChildren)
+          if (aChild instanceof final IMicroNodeWithChildren aChildWithChildren)
           {
             // Recursive call
-            final String sTextContent = ((IMicroNodeWithChildren) aChild).getTextContent ();
+            final String sTextContent = aChildWithChildren.getTextContent ();
             if (StringHelper.hasText (sTextContent))
               aSB.append (sTextContent);
           }

@@ -65,22 +65,22 @@ public final class MicroHelper
     ValueEnforcer.notNull (aSrcNode, "SrcNode");
 
     if (aChild != null)
-      if (aChild instanceof IMicroNode)
+      if (aChild instanceof final IMicroNode aChildNode)
       {
         // directly append Node
-        aSrcNode.appendChild ((IMicroNode) aChild);
+        aSrcNode.appendChild (aChildNode);
       }
       else
-        if (aChild instanceof String)
+        if (aChild instanceof final String sChild)
         {
           // append a string node
-          aSrcNode.appendText ((String) aChild);
+          aSrcNode.appendText (sChild);
         }
         else
-          if (aChild instanceof Iterable <?>)
+          if (aChild instanceof final Iterable <?> aChildList)
           {
             // it's a nested collection
-            for (final Object aSubChild : (Iterable <?>) aChild)
+            for (final Object aSubChild : aChildList)
               append (aSrcNode, aSubChild);
           }
           else

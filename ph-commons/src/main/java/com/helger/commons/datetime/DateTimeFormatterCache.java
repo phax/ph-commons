@@ -26,8 +26,8 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.commons.cache.Cache;
 
 /**
- * This class provides a cache for {@link DateTimeFormatter} instances. It
- * caches up to a limited number of compiled {@link DateTimeFormatter} objects.
+ * This class provides a cache for {@link DateTimeFormatter} instances. It caches up to a limited
+ * number of compiled {@link DateTimeFormatter} objects.
  *
  * @author Philip Helger
  */
@@ -41,7 +41,7 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
   }
 
   /** The default number of items to keep in the cache */
-  public static final int MAX_CACHE_SIZE = 1000;
+  public static final int MAX_CACHE_SIZE = 1_000;
 
   private static boolean s_bDefaultInstantiated = false;
 

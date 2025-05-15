@@ -137,8 +137,8 @@ public final class CollectionHelper
     {
       case COLLECTION:
         // It's already a collection
-        if (aObj instanceof CommonsArrayList <?>)
-          return (CommonsArrayList <?>) aObj;
+        if (aObj instanceof final CommonsArrayList <?> aList)
+          return aList;
         return newList ((Collection <?>) aObj);
       case SET:
         // Convert to list

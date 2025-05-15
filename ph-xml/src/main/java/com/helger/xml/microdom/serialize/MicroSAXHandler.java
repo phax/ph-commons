@@ -19,10 +19,6 @@ package com.helger.xml.microdom.serialize;
 import java.io.IOException;
 import java.util.Locale;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.XMLConstants;
 
 import org.slf4j.Logger;
@@ -40,6 +36,10 @@ import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.ext.Locator2;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.SimpleLocation;
@@ -83,7 +83,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   {
     m_bSaveIgnorableWhitespaces = bSaveIgnorableWhitespaces;
     m_aEntityResolver = aEntityResolver;
-    m_aEntityResolver2 = aEntityResolver instanceof EntityResolver2 ? (EntityResolver2) aEntityResolver : null;
+    m_aEntityResolver2 = aEntityResolver instanceof final EntityResolver2 aER2 ? aER2 : null;
     m_bTrackPosition = bTrackPosition;
   }
 
@@ -114,10 +114,10 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     {
       m_aLocator = aLocator;
       _updatePosition ("setLocator");
-      if (aLocator instanceof Locator2)
+      if (aLocator instanceof final Locator2 aL2)
       {
-        m_sSourceXMLVersion = ((Locator2) aLocator).getXMLVersion ();
-        m_sSourceXMLEncoding = ((Locator2) aLocator).getEncoding ();
+        m_sSourceXMLVersion = aL2.getXMLVersion ();
+        m_sSourceXMLEncoding = aL2.getEncoding ();
       }
     }
   }
@@ -421,8 +421,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   /**
-   * @return The created and filled micro document. May be <code>null</code> if
-   *         no document start event came in.
+   * @return The created and filled micro document. May be <code>null</code> if no document start
+   *         event came in.
    */
   @Nullable
   public IMicroDocument getDocument ()

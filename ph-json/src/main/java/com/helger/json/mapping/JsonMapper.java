@@ -54,8 +54,8 @@ public final class JsonMapper
   {}
 
   /**
-   * Get the tristate representation of the provided value. Either
-   * {@link #JSON_TRISTATE_TRUE} or {@link #JSON_TRISTATE_FALSE}.
+   * Get the tristate representation of the provided value. Either {@link #JSON_TRISTATE_TRUE} or
+   * {@link #JSON_TRISTATE_FALSE}.
    *
    * @param b
    *        boolean value to get converted.
@@ -70,9 +70,8 @@ public final class JsonMapper
   }
 
   /**
-   * Get the tristate representation of the provided value. Either
-   * {@link #JSON_TRISTATE_TRUE}, {@link #JSON_TRISTATE_FALSE} or
-   * {@link #JSON_TRISTATE_UNDEFINED}.
+   * Get the tristate representation of the provided value. Either {@link #JSON_TRISTATE_TRUE},
+   * {@link #JSON_TRISTATE_FALSE} or {@link #JSON_TRISTATE_UNDEFINED}.
    *
    * @param eTriState
    *        Tristate value to get converted. May be <code>null</code>.
@@ -90,9 +89,8 @@ public final class JsonMapper
   }
 
   /**
-   * Convert the provided value into a tristate value. Must be one of
-   * {@link #JSON_TRISTATE_TRUE}, {@link #JSON_TRISTATE_FALSE} or
-   * {@link #JSON_TRISTATE_UNDEFINED}.
+   * Convert the provided value into a tristate value. Must be one of {@link #JSON_TRISTATE_TRUE},
+   * {@link #JSON_TRISTATE_FALSE} or {@link #JSON_TRISTATE_UNDEFINED}.
    *
    * @param sTriState
    *        Source value. May be <code>null</code>.
@@ -123,8 +121,7 @@ public final class JsonMapper
    *
    * @param t
    *        The exception to convert to a JSON object. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the JSON
-   *         object otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the JSON object otherwise.
    * @see JsonUnmappedException for a representation after reading
    */
   @Nullable
@@ -132,8 +129,8 @@ public final class JsonMapper
   {
     if (t == null)
       return null;
-    if (t instanceof JsonUnmappedException)
-      return ((JsonUnmappedException) t).getAsJson ();
+    if (t instanceof final JsonUnmappedException aUnmappedEx)
+      return aUnmappedEx.getAsJson ();
     return new JsonObject ().add (JSON_CLASS, t.getClass ().getName ())
                             .addIfNotNull (JSON_MESSAGE, t.getMessage ())
                             .add (JSON_STACK_TRACE, StackTraceHelper.getStackAsString (t));

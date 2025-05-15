@@ -23,15 +23,14 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -46,8 +45,8 @@ import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
 /**
- * An implementation of {@link IConfigurationValueProvider} that supports
- * multiple sources, ordered by priority, descending.
+ * An implementation of {@link IConfigurationValueProvider} that supports multiple sources, ordered
+ * by priority, descending.
  *
  * @author Philip Helger
  */
@@ -92,9 +91,8 @@ public class MultiConfigurationValueProvider implements
    * Constructor with a list of existing configuration sources.
    *
    * @param aSources
-   *        The list of existing sources to be added. The order will be
-   *        maintained. May be <code>null</code> but may not contain
-   *        <code>null</code> values.
+   *        The list of existing sources to be added. The order will be maintained. May be
+   *        <code>null</code> but may not contain <code>null</code> values.
    * @see #addConfigurationSource(IConfigurationSource)
    */
   public MultiConfigurationValueProvider (@Nullable final List <? extends IConfigurationSource> aSources)
@@ -108,9 +106,8 @@ public class MultiConfigurationValueProvider implements
    * Constructor with an array of existing configuration sources.
    *
    * @param aSources
-   *        The array of existing sources to be added. The order will be
-   *        maintained. May be <code>null</code> but may not contain
-   *        <code>null</code> values.
+   *        The array of existing sources to be added. The order will be maintained. May be
+   *        <code>null</code> but may not contain <code>null</code> values.
    * @see #addConfigurationSource(IConfigurationSource)
    */
   public MultiConfigurationValueProvider (@Nullable final IConfigurationSource... aSources)
@@ -121,9 +118,9 @@ public class MultiConfigurationValueProvider implements
   }
 
   /**
-   * @return <code>true</code> if this multi value provider accepts only
-   *         configuration sources that were initialized and are usable. The
-   *         default is {@value #DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES}.
+   * @return <code>true</code> if this multi value provider accepts only configuration sources that
+   *         were initialized and are usable. The default is
+   *         {@value #DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES}.
    * @see IConfigurationSource#isInitializedAndUsable()
    */
   public final boolean isUseOnlyInitializedConfigSources ()
@@ -135,8 +132,7 @@ public class MultiConfigurationValueProvider implements
    * Enable or disable the usage of only initialized configuration sources.
    *
    * @param bUseOnlyInitializedConfigSources
-   *        <code>true</code> to only allow the usage of initialized
-   *        configuration sources.
+   *        <code>true</code> to only allow the usage of initialized configuration sources.
    * @return this for chaining
    */
   @Nonnull
@@ -147,8 +143,7 @@ public class MultiConfigurationValueProvider implements
   }
 
   /**
-   * Add a configuration source. The priority of the configuration source is
-   * used.
+   * Add a configuration source. The priority of the configuration source is used.
    *
    * @param aSource
    *        The source to be added. May not be <code>null</code>.
@@ -168,13 +163,12 @@ public class MultiConfigurationValueProvider implements
   }
 
   /**
-   * Add a configuration value provider and a priority. The passed priority
-   * overwrites the priority contained in the value provider. This method sorts
-   * the internal list of sources based on the registered priorities.
+   * Add a configuration value provider and a priority. The passed priority overwrites the priority
+   * contained in the value provider. This method sorts the internal list of sources based on the
+   * registered priorities.
    *
    * @param aCVP
-   *        The configuration value provider to be added. May be
-   *        <code>null</code>.
+   *        The configuration value provider to be added. May be <code>null</code>.
    * @param nPriority
    *        The priority to be used.
    * @return this for chaining
@@ -261,9 +255,8 @@ public class MultiConfigurationValueProvider implements
   }
 
   /**
-   * Return a deep clone of this {@link MultiConfigurationValueProvider}. If the
-   * contained {@link IConfigurationValueProvider} implements {@link ICloneable}
-   * it is cloned as well.
+   * Return a deep clone of this {@link MultiConfigurationValueProvider}. If the contained
+   * {@link IConfigurationValueProvider} implements {@link ICloneable} it is cloned as well.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -272,9 +265,9 @@ public class MultiConfigurationValueProvider implements
     final MultiConfigurationValueProvider ret = new MultiConfigurationValueProvider ();
     for (final ConfigValueProviderWithPrio aSource : m_aSources)
     {
-      if (aSource.m_aCVP instanceof ICloneable <?>)
+      if (aSource.m_aCVP instanceof final ICloneable <?> aCloneable)
       {
-        final IConfigurationValueProvider aCVPClone = (IConfigurationValueProvider) ((ICloneable <?>) aSource.m_aCVP).getClone ();
+        final IConfigurationValueProvider aCVPClone = (IConfigurationValueProvider) aCloneable.getClone ();
         ret.m_aSources.add (new ConfigValueProviderWithPrio (aCVPClone, aSource.m_nPriority));
       }
       else
@@ -297,12 +290,10 @@ public class MultiConfigurationValueProvider implements
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @param sClassPathElement
-   *        The name of the class path element(s) to load. May not be
-   *        <code>null</code>.
+   *        The name of the class path element(s) to load. May not be <code>null</code>.
    * @param aLoader
-   *        The loader that converts all matching URLs to
-   *        {@link IConfigurationSource} objects. With this implementation you
-   *        can differentiate the type of the content.
+   *        The loader that converts all matching URLs to {@link IConfigurationSource} objects. With
+   *        this implementation you can differentiate the type of the content.
    * @return May be <code>null</code> if no resource was found.
    */
   @Nullable
@@ -319,12 +310,10 @@ public class MultiConfigurationValueProvider implements
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @param sPathName
-   *        The name of the class path element(s) to load. May not be
-   *        <code>null</code>.
+   *        The name of the class path element(s) to load. May not be <code>null</code>.
    * @param aLoader
-   *        The loader that converts all matching URLs to
-   *        {@link IConfigurationSource} objects. With this implementation you
-   *        can differentiate the type of the content.
+   *        The loader that converts all matching URLs to {@link IConfigurationSource} objects. With
+   *        this implementation you can differentiate the type of the content.
    * @param bCheckForFile
    *        <code>true</code> to also check for a file with the same name.
    * @return May be <code>null</code> if no resource was found.

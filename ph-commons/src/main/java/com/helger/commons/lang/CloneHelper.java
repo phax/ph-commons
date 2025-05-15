@@ -18,15 +18,14 @@ package com.helger.commons.lang;
 
 import java.lang.reflect.Constructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
@@ -91,15 +90,14 @@ public final class CloneHelper
   }
 
   /**
-   * Get a clone (= deep copy) of the passed value. The following things are
-   * tried for cloning:
+   * Get a clone (= deep copy) of the passed value. The following things are tried for cloning:
    * <ol>
-   * <li>If the object is immutable, it is returned as is (if it is a primitive
-   * type or marked with the {@link Immutable} annotation.</li>
+   * <li>If the object is immutable, it is returned as is (if it is a primitive type or marked with
+   * the {@link Immutable} annotation.</li>
    * <li>If the object implements {@link ICloneable} it is invoked.</li>
    * <li>If the object implements {@link Cloneable} it is invoked.</li>
-   * <li>If a copy constructor (a constructor taking one argument of the same
-   * class as it declares)</li>
+   * <li>If a copy constructor (a constructor taking one argument of the same class as it
+   * declares)</li>
    * </ol>
    * If all tries fail, <code>null</code> is returned.
    *
@@ -107,8 +105,8 @@ public final class CloneHelper
    *        The source and return type
    * @param aObject
    *        The object to be copied.
-   * @return <code>null</code> if the passed value is <code>null</code> or if no
-   *         cloning could be performed.
+   * @return <code>null</code> if the passed value is <code>null</code> or if no cloning could be
+   *         performed.
    */
   @Nullable
   public static <DATATYPE> DATATYPE getClonedValue (@Nullable final DATATYPE aObject)
@@ -130,13 +128,11 @@ public final class CloneHelper
   }
 
   /**
-   * Get a clone (= deep copy) of the passed value for all objects implementing
-   * {@link ICloneable}.
+   * Get a clone (= deep copy) of the passed value for all objects implementing {@link ICloneable}.
    *
    * @param aObject
    *        The object to be copied. May be <code>null</code>.
-   * @return <code>null</code> if the passed value is <code>null</code> or a
-   *         clone of the object.
+   * @return <code>null</code> if the passed value is <code>null</code> or a clone of the object.
    * @param <DATATYPE>
    *        The data type to be cloned
    */
@@ -154,8 +150,7 @@ public final class CloneHelper
    *
    * @param aList
    *        Source list. May be <code>null</code>.
-   * @return The cloned list. Never <code>null</code> but maybe empty if the
-   *         source list is empty.
+   * @return The cloned list. Never <code>null</code> but maybe empty if the source list is empty.
    * @param <DATATYPE>
    *        The list element type to be cloned
    */
@@ -175,8 +170,7 @@ public final class CloneHelper
    *
    * @param aList
    *        Source list. May be <code>null</code>.
-   * @return The cloned list. Never <code>null</code> but maybe empty if the
-   *         source list is empty.
+   * @return The cloned list. Never <code>null</code> but maybe empty if the source list is empty.
    * @param <DATATYPE>
    *        The set element type to be cloned
    */

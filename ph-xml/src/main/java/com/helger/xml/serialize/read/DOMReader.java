@@ -24,13 +24,6 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.WillClose;
-import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -38,6 +31,12 @@ import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -322,8 +321,8 @@ public final class DOMReader
         // Ensure a collecting error handler is present
         final CollectingSAXErrorHandler aCEH;
         final ErrorHandler aCustomErrorHandler = aSettings.getErrorHandler ();
-        if (aCustomErrorHandler instanceof CollectingSAXErrorHandler)
-          aCEH = (CollectingSAXErrorHandler) aCustomErrorHandler;
+        if (aCustomErrorHandler instanceof final CollectingSAXErrorHandler aCollectingHdl)
+          aCEH = aCollectingHdl;
         else
         {
           aCEH = new CollectingSAXErrorHandler ();

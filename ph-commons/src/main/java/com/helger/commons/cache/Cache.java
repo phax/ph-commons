@@ -23,8 +23,8 @@ import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.ThreadSafe;
 
 /**
- * The default implementation of {@link ICache} and {@link IMutableCache}. Since
- * v9.3.8 this class is based on {@link MappedCache}.
+ * The default implementation of {@link ICache} and {@link IMutableCache}. Since v9.3.8 this class
+ * is based on {@link MappedCache}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -37,7 +37,8 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
 {
   public static final boolean DEFAULT_ALLOW_NULL_VALUES = false;
 
-  public Cache (@Nonnull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider, @Nonnull @Nonempty final String sCacheName)
+  public Cache (@Nonnull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
+                @Nonnull @Nonempty final String sCacheName)
   {
     this (aCacheValueProvider, NO_MAX_SIZE, sCacheName);
   }
@@ -55,5 +56,11 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
                 final boolean bAllowNullValues)
   {
     super (x -> x, aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
+  }
+
+  @Nonnull
+  public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder ()
+  {
+    return new CacheBuilder <> ();
   }
 }

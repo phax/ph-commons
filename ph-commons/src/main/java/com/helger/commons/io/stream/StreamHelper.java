@@ -24,6 +24,9 @@ import java.util.function.Consumer;
 import java.util.function.LongConsumer;
 import java.util.function.ObjIntConsumer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
@@ -34,10 +37,6 @@ import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.builder.IBuilder;
@@ -52,9 +51,8 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
 import com.helger.commons.statistics.StatisticsManager;
 
 /**
- * Some very basic IO stream utility stuff. All input stream (=reading) related
- * stuff is quite <code>null</code> aware, where on writing an output stream may
- * never be null.
+ * Some very basic IO stream utility stuff. All input stream (=reading) related stuff is quite
+ * <code>null</code> aware, where on writing an output stream may never be null.
  *
  * @author Philip Helger
  */
@@ -142,9 +140,8 @@ public final class StreamHelper
   }
 
   /**
-   * Close the passed stream by encapsulating the declared {@link IOException}.
-   * If the passed object also implements the {@link Flushable} interface, it is
-   * tried to be flushed before it is closed.
+   * Close the passed stream by encapsulating the declared {@link IOException}. If the passed object
+   * also implements the {@link Flushable} interface, it is tried to be flushed before it is closed.
    *
    * @param aCloseable
    *        The object to be closed. May be <code>null</code>.
@@ -158,8 +155,8 @@ public final class StreamHelper
       try
       {
         // flush object (if available)
-        if (aCloseable instanceof Flushable)
-          flush ((Flushable) aCloseable);
+        if (aCloseable instanceof final Flushable aFlushable)
+          flush (aFlushable);
 
         // close object
         aCloseable.close ();
@@ -209,8 +206,7 @@ public final class StreamHelper
   }
 
   /**
-   * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never
-   *         <code>null</code>.
+   * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never <code>null</code>.
    * @since 9.3.6
    */
   @Nonnull
@@ -221,15 +217,13 @@ public final class StreamHelper
   }
 
   /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
+   * Pass the content of the given input stream to the given output stream. The input stream is
+   * automatically closed, whereas the output stream stays open!
    *
    * @param aIS
-   *        The input stream to read from. May be <code>null</code>.
-   *        Automatically closed!
+   *        The input stream to read from. May be <code>null</code>. Automatically closed!
    * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
+   *        The output stream to write to. May be <code>null</code>. Not automatically closed!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
@@ -241,15 +235,13 @@ public final class StreamHelper
   }
 
   /**
-   * Pass the content of the given input stream to the given output stream. Both
-   * the input stream and the output stream are automatically closed.
+   * Pass the content of the given input stream to the given output stream. Both the input stream
+   * and the output stream are automatically closed.
    *
    * @param aIS
-   *        The input stream to read from. May be <code>null</code>.
-   *        Automatically closed!
+   *        The input stream to read from. May be <code>null</code>. Automatically closed!
    * @param aOS
-   *        The output stream to write to. May be <code>null</code>.
-   *        Automatically closed!
+   *        The output stream to write to. May be <code>null</code>. Automatically closed!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
@@ -270,9 +262,9 @@ public final class StreamHelper
   }
 
   /**
-   * A simple builder to copy an InputStream ({@link #from(InputStream)}) to an
-   * OutputStream ({@link #to(OutputStream)}) with certain parameters. Call
-   * {@link #build()} to execute the copying.
+   * A simple builder to copy an InputStream ({@link #from(InputStream)}) to an OutputStream
+   * ({@link #to(OutputStream)}) with certain parameters. Call {@link #build()} to execute the
+   * copying.
    *
    * @author Philip Helger
    * @since 10.0.0
@@ -306,8 +298,8 @@ public final class StreamHelper
 
     /**
      * @param b
-     *        <code>true</code> to close the InputStream, <code>false</code> to
-     *        leave it open. Default is {@link #DEFAULT_CLOSE_SOURCE}
+     *        <code>true</code> to close the InputStream, <code>false</code> to leave it open.
+     *        Default is {@link #DEFAULT_CLOSE_SOURCE}
      * @return this for chaining
      */
     @Nonnull
@@ -331,8 +323,7 @@ public final class StreamHelper
 
     /**
      * @param b
-     *        <code>true</code> to close the OutputStream, <code>false</code> to
-     *        leave it open.
+     *        <code>true</code> to close the OutputStream, <code>false</code> to leave it open.
      * @return this for chaining
      */
     @Nonnull
@@ -356,9 +347,8 @@ public final class StreamHelper
 
     /**
      * @param n
-     *        An optional maximum number of bytes to copied from the InputStream
-     *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
-     *        all bytes are copied.
+     *        An optional maximum number of bytes to copied from the InputStream to the
+     *        OutputStream. May be &lt; 0 to indicate no limit, meaning all bytes are copied.
      * @return this for chaining
      * @see #unlimited()
      */
@@ -371,9 +361,9 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        An optional maximum number of bytes to copied from the InputStream
-     *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
-     *        all bytes are copied. If <code>null</code> no limit is set
+     *        An optional maximum number of bytes to copied from the InputStream to the
+     *        OutputStream. May be &lt; 0 to indicate no limit, meaning all bytes are copied. If
+     *        <code>null</code> no limit is set
      * @return this for chaining
      * @since 10.1.0
      * @see #unlimited()
@@ -398,8 +388,8 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        The Exception callback to be invoked, if an exception occurs. May
-     *        be <code>null</code>.
+     *        The Exception callback to be invoked, if an exception occurs. May be
+     *        <code>null</code>.
      * @return this for chaining
      */
     @Nonnull
@@ -411,10 +401,9 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        An optional mutable long object that will receive the total number
-     *        of copied bytes. Note: and optional old value is overwritten.
-     *        Note: this is only called, if copying was successful, and not in
-     *        case of an exception.
+     *        An optional mutable long object that will receive the total number of copied bytes.
+     *        Note: and optional old value is overwritten. Note: this is only called, if copying was
+     *        successful, and not in case of an exception.
      * @return this for chaining
      */
     @Nonnull
@@ -426,9 +415,8 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        An optional progress callback that takes the number of total bytes
-     *        written during the copy action. It is first invoked after some
-     *        byte were written.
+     *        An optional progress callback that takes the number of total bytes written during the
+     *        copy action. It is first invoked after some byte were written.
      * @return this for chaining
      * @since 11.0.3
      */
@@ -586,15 +574,13 @@ public final class StreamHelper
   }
 
   /**
-   * Get a byte buffer with all the available content of the passed input
-   * stream.
+   * Get a byte buffer with all the available content of the passed input stream.
    *
    * @param aIS
    *        The source input stream. May not be <code>null</code>.
-   * @return A new {@link NonBlockingByteArrayOutputStream} with all available
-   *         content inside. The {@link OutputStream} must be closed by the
-   *         caller since v10. Since v9.3.6 this method returns
-   *         <code>null</code> if copying fails.
+   * @return A new {@link NonBlockingByteArrayOutputStream} with all available content inside. The
+   *         {@link OutputStream} must be closed by the caller since v10. Since v9.3.6 this method
+   *         returns <code>null</code> if copying fails.
    */
   @Nullable
   public static NonBlockingByteArrayOutputStream getCopy (@Nonnull @WillClose final InputStream aIS)
@@ -607,18 +593,15 @@ public final class StreamHelper
   }
 
   /**
-   * Get a byte buffer with all the available content of the passed input
-   * stream.
+   * Get a byte buffer with all the available content of the passed input stream.
    *
    * @param aIS
    *        The source input stream. May not be <code>null</code>.
    * @param nLimit
-   *        The maximum number of bytes to be copied to the output stream. Must
-   *        be &ge; 0.
-   * @return A new {@link NonBlockingByteArrayOutputStream} with all available
-   *         content inside. The {@link OutputStream} must be closed by the
-   *         caller since v10. Since v9.3.6 this method returns
-   *         <code>null</code> if copying fails.
+   *        The maximum number of bytes to be copied to the output stream. Must be &ge; 0.
+   * @return A new {@link NonBlockingByteArrayOutputStream} with all available content inside. The
+   *         {@link OutputStream} must be closed by the caller since v10. Since v9.3.6 this method
+   *         returns <code>null</code> if copying fails.
    */
   @Nullable
   public static NonBlockingByteArrayOutputStream getCopyWithLimit (@Nonnull @WillClose final InputStream aIS,
@@ -636,8 +619,8 @@ public final class StreamHelper
    *
    * @param aISP
    *        The input stream provider to read from. May be <code>null</code> .
-   * @return The byte array or <code>null</code> if the parameter or the
-   *         resolved input stream is <code>null</code>.
+   * @return The byte array or <code>null</code> if the parameter or the resolved input stream is
+   *         <code>null</code>.
    */
   @Nullable
   public static byte [] getAllBytes (@Nullable final IHasInputStream aISP)
@@ -653,8 +636,7 @@ public final class StreamHelper
    *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
-   * @return The byte array or <code>null</code> if the input stream is
-   *         <code>null</code>.
+   * @return The byte array or <code>null</code> if the input stream is <code>null</code>.
    */
   @Nullable
   public static byte [] getAllBytes (@Nullable @WillClose final InputStream aIS)
@@ -678,8 +660,8 @@ public final class StreamHelper
    *        The input stream provider to read from. May be <code>null</code> .
    * @param aCharset
    *        The charset to use. May not be <code>null</code> .
-   * @return The String or <code>null</code> if the parameter or the resolved
-   *         input stream is <code>null</code>.
+   * @return The String or <code>null</code> if the parameter or the resolved input stream is
+   *         <code>null</code>.
    */
   @Nullable
   public static String getAllBytesAsString (@Nullable final IHasInputStream aISP,
@@ -698,8 +680,7 @@ public final class StreamHelper
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
    *        The charset to use. May not be <code>null</code> .
-   * @return The String or <code>null</code> if the input stream is
-   *         <code>null</code>.
+   * @return The String or <code>null</code> if the input stream is <code>null</code>.
    */
   @Nullable
   public static String getAllBytesAsString (@Nullable @WillClose final InputStream aIS,
@@ -720,8 +701,7 @@ public final class StreamHelper
   }
 
   /**
-   * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never
-   *         <code>null</code>.
+   * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never <code>null</code>.
    * @since 9.3.6
    */
   @Nonnull
@@ -732,15 +712,13 @@ public final class StreamHelper
   }
 
   /**
-   * Pass the content of the given reader to the given writer. The reader is
-   * automatically closed, whereas the writer stays open!
+   * Pass the content of the given reader to the given writer. The reader is automatically closed,
+   * whereas the writer stays open!
    *
    * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
+   *        The reader to read from. May be <code>null</code>. Automatically closed!
    * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Not automatically
-   *        closed!
+   *        The writer to write to. May be <code>null</code>. Not automatically closed!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
@@ -752,15 +730,13 @@ public final class StreamHelper
   }
 
   /**
-   * Pass the content of the given reader to the given writer. The reader and
-   * the writer are automatically closed!
+   * Pass the content of the given reader to the given writer. The reader and the writer are
+   * automatically closed!
    *
    * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
+   *        The reader to read from. May be <code>null</code>. Automatically closed!
    * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Automatically
-   *        closed!
+   *        The writer to write to. May be <code>null</code>. Automatically closed!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
@@ -781,9 +757,8 @@ public final class StreamHelper
   }
 
   /**
-   * A simple builder to copy a Reader ({@link #from(Reader)}) to an Writer
-   * ({@link #to(Writer)}) with certain parameters. Call {@link #build()} to
-   * execute the copying.
+   * A simple builder to copy a Reader ({@link #from(Reader)}) to an Writer ({@link #to(Writer)})
+   * with certain parameters. Call {@link #build()} to execute the copying.
    *
    * @author Philip Helger
    * @since 10.0.0
@@ -817,8 +792,8 @@ public final class StreamHelper
 
     /**
      * @param b
-     *        <code>true</code> to close the Reader, <code>false</code> to leave
-     *        it open. Default is {@link #DEFAULT_CLOSE_FROM}
+     *        <code>true</code> to close the Reader, <code>false</code> to leave it open. Default is
+     *        {@link #DEFAULT_CLOSE_FROM}
      * @return this for chaining
      */
     @Nonnull
@@ -842,8 +817,7 @@ public final class StreamHelper
 
     /**
      * @param b
-     *        <code>true</code> to close the Writer, <code>false</code> to leave
-     *        it open.
+     *        <code>true</code> to close the Writer, <code>false</code> to leave it open.
      * @return this for chaining
      */
     @Nonnull
@@ -867,9 +841,8 @@ public final class StreamHelper
 
     /**
      * @param n
-     *        An optional maximum number of chars to copied from the Reader to
-     *        the Writer. May be &lt; 0 to indicate no limit, meaning all chars
-     *        are copied.
+     *        An optional maximum number of chars to copied from the Reader to the Writer. May be
+     *        &lt; 0 to indicate no limit, meaning all chars are copied.
      * @return this for chaining
      * @see #unlimited()
      */
@@ -882,9 +855,9 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        An optional maximum number of chars to copied from the InputStream
-     *        to the OutputStream. May be &lt; 0 to indicate no limit, meaning
-     *        all bytes are copied. If <code>null</code> no limit is set
+     *        An optional maximum number of chars to copied from the InputStream to the
+     *        OutputStream. May be &lt; 0 to indicate no limit, meaning all bytes are copied. If
+     *        <code>null</code> no limit is set
      * @return this for chaining
      * @since 10.1.0
      * @see #unlimited()
@@ -909,8 +882,8 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        The Exception callback to be invoked, if an exception occurs. May
-     *        be <code>null</code>.
+     *        The Exception callback to be invoked, if an exception occurs. May be
+     *        <code>null</code>.
      * @return this for chaining
      */
     @Nonnull
@@ -922,10 +895,9 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        An optional mutable long object that will receive the total number
-     *        of copied chars. Note: and optional old value is overwritten.
-     *        Note: this is only called, if copying was successful, and not in
-     *        case of an exception.
+     *        An optional mutable long object that will receive the total number of copied chars.
+     *        Note: and optional old value is overwritten. Note: this is only called, if copying was
+     *        successful, and not in case of an exception.
      * @return this for chaining
      */
     @Nonnull
@@ -937,9 +909,8 @@ public final class StreamHelper
 
     /**
      * @param a
-     *        An optional progress callback that takes the number of total chars
-     *        written during the copy action. It is first invoked after some
-     *        chars were written.
+     *        An optional progress callback that takes the number of total chars written during the
+     *        copy action. It is first invoked after some chars were written.
      * @return this for chaining
      * @since 11.0.3
      */
@@ -1102,8 +1073,7 @@ public final class StreamHelper
    *
    * @param aReader
    *        The reader to read from. May be <code>null</code>.
-   * @return The character array or <code>null</code> if the reader is
-   *         <code>null</code>.
+   * @return The character array or <code>null</code> if the reader is <code>null</code>.
    */
   @Nullable
   public static char [] getAllCharacters (@Nullable @WillClose final Reader aReader)
@@ -1125,8 +1095,7 @@ public final class StreamHelper
    *
    * @param aReader
    *        The reader to read from. May be <code>null</code>.
-   * @return The character array or <code>null</code> if the reader is
-   *         <code>null</code>.
+   * @return The character array or <code>null</code> if the reader is <code>null</code>.
    */
   @Nullable
   public static String getAllCharactersAsString (@Nullable @WillClose final Reader aReader)
@@ -1144,15 +1113,14 @@ public final class StreamHelper
   }
 
   /**
-   * Get the content of the passed Spring resource as one big string in the
-   * passed character set.
+   * Get the content of the passed Spring resource as one big string in the passed character set.
    *
    * @param aISP
    *        The resource to read. May not be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
-   * @return <code>null</code> if the resolved input stream is <code>null</code>
-   *         , the content otherwise.
+   * @return <code>null</code> if the resolved input stream is <code>null</code> , the content
+   *         otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1163,22 +1131,20 @@ public final class StreamHelper
   }
 
   /**
-   * Get the content of the passed Spring resource as one big string in the
-   * passed character set.
+   * Get the content of the passed Spring resource as one big string in the passed character set.
    *
    * @param aISP
    *        The resource to read. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @param nLinesToSkip
-   *        The 0-based index of the first line to read. Pass in 0 to indicate
-   *        to read everything.
+   *        The 0-based index of the first line to read. Pass in 0 to indicate to read everything.
    * @param nLinesToRead
-   *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to
-   *        indicate that all lines should be read. If the number passed here
-   *        exceeds the number of lines in the file, nothing happens.
-   * @return <code>null</code> if the resolved input stream is <code>null</code>
-   *         , the content otherwise.
+   *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to indicate that all
+   *        lines should be read. If the number passed here exceeds the number of lines in the file,
+   *        nothing happens.
+   * @return <code>null</code> if the resolved input stream is <code>null</code> , the content
+   *         otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1194,15 +1160,14 @@ public final class StreamHelper
   }
 
   /**
-   * Get the content of the passed stream as a list of lines in the passed
-   * character set.
+   * Get the content of the passed stream as a list of lines in the passed character set.
    *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
-   * @return <code>null</code> if the input stream is <code>null</code>, the
-   *         content lines otherwise.
+   * @return <code>null</code> if the input stream is <code>null</code>, the content lines
+   *         otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1213,8 +1178,7 @@ public final class StreamHelper
   }
 
   /**
-   * Get the content of the passed stream as a list of lines in the passed
-   * character set.
+   * Get the content of the passed stream as a list of lines in the passed character set.
    *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
@@ -1232,22 +1196,20 @@ public final class StreamHelper
   }
 
   /**
-   * Get the content of the passed stream as a list of lines in the passed
-   * character set.
+   * Get the content of the passed stream as a list of lines in the passed character set.
    *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @param nLinesToSkip
-   *        The 0-based index of the first line to read. Pass in 0 to indicate
-   *        to read everything.
+   *        The 0-based index of the first line to read. Pass in 0 to indicate to read everything.
    * @param nLinesToRead
-   *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to
-   *        indicate that all lines should be read. If the number passed here
-   *        exceeds the number of lines in the file, nothing happens.
-   * @return <code>null</code> if the input stream is <code>null</code>, the
-   *         content lines otherwise.
+   *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to indicate that all
+   *        lines should be read. If the number passed here exceeds the number of lines in the file,
+   *        nothing happens.
+   * @return <code>null</code> if the input stream is <code>null</code>, the content lines
+   *         otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1266,16 +1228,16 @@ public final class StreamHelper
   }
 
   /**
-   * Read the complete content of the passed stream and pass each line
-   * separately to the passed callback.
+   * Read the complete content of the passed stream and pass each line separately to the passed
+   * callback.
    *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @param aLineCallback
-   *        The callback that is invoked for all read lines. Each passed line
-   *        does NOT contain the line delimiter!
+   *        The callback that is invoked for all read lines. Each passed line does NOT contain the
+   *        line delimiter!
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
                                       @Nonnull @Nonempty final Charset aCharset,
@@ -1329,24 +1291,22 @@ public final class StreamHelper
   }
 
   /**
-   * Read the content of the passed stream line by line and invoking a callback
-   * on all matching lines.
+   * Read the content of the passed stream line by line and invoking a callback on all matching
+   * lines.
    *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @param nLinesToSkip
-   *        The 0-based index of the first line to read. Pass in 0 to indicate
-   *        to read everything.
+   *        The 0-based index of the first line to read. Pass in 0 to indicate to read everything.
    * @param nLinesToRead
-   *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to
-   *        indicate that all lines should be read. If the number passed here
-   *        exceeds the number of lines in the file, nothing happens.
+   *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to indicate that all
+   *        lines should be read. If the number passed here exceeds the number of lines in the file,
+   *        nothing happens.
    * @param aLineCallback
-   *        The callback that is invoked for all read lines. Each passed line
-   *        does NOT contain the line delimiter! Note: it is not invoked for
-   *        skipped lines!
+   *        The callback that is invoked for all read lines. Each passed line does NOT contain the
+   *        line delimiter! Note: it is not invoked for skipped lines!
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
                                       @Nonnull @Nonempty final Charset aCharset,
@@ -1389,14 +1349,12 @@ public final class StreamHelper
    * Write bytes to an {@link OutputStream}.
    *
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code>. Is
-   *        closed independent of error or success.
+   *        The output stream to write to. May not be <code>null</code>. Is closed independent of
+   *        error or success.
    * @param aBuf
-   *        The byte array from which is to be written. May not be
-   *        <code>null</code>.
+   *        The byte array from which is to be written. May not be <code>null</code>.
    * @param nOfs
-   *        The 0-based index to the first byte in the array to be written. May
-   *        not be &lt; 0.
+   *        The 0-based index to the first byte in the array to be written. May not be &lt; 0.
    * @param nLen
    *        The non-negative amount of bytes to be written. May not be &lt; 0.
    * @return {@link ESuccess}
@@ -1431,8 +1389,8 @@ public final class StreamHelper
    * Write bytes to an {@link OutputStream}.
    *
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code>. Is
-   *        closed independent of error or success.
+   *        The output stream to write to. May not be <code>null</code>. Is closed independent of
+   *        error or success.
    * @param aBuf
    *        The byte array to be written. May not be <code>null</code>.
    * @return {@link ESuccess}
@@ -1447,8 +1405,8 @@ public final class StreamHelper
    * Write bytes to an {@link OutputStream}.
    *
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code>. Is
-   *        closed independent of error or success.
+   *        The output stream to write to. May not be <code>null</code>. Is closed independent of
+   *        error or success.
    * @param sContent
    *        The string to be written. May not be <code>null</code>.
    * @param aCharset
@@ -1493,8 +1451,7 @@ public final class StreamHelper
   }
 
   /**
-   * Fully skip the passed amounts in the input stream. Only forward skipping is
-   * possible!
+   * Fully skip the passed amounts in the input stream. Only forward skipping is possible!
    *
    * @param aIS
    *        The input stream to skip in.
@@ -1541,8 +1498,8 @@ public final class StreamHelper
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @param aBuffer
-   *        The buffer to write to. May not be <code>null</code>. Must be &ge;
-   *        than the content to be read.
+   *        The buffer to write to. May not be <code>null</code>. Must be &ge; than the content to
+   *        be read.
    * @return The number of read bytes
    * @throws IOException
    *         In case reading fails
@@ -1559,13 +1516,12 @@ public final class StreamHelper
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @param aBuffer
-   *        The buffer to write to. May not be <code>null</code>. Must be &ge;
-   *        than the content to be read.
+   *        The buffer to write to. May not be <code>null</code>. Must be &ge; than the content to
+   *        be read.
    * @param nOfs
    *        The offset into the destination buffer to use. May not be &lt; 0.
    * @param nLen
-   *        The number of bytes to read into the destination buffer to use. May
-   *        not be &lt; 0.
+   *        The number of bytes to read into the destination buffer to use. May not be &lt; 0.
    * @return The number of read bytes
    * @throws IOException
    *         In case reading fails
@@ -1678,7 +1634,7 @@ public final class StreamHelper
            aIS instanceof ByteArrayInputStream ||
            aIS instanceof NonBlockingByteArrayInputStream ||
            aIS instanceof ByteBufferInputStream ||
-           (aIS instanceof WrappedInputStream && isBuffered (((WrappedInputStream) aIS).getWrappedInputStream ()));
+           (aIS instanceof final WrappedInputStream aWrappedIS && isBuffered (aWrappedIS.getWrappedInputStream ()));
   }
 
   @Nullable
@@ -1694,7 +1650,7 @@ public final class StreamHelper
            aOS instanceof ByteArrayOutputStream ||
            aOS instanceof NonBlockingByteArrayOutputStream ||
            aOS instanceof ByteBufferOutputStream ||
-           (aOS instanceof WrappedOutputStream && isBuffered (((WrappedOutputStream) aOS).getWrappedOutputStream ()));
+           (aOS instanceof final WrappedOutputStream aWrappedOS && isBuffered (aWrappedOS.getWrappedOutputStream ()));
   }
 
   @Nullable
@@ -1709,7 +1665,7 @@ public final class StreamHelper
            aReader instanceof NonBlockingBufferedReader ||
            aReader instanceof StringReader ||
            aReader instanceof NonBlockingStringReader ||
-           (aReader instanceof WrappedReader && isBuffered (((WrappedReader) aReader).getWrappedReader ()));
+           (aReader instanceof final WrappedReader aWrappedReader && isBuffered (aWrappedReader.getWrappedReader ()));
   }
 
   @Nullable
@@ -1724,7 +1680,7 @@ public final class StreamHelper
            aWriter instanceof NonBlockingBufferedWriter ||
            aWriter instanceof StringWriter ||
            aWriter instanceof NonBlockingStringWriter ||
-           (aWriter instanceof WrappedWriter && isBuffered (((WrappedWriter) aWriter).getWrappedWriter ()));
+           (aWriter instanceof final WrappedWriter aWrappedWriter && isBuffered (aWrappedWriter.getWrappedWriter ()));
   }
 
   @Nullable
@@ -1740,9 +1696,9 @@ public final class StreamHelper
       try
       {
         /*
-         * This will fail if IS is a FilterInputStream with a <code>null</code>
-         * contained InputStream. This happens e.g. when a JAR URL with a
-         * directory that does not end with a slash is returned.
+         * This will fail if IS is a FilterInputStream with a <code>null</code> contained
+         * InputStream. This happens e.g. when a JAR URL with a directory that does not end with a
+         * slash is returned.
          */
         aIS.markSupported ();
       }
@@ -1758,8 +1714,8 @@ public final class StreamHelper
   public static final int END_OF_STRING_MARKER = 0xfffdfffd;
 
   /**
-   * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this
-   * methods provides a similar solution but simply writing the bytes.
+   * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this methods provides a
+   * similar solution but simply writing the bytes.
    *
    * @param aDO
    *        {@link DataOutput} to write to. May not be <code>null</code>.
@@ -1799,9 +1755,8 @@ public final class StreamHelper
   }
 
   /**
-   * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this
-   * methods provides a similar solution for reading like
-   * {@link DataInputStream#readUTF()} but what was written in
+   * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this methods provides a
+   * similar solution for reading like {@link DataInputStream#readUTF()} but what was written in
    * {@link #writeSafeUTF(DataOutput, String)}.
    *
    * @param aDI

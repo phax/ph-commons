@@ -25,8 +25,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
- * Helper class to handle read-only property resource bundles reading only UTF-8
- * text strings.
+ * Helper class to handle read-only property resource bundles reading only UTF-8 text strings.
  *
  * @author Philip Helger
  */
@@ -42,10 +41,10 @@ public final class Utf8ResourceBundle
   @Nonnull
   private static ResourceBundle _createUtf8PropertyResourceBundle (@Nonnull final ResourceBundle aBundle)
   {
-    if (!(aBundle instanceof PropertyResourceBundle))
-      return aBundle;
+    if (aBundle instanceof final PropertyResourceBundle aPropResBundle)
+      return new Utf8PropertyResourceBundle (aPropResBundle);
 
-    return new Utf8PropertyResourceBundle ((PropertyResourceBundle) aBundle);
+    return aBundle;
   }
 
   @Nonnull

@@ -19,13 +19,12 @@ package com.helger.cli;
 
 import java.util.Arrays;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
@@ -135,7 +134,8 @@ public class CmdLineParser
   }
 
   @Nonnull
-  public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions, @Nullable final String [] aArgs) throws CmdLineParseException
+  public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions, @Nullable final String [] aArgs)
+                                                                                                             throws CmdLineParseException
   {
     ValueEnforcer.notNull (aOptions, "Options");
 
@@ -268,13 +268,14 @@ public class CmdLineParser
     for (final IOptionBase aOptionBase : aOptions)
       if (aOptionBase.isRequired ())
       {
-        if (aOptionBase instanceof Option)
+        if (aOptionBase instanceof final Option aOption)
         {
-          final Option aOption = (Option) aOptionBase;
           if (!ret.hasOption (aOption))
             throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
                                              aOption,
-                                             "The option " + _getDisplayName (aOption) + " is required but is missing!");
+                                             "The option " +
+                                                      _getDisplayName (aOption) +
+                                                      " is required but is missing!");
         }
         else
         {
@@ -282,7 +283,9 @@ public class CmdLineParser
           if (!ret.hasOption (aOptionGroup))
             throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
                                              aOptionGroup,
-                                             "An option of " + _getDisplayName (aOptionGroup) + " is required but is missing!");
+                                             "An option of " +
+                                                           _getDisplayName (aOptionGroup) +
+                                                           " is required but is missing!");
         }
       }
 

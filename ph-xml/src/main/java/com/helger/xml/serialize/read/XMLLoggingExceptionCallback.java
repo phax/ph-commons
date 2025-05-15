@@ -20,22 +20,21 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Locale;
 
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.style.OverrideOnDemand;
-
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
 import com.helger.commons.callback.exception.LoggingExceptionCallback;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.xml.sax.AbstractSAXErrorHandler;
 
 /**
- * A special version of the {@link LoggingExceptionCallback} that handles the
- * most common XML exceptions in a nice way :)
+ * A special version of the {@link LoggingExceptionCallback} that handles the most common XML
+ * exceptions in a nice way :)
  *
  * @author Philip Helger
  */
@@ -55,9 +54,8 @@ public class XMLLoggingExceptionCallback extends LoggingExceptionCallback
   @OverrideOnDemand
   protected String getLogMessage (@Nullable final Throwable t)
   {
-    if (t instanceof SAXParseException)
+    if (t instanceof final SAXParseException ex)
     {
-      final SAXParseException ex = (SAXParseException) t;
       return AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.ERROR, ex).getAsString (Locale.ROOT);
     }
     if (t instanceof SAXException)

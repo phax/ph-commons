@@ -24,14 +24,13 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
+import org.xml.sax.InputSource;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-
-import org.xml.sax.InputSource;
-
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -42,8 +41,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.url.URLHelper;
 
 /**
- * Factory class to create the correct {@link InputSource} objects for different
- * input types.
+ * Factory class to create the correct {@link InputSource} objects for different input types.
  *
  * @author Philip Helger
  */
@@ -83,8 +81,8 @@ public final class InputSourceFactory
   @Nullable
   public static InputSource create (@Nonnull final IHasInputStream aISP)
   {
-    if (aISP instanceof IReadableResource)
-      return create ((IReadableResource) aISP);
+    if (aISP instanceof final IReadableResource aRes)
+      return create (aRes);
     return create (aISP.getInputStream ());
   }
 
@@ -131,7 +129,9 @@ public final class InputSourceFactory
   }
 
   @Nonnull
-  public static InputSource create (@Nonnull final char [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static InputSource create (@Nonnull final char [] aXML,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
   {
     return new StringSAXInputSource (aXML, nOfs, nLen);
   }
@@ -143,7 +143,9 @@ public final class InputSourceFactory
   }
 
   @Nonnull
-  public static InputSource create (@Nonnull final byte [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static InputSource create (@Nonnull final byte [] aXML,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
   {
     return create (new NonBlockingByteArrayInputStream (aXML, nOfs, nLen));
   }

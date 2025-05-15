@@ -24,9 +24,6 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.WillClose;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Result;
@@ -36,6 +33,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.WillClose;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.IWritableResource;
@@ -67,32 +67,29 @@ import com.helger.xml.transform.TransformResultFactory;
 public interface IJAXBWriter <JAXBTYPE>
 {
   /**
-   * Use the {@link SafeXMLStreamWriter} where applicable to ensure valid XML is
-   * created? This is a work around for
-   * https://github.com/eclipse-ee4j/jaxb-ri/issues/614 and
+   * Use the {@link SafeXMLStreamWriter} where applicable to ensure valid XML is created? This is a
+   * work around for https://github.com/eclipse-ee4j/jaxb-ri/issues/614 and
    * https://github.com/eclipse-ee4j/jaxb-ri/issues/960<br>
    * Note: these bugs are still open for JAXB 4.0.0
    */
   boolean USE_JAXB_CHARSET_FIX = true;
 
   /**
-   * @return The special JAXB namespace context to be used. May be
-   *         <code>null</code>.
+   * @return The special JAXB namespace context to be used. May be <code>null</code>.
    * @since 8.5.3 in this interface
    */
   @Nullable
   NamespaceContext getNamespaceContext ();
 
   /**
-   * @return <code>true</code> if the JAXB output should be formatted. Default
-   *         is <code>false</code>.
+   * @return <code>true</code> if the JAXB output should be formatted. Default is
+   *         <code>false</code>.
    * @since 8.5.3 in this interface
    */
   boolean isFormattedOutput ();
 
   /**
-   * @return The special JAXB Charset to be used for writing. <code>null</code>
-   *         by default.
+   * @return The special JAXB Charset to be used for writing. <code>null</code> by default.
    * @since 8.5.3 in this interface
    */
   @Nullable
@@ -104,9 +101,8 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * @return The JAXB indentation string to be used for writing.
-   *         <code>null</code> by default. Only used when formatted output is
-   *         used.
+   * @return The JAXB indentation string to be used for writing. <code>null</code> by default. Only
+   *         used when formatted output is used.
    * @since 8.5.3 in this interface
    */
   @Nullable
@@ -118,16 +114,14 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * @return <code>true</code> if an eventually configured XML Schema should be
-   *         used, <code>false</code> to explicitly disable the usage of XML
-   *         Schema.
+   * @return <code>true</code> if an eventually configured XML Schema should be used,
+   *         <code>false</code> to explicitly disable the usage of XML Schema.
    * @since 11.0.3
    */
   boolean isUseSchema ();
 
   /**
-   * @return The schema location to be used for writing. <code>null</code> by
-   *         default.
+   * @return The schema location to be used for writing. <code>null</code> by default.
    * @since 8.6.0
    */
   @Nullable
@@ -139,8 +133,7 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * @return The no namespace schema location to be used for writing.
-   *         <code>null</code> by default.
+   * @return The no namespace schema location to be used for writing. <code>null</code> by default.
    * @since 9.0.0
    */
   @Nullable
@@ -152,8 +145,8 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * @return The XML writer settings to be used based on this writer settings.
-   *         Never <code>null</code>.
+   * @return The XML writer settings to be used based on this writer settings. Never
+   *         <code>null</code>.
    */
   @Nonnull
   default IXMLWriterSettings getXMLWriterSettings ()
@@ -214,8 +207,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
    * @param aOS
-   *        The output stream to write to. Will always be closed. May not be
-   *        <code>null</code>.
+   *        The output stream to write to. Will always be closed. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
   @Nonnull
@@ -242,8 +234,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
    * @param aWriter
-   *        The writer to write to. Will always be closed. May not be
-   *        <code>null</code>.
+   *        The writer to write to. Will always be closed. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
   @Nonnull
@@ -270,8 +261,8 @@ public interface IJAXBWriter <JAXBTYPE>
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
    * @param aBuffer
-   *        The byte buffer to write to. If the buffer is too small, it is
-   *        automatically extended. May not be <code>null</code>.
+   *        The byte buffer to write to. If the buffer is too small, it is automatically extended.
+   *        May not be <code>null</code>.
    * @return {@link ESuccess}
    * @throws BufferOverflowException
    *         If the ByteBuffer is too small
@@ -317,16 +308,15 @@ public interface IJAXBWriter <JAXBTYPE>
   ESuccess write (@Nonnull JAXBTYPE aObject, @Nonnull IJAXBMarshaller <JAXBTYPE> aMarshallerFunc);
 
   /**
-   * Convert the passed object to XML. This method is potentially dangerous,
-   * when using StreamResult because it may create invalid XML. Only when using
-   * the {@link SafeXMLStreamWriter} it is ensured that only valid XML is
-   * created!
+   * Convert the passed object to XML. This method is potentially dangerous, when using StreamResult
+   * because it may create invalid XML. Only when using the {@link SafeXMLStreamWriter} it is
+   * ensured that only valid XML is created!
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
    * @param aResult
-   *        The result object holder. May not be <code>null</code>. Usually
-   *        SAXResult, DOMResult and StreamResult are supported.
+   *        The result object holder. May not be <code>null</code>. Usually SAXResult, DOMResult and
+   *        StreamResult are supported.
    * @return {@link ESuccess}
    */
   @Nonnull
@@ -335,7 +325,7 @@ public interface IJAXBWriter <JAXBTYPE>
     if (USE_JAXB_CHARSET_FIX && aResult instanceof StreamResult)
     {
       LoggerFactory.getLogger (IJAXBWriter.class)
-                   .warn ("Potentially invalid XML is created by using StreamResult object: {}", aResult);
+                   .warn ("Potentially invalid XML is created by using StreamResult object: " + aResult);
     }
 
     return write (aObject, (m, e) -> m.marshal (e, aResult));
@@ -347,8 +337,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
    * @param aHandler
-   *        XML will be sent to this handler as SAX2 events. May not be
-   *        <code>null</code>.
+   *        XML will be sent to this handler as SAX2 events. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
   @Nonnull
@@ -412,8 +401,7 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * Convert the passed object to a new DOM document and return the document
-   * element (write).
+   * Convert the passed object to a new DOM document and return the document element (write).
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
@@ -444,8 +432,7 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * Convert the passed object to a new micro document and return only the root
-   * element (write).
+   * Convert the passed object to a new micro document and return only the root element (write).
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
@@ -466,13 +453,12 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * Utility method to directly convert the passed domain object to an XML
-   * string (write).
+   * Utility method to directly convert the passed domain object to an XML string (write).
    *
    * @param aObject
    *        The domain object to be converted. May not be <code>null</code>.
-   * @return <code>null</code> if the passed domain object could not be
-   *         converted because of validation errors.
+   * @return <code>null</code> if the passed domain object could not be converted because of
+   *         validation errors.
    */
   @Nullable
   default String getAsString (@Nonnull final JAXBTYPE aObject)
@@ -481,9 +467,9 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject,
-                      SafeXMLStreamWriter.create (aSW, getXMLWriterSettings ())).isSuccess () ? aSW.getAsString ()
-                                                                                              : null;
+        return write (aObject, SafeXMLStreamWriter.create (aSW, getXMLWriterSettings ())).isSuccess () ? aSW
+                                                                                                            .getAsString ()
+                                                                                                       : null;
       }
       return write (aObject, TransformResultFactory.create (aSW)).isSuccess () ? aSW.getAsString () : null;
     }
@@ -494,8 +480,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
-   * @return <code>null</code> if the passed domain object could not be
-   *         converted because of validation errors.
+   * @return <code>null</code> if the passed domain object could not be converted because of
+   *         validation errors.
    */
   @Nullable
   default ByteBuffer getAsByteBuffer (@Nonnull final JAXBTYPE aObject)
@@ -504,22 +490,20 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject,
-                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
-                                                                                                : aBBOS.getBuffer ();
+        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS
+                                                                                                                       .getBuffer ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getBuffer ();
     }
   }
 
   /**
-   * Write the passed object to a byte array and return the created byte array
-   * (write).
+   * Write the passed object to a byte array and return the created byte array (write).
    *
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
-   * @return <code>null</code> if the passed domain object could not be
-   *         converted because of validation errors.
+   * @return <code>null</code> if the passed domain object could not be converted because of
+   *         validation errors.
    */
   @Nullable
   default byte [] getAsBytes (@Nonnull final JAXBTYPE aObject)
@@ -528,22 +512,20 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject,
-                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
-                                                                                                : aBBOS.getAsByteArray ();
+        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS
+                                                                                                                       .getAsByteArray ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getAsByteArray ();
     }
   }
 
   /**
-   * Write the passed object to a byte array and return the input stream on that
-   * array.
+   * Write the passed object to a byte array and return the input stream on that array.
    *
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
-   * @return <code>null</code> if the passed domain object could not be
-   *         converted because of validation errors.
+   * @return <code>null</code> if the passed domain object could not be converted because of
+   *         validation errors.
    * @since 9.1.8
    */
   @Nullable

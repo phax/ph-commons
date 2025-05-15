@@ -29,16 +29,15 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
@@ -548,8 +547,8 @@ public final class KeyStoreHelper
         if (aTrustStore.isCertificateEntry (alias))
         {
           final Certificate aCert = aTrustStore.getCertificate (alias);
-          if (aCert instanceof X509Certificate)
-            aCerts.add ((X509Certificate) aCert);
+          if (aCert instanceof final X509Certificate aX509Cert)
+            aCerts.add (aX509Cert);
         }
       });
     return aCerts;

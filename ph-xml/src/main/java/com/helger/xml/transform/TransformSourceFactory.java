@@ -24,17 +24,16 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Node;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
@@ -43,8 +42,8 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.url.URLHelper;
 
 /**
- * Factory class to create the correct {@link javax.xml.transform.Source}
- * objects for different input types.
+ * Factory class to create the correct {@link javax.xml.transform.Source} objects for different
+ * input types.
  *
  * @author Philip Helger
  */
@@ -84,8 +83,8 @@ public final class TransformSourceFactory
   @Nonnull
   public static StreamSource create (@Nonnull final IHasInputStream aISP)
   {
-    if (aISP instanceof IReadableResource)
-      return create ((IReadableResource) aISP);
+    if (aISP instanceof final IReadableResource aRes)
+      return create (aRes);
     return create (aISP.getInputStream ());
   }
 

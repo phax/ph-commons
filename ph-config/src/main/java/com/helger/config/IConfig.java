@@ -19,7 +19,6 @@ package com.helger.config;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.traits.IGetterByKeyTrait;
@@ -36,8 +35,8 @@ import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 public interface IConfig extends IGetterByKeyTrait <String>
 {
   /**
-   * Get the configured value, which is the combination of the matching
-   * configuration source and the value, for the provided key.
+   * Get the configured value, which is the combination of the matching configuration source and the
+   * value, for the provided key.
    *
    * @param sKey
    *        The configuration key to look up.
@@ -48,9 +47,8 @@ public interface IConfig extends IGetterByKeyTrait <String>
   ConfiguredValue getConfiguredValue (@Nullable String sKey);
 
   /**
-   * Enumerate all contained configuration value provider. All items will be
-   * enumerated in the order they are checked, so the ones with highest priority
-   * first.
+   * Enumerate all contained configuration value provider. All items will be enumerated in the order
+   * they are checked, so the ones with highest priority first.
    *
    * @param aCallback
    *        The callback to invoked. May not be <code>null</code>.
@@ -58,11 +56,9 @@ public interface IConfig extends IGetterByKeyTrait <String>
   void forEachConfigurationValueProvider (@Nonnull IConfigurationValueProviderWithPriorityCallback aCallback);
 
   /**
-   * Count all configuration sources that implement
-   * {@link IConfigurationSourceResource}
+   * Count all configuration sources that implement {@link IConfigurationSourceResource}
    *
-   * @return The number of resource based configuration sources contained.
-   *         Always &ge; 0.
+   * @return The number of resource based configuration sources contained. Always &ge; 0.
    */
   @Nonnegative
   default int getResourceBasedConfigurationValueProviderCount ()
@@ -76,11 +72,11 @@ public interface IConfig extends IGetterByKeyTrait <String>
   }
 
   /**
-   * Reload the configuration from all resource based sources (the ones
-   * implementing {@link IConfigurationSourceResource}).
+   * Reload the configuration from all resource based sources (the ones implementing
+   * {@link IConfigurationSourceResource}).
    *
-   * @return {@link ESuccess#SUCCESS} if all could be reloaded,
-   *         {@link ESuccess#FAILURE} if at least one failed.
+   * @return {@link ESuccess#SUCCESS} if all could be reloaded, {@link ESuccess#FAILURE} if at least
+   *         one failed.
    * @since 9.4.8
    */
   @Nonnull
@@ -88,8 +84,8 @@ public interface IConfig extends IGetterByKeyTrait <String>
   {
     final Wrapper <ESuccess> ret = new Wrapper <> (ESuccess.SUCCESS);
     forEachConfigurationValueProvider ( (cvp, prio) -> {
-      if (cvp instanceof IConfigurationSourceResource)
-        ret.set (ret.get ().or (((IConfigurationSourceResource) cvp).reload ()));
+      if (cvp instanceof final IConfigurationSourceResource aSrcRes)
+        ret.set (ret.get ().or (aSrcRes.reload ()));
     });
     return ret.get ();
   }

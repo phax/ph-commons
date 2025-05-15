@@ -24,12 +24,10 @@ import java.util.function.Function;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -50,47 +48,6 @@ import com.helger.commons.system.SystemHelper;
 public final class LocaleHelper
 {
   /**
-   * Small cache for the resolved locales.
-   *
-   * @author Philip Helger
-   */
-  @ThreadSafe
-  private static final class LocaleListCache extends Cache <Locale, List <Locale>>
-  {
-    public LocaleListCache ()
-    {
-      // Unlimited size
-      super (aBaseLocale -> {
-        ValueEnforcer.notNull (aBaseLocale, "BaseLocale");
-
-        // List has a maximum of 3 entries
-        final ICommonsList <Locale> ret = new CommonsArrayList <> (3);
-        final String sLanguage = aBaseLocale.getLanguage ();
-        if (sLanguage.length () > 0)
-        {
-          final LocaleCache aLC = LocaleCache.getInstance ();
-
-          // Use only the language
-          ret.add (0, aLC.getLocale (sLanguage));
-          final String sCountry = aBaseLocale.getCountry ();
-          if (sCountry.length () > 0)
-          {
-            // Use language + country
-            ret.add (0, aLC.getLocale (sLanguage, sCountry));
-            final String sVariant = aBaseLocale.getVariant ();
-            if (sVariant.length () > 0)
-            {
-              // Use language + country + variant
-              ret.add (0, aLC.getLocale (sLanguage, sCountry, sVariant));
-            }
-          }
-        }
-        return ret.getAsUnmodifiable ();
-      }, CGlobal.ILLEGAL_UINT, LocaleListCache.class.getName ());
-    }
-  }
-
-  /**
    * Separates language and country in a locale string representation.
    */
   public static final char LOCALE_SEPARATOR = '_';
@@ -106,8 +63,7 @@ public final class LocaleHelper
   public static final Locale LOCALE_ALL = new Locale (STR_ALL, "", "");
 
   /**
-   * The language string representing the "independent" locale. See
-   * {@link #LOCALE_INDEPENDENT}.
+   * The language string representing the "independent" locale. See {@link #LOCALE_INDEPENDENT}.
    */
   public static final String STR_INDEPENDENT = "independent";
 
@@ -118,7 +74,7 @@ public final class LocaleHelper
 
   private static final String LOCALE_ALL_STR = LOCALE_ALL.toString ();
   private static final String LOCALE_INDEPENDENT_STR = LOCALE_INDEPENDENT.toString ();
-  private static final LocaleListCache LOCALE_LIST_CACHE = new LocaleListCache ();
+  private static final Cache <Locale, List <Locale>> LOCALE_LIST_CACHE;
   private static final ICommonsMap <String, String> COUNTRY_ISO3TO2 = new CommonsHashMap <> ();
 
   @PresentForCodeCoverage
@@ -126,6 +82,34 @@ public final class LocaleHelper
 
   static
   {
+    LOCALE_LIST_CACHE = Cache.<Locale, List <Locale>> builder ().valueProvider (aBaseLocale -> {
+      ValueEnforcer.notNull (aBaseLocale, "BaseLocale");
+
+      // List has a maximum of 3 entries
+      final ICommonsList <Locale> ret = new CommonsArrayList <> (3);
+      final String sLanguage = aBaseLocale.getLanguage ();
+      if (sLanguage.length () > 0)
+      {
+        final LocaleCache aLC = LocaleCache.getInstance ();
+
+        // Use only the language
+        ret.add (0, aLC.getLocale (sLanguage));
+        final String sCountry = aBaseLocale.getCountry ();
+        if (sCountry.length () > 0)
+        {
+          // Use language + country
+          ret.add (0, aLC.getLocale (sLanguage, sCountry));
+          final String sVariant = aBaseLocale.getVariant ();
+          if (sVariant.length () > 0)
+          {
+            // Use language + country + variant
+            ret.add (0, aLC.getLocale (sLanguage, sCountry, sVariant));
+          }
+        }
+      }
+      return ret.getAsUnmodifiable ();
+    }).name (LocaleHelper.class.getName () + "$Cache").build ();
+
     for (final String sISO : Locale.getISOCountries ())
     {
       final Locale aLocale = new Locale ("", sISO);
@@ -137,18 +121,16 @@ public final class LocaleHelper
   {}
 
   /**
-   * Get the display name of the passed language in the currently selected UI
-   * language.
+   * Get the display name of the passed language in the currently selected UI language.
    *
    * @param aLocale
-   *        The locale from which the display name is required. May be
-   *        <code>null</code>.
+   *        The locale from which the display name is required. May be <code>null</code>.
    * @param aContentLocale
-   *        The locale in which the name of the locale is required. If aLocale
-   *        is "de" and display locale is "de" the result would be "Deutsch"
-   *        whereas if display locale is "en" the result would be "German".
-   * @return the display name of the language or a fixed text if the passed
-   *         Locale is <code>null</code>, "all" or "independent"
+   *        The locale in which the name of the locale is required. If aLocale is "de" and display
+   *        locale is "de" the result would be "Deutsch" whereas if display locale is "en" the
+   *        result would be "German".
+   * @return the display name of the language or a fixed text if the passed Locale is
+   *         <code>null</code>, "all" or "independent"
    * @see #LOCALE_ALL
    * @see #LOCALE_INDEPENDENT
    */
@@ -183,8 +165,7 @@ public final class LocaleHelper
    *
    * @param aContentLocale
    *        the locale ID in which the language list is required
-   * @return The mapping from the input locale to the display text. The result
-   *         map is not ordered.
+   * @return The mapping from the input locale to the display text. The result map is not ordered.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -198,8 +179,8 @@ public final class LocaleHelper
   }
 
   /**
-   * Get a list with all valid locale permutations of the passed locale. If the
-   * passed locale has no language, always an empty list is returned.<br>
+   * Get a list with all valid locale permutations of the passed locale. If the passed locale has no
+   * language, always an empty list is returned.<br>
    * Examples:
    * <ul>
    * <li>"de_AT" =&gt; ["de_AT", "de"]</li>
@@ -212,12 +193,10 @@ public final class LocaleHelper
    * </ul>
    *
    * @param aLocale
-   *        The locale to get the permutation from. May not be <code>null</code>
-   *        .
-   * @return A non-<code>null</code> unmodifiable list of all permutations of
-   *         the locale, with the most specific locale being first. The returned
-   *         list has never more than three entries. The returned list may have
-   *         no entries, if the passed locale has no language.
+   *        The locale to get the permutation from. May not be <code>null</code> .
+   * @return A non-<code>null</code> unmodifiable list of all permutations of the locale, with the
+   *         most specific locale being first. The returned list has never more than three entries.
+   *         The returned list may have no entries, if the passed locale has no language.
    */
   @Nonnull
   @ReturnsImmutableObject
@@ -230,15 +209,14 @@ public final class LocaleHelper
   }
 
   /**
-   * Convert a String in the form "language-country-variant" to a Locale object.
-   * Language needs to have exactly 2 characters. Country is optional but if
-   * present needs to have exactly 2 characters. Variant is optional.
+   * Convert a String in the form "language-country-variant" to a Locale object. Language needs to
+   * have exactly 2 characters. Country is optional but if present needs to have exactly 2
+   * characters. Variant is optional.
    *
    * @param sLocaleAsString
    *        The string representation to be converted to a Locale.
-   * @return Never <code>null</code>. If the passed parameter is
-   *         <code>null</code> or empty, {@link SystemHelper#getSystemLocale()}
-   *         is returned.
+   * @return Never <code>null</code>. If the passed parameter is <code>null</code> or empty,
+   *         {@link SystemHelper#getSystemLocale()} is returned.
    */
   @Nonnull
   public static Locale getLocaleFromString (@Nullable final String sLocaleAsString)
@@ -304,7 +282,8 @@ public final class LocaleHelper
   }
 
   @Nullable
-  public static Locale getLocaleToUseOrNull (@Nonnull final Locale aRequestLocale, @Nonnull final Collection <Locale> aAvailableLocales)
+  public static Locale getLocaleToUseOrNull (@Nonnull final Locale aRequestLocale,
+                                             @Nonnull final Collection <Locale> aAvailableLocales)
   {
     return getLocaleToUseOrFallback (aRequestLocale, aAvailableLocales, null);
   }
@@ -347,8 +326,7 @@ public final class LocaleHelper
   }
 
   /**
-   * Check if the passed locale is one of the special locales "all" or
-   * "independent"
+   * Check if the passed locale is one of the special locales "all" or "independent"
    *
    * @param aLocale
    *        The locale to check. May be <code>null</code>.
@@ -362,8 +340,7 @@ public final class LocaleHelper
   }
 
   /**
-   * Check if the passed locale is one of the special locales "all" or
-   * "independent"
+   * Check if the passed locale is one of the special locales "all" or "independent"
    *
    * @param sLocale
    *        The locale to check. May be <code>null</code>.
@@ -379,7 +356,8 @@ public final class LocaleHelper
   @Nullable
   public static String getValidLanguageCode (@Nullable final String sCode)
   {
-    if (StringHelper.hasText (sCode) && (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2,8}", sCode) || isSpecialLocaleCode (sCode)))
+    if (StringHelper.hasText (sCode) &&
+        (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2,8}", sCode) || isSpecialLocaleCode (sCode)))
     {
       return sCode.toLowerCase (Locale.ROOT);
     }
@@ -387,8 +365,8 @@ public final class LocaleHelper
   }
 
   /**
-   * Ensure a country code is valid by converting it to a 2-character uppercase
-   * code. This method also maps 3 letter codes to 2 letter codes.
+   * Ensure a country code is valid by converting it to a 2-character uppercase code. This method
+   * also maps 3 letter codes to 2 letter codes.
    *
    * @param sCode
    *        The country code to check. May be <code>null</code>.

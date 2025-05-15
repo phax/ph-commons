@@ -29,15 +29,14 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.id.IHasID;
 
 /**
- * This interface is used for all the common stuff of a scope. The following
- * types of scopes are present:
+ * This interface is used for all the common stuff of a scope. The following types of scopes are
+ * present:
  * <ul>
  * <li>Global scope - once and only once</li>
- * <li>Application context - scope for an application (e.g. public and secure
- * application in one web application)</li>
+ * <li>Application context - scope for an application (e.g. public and secure application in one web
+ * application)</li>
  * <li>Session scope - for each user created session</li>
- * <li>Session application context - scope for an application within a session
- * </li>
+ * <li>Session application context - scope for an application within a session</li>
  * <li>Request scope - for each user request</li>
  * </ul>
  * IMPORTANT: implementations of {@link IScope} must be thread safe!
@@ -47,43 +46,41 @@ import com.helger.commons.id.IHasID;
 public interface IScope extends IHasID <String>
 {
   /**
-   * Init the scope. In contrast to the constructor of a scope, this happens
-   * after the scope has been registered in the scope manager.
+   * Init the scope. In contrast to the constructor of a scope, this happens after the scope has
+   * been registered in the scope manager.
    */
   void initScope ();
 
   /**
-   * Get the ID of this scope. Each scope retrieves a unique ID within its type
-   * of scope (request, session, application). This method needs to be callable
-   * anytime and should not throw any exception!
+   * Get the ID of this scope. Each scope retrieves a unique ID within its type of scope (request,
+   * session, application). This method needs to be callable anytime and should not throw any
+   * exception!
    *
    * @return the non-null ID of this context.
    */
   String getID ();
 
   /**
-   * @return <code>true</code> if this scope is neither in destruction nor
-   *         destroyed.
+   * @return <code>true</code> if this scope is neither in destruction nor destroyed.
    * @see #isInDestruction()
    * @see #isDestroyed()
    */
   boolean isValid ();
 
   /**
-   * @return <code>true</code> if the scope is currently in the process of
-   *         destruction.
+   * @return <code>true</code> if the scope is currently in the process of destruction.
    */
   boolean isInDestruction ();
 
   /**
-   * @return <code>true</code> if the scope was already destroyed. This is
-   *         especially important for long running scopes.
+   * @return <code>true</code> if the scope was already destroyed. This is especially important for
+   *         long running scopes.
    */
   boolean isDestroyed ();
 
   /**
-   * Destroys the scopes and all child scopes. This method is only automatically
-   * called, when a scope goes out of scope.
+   * Destroys the scopes and all child scopes. This method is only automatically called, when a
+   * scope goes out of scope.
    */
   void destroyScope ();
 
@@ -91,8 +88,8 @@ public interface IScope extends IHasID <String>
    * Perform stuff as a single action. All actions are executed in a write-lock!
    *
    * @param aConsumer
-   *        The consumer to be executed. May not be <code>null</code>. The
-   *        parameter to the runnable is <code>this</code> scope.
+   *        The consumer to be executed. May not be <code>null</code>. The parameter to the runnable
+   *        is <code>this</code> scope.
    */
   void runAtomic (@Nonnull Consumer <? super IScope> aConsumer);
 
@@ -100,8 +97,8 @@ public interface IScope extends IHasID <String>
    * Perform stuff as a single action. All actions are executed in a write-lock!
    *
    * @param aFunction
-   *        The function to be executed. May not be <code>null</code>. The
-   *        parameter to the callable is <code>this</code> scope.
+   *        The function to be executed. May not be <code>null</code>. The parameter to the callable
+   *        is <code>this</code> scope.
    * @return The result from the callable. May be <code>null</code>.
    * @param <T>
    *        The return type of the callable
@@ -117,8 +114,8 @@ public interface IScope extends IHasID <String>
   IAttributeContainerAny <String> attrs ();
 
   /**
-   * @return The non-<code>null</code> map with all contained attributes that
-   *         implement the {@link IScopeRenewalAware} interface. May be empty.
+   * @return The non-<code>null</code> map with all contained attributes that implement the
+   *         {@link IScopeRenewalAware} interface. May be empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -126,8 +123,8 @@ public interface IScope extends IHasID <String>
   {
     final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
     attrs ().forEach ( (n, v) -> {
-      if (v instanceof IScopeRenewalAware)
-        ret.put (n, (IScopeRenewalAware) v);
+      if (v instanceof final IScopeRenewalAware aRenewalAware)
+        ret.put (n, aRenewalAware);
     });
     return ret;
   }

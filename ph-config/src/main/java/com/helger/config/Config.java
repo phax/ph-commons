@@ -20,13 +20,12 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
@@ -40,16 +39,15 @@ import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
 /**
- * Default implementation of {@link IConfig}. It is recommended to use
- * {@link ConfigFactory} for accessing {@link IConfig} objects.
+ * Default implementation of {@link IConfig}. It is recommended to use {@link ConfigFactory} for
+ * accessing {@link IConfig} objects.
  *
  * @author Philip Helger
  */
 public class Config implements IConfig
 {
   /**
-   * For backwards compatibility reason, variable replacement is enabled by
-   * default since v11.0.2.
+   * For backwards compatibility reason, variable replacement is enabled by default since v11.0.2.
    */
   public static final boolean DEFAULT_REPLACE_VARIABLES = true;
   /**
@@ -80,8 +78,8 @@ public class Config implements IConfig
   }
 
   /**
-   * @return The configuration value provider as provided in the constructor.
-   *         Never <code>null</code>.
+   * @return The configuration value provider as provided in the constructor. Never
+   *         <code>null</code>.
    */
   @Nonnull
   public final IConfigurationValueProvider getConfigurationValueProvider ()
@@ -90,8 +88,8 @@ public class Config implements IConfig
   }
 
   /**
-   * @return The callback to be invoked if a configuration value was found. May
-   *         be <code>null</code>.
+   * @return The callback to be invoked if a configuration value was found. May be
+   *         <code>null</code>.
    */
   @Nullable
   public final BiConsumer <String, ConfiguredValue> getFoundKeyConsumer ()
@@ -101,8 +99,8 @@ public class Config implements IConfig
 
   /**
    * @param aKeyFoundConsumer
-   *        The callback to be invoked if a configuration value was found. The
-   *        parameters are key and value. May be <code>null</code>.
+   *        The callback to be invoked if a configuration value was found. The parameters are key
+   *        and value. May be <code>null</code>.
    * @return this for chaining
    * @since 9.4.5
    */
@@ -114,8 +112,8 @@ public class Config implements IConfig
   }
 
   /**
-   * @return The callback to be invoked if a configuration value was <b>not</b>
-   *         found. May be <code>null</code>.
+   * @return The callback to be invoked if a configuration value was <b>not</b> found. May be
+   *         <code>null</code>.
    */
   @Nullable
   public final Consumer <String> getKeyNotFoundConsumer ()
@@ -125,8 +123,8 @@ public class Config implements IConfig
 
   /**
    * @param aKeyNotFoundConsumer
-   *        The callback to be invoked if a configuration value was <b>not</b>
-   *        found. The parameter is the key. May be <code>null</code>.
+   *        The callback to be invoked if a configuration value was <b>not</b> found. The parameter
+   *        is the key. May be <code>null</code>.
    * @return this for chaining
    * @since 9.4.5
    */
@@ -138,9 +136,8 @@ public class Config implements IConfig
   }
 
   /**
-   * @return <code>true</code> if variables in configuration properties should
-   *         be replaced, <code>false</code> if not. The default value is
-   *         {@value #DEFAULT_REPLACE_VARIABLES}.
+   * @return <code>true</code> if variables in configuration properties should be replaced,
+   *         <code>false</code> if not. The default value is {@value #DEFAULT_REPLACE_VARIABLES}.
    * @since 10.2.0
    */
   public final boolean isReplaceVariables ()
@@ -152,8 +149,7 @@ public class Config implements IConfig
    * Enable or disable the replacement of variables in configuration values.
    *
    * @param bReplaceVariables
-   *        <code>true</code> to enable replacement, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enable replacement, <code>false</code> to disable it.
    * @return this for chaining
    * @since 10.2.0
    */
@@ -165,9 +161,8 @@ public class Config implements IConfig
   }
 
   /**
-   * @return <code>true</code> if variables are allowed to have default values
-   *         in the form <code>${variable:default}</code>, <code>false</code> if
-   *         not. The default value is
+   * @return <code>true</code> if variables are allowed to have default values in the form
+   *         <code>${variable:default}</code>, <code>false</code> if not. The default value is
    *         {@value #DEFAULT_USE_VARIABLE_DEFAULT_VALUES}.
    * @since 11.1.1
    */
@@ -177,12 +172,10 @@ public class Config implements IConfig
   }
 
   /**
-   * Enable or disable the usage of default values in variables of configuration
-   * values.
+   * Enable or disable the usage of default values in variables of configuration values.
    *
    * @param bUseVariableDefaultValues
-   *        <code>true</code> to allow the usage, <code>false</code> to disable
-   *        it.
+   *        <code>true</code> to allow the usage, <code>false</code> to disable it.
    * @return this for chaining
    * @since 11.1.1
    */
@@ -194,8 +187,7 @@ public class Config implements IConfig
   }
 
   /**
-   * @return The unresolved variable provider to be used. Never
-   *         <code>null</code>.
+   * @return The unresolved variable provider to be used. Never <code>null</code>.
    */
   @Nonnull
   public final UnaryOperator <String> getUnresolvedVariableProvider ()
@@ -207,8 +199,7 @@ public class Config implements IConfig
    * Set the handler to be invoked when a variable could not be resolved.
    *
    * @param aUnresolvedVariableProvider
-   *        The unresolved variable provider to be used. May not be
-   *        <code>null</code>.
+   *        The unresolved variable provider to be used. May not be <code>null</code>.
    * @return this for chaining
    * @since 10.2.0
    */
@@ -352,9 +343,8 @@ public class Config implements IConfig
                                                                    final int nParentPriority,
                                                                    @Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
-    if (aValueProvider instanceof MultiConfigurationValueProvider)
+    if (aValueProvider instanceof final MultiConfigurationValueProvider aMulti)
     {
-      final MultiConfigurationValueProvider aMulti = (MultiConfigurationValueProvider) aValueProvider;
       // Descend recursively
       aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> _forEachConfigurationValueProviderRecursive (cvp,
                                                                                                              prio,
@@ -364,10 +354,9 @@ public class Config implements IConfig
     {
       // By default no priority
       int nPriority = nParentPriority;
-      if (nPriority < 0 && aValueProvider instanceof IConfigurationSource)
+      if (nPriority < 0 && aValueProvider instanceof final IConfigurationSource aSource)
       {
         // Top-level configuration source
-        final IConfigurationSource aSource = (IConfigurationSource) aValueProvider;
         nPriority = aSource.getPriority ();
       }
       aCallback.onConfigurationValueProvider (aValueProvider, nPriority);

@@ -244,12 +244,12 @@ public class JsonValue implements IJsonValue
       return FALSE;
 
     // Change to Integer/Double
-    if (aValue instanceof Byte)
-      return create (((Byte) aValue).byteValue ());
-    if (aValue instanceof Short)
-      return create (((Short) aValue).shortValue ());
-    if (aValue instanceof Float)
-      return create (MathHelper.toBigDecimal ((Float) aValue).doubleValue ());
+    if (aValue instanceof final Byte aByte)
+      return create (aByte.byteValue ());
+    if (aValue instanceof final Short aShort)
+      return create (aShort.shortValue ());
+    if (aValue instanceof final Float aFloat)
+      return create (MathHelper.toBigDecimal (aFloat).doubleValue ());
 
     // New object
     return new JsonValue (aValue);

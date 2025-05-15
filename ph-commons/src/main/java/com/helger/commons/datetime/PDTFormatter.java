@@ -137,7 +137,7 @@ public final class PDTFormatter
         // And finally create the cached DateTimeFormatter
         // Default to strict - can be changed afterwards
         return DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
-      }, 1000, LocalizedDateFormatCache.class.getName ());
+      }, 1_000, LocalizedDateFormatCache.class.getName ());
     }
 
     @Nonnull

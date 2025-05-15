@@ -23,13 +23,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.IsSPIImplementation;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
@@ -254,22 +253,22 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
 
     // to StringBuilder
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (StringBuilder.class, aSource -> {
-      if (aSource instanceof CharSequence)
-        return new StringBuilder ((CharSequence) aSource);
+      if (aSource instanceof final CharSequence aCS)
+        return new StringBuilder (aCS);
       return new StringBuilder (TypeConverter.convert (aSource, String.class));
     });
 
     // to StringBuffer
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (StringBuffer.class, aSource -> {
-      if (aSource instanceof CharSequence)
-        return new StringBuffer ((CharSequence) aSource);
+      if (aSource instanceof final CharSequence aCS)
+        return new StringBuffer (aCS);
       return new StringBuffer (TypeConverter.convert (aSource, String.class));
     });
 
     // Enum
     /*
-     * We need to append the Enum class name, otherwise we cannot resolve it!
-     * Use the colon as it is not allowed in class names.
+     * We need to append the Enum class name, otherwise we cannot resolve it! Use the colon as it is
+     * not allowed in class names.
      */
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Enum.class,
                                                                          String.class,
@@ -285,9 +284,8 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
       try
       {
         /*
-         * Resolve any enum class. Note: The explicit EChange is just here,
-         * because an explicit enum type is needed. It must of course not only
-         * be EChange :)
+         * Resolve any enum class. Note: The explicit EChange is just here, because an explicit enum
+         * type is needed. It must of course not only be EChange :)
          */
         final Class <EChange> aClass = GenericReflection.getClassFromName (aParts.get (0));
         /*

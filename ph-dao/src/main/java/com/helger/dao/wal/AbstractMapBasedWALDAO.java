@@ -185,8 +185,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     aDoc.getDocumentElement ().forAllChildElements (m_aReadElementFilter, eItem -> {
       final IMPLTYPE aItem = MicroTypeConverter.convertToNative (eItem, aDataTypeClass);
       _addItem (aItem, EDAOActionType.CREATE);
-      if (aItem instanceof IDAOReadChangeAware)
-        if (((IDAOReadChangeAware) aItem).isReadChanged ())
+      if (aItem instanceof final IDAOReadChangeAware aChangeAware)
+        if (aChangeAware.isReadChanged ())
         {
           // Remember that something was changed while reading
           aChange.set (EChange.CHANGED);

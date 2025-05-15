@@ -21,15 +21,14 @@ import java.text.ParseException;
 import java.text.RuleBasedCollator;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.cache.Cache;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -43,60 +42,54 @@ import com.helger.commons.system.SystemHelper;
 @ThreadSafe
 public final class CollatorHelper
 {
-  /**
-   * Local cache from Locale to Collator because Collator.getInstance is
-   * synchronized!
-   *
-   * @author Philip Helger
-   */
-  @ThreadSafe
-  private static final class CollatorCache extends Cache <Locale, Collator>
+  private static final Logger LOGGER = LoggerFactory.getLogger (CollatorHelper.class);
+
+  private static final Cache <Locale, Collator> COLLATOR_CACHE;
+  static
   {
-    private static final Logger LOGGER = LoggerFactory.getLogger (CollatorCache.class);
+    COLLATOR_CACHE = Cache.<Locale, Collator> builder ().valueProvider (aLocale -> {
+      if (aLocale == null)
+      {
+        LOGGER.error ("Very weird: no locale passed in. Falling back to system locale.");
+        return Collator.getInstance (SystemHelper.getSystemLocale ());
+      }
 
-    public CollatorCache ()
-    {
-      super (aLocale -> {
-        if (aLocale == null)
-        {
-          LOGGER.error ("Very weird: no locale passed in. Falling back to system locale.");
-          return Collator.getInstance (SystemHelper.getSystemLocale ());
-        }
+      /*
+       * Collator.getInstance is synchronized and therefore extremely slow -> that's why we put a
+       * cache around it!
+       */
+      final Collator aCollator = Collator.getInstance (aLocale);
+      if (!(aCollator instanceof RuleBasedCollator))
+      {
+        LOGGER.warn ("Collator.getInstance did not return a RulleBasedCollator but a " +
+                     aCollator.getClass ().getName ());
+        return aCollator;
+      }
 
-        // Collator.getInstance is synchronized and therefore extremely slow ->
-        // that's why we put a cache around it!
-        final Collator aCollator = Collator.getInstance (aLocale);
-        if (!(aCollator instanceof RuleBasedCollator))
+      try
+      {
+        final String sRules = ((RuleBasedCollator) aCollator).getRules ();
+        if (!sRules.contains ("<'.'<"))
         {
-          LOGGER.warn ("Collator.getInstance did not return a RulleBasedCollator but a " + aCollator.getClass ().getName ());
+          /*
+           * Nothing to replace - use collator as it is
+           */
+          LOGGER.warn ("Failed to identify the Collator rule part to be replaced. Locale used: " + aLocale);
           return aCollator;
         }
 
-        try
-        {
-          final String sRules = ((RuleBasedCollator) aCollator).getRules ();
-          if (!sRules.contains ("<'.'<"))
-          {
-            // Nothing to replace - use collator as it is
-            LOGGER.warn ("Failed to identify the Collator rule part to be replaced. Locale used: " + aLocale);
-            return aCollator;
-          }
-
-          final String sNewRules = StringHelper.replaceAll (sRules, "<'.'<", "<' '<'.'<");
-          final RuleBasedCollator aNewCollator = new RuleBasedCollator (sNewRules);
-          aNewCollator.setStrength (Collator.TERTIARY);
-          aNewCollator.setDecomposition (Collator.FULL_DECOMPOSITION);
-          return aNewCollator;
-        }
-        catch (final ParseException ex)
-        {
-          throw new IllegalStateException ("Failed to parse collator rule set for locale " + aLocale, ex);
-        }
-      }, 500, CollatorHelper.class.getName ());
-    }
+        final String sNewRules = StringHelper.replaceAll (sRules, "<'.'<", "<' '<'.'<");
+        final RuleBasedCollator aNewCollator = new RuleBasedCollator (sNewRules);
+        aNewCollator.setStrength (Collator.TERTIARY);
+        aNewCollator.setDecomposition (Collator.FULL_DECOMPOSITION);
+        return aNewCollator;
+      }
+      catch (final ParseException ex)
+      {
+        throw new IllegalStateException ("Failed to parse collator rule set for locale " + aLocale, ex);
+      }
+    }).maxSize (500).name (CollatorHelper.class.getName () + "$Cache").build ();
   }
-
-  private static final CollatorCache COLLATOR_CACHE = new CollatorCache ();
 
   @PresentForCodeCoverage
   private static final CollatorHelper INSTANCE = new CollatorHelper ();
@@ -105,14 +98,13 @@ public final class CollatorHelper
   {}
 
   /**
-   * Create a collator that is based on the standard collator but sorts spaces
-   * before dots, because spaces are more important word separators than dots.
-   * Another example is the correct sorting of things like "1.1 a" vs. "1.1.1 b"
-   * . This is the default collator used for sorting by default!
+   * Create a collator that is based on the standard collator but sorts spaces before dots, because
+   * spaces are more important word separators than dots. Another example is the correct sorting of
+   * things like "1.1 a" vs. "1.1.1 b" . This is the default collator used for sorting by default!
    *
    * @param aLocale
-   *        The locale for which the collator is to be retrieved. May be
-   *        <code>null</code> to indicate the usage of the default locale.
+   *        The locale for which the collator is to be retrieved. May be <code>null</code> to
+   *        indicate the usage of the default locale.
    * @return The created {@link RuleBasedCollator} and never <code>null</code>.
    */
   @Nonnull

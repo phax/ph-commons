@@ -18,12 +18,11 @@ package com.helger.commons.hashcode;
 
 import java.util.Map;
 
+import org.w3c.dom.Node;
+
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
-import org.w3c.dom.Node;
-
 import com.helger.commons.ValueEnforcer;
 
 /**
@@ -83,7 +82,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    */
   public HashCodeGenerator (@Nonnull final Object aSrcObject)
   {
-    this (aSrcObject instanceof Class <?> ? (Class <?>) aSrcObject : aSrcObject.getClass ());
+    this (aSrcObject instanceof final Class <?> aClass ? aClass : aSrcObject.getClass ());
   }
 
   /**

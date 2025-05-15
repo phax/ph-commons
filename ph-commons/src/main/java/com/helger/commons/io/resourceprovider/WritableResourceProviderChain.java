@@ -33,8 +33,7 @@ import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A resource provider chain implementation of {@link IWritableResourceProvider}
- * .
+ * A resource provider chain implementation of {@link IWritableResourceProvider} .
  *
  * @author Philip Helger
  */
@@ -48,8 +47,9 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
     super (aResProviders);
 
     for (final IReadableResourceProvider aResProvider : aResProviders)
-      if (aResProvider instanceof IWritableResourceProvider)
-        m_aWritableResourceProviders.add ((IWritableResourceProvider) aResProvider);
+      if (aResProvider instanceof final IWritableResourceProvider aWRP)
+        m_aWritableResourceProviders.add (aWRP);
+
     if (m_aWritableResourceProviders.isEmpty ())
       throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
   }
@@ -59,8 +59,9 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
     super (aResProviders);
 
     for (final IReadableResourceProvider aResProvider : aResProviders)
-      if (aResProvider instanceof IWritableResourceProvider)
-        m_aWritableResourceProviders.add ((IWritableResourceProvider) aResProvider);
+      if (aResProvider instanceof final IWritableResourceProvider aWRP)
+        m_aWritableResourceProviders.add (aWRP);
+
     if (m_aWritableResourceProviders.isEmpty ())
       throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
   }
@@ -87,7 +88,10 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
     for (final IWritableResourceProvider aResProvider : m_aWritableResourceProviders)
       if (aResProvider.supportsWriting (sName))
         return aResProvider.getWritableResource (sName);
-    throw new IllegalArgumentException ("Cannot handle writing '" + sName + "' by any of " + m_aWritableResourceProviders);
+    throw new IllegalArgumentException ("Cannot handle writing '" +
+                                        sName +
+                                        "' by any of " +
+                                        m_aWritableResourceProviders);
   }
 
   @Nullable
@@ -140,6 +144,8 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("writableResProviders", m_aWritableResourceProviders).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("writableResProviders", m_aWritableResourceProviders)
+                            .getToString ();
   }
 }

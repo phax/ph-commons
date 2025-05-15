@@ -35,6 +35,9 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
@@ -43,10 +46,6 @@ import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
@@ -113,8 +112,8 @@ public final class URLHelper
   {}
 
   /**
-   * URL-decode the passed value automatically handling charset issues. The used
-   * char set is determined by {@link #CHARSET_URL_OBJ}.
+   * URL-decode the passed value automatically handling charset issues. The used char set is
+   * determined by {@link #CHARSET_URL_OBJ}.
    *
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
@@ -130,8 +129,8 @@ public final class URLHelper
   }
 
   /**
-   * URL-decode the passed value automatically handling charset issues. The
-   * implementation uses {@link URLCodec} to do the hard work.
+   * URL-decode the passed value automatically handling charset issues. The implementation uses
+   * {@link URLCodec} to do the hard work.
    *
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
@@ -157,8 +156,8 @@ public final class URLHelper
   }
 
   /**
-   * URL-decode the passed value automatically handling charset issues. The used
-   * char set is determined by {@link #CHARSET_URL_OBJ}.
+   * URL-decode the passed value automatically handling charset issues. The used char set is
+   * determined by {@link #CHARSET_URL_OBJ}.
    *
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
@@ -173,8 +172,8 @@ public final class URLHelper
   }
 
   /**
-   * URL-decode the passed value automatically handling charset issues. The
-   * implementation uses {@link URLCodec} to do the hard work.
+   * URL-decode the passed value automatically handling charset issues. The implementation uses
+   * {@link URLCodec} to do the hard work.
    *
    * @param sValue
    *        The value to be decoded. May be <code>null</code>.
@@ -191,8 +190,8 @@ public final class URLHelper
   }
 
   /**
-   * URL-decode the passed value automatically handling charset issues. The used
-   * char set is determined by {@link #CHARSET_URL_OBJ}.
+   * URL-decode the passed value automatically handling charset issues. The used char set is
+   * determined by {@link #CHARSET_URL_OBJ}.
    *
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
@@ -209,8 +208,8 @@ public final class URLHelper
   }
 
   /**
-   * URL-decode the passed value automatically handling charset issues. The
-   * implementation uses {@link URLCodec} to do the hard work.
+   * URL-decode the passed value automatically handling charset issues. The implementation uses
+   * {@link URLCodec} to do the hard work.
    *
    * @param sValue
    *        The value to be decoded. May be <code>null</code>.
@@ -240,8 +239,8 @@ public final class URLHelper
   }
 
   /**
-   * URL-encode the passed value automatically handling charset issues. The used
-   * char set is determined by {@link #CHARSET_URL_OBJ}.
+   * URL-encode the passed value automatically handling charset issues. The used char set is
+   * determined by {@link #CHARSET_URL_OBJ}.
    *
    * @param sValue
    *        The value to be encoded. May not be <code>null</code>.
@@ -254,9 +253,8 @@ public final class URLHelper
   }
 
   /**
-   * URL-encode the passed value automatically handling charset issues. This is
-   * a ripped, optimized version of URLEncoder.encode but without the
-   * UnsupportedEncodingException.
+   * URL-encode the passed value automatically handling charset issues. This is a ripped, optimized
+   * version of URLEncoder.encode but without the UnsupportedEncodingException.
    *
    * @param sValue
    *        The value to be encoded. May not be <code>null</code>.
@@ -324,8 +322,7 @@ public final class URLHelper
    *
    * @param sURLPart
    *        The original URL part. May be <code>null</code>.
-   * @return The cleaned version or <code>null</code> if the input was
-   *         <code>null</code>.
+   * @return The cleaned version or <code>null</code> if the input was <code>null</code>.
    */
   @Nullable
   public static String getCleanURLPartWithoutUmlauts (@Nullable final String sURLPart)
@@ -349,8 +346,7 @@ public final class URLHelper
    *        The URL to be parsed
    * @param aParameterDecoder
    *        The parameter decoder to use. May be <code>null</code>.
-   * @return the corresponding {@link ISimpleURL} representation of the passed
-   *         URL
+   * @return the corresponding {@link ISimpleURL} representation of the passed URL
    */
   @Nonnull
   public static ISimpleURL getAsURLData (@Nonnull final String sHref,
@@ -454,12 +450,11 @@ public final class URLHelper
    * @param sPath
    *        The main path. May be <code>null</code>.
    * @param sQueryParams
-   *        The set of all query parameters already concatenated with the
-   *        correct characters (&amp; and =). May be <code>null</code>.
+   *        The set of all query parameters already concatenated with the correct characters (&amp;
+   *        and =). May be <code>null</code>.
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
-   * @return May be <code>null</code> if path, anchor and parameters are
-   *         <code>null</code>.
+   * @return May be <code>null</code> if path, anchor and parameters are <code>null</code>.
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
@@ -535,15 +530,13 @@ public final class URLHelper
   }
 
   /**
-   * Create a parameter string. This is also suitable for POST body (e.g. for
-   * web form submission).
+   * Create a parameter string. This is also suitable for POST body (e.g. for web form submission).
    *
    * @param aQueryParams
    *        Parameter map. May be <code>null</code> or empty.
    * @param aQueryParameterEncoder
-   *        The encoder to be used to encode parameter names and parameter
-   *        values. May be <code>null</code>. This may be e.g. a
-   *        {@link URLParameterEncoder}.
+   *        The encoder to be used to encode parameter names and parameter values. May be
+   *        <code>null</code>. This may be e.g. a {@link URLParameterEncoder}.
    * @return <code>null</code> if no parameter is present.
    */
   @Nullable
@@ -577,14 +570,12 @@ public final class URLHelper
    * @param sPath
    *        The main path. May be <code>null</code>.
    * @param aQueryParams
-   *        The list of query parameters to be appended. May be
-   *        <code>null</code> .
+   *        The list of query parameters to be appended. May be <code>null</code> .
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
    * @param aQueryParameterEncoder
    *        The parameters encoding to be used. May be <code>null</code>.
-   * @return May be <code>null</code> if path, anchor and parameters are
-   *         <code>null</code>.
+   * @return May be <code>null</code> if path, anchor and parameters are <code>null</code>.
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
@@ -605,8 +596,7 @@ public final class URLHelper
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
    * @param aParameterCharset
-   *        If not <code>null</code> the parameters are encoded using this
-   *        charset.
+   *        If not <code>null</code> the parameters are encoded using this charset.
    * @return May be <code>null</code> if all parameters are <code>null</code>.
    */
   @Nullable
@@ -621,8 +611,8 @@ public final class URLHelper
   }
 
   /**
-   * Get the passed String as an URL. If the string is empty or not an URL
-   * <code>null</code> is returned.
+   * Get the passed String as an URL. If the string is empty or not an URL <code>null</code> is
+   * returned.
    *
    * @param sURL
    *        Source URL. May be <code>null</code>.
@@ -648,8 +638,8 @@ public final class URLHelper
   }
 
   /**
-   * Get the passed String as an URL. If the string is empty or not an URL
-   * <code>null</code> is returned.
+   * Get the passed String as an URL. If the string is empty or not an URL <code>null</code> is
+   * returned.
    *
    * @param sURL
    *        Source URL. May be <code>null</code>.
@@ -662,13 +652,12 @@ public final class URLHelper
   }
 
   /**
-   * Get the passed URI as an URL. If the URI is null or cannot be converted to
-   * an URL <code>null</code> is returned.
+   * Get the passed URI as an URL. If the URI is null or cannot be converted to an URL
+   * <code>null</code> is returned.
    *
    * @param aURI
    *        Source URI. May be <code>null</code>.
-   * @return <code>null</code> if the passed URI is null or cannot be converted
-   *         to an URL.
+   * @return <code>null</code> if the passed URI is null or cannot be converted to an URL.
    */
   @Nullable
   public static URL getAsURL (@Nullable final URI aURI)
@@ -688,8 +677,8 @@ public final class URLHelper
   }
 
   /**
-   * Get the passed String as an URI. If the string is empty or not an URI
-   * <code>null</code> is returned.
+   * Get the passed String as an URI. If the string is empty or not an URI <code>null</code> is
+   * returned.
    *
    * @param sURI
    *        Source URI. May be <code>null</code>.
@@ -713,8 +702,7 @@ public final class URLHelper
   }
 
   /**
-   * Get the passed URL as an URI. If the URL is null or not an URI
-   * <code>null</code> is returned.
+   * Get the passed URL as an URI. If the URL is null or not an URI <code>null</code> is returned.
    *
    * @param aURL
    *        Source URL. May be <code>null</code>.
@@ -743,8 +731,8 @@ public final class URLHelper
   }
 
   /**
-   * Get an input stream from the specified URL. By default caching is disabled.
-   * This method only handles GET requests - POST requests are not possible.
+   * Get an input stream from the specified URL. By default caching is disabled. This method only
+   * handles GET requests - POST requests are not possible.
    *
    * @param aURL
    *        The URL to use. May not be <code>null</code>.
@@ -753,8 +741,7 @@ public final class URLHelper
    * @param nReadTimeoutMS
    *        Read timeout milliseconds. 0 == infinite. &lt; 0: ignored.
    * @param aConnectionModifier
-   *        An optional callback object to modify the URLConnection before it is
-   *        opened.
+   *        An optional callback object to modify the URLConnection before it is opened.
    * @param aExceptionHolder
    *        An optional exception holder for further outside investigation.
    * @return <code>null</code> if the input stream could not be opened.
@@ -791,8 +778,8 @@ public final class URLHelper
         aConnection.setConnectTimeout (nConnectTimeoutMS);
       if (nReadTimeoutMS >= 0)
         aConnection.setReadTimeout (nReadTimeoutMS);
-      if (aConnection instanceof HttpURLConnection)
-        aHTTPConnection = (HttpURLConnection) aConnection;
+      if (aConnection instanceof final HttpURLConnection aHUC)
+        aHTTPConnection = aHUC;
 
       // Disable caching
       aConnection.setUseCaches (false);
@@ -800,9 +787,9 @@ public final class URLHelper
       // Apply optional callback
       if (aConnectionModifier != null)
         aConnectionModifier.accept (aConnection);
-      if (aConnection instanceof JarURLConnection)
+      if (aConnection instanceof final JarURLConnection aJUC)
       {
-        final JarEntry aJarEntry = ((JarURLConnection) aConnection).getJarEntry ();
+        final JarEntry aJarEntry = aJUC.getJarEntry ();
         if (aJarEntry != null)
         {
           // Directories are identified by ending with a "/"
@@ -936,8 +923,8 @@ public final class URLHelper
   }
 
   /**
-   * Get the URL for the specified path using automatic class loader handling.
-   * The class loaders are iterated in the following order:
+   * Get the URL for the specified path using automatic class loader handling. The class loaders are
+   * iterated in the following order:
    * <ol>
    * <li>Default class loader (usually the context class loader)</li>
    * <li>The class loader of this class</li>
@@ -988,13 +975,13 @@ public final class URLHelper
                                          "$";
 
   /**
-   * Check if the provided string is valid according to RFC 2141. Leading and
-   * trailing spaces of the value to check will result in a negative result.
+   * Check if the provided string is valid according to RFC 2141. Leading and trailing spaces of the
+   * value to check will result in a negative result.
    *
    * @param sURN
    *        the URN to be validated. May be <code>null</code>.
-   * @return <code>true</code> if the provided URN is not empty and matches the
-   *         regular expression {@link #REGEX_URN}.
+   * @return <code>true</code> if the provided URN is not empty and matches the regular expression
+   *         {@link #REGEX_URN}.
    * @since 10.0.0
    */
   public static boolean isValidURN (@Nullable final String sURN)

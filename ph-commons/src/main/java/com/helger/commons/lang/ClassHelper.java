@@ -59,7 +59,8 @@ public final class ClassHelper
     _registerPrimitiveMapping (short.class, Short.class);
   }
 
-  private static void _registerPrimitiveMapping (@Nonnull final Class <?> aPrimitiveType, @Nonnull final Class <?> aPrimitiveWrapperType)
+  private static void _registerPrimitiveMapping (@Nonnull final Class <?> aPrimitiveType,
+                                                 @Nonnull final Class <?> aPrimitiveWrapperType)
   {
     PRIMITIVE_TO_WRAPPER.put (aPrimitiveType, aPrimitiveWrapperType);
     WRAPPER_TO_PRIMITIVE.put (aPrimitiveWrapperType, aPrimitiveType);
@@ -92,13 +93,12 @@ public final class ClassHelper
   }
 
   /**
-   * Check if the passed class is public, instancable and has a no-argument
-   * constructor.
+   * Check if the passed class is public, instancable and has a no-argument constructor.
    *
    * @param aClass
    *        The class to check. May be <code>null</code>.
-   * @return <code>true</code> if the class is public, instancable and has a
-   *         no-argument constructor that is public.
+   * @return <code>true</code> if the class is public, instancable and has a no-argument constructor
+   *         that is public.
    */
   public static boolean isInstancableClass (@Nullable final Class <?> aClass)
   {
@@ -123,8 +123,8 @@ public final class ClassHelper
   }
 
   /**
-   * Check if the passed class is an interface or not. Please note that
-   * annotations are also interfaces!
+   * Check if the passed class is an interface or not. Please note that annotations are also
+   * interfaces!
    *
    * @param aClass
    *        The class to check.
@@ -146,9 +146,8 @@ public final class ClassHelper
   }
 
   /**
-   * Check if the passed class is abstract or not. Note: interfaces and
-   * annotations are also considered as abstract whereas arrays are never
-   * abstract.
+   * Check if the passed class is abstract or not. Note: interfaces and annotations are also
+   * considered as abstract whereas arrays are never abstract.
    *
    * @param aClass
    *        The class to check.
@@ -196,8 +195,7 @@ public final class ClassHelper
    *
    * @param aClass
    *        The primitive wrapper class. May be <code>null</code>.
-   * @return <code>null</code> if the passed class is not a primitive wrapper
-   *         class.
+   * @return <code>null</code> if the passed class is not a primitive wrapper class.
    */
   @Nullable
   public static Class <?> getPrimitiveClass (@Nullable final Class <?> aClass)
@@ -270,8 +268,8 @@ public final class ClassHelper
   }
 
   /**
-   * Check if the passed classes are convertible. Includes conversion checks
-   * between primitive types and primitive wrapper types.
+   * Check if the passed classes are convertible. Includes conversion checks between primitive types
+   * and primitive wrapper types.
    *
    * @param aSrcClass
    *        First class. May not be <code>null</code>.
@@ -316,8 +314,7 @@ public final class ClassHelper
   }
 
   /**
-   * <code>null</code>-safe helper method to determine the class name of an
-   * object.
+   * <code>null</code>-safe helper method to determine the class name of an object.
    *
    * @param aObject
    *        The object to query. May be <code>null</code>.
@@ -402,8 +399,7 @@ public final class ClassHelper
    * Get the name of the package the passed class resides in.
    *
    * @param sClassName
-   *        The name class to get the information from. May be <code>null</code>
-   *        .
+   *        The name class to get the information from. May be <code>null</code> .
    * @return The package name of the passed class.
    */
   @Nullable
@@ -417,8 +413,8 @@ public final class ClassHelper
   }
 
   /**
-   * Get the class name of the passed object. If the object itself is of type
-   * {@link Class}, its name is retrieved, other {@link #getClass()} is called.
+   * Get the class name of the passed object. If the object itself is of type {@link Class}, its
+   * name is retrieved, other {@link #getClass()} is called.
    *
    * @param aObject
    *        The object who's class name is to be retrieved.
@@ -428,8 +424,8 @@ public final class ClassHelper
   @Nonempty
   public static String getSafeClassName (@Nullable final Object aObject)
   {
-    if (aObject instanceof Class <?>)
-      return ((Class <?>) aObject).getName ();
+    if (aObject instanceof final Class <?> aClass)
+      return aClass.getName ();
     if (aObject != null)
       return aObject.getClass ().getName ();
     return "null";
@@ -464,13 +460,11 @@ public final class ClassHelper
   }
 
   /**
-   * Get the path representation of the passed class. The path representation is
-   * achieved by replacing all dots (.) with forward slashes (/) in the class
-   * name.
+   * Get the path representation of the passed class. The path representation is achieved by
+   * replacing all dots (.) with forward slashes (/) in the class name.
    *
    * @param aClass
-   *        The class of which the path is to be retrieved. May be
-   *        <code>null</code>.
+   *        The class of which the path is to be retrieved. May be <code>null</code>.
    * @return The path representation. Never <code>null</code>.
    */
   @Nullable
@@ -480,13 +474,11 @@ public final class ClassHelper
   }
 
   /**
-   * Get the path representation of the passed class name. The path
-   * representation is achieved by replacing all dots (.) with forward slashes
-   * (/) in the class name.
+   * Get the path representation of the passed class name. The path representation is achieved by
+   * replacing all dots (.) with forward slashes (/) in the class name.
    *
    * @param sClassName
-   *        The class name of which the path is to be retrieved. May be
-   *        <code>null</code>.
+   *        The class name of which the path is to be retrieved. May be <code>null</code>.
    * @return The path representation
    */
   @Nullable
@@ -496,10 +488,9 @@ public final class ClassHelper
   }
 
   /**
-   * Get the class name of the passed path. The class name is retrieved by
-   * replacing all path separators (\ and /) with dots (.). This method does not
-   * handle the file extension, so it's up to the caller to skip of any file
-   * extension!
+   * Get the class name of the passed path. The class name is retrieved by replacing all path
+   * separators (\ and /) with dots (.). This method does not handle the file extension, so it's up
+   * to the caller to skip of any file extension!
    *
    * @param sPath
    *        The path to be converted. May be <code>null</code>.
@@ -512,16 +503,14 @@ public final class ClassHelper
   }
 
   /**
-   * Get the hex representation of the passed object's address. Note that this
-   * method makes no differentiation between 32 and 64 bit architectures. The
-   * result is always a hexadecimal value preceded by "0x" and followed by
-   * exactly 8 characters.
+   * Get the hex representation of the passed object's address. Note that this method makes no
+   * differentiation between 32 and 64 bit architectures. The result is always a hexadecimal value
+   * preceded by "0x" and followed by exactly 8 characters.
    *
    * @param aObject
-   *        The object who's address is to be retrieved. May be
-   *        <code>null</code>.
-   * @return Depending on the current architecture. Always starting with "0x"
-   *         and than containing the address.
+   *        The object who's address is to be retrieved. May be <code>null</code>.
+   * @return Depending on the current architecture. Always starting with "0x" and than containing
+   *         the address.
    * @see System#identityHashCode(Object)
    */
   @Nonnull
@@ -540,18 +529,15 @@ public final class ClassHelper
   }
 
   /**
-   * Get the URL of the passed resource using the class loader of the specified
-   * class only. This is a sanity wrapper around
-   * <code>class.getResource (sPath)</code>.
+   * Get the URL of the passed resource using the class loader of the specified class only. This is
+   * a sanity wrapper around <code>class.getResource (sPath)</code>.
    *
    * @param aClass
    *        The class to be used. May not be <code>null</code>.
    * @param sPath
-   *        The path to be resolved. May neither be <code>null</code> nor empty.
-   *        Internally it is ensured that the provided path does start with a
-   *        slash.
-   * @return <code>null</code> if the path could not be resolved using the
-   *         specified class loader.
+   *        The path to be resolved. May neither be <code>null</code> nor empty. Internally it is
+   *        ensured that the provided path does start with a slash.
+   * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
   public static URL getResource (@Nonnull final Class <?> aClass, @Nonnull @Nonempty final String sPath)
@@ -567,18 +553,15 @@ public final class ClassHelper
   }
 
   /**
-   * Get the input stream of the passed resource using the class loader of the
-   * specified class only. This is a sanity wrapper around
-   * <code>class.getResourceAsStream (sPath)</code>.
+   * Get the input stream of the passed resource using the class loader of the specified class only.
+   * This is a sanity wrapper around <code>class.getResourceAsStream (sPath)</code>.
    *
    * @param aClass
    *        The class to be used. May not be <code>null</code>.
    * @param sPath
-   *        The path to be resolved. May neither be <code>null</code> nor empty.
-   *        Internally it is ensured that the provided path does start with a
-   *        slash.
-   * @return <code>null</code> if the path could not be resolved using the
-   *         specified class loader.
+   *        The path to be resolved. May neither be <code>null</code> nor empty. Internally it is
+   *        ensured that the provided path does start with a slash.
+   * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
   public static InputStream getResourceAsStream (@Nonnull final Class <?> aClass, @Nonnull @Nonempty final String sPath)

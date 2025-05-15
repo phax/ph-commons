@@ -16,18 +16,17 @@
  */
 package com.helger.xml.transform;
 
+import javax.xml.transform.stream.StreamSource;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import javax.xml.transform.stream.StreamSource;
-
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Special {@link StreamSource} implementation that reads from {@link String}
- * objects.
+ * Special {@link StreamSource} implementation that reads from {@link String} objects.
  *
  * @author Philip Helger
  */
@@ -46,7 +45,7 @@ public class StringStreamSource extends StreamSource
 
   public StringStreamSource (@Nonnull final CharSequence aInput)
   {
-    this (aInput instanceof String ? (String) aInput : aInput.toString ());
+    this (aInput instanceof final String sInput ? sInput : aInput.toString ());
   }
 
   public StringStreamSource (@Nonnull final String sInput)

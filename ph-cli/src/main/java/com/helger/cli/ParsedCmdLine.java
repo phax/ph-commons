@@ -34,8 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGetterByKeyTrait;
 
 /**
- * This class represents a parsed command line. Parsing happens in class
- * {@link CmdLineParser}.
+ * This class represents a parsed command line. Parsing happens in class {@link CmdLineParser}.
  *
  * @author Philip Helger
  */
@@ -75,9 +74,9 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
       return null;
 
     for (final Map.Entry <IOptionBase, ICommonsList <String>> aEntry : m_aParams.entrySet ())
-      if (aEntry.getKey () instanceof Option)
+      if (aEntry.getKey () instanceof final Option aOption)
       {
-        if (((Option) aEntry.getKey ()).matches (sOption))
+        if (aOption.matches (sOption))
           return aEntry.getValue ();
       }
       else

@@ -18,12 +18,6 @@ package com.helger.xml;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.style.CodingStyleguideUnaware;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -33,6 +27,11 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -279,10 +278,8 @@ public enum EXMLParserProperty implements IHasName
   @Nonnull
   private Object _getFixedValue (@Nonnull final Object aValue)
   {
-    if (this == EXMLParserProperty.GENERAL_LOCALE && aValue instanceof Locale)
+    if (this == EXMLParserProperty.GENERAL_LOCALE && aValue instanceof final Locale aLocale)
     {
-      final Locale aLocale = (Locale) aValue;
-
       if (Locale.ENGLISH.getLanguage ().equals (aLocale.getLanguage ()))
       {
         /**
