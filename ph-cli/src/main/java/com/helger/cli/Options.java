@@ -61,7 +61,7 @@ public class Options implements ICommonsIterable <IOptionBase>
   }
 
   @Nonnull
-  public Options addOption (@Nonnull final Option.Builder aBuilder)
+  public Options addOption (@Nonnull final OptionBuilder aBuilder)
   {
     return addOption (aBuilder.build ());
   }

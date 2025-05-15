@@ -23,8 +23,6 @@ import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.misc.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -35,10 +33,10 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class KeyStoreDescriptor implements IKeyStoreDescriptor
 {
-  private final IKeyStoreType m_aType;
-  private final String m_sPath;
-  private final char [] m_aPassword;
-  private final Provider m_aProvider;
+  final IKeyStoreType m_aType;
+  final String m_sPath;
+  final char [] m_aPassword;
+  final Provider m_aProvider;
   // Lazily initialized
   private LoadedKeyStore m_aLKS;
 
@@ -123,74 +121,5 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
   public static KeyStoreDescriptorBuilder builder (@Nonnull final KeyStoreDescriptor a)
   {
     return new KeyStoreDescriptorBuilder (a);
-  }
-
-  /**
-   * Builder class for class {@link KeyStoreDescriptor}.
-   *
-   * @author Philip Helger
-   */
-  public static class KeyStoreDescriptorBuilder implements IBuilder <KeyStoreDescriptor>
-  {
-    private IKeyStoreType m_aType;
-    private String m_sPath;
-    private char [] m_aPassword;
-    private Provider m_aProvider;
-
-    public KeyStoreDescriptorBuilder ()
-    {}
-
-    public KeyStoreDescriptorBuilder (@Nonnull final KeyStoreDescriptor aSrc)
-    {
-      type (aSrc.m_aType).path (aSrc.m_sPath).password (aSrc.m_aPassword).provider (aSrc.m_aProvider);
-    }
-
-    @Nonnull
-    public final KeyStoreDescriptorBuilder type (@Nullable final IKeyStoreType a)
-    {
-      m_aType = a;
-      return this;
-    }
-
-    @Nonnull
-    public final KeyStoreDescriptorBuilder path (@Nullable final String s)
-    {
-      m_sPath = s;
-      return this;
-    }
-
-    @Nonnull
-    public final KeyStoreDescriptorBuilder password (@Nullable final String s)
-    {
-      return password (s == null ? null : s.toCharArray ());
-    }
-
-    @Nonnull
-    public final KeyStoreDescriptorBuilder password (@Nullable final char [] a)
-    {
-      m_aPassword = a;
-      return this;
-    }
-
-    @Nonnull
-    public final KeyStoreDescriptorBuilder provider (@Nullable final Provider a)
-    {
-      m_aProvider = a;
-      return this;
-    }
-
-    @Nonnull
-    public KeyStoreDescriptor build () throws IllegalStateException
-    {
-      if (m_aType == null)
-        throw new IllegalStateException ("Type is missing");
-      if (StringHelper.hasNoText (m_sPath))
-        throw new IllegalStateException ("Path is empty");
-      if (m_aPassword == null)
-        throw new IllegalStateException ("Password is missing");
-      // Provider may be null
-
-      return new KeyStoreDescriptor (m_aType, m_sPath, m_aPassword, m_aProvider);
-    }
   }
 }

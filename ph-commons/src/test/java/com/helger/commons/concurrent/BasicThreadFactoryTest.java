@@ -36,7 +36,7 @@ public final class BasicThreadFactoryTest
   @Test
   public void testAll ()
   {
-    final BasicThreadFactory x = new BasicThreadFactory.Builder ().daemon (false)
+    final BasicThreadFactory x = new BasicThreadFactoryBuilder ().daemon (false)
                                                                   .priority (Thread.NORM_PRIORITY)
                                                                   .namingPattern ("pool %d")
                                                                   .build ();

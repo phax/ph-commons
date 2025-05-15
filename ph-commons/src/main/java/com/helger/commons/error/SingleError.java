@@ -22,33 +22,21 @@ import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.misc.OverrideOnDemand;
-
-import javax.xml.stream.Location;
-
-import org.xml.sax.Locator;
-import org.xml.sax.SAXParseException;
-
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.error.text.ConstantHasErrorText;
-import com.helger.commons.error.text.DynamicHasErrorText;
 import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.hashcode.HashCodeCalculator;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.traits.IGenericImplTrait;
 
 /**
  * Default implementation of {@link IError}.<br>
- * Note: cannot be called <code>Error</code> because this would conflict with
- * the default Java Exception class.
+ * Note: cannot be called <code>Error</code> because this would conflict with the default Java
+ * Exception class.
  *
  * @author Philip Helger
  * @since 8.5.0
@@ -70,7 +58,7 @@ public class SingleError implements IError
    * @param aBuilder
    *        The builder to take the data from. May not be <code>null</code>.
    */
-  protected SingleError (@Nonnull final AbstractBuilder <?, ?> aBuilder)
+  protected SingleError (@Nonnull final AbstractSingleErrorBuilder <?, ?> aBuilder)
   {
     this (aBuilder.m_aErrorDT,
           aBuilder.m_aErrorLevel,
@@ -165,10 +153,9 @@ public class SingleError implements IError
   }
 
   /**
-   * Overridable implementation of Throwable for the Linked exception field.
-   * This can be overridden to implement a different algorithm. This is
-   * customizable because there is no default way of comparing Exceptions in
-   * Java. If you override this method you must also override
+   * Overridable implementation of Throwable for the Linked exception field. This can be overridden
+   * to implement a different algorithm. This is customizable because there is no default way of
+   * comparing Exceptions in Java. If you override this method you must also override
    * {@link #hashCodeLinkedException(HashCodeGenerator, Throwable)}!
    *
    * @param t1
@@ -205,10 +192,9 @@ public class SingleError implements IError
   }
 
   /**
-   * Overridable implementation of Throwable for the Linked exception field.
-   * This can be overridden to implement a different algorithm. This is
-   * customizable because there is no default way of hashing Exceptions in Java.
-   * If you override this method you must also override
+   * Overridable implementation of Throwable for the Linked exception field. This can be overridden
+   * to implement a different algorithm. This is customizable because there is no default way of
+   * hashing Exceptions in Java. If you override this method you must also override
    * {@link #equalsLinkedException(Throwable, Throwable)}!
    *
    * @param aHCG
@@ -252,15 +238,14 @@ public class SingleError implements IError
   }
 
   /**
-   * Create a new empty error builder with the default error level from
-   * {@link Builder}.
+   * Create a new empty error builder with the default error level from {@link SingleErrorBuilder}.
    *
    * @return A new Error builder. Never <code>null</code>.
    */
   @Nonnull
-  public static Builder builder ()
+  public static SingleErrorBuilder builder ()
   {
-    return new Builder ();
+    return new SingleErrorBuilder ();
   }
 
   /**
@@ -268,23 +253,23 @@ public class SingleError implements IError
    *
    * @param aError
    *        The error to copy the data from
-   * @return A new Error builder containing all the data from the provided
-   *         error. Never <code>null</code>.
+   * @return A new Error builder containing all the data from the provided error. Never
+   *         <code>null</code>.
    */
   @Nonnull
-  public static Builder builder (@Nonnull final IError aError)
+  public static SingleErrorBuilder builder (@Nonnull final IError aError)
   {
-    return new Builder (aError);
+    return new SingleErrorBuilder (aError);
   }
 
   /**
    * Create a new empty error builder with the SUCCESS error level.
    *
-   * @return A new Error builder with default error level
-   *         {@link EErrorLevel#SUCCESS}. Never <code>null</code>.
+   * @return A new Error builder with default error level {@link EErrorLevel#SUCCESS}. Never
+   *         <code>null</code>.
    */
   @Nonnull
-  public static Builder builderSuccess ()
+  public static SingleErrorBuilder builderSuccess ()
   {
     return builder ().errorLevel (EErrorLevel.SUCCESS);
   }
@@ -292,11 +277,11 @@ public class SingleError implements IError
   /**
    * Create a new empty error builder with the INFO error level.
    *
-   * @return A new Error builder with default error level
-   *         {@link EErrorLevel#INFO}. Never <code>null</code>.
+   * @return A new Error builder with default error level {@link EErrorLevel#INFO}. Never
+   *         <code>null</code>.
    */
   @Nonnull
-  public static Builder builderInfo ()
+  public static SingleErrorBuilder builderInfo ()
   {
     return builder ().errorLevel (EErrorLevel.INFO);
   }
@@ -304,11 +289,11 @@ public class SingleError implements IError
   /**
    * Create a new empty error builder with the WARN error level.
    *
-   * @return A new Error builder with default error level
-   *         {@link EErrorLevel#WARN}. Never <code>null</code>.
+   * @return A new Error builder with default error level {@link EErrorLevel#WARN}. Never
+   *         <code>null</code>.
    */
   @Nonnull
-  public static Builder builderWarn ()
+  public static SingleErrorBuilder builderWarn ()
   {
     return builder ().errorLevel (EErrorLevel.WARN);
   }
@@ -316,11 +301,11 @@ public class SingleError implements IError
   /**
    * Create a new empty error builder with the ERROR error level.
    *
-   * @return A new Error builder with default error level
-   *         {@link EErrorLevel#ERROR}. Never <code>null</code>.
+   * @return A new Error builder with default error level {@link EErrorLevel#ERROR}. Never
+   *         <code>null</code>.
    */
   @Nonnull
-  public static Builder builderError ()
+  public static SingleErrorBuilder builderError ()
   {
     return builder ().errorLevel (EErrorLevel.ERROR);
   }
@@ -328,190 +313,12 @@ public class SingleError implements IError
   /**
    * Create a new empty error builder with the FATAL ERROR error level.
    *
-   * @return A new Error builder with default error level
-   *         {@link EErrorLevel#FATAL_ERROR}. Never <code>null</code>.
+   * @return A new Error builder with default error level {@link EErrorLevel#FATAL_ERROR}. Never
+   *         <code>null</code>.
    */
   @Nonnull
-  public static Builder builderFatalError ()
+  public static SingleErrorBuilder builderFatalError ()
   {
     return builder ().errorLevel (EErrorLevel.FATAL_ERROR);
-  }
-
-  /**
-   * Abstract builder class for {@link SingleError} and derived classes.
-   *
-   * @author Philip Helger
-   * @param <ERRTYPE>
-   *        Result error type
-   * @param <IMPLTYPE>
-   *        Implementation type
-   */
-  public abstract static class AbstractBuilder <ERRTYPE extends SingleError, IMPLTYPE extends AbstractBuilder <ERRTYPE, IMPLTYPE>>
-                                               implements
-                                               IGenericImplTrait <IMPLTYPE>,
-                                               IBuilder <ERRTYPE>
-  {
-    public static final IErrorLevel DEFAULT_ERROR_LEVEL = EErrorLevel.ERROR;
-
-    protected LocalDateTime m_aErrorDT;
-    protected IErrorLevel m_aErrorLevel = DEFAULT_ERROR_LEVEL;
-    protected String m_sErrorID;
-    protected String m_sErrorFieldName;
-    protected ILocation m_aErrorLocation;
-    protected IHasErrorText m_aErrorText;
-    protected Throwable m_aLinkedException;
-
-    protected AbstractBuilder ()
-    {}
-
-    protected AbstractBuilder (@Nonnull final IError aError)
-    {
-      ValueEnforcer.notNull (aError, "Error");
-      errorLevel (aError.getErrorLevel ());
-      errorID (aError.getErrorID ());
-      errorFieldName (aError.getErrorFieldName ());
-      errorLocation (aError.getErrorLocation ());
-      errorText (aError.getErrorTexts ());
-      linkedException (aError.getLinkedException ());
-    }
-
-    @Nonnull
-    public final IMPLTYPE dateTimeNow ()
-    {
-      return dateTime (PDTFactory.getCurrentLocalDateTime ());
-    }
-
-    @Nonnull
-    public final IMPLTYPE dateTime (@Nullable final LocalDateTime aErrorDT)
-    {
-      m_aErrorDT = aErrorDT;
-      return thisAsT ();
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorLevel (@Nonnull final IErrorLevel aErrorLevel)
-    {
-      ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
-      m_aErrorLevel = aErrorLevel;
-      return thisAsT ();
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorID (@Nullable final String sErrorID)
-    {
-      m_sErrorID = sErrorID;
-      return thisAsT ();
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorFieldName (@Nullable final String sErrorFieldName)
-    {
-      m_sErrorFieldName = sErrorFieldName;
-      return thisAsT ();
-    }
-
-    /**
-     * Set a simple error location without line and column number
-     *
-     * @param sErrorLocation
-     *        Error location string
-     * @return this for chaining
-     * @since 9.0.2
-     */
-    @Nonnull
-    public final IMPLTYPE errorLocation (@Nullable final String sErrorLocation)
-    {
-      return errorLocation (new SimpleLocation (sErrorLocation));
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorLocation (@Nullable final Locator aLocator)
-    {
-      return errorLocation (SimpleLocation.create (aLocator));
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorLocation (@Nullable final SAXParseException aLocator)
-    {
-      return errorLocation (SimpleLocation.create (aLocator));
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorLocation (@Nullable final Location aLocator)
-    {
-      return errorLocation (SimpleLocation.create (aLocator));
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorLocation (@Nullable final ILocation aErrorLocation)
-    {
-      m_aErrorLocation = aErrorLocation;
-      return thisAsT ();
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorText (@Nullable final String sErrorText)
-    {
-      return errorText (ConstantHasErrorText.createOnDemand (sErrorText));
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorText (@Nullable final IMultilingualText aMLT)
-    {
-      if (aMLT == null)
-        m_aErrorText = null;
-      else
-        if (aMLT.texts ().size () == 1)
-        {
-          // If the multilingual text contains only a single locale, use it as a
-          // constant value
-          // If you don't like this behavior directly call #setErrorText with a
-          // DynamicHasErrorText
-          m_aErrorText = ConstantHasErrorText.createOnDemand (aMLT.texts ().getFirstValue ());
-        }
-        else
-          m_aErrorText = new DynamicHasErrorText (aMLT);
-      return thisAsT ();
-    }
-
-    @Nonnull
-    public final IMPLTYPE errorText (@Nullable final IHasErrorText aErrorText)
-    {
-      m_aErrorText = aErrorText;
-      return thisAsT ();
-    }
-
-    @Nonnull
-    public final IMPLTYPE linkedException (@Nullable final Throwable aLinkedException)
-    {
-      m_aLinkedException = aLinkedException;
-      return thisAsT ();
-    }
-  }
-
-  /**
-   * The default builder to build {@link SingleError} instances.
-   *
-   * @author Philip Helger
-   */
-  public static final class Builder extends AbstractBuilder <SingleError, Builder>
-  {
-    public Builder ()
-    {}
-
-    public Builder (@Nonnull final IError aError)
-    {
-      super (aError);
-    }
-
-    @Override
-    @Nonnull
-    public SingleError build ()
-    {
-      if (m_aErrorLevel == null)
-        throw new IllegalStateException ("The error level must be provided");
-
-      return new SingleError (this);
-    }
   }
 }

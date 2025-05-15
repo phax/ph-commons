@@ -33,7 +33,7 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
   {}
 
   @Nonnull
-  public OptionGroup addOption (@Nonnull final Option.Builder aBuilder)
+  public OptionGroup addOption (@Nonnull final OptionBuilder aBuilder)
   {
     return addOption (aBuilder.build ());
   }
