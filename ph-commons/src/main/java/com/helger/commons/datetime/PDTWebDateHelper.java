@@ -42,25 +42,24 @@ import java.time.format.SignStyle;
 import java.time.temporal.Temporal;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
- * A helper class that parses Dates out of Strings with date time in RFC822 and
- * W3CDateTime formats plus the variants Atom (0.3) and RSS (0.9, 0.91, 0.92,
- * 0.93, 0.94, 1.0 and 2.0) specificators added to those formats.<br>
- * It uses the JDK java.text.SimpleDateFormat class attempting the parse using a
- * mask for each one of the possible formats.<br>
+ * A helper class that parses Dates out of Strings with date time in RFC822 and W3CDateTime formats
+ * plus the variants Atom (0.3) and RSS (0.9, 0.91, 0.92, 0.93, 0.94, 1.0 and 2.0) specificators
+ * added to those formats.<br>
+ * It uses the JDK java.text.SimpleDateFormat class attempting the parse using a mask for each one
+ * of the possible formats.<br>
  * Original work Copyright 2004 Sun Microsystems, Inc.
  *
  * @author Alejandro Abdelnur (original; mainly the formatting masks)
@@ -70,24 +69,23 @@ import com.helger.commons.typeconvert.TypeConverter;
 public final class PDTWebDateHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PDTWebDateHelper.class);
-  // "XXX" [no todo] means "+HH:mm"
-  // "XX" means "+HHmm"
+  // Triple 'X' means "+HH:mm"
+  // Double 'X' means "+HHmm"
   private static final String ZONE_PATTERN1 = "XXX";
   private static final String ZONE_PATTERN2 = "XX";
   private static final String FORMAT_RFC822 = "EEE, dd MMM uuuu HH:mm:ss 'GMT'";
   private static final String FORMAT_W3C = "uuuu-MM-dd'T'HH:mm:ss" + ZONE_PATTERN1;
 
   /**
-   * order is like this because the SimpleDateFormat.parse does not fail with
-   * exception if it can parse a valid date out of a substring of the full
-   * string given the mask so we have to check the most complete format first,
-   * then it fails with exception. <br>
+   * order is like this because the SimpleDateFormat.parse does not fail with exception if it can
+   * parse a valid date out of a substring of the full string given the mask so we have to check the
+   * most complete format first, then it fails with exception. <br>
    * RFC 1123 superseding 822 recommends to use yyyy instead of yy<br>
-   * Because of strict formatting "uuuu" (year) must be used instead of "yyyy"
-   * (year of era)
+   * Because of strict formatting "uuuu" (year) must be used instead of "yyyy" (year of era)
    */
   private static final PDTMask <?> [] RFC822_MASKS = { PDTMask.zonedDateTime (FORMAT_RFC822),
-                                                       PDTMask.zonedDateTime ("EEE, dd MMM uuuu HH:mm:ss " + ZONE_PATTERN2),
+                                                       PDTMask.zonedDateTime ("EEE, dd MMM uuuu HH:mm:ss " +
+                                                                              ZONE_PATTERN2),
                                                        PDTMask.localDateTime ("EEE, dd MMM uuuu HH:mm:ss"),
                                                        PDTMask.localDateTime ("EEE, dd MMM uu HH:mm:ss"),
                                                        PDTMask.localDateTime ("EEE, dd MMM uuuu HH:mm"),
@@ -98,39 +96,44 @@ public final class PDTWebDateHelper
                                                        PDTMask.localDateTime ("dd MMM uu HH:mm") };
 
   /*
-   * order is like this because the SimpleDateFormat.parse does not fail with
-   * exception if it can parse a valid date out of a substring of the full
-   * string given the mask so we have to check the most complete format first,
-   * then it fails with exception
+   * order is like this because the SimpleDateFormat.parse does not fail with exception if it can
+   * parse a valid date out of a substring of the full string given the mask so we have to check the
+   * most complete format first, then it fails with exception
    */
-  private static final PDTMask <?> [] W3CDATETIME_MASKS = { PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" + ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" + ZONE_PATTERN2),
+  private static final PDTMask <?> [] W3CDATETIME_MASKS = { PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS" +
+                                                                                    ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS" +
+                                                                                    ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm:ss.SSS"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm:ss.SSS"),
                                                             PDTMask.offsetDateTime (FORMAT_W3C),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss" + ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" + ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm:ss" +
+                                                                                    ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm:ss" +
+                                                                                    ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm:ss"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm:ss"),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" + ZONE_PATTERN2),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" + ZONE_PATTERN1),
-                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" + ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd'T'HH:mm" +
+                                                                                    ZONE_PATTERN2),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" +
+                                                                                    ZONE_PATTERN1),
+                                                            PDTMask.offsetDateTime ("uuuu-MM-dd't'HH:mm" +
+                                                                                    ZONE_PATTERN2),
                                                             PDTMask.localDateTime ("uuuu-MM-dd'T'HH:mm"),
                                                             PDTMask.localDateTime ("uuuu-MM-dd't'HH:mm"),
                                                             /*
-                                                             * Applies to the
-                                                             * following 2:
-                                                             * together with
-                                                             * logic in the
-                                                             * parseW3CDateTime
-                                                             * they handle W3C
-                                                             * dates without
-                                                             * time forcing them
-                                                             * to be GMT
+                                                             * Applies to the following 2: together
+                                                             * with logic in the parseW3CDateTime
+                                                             * they handle W3C dates without time
+                                                             * forcing them to be GMT
                                                              */
                                                             PDTMask.localDateTime ("uuuu-MM'T'HH:mm"),
                                                             PDTMask.localDateTime ("uuuu'T'HH:mm"),
@@ -147,19 +150,19 @@ public final class PDTWebDateHelper
   {}
 
   /**
-   * Parses a Date out of a string using an array of masks. It uses the masks in
-   * order until one of them succeeds or all fail.
+   * Parses a Date out of a string using an array of masks. It uses the masks in order until one of
+   * them succeeds or all fail.
    *
    * @param aMasks
    *        array of masks to use for parsing the string
    * @param sDate
    *        string to parse for a date.
-   * @return the Date represented by the given string using one of the given
-   *         masks. It returns <b>null</b> if it was not possible to parse the
-   *         the string with any of the masks.
+   * @return the Date represented by the given string using one of the given masks. It returns
+   *         <b>null</b> if it was not possible to parse the the string with any of the masks.
    */
   @Nullable
-  public static OffsetDateTime parseOffsetDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks, @Nonnull @Nonempty final String sDate)
+  public static OffsetDateTime parseOffsetDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks,
+                                                             @Nonnull @Nonempty final String sDate)
   {
     for (final PDTMask <?> aMask : aMasks)
     {
@@ -181,8 +184,8 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * Parses a Date out of a string using an array of masks. It uses the masks in
-   * order until one of them succeeds or all fail.
+   * Parses a Date out of a string using an array of masks. It uses the masks in order until one of
+   * them succeeds or all fail.
    *
    * @param aMasks
    *        array of masks to use for parsing the string
@@ -190,9 +193,8 @@ public final class PDTWebDateHelper
    *        string to parse for a date.
    * @param aDTZ
    *        The date/time zone to use. Optional.
-   * @return the Date represented by the given string using one of the given
-   *         masks. It returns <b>null</b> if it was not possible to parse the
-   *         the string with any of the masks.
+   * @return the Date represented by the given string using one of the given masks. It returns
+   *         <b>null</b> if it was not possible to parse the the string with any of the masks.
    */
   @Nullable
   public static ZonedDateTime parseZonedDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks,
@@ -225,9 +227,9 @@ public final class PDTWebDateHelper
    *
    * @param sDate
    *        The date string.
-   * @return A non-<code>null</code> {@link WithZoneId}, where the remaining
-   *         string to be parsed (never <code>null</code>) and and the extracted
-   *         time zone (may be <code>null</code>) are contained.
+   * @return A non-<code>null</code> {@link WithZoneId}, where the remaining string to be parsed
+   *         (never <code>null</code>) and and the extracted time zone (may be <code>null</code>)
+   *         are contained.
    */
   @Nonnull
   public static WithZoneId extractDateTimeZone (@Nonnull final String sDate)
@@ -260,16 +262,14 @@ public final class PDTWebDateHelper
    * <li>"dd MMM uu HH:mm z"</li>
    * </ul>
    * <p>
-   * Refer to the java.text.SimpleDateFormat javadocs for details on the format
-   * of each element.
+   * Refer to the java.text.SimpleDateFormat javadocs for details on the format of each element.
    * </p>
    *
    * @param sDate
    *        string to parse for a date. May be <code>null</code>.
-   * @return the Date represented by the given RFC822 string. It returns
-   *         <b>null</b> if it was not possible to parse the given string into a
-   *         {@link ZonedDateTime} or if the passed {@link String} was
-   *         <code>null</code>.
+   * @return the Date represented by the given RFC822 string. It returns <b>null</b> if it was not
+   *         possible to parse the given string into a {@link ZonedDateTime} or if the passed
+   *         {@link String} was <code>null</code>.
    */
   @Nullable
   public static ZonedDateTime getDateTimeFromRFC822 (@Nullable final String sDate)
@@ -292,15 +292,14 @@ public final class PDTWebDateHelper
    * <li>"uuuu"</li>
    * </ul>
    * <p>
-   * Refer to the java.text.SimpleDateFormat javadocs for details on the format
-   * of each element.
+   * Refer to the java.text.SimpleDateFormat javadocs for details on the format of each element.
    * </p>
    *
    * @param sDate
    *        string to parse for a date. May be <code>null</code>.
-   * @return the Date represented by the given W3C date-time string. It returns
-   *         <b>null</b> if it was not possible to parse the given string into a
-   *         {@link ZonedDateTime} or if the input string was <code>null</code>.
+   * @return the Date represented by the given W3C date-time string. It returns <b>null</b> if it
+   *         was not possible to parse the given string into a {@link ZonedDateTime} or if the input
+   *         string was <code>null</code>.
    */
   @Nullable
   public static OffsetDateTime getDateTimeFromW3C (@Nullable final String sDate)
@@ -312,14 +311,12 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * Parses a Date out of a String with a date in W3C date-time format or in a
-   * RFC822 format.
+   * Parses a Date out of a String with a date in W3C date-time format or in a RFC822 format.
    *
    * @param sDate
    *        string to parse for a date.
-   * @return the Date represented by the given W3C date-time string. It returns
-   *         <b>null</b> if it was not possible to parse the given string into a
-   *         Date.
+   * @return the Date represented by the given W3C date-time string. It returns <b>null</b> if it
+   *         was not possible to parse the given string into a Date.
    */
   @Nullable
   public static ZonedDateTime getDateTimeFromW3COrRFC822 (@Nullable final String sDate)
@@ -332,14 +329,12 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * Parses a Date out of a String with a date in W3C date-time format or in a
-   * RFC822 format.
+   * Parses a Date out of a String with a date in W3C date-time format or in a RFC822 format.
    *
    * @param sDate
    *        string to parse for a date.
-   * @return the Date represented by the given W3C date-time string. It returns
-   *         <b>null</b> if it was not possible to parse the given string into a
-   *         Date.
+   * @return the Date represented by the given W3C date-time string. It returns <b>null</b> if it
+   *         was not possible to parse the given string into a Date.
    */
   @Nullable
   public static LocalDateTime getLocalDateTimeFromW3COrRFC822 (@Nullable final String sDate)
@@ -353,8 +348,8 @@ public final class PDTWebDateHelper
    *
    * @param aDateTime
    *        Date to print. May be <code>null</code>.
-   * @return the RFC822 represented by the given Date. <code>null</code> if the
-   *         parameter is <code>null</code>.
+   * @return the RFC822 represented by the given Date. <code>null</code> if the parameter is
+   *         <code>null</code>.
    */
   @Nullable
   public static String getAsStringRFC822 (@Nullable final ZonedDateTime aDateTime)
@@ -369,8 +364,8 @@ public final class PDTWebDateHelper
    *
    * @param aDateTime
    *        Date to print. May be <code>null</code>.
-   * @return the RFC822 represented by the given Date. <code>null</code> if the
-   *         parameter is <code>null</code>.
+   * @return the RFC822 represented by the given Date. <code>null</code> if the parameter is
+   *         <code>null</code>.
    */
   @Nullable
   public static String getAsStringRFC822 (@Nullable final OffsetDateTime aDateTime)
@@ -385,8 +380,8 @@ public final class PDTWebDateHelper
    *
    * @param aDateTime
    *        Date to print. May be <code>null</code>.
-   * @return the RFC822 represented by the given Date. <code>null</code> if the
-   *         parameter is <code>null</code>.
+   * @return the RFC822 represented by the given Date. <code>null</code> if the parameter is
+   *         <code>null</code>.
    */
   @Nullable
   public static String getAsStringRFC822 (@Nullable final LocalDateTime aDateTime)
@@ -397,8 +392,7 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * create a W3C Date Time representation of a date time using UTC date time
-   * zone.
+   * create a W3C Date Time representation of a date time using UTC date time zone.
    *
    * @param aDateTime
    *        Date to print. May not be <code>null</code>.
@@ -414,8 +408,7 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * create a W3C Date Time representation of a date time using UTC date time
-   * zone.
+   * create a W3C Date Time representation of a date time using UTC date time zone.
    *
    * @param aDateTime
    *        Date to print. May not be <code>null</code>.
@@ -485,10 +478,8 @@ public final class PDTWebDateHelper
                                               .appendValue (SECOND_OF_MINUTE, 2)
                                               .optionalStart ()
                                               /*
-                                               * This is different compared to
-                                               * ISO_LOCAL_TIME. The maximum is
-                                               * unbounded, but we are limited
-                                               * to 9 here
+                                               * This is different compared to ISO_LOCAL_TIME. The
+                                               * maximum is unbounded, but we are limited to 9 here
                                                */
                                               .appendFraction (MILLI_OF_SECOND, 0, 9, true)
                                               .optionalEnd ()

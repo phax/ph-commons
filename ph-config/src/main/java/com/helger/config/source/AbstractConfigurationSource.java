@@ -72,17 +72,16 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
     return m_nPriority;
   }
 
-  // TODO for 11.2: make public
-  protected static boolean isSecretKey (@Nonnull final String sKey)
+  public static boolean isSecretKey (@Nonnull final String sKey)
   {
     // Bad heuristics but better then nothing
     final String sRealKey = sKey.toLowerCase (Locale.ROOT);
     return sRealKey.contains ("password") || sRealKey.contains ("passwd");
   }
 
-  // TODO for 11.2: rename to mapToStringIgnoreSecrets
+  // Old name before v12: "mapToStringNoSecrets"
   @Nonnull
-  protected static <V> String mapToStringNoSecrets (@Nullable final Map <String, V> aMap)
+  protected static <V> String mapToStringIgnoreSecrets (@Nullable final Map <String, V> aMap)
   {
     if (aMap == null)
       return "null";

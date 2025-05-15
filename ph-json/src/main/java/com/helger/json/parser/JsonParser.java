@@ -28,6 +28,7 @@ import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingPushbackReader;
@@ -216,14 +217,15 @@ public class JsonParser
   }
 
   @Nullable
-  private IJsonParsePosition _getCurrentParsePos ()
+  @ReturnsMutableCopy
+  private IJsonParsePosition _getCurrentParsePosClone ()
   {
     return m_aSettings.isTrackPosition () ? m_aParsePos.getClone () : null;
   }
 
   private void _readComment () throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
     // Use SB2 because _skipSpaces uses SB1
     final JsonStringBuilder aStrComment = m_aSB2.reset ();
 
@@ -392,7 +394,7 @@ public class JsonParser
   @Nonnull
   private TwoStrings _readString (@Nonnull final EStringQuoteMode eQuoteMode) throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
     final JsonStringBuilder aStrStringOriginalContent = m_aSB1.reset ();
     final JsonStringBuilder aStrStringUnescapedContent = m_aSB2.reset ();
 
@@ -605,7 +607,7 @@ public class JsonParser
 
   private void _readNumber () throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     final JsonStringBuilder aStrNumber = m_aSB1.reset ();
     int c = _readChar ();
@@ -695,7 +697,7 @@ public class JsonParser
 
   private void _expect (@Nonnull final String sKeyword) throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     for (final char cExpected : sKeyword.toCharArray ())
     {
@@ -714,7 +716,7 @@ public class JsonParser
 
   private void _readArray () throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     m_aCallback.onArrayStart ();
     int nIndex = 0;
@@ -752,7 +754,7 @@ public class JsonParser
 
   private void _readObject () throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     m_aCallback.onObjectStart ();
     int nIndex = 0;
@@ -839,7 +841,7 @@ public class JsonParser
   {
     _skipSpaces ();
 
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     final int cFirst = _readChar ();
     switch (cFirst)
@@ -922,7 +924,7 @@ public class JsonParser
       // Check for trailing whitespaces (reads a char)
       _skipSpaces ();
 
-      final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+      final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
       // Check for expected end of input
       final int c = _readChar ();

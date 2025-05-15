@@ -19,16 +19,15 @@ package com.helger.config.source.res;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -41,8 +40,7 @@ import com.helger.config.source.IConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
 
 /**
- * Implementation of {@link IConfigurationSource} for properties file based
- * configuration sources.
+ * Implementation of {@link IConfigurationSource} for properties file based configuration sources.
  *
  * @author Philip Helger
  */
@@ -184,7 +182,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("Properties", mapToStringNoSecrets (m_aProps))
+                            .append ("Properties", mapToStringIgnoreSecrets (m_aProps))
                             .getToString ();
   }
 }

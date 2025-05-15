@@ -170,7 +170,10 @@ public final class JsonParserTest
         LOGGER.info ("Run " + nCount);
         aJson = JsonReader.builderMultiObject ().source (aIS).read ();
         if (aJson != null)
+        {
           ++nCount;
+          LOGGER.info ("Output: " + aJson);
+        }
       } while (aJson != null);
       assertEquals (2, nCount);
     }
