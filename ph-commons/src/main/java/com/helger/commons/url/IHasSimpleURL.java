@@ -16,7 +16,7 @@
  */
 package com.helger.commons.url;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 

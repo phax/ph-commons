@@ -30,15 +30,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
@@ -79,8 +78,6 @@ import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Base class for a simple DAO using write ahead logging (WAL).
@@ -217,8 +214,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * @return The file-relative IO as passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The file-relative IO as passed in the constructor. Never <code>null</code>.
    */
   @Nonnull
   protected final IFileRelativeIO getIO ()
@@ -227,8 +223,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * @return The filename provider used internally to build filenames. Never
-   *         <code>null</code>.
+   * @return The filename provider used internally to build filenames. Never <code>null</code>.
    */
   @Nonnull
   public final Supplier <String> getFilenameProvider ()
@@ -237,11 +232,10 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * Custom initialization routine. Called only if the underlying file does not
-   * exist yet. This method is only called within a write lock!
+   * Custom initialization routine. Called only if the underlying file does not exist yet. This
+   * method is only called within a write lock!
    *
-   * @return {@link EChange#CHANGED} if something was modified inside this
-   *         method
+   * @return {@link EChange#CHANGED} if something was modified inside this method
    */
   @Nonnull
   @OverrideOnDemand
@@ -251,28 +245,28 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * Fill the internal structures with from the passed XML document. This method
-   * is only called within a write lock!
+   * Fill the internal structures with from the passed XML document. This method is only called
+   * within a write lock!
    *
    * @param aDoc
    *        The XML document to read from. Never <code>null</code>.
-   * @return {@link EChange#CHANGED} if reading the data changed something in
-   *         the internal structures that requires a writing.
+   * @return {@link EChange#CHANGED} if reading the data changed something in the internal
+   *         structures that requires a writing.
    */
   @Nonnull
   @MustBeLocked (ELockType.WRITE)
   protected abstract EChange onRead (@Nonnull IMicroDocument aDoc);
 
   /**
-   * Get a {@link File} object for the specified filename that can perform the
-   * respective operation indicated by the "mode" parameter.
+   * Get a {@link File} object for the specified filename that can perform the respective operation
+   * indicated by the "mode" parameter.
    *
    * @param sFilename
    *        Filename to use. May not be <code>null</code>.
    * @param eMode
    *        The access mode to be used. May not be <code>null</code>.
-   * @return The created and checked {@link File} if everything is fine,
-   *         otherwise an exception is thrown.
+   * @return The created and checked {@link File} if everything is fine, otherwise an exception is
+   *         thrown.
    * @throws DAOException
    *         If the requested access mode cannot be provided.
    */
@@ -293,8 +287,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @param t
    *        Thrown exception. Never <code>null</code>.
    * @param bIsInitialization
-   *        <code>true</code> if this happened during initialization of a new
-   *        file, <code>false</code> if it happened during regular reading.
+   *        <code>true</code> if this happened during initialization of a new file,
+   *        <code>false</code> if it happened during regular reading.
    * @param aFile
    *        The file that was read. May be <code>null</code> for in-memory DAOs.
    */
@@ -311,8 +305,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * @return The implementation class as specified in the constructor. Never
-   *         <code>null</code>.
+   * @return The implementation class as specified in the constructor. Never <code>null</code>.
    */
   @Nonnull
   protected final Class <DATATYPE> getDataTypeClass ()
@@ -321,14 +314,14 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * This method is used upon recovery to convert a stored object to its native
-   * representation. If you overwrite this method, you should consider
-   * overriding {@link #convertNativeToWALString(Object)} as well.
+   * This method is used upon recovery to convert a stored object to its native representation. If
+   * you overwrite this method, you should consider overriding
+   * {@link #convertNativeToWALString(Object)} as well.
    *
    * @param sElement
    *        The string representation to be converted. Never <code>null</code>.
-   * @return The native representation of the object. If the return value is
-   *         <code>null</code>, the recovery will fail with an exception!
+   * @return The native representation of the object. If the return value is <code>null</code>, the
+   *         recovery will fail with an exception!
    */
   @Nullable
   @OverrideOnDemand
@@ -353,9 +346,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   {}
 
   /**
-   * This method is called, when the conversion from the read XML string to the
-   * native type failed. By default an error message is logged and processing
-   * continues.
+   * This method is called, when the conversion from the read XML string to the native type failed.
+   * By default an error message is logged and processing continues.
    *
    * @param eActionType
    *        The action type to recover. May not be <code>null</code>
@@ -406,9 +398,9 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   protected abstract void onRecoveryDelete (@Nonnull DATATYPE aElement);
 
   /**
-   * Call this method inside the constructor to read the file contents directly.
-   * This method is write locking internally. This method performs WAL file
-   * reading upon startup both after init as well as after read!
+   * Call this method inside the constructor to read the file contents directly. This method is
+   * write locking internally. This method performs WAL file reading upon startup both after init as
+   * well as after read!
    *
    * @throws DAOException
    *         in case initialization or reading failed!
@@ -683,8 +675,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * Called after a successful write of the file, if the filename is different
-   * from the previous filename. This can e.g. be used to clear old data.
+   * Called after a successful write of the file, if the filename is different from the previous
+   * filename. This can e.g. be used to clear old data.
    *
    * @param sPreviousFilename
    *        The previous filename. May be <code>null</code>.
@@ -697,8 +689,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   {}
 
   /**
-   * Create the XML document that should be saved to the file. This method is
-   * only called within a write lock!
+   * Create the XML document that should be saved to the file. This method is only called within a
+   * write lock!
    *
    * @return The non-<code>null</code> document to write to the file.
    */
@@ -707,8 +699,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   protected abstract IMicroDocument createWriteData ();
 
   /**
-   * Modify the created document by e.g. adding some comment or digital
-   * signature or whatsoever.
+   * Modify the created document by e.g. adding some comment or digital signature or whatsoever.
    *
    * @param aDoc
    *        The created non-<code>null</code> document.
@@ -742,8 +733,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * @return The filename to which was written last. May be <code>null</code> if
-   *         no wrote action was performed yet.
+   * @return The filename to which was written last. May be <code>null</code> if no wrote action was
+   *         performed yet.
    */
   @Nullable
   public final String getLastFilename ()
@@ -759,8 +750,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @param sErrorFilename
    *        The filename tried to write to. Never <code>null</code>.
    * @param aDoc
-   *        The XML content that should be written. May be <code>null</code> if
-   *        the error occurred in XML creation.
+   *        The XML content that should be written. May be <code>null</code> if the error occurred
+   *        in XML creation.
    */
   protected static void triggerExceptionHandlersWrite (@Nonnull final Throwable t,
                                                        @Nonnull final String sErrorFilename,
@@ -776,13 +767,12 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * The main method for writing the new data to a file. This method may only be
-   * called within a write lock!
+   * The main method for writing the new data to a file. This method may only be called within a
+   * write lock!
    *
    * @return {@link ESuccess} and never <code>null</code>.
    */
   @Nonnull
-  @SuppressFBWarnings ("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
   @MustBeLocked (ELockType.WRITE)
   private ESuccess _writeToFile ()
   {
@@ -922,8 +912,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * @return The name of the WAL file of this DAO or <code>null</code> if this
-   *         DAO does not support WAL files.
+   * @return The name of the WAL file of this DAO or <code>null</code> if this DAO does not support
+   *         WAL files.
    */
   @Nullable
   private String _getWALFilename ()
@@ -935,8 +925,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * This method is called if recovery from the WAL file (partially) failed an
-   * analysis might be needed.
+   * This method is called if recovery from the WAL file (partially) failed an analysis might be
+   * needed.
    */
   final void _maintainWALFileAfterProcessing (@Nonnull @Nonempty final String sWALFilename)
   {
@@ -964,8 +954,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * This method may only be triggered with valid WAL filenames, as the passed
-   * file is deleted!
+   * This method may only be triggered with valid WAL filenames, as the passed file is deleted!
    */
   final void _deleteWALFileAfterProcessing (@Nonnull @Nonempty final String sWALFilename)
   {
@@ -1045,8 +1034,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * @return The waiting time used before the file is effectively written. Never
-   *         <code>null</code>. Default value is 10 seconds.
+   * @return The waiting time used before the file is effectively written. Never <code>null</code>.
+   *         Default value is 10 seconds.
    */
   @Nonnull
   public Duration getWaitingTime ()
@@ -1055,9 +1044,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * Set the waiting time used before the file is effectively written. Default
-   * value is 10 seconds. Setting the value to a duration of 0 means that the
-   * write ahead is effectively disabled.
+   * Set the waiting time used before the file is effectively written. Default value is 10 seconds.
+   * Setting the value to a duration of 0 means that the write ahead is effectively disabled.
    *
    * @param aWaitingTime
    *        The waiting time to be used. May not be <code>null</code>.
@@ -1070,9 +1058,9 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * This method must be called every time something changed in the DAO. It
-   * triggers the writing to a file if auto-save is active. This method must be
-   * called within a write-lock as it is not locked!
+   * This method must be called every time something changed in the DAO. It triggers the writing to
+   * a file if auto-save is active. This method must be called within a write-lock as it is not
+   * locked!
    *
    * @param aModifiedElement
    *        The modified data element. May not be <code>null</code>.
@@ -1132,8 +1120,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * In case there are pending changes write them to the file. This method is
-   * write locked!
+   * In case there are pending changes write them to the file. This method is write locked!
    */
   public final void writeToFileOnPendingChanges ()
   {

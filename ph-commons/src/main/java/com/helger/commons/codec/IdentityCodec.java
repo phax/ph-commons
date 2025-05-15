@@ -16,7 +16,7 @@
  */
 package com.helger.commons.codec;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 /**
  * Special implementation of {@link ICodec} that does nothing. This is a

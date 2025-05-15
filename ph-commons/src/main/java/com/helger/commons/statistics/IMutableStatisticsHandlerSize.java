@@ -16,7 +16,7 @@
  */
 package com.helger.commons.statistics;
 
-import javax.annotation.Nonnegative;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Statistics handler for sizes.

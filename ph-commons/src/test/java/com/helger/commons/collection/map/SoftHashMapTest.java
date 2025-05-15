@@ -33,15 +33,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class SoftHashMapTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SoftHashMapTest.class);
 
   @Test
   @Ignore ("Travis will fail if this test is run")
-  @SuppressFBWarnings ("UC_USELESS_OBJECT")
   public void testGarbageCollect ()
   {
     final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap <> ();

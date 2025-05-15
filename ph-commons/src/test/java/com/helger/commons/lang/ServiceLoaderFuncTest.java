@@ -37,8 +37,6 @@ import com.helger.commons.state.IStoppable;
 import com.helger.commons.system.EJavaVersion;
 import com.helger.commons.type.IHasObjectType;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link ServiceLoader}.
  *
@@ -100,7 +98,6 @@ public final class ServiceLoaderFuncTest
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testLoadCrappyServiceFile ()
   {
     // The service file contains a non-existing implementation class

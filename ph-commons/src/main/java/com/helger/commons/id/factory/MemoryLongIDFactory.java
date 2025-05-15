@@ -18,8 +18,8 @@ package com.helger.commons.id.factory;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;

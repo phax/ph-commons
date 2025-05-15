@@ -16,7 +16,7 @@
  */
 package com.helger.jaxb;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;

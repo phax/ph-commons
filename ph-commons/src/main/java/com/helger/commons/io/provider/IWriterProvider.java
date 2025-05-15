@@ -18,8 +18,8 @@ package com.helger.commons.io.provider;
 
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.io.EAppend;
 

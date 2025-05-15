@@ -18,7 +18,7 @@ package com.helger.xml.microdom.util;
 
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;

@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNull;
 
 import java.io.InputStream;
 
-import javax.annotation.WillClose;
+import com.helger.annotation.WillClose;
 
 import org.junit.Test;
 

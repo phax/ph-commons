@@ -16,7 +16,7 @@
  */
 package com.helger.security.revocation;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Simple interface for all objects that can be enabled and disabled.

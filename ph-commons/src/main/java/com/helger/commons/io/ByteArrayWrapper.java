@@ -19,9 +19,8 @@ package com.helger.commons.io;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -30,8 +29,6 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.string.ToStringGenerator;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A straight forward implementation of {@link IHasByteArray}
@@ -53,8 +50,7 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @param aBytes
    *        The byte array to be wrapped. May not be <code>null</code>.
    * @param bCopyNeeded
-   *        <code>true</code> to copy it, <code>false</code> to reuse the
-   *        instance.
+   *        <code>true</code> to copy it, <code>false</code> to reuse the instance.
    */
   public ByteArrayWrapper (@Nonnull final byte [] aBytes, final boolean bCopyNeeded)
   {
@@ -71,8 +67,7 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @param nLength
    *        Length. Must be &ge; 0.
    * @param bCopyNeeded
-   *        <code>true</code> to copy it, <code>false</code> to reuse the
-   *        instance.
+   *        <code>true</code> to copy it, <code>false</code> to reuse the instance.
    */
   public ByteArrayWrapper (@Nonnull final byte [] aBytes,
                            @Nonnegative final int nOfs,
@@ -93,7 +88,6 @@ public final class ByteArrayWrapper implements IHasByteArray
 
   @Nonnull
   @ReturnsMutableObject
-  @SuppressFBWarnings ("EI_EXPOSE_REP")
   public byte [] bytes ()
   {
     return m_aBytes;
@@ -156,15 +150,16 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @param aBAOS
    *        The output stream to be wrapped. May not be <code>null</code>.
    * @param bCopyNeeded
-   *        <code>true</code> to copy it (needed if the output stream will be
-   *        modified afterwards), <code>false</code> to reuse the data (if the
-   *        output stream will not be modified afterwards).
+   *        <code>true</code> to copy it (needed if the output stream will be modified afterwards),
+   *        <code>false</code> to reuse the data (if the output stream will not be modified
+   *        afterwards).
    * @return ByteArrayWrapper The created instance. Never <code>null</code>.
    * @since 9.2.1
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ByteArrayWrapper create (@Nonnull final NonBlockingByteArrayOutputStream aBAOS, final boolean bCopyNeeded)
+  public static ByteArrayWrapper create (@Nonnull final NonBlockingByteArrayOutputStream aBAOS,
+                                         final boolean bCopyNeeded)
   {
     return new ByteArrayWrapper (aBAOS.directGetBuffer (), 0, aBAOS.size (), bCopyNeeded);
   }
@@ -175,8 +170,8 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @param sText
    *        The String to be wrapped. May not be <code>null</code>.
    * @param aCharset
-   *        The character set to be used for retrieving the bytes from the
-   *        string. May not be <code>null</code>.
+   *        The character set to be used for retrieving the bytes from the string. May not be
+   *        <code>null</code>.
    * @return ByteArrayWrapper The created instance. Never <code>null</code>.
    * @since 9.2.1
    */

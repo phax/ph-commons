@@ -16,7 +16,7 @@
  */
 package com.helger.json;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * An interface for non JSON objects which implement a conversion to a JSON

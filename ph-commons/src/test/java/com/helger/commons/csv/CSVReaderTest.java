@@ -44,7 +44,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.junit.Test;
 

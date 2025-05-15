@@ -16,7 +16,7 @@
  */
 package com.helger.config.value;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;

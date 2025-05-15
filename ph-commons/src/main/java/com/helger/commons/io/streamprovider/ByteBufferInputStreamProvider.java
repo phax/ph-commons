@@ -18,7 +18,7 @@ package com.helger.commons.io.streamprovider;
 
 import java.nio.ByteBuffer;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;

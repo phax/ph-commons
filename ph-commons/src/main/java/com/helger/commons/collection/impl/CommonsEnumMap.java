@@ -18,7 +18,7 @@ package com.helger.commons.collection.impl;
 
 import java.util.EnumMap;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 

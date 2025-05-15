@@ -16,17 +16,14 @@
  */
 package com.helger.commons.text.util;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.EncodeException;
 import com.helger.commons.text.codepoint.CodepointHelper;
 import com.helger.commons.text.codepoint.CodepointIteratorCharArray;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Implementation of the Punycode encoding scheme used by IDNA and RFC 3492<br>
@@ -191,7 +188,6 @@ public final class Punycode
     return getDecoded (s.toCharArray (), null);
   }
 
-  @SuppressFBWarnings ("QF_QUESTIONABLE_FOR_LOOP")
   @Nonnull
   public static String getDecoded (@Nonnull final char [] aChars, @Nullable final boolean [] aCaseFlags)
   {

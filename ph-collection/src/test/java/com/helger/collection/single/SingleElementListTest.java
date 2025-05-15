@@ -29,8 +29,6 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link SingleElementList}.
  *
@@ -49,7 +47,6 @@ public final class SingleElementListTest
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testBasicStartFromEmpty ()
   {
     final SingleElementList <String> aList = new SingleElementList <> ();
@@ -194,7 +191,6 @@ public final class SingleElementListTest
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testSubList ()
   {
     final SingleElementList <String> aList = new SingleElementList <> ("init");
@@ -225,7 +221,6 @@ public final class SingleElementListTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testIterate ()
   {
     SingleElementList <String> aList = new SingleElementList <> ("Hallo");

@@ -28,8 +28,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.equals.EqualsHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link QueueHelper}
  *
@@ -38,12 +36,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class QueueHelperTest
 {
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testNew ()
   {
     QueueHelper.newQueue ();
     QueueHelper.newQueue ("a");
-    QueueHelper.newQueue (new String [] { "a" });
+    QueueHelper.newQueue ("a");
     QueueHelper.newQueue (new CommonsArrayList <> ("a"));
     QueueHelper.newQueue (new IterableIterator <> (new CommonsArrayList <> ("a")));
     QueueHelper.newQueue ((Iterable <String>) new CommonsArrayList <> ("a"));

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.state;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Very simple interface for an object that has mandatory/optional indication.

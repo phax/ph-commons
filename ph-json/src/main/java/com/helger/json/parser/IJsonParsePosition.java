@@ -18,8 +18,8 @@ package com.helger.json.parser;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
 
 /**
  * Read-only parsing position with a line and a column number.

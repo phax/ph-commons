@@ -16,7 +16,7 @@
  */
 package com.helger.jaxb;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;

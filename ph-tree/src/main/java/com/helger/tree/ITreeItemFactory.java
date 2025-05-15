@@ -16,7 +16,7 @@
  */
 package com.helger.tree;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Interface for a simple tree item factory

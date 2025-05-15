@@ -34,14 +34,13 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -59,8 +58,6 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.system.SystemProperties;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Miscellaneous file utility methods.
@@ -83,8 +80,8 @@ public final class FileHelper
    *
    * @param aFile
    *        The file to be checked for existence. May be <code>null</code> .
-   * @return <code>true</code> if the passed file is non-<code>null</code>, is a
-   *         file and exists, <code>false</code> otherwise.
+   * @return <code>true</code> if the passed file is non-<code>null</code>, is a file and exists,
+   *         <code>false</code> otherwise.
    */
   public static boolean existsFile (@Nullable final File aFile)
   {
@@ -93,13 +90,12 @@ public final class FileHelper
   }
 
   /**
-   * Check if the passed directory exists. Must be existing and must be a
-   * directory!
+   * Check if the passed directory exists. Must be existing and must be a directory!
    *
    * @param aDir
    *        The directory to be checked for existence. May be <code>null</code>.
-   * @return <code>true</code> if the passed directory is not <code>null</code>,
-   *         is a directory and exists, <code>false</code> otherwise.
+   * @return <code>true</code> if the passed directory is not <code>null</code>, is a directory and
+   *         exists, <code>false</code> otherwise.
    */
   public static boolean existsDir (@Nullable final File aDir)
   {
@@ -108,9 +104,8 @@ public final class FileHelper
   }
 
   /**
-   * Check if the passed file can read and write. If the file already exists,
-   * the file itself is checked. If the file does not exist, the parent
-   * directory
+   * Check if the passed file can read and write. If the file already exists, the file itself is
+   * checked. If the file does not exist, the parent directory
    *
    * @param aFile
    *        The file to be checked. May be <code>null</code>.
@@ -162,15 +157,14 @@ public final class FileHelper
   }
 
   /**
-   * Get the canonical file of the passed file, if the file is not
-   * <code>null</code>.
+   * Get the canonical file of the passed file, if the file is not <code>null</code>.
    *
    * @param aFile
    *        The file to get the canonical path from. May be <code>null</code>.
    * @return <code>null</code> if the passed file is <code>null</code>.
    * @throws IOException
-   *         If an I/O error occurs, which is possible because the construction
-   *         of the canonical pathname may require filesystem queries
+   *         If an I/O error occurs, which is possible because the construction of the canonical
+   *         pathname may require filesystem queries
    */
   @Nullable
   public static File getCanonicalFile (@Nullable final File aFile) throws IOException
@@ -179,14 +173,12 @@ public final class FileHelper
   }
 
   /**
-   * Get the canonical file of the passed file, if the file is not
-   * <code>null</code>. In case of an {@link IOException}, <code>null</code> is
-   * returned.
+   * Get the canonical file of the passed file, if the file is not <code>null</code>. In case of an
+   * {@link IOException}, <code>null</code> is returned.
    *
    * @param aFile
    *        The file to get the canonical path from. May be <code>null</code>.
-   * @return <code>null</code> if the passed file is <code>null</code> or an
-   *         exception occurred.
+   * @return <code>null</code> if the passed file is <code>null</code> or an exception occurred.
    */
   @Nullable
   public static File getCanonicalFileOrNull (@Nullable final File aFile)
@@ -204,15 +196,14 @@ public final class FileHelper
   }
 
   /**
-   * Get the canonical path of the passed file, if the file is not
-   * <code>null</code>.
+   * Get the canonical path of the passed file, if the file is not <code>null</code>.
    *
    * @param aFile
    *        The file to get the canonical path from. May be <code>null</code>.
    * @return <code>null</code> if the passed file is <code>null</code>.
    * @throws IOException
-   *         If an I/O error occurs, which is possible because the construction
-   *         of the canonical pathname may require filesystem queries
+   *         If an I/O error occurs, which is possible because the construction of the canonical
+   *         pathname may require filesystem queries
    */
   @Nullable
   public static String getCanonicalPath (@Nullable final File aFile) throws IOException
@@ -222,9 +213,8 @@ public final class FileHelper
   }
 
   /**
-   * Get the canonical path of the passed file, if the file is not
-   * <code>null</code>. In case of an {@link IOException}, <code>null</code> is
-   * returned.
+   * Get the canonical path of the passed file, if the file is not <code>null</code>. In case of an
+   * {@link IOException}, <code>null</code> is returned.
    *
    * @param aFile
    *        The file to get the canonical path from. May be <code>null</code>.
@@ -254,11 +244,10 @@ public final class FileHelper
    *        The directory to be searched. May not be <code>null</code>.
    * @param aStartDirectory
    *        The directory where the search starts. May not be <code>null</code>.
-   * @return <code>true</code> if the search directory is a parent of the start
-   *         directory, <code>false</code> otherwise.
+   * @return <code>true</code> if the search directory is a parent of the start directory,
+   *         <code>false</code> otherwise.
    * @see #getCanonicalFile(File)
    */
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public static boolean isParentDirectory (@Nonnull final File aSearchDirectory, @Nonnull final File aStartDirectory)
   {
     ValueEnforcer.notNull (aSearchDirectory, "SearchDirectory");
@@ -509,18 +498,18 @@ public final class FileHelper
   }
 
   /**
-   * Returns <code>true</code> if the first file is newer than the second file.
-   * Returns <code>true</code> if the first file exists and the second file does
-   * not exist. Returns <code>false</code> if the first file is older than the
-   * second file. Returns <code>false</code> if the first file does not exists
-   * but the second does. Returns <code>false</code> if none of the files exist.
+   * Returns <code>true</code> if the first file is newer than the second file. Returns
+   * <code>true</code> if the first file exists and the second file does not exist. Returns
+   * <code>false</code> if the first file is older than the second file. Returns <code>false</code>
+   * if the first file does not exists but the second does. Returns <code>false</code> if none of
+   * the files exist.
    *
    * @param aFile1
    *        First file. May not be <code>null</code>.
    * @param aFile2
    *        Second file. May not be <code>null</code>.
-   * @return <code>true</code> if the first file is newer than the second file,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the first file is newer than the second file, <code>false</code>
+   *         otherwise.
    */
   public static boolean isFileNewer (@Nonnull final File aFile1, @Nonnull final File aFile2)
   {
@@ -573,10 +562,9 @@ public final class FileHelper
   }
 
   /**
-   * Get a secure {@link File} object based on the passed file object. First all
-   * relative paths ("." and "..") are resolved and all eventually contained
-   * '\0' characters are eliminated. Than all file names are checked for
-   * validity (so that no special characters are contained).
+   * Get a secure {@link File} object based on the passed file object. First all relative paths ("."
+   * and "..") are resolved and all eventually contained '\0' characters are eliminated. Than all
+   * file names are checked for validity (so that no special characters are contained).
    *
    * @param aFile
    *        The file to be secured.
@@ -611,12 +599,11 @@ public final class FileHelper
   }
 
   /**
-   * Returns the number of files and directories contained in the passed
-   * directory excluding the system internal directories.
+   * Returns the number of files and directories contained in the passed directory excluding the
+   * system internal directories.
    *
    * @param aDirectory
-   *        The directory to check. May not be <code>null</code> and must be a
-   *        directory.
+   *        The directory to check. May not be <code>null</code> and must be a directory.
    * @return A non-negative number of objects in that directory.
    * @see FilenameHelper#isSystemInternalDirectory(CharSequence)
    */
@@ -669,9 +656,9 @@ public final class FileHelper
   }
 
   /**
-   * This is a replacement for <code>File.listFiles()</code> doing some
-   * additional checks on permissions. The order of the returned files is
-   * defined by the underlying {@link File#listFiles()} method.
+   * This is a replacement for <code>File.listFiles()</code> doing some additional checks on
+   * permissions. The order of the returned files is defined by the underlying
+   * {@link File#listFiles()} method.
    *
    * @param aDirectory
    *        The directory to be listed. May not be <code>null</code>.
@@ -687,9 +674,9 @@ public final class FileHelper
   }
 
   /**
-   * This is a replacement for <code>File.listFiles(FilenameFilter)</code> doing
-   * some additional checks on permissions. The order of the returned files is
-   * defined by the underlying {@link File#listFiles(FilenameFilter)} method.
+   * This is a replacement for <code>File.listFiles(FilenameFilter)</code> doing some additional
+   * checks on permissions. The order of the returned files is defined by the underlying
+   * {@link File#listFiles(FilenameFilter)} method.
    *
    * @param aDirectory
    *        The directory to be listed. May not be <code>null</code>.
@@ -709,9 +696,9 @@ public final class FileHelper
   }
 
   /**
-   * This is a replacement for <code>File.listFiles(FileFilter)</code> doing
-   * some additional checks on permissions. The order of the returned files is
-   * defined by the underlying {@link File#listFiles(FileFilter)} method.
+   * This is a replacement for <code>File.listFiles(FileFilter)</code> doing some additional checks
+   * on permissions. The order of the returned files is defined by the underlying
+   * {@link File#listFiles(FileFilter)} method.
    *
    * @param aDirectory
    *        The directory to be listed. May not be <code>null</code>.

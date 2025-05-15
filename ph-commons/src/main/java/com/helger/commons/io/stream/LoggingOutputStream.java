@@ -19,8 +19,8 @@ package com.helger.commons.io.stream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

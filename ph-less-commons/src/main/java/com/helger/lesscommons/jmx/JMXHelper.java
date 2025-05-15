@@ -18,8 +18,8 @@ package com.helger.lesscommons.jmx;
 
 import java.lang.management.ManagementFactory;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
 import javax.management.JMException;
 import javax.management.ObjectName;
 

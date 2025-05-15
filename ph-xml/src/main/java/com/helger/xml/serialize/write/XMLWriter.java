@@ -19,10 +19,10 @@ package com.helger.xml.serialize.write;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
 import javax.xml.namespace.NamespaceContext;
 
 import org.slf4j.Logger;

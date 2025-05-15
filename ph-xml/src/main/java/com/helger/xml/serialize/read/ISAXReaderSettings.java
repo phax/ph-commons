@@ -16,8 +16,8 @@
  */
 package com.helger.xml.serialize.read;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.ContentHandler;

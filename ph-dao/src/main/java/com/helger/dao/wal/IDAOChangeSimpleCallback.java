@@ -16,7 +16,7 @@
  */
 package com.helger.dao.wal;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.id.IHasID;
 

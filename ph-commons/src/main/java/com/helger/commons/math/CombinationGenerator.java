@@ -20,8 +20,8 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;

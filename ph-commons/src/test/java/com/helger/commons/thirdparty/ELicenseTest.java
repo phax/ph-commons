@@ -21,8 +21,6 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link ELicense}.
  *
@@ -31,7 +29,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class ELicenseTest
 {
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testAll ()
   {
     for (final ELicense eLic : ELicense.values ())

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.codec;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Interface for a single encoder + decoder.

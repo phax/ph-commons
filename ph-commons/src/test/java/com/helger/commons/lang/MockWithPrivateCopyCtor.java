@@ -16,16 +16,12 @@
  */
 package com.helger.commons.lang;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * This class needs to be in the same package as {@link CloneHelper} so that the
- * test works!<br>
+ * This class needs to be in the same package as {@link CloneHelper} so that the test works!<br>
  * Should fail because the copy constructor is private
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 public final class MockWithPrivateCopyCtor
 {
   public MockWithPrivateCopyCtor ()

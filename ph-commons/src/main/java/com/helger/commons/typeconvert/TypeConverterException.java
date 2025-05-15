@@ -16,9 +16,9 @@
  */
 package com.helger.commons.typeconvert;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.annotation.NoTranslationRequired;
 import com.helger.commons.annotation.Nonempty;

@@ -16,7 +16,7 @@
  */
 package com.helger.security.authentication.subject.user;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Constants for user handling

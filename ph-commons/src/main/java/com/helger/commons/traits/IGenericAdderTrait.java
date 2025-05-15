@@ -19,10 +19,10 @@ package com.helger.commons.traits;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
 

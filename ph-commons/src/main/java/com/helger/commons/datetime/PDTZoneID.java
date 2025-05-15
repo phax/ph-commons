@@ -19,7 +19,7 @@ package com.helger.commons.datetime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;

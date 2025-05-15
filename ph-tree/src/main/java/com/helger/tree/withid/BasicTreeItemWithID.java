@@ -21,11 +21,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -42,11 +41,8 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.ToStringGenerator;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * Basic tree item with ID implementation, independent of the implementation
- * type.
+ * Basic tree item with ID implementation, independent of the implementation type.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -107,8 +103,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * Constructor for normal elements
    *
    * @param aParent
-   *        Parent item. May never be <code>null</code> since only the root has
-   *        no parent.
+   *        Parent item. May never be <code>null</code> since only the root has no parent.
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
@@ -132,9 +127,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * This method is called to validate a data ID object. This method may be
-   * overloaded in derived classes. The default implementation accepts all
-   * values.
+   * This method is called to validate a data ID object. This method may be overloaded in derived
+   * classes. The default implementation accepts all values.
    *
    * @param aDataID
    *        The value to validate.
@@ -147,9 +141,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * This method is called to validate a data object. This method may be
-   * overloaded in derived classes. The default implementation accepts all
-   * values.
+   * This method is called to validate a data object. This method may be overloaded in derived
+   * classes. The default implementation accepts all values.
    *
    * @param aData
    *        The value to validate.
@@ -379,7 +372,6 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildMap == null ? null : m_aChildMap.get (aDataID);
   }
 
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public final boolean isSameOrChildOf (@Nonnull final ITEMTYPE aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");

@@ -16,8 +16,8 @@
  */
 package com.helger.xml.util.statistics;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.statistics.util.StatisticsVisitor;

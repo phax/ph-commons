@@ -30,11 +30,8 @@ import org.junit.Test;
 import com.helger.commons.CGlobal;
 import com.helger.commons.equals.EqualsHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class JavaBigDecimalFuncTest
 {
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   @Test
   public void testDivide ()
   {

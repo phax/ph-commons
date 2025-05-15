@@ -30,10 +30,9 @@ import java.util.Iterator;
 import java.util.Stack;
 import java.util.function.BiPredicate;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
+import com.helger.annotation.Nonnull;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.IteratorHelper;
@@ -55,14 +54,11 @@ import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.string.StringParser;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link EqualsHelper}.
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("DMI_DOH")
 public final class EqualsHelperTest
 {
   @Test

@@ -18,28 +18,23 @@ package com.helger.matrix;
 
 import java.util.Arrays;
 
-import javax.annotation.Nonnull;
-
+import com.helger.annotation.Nonnull;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.math.MathHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Singular Value Decomposition.
  * <P>
- * For an m-by-n matrix A with m &gt;= n, the singular value decomposition is an
- * m-by-n orthogonal matrix U, an n-by-n diagonal matrix S, and an n-by-n
- * orthogonal matrix V so that A = U*S*V'.
+ * For an m-by-n matrix A with m &gt;= n, the singular value decomposition is an m-by-n orthogonal
+ * matrix U, an n-by-n diagonal matrix S, and an n-by-n orthogonal matrix V so that A = U*S*V'.
  * </P>
  * <P>
- * The singular values, sigma[k] = S[k][k], are ordered so that sigma[0] &gt;=
- * sigma[1] &gt;= ... &gt;= sigma[n-1].
+ * The singular values, sigma[k] = S[k][k], are ordered so that sigma[0] &gt;= sigma[1] &gt;= ...
+ * &gt;= sigma[n-1].
  * </P>
  * <P>
- * The singular value decomposition always exists, so the constructor will never
- * fail. The matrix condition number and the effective numerical rank can be
- * computed from this decomposition.
+ * The singular value decomposition always exists, so the constructor will never fail. The matrix
+ * condition number and the effective numerical rank can be computed from this decomposition.
  * </P>
  */
 public class SingularValueDecomposition
@@ -92,8 +87,8 @@ public class SingularValueDecomposition
     m_nCols = aMatrix.getColumnDimension ();
 
     /*
-     * Apparently the failing cases are only a proper subset of (m<n), so let's
-     * not throw error. Correct fix to come later? if (m<n) { throw new
+     * Apparently the failing cases are only a proper subset of (m<n), so let's not throw error.
+     * Correct fix to come later? if (m<n) { throw new
      * IllegalArgumentException("Jama SVD only works for m >= n"); }
      */
     final int nu = Math.min (m_nRows, m_nCols);
@@ -544,7 +539,6 @@ public class SingularValueDecomposition
    * @return diagonal of S.
    */
   @Nonnull
-  @SuppressFBWarnings ("EI_EXPOSE_REP")
   public double [] getSingularValues ()
   {
     return m_aData;

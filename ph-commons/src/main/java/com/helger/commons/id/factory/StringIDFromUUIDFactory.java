@@ -18,7 +18,7 @@ package com.helger.commons.id.factory;
 
 import java.util.UUID;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;

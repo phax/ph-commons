@@ -32,11 +32,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -58,16 +57,13 @@ import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EChange;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * Provides various helper methods to handle collections like {@link List},
- * {@link Set} and {@link Map}.
+ * Provides various helper methods to handle collections like {@link List}, {@link Set} and
+ * {@link Map}.
  *
  * @author Philip Helger
  */
 @Immutable
-@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public final class CollectionHelper
 {
   @PresentForCodeCoverage
@@ -117,10 +113,9 @@ public final class CollectionHelper
   }
 
   /**
-   * Get the passed object as a {@link CommonsArrayList} object. This is helpful
-   * in case you want to compare the String array ["a", "b"] with the
-   * List&lt;String&gt; ("a", "b") If the passed object is not a recognized.
-   * container type, than a new list with one element is created!
+   * Get the passed object as a {@link CommonsArrayList} object. This is helpful in case you want to
+   * compare the String array ["a", "b"] with the List&lt;String&gt; ("a", "b") If the passed object
+   * is not a recognized. container type, than a new list with one element is created!
    *
    * @param aObj
    *        The object to be converted. May not be <code>null</code>.
@@ -302,8 +297,8 @@ public final class CollectionHelper
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
   {
-    return aNavigableSet == null ? Collections.emptyNavigableSet ()
-                                 : Collections.unmodifiableNavigableSet (aNavigableSet);
+    return aNavigableSet == null ? Collections.emptyNavigableSet () : Collections.unmodifiableNavigableSet (
+                                                                                                            aNavigableSet);
   }
 
   @Nonnull
@@ -311,13 +306,13 @@ public final class CollectionHelper
   @CodingStyleguideUnaware
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
   {
-    return aNavigableMap == null ? Collections.emptyNavigableMap ()
-                                 : Collections.unmodifiableNavigableMap (aNavigableMap);
+    return aNavigableMap == null ? Collections.emptyNavigableMap () : Collections.unmodifiableNavigableMap (
+                                                                                                            aNavigableMap);
   }
 
   /**
-   * Get all elements that are only contained in the first contained, and not in
-   * the second. This method implements <code>aCont1 - aCont2</code>.
+   * Get all elements that are only contained in the first contained, and not in the second. This
+   * method implements <code>aCont1 - aCont2</code>.
    *
    * @param <ELEMENTTYPE>
    *        Set element type
@@ -325,10 +320,9 @@ public final class CollectionHelper
    *        The first container. May be <code>null</code> or empty.
    * @param aCollection2
    *        The second container. May be <code>null</code> or empty.
-   * @return The difference and never <code>null</code>. Returns an empty set,
-   *         if the first container is empty. Returns a copy of the first
-   *         container, if the second container is empty. Returns
-   *         <code>aCont1 - aCont2</code> if both containers are non-empty.
+   * @return The difference and never <code>null</code>. Returns an empty set, if the first
+   *         container is empty. Returns a copy of the first container, if the second container is
+   *         empty. Returns <code>aCont1 - aCont2</code> if both containers are non-empty.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -346,8 +340,7 @@ public final class CollectionHelper
   }
 
   /**
-   * Get all elements that are contained in the first AND in the second
-   * container.
+   * Get all elements that are contained in the first AND in the second container.
    *
    * @param <ELEMENTTYPE>
    *        Collection element type
@@ -355,10 +348,9 @@ public final class CollectionHelper
    *        The first container. May be <code>null</code> or empty.
    * @param aCollection2
    *        The second container. May be <code>null</code> or empty.
-   * @return An empty set, if either the first or the second container are
-   *         empty. Returns a set of elements that are contained in both
-   *         containers, if both containers are non-empty. The return value is
-   *         never <code>null</code>.
+   * @return An empty set, if either the first or the second container are empty. Returns a set of
+   *         elements that are contained in both containers, if both containers are non-empty. The
+   *         return value is never <code>null</code>.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -627,8 +619,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Retrieve a map that is ordered in the way the parameter arrays are passed
-   * in. Note that key and value arrays need to have the same length.
+   * Retrieve a map that is ordered in the way the parameter arrays are passed in. Note that key and
+   * value arrays need to have the same length.
    *
    * @param <KEYTYPE>
    *        The key type.
@@ -638,8 +630,8 @@ public final class CollectionHelper
    *        The key array to use. May not be <code>null</code>.
    * @param aValues
    *        The value array to use. May not be <code>null</code>.
-   * @return A {@link CommonsLinkedHashMap} containing the passed key-value
-   *         entries. Never <code>null</code>.
+   * @return A {@link CommonsLinkedHashMap} containing the passed key-value entries. Never
+   *         <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -1073,7 +1065,6 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" }, justification = "When using the constructor with the Comparator it works with null values!")
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
@@ -1360,8 +1351,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Compared to {@link Collections#list(Enumeration)} this method is more
-   * flexible in Generics parameter.
+   * Compared to {@link Collections#list(Enumeration)} this method is more flexible in Generics
+   * parameter.
    *
    * @param <ELEMENTTYPE>
    *        Type of the elements
@@ -1493,8 +1484,7 @@ public final class CollectionHelper
    *        The type of element to iterate.
    * @param aCont
    *        Iterable input object. May be <code>null</code>.
-   * @return A {@link CommonsArrayList} based on the results of
-   *         {@link Collections#sort(List)}.
+   * @return A {@link CommonsArrayList} based on the results of {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -1530,8 +1520,7 @@ public final class CollectionHelper
    *        The type of element to iterate.
    * @param aCont
    *        Collection input object. May be <code>null</code>.
-   * @return A {@link CommonsArrayList} based on the results of
-   *         {@link Collections#sort(List)}.
+   * @return A {@link CommonsArrayList} based on the results of {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -1567,8 +1556,7 @@ public final class CollectionHelper
    *        The type of element to iterate.
    * @param aCont
    *        Array input object. May be <code>null</code>.
-   * @return A {@link CommonsArrayList} based on the results of
-   *         {@link Collections#sort(List)}.
+   * @return A {@link CommonsArrayList} based on the results of {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -1622,8 +1610,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Get a map sorted by aIter's keys. Because no comparator is defined, the key
-   * type needs to implement the {@link java.lang.Comparable} interface.
+   * Get a map sorted by aIter's keys. Because no comparator is defined, the key type needs to
+   * implement the {@link java.lang.Comparable} interface.
    *
    * @param <KEYTYPE>
    *        map key type
@@ -1647,8 +1635,7 @@ public final class CollectionHelper
   }
 
   /**
-   * Get a map sorted by its keys. The comparison order is defined by the passed
-   * comparator object.
+   * Get a map sorted by its keys. The comparison order is defined by the passed comparator object.
    *
    * @param <KEYTYPE>
    *        map key type
@@ -1677,8 +1664,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Get a map sorted by its values. Because no comparator is defined, the value
-   * type needs to implement the {@link java.lang.Comparable} interface.
+   * Get a map sorted by its values. Because no comparator is defined, the value type needs to
+   * implement the {@link java.lang.Comparable} interface.
    *
    * @param <KEYTYPE>
    *        map key type
@@ -1702,8 +1689,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Get a map sorted by aIter's values. The comparison order is defined by the
-   * passed comparator object.
+   * Get a map sorted by aIter's values. The comparison order is defined by the passed comparator
+   * object.
    *
    * @param <KEYTYPE>
    *        map key type
@@ -1756,8 +1743,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Get a map consisting only of a set of specified keys. If an element from
-   * the key set is not contained in the original map, the key is ignored.
+   * Get a map consisting only of a set of specified keys. If an element from the key set is not
+   * contained in the original map, the key is ignored.
    *
    * @param <KEY>
    *        Source map key type.
@@ -1766,10 +1753,8 @@ public final class CollectionHelper
    * @param aValues
    *        Source map to filter. May not be <code>null</code>.
    * @param aKeys
-   *        The filter set to filter the entries from. May not be
-   *        <code>null</code>.
-   * @return A non-<code>null</code> map containing only the elements from the
-   *         specified key set.
+   *        The filter set to filter the entries from. May not be <code>null</code>.
+   * @return A non-<code>null</code> map containing only the elements from the specified key set.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1793,8 +1778,8 @@ public final class CollectionHelper
    *        List element type
    * @param aList
    *        The list. May be <code>null</code>.
-   * @return <code>null</code> if the list is <code>null</code> or empty, the
-   *         first element otherwise.
+   * @return <code>null</code> if the list is <code>null</code> or empty, the first element
+   *         otherwise.
    */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getFirstElement (@Nullable final List <ELEMENTTYPE> aList)
@@ -1809,8 +1794,8 @@ public final class CollectionHelper
    *        Collection element type
    * @param aCollection
    *        The collection. May be <code>null</code>.
-   * @return <code>null</code> if the collection is <code>null</code> or empty,
-   *         the first element otherwise.
+   * @return <code>null</code> if the collection is <code>null</code> or empty, the first element
+   *         otherwise.
    */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getFirstElement (@Nullable final Collection <ELEMENTTYPE> aCollection)
@@ -1825,8 +1810,8 @@ public final class CollectionHelper
    *        Iterable element type
    * @param aIterable
    *        The iterable. May be <code>null</code>.
-   * @return <code>null</code> if the iterable is <code>null</code> or empty,
-   *         the first element otherwise.
+   * @return <code>null</code> if the iterable is <code>null</code> or empty, the first element
+   *         otherwise.
    */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getFirstElement (@Nullable final Iterable <ELEMENTTYPE> aIterable)
@@ -1842,10 +1827,9 @@ public final class CollectionHelper
    * @param aIterable
    *        The iterable. May be <code>null</code>.
    * @param aDefault
-   *        The default value to be returned, if no such value is present. May
-   *        be <code>null</code>.
-   * @return <code>null</code> if the iterable is <code>null</code> or empty,
-   *         the first element otherwise.
+   *        The default value to be returned, if no such value is present. May be <code>null</code>.
+   * @return <code>null</code> if the iterable is <code>null</code> or empty, the first element
+   *         otherwise.
    * @since 10.1.3
    */
   @Nullable
@@ -1901,9 +1885,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Remove the element at the specified index from the passed list. This works
-   * if the list is not <code>null</code> and the index is &ge; 0 and &lt;
-   * <code>list.size()</code>
+   * Remove the element at the specified index from the passed list. This works if the list is not
+   * <code>null</code> and the index is &ge; 0 and &lt; <code>list.size()</code>
    *
    * @param aList
    *        The list to remove an element from. May be <code>null</code>.
@@ -1922,9 +1905,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Remove the element at the specified index from the passed list. This works
-   * if the list is not <code>null</code> and the index is &ge; 0 and &lt;
-   * <code>list.size()</code>
+   * Remove the element at the specified index from the passed list. This works if the list is not
+   * <code>null</code> and the index is &ge; 0 and &lt; <code>list.size()</code>
    *
    * @param <ELEMENTTYPE>
    *        List element type
@@ -1932,9 +1914,9 @@ public final class CollectionHelper
    *        The list to remove an element from. May be <code>null</code>.
    * @param nIndex
    *        The index to be removed. May be arbitrary.
-   * @return <code>null</code> if removal failed or the removed element. Note:
-   *         the removed element may also be <code>null</code> so it may be
-   *         tricky to determine if removal succeeded or not!
+   * @return <code>null</code> if removal failed or the removed element. Note: the removed element
+   *         may also be <code>null</code> so it may be tricky to determine if removal succeeded or
+   *         not!
    * @see #removeAtIndex(List, int)
    */
   @Nullable
@@ -1984,13 +1966,12 @@ public final class CollectionHelper
   }
 
   /**
-   * Retrieve the size of the passed {@link Collection}. This method handles
-   * <code>null</code> containers.
+   * Retrieve the size of the passed {@link Collection}. This method handles <code>null</code>
+   * containers.
    *
    * @param aCollection
    *        Object to check. May be <code>null</code>.
-   * @return The size of the object or 0 if the passed parameter is
-   *         <code>null</code>.
+   * @return The size of the object or 0 if the passed parameter is <code>null</code>.
    */
   @Nonnegative
   public static int getSize (@Nullable final Collection <?> aCollection)
@@ -1999,13 +1980,11 @@ public final class CollectionHelper
   }
 
   /**
-   * Retrieve the size of the passed {@link Map}. This method handles
-   * <code>null</code> containers.
+   * Retrieve the size of the passed {@link Map}. This method handles <code>null</code> containers.
    *
    * @param aMap
    *        Object to check. May be <code>null</code>.
-   * @return The size of the object or 0 if the passed parameter is
-   *         <code>null</code>.
+   * @return The size of the object or 0 if the passed parameter is <code>null</code>.
    */
   @Nonnegative
   public static int getSize (@Nullable final Map <?, ?> aMap)
@@ -2018,8 +1997,7 @@ public final class CollectionHelper
    *
    * @param aIterable
    *        Iterator to check. May be <code>null</code>.
-   * @return The number objects or 0 if the passed parameter is
-   *         <code>null</code>.
+   * @return The number objects or 0 if the passed parameter is <code>null</code>.
    */
   @Nonnegative
   public static int getSize (@Nullable final Iterable <?> aIterable)
@@ -2032,8 +2010,7 @@ public final class CollectionHelper
    *
    * @param aEnumeration
    *        Enumeration to check. May be <code>null</code>.
-   * @return The number objects or 0 if the passed parameter is
-   *         <code>null</code>.
+   * @return The number objects or 0 if the passed parameter is <code>null</code>.
    */
   @Nonnegative
   public static int getSize (@Nullable final Enumeration <?> aEnumeration)
@@ -2192,8 +2169,8 @@ public final class CollectionHelper
   }
 
   /**
-   * Create a map that contains the combination of the other 2 maps. Both maps
-   * need to have the same key and value type.
+   * Create a map that contains the combination of the other 2 maps. Both maps need to have the same
+   * key and value type.
    *
    * @param <KEY>
    *        The map key type.
@@ -2203,10 +2180,9 @@ public final class CollectionHelper
    *        The first map. May be <code>null</code>.
    * @param aMap2
    *        The second map. May be <code>null</code>.
-   * @return Never <code>null</code> and always a new object. If both parameters
-   *         are not <code>null</code> a new map is created, initially
-   *         containing the entries from the first parameter, afterwards
-   *         extended by the parameters of the second map potentially
+   * @return Never <code>null</code> and always a new object. If both parameters are not
+   *         <code>null</code> a new map is created, initially containing the entries from the first
+   *         parameter, afterwards extended by the parameters of the second map potentially
    *         overwriting elements from the first map.
    */
   @Nonnull
@@ -2294,11 +2270,10 @@ public final class CollectionHelper
    * @param nStartIndex
    *        The start index to use. Needs to be &ge; 0.
    * @param nSectionLength
-   *        the length of the desired subset. If list is shorter than that,
-   *        aIter will return a shorter section
-   * @return The specified section of the passed list, or a shorter list if
-   *         nStartIndex + nSectionLength is an invalid index. Never
-   *         <code>null</code>.
+   *        the length of the desired subset. If list is shorter than that, aIter will return a
+   *        shorter section
+   * @return The specified section of the passed list, or a shorter list if nStartIndex +
+   *         nSectionLength is an invalid index. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -2486,15 +2461,14 @@ public final class CollectionHelper
   }
 
   /**
-   * Count the number of elements in the passed iterable (collection) matching
-   * the provided filter.
+   * Count the number of elements in the passed iterable (collection) matching the provided filter.
    *
    * @param aCollection
    *        The collection to count. May not be <code>null</code>.
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return The number of matching elements. Always &ge; 0. If no filter is
-   *         provided this is the same as {@link #getSize(Iterable)}.
+   * @return The number of matching elements. Always &ge; 0. If no filter is provided this is the
+   *         same as {@link #getSize(Iterable)}.
    * @param <ELEMENTTYPE>
    *        The element type to count
    */
@@ -2514,15 +2488,14 @@ public final class CollectionHelper
   }
 
   /**
-   * Count the number of elements in the passed collection matching the provided
-   * filter.
+   * Count the number of elements in the passed collection matching the provided filter.
    *
    * @param aCollection
    *        The collection to count. May not be <code>null</code>.
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return The number of matching elements. Always &ge; 0. If no filter is
-   *         provided this is the same as {@link #getSize(Collection)}.
+   * @return The number of matching elements. Always &ge; 0. If no filter is provided this is the
+   *         same as {@link #getSize(Collection)}.
    * @param <ELEMENTTYPE>
    *        The element type to count
    */
@@ -2567,20 +2540,17 @@ public final class CollectionHelper
   }
 
   /**
-   * Check if the passed collection contains only elements matching the
-   * predicate. An empty collection does not fulfill this requirement! If no
-   * filter is provided the return value is identical to
-   * {@link #isNotEmpty(Iterable)}
+   * Check if the passed collection contains only elements matching the predicate. An empty
+   * collection does not fulfill this requirement! If no filter is provided the return value is
+   * identical to {@link #isNotEmpty(Iterable)}
    *
    * @param aCollection
    *        The collection to check. May be <code>null</code>.
    * @param aFilter
-   *        Predicate to check against all elements. May not be
-   *        <code>null</code>.
-   * @return <code>true</code> only if the passed collection is neither
-   *         <code>null</code> nor empty and if only matching elements are
-   *         contained, or if no filter is provided and the collection is not
-   *         empty.
+   *        Predicate to check against all elements. May not be <code>null</code>.
+   * @return <code>true</code> only if the passed collection is neither <code>null</code> nor empty
+   *         and if only matching elements are contained, or if no filter is provided and the
+   *         collection is not empty.
    * @param <ELEMENTTYPE>
    *        Collection data type
    */
@@ -2600,14 +2570,12 @@ public final class CollectionHelper
   }
 
   /**
-   * Check if the passed collection contains at least one <code>null</code>
-   * element.
+   * Check if the passed collection contains at least one <code>null</code> element.
    *
    * @param aCont
    *        The collection to check. May be <code>null</code>.
-   * @return <code>true</code> only if the passed collection is neither
-   *         <code>null</code> nor empty and if at least one <code>null</code>
-   *         element is contained.
+   * @return <code>true</code> only if the passed collection is neither <code>null</code> nor empty
+   *         and if at least one <code>null</code> element is contained.
    */
   public static boolean containsAnyNullElement (@Nullable final Iterable <?> aCont)
   {
@@ -2619,9 +2587,8 @@ public final class CollectionHelper
    *
    * @param aCont
    *        The collection to check. May be <code>null</code>.
-   * @return <code>true</code> only if the passed collection is neither
-   *         <code>null</code> nor empty and if at least one <code>null</code>
-   *         element is contained.
+   * @return <code>true</code> only if the passed collection is neither <code>null</code> nor empty
+   *         and if at least one <code>null</code> element is contained.
    */
   public static boolean containsOnlyNullElements (@Nullable final Iterable <?> aCont)
   {

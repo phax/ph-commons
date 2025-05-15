@@ -46,8 +46,6 @@ import com.helger.commons.functional.ICharPredicate;
 import com.helger.commons.functional.IThrowingFunction;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link StringHelper}.
  *
@@ -432,10 +430,9 @@ public final class StringHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testImplodeArray ()
   {
-    final String [] aArray = new String [] { "a", "b", "c" };
+    final String [] aArray = { "a", "b", "c" };
     assertEquals ("a.b", StringHelper.getImploded (".", aArray, 0, 2));
     assertEquals ("ab", StringHelper.getImploded (aArray, 0, 2));
     assertEquals ("b.c", StringHelper.getImploded (".", aArray, 1, 2));
@@ -499,10 +496,9 @@ public final class StringHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testGetImplodedNonEmptyArray ()
   {
-    final String [] aArray = new String [] { null, "a", "", "b", null, "c", "" };
+    final String [] aArray = { null, "a", "", "b", null, "c", "" };
     assertEquals ("a.b", StringHelper.getImplodedNonEmpty (".", aArray, 0, 4));
     assertEquals ("b.c", StringHelper.getImplodedNonEmpty (".", aArray, 2, 4));
     assertEquals ("", StringHelper.getImplodedNonEmpty (".", aArray, 0, 0));
@@ -634,7 +630,6 @@ public final class StringHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testGetRepeated ()
   {
     assertEquals ("", StringHelper.getRepeated ('a', 0));
@@ -711,7 +706,7 @@ public final class StringHelperTest
     assertFalse (StringHelper.startsWith ("", 'a'));
     assertFalse (StringHelper.startsWith (null, 'a'));
 
-    final char [] aStart = new char [] { 'a', 'b', 'c' };
+    final char [] aStart = { 'a', 'b', 'c' };
     assertTrue (StringHelper.startsWithAny ("abc", aStart));
     assertTrue (StringHelper.startsWithAny ("bbc", aStart));
     assertTrue (StringHelper.startsWithAny ("ccc", aStart));
@@ -803,7 +798,7 @@ public final class StringHelperTest
     assertFalse (StringHelper.endsWith (null, null));
     assertTrue (StringHelper.endsWith ("", ""));
 
-    final char [] aEnd = new char [] { 'a', 'b', 'c' };
+    final char [] aEnd = { 'a', 'b', 'c' };
     assertTrue (StringHelper.endsWithAny ("abc", aEnd));
     assertTrue (StringHelper.endsWithAny ("aab", aEnd));
     assertTrue (StringHelper.endsWithAny ("aaa", aEnd));
@@ -1312,7 +1307,6 @@ public final class StringHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCutAfterLength ()
   {
     assertEquals ("abc...", StringHelper.getCutAfterLength ("abc die Katze lief im Schnee", 3, "..."));
@@ -1378,7 +1372,6 @@ public final class StringHelperTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testReplaceAllString ()
   {
     assertEquals ("abc", StringHelper.replaceAll ("abc", "d", "e"));
@@ -1417,7 +1410,6 @@ public final class StringHelperTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testReplaceAllChar ()
   {
     assertEquals ("abc", StringHelper.replaceAll ("abc", 'd', 'e'));
@@ -1433,7 +1425,6 @@ public final class StringHelperTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testReplaceAllSafe ()
   {
     assertEquals ("abc", StringHelper.replaceAllSafe ("abc", "d", "e"));
@@ -1466,7 +1457,6 @@ public final class StringHelperTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testReplaceAllRepeatedly ()
   {
     assertEquals ("abc", StringHelper.replaceAllRepeatedly ("abc", "d", "e"));

@@ -18,7 +18,7 @@ package com.helger.commons.pool;
 
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.state.ESuccess;

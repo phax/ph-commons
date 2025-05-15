@@ -32,8 +32,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyEnumeration;
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link ArrayEnumeration}.
  *
@@ -42,7 +40,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class ArrayEnumerationTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll ()
   {
     ArrayEnumeration <String> ae = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");

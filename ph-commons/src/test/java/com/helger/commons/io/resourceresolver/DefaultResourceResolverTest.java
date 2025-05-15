@@ -33,26 +33,22 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.lang.ClassHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link DefaultResourceResolver}.
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("DMI_HARDCODED_ABSOLUTE_FILENAME")
 public final class DefaultResourceResolverTest
 {
   @Test
   public void testBasic () throws IOException
   {
     final String sBaseDir = new File (".").getCanonicalFile ().getAbsolutePath () + File.separatorChar;
-    final String sBaseDirParent = new File (".").getCanonicalFile ().getParentFile ().getAbsolutePath () + File.separatorChar;
+    final String sBaseDirParent = new File (".").getCanonicalFile ().getParentFile ().getAbsolutePath () +
+                                  File.separatorChar;
 
-    IReadableResource aRes;
+    IReadableResource aRes = DefaultResourceResolver.getResolvedResource ("", "http://www.helger.com");
 
-    // Using URLs as the base
-    aRes = DefaultResourceResolver.getResolvedResource ("", "http://www.helger.com");
     assertTrue (aRes instanceof URLResource);
     assertEquals ("http://www.helger.com", aRes.getPath ());
 
@@ -69,7 +65,8 @@ public final class DefaultResourceResolverTest
     assertEquals ("http://www.helger.com/dir/file.txt", aRes.getPath ());
 
     // system ID is a fixed URL
-    aRes = DefaultResourceResolver.getResolvedResource ("http://www.example.org/file.txt", "http://www.helger.com/abc/");
+    aRes = DefaultResourceResolver.getResolvedResource ("http://www.example.org/file.txt",
+                                                        "http://www.helger.com/abc/");
     assertTrue (aRes instanceof URLResource);
     assertEquals ("http://www.example.org/file.txt", aRes.getPath ());
 

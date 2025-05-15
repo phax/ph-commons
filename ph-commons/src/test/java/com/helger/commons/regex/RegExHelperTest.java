@@ -32,8 +32,6 @@ import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for {@link RegExHelper}.
  *
@@ -45,7 +43,6 @@ public final class RegExHelperTest
    * Test for method split
    */
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testSplitNoLimit ()
   {
     String [] x = RegExHelper.getSplitToArray ("abc", "b");
@@ -114,7 +111,6 @@ public final class RegExHelperTest
    * Test for method split
    */
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testSplitWithLimit ()
   {
     String [] x = RegExHelper.getSplitToArray ("abc", "b", 2);
@@ -198,7 +194,6 @@ public final class RegExHelperTest
    * Test for method splitToList
    */
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testSplitToListNoLimit ()
   {
     List <String> x = RegExHelper.getSplitToList ("abc", "b");
@@ -259,7 +254,6 @@ public final class RegExHelperTest
    * Test for method splitToList
    */
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testSplitToListWithLimit ()
   {
     List <String> x = RegExHelper.getSplitToList ("abc", "b", 2);
@@ -424,7 +418,6 @@ public final class RegExHelperTest
    * Test for method stringMatchesPattern
    */
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testStringMatchesPattern ()
   {
     assertTrue (RegExHelper.stringMatchesPattern ("[0-9]+", "1234"));
@@ -509,7 +502,8 @@ public final class RegExHelperTest
     assertArrayEquals (new String [] { "all", "o" }, RegExHelper.getAllMatchingGroupValues ("H([al]+)(.)", "Hallo"));
     assertArrayEquals (new String [] { "all", "o" }, RegExHelper.getAllMatchingGroupValues ("H([ael]+)(.)", "Hallo"));
     assertArrayEquals (new String [] { "ell", "o" }, RegExHelper.getAllMatchingGroupValues ("H([ael]+)(.)", "Hello"));
-    assertArrayEquals (new String [] { "allall", "o" }, RegExHelper.getAllMatchingGroupValues ("H([ael]+)(.).*", "Hallallodrio"));
+    assertArrayEquals (new String [] { "allall", "o" },
+                       RegExHelper.getAllMatchingGroupValues ("H([ael]+)(.).*", "Hallallodrio"));
 
     // With a repeat indicator -> last match
     assertArrayEquals (new String [] { "l" }, RegExHelper.getAllMatchingGroupValues ("H([al]){1,3}o", "Hallo"));
@@ -522,10 +516,12 @@ public final class RegExHelperTest
     // With nested groups
     assertArrayEquals (new String [] { "allallo", "allall", "o" },
                        RegExHelper.getAllMatchingGroupValues ("H(([ael]+)(.)).*", "Hallallodrio"));
-    assertArrayEquals (new String [] { "allall", "o" }, RegExHelper.getAllMatchingGroupValues ("H(?:([ael]+)(.)).*", "Hallallodrio"));
+    assertArrayEquals (new String [] { "allall", "o" },
+                       RegExHelper.getAllMatchingGroupValues ("H(?:([ael]+)(.)).*", "Hallallodrio"));
 
     // With a non-capturing group
-    assertArrayEquals (new String [] { "o" }, RegExHelper.getAllMatchingGroupValues ("H(?:[ael]+)(.).*", "Hallallodrio"));
+    assertArrayEquals (new String [] { "o" },
+                       RegExHelper.getAllMatchingGroupValues ("H(?:[ael]+)(.).*", "Hallallodrio"));
 
     // With only non-capturing groups
     assertArrayEquals (new String [] {}, RegExHelper.getAllMatchingGroupValues ("H(?:[ael]+)(?:.).*", "Hallallodrio"));
@@ -535,7 +531,8 @@ public final class RegExHelperTest
     assertArrayEquals (new String [] {}, RegExHelper.getAllMatchingGroupValues ("H.llo", "Hello"));
 
     // With a back reference
-    assertArrayEquals (new String [] { "H", "allo", "H" }, RegExHelper.getAllMatchingGroupValues ("(.)(.+)(\\1)", "HalloH"));
+    assertArrayEquals (new String [] { "H", "allo", "H" },
+                       RegExHelper.getAllMatchingGroupValues ("(.)(.+)(\\1)", "HalloH"));
     assertArrayEquals (new String [] { "H", "H" }, RegExHelper.getAllMatchingGroupValues ("(.).+(\\1).*", "HalloHH"));
   }
 }

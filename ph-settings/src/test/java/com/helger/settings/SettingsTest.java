@@ -30,8 +30,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class SettingsTest
 {
   private static final String FIELD1 = "field1";
@@ -44,7 +42,7 @@ public final class SettingsTest
   {
     final Settings s = new Settings ("My first settings");
     assertEquals ("My first settings", s.getName ());
-    assertTrue (s.keySet ().isEmpty ());
+    assertTrue (s.isEmpty ());
 
     {
       final BigDecimal v = BigDecimal.valueOf (1.1);
@@ -82,17 +80,17 @@ public final class SettingsTest
     assertTrue (s.putIn (FIELD4, Boolean.TRUE).isChanged ());
     assertTrue (s.putIn (FIELD5, Boolean.TRUE).isChanged ());
 
-    assertEquals (5, s.keySet ().size ());
+    assertEquals (5, s.size ());
     assertTrue (s.containsKey (FIELD1));
     assertTrue (s.containsKey (FIELD2));
     assertTrue (s.containsKey (FIELD3));
     assertTrue (s.containsKey (FIELD4));
     assertTrue (s.containsKey (FIELD5));
-    assertTrue (s.keySet ().contains (FIELD1));
-    assertTrue (s.keySet ().contains (FIELD2));
-    assertTrue (s.keySet ().contains (FIELD3));
-    assertTrue (s.keySet ().contains (FIELD4));
-    assertTrue (s.keySet ().contains (FIELD5));
+    assertTrue (s.containsKey (FIELD1));
+    assertTrue (s.containsKey (FIELD2));
+    assertTrue (s.containsKey (FIELD3));
+    assertTrue (s.containsKey (FIELD4));
+    assertTrue (s.containsKey (FIELD5));
   }
 
   @Test
@@ -102,7 +100,6 @@ public final class SettingsTest
   }
 
   @Test
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testIllegal ()
   {
     try
@@ -172,12 +169,12 @@ public final class SettingsTest
   {
     final Settings s = new Settings ("s1");
     assertTrue (s.putIn (FIELD1, "My value").isChanged ());
-    assertTrue (s.keySet ().contains (FIELD1));
-    assertFalse (s.keySet ().contains (FIELD2));
+    assertTrue (s.containsKey (FIELD1));
+    assertFalse (s.containsKey (FIELD2));
 
     assertFalse (s.putIn (FIELD2, null).isChanged ());
-    assertTrue (s.keySet ().contains (FIELD1));
-    assertTrue (s.keySet ().contains (FIELD2));
+    assertTrue (s.containsKey (FIELD1));
+    assertTrue (s.containsKey (FIELD2));
   }
 
   @Test
@@ -187,13 +184,13 @@ public final class SettingsTest
     assertTrue (s.putIn (FIELD1, "My value").isChanged ());
 
     final Settings s2 = new Settings (s);
-    assertTrue (s2.keySet ().contains (FIELD1));
-    assertFalse (s2.keySet ().contains (FIELD2));
+    assertTrue (s2.containsKey (FIELD1));
+    assertFalse (s2.containsKey (FIELD2));
 
     assertTrue (s2.putIn (FIELD2, "Other value").isChanged ());
-    assertTrue (s.keySet ().contains (FIELD1));
-    assertFalse (s.keySet ().contains (FIELD2));
-    assertTrue (s2.keySet ().contains (FIELD1));
-    assertTrue (s2.keySet ().contains (FIELD2));
+    assertTrue (s.containsKey (FIELD1));
+    assertFalse (s.containsKey (FIELD2));
+    assertTrue (s2.containsKey (FIELD1));
+    assertTrue (s2.containsKey (FIELD2));
   }
 }

@@ -27,9 +27,9 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.WillNotClose;
 
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;

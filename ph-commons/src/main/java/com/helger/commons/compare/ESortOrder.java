@@ -16,9 +16,9 @@
  */
 package com.helger.commons.compare;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 /**
  * Defines possible sort orders. The default is {@link #ASCENDING} sorting.

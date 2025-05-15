@@ -19,8 +19,8 @@ package com.helger.commons.io.resource.inmemory;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;

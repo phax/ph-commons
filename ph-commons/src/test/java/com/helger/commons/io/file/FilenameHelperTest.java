@@ -28,14 +28,11 @@ import org.junit.Test;
 
 import com.helger.commons.system.EOperatingSystem;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link FilenameHelper}.
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("DMI_HARDCODED_ABSOLUTE_FILENAME")
 public final class FilenameHelperTest
 {
   /**
@@ -476,7 +473,6 @@ public final class FilenameHelperTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "DMI_HARDCODED_ABSOLUTE_FILENAME")
   public void testHasExtensionFile ()
   {
     assertTrue (FilenameHelper.hasExtension (new File ("/usr/local/myfile.htm"), "htm"));

@@ -18,8 +18,6 @@ package com.helger.commons.exception;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class of class {@link InitializationException}.
  *
@@ -28,7 +26,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class InitializationExceptionTest
 {
   @Test
-  @SuppressFBWarnings (value = { "RV_EXCEPTION_NOT_THROWN", "RV_RETURN_VALUE_IGNORED" }, justification = "only constructor tests")
   public void testAll ()
   {
     new InitializationException ();

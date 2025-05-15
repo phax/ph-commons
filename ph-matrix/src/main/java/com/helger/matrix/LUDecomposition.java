@@ -18,7 +18,7 @@ package com.helger.matrix;
 
 import java.util.Arrays;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.math.MathHelper;

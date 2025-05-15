@@ -18,7 +18,7 @@ package com.helger.xml.serialize.read;
 
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 

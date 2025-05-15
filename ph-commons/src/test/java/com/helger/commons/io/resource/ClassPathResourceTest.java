@@ -34,8 +34,6 @@ import org.junit.Test;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link ClassPathResource}.
  *
@@ -187,7 +185,6 @@ public final class ClassPathResourceTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testInvalid ()
   {
     final ClassPathResource aCPISP = new ClassPathResource ("test1-not-existing.txt");
@@ -240,8 +237,10 @@ public final class ClassPathResourceTest
     final ClassPathResource aCPISP1b = new ClassPathResource ("folder/test2.txt");
     final ClassPathResource aCPISP2 = new ClassPathResource ("folder/test1.txt");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, new ClassPathResource ("cp:folder/test2.txt"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, new ClassPathResource ("classpath:folder/test2.txt"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
+                                                                       new ClassPathResource ("cp:folder/test2.txt"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
+                                                                       new ClassPathResource ("classpath:folder/test2.txt"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
   }
 

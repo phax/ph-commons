@@ -18,7 +18,7 @@ package com.helger.xml.serialize.read;
 
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.w3c.dom.Node;
 

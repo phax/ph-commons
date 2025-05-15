@@ -19,20 +19,16 @@ package com.helger.commons.io.stream;
 import java.io.IOException;
 import java.io.Reader;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A non-synchronized copy of the class {@link java.io.StringReader}.<br>
  * Note: super class {@link Reader} uses the lock object internally only for
- * <code>long skip(long n)</code> and as this method is overwritten in here, the
- * lock is never used.
+ * <code>long skip(long n)</code> and as this method is overwritten in here, the lock is never used.
  *
  * @author Philip Helger
  * @see java.io.StringReader
@@ -50,8 +46,9 @@ public class NonBlockingStringReader extends Reader
     this (aChars, 0, aChars.length);
   }
 
-  @SuppressFBWarnings ("EI_EXPOSE_REP2")
-  public NonBlockingStringReader (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public NonBlockingStringReader (@Nonnull final char [] aChars,
+                                  @Nonnegative final int nOfs,
+                                  @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
     m_aChars = aChars;
@@ -113,14 +110,14 @@ public class NonBlockingStringReader extends Reader
    *        Offset at which to start writing characters
    * @param nLen
    *        Maximum number of characters to read
-   * @return The number of characters read, or -1 if the end of the stream has
-   *         been reached
+   * @return The number of characters read, or -1 if the end of the stream has been reached
    * @exception IOException
    *            If an I/O error occurs
    */
   @Override
   @CheckForSigned
-  public int read (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+                                                                                                          throws IOException
   {
     _ensureOpen ();
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
@@ -136,18 +133,17 @@ public class NonBlockingStringReader extends Reader
   }
 
   /**
-   * Skips the specified number of characters in the stream. Returns the number
-   * of characters that were skipped.
+   * Skips the specified number of characters in the stream. Returns the number of characters that
+   * were skipped.
    * <p>
    *
    * @param nCharsToSkip
-   *        The parameter may be negative, even though the <code>skip</code>
-   *        method of the {@link Reader} superclass throws an exception in this
-   *        case. Negative values of the parameter cause the stream to skip
-   *        backwards. Negative return values indicate a skip backwards. It is
-   *        not possible to skip backwards past the beginning of the string.
-   * @return If the entire string has been read or skipped, then this method has
-   *         no effect and always returns 0.
+   *        The parameter may be negative, even though the <code>skip</code> method of the
+   *        {@link Reader} superclass throws an exception in this case. Negative values of the
+   *        parameter cause the stream to skip backwards. Negative return values indicate a skip
+   *        backwards. It is not possible to skip backwards past the beginning of the string.
+   * @return If the entire string has been read or skipped, then this method has no effect and
+   *         always returns 0.
    * @exception IOException
    *            If an I/O error occurs
    */
@@ -167,8 +163,7 @@ public class NonBlockingStringReader extends Reader
   /**
    * Tells whether this stream is ready to be read.
    *
-   * @return <code>true</code> if the next read() is guaranteed not to block for
-   *         input
+   * @return <code>true</code> if the next read() is guaranteed not to block for input
    * @exception IOException
    *            If the stream is closed
    */
@@ -191,14 +186,13 @@ public class NonBlockingStringReader extends Reader
   }
 
   /**
-   * Marks the present position in the stream. Subsequent calls to reset() will
-   * reposition the stream to this point.
+   * Marks the present position in the stream. Subsequent calls to reset() will reposition the
+   * stream to this point.
    *
    * @param nReadAheadLimit
-   *        Limit on the number of characters that may be read while still
-   *        preserving the mark. Because the stream's input comes from a string,
-   *        there is no actual limit, so this argument must not be negative, but
-   *        is otherwise ignored.
+   *        Limit on the number of characters that may be read while still preserving the mark.
+   *        Because the stream's input comes from a string, there is no actual limit, so this
+   *        argument must not be negative, but is otherwise ignored.
    * @exception IllegalArgumentException
    *            If readAheadLimit is &lt; 0
    * @exception IOException
@@ -214,8 +208,8 @@ public class NonBlockingStringReader extends Reader
   }
 
   /**
-   * Resets the stream to the most recent mark, or to the beginning of the
-   * string if it has never been marked.
+   * Resets the stream to the most recent mark, or to the beginning of the string if it has never
+   * been marked.
    *
    * @exception IOException
    *            If an I/O error occurs
@@ -228,10 +222,9 @@ public class NonBlockingStringReader extends Reader
   }
 
   /**
-   * Closes the stream and releases any system resources associated with it.
-   * Once the stream has been closed, further read(), ready(), mark(), or
-   * reset() invocations will throw an IOException. Closing a previously closed
-   * stream has no effect.
+   * Closes the stream and releases any system resources associated with it. Once the stream has
+   * been closed, further read(), ready(), mark(), or reset() invocations will throw an IOException.
+   * Closing a previously closed stream has no effect.
    */
   @Override
   public void close ()

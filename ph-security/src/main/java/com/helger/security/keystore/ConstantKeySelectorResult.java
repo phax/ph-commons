@@ -18,7 +18,7 @@ package com.helger.security.keystore;
 
 import java.security.Key;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 import javax.xml.crypto.KeySelectorResult;
 
 import com.helger.commons.string.ToStringGenerator;

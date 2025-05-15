@@ -36,8 +36,6 @@ import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link CharsetHelper}.
  *
@@ -46,7 +44,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class CharsetHelperTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCharsetFromName ()
   {
     assertNotNull (CharsetHelper.getCharsetFromName ("UTF-8"));
@@ -76,7 +73,6 @@ public final class CharsetHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetAsBytesCharset ()
   {
     final String s = "äbc";
@@ -96,10 +92,17 @@ public final class CharsetHelperTest
   public void testGetAsStringInOtherCharsetCharset ()
   {
     final String s = "äbc";
-    assertEquals (3, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8).length ());
-    assertEquals (4, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1).length ());
+    assertEquals (3,
+                  CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8)
+                               .length ());
+    assertEquals (4,
+                  CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1)
+                               .length ());
     assertNull (CharsetHelper.getAsStringInOtherCharset (null, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8));
-    assertEquals (s, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.ISO_8859_1));
+    assertEquals (s,
+                  CharsetHelper.getAsStringInOtherCharset (s,
+                                                           StandardCharsets.ISO_8859_1,
+                                                           StandardCharsets.ISO_8859_1));
     assertEquals (s, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.UTF_8));
 
     try
@@ -133,7 +136,8 @@ public final class CharsetHelperTest
     assertEquals (sAlpha, aReader.readLine ());
     StreamHelper.close (aReader);
 
-    aReader = new NonBlockingBufferedReader (new InputStreamReader (new NonBlockingByteArrayInputStream (b), StandardCharsets.UTF_8));
+    aReader = new NonBlockingBufferedReader (new InputStreamReader (new NonBlockingByteArrayInputStream (b),
+                                                                    StandardCharsets.UTF_8));
     assertEquals (sAlpha, aReader.readLine ());
     StreamHelper.close (aReader);
   }
@@ -219,7 +223,7 @@ public final class CharsetHelperTest
   @Test
   public void testToUtf8 ()
   {
-    final byte [] b = new byte [] { (byte) 0xc3, (byte) 0xa2 };
+    final byte [] b = { (byte) 0xc3, (byte) 0xa2 };
     final String s = new String (b, StandardCharsets.UTF_8);
     assertEquals (1, s.length ());
     assertEquals ("â", s);
@@ -230,7 +234,7 @@ public final class CharsetHelperTest
   {
     // Special "Ö"!!!!
     // Using "COMBINING DIAERESIS"
-    final byte [] b = new byte [] { 'O', (byte) 0xcc, (byte) 0x88 };
+    final byte [] b = { 'O', (byte) 0xcc, (byte) 0x88 };
     final String s = new String (b, StandardCharsets.UTF_8);
     assertEquals (2, s.length ());
     assertEquals ("Ö", s);

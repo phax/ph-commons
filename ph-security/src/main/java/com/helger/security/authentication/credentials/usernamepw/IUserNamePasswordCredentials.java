@@ -16,7 +16,7 @@
  */
 package com.helger.security.authentication.credentials.usernamepw;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.security.authentication.credentials.IAuthCredentials;
 

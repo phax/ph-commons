@@ -35,11 +35,11 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.RegEx;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.RegEx;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

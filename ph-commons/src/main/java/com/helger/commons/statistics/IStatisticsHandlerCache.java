@@ -16,7 +16,7 @@
  */
 package com.helger.commons.statistics;
 
-import javax.annotation.Nonnegative;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Read-only statistics handler for cache hit/miss

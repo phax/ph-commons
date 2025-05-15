@@ -16,7 +16,7 @@
  */
 package com.helger.scope.spi;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.IsSPIInterface;
 import com.helger.scope.ISessionScope;

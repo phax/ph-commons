@@ -23,8 +23,6 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.iterate.IterableIterator;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link VectorHelper}
  *
@@ -33,12 +31,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class VectorHelperTest
 {
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testNew ()
   {
     VectorHelper.newVector ();
     VectorHelper.newVector ("a");
-    VectorHelper.newVector (new String [] { "a" });
+    VectorHelper.newVector ("a");
     VectorHelper.newVector (new CommonsArrayList <> ("a"));
     VectorHelper.newVector (new IterableIterator <> (new CommonsArrayList <> ("a")));
     VectorHelper.newVector ((Iterable <String>) new CommonsArrayList <> ("a"));

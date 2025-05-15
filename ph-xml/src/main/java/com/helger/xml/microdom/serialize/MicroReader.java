@@ -24,10 +24,10 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;

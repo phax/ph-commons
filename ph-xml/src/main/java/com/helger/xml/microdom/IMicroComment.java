@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Represents a comment node.

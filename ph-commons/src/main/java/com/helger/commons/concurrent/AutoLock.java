@@ -18,7 +18,7 @@ package com.helger.commons.concurrent;
 
 import java.util.concurrent.locks.Lock;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 

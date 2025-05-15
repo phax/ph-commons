@@ -21,9 +21,9 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.MissingResourceException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.collection.map.IntSet;
 import com.helger.commons.ValueEnforcer;

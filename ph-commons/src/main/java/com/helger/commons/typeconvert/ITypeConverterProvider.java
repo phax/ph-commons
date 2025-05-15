@@ -16,8 +16,8 @@
  */
 package com.helger.commons.typeconvert;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 /**
  * Find the correct type converter provider from a source class to a destination

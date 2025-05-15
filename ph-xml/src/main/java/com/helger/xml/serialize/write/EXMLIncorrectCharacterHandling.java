@@ -18,7 +18,7 @@ package com.helger.xml.serialize.write;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

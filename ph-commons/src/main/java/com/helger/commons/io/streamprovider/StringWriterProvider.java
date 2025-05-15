@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.streamprovider;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.IHasWriter;

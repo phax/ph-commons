@@ -18,7 +18,7 @@ package com.helger.lesscommons.homoglyphs;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;

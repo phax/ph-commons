@@ -16,7 +16,7 @@
  */
 package com.helger.commons.cache;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.state.EChange;
 

@@ -16,15 +16,14 @@
  */
 package com.helger.scope.mgr;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
@@ -44,12 +43,9 @@ import com.helger.scope.ISessionScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
 import com.helger.scope.spi.ScopeSPIManager;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Internal manager class for session scopes.<br>
- * This class is only non-final so that the WebScopeSessionManager can be used
- * for web scopes!
+ * This class is only non-final so that the WebScopeSessionManager can be used for web scopes!
  *
  * @author Philip Helger
  */
@@ -97,8 +93,8 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   /**
-   * Get the session scope with the specified ID. If no such scope exists, no
-   * further actions are taken.
+   * Get the session scope with the specified ID. If no such scope exists, no further actions are
+   * taken.
    *
    * @param sScopeID
    *        The ID to be resolved. May be <code>null</code>.
@@ -114,13 +110,11 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   /**
-   * Register the passed session scope in the internal map, call the
-   * {@link ISessionScope #initScope()} method and finally invoke the SPIs for
-   * the new scope.
+   * Register the passed session scope in the internal map, call the {@link ISessionScope
+   * #initScope()} method and finally invoke the SPIs for the new scope.
    *
    * @param aSessionScope
-   *        The session scope that was just created. May not be
-   *        <code>null</code>.
+   *        The session scope that was just created. May not be <code>null</code>.
    */
   public void onScopeBegin (@Nonnull final ISessionScope aSessionScope)
   {
@@ -143,9 +137,8 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   /**
-   * Close the passed session scope gracefully. Each managed scope is guaranteed
-   * to be destroyed only once. First the SPI manager is invoked, and afterwards
-   * the scope is destroyed.
+   * Close the passed session scope gracefully. Each managed scope is guaranteed to be destroyed
+   * only once. First the SPI manager is invoked, and afterwards the scope is destroyed.
    *
    * @param aSessionScope
    *        The session scope to be ended. May not be <code>null</code>.
@@ -200,8 +193,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   /**
-   * @return <code>true</code> if at least one session is present,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if at least one session is present, <code>false</code> otherwise
    */
   public boolean containsAnySession ()
   {
@@ -218,8 +210,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   /**
-   * @return A non-<code>null</code>, mutable copy of all managed session
-   *         scopes.
+   * @return A non-<code>null</code>, mutable copy of all managed session scopes.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -233,15 +224,18 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     if (containsAnySession ())
     {
       m_aRWLock.writeLocked ( () -> {
-        LOGGER.error ("The following " + m_aSessionScopes.size () + " session scopes are left over: " + m_aSessionScopes.toString ());
+        LOGGER.error ("The following " +
+                      m_aSessionScopes.size () +
+                      " session scopes are left over: " +
+                      m_aSessionScopes.toString ());
         m_aSessionScopes.clear ();
       });
     }
   }
 
   /**
-   * Destroy all known session scopes. After this method it is ensured that the
-   * internal session map is empty.
+   * Destroy all known session scopes. After this method it is ensured that the internal session map
+   * is empty.
    */
   public void destroyAllSessions ()
   {
@@ -263,8 +257,8 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   /**
-   * Remove all existing session scopes, and invoke the destruction methods on
-   * the contained objects.
+   * Remove all existing session scopes, and invoke the destruction methods on the contained
+   * objects.
    */
   private void _endAllSessionScopes ()
   {
@@ -312,7 +306,6 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     });
   }
 
-  @SuppressFBWarnings ("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
   @Override
   protected void onDestroy (@Nonnull final IScope aScopeInDestruction)
   {

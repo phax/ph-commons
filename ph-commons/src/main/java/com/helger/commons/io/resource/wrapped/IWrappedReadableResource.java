@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.resource.wrapped;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.io.resource.IReadableResource;
 

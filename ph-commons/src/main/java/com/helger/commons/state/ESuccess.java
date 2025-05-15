@@ -16,7 +16,7 @@
  */
 package com.helger.commons.state;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Small enum for manager actions to indicate success or failure.

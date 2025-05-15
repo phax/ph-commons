@@ -16,8 +16,8 @@
  */
 package com.helger.xml.dom;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nullable;
 
 import org.w3c.dom.Node;
 

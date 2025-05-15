@@ -27,8 +27,6 @@ import java.io.FilenameFilter;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link IFileFilter}.
  *
@@ -123,7 +121,6 @@ public final class IFileFilterFuncTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testFilenameStartsWith ()
   {
     try
@@ -146,7 +143,6 @@ public final class IFileFilterFuncTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testFilenameEndsWith ()
   {
     try
@@ -169,7 +165,6 @@ public final class IFileFilterFuncTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testFilenameEqualsIgnoreCase ()
   {
     try
@@ -196,7 +191,6 @@ public final class IFileFilterFuncTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testFilenameEquals ()
   {
     try
@@ -219,7 +213,6 @@ public final class IFileFilterFuncTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testFilenameMatchAnyRegEx ()
   {
     try
@@ -242,7 +235,6 @@ public final class IFileFilterFuncTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testFilenameMatchNoRegEx ()
   {
     try

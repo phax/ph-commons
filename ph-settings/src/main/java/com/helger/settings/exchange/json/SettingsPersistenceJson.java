@@ -23,8 +23,8 @@ import java.nio.charset.Charset;
 import java.util.Comparator;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.WillClose;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

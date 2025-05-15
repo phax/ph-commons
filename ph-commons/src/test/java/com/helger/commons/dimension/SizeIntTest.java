@@ -25,8 +25,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link SizeInt}.
  *
@@ -35,7 +33,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class SizeIntTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCtor ()
   {
     final SizeInt aID = new SizeInt (320, 240);
@@ -58,12 +55,13 @@ public final class SizeIntTest
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (321, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (320, 241));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
+                                                                           new SizeInt (321, 240));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
+                                                                           new SizeInt (320, 241));
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetBestMatchingSize ()
   {
     final SizeInt aID = new SizeInt (320, 240);
@@ -106,7 +104,6 @@ public final class SizeIntTest
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetScaled ()
   {
     final SizeInt aID = new SizeInt (100, 150);

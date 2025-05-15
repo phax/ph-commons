@@ -16,7 +16,7 @@
  */
 package com.helger.security.oscp;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import org.bouncycastle.asn1.ocsp.OCSPResponseStatus;
 

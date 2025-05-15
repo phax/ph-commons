@@ -16,7 +16,7 @@
  */
 package com.helger.commons.lang;
 
-import javax.annotation.Nonnegative;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Base interface for all objects having a certain size with long precision.

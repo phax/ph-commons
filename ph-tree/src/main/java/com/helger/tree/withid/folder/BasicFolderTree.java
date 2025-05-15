@@ -18,8 +18,8 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 import com.helger.tree.withid.unique.BasicTreeWithGlobalUniqueID;
 

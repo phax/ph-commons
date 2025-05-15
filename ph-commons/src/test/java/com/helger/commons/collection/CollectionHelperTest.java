@@ -38,10 +38,9 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
+import com.helger.annotation.Nonnull;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -61,8 +60,6 @@ import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.supplementary.tools.collection.MainCreateCollectionHelperCode2;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link CollectionHelper}
@@ -148,7 +145,6 @@ public final class CollectionHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testMakeUnmodifiableNotNull ()
   {
     assertNotNull (makeUnmodifiableNotNull ((Collection <?>) null));
@@ -741,7 +737,6 @@ public final class CollectionHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testNewSortedSet_SingleValue ()
   {
     SortedSet <String> aSet = newSortedSet ("Hallo");
@@ -800,7 +795,6 @@ public final class CollectionHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testNewSortedSetIIterableIterator ()
   {
     SortedSet <String> aSet = newSortedSet (new IterableIterator <> (newList ("Hallo", "Welt", null)));
@@ -946,7 +940,6 @@ public final class CollectionHelperTest
     assertTrue (aOrderedSet.contains ("Welt"));
   }
 
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   @Test
   public void testNewListPrefilled ()
   {
@@ -1577,7 +1570,7 @@ public final class CollectionHelperTest
 
     try
     {
-      getConcatenatedInline ((ICommonsList <String>) null, new String [0]);
+      getConcatenatedInline ((ICommonsList <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1639,7 +1632,6 @@ public final class CollectionHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testGetSubList ()
   {
     assertNotNull (getSubList (null, 0, 5));
@@ -1747,16 +1739,14 @@ public final class CollectionHelperTest
   }
 
   /**
-   * Created by {@link MainCreateCollectionHelperCode2} to check if all APIs are
-   * present
+   * Created by {@link MainCreateCollectionHelperCode2} to check if all APIs are present
    */
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testNew ()
   {
     newList ();
     newList ("a");
-    newList (new String [] { "a" });
+    newList ("a");
     newList (new CommonsArrayList <> ("a"));
     newList (new IterableIterator <> (new CommonsArrayList <> ("a")));
     newList ((Iterable <String>) new CommonsArrayList <> ("a"));
@@ -1766,7 +1756,7 @@ public final class CollectionHelperTest
     newListMapped (new Object [] { "a" }, Object::toString);
     newSet ();
     newSet ("a");
-    newSet (new String [] { "a" });
+    newSet ("a");
     newSet (new CommonsArrayList <> ("a"));
     newSet (new IterableIterator <> (new CommonsArrayList <> ("a")));
     newSet ((Iterable <String>) new CommonsArrayList <> ("a"));
@@ -1776,7 +1766,7 @@ public final class CollectionHelperTest
     newSetMapped (new Object [] { "a" }, Object::toString);
     newOrderedSet ();
     newOrderedSet ("a");
-    newOrderedSet (new String [] { "a" });
+    newOrderedSet ("a");
     newOrderedSet (new CommonsArrayList <> ("a"));
     newOrderedSet (new IterableIterator <> (new CommonsArrayList <> ("a")));
     newOrderedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
@@ -1786,7 +1776,7 @@ public final class CollectionHelperTest
     newOrderedSetMapped (new Object [] { "a" }, Object::toString);
     newSortedSet ();
     newSortedSet ("a");
-    newSortedSet (new String [] { "a" });
+    newSortedSet ("a");
     newSortedSet (new CommonsArrayList <> ("a"));
     newSortedSet (new IterableIterator <> (new CommonsArrayList <> ("a")));
     newSortedSet ((Iterable <String>) new CommonsArrayList <> ("a"));

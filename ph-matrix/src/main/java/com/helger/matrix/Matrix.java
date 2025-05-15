@@ -27,11 +27,10 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.WillNotClose;
-
+import com.helger.annotation.CheckReturnValue;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.WillNotClose;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -42,35 +41,29 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Jama = Java Matrix class.
  * <P>
- * The Java Matrix Class provides the fundamental operations of numerical linear
- * algebra. Various constructors create Matrices from two dimensional arrays of
- * double precision floating point numbers. Various "gets" and "sets" provide
- * access to submatrices and matrix elements. Several methods implement basic
- * matrix arithmetic, including matrix addition and multiplication, matrix
- * norms, and element-by-element array operations. Methods for reading and
- * printing matrices are also included. All the operations in this version of
- * the Matrix Class involve real matrices. Complex matrices may be handled in a
- * future version.
+ * The Java Matrix Class provides the fundamental operations of numerical linear algebra. Various
+ * constructors create Matrices from two dimensional arrays of double precision floating point
+ * numbers. Various "gets" and "sets" provide access to submatrices and matrix elements. Several
+ * methods implement basic matrix arithmetic, including matrix addition and multiplication, matrix
+ * norms, and element-by-element array operations. Methods for reading and printing matrices are
+ * also included. All the operations in this version of the Matrix Class involve real matrices.
+ * Complex matrices may be handled in a future version.
  * </P>
  * <P>
- * Five fundamental matrix decompositions, which consist of pairs or triples of
- * matrices, permutation vectors, and the like, produce results in five
- * decomposition classes. These decompositions are accessed by the Matrix class
- * to compute solutions of simultaneous linear equations, determinants, inverses
- * and other matrix functions. The five decompositions are:
+ * Five fundamental matrix decompositions, which consist of pairs or triples of matrices,
+ * permutation vectors, and the like, produce results in five decomposition classes. These
+ * decompositions are accessed by the Matrix class to compute solutions of simultaneous linear
+ * equations, determinants, inverses and other matrix functions. The five decompositions are:
  * </P>
  * <UL>
  * <LI>Cholesky Decomposition of symmetric, positive definite matrices.
  * <LI>LU Decomposition of rectangular matrices.
  * <LI>QR Decomposition of rectangular matrices.
  * <LI>Singular Value Decomposition of rectangular matrices.
- * <LI>Eigenvalue Decomposition of both symmetric and nonsymmetric square
- * matrices.
+ * <LI>Eigenvalue Decomposition of both symmetric and nonsymmetric square matrices.
  * </UL>
  * <DL>
  * <DT><B>Example of use:</B></DT>
@@ -88,8 +81,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * </DD>
  * </DL>
  *
- * @author The MathWorks, Inc. and the National Institute of Standards and
- *         Technology.
+ * @author The MathWorks, Inc. and the National Institute of Standards and Technology.
  * @version 5 August 1998
  */
 public class Matrix implements ICloneable <Matrix>, Serializable
@@ -158,7 +150,6 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *            All rows must have the same length
    * @see #constructWithCopy
    */
-  @SuppressFBWarnings ("EI_EXPOSE_REP")
   Matrix (@Nonnull final double [] [] aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
@@ -183,7 +174,6 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @param nCols
    *        Number of columns.
    */
-  @SuppressFBWarnings ("EI_EXPOSE_REP")
   Matrix (@Nonnull final double [] [] aOther, @Nonnegative final int nRows, @Nonnegative final int nCols)
   {
     ValueEnforcer.notNull (aOther, "Other");
@@ -274,7 +264,6 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Pointer to the two-dimensional array of matrix elements.
    */
-  @SuppressFBWarnings ("EI_EXPOSE_REP")
   @Nonnull
   public double [] [] internalGetArray ()
   {
@@ -359,8 +348,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
   }
 
   /**
-   * @return <code>true</code> if the matrix is symmetrical, meaning number of
-   *         rows and columns is identical.
+   * @return <code>true</code> if the matrix is symmetrical, meaning number of rows and columns is
+   *         identical.
    */
   public boolean isSymmetrical ()
   {
@@ -392,8 +381,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        Initial column index
    * @param nEndColumnIndex
    *        Final column index
-   * @return Matrix(nStartRowIndex:nEndRowIndex,nStartColumnIndex:
-   *         nEndColumnIndex )
+   * @return Matrix(nStartRowIndex:nEndRowIndex,nStartColumnIndex: nEndColumnIndex )
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
@@ -459,7 +447,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Matrix getMatrix (@Nonnegative final int nStartRowIndex, @Nonnegative final int nEndRowIndex, @Nonnull final int [] aCols)
+  public Matrix getMatrix (@Nonnegative final int nStartRowIndex,
+                           @Nonnegative final int nEndRowIndex,
+                           @Nonnull final int [] aCols)
   {
     final Matrix aNewMatrix = new Matrix (nEndRowIndex - nStartRowIndex + 1, aCols.length);
     final double [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -487,7 +477,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Matrix getMatrix (@Nonnull final int [] aRows, @Nonnegative final int nStartColumnIndex, @Nonnegative final int nEndColumnIndex)
+  public Matrix getMatrix (@Nonnull final int [] aRows,
+                           @Nonnegative final int nStartColumnIndex,
+                           @Nonnegative final int nEndColumnIndex)
   {
     final Matrix aNewMatrix = new Matrix (aRows.length, nEndColumnIndex - nStartColumnIndex + 1);
     final double [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -529,8 +521,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @param nEndColumnIndex
    *        Final column index
    * @param aMatrix
-   *        Matrix(nStartRowIndex:nEndRowIndex,nStartColumnIndex:nEndColumnIndex
-   *        )
+   *        Matrix(nStartRowIndex:nEndRowIndex,nStartColumnIndex:nEndColumnIndex )
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
@@ -1217,8 +1208,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        Number of rows.
    * @param nCols
    *        Number of columns.
-   * @return An nRows-by-nCols matrix with uniformly distributed random
-   *         elements.
+   * @return An nRows-by-nCols matrix with uniformly distributed random elements.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -1243,8 +1233,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        Number of rows.
    * @param nCols
    *        Number of columns.
-   * @return An nRows-by-nCols matrix with ones on the diagonal and zeros
-   *         elsewhere.
+   * @return An nRows-by-nCols matrix with ones on the diagonal and zeros elsewhere.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -1262,8 +1251,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
   }
 
   /**
-   * Print the matrix to the output stream. Line the elements up in columns with
-   * a Fortran-like 'Fw.d' style format.
+   * Print the matrix to the output stream. Line the elements up in columns with a Fortran-like
+   * 'Fw.d' style format.
    *
    * @param aPW
    *        Output stream.
@@ -1272,7 +1261,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @param nFractionDigits
    *        Number of digits after the decimal.
    */
-  public void print (@Nonnull final PrintWriter aPW, @Nonnegative final int nWidth, @Nonnegative final int nFractionDigits)
+  public void print (@Nonnull final PrintWriter aPW,
+                     @Nonnegative final int nWidth,
+                     @Nonnegative final int nFractionDigits)
   {
     final NumberFormat format = NumberFormat.getInstance (Locale.US);
     format.setMinimumIntegerDigits (1);
@@ -1288,10 +1279,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
   // argument and do the extra padding ourselves.
 
   /**
-   * Print the matrix to the output stream. Line the elements up in columns. Use
-   * the format object, and right justify within columns of width characters.
-   * Note that is the matrix is to be read back in, you probably will want to
-   * use a NumberFormat that is set to US Locale.
+   * Print the matrix to the output stream. Line the elements up in columns. Use the format object,
+   * and right justify within columns of width characters. Note that is the matrix is to be read
+   * back in, you probably will want to use a NumberFormat that is set to US Locale.
    *
    * @param aPW
    *        the output stream.
@@ -1347,10 +1337,10 @@ public class Matrix implements ICloneable <Matrix>, Serializable
   }
 
   /**
-   * Read a matrix from a stream. The format is the same the print method, so
-   * printed matrices can be read back in (provided they were printed using US
-   * Locale). Elements are separated by whitespace, all the elements for each
-   * row appear on a single line, the last row is followed by a blank line.
+   * Read a matrix from a stream. The format is the same the print method, so printed matrices can
+   * be read back in (provided they were printed using US Locale). Elements are separated by
+   * whitespace, all the elements for each row appear on a single line, the last row is followed by
+   * a blank line.
    *
    * @param aReader
    *        the input stream.

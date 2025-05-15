@@ -16,8 +16,8 @@
  */
 package com.helger.xml.sax;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;

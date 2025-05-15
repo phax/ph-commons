@@ -18,7 +18,7 @@ package com.helger.settings.factory;
 
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;

@@ -18,8 +18,8 @@ package com.helger.commons.mime;
 
 import java.nio.charset.Charset;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.charset.CharsetHelper;
 

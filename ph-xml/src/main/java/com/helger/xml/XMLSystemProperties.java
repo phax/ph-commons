@@ -16,8 +16,8 @@
  */
 package com.helger.xml;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

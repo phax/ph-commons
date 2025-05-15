@@ -20,8 +20,8 @@ package com.helger.bc;
 import java.security.Provider;
 import java.security.Security;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;

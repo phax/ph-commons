@@ -16,14 +16,11 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class CallNullableFuncTest
 {
   private CallNullableFuncTest ()
   {}
 
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public static void testCorrect ()
   {
     final MockNullableTestCorrect n = new MockNullableTestCorrect ();
@@ -36,7 +33,6 @@ public final class CallNullableFuncTest
     n.paramNonnullUnknown (null);
   }
 
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public static void testCorrect2 ()
   {
     final IMockNullableTest n = new MockNullableTestCorrect ();
@@ -49,7 +45,6 @@ public final class CallNullableFuncTest
     n.paramNonnullUnknown (null);
   }
 
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public static void testNonNull ()
   {
     final MockNullableTestNonNull n = new MockNullableTestNonNull ();
@@ -62,7 +57,6 @@ public final class CallNullableFuncTest
     n.paramNonnullUnknown (null);
   }
 
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public static void testNonNull2 ()
   {
     final IMockNullableTest n = new MockNullableTestNonNull ();
@@ -86,7 +80,6 @@ public final class CallNullableFuncTest
     n.paramNonnullUnknown (null);
   }
 
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public static void testNullable2 ()
   {
     final IMockNullableTest n = new MockNullableTestNullable ();

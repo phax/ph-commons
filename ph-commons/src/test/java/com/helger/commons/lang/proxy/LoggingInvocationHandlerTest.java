@@ -21,8 +21,6 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link LoggingInvocationHandler}.
  *
@@ -31,10 +29,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class LoggingInvocationHandlerTest
 {
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testBasic ()
   {
-    final ICommonsList <String> aList = LoggingInvocationHandler.proxying (ICommonsList.class, new CommonsArrayList <> ());
+    final ICommonsList <String> aList = LoggingInvocationHandler.proxying (ICommonsList.class,
+                                                                           new CommonsArrayList <> ());
     aList.add ("a");
     aList.add ("b");
     aList.subList (0, 1).isEmpty ();
@@ -62,7 +60,6 @@ public final class LoggingInvocationHandlerTest
   {}
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testDefaultMethod ()
   {
     LoggingInvocationHandler.proxying (ITest.class, new TestImpl ()).foo ();

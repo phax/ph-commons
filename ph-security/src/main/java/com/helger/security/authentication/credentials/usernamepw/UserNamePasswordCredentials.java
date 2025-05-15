@@ -16,8 +16,8 @@
  */
 package com.helger.security.authentication.credentials.usernamepw;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;

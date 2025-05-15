@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import javax.annotation.Nonnegative;
+import com.helger.annotation.Nonnegative;
 
 import org.junit.Test;
 

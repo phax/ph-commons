@@ -25,8 +25,6 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.version.Version;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link CustomLicense}.
  *
@@ -35,7 +33,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class CustomLicenseTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testAll ()
   {
     final CustomLicense cl = new CustomLicense ("cl1", "License", Version.parse ("1.2"), "url");
@@ -50,9 +47,16 @@ public final class CustomLicenseTest
     assertNull (cl2.getVersion ());
     assertNull (cl2.getURL ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl2, new CustomLicense ("cl1", "License", null, null));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl2,
+                                                                       new CustomLicense ("cl1",
+                                                                                          "License",
+                                                                                          null,
+                                                                                          null));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl,
-                                                                       new CustomLicense ("cl1", "License", Version.parse ("1.2"), "url"));
+                                                                       new CustomLicense ("cl1",
+                                                                                          "License",
+                                                                                          Version.parse ("1.2"),
+                                                                                          "url"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl12",
                                                                                               "License",
@@ -68,7 +72,11 @@ public final class CustomLicenseTest
                                                                                               "License",
                                                                                               Version.parse ("1.1"),
                                                                                               "url"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1", "License", null, "url"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
+                                                                           new CustomLicense ("cl1",
+                                                                                              "License",
+                                                                                              null,
+                                                                                              "url"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",

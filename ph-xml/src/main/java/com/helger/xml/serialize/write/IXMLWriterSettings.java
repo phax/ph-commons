@@ -18,7 +18,7 @@ package com.helger.xml.serialize.write;
 
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.annotation.Nonempty;

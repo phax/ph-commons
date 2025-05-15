@@ -16,7 +16,7 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 public class MockNullableTestNonNull implements IMockNullableTest
 {

@@ -69,7 +69,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;

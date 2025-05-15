@@ -16,7 +16,7 @@
  */
 package com.helger.xml.ls;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.w3c.dom.ls.LSResourceResolver;
 

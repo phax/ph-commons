@@ -84,7 +84,7 @@ import java.time.temporal.TemporalQueries;
 import java.time.temporal.TemporalUnit;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;

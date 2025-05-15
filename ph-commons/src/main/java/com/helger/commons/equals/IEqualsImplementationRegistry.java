@@ -16,7 +16,7 @@
  */
 package com.helger.commons.equals;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Base interface for a registry that contains equals implementations.

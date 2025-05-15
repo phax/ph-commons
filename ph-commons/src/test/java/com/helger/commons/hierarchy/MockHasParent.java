@@ -16,7 +16,7 @@
  */
 package com.helger.commons.hierarchy;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.id.IHasID;

@@ -19,7 +19,7 @@ package com.helger.commons.aggregate;
 import java.util.Collection;
 import java.util.function.Function;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
 

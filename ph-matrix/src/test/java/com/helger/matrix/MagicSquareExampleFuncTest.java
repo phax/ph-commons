@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.annotation.Nonnegative;
+import com.helger.annotation.Nonnegative;
 
 import org.junit.Test;
 import org.slf4j.Logger;

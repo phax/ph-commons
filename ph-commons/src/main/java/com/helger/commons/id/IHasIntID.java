@@ -18,7 +18,7 @@ package com.helger.commons.id;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Base interface for all objects having an int ID.

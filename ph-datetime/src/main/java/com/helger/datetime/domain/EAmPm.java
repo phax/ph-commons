@@ -19,8 +19,8 @@ package com.helger.datetime.domain;
 import java.text.DateFormatSymbols;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.id.IHasIntID;

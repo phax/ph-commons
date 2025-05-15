@@ -19,9 +19,9 @@ package com.helger.xml.serialize.write;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.ValueEnforcer;

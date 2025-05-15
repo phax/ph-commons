@@ -16,7 +16,7 @@
  */
 package com.helger.commons.severity;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Interface for comparable objects based on their severity.

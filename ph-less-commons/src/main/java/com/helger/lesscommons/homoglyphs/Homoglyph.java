@@ -18,9 +18,9 @@ package com.helger.lesscommons.homoglyphs;
 
 import java.nio.IntBuffer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.collection.map.IntObjectMap;
 import com.helger.collection.map.IntSet;

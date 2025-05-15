@@ -23,8 +23,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link NonBlockingCharArrayWriter}.
  *
@@ -33,7 +31,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class NonBlockingCharArrayWriterTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll ()
   {
     try (final NonBlockingCharArrayWriter aCAW = new NonBlockingCharArrayWriter ())
@@ -59,7 +56,6 @@ public class NonBlockingCharArrayWriterTest
 
   @Test
   @SuppressWarnings ("resource")
-  @SuppressFBWarnings ("OS_OPEN_STREAM")
   public void testError ()
   {
     try

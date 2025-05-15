@@ -23,8 +23,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link MemoryLongIDFactory}.
  *
@@ -33,7 +31,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class MemoryLongIDFactoryTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll ()
   {
     final MemoryLongIDFactory x = new MemoryLongIDFactory (9);

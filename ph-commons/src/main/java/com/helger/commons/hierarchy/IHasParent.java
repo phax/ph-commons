@@ -16,7 +16,7 @@
  */
 package com.helger.commons.hierarchy;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 /**
  * This helper interface is required to build a hierarchy of objects.

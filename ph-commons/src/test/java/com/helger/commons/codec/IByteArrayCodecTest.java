@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.junit.Test;
 

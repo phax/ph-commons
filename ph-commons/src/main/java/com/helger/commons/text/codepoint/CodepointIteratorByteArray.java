@@ -19,7 +19,7 @@ package com.helger.commons.text.codepoint;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * @author Apache Abdera

@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.junit.Test;
 

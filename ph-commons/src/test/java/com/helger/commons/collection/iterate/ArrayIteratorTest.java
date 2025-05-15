@@ -28,8 +28,6 @@ import org.junit.Test;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link ArrayIterator}.
  *
@@ -37,11 +35,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class ArrayIteratorTest
 {
-  @SuppressFBWarnings ({ "TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED", "NP_NONNULL_PARAM_VIOLATION" })
   @Test
   public void testAll ()
   {
-    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
+    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
+                                                                                  "Welt",
+                                                                                  "from",
+                                                                                  "Copenhagen"));
     for (int i = 0; i < 10; ++i)
       assertTrue (ae.hasNext ());
     assertEquals ("Hallo", ae.next ());
@@ -108,7 +108,10 @@ public final class ArrayIteratorTest
   @Test
   public void testStdMethods ()
   {
-    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
+    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
+                                                                                  "Welt",
+                                                                                  "from",
+                                                                                  "Copenhagen"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
                                                                        new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
                                                                                                                    "Welt",

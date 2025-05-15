@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.junit.Test;
 

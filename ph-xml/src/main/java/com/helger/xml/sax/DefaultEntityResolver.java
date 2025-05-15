@@ -19,8 +19,8 @@ package com.helger.xml.sax;
 import java.io.IOException;
 import java.net.URL;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;

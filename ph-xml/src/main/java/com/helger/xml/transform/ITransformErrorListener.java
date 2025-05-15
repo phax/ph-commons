@@ -16,8 +16,8 @@
  */
 package com.helger.xml.transform;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
 

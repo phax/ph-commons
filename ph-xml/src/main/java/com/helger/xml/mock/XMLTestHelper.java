@@ -18,8 +18,8 @@ package com.helger.xml.mock;
 
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.mock.CommonsTestHelper;

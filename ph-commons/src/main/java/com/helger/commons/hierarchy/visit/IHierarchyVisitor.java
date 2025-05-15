@@ -16,7 +16,7 @@
  */
 package com.helger.commons.hierarchy.visit;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 /**
  * Visitor interface

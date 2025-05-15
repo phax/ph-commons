@@ -16,7 +16,7 @@
  */
 package com.helger.commons.callback.exception;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.callback.ICallback;
 

@@ -25,25 +25,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.mutable.MutableBoolean;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class SoftLinkedHashMapTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SoftLinkedHashMapTest.class);
 
   @Test
-  @SuppressFBWarnings ("UC_USELESS_OBJECT")
   public void testBasic ()
   {
     final MutableBoolean aChange = new MutableBoolean (false);

@@ -16,8 +16,8 @@
  */
 package com.helger.xml;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

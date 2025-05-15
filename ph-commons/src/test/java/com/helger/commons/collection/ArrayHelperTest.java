@@ -36,14 +36,12 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for {@link ArrayHelper}
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
 public final class ArrayHelperTest
 {
   private static final Integer I1 = Integer.valueOf (1);
@@ -700,7 +698,6 @@ public final class ArrayHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testNewArraySizeValue ()
   {
     String [] ret = newArray (1, "6", String.class);

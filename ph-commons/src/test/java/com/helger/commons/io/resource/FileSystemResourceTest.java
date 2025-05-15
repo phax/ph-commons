@@ -37,14 +37,11 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.EOperatingSystem;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link FileSystemResource}.
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("DMI_HARDCODED_ABSOLUTE_FILENAME")
 public final class FileSystemResourceTest
 {
   @Test

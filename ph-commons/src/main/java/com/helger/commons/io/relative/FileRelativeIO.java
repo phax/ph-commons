@@ -20,8 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

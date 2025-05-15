@@ -21,27 +21,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.concurrent.ThreadSafe;
-
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * Create common {@link DateTimeFormatter} objects used for printing and parsing
- * date and time objects.
+ * Create common {@link DateTimeFormatter} objects used for printing and parsing date and time
+ * objects.
  *
  * @author Philip Helger
  */
 @Immutable
-@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public final class PDTFormatter
 {
   /**
@@ -100,12 +96,10 @@ public final class PDTFormatter
   }
 
   /**
-   * This class caches the compiled patterns for localized date and time
-   * formatter. Using e.g.
-   * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)} is
-   * not an option because the used "year of era", corresponding to pattern "y"
-   * makes problems. Instead "year" with the pattern "u" must be used for best
-   * backwards compatibility.
+   * This class caches the compiled patterns for localized date and time formatter. Using e.g.
+   * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)} is not an option
+   * because the used "year of era", corresponding to pattern "y" makes problems. Instead "year"
+   * with the pattern "u" must be used for best backwards compatibility.
    *
    * @author Philip Helger
    */
@@ -393,8 +387,7 @@ public final class PDTFormatter
   }
 
   /**
-   * Get the {@link DateTimeFormatter} for the given pattern, using our default
-   * chronology.
+   * Get the {@link DateTimeFormatter} for the given pattern, using our default chronology.
    *
    * @param sPattern
    *        The pattern to be parsed
@@ -409,8 +402,8 @@ public final class PDTFormatter
   }
 
   /**
-   * Get the STRICT {@link DateTimeFormatter} for the given pattern and locale,
-   * using our default chronology.
+   * Get the STRICT {@link DateTimeFormatter} for the given pattern and locale, using our default
+   * chronology.
    *
    * @param sPattern
    *        The pattern to be parsed

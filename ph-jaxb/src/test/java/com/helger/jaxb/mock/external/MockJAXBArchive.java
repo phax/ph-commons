@@ -18,7 +18,7 @@ package com.helger.jaxb.mock.external;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
 

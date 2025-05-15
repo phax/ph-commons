@@ -18,7 +18,7 @@ package com.helger.commons.io.streamprovider;
 
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;

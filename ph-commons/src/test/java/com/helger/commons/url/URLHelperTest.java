@@ -36,8 +36,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link URLHelper}.
  *
@@ -208,7 +206,6 @@ public final class URLHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("DMI_HARDCODED_ABSOLUTE_FILENAME")
   public void testGetAsFile ()
   {
     final URL u = URLHelper.getAsURL ("file:/../dir/include.xml");

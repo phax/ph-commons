@@ -19,7 +19,7 @@ package com.helger.commons.collection.impl;
 import java.util.Collections;
 import java.util.NavigableSet;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;

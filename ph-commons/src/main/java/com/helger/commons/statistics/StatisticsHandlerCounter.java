@@ -19,9 +19,9 @@ package com.helger.commons.statistics;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerCounter}

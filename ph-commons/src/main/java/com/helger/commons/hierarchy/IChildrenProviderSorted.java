@@ -16,8 +16,8 @@
  */
 package com.helger.commons.hierarchy;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.collection.impl.ICommonsList;
 

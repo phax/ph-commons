@@ -16,7 +16,7 @@
  */
 package com.helger.commons.wrapper;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.state.EChange;
 

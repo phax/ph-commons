@@ -16,7 +16,7 @@
  */
 package com.helger.commons.text;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.string.StringHelper;
 

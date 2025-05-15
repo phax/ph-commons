@@ -20,7 +20,7 @@ import java.nio.file.OpenOption;
 import java.nio.file.StandardOpenOption;
 import java.util.function.BooleanSupplier;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Small enum for determining the append or truncate state of output streams.

@@ -16,8 +16,8 @@
  */
 package com.helger.jaxb.validation;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.error.IError;
 

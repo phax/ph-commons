@@ -19,7 +19,7 @@ package com.helger.commons.collection.iterate;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;

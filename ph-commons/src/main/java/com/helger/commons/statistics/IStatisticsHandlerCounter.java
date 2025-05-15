@@ -16,7 +16,7 @@
  */
 package com.helger.commons.statistics;
 
-import javax.annotation.CheckForSigned;
+import com.helger.annotation.CheckForSigned;
 
 /**
  * Read-only statistics handler for a counter.

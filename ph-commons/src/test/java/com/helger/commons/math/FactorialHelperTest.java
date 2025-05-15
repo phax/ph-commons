@@ -23,8 +23,6 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link FactorialHelper}.
  *
@@ -33,7 +31,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class FactorialHelperTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testSmall ()
   {
     for (int i = FactorialHelper.PREDEFINED_MIN_INDEX; i <= FactorialHelper.PREDEFINED_MAX_INDEX; ++i)
@@ -60,19 +57,16 @@ public final class FactorialHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testGetAnyFactorialLinear ()
   {
     final BigInteger y = FactorialHelper.getAnyFactorialLinear (FactorialHelper.PREDEFINED_MAX_INDEX + 1);
     assertEquals (FactorialHelper.getAnyFactorialLinear (FactorialHelper.PREDEFINED_MAX_INDEX)
-                                 .multiply (BigInteger.valueOf (FactorialHelper.PREDEFINED_MAX_INDEX + 1L)),
-                  y);
+                                 .multiply (BigInteger.valueOf (FactorialHelper.PREDEFINED_MAX_INDEX + 1L)), y);
 
     final BigInteger z = FactorialHelper.getAnyFactorialLinear (FactorialHelper.PREDEFINED_MAX_INDEX + 2);
     assertEquals (FactorialHelper.getAnyFactorialLinear (FactorialHelper.PREDEFINED_MAX_INDEX)
                                  .multiply (BigInteger.valueOf (FactorialHelper.PREDEFINED_MAX_INDEX + 1L))
-                                 .multiply (BigInteger.valueOf (FactorialHelper.PREDEFINED_MAX_INDEX + 2L)),
-                  z);
+                                 .multiply (BigInteger.valueOf (FactorialHelper.PREDEFINED_MAX_INDEX + 2L)), z);
 
     try
     {

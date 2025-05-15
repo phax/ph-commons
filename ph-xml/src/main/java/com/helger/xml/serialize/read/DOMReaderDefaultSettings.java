@@ -19,15 +19,15 @@ package com.helger.xml.serialize.read;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.validation.Schema;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -42,8 +42,6 @@ import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * DOM reader default settings
@@ -245,7 +243,6 @@ public final class DOMReaderDefaultSettings
   }
 
   @Nullable
-  @SuppressFBWarnings ("NP_BOOLEAN_RETURN_NULL")
   public static Boolean getFeatureValue (@Nullable final EXMLParserFeature eFeature)
   {
     if (eFeature == null)

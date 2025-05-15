@@ -19,7 +19,7 @@ package com.helger.commons.io.stream;
 import java.io.FilterWriter;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;

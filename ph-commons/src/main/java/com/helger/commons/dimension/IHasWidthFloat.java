@@ -16,7 +16,7 @@
  */
 package com.helger.commons.dimension;
 
-import javax.annotation.Nonnegative;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Interface for objects having a width.

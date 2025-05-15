@@ -16,7 +16,7 @@
  */
 package com.helger.datetime.expiration;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 /**
  * Read-only interface for objects that can expire but offer a replacement once

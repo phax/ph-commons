@@ -18,8 +18,8 @@ package com.helger.security.certificate;
 
 import java.security.cert.X509Certificate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import javax.security.auth.x500.X500Principal;
 
 import org.slf4j.Logger;

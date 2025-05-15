@@ -16,7 +16,7 @@
  */
 package com.helger.config.source;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.config.value.IConfigurationValueProvider;
 

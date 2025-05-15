@@ -18,7 +18,7 @@ package com.helger.commons.text;
 
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.state.EContinue;

@@ -18,7 +18,7 @@ package com.helger.jaxb.adapter;
 
 import java.time.Duration;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

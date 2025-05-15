@@ -18,9 +18,9 @@ package com.helger.jaxb.builder;
 
 import java.nio.charset.Charset;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
 import javax.xml.namespace.NamespaceContext;
 
 import org.slf4j.Logger;

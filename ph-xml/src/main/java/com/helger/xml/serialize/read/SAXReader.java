@@ -23,10 +23,10 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.ByteBuffer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.ThreadSafe;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;

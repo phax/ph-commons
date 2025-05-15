@@ -25,8 +25,6 @@ import java.io.File;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link EFileIOErrorCode}.
  *
@@ -35,14 +33,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class EFileIOErrorCodeTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testAll ()
   {
     for (final EFileIOErrorCode e : EFileIOErrorCode.values ())
     {
       assertSame (e, EFileIOErrorCode.valueOf (e.name ()));
       assertSame (e, e.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new File (".")).getErrorCode ());
-      assertSame (e, e.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new File ("."), new File (".")).getErrorCode ());
+      assertSame (e,
+                  e.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new File ("."), new File (".")).getErrorCode ());
       assertTrue (e.getID () >= 0);
       assertSame (e, EFileIOErrorCode.getFromIDOrNull (e.getID ()));
       if (e.equals (EFileIOErrorCode.NO_ERROR))
@@ -51,7 +49,8 @@ public final class EFileIOErrorCodeTest
         assertTrue (e.isFailure ());
     }
     assertSame (EFileIOErrorCode.SECURITY_ERROR,
-                EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new SecurityException ()).getErrorCode ());
+                EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new SecurityException ())
+                                .getErrorCode ());
     try
     {
       EFileIOErrorCode.SECURITY_ERROR.getAsIOError (EFileIOOperation.CREATE_DIR, (File) null, (File) null);

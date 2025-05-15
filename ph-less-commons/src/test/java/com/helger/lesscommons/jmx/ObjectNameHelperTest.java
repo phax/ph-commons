@@ -21,8 +21,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link ObjectNameHelper}.
  *
@@ -30,7 +28,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class ObjectNameHelperTest
 {
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   @Test
   public void testDefaultJMXDomain ()
   {

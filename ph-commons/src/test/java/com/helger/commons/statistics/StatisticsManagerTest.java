@@ -22,8 +22,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link StatisticsManager}.
  *
@@ -32,7 +30,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class StatisticsManagerTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCacheHandler ()
   {
     assertNotNull (StatisticsManager.getCacheHandler (StatisticsManagerTest.class));
@@ -62,7 +59,6 @@ public final class StatisticsManagerTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testTimerHandler ()
   {
     assertNotNull (StatisticsManager.getTimerHandler (StatisticsManagerTest.class));
@@ -92,7 +88,6 @@ public final class StatisticsManagerTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testKeyedTimerHandler ()
   {
     assertNotNull (StatisticsManager.getKeyedTimerHandler (StatisticsManagerTest.class));
@@ -122,7 +117,6 @@ public final class StatisticsManagerTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testSizeHandler ()
   {
     assertNotNull (StatisticsManager.getSizeHandler (StatisticsManagerTest.class));
@@ -152,7 +146,6 @@ public final class StatisticsManagerTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testKeyedSizeHandler ()
   {
     assertNotNull (StatisticsManager.getKeyedSizeHandler (StatisticsManagerTest.class));
@@ -182,7 +175,6 @@ public final class StatisticsManagerTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCounterHandler ()
   {
     assertNotNull (StatisticsManager.getCounterHandler (StatisticsManagerTest.class));
@@ -212,7 +204,6 @@ public final class StatisticsManagerTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testKeyedCounterHandler ()
   {
     assertNotNull (StatisticsManager.getKeyedCounterHandler (StatisticsManagerTest.class));

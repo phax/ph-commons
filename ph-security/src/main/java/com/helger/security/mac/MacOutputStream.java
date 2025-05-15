@@ -19,8 +19,8 @@ package com.helger.security.mac;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
 import javax.crypto.Mac;
 
 import com.helger.commons.ValueEnforcer;

@@ -20,19 +20,15 @@ import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.equals.EqualsHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * A small helper class that provides comparison methods that are
- * <code>null</code> safe. Also provides secure ways to compare double and float
- * values.
+ * A small helper class that provides comparison methods that are <code>null</code> safe. Also
+ * provides secure ways to compare double and float values.
  *
  * @author Philip Helger
  */
@@ -179,9 +175,8 @@ public final class CompareHelper
   }
 
   /**
-   * Compare the passed items and handle <code>null</code> values correctly. A
-   * <code>null</code> value is always smaller than a non-<code>null</code>
-   * value.
+   * Compare the passed items and handle <code>null</code> values correctly. A <code>null</code>
+   * value is always smaller than a non-<code>null</code> value.
    *
    * @param <DATATYPE>
    *        Any comparable object to be used. Both need to be of the same type.
@@ -199,9 +194,8 @@ public final class CompareHelper
   }
 
   /**
-   * Compare the passed items and handle <code>null</code> values correctly. A
-   * <code>null</code> value is always smaller than a non-<code>null</code>
-   * value.
+   * Compare the passed items and handle <code>null</code> values correctly. A <code>null</code>
+   * value is always smaller than a non-<code>null</code> value.
    *
    * @param <DATATYPE>
    *        Any comparable object to be used. Both need to be of the same type.
@@ -210,8 +204,8 @@ public final class CompareHelper
    * @param aObj2
    *        Second object to compare. May be <code>null</code>.
    * @param bNullValuesComeFirst
-   *        if <code>true</code> <code>null</code> values are ordered before
-   *        non-<code>null</code> values
+   *        if <code>true</code> <code>null</code> values are ordered before non-<code>null</code>
+   *        values
    * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
    */
   public static <DATATYPE extends Comparable <? super DATATYPE>> int compare (@Nullable final DATATYPE aObj1,
@@ -228,9 +222,8 @@ public final class CompareHelper
   }
 
   /**
-   * Compare the passed items and handle <code>null</code> values correctly. A
-   * <code>null</code> value is always smaller than a non-<code>null</code>
-   * value.
+   * Compare the passed items and handle <code>null</code> values correctly. A <code>null</code>
+   * value is always smaller than a non-<code>null</code> value.
    *
    * @param <DATATYPE>
    *        Any object to be used. Both need to be of the same type.
@@ -239,9 +232,8 @@ public final class CompareHelper
    * @param aObj2
    *        Second object to compare. May be <code>null</code>.
    * @param aComp
-   *        The comparator to be used if both parameters are not
-   *        <code>null</code>. The comparator itself may not be
-   *        <code>null</code>.
+   *        The comparator to be used if both parameters are not <code>null</code>. The comparator
+   *        itself may not be <code>null</code>.
    * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
    */
   public static <DATATYPE> int compare (@Nullable final DATATYPE aObj1,
@@ -253,9 +245,8 @@ public final class CompareHelper
   }
 
   /**
-   * Compare the passed items and handle <code>null</code> values correctly. A
-   * <code>null</code> value is always smaller than a non-<code>null</code>
-   * value.
+   * Compare the passed items and handle <code>null</code> values correctly. A <code>null</code>
+   * value is always smaller than a non-<code>null</code> value.
    *
    * @param <DATATYPE>
    *        Any object to be used. Both need to be of the same type.
@@ -264,12 +255,11 @@ public final class CompareHelper
    * @param aObj2
    *        Second object to compare. May be <code>null</code>.
    * @param aComp
-   *        The comparator to be used if both parameters are not
-   *        <code>null</code>. The comparator itself may not be
-   *        <code>null</code>.
+   *        The comparator to be used if both parameters are not <code>null</code>. The comparator
+   *        itself may not be <code>null</code>.
    * @param bNullValuesComeFirst
-   *        if <code>true</code> <code>null</code> values are ordered before
-   *        non-<code>null</code> values
+   *        if <code>true</code> <code>null</code> values are ordered before non-<code>null</code>
+   *        values
    * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
    */
   public static <DATATYPE> int compare (@Nullable final DATATYPE aObj1,
@@ -286,7 +276,9 @@ public final class CompareHelper
     return aComp.compare (aObj1, aObj2);
   }
 
-  public static int compare (@Nullable final String sStr1, @Nullable final String sStr2, @Nonnull final Locale aSortLocale)
+  public static int compare (@Nullable final String sStr1,
+                             @Nullable final String sStr2,
+                             @Nonnull final Locale aSortLocale)
   {
     // Legacy behavior: null values come first
     return compare (sStr1, sStr2, aSortLocale, DEFAULT_NULL_VALUES_COME_FIRST);
@@ -300,13 +292,14 @@ public final class CompareHelper
     return compare (sStr1, sStr2, CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale), bNullValuesComeFirst);
   }
 
-  public static int compare (@Nullable final String sStr1, @Nullable final String sStr2, @Nonnull final Collator aCollator)
+  public static int compare (@Nullable final String sStr1,
+                             @Nullable final String sStr2,
+                             @Nonnull final Collator aCollator)
   {
     // Legacy behavior: null values come first
     return compare (sStr1, sStr2, aCollator, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
-  @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
                              @Nonnull final Collator aCollator,
@@ -327,8 +320,9 @@ public final class CompareHelper
     return compareIgnoreCase (sStr1, sStr2, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
-  @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
-  public static int compareIgnoreCase (@Nullable final String sStr1, @Nullable final String sStr2, final boolean bNullValuesComeFirst)
+  public static int compareIgnoreCase (@Nullable final String sStr1,
+                                       @Nullable final String sStr2,
+                                       final boolean bNullValuesComeFirst)
   {
     if (EqualsHelper.identityEqual (sStr1, sStr2))
       return 0;

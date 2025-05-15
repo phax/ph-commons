@@ -25,8 +25,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link NonBlockingByteArrayInputStream}.
  *
@@ -36,7 +34,6 @@ public final class NonBlockingByteArrayInputStreamTest
 {
   @SuppressWarnings ("resource")
   @Test
-  @SuppressFBWarnings (value = "OS_OPEN_STREAM")
   public void testAll () throws IOException
   {
     final byte [] buf = new byte [100];

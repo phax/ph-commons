@@ -16,8 +16,8 @@
  */
 package com.helger.tree;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * Default implementation of the {@link ITreeItem} interface

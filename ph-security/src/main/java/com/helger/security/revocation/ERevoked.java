@@ -16,7 +16,7 @@
  */
 package com.helger.security.revocation;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Small enum for setter method to identify whether an object is revoked or not.

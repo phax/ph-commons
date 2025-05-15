@@ -16,7 +16,7 @@
  */
 package com.helger.commons.thirdparty;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.annotation.IsSPIInterface;
 

@@ -18,7 +18,7 @@ package com.helger.commons.wrapper;
 
 import java.util.function.Supplier;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 /**
  * Base interface for wrapping an object within another object.

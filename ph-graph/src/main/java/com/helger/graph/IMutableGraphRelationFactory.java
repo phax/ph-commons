@@ -16,8 +16,8 @@
  */
 package com.helger.graph;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 /**
  * Factory interface for creating undirected graph relations.

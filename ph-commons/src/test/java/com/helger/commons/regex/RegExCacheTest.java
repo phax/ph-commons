@@ -26,8 +26,6 @@ import java.util.regex.PatternSyntaxException;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for {@link RegExCache}.
  *
@@ -39,7 +37,6 @@ public final class RegExCacheTest
    * Test method getPattern
    */
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testGetPattern ()
   {
     assertNotNull (RegExCache.getPattern ("xy"));

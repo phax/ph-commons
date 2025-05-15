@@ -16,7 +16,7 @@
  */
 package com.helger.commons.supplementary.tools.collection;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 enum ECollectionType
 {

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.state;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Marker interface to indicate that something can be stopped.

@@ -19,7 +19,7 @@ package com.helger.collection.iterate;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.string.ToStringGenerator;

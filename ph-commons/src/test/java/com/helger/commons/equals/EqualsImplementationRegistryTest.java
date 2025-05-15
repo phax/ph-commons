@@ -28,8 +28,6 @@ import org.w3c.dom.Node;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.mock.CommonsAssert;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link EqualsImplementationRegistry}.
  *
@@ -38,7 +36,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class EqualsImplementationRegistryTest
 {
   @Test
-  @SuppressFBWarnings ("EC_BAD_ARRAY_COMPARE")
   public void testEquals () throws ParserConfigurationException
   {
     final DocumentBuilderFactory aDocumentBuilderFactory = DocumentBuilderFactory.newInstance ();
@@ -59,6 +56,7 @@ public final class EqualsImplementationRegistryTest
     CommonsAssert.assertEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2));
 
     // 2 level array
-    CommonsAssert.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)), ArrayHelper.newArray (ArrayHelper.newArray (d2)));
+    CommonsAssert.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
+                                ArrayHelper.newArray (ArrayHelper.newArray (d2)));
   }
 }

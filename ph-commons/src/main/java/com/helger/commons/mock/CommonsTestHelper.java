@@ -20,11 +20,10 @@ import java.io.Serializable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.callback.IThrowingRunnable;
@@ -38,11 +37,9 @@ import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.serialize.SerializationHelper;
 import com.helger.commons.string.StringHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * This class contains default test methods to test the correctness of
- * implementations of standard methods.
+ * This class contains default test methods to test the correctness of implementations of standard
+ * methods.
  *
  * @author Philip Helger
  */
@@ -84,7 +81,6 @@ public final class CommonsTestHelper
       _fail (sMsg + "\nOBJ1: " + aObj1 + "\nOBJ2: " + aObj2);
   }
 
-  @SuppressFBWarnings ({ "EC_NULL_ARG" })
   private static <DATATYPE> void _testEqualsImplementation (@Nonnull final DATATYPE aObject)
   {
     _assertNotNull ("Passed object may not be null!", aObject);
@@ -144,8 +140,7 @@ public final class CommonsTestHelper
   }
 
   /**
-   * Test the toString implementation of the passed object. It may not be empty,
-   * and consistent.
+   * Test the toString implementation of the passed object. It may not be empty, and consistent.
    *
    * @param aObject
    *        The object to be tested.
@@ -177,8 +172,8 @@ public final class CommonsTestHelper
   }
 
   /**
-   * Check if two different objects (who may not be the same) are equal to each
-   * other. Checks toString, equals and hashCode.
+   * Check if two different objects (who may not be the same) are equal to each other. Checks
+   * toString, equals and hashCode.
    *
    * @param <DATATYPE>
    *        The data type to be used
@@ -196,8 +191,8 @@ public final class CommonsTestHelper
   }
 
   /**
-   * Check if two different objects are different to each other. Checks
-   * toString, equals and hashCode.
+   * Check if two different objects are different to each other. Checks toString, equals and
+   * hashCode.
    *
    * @param <DATATYPE>
    *        The data type to be used
@@ -215,9 +210,8 @@ public final class CommonsTestHelper
   }
 
   /**
-   * Test the serializability of objects. First writes the object to a byte
-   * array stream, and then tries to rebuild it from there. After reading it
-   * performs an equals check using
+   * Test the serializability of objects. First writes the object to a byte array stream, and then
+   * tries to rebuild it from there. After reading it performs an equals check using
    * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)}
    *
    * @param <DATATYPE>
@@ -241,10 +235,8 @@ public final class CommonsTestHelper
   }
 
   /**
-   * Test if the implementation {@link ICloneable} is OK. It creates a clone and
-   * than uses
-   * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to
-   * check for equality.
+   * Test if the implementation {@link ICloneable} is OK. It creates a clone and than uses
+   * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to check for equality.
    *
    * @param aCloneable
    *        The cloneable object to test
@@ -253,15 +245,14 @@ public final class CommonsTestHelper
   {
     final Object aClone = aCloneable.getClone ();
     _assertNotNull ("Clone returned a null object", aClone);
-    _assertTrue ("Clone returned a different class than the original one", aClone.getClass ().equals (aCloneable.getClass ()));
+    _assertTrue ("Clone returned a different class than the original one",
+                 aClone.getClass ().equals (aCloneable.getClass ()));
     testDefaultImplementationWithEqualContentObject (aCloneable, aClone);
   }
 
   /**
-   * Test if the implementation {@link IExplicitlyCloneable} is OK. It creates a
-   * clone and than uses
-   * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to
-   * check for equality.
+   * Test if the implementation {@link IExplicitlyCloneable} is OK. It creates a clone and than uses
+   * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to check for equality.
    *
    * @param aCloneable
    *        The cloneable object to test
@@ -273,7 +264,8 @@ public final class CommonsTestHelper
     {
       final Object aClone = aCloneable.clone ();
       _assertNotNull ("Clone returned a null object", aClone);
-      _assertTrue ("Clone returned a different class than the original one", aClone.getClass ().equals (aCloneable.getClass ()));
+      _assertTrue ("Clone returned a different class than the original one",
+                   aClone.getClass ().equals (aCloneable.getClass ()));
       testDefaultImplementationWithEqualContentObject (aCloneable, aClone);
     }
     catch (final CloneNotSupportedException ex)
@@ -290,7 +282,8 @@ public final class CommonsTestHelper
    * @param aRunnable
    *        The runnable to execute. May not be <code>null</code>.
    */
-  public static void testInParallel (@Nonnegative final int nCalls, @Nonnull final IThrowingRunnable <? extends Exception> aRunnable)
+  public static void testInParallel (@Nonnegative final int nCalls,
+                                     @Nonnull final IThrowingRunnable <? extends Exception> aRunnable)
   {
     ValueEnforcer.isGE0 (nCalls, "Calls");
     ValueEnforcer.notNull (aRunnable, "Runnable");

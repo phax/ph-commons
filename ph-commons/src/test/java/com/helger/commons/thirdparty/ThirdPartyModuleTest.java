@@ -27,8 +27,6 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.version.Version;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link ThirdPartyModule}.
  *
@@ -37,7 +35,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class ThirdPartyModuleTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testAll ()
   {
     ThirdPartyModule mod = new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1);
@@ -98,9 +95,18 @@ public final class ThirdPartyModuleTest
   @Test
   public void testStd ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1),
-                                                                       new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1));
-    final ThirdPartyModule mod = new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1, Version.parse ("1.1"), "url", true);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname",
+                                                                                             "owner",
+                                                                                             ELicense.APACHE1),
+                                                                       new ThirdPartyModule ("displayname",
+                                                                                             "owner",
+                                                                                             ELicense.APACHE1));
+    final ThirdPartyModule mod = new ThirdPartyModule ("displayname",
+                                                       "owner",
+                                                       ELicense.APACHE1,
+                                                       Version.parse ("1.1"),
+                                                       "url",
+                                                       true);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mod,
                                                                        new ThirdPartyModule ("displayname",
                                                                                              "owner",

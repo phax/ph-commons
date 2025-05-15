@@ -24,26 +24,21 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.BiPredicate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ECollectionBaseType;
 import com.helger.commons.collection.impl.ICommonsList;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * A small helper class that provides helper methods for easy
- * <code>equals</code> method generation
+ * A small helper class that provides helper methods for easy <code>equals</code> method generation
  *
  * @author Philip Helger
  */
 @Immutable
-@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public final class EqualsHelper
 {
   @PresentForCodeCoverage
@@ -59,8 +54,7 @@ public final class EqualsHelper
    *        First object. May be <code>null</code>.
    * @param aObj2
    *        Second object. May be <code>null</code>.
-   * @return <code>true</code> if both objects are <code>null</code> or
-   *         reference the same object.
+   * @return <code>true</code> if both objects are <code>null</code> or reference the same object.
    * @param <T>
    *        Type to check.
    */
@@ -76,8 +70,8 @@ public final class EqualsHelper
    *        First object. May be <code>null</code>.
    * @param aObj2
    *        Second object. May be <code>null</code>.
-   * @return <code>true</code> if one object is <code>null</code> or if they
-   *         reference a different object.
+   * @return <code>true</code> if one object is <code>null</code> or if they reference a different
+   *         object.
    * @param <T>
    *        Type to check.
    * @since 11.1.7
@@ -88,8 +82,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two values are equal. This method only exists, so that no type
-   * differentiation is needed.
+   * Check if two values are equal. This method only exists, so that no type differentiation is
+   * needed.
    *
    * @param aObj1
    *        First value
@@ -103,8 +97,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two values are equal. This method only exists, so that no type
-   * differentiation is needed.
+   * Check if two values are equal. This method only exists, so that no type differentiation is
+   * needed.
    *
    * @param aObj1
    *        First value
@@ -118,8 +112,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two values are equal. This method only exists, so that no type
-   * differentiation is needed.
+   * Check if two values are equal. This method only exists, so that no type differentiation is
+   * needed.
    *
    * @param aObj1
    *        First value
@@ -133,8 +127,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two double values are equal. This is necessary, because in some
-   * cases, the "==" operator returns wrong results.
+   * Check if two double values are equal. This is necessary, because in some cases, the "=="
+   * operator returns wrong results.
    *
    * @param aObj1
    *        First double
@@ -149,8 +143,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two float values are equal. This is necessary, because in some
-   * cases, the "==" operator returns wrong results.
+   * Check if two float values are equal. This is necessary, because in some cases, the "=="
+   * operator returns wrong results.
    *
    * @param aObj1
    *        First float
@@ -165,8 +159,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two values are equal. This method only exists, so that no type
-   * differentiation is needed.
+   * Check if two values are equal. This method only exists, so that no type differentiation is
+   * needed.
    *
    * @param aObj1
    *        First value
@@ -180,8 +174,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two values are equal. This method only exists, so that no type
-   * differentiation is needed.
+   * Check if two values are equal. This method only exists, so that no type differentiation is
+   * needed.
    *
    * @param aObj1
    *        First value
@@ -195,8 +189,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two values are equal. This method only exists, so that no type
-   * differentiation is needed.
+   * Check if two values are equal. This method only exists, so that no type differentiation is
+   * needed.
    *
    * @param aObj1
    *        First value
@@ -210,8 +204,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if two values are equal. This method only exists, so that no type
-   * differentiation is needed.
+   * Check if two values are equal. This method only exists, so that no type differentiation is
+   * needed.
    *
    * @param aObj1
    *        First value
@@ -226,17 +220,15 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if the passed strings are equals case insensitive handling
-   * <code>null</code> appropriately.
+   * Check if the passed strings are equals case insensitive handling <code>null</code>
+   * appropriately.
    *
    * @param sObj1
    *        First object to compare
    * @param sObj2
    *        Second object to compare
-   * @return <code>true</code> if they are equal case insensitive,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if they are equal case insensitive, <code>false</code> otherwise.
    */
-  @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
   public static boolean equalsIgnoreCase (@Nullable final String sObj1, @Nullable final String sObj2)
   {
     return sObj1 == null ? sObj2 == null : sObj1.equalsIgnoreCase (sObj2);
@@ -263,7 +255,7 @@ public final class EqualsHelper
     if (aCont1.size () != aCont2.size ())
       return false;
     final Iterator <?> aIter2 = aCont2.iterator ();
-    for (T aChildObj1 : aCont1)
+    for (final T aChildObj1 : aCont1)
     {
       final Object aChildObj2 = aIter2.next ();
       if (!_areChildrenEqual (aChildObj1, aChildObj2))
@@ -277,7 +269,7 @@ public final class EqualsHelper
     if (aCont1.size () != aCont2.size ())
       return false;
 
-    for (Entry <K, V> aEntry : aCont1.entrySet ())
+    for (final Entry <K, V> aEntry : aCont1.entrySet ())
     {
       final K aKey = aEntry.getKey ();
       final V aValue = aEntry.getValue ();
@@ -346,18 +338,17 @@ public final class EqualsHelper
   }
 
   /**
-   * Check if the content of the passed containers is equal. If the container
-   * itself contains nested containers, this method is invoked recursively. For
-   * non-container elements, the
-   * {@link EqualsImplementationRegistry#areEqual(Object, Object)} method is
-   * invoked to test for equality!
+   * Check if the content of the passed containers is equal. If the container itself contains nested
+   * containers, this method is invoked recursively. For non-container elements, the
+   * {@link EqualsImplementationRegistry#areEqual(Object, Object)} method is invoked to test for
+   * equality!
    *
    * @param aObj1
    *        The first container. May be <code>null</code>.
    * @param aObj2
    *        The second container. May be <code>null</code>.
-   * @return <code>true</code> if both objects are the same, or if they have the
-   *         same meta type and have the same content.
+   * @return <code>true</code> if both objects are the same, or if they have the same meta type and
+   *         have the same content.
    * @throws IllegalArgumentException
    *         if one of the arguments is not a container!
    */
@@ -458,18 +449,16 @@ public final class EqualsHelper
   }
 
   /**
-   * This is a sanity method that first calls
-   * {@link CollectionHelper#getAsList(Object)} on both objects an than calls
-   * {@link #equalsCollectionOnly(Collection, Collection)} on the collections.
-   * This means that calling this method with the String array ["a", "b"] and
-   * the List&lt;String&gt; ("a", "b") will result in a return value of true.
+   * This is a sanity method that first calls {@link CollectionHelper#getAsList(Object)} on both
+   * objects an than calls {@link #equalsCollectionOnly(Collection, Collection)} on the collections.
+   * This means that calling this method with the String array ["a", "b"] and the List&lt;String&gt;
+   * ("a", "b") will result in a return value of true.
    *
    * @param aObj1
    *        The first object to be compared. May be <code>null</code>.
    * @param aObj2
    *        The second object to be compared. May be <code>null</code>.
-   * @return <code>true</code> if the contents are equal, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if the contents are equal, <code>false</code> otherwise
    */
   public static boolean equalsAsList (@Nullable final Object aObj1, @Nullable final Object aObj2)
   {
@@ -490,8 +479,8 @@ public final class EqualsHelper
   }
 
   /**
-   * Perform an equals check with a custom predicate that is only invoked, if
-   * both objects are non-<code>null</code>.
+   * Perform an equals check with a custom predicate that is only invoked, if both objects are
+   * non-<code>null</code>.
    *
    * @param <T>
    *        parameter type
@@ -500,10 +489,9 @@ public final class EqualsHelper
    * @param aObj2
    *        The second object to be compared. May be <code>null</code>.
    * @param aPredicate
-   *        The predicate to be invoked, if both objects are
-   *        non-<code>null</code>. May not be <code>null</code>.
-   * @return <code>true</code> if the contents are equal, <code>false</code>
-   *         otherwise
+   *        The predicate to be invoked, if both objects are non-<code>null</code>. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if the contents are equal, <code>false</code> otherwise
    * @since 9.4.5
    */
   public static <T> boolean equalsCustom (@Nullable final T aObj1,

@@ -17,7 +17,7 @@
  */
 package com.helger.cli;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Validates an Option string.

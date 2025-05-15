@@ -16,8 +16,8 @@
  */
 package com.helger.commons.text.codepoint;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 

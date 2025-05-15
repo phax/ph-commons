@@ -18,9 +18,9 @@ package com.helger.jaxb;
 
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 import javax.xml.namespace.NamespaceContext;
 
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;

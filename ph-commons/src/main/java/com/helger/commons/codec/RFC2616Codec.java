@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.BitSet;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.WillNotClose;
 
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.util.ABNF;

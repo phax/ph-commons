@@ -18,7 +18,7 @@ package com.helger.commons.locale.country;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Base interface for objects having a country locale.

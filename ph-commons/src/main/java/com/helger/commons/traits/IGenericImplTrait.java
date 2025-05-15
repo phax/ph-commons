@@ -16,7 +16,7 @@
  */
 package com.helger.commons.traits;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.lang.GenericReflection;
 

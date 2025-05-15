@@ -18,7 +18,7 @@ package com.helger.commons.typeconvert;
 
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAnySourceFixedDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAssignableSourceFixedDestination;

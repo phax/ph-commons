@@ -16,7 +16,7 @@
  */
 package com.helger.commons.equals;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Interface to implement for checking if two objects are identical. This

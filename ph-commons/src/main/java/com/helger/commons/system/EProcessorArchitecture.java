@@ -16,8 +16,8 @@
  */
 package com.helger.commons.system;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.string.StringParser;

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.resource;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.io.IHasInputStreamAndReader;

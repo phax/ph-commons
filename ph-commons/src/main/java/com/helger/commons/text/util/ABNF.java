@@ -16,7 +16,7 @@
  */
 package com.helger.commons.text.util;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 

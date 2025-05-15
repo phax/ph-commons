@@ -23,8 +23,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link DefaultTreeWithID}.
  *
@@ -61,7 +59,6 @@ public final class DefaultTreeWithIDTest
       new DefaultTreeWithID <> (new DefaultTreeItemWithIDFactory <String, String> ()
       {
         @Override
-        @SuppressFBWarnings (value = "NP_NONNULL_RETURN_VIOLATION", justification = "We want to test returning null!")
         public DefaultTreeItemWithID <String, String> createRoot ()
         {
           return null;

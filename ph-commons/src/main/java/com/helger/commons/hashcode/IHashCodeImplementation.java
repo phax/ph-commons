@@ -16,7 +16,7 @@
  */
 package com.helger.commons.hashcode;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Interface to implement for custom hash code implementation. This interface is

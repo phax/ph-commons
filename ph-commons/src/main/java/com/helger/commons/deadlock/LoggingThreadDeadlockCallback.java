@@ -16,7 +16,7 @@
  */
 package com.helger.commons.deadlock;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

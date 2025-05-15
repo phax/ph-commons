@@ -18,8 +18,8 @@ package com.helger.xml.serialize.read;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;

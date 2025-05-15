@@ -16,7 +16,7 @@
  */
 package com.helger.security.revocation;
 
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * A generic revocation check builder that works with arbitrary certificates. Contains no specific

@@ -21,10 +21,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.WillNotClose;
-
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.WillNotClose;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
@@ -32,8 +31,6 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.IWriteToStream;
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.string.ToStringGenerator;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A non-synchronized copy of the class {@link java.io.ByteArrayOutputStream}.
@@ -54,8 +51,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   protected int m_nCount;
 
   /**
-   * Creates a new byte array output stream. The buffer capacity is initially 32
-   * bytes, though its size increases if necessary.
+   * Creates a new byte array output stream. The buffer capacity is initially 32 bytes, though its
+   * size increases if necessary.
    */
   public NonBlockingByteArrayOutputStream ()
   {
@@ -63,8 +60,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Creates a new byte array output stream, with a buffer capacity of the
-   * specified size, in bytes.
+   * Creates a new byte array output stream, with a buffer capacity of the specified size, in bytes.
    *
    * @param nSize
    *        the initial size.
@@ -103,8 +99,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /*
-   * Just overloaded to avoid the IOException in the generic OutputStream.write
-   * method.
+   * Just overloaded to avoid the IOException in the generic OutputStream.write method.
    */
   @Override
   public void write (@Nonnull final byte [] aBuf)
@@ -113,8 +108,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Writes <code>nLen</code> bytes from the specified byte array starting at
-   * offset <code>nOfs</code> to this byte array output stream.
+   * Writes <code>nLen</code> bytes from the specified byte array starting at offset
+   * <code>nOfs</code> to this byte array output stream.
    *
    * @param aBuf
    *        the data.
@@ -140,14 +135,13 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Writes the complete contents of this byte array output stream to the
-   * specified output stream argument, as if by calling the output stream's
-   * write method using <code>out.write(buf, 0, count)</code>. The content of
-   * this stream is not altered by calling this method.
+   * Writes the complete contents of this byte array output stream to the specified output stream
+   * argument, as if by calling the output stream's write method using
+   * <code>out.write(buf, 0, count)</code>. The content of this stream is not altered by calling
+   * this method.
    *
    * @param aOS
-   *        the output stream to which to write the data. May not be
-   *        <code>null</code>.
+   *        the output stream to which to write the data. May not be <code>null</code>.
    * @exception IOException
    *            if an I/O error occurs.
    */
@@ -160,8 +154,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * Reads the given {@link InputStream} completely into the buffer.
    *
    * @param aIS
-   *        the InputStream to read from. May not be <code>null</code>. Is not
-   *        closed internally.
+   *        the InputStream to read from. May not be <code>null</code>. Is not closed internally.
    * @throws IOException
    *         If reading fails
    */
@@ -183,10 +176,9 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Resets the <code>count</code> field of this byte array output stream to
-   * zero, so that all currently accumulated output in the output stream is
-   * discarded. The output stream can be used again, reusing the already
-   * allocated buffer space.
+   * Resets the <code>count</code> field of this byte array output stream to zero, so that all
+   * currently accumulated output in the output stream is discarded. The output stream can be used
+   * again, reusing the already allocated buffer space.
    */
   public void reset ()
   {
@@ -194,12 +186,11 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Creates a newly allocated byte array. Its size is the current size of this
-   * output stream and the valid contents of the buffer have been copied into
-   * it.<br>
-   * If you are sure, that this OutputStream is not altered anymore, it maybe
-   * preferred to use {@link #getBufferOrCopy()} because it avoids copying the
-   * internal buffer if the size matches exactly.
+   * Creates a newly allocated byte array. Its size is the current size of this output stream and
+   * the valid contents of the buffer have been copied into it.<br>
+   * If you are sure, that this OutputStream is not altered anymore, it maybe preferred to use
+   * {@link #getBufferOrCopy()} because it avoids copying the internal buffer if the size matches
+   * exactly.
    *
    * @return the current contents of this output stream, as a byte array.
    */
@@ -235,8 +226,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   /**
    * Returns the current size of the buffer.
    *
-   * @return the value of the <code>count</code> field, which is the number of
-   *         valid bytes in this output stream.
+   * @return the value of the <code>count</code> field, which is the number of valid bytes in this
+   *         output stream.
    */
   @Nonnegative
   public int size ()
@@ -266,15 +257,13 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Converts the buffer's contents into a string by decoding the bytes using
-   * the specified {@link java.nio.charset.Charset charsetName}. The length of
-   * the new <code>String</code> is a function of the charset, and hence may not
-   * be equal to the length of the byte array.
+   * Converts the buffer's contents into a string by decoding the bytes using the specified
+   * {@link java.nio.charset.Charset charsetName}. The length of the new <code>String</code> is a
+   * function of the charset, and hence may not be equal to the length of the byte array.
    * <p>
-   * This method always replaces malformed-input and unmappable-character
-   * sequences with this charset's default replacement string. The
-   * {@link java.nio.charset.CharsetDecoder} class should be used when more
-   * control over the decoding process is required.
+   * This method always replaces malformed-input and unmappable-character sequences with this
+   * charset's default replacement string. The {@link java.nio.charset.CharsetDecoder} class should
+   * be used when more control over the decoding process is required.
    *
    * @param aCharset
    *        the charset to be used. May not be <code>null</code>.
@@ -287,15 +276,13 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Converts the buffer's contents into a string by decoding the bytes using
-   * the specified {@link java.nio.charset.Charset charsetName}. The length of
-   * the new <code>String</code> is a function of the charset, and hence may not
-   * be equal to the length of the byte array.
+   * Converts the buffer's contents into a string by decoding the bytes using the specified
+   * {@link java.nio.charset.Charset charsetName}. The length of the new <code>String</code> is a
+   * function of the charset, and hence may not be equal to the length of the byte array.
    * <p>
-   * This method always replaces malformed-input and unmappable-character
-   * sequences with this charset's default replacement string. The
-   * {@link java.nio.charset.CharsetDecoder} class should be used when more
-   * control over the decoding process is required.
+   * This method always replaces malformed-input and unmappable-character sequences with this
+   * charset's default replacement string. The {@link java.nio.charset.CharsetDecoder} class should
+   * be used when more control over the decoding process is required.
    *
    * @param nLength
    *        The number of bytes to be converted to a String. Must be &ge; 0.
@@ -311,15 +298,13 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Converts the buffer's contents into a string by decoding the bytes using
-   * the specified {@link java.nio.charset.Charset charsetName}. The length of
-   * the new <code>String</code> is a function of the charset, and hence may not
-   * be equal to the length of the byte array.
+   * Converts the buffer's contents into a string by decoding the bytes using the specified
+   * {@link java.nio.charset.Charset charsetName}. The length of the new <code>String</code> is a
+   * function of the charset, and hence may not be equal to the length of the byte array.
    * <p>
-   * This method always replaces malformed-input and unmappable-character
-   * sequences with this charset's default replacement string. The
-   * {@link java.nio.charset.CharsetDecoder} class should be used when more
-   * control over the decoding process is required.
+   * This method always replaces malformed-input and unmappable-character sequences with this
+   * charset's default replacement string. The {@link java.nio.charset.CharsetDecoder} class should
+   * be used when more control over the decoding process is required.
    *
    * @param nOfs
    *        The start index to use
@@ -330,7 +315,9 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * @return String decoded from the buffer's contents.
    */
   @Nonnull
-  public String getAsString (@Nonnegative final int nOfs, @Nonnegative final int nLength, @Nonnull final Charset aCharset)
+  public String getAsString (@Nonnegative final int nOfs,
+                             @Nonnegative final int nLength,
+                             @Nonnull final Charset aCharset)
   {
     ValueEnforcer.isGE0 (nOfs, "Index");
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
@@ -338,20 +325,17 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * @return The internally used byte buffer. Never <code>null</code>. Handle
-   *         with care!
+   * @return The internally used byte buffer. Never <code>null</code>. Handle with care!
    */
   @Nonnull
   @ReturnsMutableObject
-  @SuppressFBWarnings ("EI_EXPOSE_REP")
   public byte [] directGetBuffer ()
   {
     return m_aBuf;
   }
 
   /**
-   * @return The direct buffer, if the array size and the count are identical, a
-   *         copy otherwise.
+   * @return The direct buffer, if the array size and the count are identical, a copy otherwise.
    * @see #size()
    * @see #directGetBuffer()
    * @see #toByteArray()
@@ -367,10 +351,9 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Closing a <code>ByteArrayOutputStream</code> has no effect. The methods in
-   * this class can be called after the stream has been closed without
-   * generating an <code>IOException</code>. This operation does nothing on this
-   * class.
+   * Closing a <code>ByteArrayOutputStream</code> has no effect. The methods in this class can be
+   * called after the stream has been closed without generating an <code>IOException</code>. This
+   * operation does nothing on this class.
    */
   @Override
   public void close ()
@@ -380,10 +363,9 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Create a new InputStream from the contained byte array <b>WITHOUT
-   * COPYING</b> it. So please be careful as this method is not thread-safe and
-   * any modifications done later on this object are <b>NOT</b> reflected in the
-   * InputStream!<br>
+   * Create a new InputStream from the contained byte array <b>WITHOUT COPYING</b> it. So please be
+   * careful as this method is not thread-safe and any modifications done later on this object are
+   * <b>NOT</b> reflected in the InputStream!<br>
    * This is a shortcut for
    * <code>new NonBlockingByteArrayInputStream (directGetBuffer (), 0, getSize ())</code>
    *
@@ -399,6 +381,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Buf#", ArrayHelper.getSize (m_aBuf)).append ("Count", m_nCount).getToString ();
+    return new ToStringGenerator (this).append ("Buf#", ArrayHelper.getSize (m_aBuf))
+                                       .append ("Count", m_nCount)
+                                       .getToString ();
   }
 }

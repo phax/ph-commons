@@ -24,8 +24,6 @@ import java.nio.ByteBuffer;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link ByteBufferInputStream}.
  *
@@ -36,7 +34,6 @@ public final class ByteBufferInputStreamTest
 {
   @SuppressWarnings ("resource")
   @Test
-  @SuppressFBWarnings (value = "OS_OPEN_STREAM")
   public void testAll ()
   {
     // byte [] bytes = new byte [100];

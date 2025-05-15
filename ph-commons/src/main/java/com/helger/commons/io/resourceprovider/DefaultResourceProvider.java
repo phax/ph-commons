@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.resourceprovider;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * The default resource provider. Checks in the following provider:

@@ -18,7 +18,7 @@ package com.helger.commons.io.stream;
 
 import java.io.Reader;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * A special {@link Reader} that does not close the stream. This is e.g. helpful

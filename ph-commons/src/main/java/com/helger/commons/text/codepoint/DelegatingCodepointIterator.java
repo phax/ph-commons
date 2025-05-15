@@ -18,8 +18,8 @@ package com.helger.commons.text.codepoint;
 
 import java.util.function.IntPredicate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 

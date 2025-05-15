@@ -26,8 +26,6 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link SizeDouble}.
  *
@@ -36,7 +34,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class SizeDoubleTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCtor ()
   {
     final SizeDouble aID = new SizeDouble (320, 240);
@@ -58,13 +55,15 @@ public final class SizeDoubleTest
     catch (final IllegalArgumentException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240), new SizeDouble (320, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (321, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (320, 241));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240),
+                                                                       new SizeDouble (320, 240));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240),
+                                                                           new SizeDouble (321, 240));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240),
+                                                                           new SizeDouble (320, 241));
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetBestMatchingSize ()
   {
     final SizeDouble aID = new SizeDouble (320, 240);
@@ -107,7 +106,6 @@ public final class SizeDoubleTest
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetScaled ()
   {
     final SizeDouble aID = new SizeDouble (100, 150);

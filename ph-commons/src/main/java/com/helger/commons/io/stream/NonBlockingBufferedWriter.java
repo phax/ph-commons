@@ -19,20 +19,17 @@ package com.helger.commons.io.stream;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.system.SystemProperties;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * This is a non-blocking version of {@link java.io.BufferedWriter}. It is 1:1
- * rip without the synchronized statements.
+ * This is a non-blocking version of {@link java.io.BufferedWriter}. It is 1:1 rip without the
+ * synchronized statements.
  *
  * @author Philip Helger
  */
@@ -47,14 +44,13 @@ public class NonBlockingBufferedWriter extends Writer
   private int m_nNextChar;
 
   /**
-   * Line separator string. This is the value of the line.separator property at
-   * the moment that the stream was created.
+   * Line separator string. This is the value of the line.separator property at the moment that the
+   * stream was created.
    */
   private final String m_sLineSeparator;
 
   /**
-   * Creates a buffered character-output stream that uses a default-sized output
-   * buffer.
+   * Creates a buffered character-output stream that uses a default-sized output buffer.
    *
    * @param aWriter
    *        A Writer
@@ -65,8 +61,7 @@ public class NonBlockingBufferedWriter extends Writer
   }
 
   /**
-   * Creates a new buffered character-output stream that uses an output buffer
-   * of the given size.
+   * Creates a new buffered character-output stream that uses an output buffer of the given size.
    *
    * @param aWriter
    *        A Writer
@@ -100,9 +95,8 @@ public class NonBlockingBufferedWriter extends Writer
   }
 
   /**
-   * Flushes the output buffer to the underlying character stream, without
-   * flushing the stream itself. This method is non-private only so that it may
-   * be invoked by PrintStream.
+   * Flushes the output buffer to the underlying character stream, without flushing the stream
+   * itself. This method is non-private only so that it may be invoked by PrintStream.
    *
    * @throws IOException
    *         of the writer is not open
@@ -135,12 +129,11 @@ public class NonBlockingBufferedWriter extends Writer
   /**
    * Writes a portion of an array of characters.
    * <p>
-   * Ordinarily this method stores characters from the given array into this
-   * stream's buffer, flushing the buffer to the underlying stream as needed. If
-   * the requested length is at least as large as the buffer, however, then this
-   * method will flush the buffer and write the characters directly to the
-   * underlying stream. Thus redundant <code>BufferedWriter</code>s will not
-   * copy data unnecessarily.
+   * Ordinarily this method stores characters from the given array into this stream's buffer,
+   * flushing the buffer to the underlying stream as needed. If the requested length is at least as
+   * large as the buffer, however, then this method will flush the buffer and write the characters
+   * directly to the underlying stream. Thus redundant <code>BufferedWriter</code>s will not copy
+   * data unnecessarily.
    *
    * @param cbuf
    *        A character array
@@ -152,7 +145,6 @@ public class NonBlockingBufferedWriter extends Writer
    *            If an I/O error occurs
    */
   @Override
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public void write (final char [] cbuf, final int nOfs, final int nLen) throws IOException
   {
     _ensureOpen ();
@@ -164,9 +156,8 @@ public class NonBlockingBufferedWriter extends Writer
     if (nLen >= m_nChars)
     {
       /*
-       * If the request length exceeds the size of the output buffer, flush the
-       * buffer and then write the data directly. In this way buffered streams
-       * will cascade harmlessly.
+       * If the request length exceeds the size of the output buffer, flush the buffer and then
+       * write the data directly. In this way buffered streams will cascade harmlessly.
        */
       flushBuffer ();
       m_aWriter.write (cbuf, nOfs, nLen);
@@ -190,11 +181,10 @@ public class NonBlockingBufferedWriter extends Writer
   /**
    * Writes a portion of a String.
    * <p>
-   * If the value of the <code>len</code> parameter is negative then no
-   * characters are written. This is contrary to the specification of this
-   * method in the {@linkplain java.io.Writer#write(java.lang.String,int,int)
-   * superclass}, which requires that an {@link IndexOutOfBoundsException} be
-   * thrown.
+   * If the value of the <code>len</code> parameter is negative then no characters are written. This
+   * is contrary to the specification of this method in the
+   * {@linkplain java.io.Writer#write(java.lang.String,int,int) superclass}, which requires that an
+   * {@link IndexOutOfBoundsException} be thrown.
    *
    * @param s
    *        String to be written
@@ -206,7 +196,6 @@ public class NonBlockingBufferedWriter extends Writer
    *            If an I/O error occurs
    */
   @Override
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public void write (final String s, final int off, final int len) throws IOException
   {
     _ensureOpen ();
@@ -265,8 +254,7 @@ public class NonBlockingBufferedWriter extends Writer
    * Converts input data to a string.
    *
    * @param nLength
-   *        The number of characters to convert. Must be &le; than
-   *        {@link #getSize()}.
+   *        The number of characters to convert. Must be &le; than {@link #getSize()}.
    * @return the string.
    */
   @Nonnull
@@ -277,9 +265,8 @@ public class NonBlockingBufferedWriter extends Writer
   }
 
   /**
-   * Writes a line separator. The line separator string is defined by the system
-   * property <code>line.separator</code>, and is not necessarily a single
-   * newline ('\n') character.
+   * Writes a line separator. The line separator string is defined by the system property
+   * <code>line.separator</code>, and is not necessarily a single newline ('\n') character.
    *
    * @exception IOException
    *            If an I/O error occurs

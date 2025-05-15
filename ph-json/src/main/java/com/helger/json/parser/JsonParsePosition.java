@@ -16,9 +16,9 @@
  */
 package com.helger.json.parser;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;

@@ -20,8 +20,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 

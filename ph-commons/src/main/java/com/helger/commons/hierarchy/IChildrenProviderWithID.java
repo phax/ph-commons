@@ -16,7 +16,7 @@
  */
 package com.helger.commons.hierarchy;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 /**
  * This interface can be used to generically resolved children of a certain

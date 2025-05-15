@@ -18,7 +18,7 @@ package com.helger.scope.singleton;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.junit.Rule;
 import org.junit.Test;

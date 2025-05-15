@@ -16,7 +16,7 @@
  */
 package com.helger.commons.lang;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * This is a type-safe replacement interface for the default

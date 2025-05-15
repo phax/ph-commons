@@ -19,8 +19,8 @@ package com.helger.xml;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

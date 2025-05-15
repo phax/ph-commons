@@ -27,13 +27,10 @@ import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
+import com.helger.annotation.Nonnull;
 import com.helger.commons.state.ESuccess;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link ConcurrentCollectorSingle}.
@@ -43,7 +40,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class ConcurrentCollectorSingleTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCtor ()
   {
     try

@@ -36,8 +36,6 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.typeconvert.TypeConverterException;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link MicroElement}.
  *
@@ -116,9 +114,8 @@ public final class MicroElementTest
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns", "xy")));
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns2", "xyz")));
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement (null, "xyz")));
-    assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns",
-                                                                                    "xyz").setAttribute ("name",
-                                                                                                         "value")));
+    assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns", "xyz").setAttribute ("name",
+                                                                                                                 "value")));
 
     e = new MicroElement ("ns1:element");
     assertNull (e.getLocalName ());
@@ -495,7 +492,6 @@ public final class MicroElementTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testAttrs ()
   {
     final IMicroElement e = new MicroElement ("any");

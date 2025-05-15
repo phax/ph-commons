@@ -16,9 +16,7 @@
  */
 package com.helger.commons.text.codepoint;
 
-import javax.annotation.Nonnull;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.annotation.Nonnull;
 
 /**
  * @author Apache Abdera
@@ -32,7 +30,6 @@ public class CodepointIteratorCharArray extends AbstractCodepointIterator
     this (aBuffer, 0, aBuffer.length);
   }
 
-  @SuppressFBWarnings ("EI_EXPOSE_REP2")
   public CodepointIteratorCharArray (@Nonnull final char [] aBuffer, final int nOfs, final int nLen)
   {
     super (nOfs, Math.min (aBuffer.length - nOfs, nLen));

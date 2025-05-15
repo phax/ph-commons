@@ -36,8 +36,6 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.EOperatingSystem;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link FileHelper}.
  *
@@ -62,7 +60,6 @@ public final class FileHelperTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "DMI_HARDCODED_ABSOLUTE_FILENAME")
   public void testEnsureParentDirectoryIsPresent ()
   {
     // Root directory (no parent)
@@ -158,7 +155,6 @@ public final class FileHelperTest
     {}
   }
 
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   @Test
   public void testGetFileSizeDisplay ()
   {

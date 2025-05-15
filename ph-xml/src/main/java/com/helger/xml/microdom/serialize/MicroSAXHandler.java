@@ -19,9 +19,9 @@ package com.helger.xml.microdom.serialize;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 import javax.xml.XMLConstants;
 
 import org.slf4j.Logger;

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.state;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Basic interface for the common action of resetting an objects contents to the

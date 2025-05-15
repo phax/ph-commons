@@ -28,8 +28,6 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for {@link SizeHelper}
  *
@@ -59,7 +57,6 @@ public final class SizeHelperTest
   /**
    * Test method getAsKB
    */
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   @Test
   public void testGetAsKB ()
   {

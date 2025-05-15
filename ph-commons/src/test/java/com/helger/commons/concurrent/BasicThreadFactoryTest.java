@@ -24,8 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link BasicThreadFactory}.
  *
@@ -36,7 +34,6 @@ public final class BasicThreadFactoryTest
   private static final Logger LOGGER = LoggerFactory.getLogger (BasicThreadFactoryTest.class);
 
   @Test
-  @SuppressFBWarnings (value = "DLS_DEAD_LOCAL_STORE")
   public void testAll ()
   {
     final BasicThreadFactory x = new BasicThreadFactory.Builder ().daemon (false)

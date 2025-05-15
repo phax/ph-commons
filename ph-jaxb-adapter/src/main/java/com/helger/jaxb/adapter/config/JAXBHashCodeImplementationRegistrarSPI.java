@@ -16,7 +16,7 @@
  */
 package com.helger.jaxb.adapter.config;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.hashcode.HashCodeGenerator;

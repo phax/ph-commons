@@ -28,7 +28,6 @@ import java.math.RoundingMode;
 import java.util.Iterator;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
 import javax.xml.namespace.QName;
 import javax.xml.xpath.XPath;
 
@@ -40,14 +39,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.helger.annotation.Nonnull;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.xpath.XPathExpressionHelper;
 import com.helger.xml.xpath.XPathHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link XMLHelper}.
@@ -109,7 +107,7 @@ public final class XMLHelperTest
   public void testGetChildElementIterator1 ()
   {
     final Document doc = _getTestDoc ();
-    final String [] aExpected = new String [] { "a", "b", "c", "d" };
+    final String [] aExpected = { "a", "b", "c", "d" };
     final Iterator <Element> it = XMLHelper.getChildElementIteratorNoNS (doc.getDocumentElement ());
     int nCount = 0;
     while (it.hasNext ())
@@ -142,7 +140,7 @@ public final class XMLHelperTest
   public void testGetChildElementIteratorNS1 ()
   {
     final Document doc = _getTestDoc ();
-    final String [] aExpected = new String [] { "ax", "e" };
+    final String [] aExpected = { "ax", "e" };
     final Iterator <Element> it = XMLHelper.getChildElementIteratorNS (doc.getDocumentElement (), TEST_NS);
     int nCount = 0;
     while (it.hasNext ())
@@ -434,23 +432,19 @@ public final class XMLHelperTest
 
     final Document aDoc = _getTestDoc ();
 
-    final Function <Node, String> funcToNode = aNode -> {
-      return XMLHelper.pathToNodeBuilder ()
-                      .node (aNode)
-                      .separator ("/")
-                      .excludeDocumentNode ()
-                      .oneBasedIndex ()
-                      .forceUseIndex (false)
-                      .trailingSeparator (false)
-                      .compareIncludingNamespaceURI (true)
-                      .namespaceContext (aCtx)
-                      .build ();
-    };
-
-    Node e;
+    final Function <Node, String> funcToNode = aNode -> XMLHelper.pathToNodeBuilder ()
+                                                                 .node (aNode)
+                                                                 .separator ("/")
+                                                                 .excludeDocumentNode ()
+                                                                 .oneBasedIndex ()
+                                                                 .forceUseIndex (false)
+                                                                 .trailingSeparator (false)
+                                                                 .compareIncludingNamespaceURI (true)
+                                                                 .namespaceContext (aCtx)
+                                                                 .build ();
 
     // Query by XPath is much more comfortable :)
-    e = XPathExpressionHelper.evalXPathToNode ("//e1[2]", aDoc);
+    Node e = XPathExpressionHelper.evalXPathToNode ("//e1[2]", aDoc);
     assertNotNull (e);
     assertNull (e.getNamespaceURI ());
     assertEquals ("/root/x1:e/e1[2]", funcToNode.apply (e));
@@ -518,7 +512,6 @@ public final class XMLHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testGetAttributeValue ()
   {
     final Document doc = XMLFactory.newDocument ();

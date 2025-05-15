@@ -18,8 +18,8 @@ package com.helger.commons.debug;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.system.SystemProperties;
 

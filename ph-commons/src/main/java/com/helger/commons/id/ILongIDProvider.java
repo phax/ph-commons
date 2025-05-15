@@ -16,7 +16,7 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Interface for objects having a long ID.

@@ -19,8 +19,8 @@ package com.helger.commons.datetime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.Singleton;

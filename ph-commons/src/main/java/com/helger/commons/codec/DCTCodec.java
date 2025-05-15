@@ -19,8 +19,8 @@ package com.helger.commons.codec;
 import java.awt.Image;
 import java.awt.image.PixelGrabber;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nullable;
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;

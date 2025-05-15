@@ -19,7 +19,7 @@ package com.helger.commons;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * A class declaring system wide constants. Its main use is giving a semantic

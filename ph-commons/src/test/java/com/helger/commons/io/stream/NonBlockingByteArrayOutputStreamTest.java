@@ -23,8 +23,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link NonBlockingByteArrayOutputStream}.
  *
@@ -32,9 +30,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class NonBlockingByteArrayOutputStreamTest
 {
-  @SuppressWarnings ("resource")
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll () throws IOException
   {
     try

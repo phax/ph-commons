@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import org.junit.Test;
 

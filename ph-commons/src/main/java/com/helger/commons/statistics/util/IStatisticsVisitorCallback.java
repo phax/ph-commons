@@ -16,7 +16,7 @@
  */
 package com.helger.commons.statistics.util;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.callback.ICallback;
 import com.helger.commons.statistics.IStatisticsHandlerCache;

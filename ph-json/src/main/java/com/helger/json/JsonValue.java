@@ -23,11 +23,10 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
@@ -41,15 +40,12 @@ import com.helger.json.valueserializer.JsonValueSerializerConstant;
 import com.helger.json.valueserializer.JsonValueSerializerEscaped;
 import com.helger.json.valueserializer.JsonValueSerializerRegistry;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Default implementation of {@link IJsonValue}.
  *
  * @author Philip Helger
  */
 @Immutable
-@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public class JsonValue implements IJsonValue
 {
   /** Special value for "null" */
@@ -134,8 +130,8 @@ public class JsonValue implements IJsonValue
   }
 
   /**
-   * @return The default {@link IJsonValueSerializer} to be used if none is
-   *         registered. This is the "as string" serializer.
+   * @return The default {@link IJsonValueSerializer} to be used if none is registered. This is the
+   *         "as string" serializer.
    */
   @Nonnull
   public static IJsonValueSerializer getDefaultJsonValueSerializer ()
@@ -236,7 +232,6 @@ public class JsonValue implements IJsonValue
   }
 
   @Nonnull
-  @SuppressFBWarnings ("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
   public static JsonValue create (@Nullable final Object aValue)
   {
     // Special null constant

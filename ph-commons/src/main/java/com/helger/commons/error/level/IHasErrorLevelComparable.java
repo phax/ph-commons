@@ -16,7 +16,7 @@
  */
 package com.helger.commons.error.level;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.severity.ISeverityComparable;
 import com.helger.commons.traits.IGenericImplTrait;

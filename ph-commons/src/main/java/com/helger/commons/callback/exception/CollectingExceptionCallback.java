@@ -16,8 +16,8 @@
  */
 package com.helger.commons.callback.exception;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.string.ToStringGenerator;
 

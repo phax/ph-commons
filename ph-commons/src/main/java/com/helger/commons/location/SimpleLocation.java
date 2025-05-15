@@ -16,8 +16,8 @@
  */
 package com.helger.commons.location;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 import javax.xml.stream.Location;
 import javax.xml.transform.SourceLocator;
 

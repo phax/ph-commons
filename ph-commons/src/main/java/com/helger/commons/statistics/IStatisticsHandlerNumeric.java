@@ -18,8 +18,8 @@ package com.helger.commons.statistics;
 
 import java.math.BigInteger;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnull;
 
 /**
  * Base interface for size and timer handler.

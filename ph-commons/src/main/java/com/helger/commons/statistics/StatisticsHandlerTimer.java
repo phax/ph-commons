@@ -16,8 +16,8 @@
  */
 package com.helger.commons.statistics;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

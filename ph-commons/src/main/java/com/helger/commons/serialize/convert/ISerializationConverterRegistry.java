@@ -16,7 +16,7 @@
  */
 package com.helger.commons.serialize.convert;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * This is the callback interface implemented by

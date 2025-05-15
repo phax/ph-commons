@@ -25,8 +25,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link NonBlockingBufferedWriter}.
  *
@@ -35,7 +33,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class NonBlockingBufferedWriterTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
@@ -62,7 +59,6 @@ public class NonBlockingBufferedWriterTest
 
   @Test
   @SuppressWarnings ("resource")
-  @SuppressFBWarnings ("OS_OPEN_STREAM")
   public void testError () throws IOException
   {
     try

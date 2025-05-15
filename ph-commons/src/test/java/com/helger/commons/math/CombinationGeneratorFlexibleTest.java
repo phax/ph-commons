@@ -34,8 +34,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.timing.StopWatch;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link CombinationGeneratorFlexible}.
  *
@@ -46,7 +44,6 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   private static final Logger LOGGER = LoggerFactory.getLogger (CombinationGeneratorFlexibleTest.class);
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testStringCombination ()
   {
     final ICommonsList <String> aElements = new CommonsArrayList <> ("A", "B", "B");
@@ -83,7 +80,6 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCtor ()
   {
     try
@@ -125,7 +121,8 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     CombinationGenerator.addAllPermutations (aInputList, aInputList.size (), aSimplePermutations);
 
     // Flexible combination generator
-    final ICommonsSet <ICommonsList <String>> aFlexiblePermutations = CombinationGeneratorFlexible.getCombinations (aInputList, true);
+    final ICommonsSet <ICommonsList <String>> aFlexiblePermutations = CombinationGeneratorFlexible.getCombinations (aInputList,
+                                                                                                                    true);
     assertTrue (aFlexiblePermutations.size () >= aSimplePermutations.size ());
 
     // Now the assumptions: I assume that all permutations from the flexible

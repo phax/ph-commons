@@ -18,7 +18,7 @@ package com.helger.commons.io.streamprovider;
 
 import java.io.InputStream;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.io.IHasInputStream;
 

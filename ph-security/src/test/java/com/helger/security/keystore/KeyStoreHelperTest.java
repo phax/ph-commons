@@ -38,7 +38,7 @@ import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.cert.X509CertificateHolder;

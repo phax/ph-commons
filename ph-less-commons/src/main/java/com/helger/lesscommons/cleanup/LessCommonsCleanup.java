@@ -16,7 +16,7 @@
  */
 package com.helger.lesscommons.cleanup;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 

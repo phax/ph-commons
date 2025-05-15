@@ -18,7 +18,7 @@ package com.helger.commons.collection.map;
 
 import java.util.HashMap;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsHashMap;

@@ -18,7 +18,7 @@ package com.helger.graph.algo;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

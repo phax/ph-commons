@@ -19,7 +19,7 @@ package com.helger.commons.mime;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.codec.QuotedPrintableCodec;

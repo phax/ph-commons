@@ -19,7 +19,7 @@ package com.helger.jaxb.adapter;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

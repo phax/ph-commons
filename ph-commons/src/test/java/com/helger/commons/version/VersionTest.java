@@ -28,8 +28,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link Version}.
  *
@@ -38,7 +36,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class VersionTest
 {
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testVersionIntIntInt ()
   {
     // use 0.0.0

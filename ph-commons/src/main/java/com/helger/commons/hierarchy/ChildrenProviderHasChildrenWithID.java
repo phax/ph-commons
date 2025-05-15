@@ -18,7 +18,7 @@ package com.helger.commons.hierarchy;
 
 import java.util.Collection;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;

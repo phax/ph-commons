@@ -16,7 +16,7 @@
  */
 package com.helger.xml.namespace;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;

@@ -19,7 +19,7 @@ package com.helger.commons.mutable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Base interface for mutable numeric values

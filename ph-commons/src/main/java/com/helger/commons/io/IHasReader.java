@@ -18,7 +18,7 @@ package com.helger.commons.io;
 
 import java.io.Reader;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.io.stream.StreamHelper;
 

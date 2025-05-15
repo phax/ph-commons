@@ -16,7 +16,7 @@
  */
 package com.helger.commons.text;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Basic interface for object providing multilingual texts.

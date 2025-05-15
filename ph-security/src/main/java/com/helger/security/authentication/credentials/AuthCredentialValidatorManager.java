@@ -16,17 +16,14 @@
  */
 package com.helger.security.authentication.credentials;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.lang.ServiceLoaderHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @Immutable
 public final class AuthCredentialValidatorManager
@@ -51,7 +48,6 @@ public final class AuthCredentialValidatorManager
   }
 
   @Nonnull
-  @SuppressFBWarnings ("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
   public static ICredentialValidationResult validateCredentials (@Nonnull final IAuthCredentials aCredentials)
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -65,7 +61,10 @@ public final class AuthCredentialValidatorManager
       {
         final ICredentialValidationResult aResult = aHdl.validateCredentials (aCredentials);
         if (aResult == null)
-          throw new IllegalStateException ("validateCredentials returned a null object from " + aHdl + " for credentials " + aCredentials);
+          throw new IllegalStateException ("validateCredentials returned a null object from " +
+                                           aHdl +
+                                           " for credentials " +
+                                           aCredentials);
         if (aResult.isSuccess ())
         {
           // This validator successfully validated the passed credentials

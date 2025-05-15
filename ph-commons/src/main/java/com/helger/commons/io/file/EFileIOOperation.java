@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.file;
 
-import javax.annotation.Nonnegative;
+import com.helger.annotation.Nonnegative;
 
 /**
  * An enumeration that encapsulates all available file IO operation types.

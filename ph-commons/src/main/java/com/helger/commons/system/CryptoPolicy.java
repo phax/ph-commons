@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.concurrent.ThreadSafe;
 import javax.crypto.Cipher;
 import javax.crypto.ExemptionMechanism;
 import javax.crypto.KeyGenerator;

@@ -20,9 +20,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;

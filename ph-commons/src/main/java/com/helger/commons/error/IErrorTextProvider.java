@@ -18,7 +18,7 @@ package com.helger.commons.error;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Interface for converting an {@link IError} to a printable representation.

@@ -19,7 +19,7 @@ package com.helger.commons.ws;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 import javax.net.ssl.X509TrustManager;
 
 import org.slf4j.Logger;

@@ -18,8 +18,8 @@ package com.helger.commons.statistics;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerCache}

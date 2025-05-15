@@ -16,7 +16,7 @@
  */
 package com.helger.commons.typeconvert;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 /**
  * Flexible type converter that can handle multiple source and/or destination

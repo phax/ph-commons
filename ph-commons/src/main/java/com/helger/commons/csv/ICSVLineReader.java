@@ -18,7 +18,7 @@ package com.helger.commons.csv;
 
 import java.io.IOException;
 
-import javax.annotation.Nullable;
+import com.helger.annotation.Nullable;
 
 /**
  * Base interface for a single line reader.

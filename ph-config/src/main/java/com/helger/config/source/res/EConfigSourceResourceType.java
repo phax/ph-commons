@@ -19,8 +19,8 @@ package com.helger.config.source.res;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnull;
+import com.helger.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.resource.IReadableResource;

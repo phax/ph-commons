@@ -18,7 +18,7 @@ package com.helger.xml.util.statistics;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.statistics.IStatisticsHandlerCache;

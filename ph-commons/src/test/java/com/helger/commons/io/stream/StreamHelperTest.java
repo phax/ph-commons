@@ -45,14 +45,11 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
 import com.helger.commons.mutable.MutableLong;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link StreamHelper}.
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("SE_BAD_FIELD_INNER_CLASS")
 public final class StreamHelperTest
 {
   @Test
@@ -135,7 +132,6 @@ public final class StreamHelperTest
    * Test method copyInputStreamToOutputStream
    */
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCopyInputStreamToOutputStream ()
   {
     final byte [] aInput = "Hallo".getBytes (StandardCharsets.ISO_8859_1);
@@ -191,7 +187,6 @@ public final class StreamHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCopyInputStreamToOutputStreamWithLimit ()
   {
     final byte [] aInput = "Hello12Bytes".getBytes (StandardCharsets.ISO_8859_1);
@@ -255,7 +250,6 @@ public final class StreamHelperTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testGetAllBytesCharset ()
   {
     final String sInput = "Hallo";
@@ -285,7 +279,6 @@ public final class StreamHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testReadLines ()
   {
     assertNull (StreamHelper.readStreamLines ((IReadableResource) null, StandardCharsets.ISO_8859_1));
@@ -357,7 +350,6 @@ public final class StreamHelperTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCopyReaderToWriter ()
   {
     final String sInput = "Hallo";
@@ -464,7 +456,6 @@ public final class StreamHelperTest
   }
 
   @Test
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testWriteStream ()
   {
     final byte [] buf = "abcde".getBytes (StandardCharsets.ISO_8859_1);

@@ -27,8 +27,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link DefaultResourceProvider}.
  *
@@ -37,7 +35,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class DefaultResourceProviderTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testNoPrefix ()
   {
     final DefaultResourceProvider aDRP = new DefaultResourceProvider ();
@@ -82,6 +79,7 @@ public final class DefaultResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (), new DefaultResourceProvider ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
+                                                                       new DefaultResourceProvider ());
   }
 }

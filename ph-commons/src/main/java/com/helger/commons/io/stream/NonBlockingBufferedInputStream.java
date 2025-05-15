@@ -20,12 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Non-synchronized version of {@link java.io.BufferedInputStream}.
@@ -37,61 +34,54 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   private static final int DEFAULT_BUFFER_SIZE = 8192;
 
   /**
-   * The internal buffer array where the data is stored. When necessary, it may
-   * be replaced by another array of a different size.
+   * The internal buffer array where the data is stored. When necessary, it may be replaced by
+   * another array of a different size.
    */
-  @SuppressFBWarnings ("VO_VOLATILE_REFERENCE_TO_ARRAY")
   protected volatile byte [] m_aBuf;
 
   /**
-   * Atomic updater to provide compareAndSet for buf. This is necessary because
-   * closes can be asynchronous. We use nullness of buf[] as primary indicator
-   * that this stream is closed. (The "in" field is also nulled out on close.)
+   * Atomic updater to provide compareAndSet for buf. This is necessary because closes can be
+   * asynchronous. We use nullness of buf[] as primary indicator that this stream is closed. (The
+   * "in" field is also nulled out on close.)
    */
   private static final AtomicReferenceFieldUpdater <NonBlockingBufferedInputStream, byte []> BUF_UPDATER = AtomicReferenceFieldUpdater.newUpdater (NonBlockingBufferedInputStream.class,
                                                                                                                                                    byte [].class,
                                                                                                                                                    "m_aBuf");
 
   /**
-   * The index one greater than the index of the last valid byte in the buffer.
-   * This value is always in the range <code>0</code> through
-   * <code>buf.length</code>; elements <code>buf[0]</code> through
-   * <code>buf[count-1]
-   * </code>contain buffered input data obtained from the underlying input
-   * stream.
+   * The index one greater than the index of the last valid byte in the buffer. This value is always
+   * in the range <code>0</code> through <code>buf.length</code>; elements <code>buf[0]</code>
+   * through <code>buf[count-1]
+   * </code>contain buffered input data obtained from the underlying input stream.
    */
   protected int m_nCount;
 
   /**
-   * The current position in the buffer. This is the index of the next character
-   * to be read from the <code>buf</code> array.
+   * The current position in the buffer. This is the index of the next character to be read from the
+   * <code>buf</code> array.
    * <p>
-   * This value is always in the range <code>0</code> through <code>count</code>
-   * . If it is less than <code>count</code>, then <code>buf[pos]</code> is the
-   * next byte to be supplied as input; if it is equal to <code>count</code>,
-   * then the next <code>read</code> or <code>skip</code> operation will require
-   * more bytes to be read from the contained input stream.
+   * This value is always in the range <code>0</code> through <code>count</code> . If it is less
+   * than <code>count</code>, then <code>buf[pos]</code> is the next byte to be supplied as input;
+   * if it is equal to <code>count</code>, then the next <code>read</code> or <code>skip</code>
+   * operation will require more bytes to be read from the contained input stream.
    *
    * @see #m_aBuf
    */
   protected int m_nPos;
 
   /**
-   * The value of the <code>pos</code> field at the time the last
-   * <code>mark</code> method was called.
+   * The value of the <code>pos</code> field at the time the last <code>mark</code> method was
+   * called.
    * <p>
-   * This value is always in the range <code>-1</code> through <code>pos</code>.
-   * If there is no marked position in the input stream, this field is
-   * <code>-1</code>. If there is a marked position in the input stream, then
-   * <code>buf[markpos]</code> is the first byte to be supplied as input after a
-   * <code>reset</code> operation. If <code>markpos</code> is not
-   * <code>-1</code>, then all bytes from positions <code>buf[markpos]</code>
-   * through <code>buf[pos-1]</code> must remain in the buffer array (though
-   * they may be moved to another place in the buffer array, with suitable
-   * adjustments to the values of <code>count</code>, <code>pos</code>, and
-   * <code>markpos</code>); they may not be discarded unless and until the
-   * difference between <code>pos</code> and <code>markpos</code> exceeds
-   * <code>marklimit</code>.
+   * This value is always in the range <code>-1</code> through <code>pos</code>. If there is no
+   * marked position in the input stream, this field is <code>-1</code>. If there is a marked
+   * position in the input stream, then <code>buf[markpos]</code> is the first byte to be supplied
+   * as input after a <code>reset</code> operation. If <code>markpos</code> is not <code>-1</code>,
+   * then all bytes from positions <code>buf[markpos]</code> through <code>buf[pos-1]</code> must
+   * remain in the buffer array (though they may be moved to another place in the buffer array, with
+   * suitable adjustments to the values of <code>count</code>, <code>pos</code>, and
+   * <code>markpos</code>); they may not be discarded unless and until the difference between
+   * <code>pos</code> and <code>markpos</code> exceeds <code>marklimit</code>.
    *
    * @see #mark(int)
    * @see #m_nPos
@@ -99,11 +89,10 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   protected int m_nMarkPos = -1;
 
   /**
-   * The maximum read ahead allowed after a call to the <code>mark</code> method
-   * before subsequent calls to the <code>reset</code> method fail. Whenever the
-   * difference between <code>pos</code> and <code>markpos</code> exceeds
-   * <code>marklimit</code>, then the mark may be dropped by setting
-   * <code>markpos</code> to <code>-1</code>.
+   * The maximum read ahead allowed after a call to the <code>mark</code> method before subsequent
+   * calls to the <code>reset</code> method fail. Whenever the difference between <code>pos</code>
+   * and <code>markpos</code> exceeds <code>marklimit</code>, then the mark may be dropped by
+   * setting <code>markpos</code> to <code>-1</code>.
    *
    * @see #mark(int)
    * @see #reset()
@@ -111,8 +100,8 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   protected int m_nMarkLimit;
 
   /**
-   * Check to make sure that underlying input stream has not been nulled out due
-   * to close; if not return it;
+   * Check to make sure that underlying input stream has not been nulled out due to close; if not
+   * return it;
    */
   @Nonnull
   private InputStream _getInIfOpen () throws IOException
@@ -124,8 +113,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Check to make sure that buffer has not been nulled out due to close; if not
-   * return it;
+   * Check to make sure that buffer has not been nulled out due to close; if not return it;
    */
   @Nonnull
   private byte [] _getBufIfOpen () throws IOException
@@ -137,9 +125,9 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Creates a <code>BufferedInputStream</code> and saves its argument, the
-   * input stream <code>in</code>, for later use. An internal buffer array is
-   * created and stored in <code>buf</code>.
+   * Creates a <code>BufferedInputStream</code> and saves its argument, the input stream
+   * <code>in</code>, for later use. An internal buffer array is created and stored in
+   * <code>buf</code>.
    *
    * @param aIS
    *        the underlying input stream.
@@ -150,10 +138,9 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Creates a <code>BufferedInputStream</code> with the specified buffer size,
-   * and saves its argument, the input stream <code>in</code>, for later use. An
-   * internal buffer array of length <code>size</code> is created and stored in
-   * <code>buf</code>.
+   * Creates a <code>BufferedInputStream</code> with the specified buffer size, and saves its
+   * argument, the input stream <code>in</code>, for later use. An internal buffer array of length
+   * <code>size</code> is created and stored in <code>buf</code>.
    *
    * @param aIS
    *        the underlying input stream.
@@ -170,10 +157,9 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Fills the buffer with more data, taking into account shuffling and other
-   * tricks for dealing with marks. Assumes that it is being called by a method.
-   * This method also assumes that all data has already been read in, hence pos
-   * > count.
+   * Fills the buffer with more data, taking into account shuffling and other tricks for dealing
+   * with marks. Assumes that it is being called by a method. This method also assumes that all data
+   * has already been read in, hence pos > count.
    */
   private void _fill () throws IOException
   {
@@ -225,14 +211,12 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * See the general contract of the <code>read</code> method of
-   * <code>InputStream</code>.
+   * See the general contract of the <code>read</code> method of <code>InputStream</code>.
    *
-   * @return the next byte of data, or <code>-1</code> if the end of the stream
-   *         is reached.
+   * @return the next byte of data, or <code>-1</code> if the end of the stream is reached.
    * @exception IOException
-   *            if this input stream has been closed by invoking its
-   *            {@link #close()} method, or an I/O error occurs.
+   *            if this input stream has been closed by invoking its {@link #close()} method, or an
+   *            I/O error occurs.
    */
   @Override
   public int read () throws IOException
@@ -247,18 +231,19 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Read characters into a portion of an array, reading from the underlying
-   * stream at most once if necessary.
+   * Read characters into a portion of an array, reading from the underlying stream at most once if
+   * necessary.
    */
-  private int _read1 (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  private int _read1 (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+                                                                                                             throws IOException
   {
     int nAvail = m_nCount - m_nPos;
     if (nAvail <= 0)
     {
       /*
-       * If the requested length is at least as large as the buffer, and if
-       * there is no mark/reset activity, do not bother to copy the bytes into
-       * the local buffer. In this way buffered streams will cascade harmlessly.
+       * If the requested length is at least as large as the buffer, and if there is no mark/reset
+       * activity, do not bother to copy the bytes into the local buffer. In this way buffered
+       * streams will cascade harmlessly.
        */
       if (nLen >= _getBufIfOpen ().length && m_nMarkPos < 0)
       {
@@ -278,30 +263,28 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Reads bytes from this byte-input stream into the specified byte array,
-   * starting at the given offset.
+   * Reads bytes from this byte-input stream into the specified byte array, starting at the given
+   * offset.
    * <p>
    * This method implements the general contract of the corresponding
    * <code>{@link InputStream#read(byte[], int, int) read}</code> method of the
-   * <code>{@link InputStream}</code> class. As an additional convenience, it
-   * attempts to read as many bytes as possible by repeatedly invoking the
-   * <code>read</code> method of the underlying stream. This iterated
-   * <code>read</code> continues until one of the following conditions becomes
+   * <code>{@link InputStream}</code> class. As an additional convenience, it attempts to read as
+   * many bytes as possible by repeatedly invoking the <code>read</code> method of the underlying
+   * stream. This iterated <code>read</code> continues until one of the following conditions becomes
    * true:
    * <ul>
    * <li>The specified number of bytes have been read,
-   * <li>The <code>read</code> method of the underlying stream returns
-   * <code>-1</code>, indicating end-of-file, or
-   * <li>The <code>available</code> method of the underlying stream returns
-   * zero, indicating that further input requests would block.
+   * <li>The <code>read</code> method of the underlying stream returns <code>-1</code>, indicating
+   * end-of-file, or
+   * <li>The <code>available</code> method of the underlying stream returns zero, indicating that
+   * further input requests would block.
    * </ul>
-   * If the first <code>read</code> on the underlying stream returns
-   * <code>-1</code> to indicate end-of-file then this method returns
-   * <code>-1</code>. Otherwise this method returns the number of bytes actually
-   * read.
+   * If the first <code>read</code> on the underlying stream returns <code>-1</code> to indicate
+   * end-of-file then this method returns <code>-1</code>. Otherwise this method returns the number
+   * of bytes actually read.
    * <p>
-   * Subclasses of this class are encouraged, but not required, to attempt to
-   * read as many bytes as possible in the same fashion.
+   * Subclasses of this class are encouraged, but not required, to attempt to read as many bytes as
+   * possible in the same fashion.
    *
    * @param aBuf
    *        destination buffer.
@@ -309,11 +292,10 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    *        offset at which to start storing bytes.
    * @param nLen
    *        maximum number of bytes to read.
-   * @return the number of bytes read, or <code>-1</code> if the end of the
-   *         stream has been reached.
+   * @return the number of bytes read, or <code>-1</code> if the end of the stream has been reached.
    * @exception IOException
-   *            if this input stream has been closed by invoking its
-   *            {@link #close()} method, or an I/O error occurs.
+   *            if this input stream has been closed by invoking its {@link #close()} method, or an
+   *            I/O error occurs.
    */
   @Override
   public int read (final byte [] aBuf, final int nOfs, final int nLen) throws IOException
@@ -342,13 +324,11 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * See the general contract of the <code>skip</code> method of
-   * <code>InputStream</code>.
+   * See the general contract of the <code>skip</code> method of <code>InputStream</code>.
    *
    * @exception IOException
-   *            if the stream does not support seek, or if this input stream has
-   *            been closed by invoking its {@link #close()} method, or an I/O
-   *            error occurs.
+   *            if the stream does not support seek, or if this input stream has been closed by
+   *            invoking its {@link #close()} method, or an I/O error occurs.
    */
   @Override
   public long skip (final long nBytesToSkip) throws IOException
@@ -377,21 +357,19 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Returns an estimate of the number of bytes that can be read (or skipped
-   * over) from this input stream without blocking by the next invocation of a
-   * method for this input stream. The next invocation might be the same thread
-   * or another thread. A single read or skip of this many bytes will not block,
-   * but may read or skip fewer bytes.
+   * Returns an estimate of the number of bytes that can be read (or skipped over) from this input
+   * stream without blocking by the next invocation of a method for this input stream. The next
+   * invocation might be the same thread or another thread. A single read or skip of this many bytes
+   * will not block, but may read or skip fewer bytes.
    * <p>
-   * This method returns the sum of the number of bytes remaining to be read in
-   * the buffer (<code>count&nbsp;- pos</code>) and the result of calling the
-   * in.available().
+   * This method returns the sum of the number of bytes remaining to be read in the buffer
+   * (<code>count&nbsp;- pos</code>) and the result of calling the in.available().
    *
-   * @return an estimate of the number of bytes that can be read (or skipped
-   *         over) from this input stream without blocking.
+   * @return an estimate of the number of bytes that can be read (or skipped over) from this input
+   *         stream without blocking.
    * @exception IOException
-   *            if this input stream has been closed by invoking its
-   *            {@link #close()} method, or an I/O error occurs.
+   *            if this input stream has been closed by invoking its {@link #close()} method, or an
+   *            I/O error occurs.
    */
   @Override
   public int available () throws IOException
@@ -400,12 +378,10 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * See the general contract of the <code>mark</code> method of
-   * <code>InputStream</code>.
+   * See the general contract of the <code>mark</code> method of <code>InputStream</code>.
    *
    * @param nReadlimit
-   *        the maximum limit of bytes that can be read before the mark position
-   *        becomes invalid.
+   *        the maximum limit of bytes that can be read before the mark position becomes invalid.
    * @see #reset()
    */
   @SuppressWarnings ("sync-override")
@@ -417,17 +393,16 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * See the general contract of the <code>reset</code> method of
-   * <code>InputStream</code>.
+   * See the general contract of the <code>reset</code> method of <code>InputStream</code>.
    * <p>
-   * If <code>markpos</code> is <code>-1</code> (no mark has been set or the
-   * mark has been invalidated), an <code>IOException</code> is thrown.
-   * Otherwise, <code>pos</code> is set equal to <code>markpos</code>.
+   * If <code>markpos</code> is <code>-1</code> (no mark has been set or the mark has been
+   * invalidated), an <code>IOException</code> is thrown. Otherwise, <code>pos</code> is set equal
+   * to <code>markpos</code>.
    *
    * @exception IOException
-   *            if this stream has not been marked or, if the mark has been
-   *            invalidated, or the stream has been closed by invoking its
-   *            {@link #close()} method, or an I/O error occurs.
+   *            if this stream has not been marked or, if the mark has been invalidated, or the
+   *            stream has been closed by invoking its {@link #close()} method, or an I/O error
+   *            occurs.
    * @see #mark(int)
    */
   @SuppressWarnings ("sync-override")
@@ -441,12 +416,12 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Tests if this input stream supports the <code>mark</code> and
-   * <code>reset</code> methods. The <code>markSupported</code> method of
-   * <code>BufferedInputStream</code> returns <code>true</code>.
+   * Tests if this input stream supports the <code>mark</code> and <code>reset</code> methods. The
+   * <code>markSupported</code> method of <code>BufferedInputStream</code> returns
+   * <code>true</code>.
    *
-   * @return a <code>boolean</code> indicating if this stream type supports the
-   *         <code>mark</code> and <code>reset</code> methods.
+   * @return a <code>boolean</code> indicating if this stream type supports the <code>mark</code>
+   *         and <code>reset</code> methods.
    * @see java.io.InputStream#mark(int)
    * @see java.io.InputStream#reset()
    */
@@ -457,10 +432,9 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   }
 
   /**
-   * Closes this input stream and releases any system resources associated with
-   * the stream. Once the stream has been closed, further read(), available(),
-   * reset(), or skip() invocations will throw an IOException. Closing a
-   * previously closed stream has no effect.
+   * Closes this input stream and releases any system resources associated with the stream. Once the
+   * stream has been closed, further read(), available(), reset(), or skip() invocations will throw
+   * an IOException. Closing a previously closed stream has no effect.
    *
    * @exception IOException
    *            if an I/O error occurs.
