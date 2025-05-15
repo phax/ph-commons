@@ -14,25 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Internal annotation for myself to remember changes for the next major
- * release. Makes it easy to search for it.
+ * Indicate methods that are supposed to throw an
+ * {@link UnsupportedOperationException}.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.SOURCE)
-@Target ({ ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD })
-public @interface ChangeNextMajorRelease
+@Target ({ ElementType.METHOD, ElementType.CONSTRUCTOR })
+@Documented
+public @interface UnsupportedOperation
 {
-  /**
-   * @return The activity to do.
-   */
-  String value();
+  String value() default "";
 }

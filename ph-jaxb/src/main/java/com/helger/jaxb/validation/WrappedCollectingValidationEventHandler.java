@@ -18,9 +18,8 @@ package com.helger.jaxb.validation;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
+import com.helger.annotation.misc.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.string.ToStringGenerator;

@@ -24,10 +24,9 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.ReturnsImmutableObject;
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.annotation.misc.CodingStyleguideUnaware;
+import com.helger.annotation.misc.ReturnsImmutableObject;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsMap;

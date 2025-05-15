@@ -21,9 +21,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
 import java.security.Provider;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 
 /**

@@ -14,21 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Just to indicate that an object is only present for code coverage reasons, to
- * create 100% coverage.
+ * Indicate methods that are unsafe but are helpful in very rare scenarios. This
+ * is a marker annotation that just helps easily identifying these APIs.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.SOURCE)
+@Target ({ ElementType.METHOD, ElementType.CONSTRUCTOR })
 @Documented
-public @interface PresentForCodeCoverage
+public @interface UnsafeAPI
 {
   String value() default "";
 }

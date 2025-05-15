@@ -22,8 +22,7 @@ import java.util.function.Function;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildrenSorting;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;

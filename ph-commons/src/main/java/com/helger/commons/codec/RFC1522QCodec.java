@@ -23,8 +23,7 @@ import java.util.BitSet;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 
 /**
  * Similar to the Quoted-Printable content-transfer-encoding defined in

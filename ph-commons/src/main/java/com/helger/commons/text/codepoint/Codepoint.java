@@ -19,13 +19,12 @@ package com.helger.commons.text.codepoint;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.compare.IComparable;
 import com.helger.commons.hashcode.HashCodeGenerator;

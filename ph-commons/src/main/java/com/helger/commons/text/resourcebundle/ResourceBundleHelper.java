@@ -24,11 +24,11 @@ import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.system.EJavaVersion;
 

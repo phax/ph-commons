@@ -28,11 +28,10 @@ import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
-
+import com.helger.annotation.misc.CodingStyleguideUnaware;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;

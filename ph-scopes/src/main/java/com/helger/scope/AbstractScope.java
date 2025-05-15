@@ -19,17 +19,17 @@ package com.helger.scope;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.OverrideOnDemand;
+import com.helger.annotation.misc.ReturnsMutableObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.AttributeContainerAnyConcurrent;
 import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.collection.impl.ICommonsList;

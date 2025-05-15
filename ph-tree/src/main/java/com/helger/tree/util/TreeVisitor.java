@@ -20,11 +20,11 @@ import java.util.function.Function;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 import org.w3c.dom.traversal.TreeWalker;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;

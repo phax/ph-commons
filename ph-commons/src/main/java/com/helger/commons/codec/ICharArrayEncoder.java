@@ -18,8 +18,7 @@ package com.helger.commons.codec;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 
 /**
  * Interface for a single encoder of chars.

@@ -34,13 +34,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.helger.annotation.Nonnull;
+import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsHashMap;

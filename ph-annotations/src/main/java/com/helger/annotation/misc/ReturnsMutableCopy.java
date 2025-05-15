@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -23,17 +23,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicate that a class's native implementations of {@link #equals(Object)} and
- * {@link #hashCode()} should be used and no wrapper. This is only important to
- * the classes {@link com.helger.commons.equals.EqualsImplementationRegistry}
- * and {@link com.helger.commons.hashcode.HashCodeImplementationRegistry}.
+ * Indicates that a method returns a mutable object but containing a copy of the
+ * internal state. The different to {@link ReturnsMutableObject} is, that this
+ * annotation indicates a copy is used, whereas {@link ReturnsMutableObject}
+ * means that the internal contained is returned <b>and</b> is mutable!
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.RUNTIME)
-@Target ({ ElementType.TYPE })
+@Retention (RetentionPolicy.CLASS)
+@Target ({ ElementType.METHOD })
 @Documented
-public @interface UseDirectEqualsAndHashCode
+public @interface ReturnsMutableCopy
 {
   String value() default "";
 }

@@ -21,9 +21,8 @@ import java.util.function.Function;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableObject;
 import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;

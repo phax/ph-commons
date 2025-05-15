@@ -14,24 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
- * An informational annotation that indicates that a type does not require
- * translation.
+ * Just to indicate that a class is used via reflection and not by direct
+ * references. This is helpful to identify that classes are indeed use even
+ * though no direct reference exists.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.TYPE })
 @Documented
-public @interface NoTranslationRequired
+public @interface UsedViaReflection
 {
   String value() default "";
 }

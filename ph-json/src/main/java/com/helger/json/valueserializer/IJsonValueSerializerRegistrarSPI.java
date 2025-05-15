@@ -17,8 +17,7 @@
 package com.helger.json.valueserializer;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.IsSPIInterface;
+import com.helger.annotation.misc.IsSPIInterface;
 
 /**
  * SPI interface to be implemented by other modules wishing to register their

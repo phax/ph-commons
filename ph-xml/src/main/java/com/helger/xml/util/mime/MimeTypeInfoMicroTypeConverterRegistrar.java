@@ -35,8 +35,7 @@ package com.helger.xml.util.mime;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.annotation.misc.IsSPIImplementation;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 

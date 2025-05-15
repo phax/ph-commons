@@ -18,15 +18,15 @@ package com.helger.xml.ls;
 
 import java.lang.ref.WeakReference;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.OverrideOnDemand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.commons.lang.IHasClassLoader;

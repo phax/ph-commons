@@ -14,22 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * A code comment for elements that were removed at a specific version. This is
- * present in contrary to {@link Since}.
+ * Indicate that a public element is not meant for public use, but only for
+ * project internal use. Because of dependencies it is not possible to lower the
+ * visibility of this object.
  *
  * @author Philip Helger
- * @see Since
  */
-@Retention (RetentionPolicy.CLASS)
+@Retention (RetentionPolicy.SOURCE)
 @Documented
-public @interface Until
+public @interface PrivateAPI
 {
-  String value();
+  String value() default "";
 }

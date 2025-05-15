@@ -22,6 +22,9 @@ import java.util.Map;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableObject;
+
 import javax.xml.parsers.SAXParserFactory;
 
 import org.slf4j.Logger;
@@ -35,8 +38,6 @@ import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsEnumMap;

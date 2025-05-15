@@ -22,11 +22,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 

@@ -17,8 +17,7 @@
 package com.helger.jaxb.adapter.config;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.annotation.misc.IsSPIImplementation;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.equals.IEqualsImplementationRegistrarSPI;

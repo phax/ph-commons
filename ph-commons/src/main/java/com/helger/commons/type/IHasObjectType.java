@@ -16,10 +16,9 @@
  */
 package com.helger.commons.type;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * Base interface for all objects having a certain {@link ObjectType}.

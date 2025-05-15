@@ -17,8 +17,7 @@
 package com.helger.commons.id.factory;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
 
 /**
  * Interface for an object creating unique IDs.

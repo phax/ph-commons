@@ -16,9 +16,8 @@
  */
 package com.helger.config.fallback;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * Sanity callback interface to notify about the usage of an outdated

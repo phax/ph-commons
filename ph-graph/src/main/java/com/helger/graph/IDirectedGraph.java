@@ -17,8 +17,7 @@
 package com.helger.graph;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsSet;
 
 /**

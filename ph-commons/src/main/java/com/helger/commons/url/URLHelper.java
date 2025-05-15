@@ -36,18 +36,18 @@ import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 
 import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;

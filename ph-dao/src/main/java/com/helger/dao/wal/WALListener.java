@@ -28,11 +28,11 @@ import java.util.concurrent.TimeUnit;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.UsedViaReflection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsMap;

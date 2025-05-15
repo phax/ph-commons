@@ -18,13 +18,12 @@ package com.helger.commons.regex;
 
 import java.util.regex.Pattern;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.Singleton;
+import com.helger.annotation.misc.Singleton;
 import com.helger.commons.cache.Cache;
 
 /**

@@ -20,8 +20,7 @@ import java.io.OutputStream;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.resource.IWritableResource;
 

@@ -19,17 +19,17 @@ package com.helger.settings.exchange.configfile;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.misc.ReturnsImmutableObject;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsImmutableObject;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.builder.IBuilder;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsIterable;

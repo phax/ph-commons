@@ -19,8 +19,7 @@ package com.helger.commons.collection.impl;
 import java.util.EnumMap;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 
 /**
  * A special {@link EnumMap} implementation based on {@link ICommonsMap}.

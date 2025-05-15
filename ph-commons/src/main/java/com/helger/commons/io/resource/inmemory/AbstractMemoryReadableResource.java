@@ -19,12 +19,11 @@ package com.helger.commons.io.resource.inmemory;
 import java.io.File;
 import java.net.URL;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
+import com.helger.annotation.misc.UnsupportedOperation;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 

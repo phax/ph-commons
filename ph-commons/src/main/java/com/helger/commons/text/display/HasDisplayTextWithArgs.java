@@ -18,13 +18,12 @@ package com.helger.commons.text.display;
 
 import java.util.Locale;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.util.TextHelper;

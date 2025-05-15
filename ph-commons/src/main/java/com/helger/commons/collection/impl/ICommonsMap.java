@@ -28,10 +28,9 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
+import com.helger.annotation.misc.CodingStyleguideUnaware;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.map.MapEntry;
 import com.helger.commons.lang.ICloneable;

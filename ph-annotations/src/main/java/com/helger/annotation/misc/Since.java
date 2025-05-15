@@ -14,24 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
- * Indicate methods that are supposed to throw an
- * {@link UnsupportedOperationException}.
+ * A code comment for elements that were added at a specific version. This is
+ * present in contrary to {@link Until}.
  *
  * @author Philip Helger
+ * @see Until
  */
-@Retention (RetentionPolicy.SOURCE)
-@Target ({ ElementType.METHOD, ElementType.CONSTRUCTOR })
+@Retention (RetentionPolicy.CLASS)
 @Documented
-public @interface UnsupportedOperation
+public @interface Since
 {
-  String value() default "";
+  String value();
 }

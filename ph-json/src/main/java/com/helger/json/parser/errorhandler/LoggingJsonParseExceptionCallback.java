@@ -16,13 +16,13 @@
  */
 package com.helger.json.parser.errorhandler;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
 import com.helger.json.parser.JsonParseException;
 
 /**

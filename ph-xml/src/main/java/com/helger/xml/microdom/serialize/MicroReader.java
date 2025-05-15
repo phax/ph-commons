@@ -28,12 +28,12 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.ext.EntityResolver2;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;

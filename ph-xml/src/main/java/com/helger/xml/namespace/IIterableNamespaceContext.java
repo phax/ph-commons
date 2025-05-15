@@ -17,10 +17,11 @@
 package com.helger.xml.namespace;
 
 import com.helger.annotation.Nonnull;
+import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
+import com.helger.annotation.misc.ReturnsMutableCopy;
+
 import javax.xml.namespace.NamespaceContext;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsMap;
 
 /**

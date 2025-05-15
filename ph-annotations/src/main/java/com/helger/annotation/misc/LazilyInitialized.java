@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -22,21 +22,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.helger.annotation.Nonnull;
-
 /**
- * For methods to be overridden, it indicates, that the method is locked. When
- * using read-write locks (class ReadWriteLock), please selected the matching
- * lock type. When using exclusive locks (class Lock) use the lock type
- * <code>WRITE</code>.
+ * This is an indicator, that a field is lazily initialized. This annotation has
+ * mainly documentational purposes.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.METHOD })
+@Target ({ ElementType.FIELD })
 @Documented
-public @interface IsLocked
+public @interface LazilyInitialized
 {
-  @Nonnull
-  ELockType value();
+  String value() default "";
 }

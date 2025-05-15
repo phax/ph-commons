@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Just a debugging measurement to add comments to all elements. This is for
- * easier searching than the predefined Eclipse comments.
+ * This annotation defines that an element is "work in progress" and should not
+ * yet be used in production.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
 @Documented
-public @interface DevelopersNote
+public @interface WorkInProgress
 {
   String value() default "";
 }

@@ -20,8 +20,7 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.dao.IAutoSaveAware;
 import com.helger.dao.IDAO;

@@ -19,6 +19,7 @@ package com.helger.xml.microdom.serialize;
 import java.io.IOException;
 import java.util.Locale;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
@@ -39,7 +40,6 @@ import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.ext.Locator2;
 
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.SimpleLocation;

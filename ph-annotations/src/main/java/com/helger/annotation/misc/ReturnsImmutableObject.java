@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -22,24 +22,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.helger.annotation.Nonnull;
-
 /**
- * Just to indicate that a method must be called inside a lock. When using
- * read-write locks (class ReadWriteLock), please choose the lock type
- * carefully. When using exclusive locks (class Lock) use the lock type
- * <code>WRITE</code>. The constraint of this annotation is also fulfilled when
- * a method is called inside the constructor of the owning class, as
- * constructor-calls of a single object are not accessed by multiple threads in
- * parallel.
+ * Indicates that a method returns an immutable object (in case the returned
+ * type itself is not immutable). This is especially useful for returned
+ * containers that are not modifiable.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
 @Target ({ ElementType.METHOD })
 @Documented
-public @interface MustBeLocked
+public @interface ReturnsImmutableObject
 {
-  @Nonnull
-  ELockType value();
+  String value() default "";
 }

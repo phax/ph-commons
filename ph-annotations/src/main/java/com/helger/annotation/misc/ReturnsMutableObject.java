@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -23,16 +23,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicates that a method returns an immutable object (in case the returned
- * type itself is not immutable). This is especially useful for returned
- * containers that are not modifiable.
+ * Indicates that a method returns a mutable object. This annotation is meant to
+ * indicate that the internal object is returned in a mutable way. If a copy of
+ * the internal object is returned and is mutable, please use the
+ * {@link ReturnsMutableCopy} annotation.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
 @Target ({ ElementType.METHOD })
 @Documented
-public @interface ReturnsImmutableObject
+public @interface ReturnsMutableObject
 {
+  /**
+   * @return developer comment to explain why the mutable object is returned.
+   */
   String value() default "";
 }

@@ -28,12 +28,12 @@ import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;

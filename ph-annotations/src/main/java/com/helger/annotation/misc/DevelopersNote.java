@@ -14,24 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
- * Indicate methods that are unsafe but are helpful in very rare scenarios. This
- * is a marker annotation that just helps easily identifying these APIs.
+ * Just a debugging measurement to add comments to all elements. This is for
+ * easier searching than the predefined Eclipse comments.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.SOURCE)
-@Target ({ ElementType.METHOD, ElementType.CONSTRUCTOR })
+@Retention (RetentionPolicy.CLASS)
 @Documented
-public @interface UnsafeAPI
+public @interface DevelopersNote
 {
   String value() default "";
 }

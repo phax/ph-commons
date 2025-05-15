@@ -22,11 +22,11 @@ import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.UnsupportedOperation;
 
 import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;

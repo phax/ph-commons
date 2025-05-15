@@ -17,8 +17,7 @@
 package com.helger.commons.hashcode;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.IsSPIInterface;
+import com.helger.annotation.misc.IsSPIInterface;
 
 /**
  * SPI registry interface to implement your custom hashCode implementations.

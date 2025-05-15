@@ -20,13 +20,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
-
+import com.helger.annotation.misc.OverrideOnDemand;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;

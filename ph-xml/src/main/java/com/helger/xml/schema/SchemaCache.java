@@ -18,6 +18,7 @@ package com.helger.xml.schema;
 
 import java.util.Collection;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -31,7 +32,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;

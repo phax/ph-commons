@@ -21,10 +21,9 @@ import java.util.function.Consumer;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
+import com.helger.annotation.misc.PresentForCodeCoverage;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;

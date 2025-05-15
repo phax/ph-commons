@@ -24,9 +24,8 @@ import java.util.Locale;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Helper class to safely print numbers in a formatted way.

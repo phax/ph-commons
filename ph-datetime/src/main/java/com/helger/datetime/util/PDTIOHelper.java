@@ -22,8 +22,7 @@ import java.time.LocalTime;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
 

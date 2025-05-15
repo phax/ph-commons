@@ -18,10 +18,9 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * Interface describing the parameters needed to reference a trust store.

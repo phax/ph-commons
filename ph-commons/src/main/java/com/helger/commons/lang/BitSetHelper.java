@@ -20,10 +20,9 @@ import java.util.BitSet;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Helper class to work with bit sets.

@@ -17,8 +17,7 @@
 package com.helger.json;
 
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 /**
  * Json read and write constants.

@@ -17,8 +17,7 @@
 package com.helger.graph;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
 import com.helger.commons.state.EChange;
 
 /**

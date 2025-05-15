@@ -20,14 +20,14 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Locale;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.OverrideOnDemand;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.callback.exception.LoggingExceptionCallback;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;

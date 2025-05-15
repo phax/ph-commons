@@ -17,8 +17,7 @@
 package com.helger.lesscommons.jmx;
 
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 /**
  * Constants for JMX usage

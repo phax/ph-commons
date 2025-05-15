@@ -18,15 +18,15 @@ package com.helger.xml.sax;
 
 import java.util.Locale;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.OverrideOnDemand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.log.LogHelper;
 

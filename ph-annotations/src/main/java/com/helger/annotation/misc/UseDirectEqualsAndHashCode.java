@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -23,16 +23,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Just to indicate that a class is a singleton and therefore only a single
- * instance of the class exists. Usually singletons have a static
- * <code>getInstance()</code> method.
+ * Indicate that a class's native implementations of {@link #equals(Object)} and
+ * {@link #hashCode()} should be used and no wrapper. This is only important to
+ * the classes {@link com.helger.commons.equals.EqualsImplementationRegistry}
+ * and {@link com.helger.commons.hashcode.HashCodeImplementationRegistry}.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.SOURCE)
+@Retention (RetentionPolicy.RUNTIME)
 @Target ({ ElementType.TYPE })
 @Documented
-public @interface Singleton
+public @interface UseDirectEqualsAndHashCode
 {
   String value() default "";
 }

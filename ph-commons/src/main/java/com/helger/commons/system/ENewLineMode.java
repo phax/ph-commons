@@ -16,10 +16,9 @@
  */
 package com.helger.commons.system;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * Determines the different newline modes for th different operating systems.

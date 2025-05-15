@@ -21,8 +21,7 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.UnsupportedOperation;
+import com.helger.annotation.misc.UnsupportedOperation;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;

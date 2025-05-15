@@ -16,11 +16,10 @@
  */
 package com.helger.xml.microdom.convert;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 

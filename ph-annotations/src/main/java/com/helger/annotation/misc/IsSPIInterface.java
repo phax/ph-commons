@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -23,22 +23,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * A specialization of the {@link com.helger.annotation.Nonnull} annotation that is
- * to be used for String and collection parameters as well as return values
- * only. It indicates that a string may neither be <code>null</code> nor empty (
- * <code>""</code>) or that a collection may neither be <code>null</code> nor
- * empty).<br>
- * This means that the usage of this annotation implies the usage of the
- * {@link com.helger.annotation.Nonnull} annotation but because of better FindBugs
- * handling, the {@link com.helger.annotation.Nonnull} annotation must be present as
- * well.
+ * Marker interface that claims that implementations of this interface are
+ * loaded via the {@link java.util.ServiceLoader}. This implies that the package
+ * and source file name should never change. SPI interfaces should also have the
+ * suffix SPI in their name (e.g. <code>IServiceSPI</code>).
  *
  * @author Philip Helger
+ * @see IsSPIImplementation
  */
-@Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.FIELD, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE, ElementType.METHOD })
+@Retention (RetentionPolicy.RUNTIME)
+@Target ({ ElementType.TYPE })
 @Documented
-public @interface Nonempty
+public @interface IsSPIInterface
 {
   String value() default "";
 }

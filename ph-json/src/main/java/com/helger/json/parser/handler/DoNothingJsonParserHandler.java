@@ -16,10 +16,9 @@
  */
 package com.helger.json.parser.handler;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * This implementation of {@link IJsonParserHandler} does nothing. It can e.g.

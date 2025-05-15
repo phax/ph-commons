@@ -19,8 +19,7 @@ package com.helger.xml;
 import java.util.regex.Pattern;
 
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.regex.RegExCache;
 
 /**

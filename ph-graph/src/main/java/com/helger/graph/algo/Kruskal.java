@@ -18,14 +18,14 @@ package com.helger.graph.algo;
 
 import java.util.Comparator;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.impl.CommonsTreeSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;

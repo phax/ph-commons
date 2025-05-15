@@ -16,11 +16,10 @@
  */
 package com.helger.json.mapping;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.location.ILocation;

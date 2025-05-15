@@ -17,8 +17,7 @@
 package com.helger.commons.io.resource;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
 import com.helger.commons.io.IHasOutputStreamAndWriter;
 
 /**

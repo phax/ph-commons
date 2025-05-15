@@ -18,9 +18,8 @@ package com.helger.commons.location;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
+import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.string.StringHelper;
 
 /**

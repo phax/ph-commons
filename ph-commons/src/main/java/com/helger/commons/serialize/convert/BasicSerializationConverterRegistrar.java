@@ -24,9 +24,10 @@ import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.IsSPIImplementation;
+
 import javax.imageio.ImageIO;
 
-import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.io.stream.StreamHelper;
 

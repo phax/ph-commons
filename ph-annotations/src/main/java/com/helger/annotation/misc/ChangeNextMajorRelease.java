@@ -14,25 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Just to indicate that a class is required to implement {@link Comparable}.
- * This is e.g. important if an interface or class is used as the key in a
- * {@link java.util.TreeMap}.
+ * Internal annotation for myself to remember changes for the next major
+ * release. Makes it easy to search for it.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.TYPE, ElementType.FIELD })
-@Documented
-public @interface MustImplementComparable
+@Retention (RetentionPolicy.SOURCE)
+@Target ({ ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD })
+public @interface ChangeNextMajorRelease
 {
-  String value() default "";
+  /**
+   * @return The activity to do.
+   */
+  String value();
 }

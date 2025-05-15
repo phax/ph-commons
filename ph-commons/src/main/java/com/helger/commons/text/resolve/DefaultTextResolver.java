@@ -21,9 +21,8 @@ import java.util.Locale;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.Singleton;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.misc.Singleton;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
 

@@ -20,8 +20,7 @@ import java.util.function.Function;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.annotation.misc.OverrideOnDemand;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
 

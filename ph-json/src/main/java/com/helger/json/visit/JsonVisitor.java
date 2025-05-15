@@ -20,9 +20,8 @@ import java.util.Map;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;

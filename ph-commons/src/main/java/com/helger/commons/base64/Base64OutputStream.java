@@ -19,12 +19,12 @@ package com.helger.commons.base64;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.WrappedOutputStream;
 

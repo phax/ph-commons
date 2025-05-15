@@ -16,13 +16,14 @@
  */
 package com.helger.xml.microdom;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.MustImplementComparable;
+import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
+
 import javax.xml.namespace.QName;
 
-import com.helger.commons.annotation.MustImplementComparable;
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.compare.IComparable;
 import com.helger.commons.equals.EqualsHelper;

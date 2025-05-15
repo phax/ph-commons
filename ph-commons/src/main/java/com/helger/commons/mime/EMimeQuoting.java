@@ -19,9 +19,8 @@ package com.helger.commons.mime;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.codec.QuotedPrintableCodec;
 import com.helger.commons.codec.URLCodec;
 

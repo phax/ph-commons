@@ -21,8 +21,7 @@ import java.util.Map;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 
 /**
  * Base class for all kind of string-object mapping container. This

@@ -18,10 +18,11 @@ package com.helger.xml;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.PresentForCodeCoverage;
+
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.compare.IComparator;
 

@@ -21,6 +21,8 @@ import java.security.InvalidKeyException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.PresentForCodeCoverage;
+
 import javax.crypto.Cipher;
 import javax.crypto.ExemptionMechanism;
 import javax.crypto.KeyGenerator;
@@ -29,8 +31,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Helper class to see if unlimited strength crypto is available. If it is not,

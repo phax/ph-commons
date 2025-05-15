@@ -24,12 +24,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.UseDirectEqualsAndHashCode;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.map.LRUMap;

@@ -18,12 +18,12 @@ package com.helger.xml.serialize.write;
 
 import java.util.Set;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 
 /**

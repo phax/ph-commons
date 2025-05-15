@@ -19,8 +19,7 @@ package com.helger.scope.mock;
 import java.io.File;
 
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.cleanup.CommonsCleanup;
 import com.helger.scope.mgr.ScopeManager;
 

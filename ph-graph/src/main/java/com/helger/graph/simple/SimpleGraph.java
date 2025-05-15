@@ -16,10 +16,9 @@
  */
 package com.helger.graph.simple;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphObjectFactory;
 import com.helger.graph.IMutableGraphRelation;

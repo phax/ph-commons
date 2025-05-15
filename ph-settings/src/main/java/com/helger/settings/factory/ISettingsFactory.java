@@ -18,10 +18,10 @@ package com.helger.settings.factory;
 
 import java.util.function.Function;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 import com.helger.settings.SettingsWithDefault;

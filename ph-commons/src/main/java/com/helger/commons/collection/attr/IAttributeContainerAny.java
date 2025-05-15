@@ -17,8 +17,7 @@
 package com.helger.commons.collection.attr;
 
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
 
 /**

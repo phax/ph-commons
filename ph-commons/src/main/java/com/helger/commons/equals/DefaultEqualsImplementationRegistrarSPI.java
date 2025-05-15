@@ -35,11 +35,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.helger.annotation.Nonnull;
+import com.helger.annotation.misc.IsSPIImplementation;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.io.file.FilenameHelper;
 
 /**

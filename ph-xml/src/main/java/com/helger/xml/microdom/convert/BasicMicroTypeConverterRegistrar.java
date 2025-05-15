@@ -39,8 +39,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.annotation.misc.IsSPIImplementation;
 import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetDateTime;

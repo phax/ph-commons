@@ -19,6 +19,8 @@ package com.helger.xml;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.misc.PresentForCodeCoverage;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,7 +38,6 @@ import org.w3c.dom.DocumentType;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.system.SystemProperties;

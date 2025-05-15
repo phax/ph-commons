@@ -16,9 +16,8 @@
  */
 package com.helger.xml.microdom;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.name.IHasName;
 
 /**

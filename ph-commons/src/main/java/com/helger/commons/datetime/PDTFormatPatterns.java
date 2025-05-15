@@ -23,8 +23,7 @@ import java.util.Locale;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 /**
  * Create common {@link FormatStyle} patterns to format date, time and datetime

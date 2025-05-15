@@ -25,12 +25,13 @@ import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.PresentForCodeCoverage;
+
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Node;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.resource.IWritableResource;
 
 /**

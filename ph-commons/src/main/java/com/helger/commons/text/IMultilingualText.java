@@ -20,9 +20,8 @@ import java.util.Locale;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.annotation.misc.MustImplementEqualsAndHashcode;
+import com.helger.annotation.misc.ReturnsMutableObject;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 
 /**

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -23,15 +23,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * An informational annotation that indicates that something is meant to be
- * translated.
+ * Just to indicate that a class is a singleton and therefore only a single
+ * instance of the class exists. Usually singletons have a static
+ * <code>getInstance()</code> method.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.CLASS)
-@Target (ElementType.TYPE)
+@Retention (RetentionPolicy.SOURCE)
+@Target ({ ElementType.TYPE })
 @Documented
-public @interface Translatable
+public @interface Singleton
 {
   String value() default "";
 }

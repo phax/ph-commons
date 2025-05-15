@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -23,15 +23,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This is an indicator, that a field is lazily initialized. This annotation has
- * mainly documentational purposes.
+ * An informational annotation that indicates that a type does not require
+ * translation.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.FIELD })
+@Target ({ ElementType.TYPE })
 @Documented
-public @interface LazilyInitialized
+public @interface NoTranslationRequired
 {
   String value() default "";
 }

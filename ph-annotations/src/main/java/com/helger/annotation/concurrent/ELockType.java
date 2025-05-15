@@ -14,21 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+package com.helger.annotation.concurrent;
 
 /**
- * Indicates that a method has only increased visibility for testing purposes.
- * This usually means that this API is not-public.
+ * The locking type to be used in the {@link IsLocked} and {@link MustBeLocked} annotations.
  *
  * @author Philip Helger
+ * @see IsLocked
+ * @see MustBeLocked
  */
-@Retention (RetentionPolicy.SOURCE)
-@Documented
-public @interface VisibleForTesting
+public enum ELockType
 {
-  String value() default "";
+  READ,
+  WRITE,
+  /**
+   * Indicates that depending on the context it can be read OR write.
+   *
+   * @since 9.0.2
+   */
+  DEPENDS;
 }

@@ -14,24 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * This is an indicator, that an object is aware to break the style guide. This
- * may be evaluated in coding style guide checks.
+ * Just to indicate that a class is required to implement
+ * {@link #equals(Object)} and {@link #hashCode()}.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
+@Target ({ ElementType.TYPE, ElementType.FIELD })
 @Documented
-public @interface CodingStyleguideUnaware
+public @interface MustImplementEqualsAndHashcode
 {
-  /**
-   * @return Optional comment why this element is coding styleguide unaware.
-   */
   String value() default "";
 }

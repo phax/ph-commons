@@ -28,8 +28,7 @@ import java.net.URL;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.annotation.misc.IsSPIImplementation;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasOutputStream;

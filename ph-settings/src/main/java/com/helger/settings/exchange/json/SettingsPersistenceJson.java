@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.util.Comparator;
 import java.util.Map;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
 
@@ -30,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;

@@ -20,12 +20,12 @@ import java.util.Locale;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.misc.ReturnsMutableObject;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.ICommonsMap;

@@ -17,8 +17,7 @@
 package com.helger.lesscommons.cleanup;
 
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this

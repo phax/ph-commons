@@ -16,10 +16,9 @@
  */
 package com.helger.config.value;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * A generic configuration value provider.

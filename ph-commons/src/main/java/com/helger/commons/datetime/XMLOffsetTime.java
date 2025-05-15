@@ -49,12 +49,12 @@ import java.time.temporal.ValueRange;
 import java.time.zone.ZoneRules;
 import java.util.Objects;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 

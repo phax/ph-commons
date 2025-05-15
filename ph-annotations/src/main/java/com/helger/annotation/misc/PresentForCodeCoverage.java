@@ -14,22 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * The locking type to be used in the {@link IsLocked} and {@link MustBeLocked}
- * annotations.
+ * Just to indicate that an object is only present for code coverage reasons, to
+ * create 100% coverage.
  *
  * @author Philip Helger
  */
-public enum ELockType
+@Retention (RetentionPolicy.SOURCE)
+@Documented
+public @interface PresentForCodeCoverage
 {
-  READ,
-  WRITE,
-  /**
-   * Indicates that depending on the context it can be read OR write.
-   * 
-   * @since 9.0.2
-   */
-  DEPENDS;
+  String value() default "";
 }

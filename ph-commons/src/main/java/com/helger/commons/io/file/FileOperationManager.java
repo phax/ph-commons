@@ -21,8 +21,7 @@ import java.io.File;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.annotation.misc.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.string.ToStringGenerator;
 

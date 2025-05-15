@@ -17,8 +17,7 @@
 package com.helger.scope;
 
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.scope.spi.ScopeSPIManager;
 
 /**

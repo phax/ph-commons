@@ -53,6 +53,5 @@ public @interface MatchesPattern
         return When.ALWAYS;
       return When.NEVER;
     }
-
   }
 }

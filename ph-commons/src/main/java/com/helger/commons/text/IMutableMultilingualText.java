@@ -20,8 +20,7 @@ import java.util.Locale;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.annotation.misc.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.state.EChange;

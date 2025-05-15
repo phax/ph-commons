@@ -16,12 +16,11 @@
  */
 package com.helger.graph.impl;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.annotation.misc.ReturnsMutableObject;
 import com.helger.commons.collection.attr.AttributeContainerAny;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;

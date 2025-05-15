@@ -14,24 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
- * Just to indicate that a class is required to implement
- * {@link #equals(Object)} and {@link #hashCode()}.
+ * Indicates that a method has only increased visibility for testing purposes.
+ * This usually means that this API is not-public.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.TYPE, ElementType.FIELD })
+@Retention (RetentionPolicy.SOURCE)
 @Documented
-public @interface MustImplementEqualsAndHashcode
+public @interface VisibleForTesting
 {
   String value() default "";
 }

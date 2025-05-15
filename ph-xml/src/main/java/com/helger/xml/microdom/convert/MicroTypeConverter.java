@@ -16,13 +16,12 @@
  */
 package com.helger.xml.microdom.convert;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
-
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;

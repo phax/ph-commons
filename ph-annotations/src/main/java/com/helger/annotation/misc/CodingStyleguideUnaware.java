@@ -14,23 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
- * Just to indicate that a method is meant to be overridden in sub classes.
+ * This is an indicator, that an object is aware to break the style guide. This
+ * may be evaluated in coding style guide checks.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target (ElementType.METHOD)
 @Documented
-public @interface OverrideOnDemand
+public @interface CodingStyleguideUnaware
 {
+  /**
+   * @return Optional comment why this element is coding styleguide unaware.
+   */
   String value() default "";
 }

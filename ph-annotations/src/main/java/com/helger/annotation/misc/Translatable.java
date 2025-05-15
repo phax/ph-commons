@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotation;
+package com.helger.annotation.misc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -23,17 +23,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicates that a method returns a mutable object but containing a copy of the
- * internal state. The different to {@link ReturnsMutableObject} is, that this
- * annotation indicates a copy is used, whereas {@link ReturnsMutableObject}
- * means that the internal contained is returned <b>and</b> is mutable!
+ * An informational annotation that indicates that something is meant to be
+ * translated.
  *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.METHOD })
+@Target (ElementType.TYPE)
 @Documented
-public @interface ReturnsMutableCopy
+public @interface Translatable
 {
   String value() default "";
 }

@@ -18,17 +18,17 @@ package com.helger.commons.thirdparty;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.ELockType;
 import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.ReturnsMutableCopy;
+import com.helger.annotation.misc.Singleton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.MustBeLocked;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;

@@ -21,12 +21,13 @@ import java.awt.image.PixelGrabber;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.ReturnsMutableCopy;
+
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 
 /**

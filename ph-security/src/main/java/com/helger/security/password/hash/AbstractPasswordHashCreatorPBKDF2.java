@@ -18,6 +18,7 @@ package com.helger.security.password.hash;
 
 import java.security.GeneralSecurityException;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import javax.crypto.SecretKeyFactory;
@@ -25,7 +26,6 @@ import javax.crypto.spec.PBEKeySpec;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.security.password.salt.IPasswordSalt;
 

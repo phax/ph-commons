@@ -19,11 +19,10 @@ package com.helger.commons.datetime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.Singleton;
+import com.helger.annotation.misc.Singleton;
 import com.helger.commons.cache.Cache;
 
 /**

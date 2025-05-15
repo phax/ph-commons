@@ -16,9 +16,8 @@
  */
 package com.helger.security.password.hash;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.security.password.salt.IPasswordSalt;
 
 /**

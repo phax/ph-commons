@@ -25,10 +25,10 @@ import java.util.Locale;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.NoTranslationRequired;
 
 import org.junit.Test;
 
-import com.helger.commons.annotation.NoTranslationRequired;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;

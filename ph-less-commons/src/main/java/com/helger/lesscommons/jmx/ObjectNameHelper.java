@@ -19,15 +19,16 @@ package com.helger.lesscommons.jmx;
 import java.util.Hashtable;
 import java.util.Map;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.PresentForCodeCoverage;
+
 import javax.management.JMException;
 import javax.management.ObjectName;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.string.StringHelper;

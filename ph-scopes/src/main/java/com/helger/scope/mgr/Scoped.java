@@ -16,9 +16,8 @@
  */
 package com.helger.scope.mgr;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.scope.IRequestScope;
 
 /**

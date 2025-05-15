@@ -16,11 +16,10 @@
  */
 package com.helger.json.parser.handler;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.json.IJson;
 import com.helger.json.IJsonCollection;

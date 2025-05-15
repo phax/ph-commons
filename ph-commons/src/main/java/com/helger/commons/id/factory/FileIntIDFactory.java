@@ -22,11 +22,11 @@ import java.nio.charset.StandardCharsets;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
+import com.helger.annotation.concurrent.ELockType;
+import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.file.EFileIOErrorCode;
 import com.helger.commons.io.file.EFileIOOperation;

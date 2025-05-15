@@ -18,8 +18,7 @@ package com.helger.settings.config;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.annotation.misc.IsSPIImplementation;
 import com.helger.settings.Settings;
 import com.helger.settings.exchange.xml.SettingsMicroDocumentConverter;
 import com.helger.settings.factory.ISettingsFactory;

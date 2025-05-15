@@ -16,9 +16,12 @@
  */
 package com.helger.xml.xpath;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.misc.PresentForCodeCoverage;
+
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.xpath.XPath;
@@ -33,8 +36,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Utility class to evaluate XPath expressions more easily

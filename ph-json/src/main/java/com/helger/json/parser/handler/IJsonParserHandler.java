@@ -16,9 +16,8 @@
  */
 package com.helger.json.parser.handler;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * This interface is invoked during JSON parsing to perform different things

@@ -29,6 +29,8 @@ import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.PresentForCodeCoverage;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -37,7 +39,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.pool.ObjectPool;

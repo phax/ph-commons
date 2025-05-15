@@ -17,8 +17,7 @@
 package com.helger.commons.http;
 
 import com.helger.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 /**
  * Predefined HTTP header names and values.

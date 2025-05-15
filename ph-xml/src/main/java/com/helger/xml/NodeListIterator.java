@@ -21,11 +21,11 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
+import com.helger.annotation.misc.ReturnsMutableCopy;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
 

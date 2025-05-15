@@ -18,9 +18,8 @@ package com.helger.commons.hashcode;
 
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
+import com.helger.annotation.misc.PresentForCodeCoverage;
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * This class provides the hash code generation for different data types.

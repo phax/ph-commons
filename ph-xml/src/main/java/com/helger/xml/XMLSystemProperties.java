@@ -18,11 +18,11 @@ package com.helger.xml;
 
 import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.PresentForCodeCoverage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.system.EJavaVersion;
 import com.helger.commons.system.SystemProperties;
 import com.helger.xml.serialize.read.DOMReader;
