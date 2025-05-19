@@ -59,8 +59,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   /**
-   * @return The outdated key notifier to be invoked, when an old configuration
-   *         key was used. Never <code>null</code>.
+   * @return The outdated key notifier to be invoked, when an old configuration key was used. Never
+   *         <code>null</code>.
    */
   @Nonnull
   public final IConfigKeyOutdatedNotifier getOutdatedNotifier ()
@@ -69,12 +69,10 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   /**
-   * Set the outdated key notifier to be invoked when an old configuration key
-   * was used.
+   * Set the outdated key notifier to be invoked when an old configuration key was used.
    *
    * @param aOutdatedNotifier
-   *        The outdated key identifier to be used. May not be
-   *        <code>null</code>.
+   *        The outdated key identifier to be used. May not be <code>null</code>.
    * @return this for chaining
    */
   @Nonnull
@@ -132,7 +130,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public char [] getAsCharArrayOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
   {
     char [] ret = getAsCharArray (sPrimary);
-    if (ret != null)
+    if (ret == null)
     {
       // Try the old names
       for (final String sOld : aOldOnes)
