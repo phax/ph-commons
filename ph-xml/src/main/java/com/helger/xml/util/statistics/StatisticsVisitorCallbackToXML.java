@@ -60,7 +60,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   public void onCache (final String sName, final IStatisticsHandlerCache aHandler)
   {
     if (aHandler.getInvocationCount () > 0)
-      m_eRoot.appendElement (StatisticsExporter.ELEMENT_CACHE)
+      m_eRoot.addElement (StatisticsExporter.ELEMENT_CACHE)
              .setAttribute (StatisticsExporter.ATTR_NAME, sName)
              .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ())
              .setAttribute (StatisticsExporter.ATTR_HITS, aHandler.getHits ())
@@ -71,7 +71,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   public void onTimer (final String sName, final IStatisticsHandlerTimer aHandler)
   {
     if (aHandler.getInvocationCount () > 0)
-      m_eRoot.appendElement (StatisticsExporter.ELEMENT_TIMER)
+      m_eRoot.addElement (StatisticsExporter.ELEMENT_TIMER)
              .setAttribute (StatisticsExporter.ATTR_NAME, sName)
              .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ())
              .setAttribute (StatisticsExporter.ATTR_MIN, aHandler.getMin ())
@@ -85,12 +85,12 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   {
     if (aHandler.getInvocationCount () > 0)
     {
-      final IMicroElement eKeyedTimer = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDTIMER)
+      final IMicroElement eKeyedTimer = m_eRoot.addElement (StatisticsExporter.ELEMENT_KEYEDTIMER)
                                                .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
       for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
-        eKeyedTimer.appendElement (StatisticsExporter.ELEMENT_KEY)
+        eKeyedTimer.addElement (StatisticsExporter.ELEMENT_KEY)
                    .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
                    .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount (sKey))
                    .setAttribute (StatisticsExporter.ATTR_MIN, aHandler.getMin (sKey))
@@ -105,7 +105,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   public void onSize (final String sName, final IStatisticsHandlerSize aHandler)
   {
     if (aHandler.getInvocationCount () > 0)
-      m_eRoot.appendElement (StatisticsExporter.ELEMENT_SIZE)
+      m_eRoot.addElement (StatisticsExporter.ELEMENT_SIZE)
              .setAttribute (StatisticsExporter.ATTR_NAME, sName)
              .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ())
              .setAttribute (StatisticsExporter.ATTR_MIN, aHandler.getMin ())
@@ -119,12 +119,12 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   {
     if (aHandler.getInvocationCount () > 0)
     {
-      final IMicroElement eKeyedSize = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDSIZE)
+      final IMicroElement eKeyedSize = m_eRoot.addElement (StatisticsExporter.ELEMENT_KEYEDSIZE)
                                               .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
       for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
-        eKeyedSize.appendElement (StatisticsExporter.ELEMENT_KEY)
+        eKeyedSize.addElement (StatisticsExporter.ELEMENT_KEY)
                   .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
                   .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount (sKey))
                   .setAttribute (StatisticsExporter.ATTR_MIN, aHandler.getMin (sKey))
@@ -139,7 +139,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   public void onCounter (final String sName, final IStatisticsHandlerCounter aHandler)
   {
     if (aHandler.getInvocationCount () > 0)
-      m_eRoot.appendElement (StatisticsExporter.ELEMENT_COUNTER)
+      m_eRoot.addElement (StatisticsExporter.ELEMENT_COUNTER)
              .setAttribute (StatisticsExporter.ATTR_NAME, sName)
              .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ())
              .setAttribute (StatisticsExporter.ATTR_COUNT, aHandler.getCount ());
@@ -150,12 +150,12 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   {
     if (aHandler.getInvocationCount () > 0)
     {
-      final IMicroElement eKeyedCounter = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDCOUNTER)
+      final IMicroElement eKeyedCounter = m_eRoot.addElement (StatisticsExporter.ELEMENT_KEYEDCOUNTER)
                                                  .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                  .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
       for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
-        eKeyedCounter.appendElement (StatisticsExporter.ELEMENT_KEY)
+        eKeyedCounter.addElement (StatisticsExporter.ELEMENT_KEY)
                      .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
                      .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount (sKey))
                      .setAttribute (StatisticsExporter.ATTR_COUNT, aHandler.getCount (sKey));

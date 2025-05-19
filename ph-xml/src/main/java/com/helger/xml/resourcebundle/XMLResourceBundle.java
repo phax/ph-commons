@@ -70,9 +70,9 @@ public final class XMLResourceBundle extends ResourceBundle
   public static IMicroDocument getAsPropertiesXML (@Nonnull final ICommonsMap <String, String> aMap)
   {
     final IMicroDocument ret = new MicroDocument ();
-    final IMicroElement eRoot = ret.appendElement ("properties");
+    final IMicroElement eRoot = ret.addElement ("properties");
     for (final Map.Entry <String, String> aEntry : aMap.entrySet ())
-      eRoot.appendElement ("entry").setAttribute ("key", aEntry.getKey ()).addText (aEntry.getValue ());
+      eRoot.addElement ("entry").setAttribute ("key", aEntry.getKey ()).addText (aEntry.getValue ());
     return ret;
   }
 

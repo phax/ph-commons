@@ -172,7 +172,7 @@ public class MimeTypeInfoManager
   public IMicroDocument getAsDocument ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement ("mime-type-info");
+    final IMicroElement eRoot = aDoc.addElement ("mime-type-info");
 
     m_aRWLock.readLocked ( () -> {
       for (final MimeTypeInfo aInfo : m_aList.getSorted (Comparator.comparing (MimeTypeInfo::getPrimaryMimeTypeString)))

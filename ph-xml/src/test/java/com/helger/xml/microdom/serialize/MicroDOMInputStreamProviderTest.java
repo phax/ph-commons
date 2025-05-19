@@ -35,7 +35,7 @@ public final class MicroDOMInputStreamProviderTest
   public void testSimple ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    aDoc.appendElement ("test");
+    aDoc.addElement ("test");
     assertNotNull (new MicroDOMInputStreamProvider (aDoc, XMLWriterSettings.DEFAULT_XML_CHARSET_OBJ).getInputStream ());
   }
 }

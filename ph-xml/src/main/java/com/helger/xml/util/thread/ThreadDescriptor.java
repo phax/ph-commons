@@ -201,20 +201,20 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
       eRet.setAttribute ("state", m_eState.toString ());
     eRet.setAttribute ("priority", m_nPriority);
     eRet.setAttribute ("threadgroup", m_sThreadGroup);
-    eRet.appendElement ("stacktrace").addText (getStackTraceNotNull ());
+    eRet.addElement ("stacktrace").addText (getStackTraceNotNull ());
     if (m_aThreadInfo != null)
     {
-      final IMicroElement eThreadInfo = eRet.appendElement ("threadinfo");
+      final IMicroElement eThreadInfo = eRet.addElement ("threadinfo");
       try
       {
         final MonitorInfo [] aMonitorInfos = m_aThreadInfo.getLockedMonitors ();
         if (ArrayHelper.isNotEmpty (aMonitorInfos))
         {
-          final IMicroElement eMonitorInfos = eThreadInfo.appendElement ("monitorinfos");
+          final IMicroElement eMonitorInfos = eThreadInfo.addElement ("monitorinfos");
           eMonitorInfos.setAttribute ("count", aMonitorInfos.length);
           for (final MonitorInfo aMonitorInfo : aMonitorInfos)
           {
-            final IMicroElement eMonitor = eMonitorInfos.appendElement ("monitor");
+            final IMicroElement eMonitor = eMonitorInfos.addElement ("monitor");
             eMonitor.setAttribute ("classname", aMonitorInfo.getClassName ());
             eMonitor.setAttribute ("identity", Integer.toHexString (aMonitorInfo.getIdentityHashCode ()));
             if (aMonitorInfo.getLockedStackFrame () != null)
@@ -226,11 +226,11 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
         final LockInfo [] aSynchronizers = m_aThreadInfo.getLockedSynchronizers ();
         if (ArrayHelper.isNotEmpty (aSynchronizers))
         {
-          final IMicroElement eSynchronizers = eThreadInfo.appendElement ("synchronizers");
+          final IMicroElement eSynchronizers = eThreadInfo.addElement ("synchronizers");
           eSynchronizers.setAttribute ("count", aSynchronizers.length);
           for (final LockInfo aSynchronizer : aSynchronizers)
           {
-            final IMicroElement eSynchronizer = eSynchronizers.appendElement ("synchronizer");
+            final IMicroElement eSynchronizer = eSynchronizers.addElement ("synchronizer");
             eSynchronizer.setAttribute ("classname", aSynchronizer.getClassName ());
             eSynchronizer.setAttribute ("identity", Integer.toHexString (aSynchronizer.getIdentityHashCode ()));
           }

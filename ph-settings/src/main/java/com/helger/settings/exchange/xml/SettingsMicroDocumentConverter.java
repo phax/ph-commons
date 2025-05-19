@@ -72,7 +72,7 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
       final String sFieldName = aEntry.getKey ();
       final Object aValue = aEntry.getValue ();
 
-      final IMicroElement eSetting = eRoot.appendElement (sNamespaceURI, ELEMENT_SETTING);
+      final IMicroElement eSetting = eRoot.addElement (sNamespaceURI, ELEMENT_SETTING);
       eSetting.setAttribute (ATTR_NAME, sFieldName);
       if (aValue == null)
         eSetting.setAttribute (ATTR_IS_NULL, true);

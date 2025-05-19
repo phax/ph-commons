@@ -54,7 +54,7 @@ public final class MicroContainerTest
     assertSame (EMicroNodeType.CONTAINER, e.getType ());
     CommonsTestHelper.testToStringImplementation (e);
 
-    e.appendElement ("any");
+    e.addElement ("any");
     assertNotNull (e);
     assertTrue (e.isEqualContent (e.getClone ()));
 

@@ -61,7 +61,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   }
 
   @Override
-  protected void onAppendChild (@Nonnull final AbstractMicroNode aChildNode)
+  protected void onAddChild (@Nonnull final AbstractMicroNode aChildNode)
   {
     if (!_canBeAppendedToDocumentRoot (aChildNode))
       throw new MicroException ("Cannot add nodes of type " + aChildNode + " to a document");
@@ -78,7 +78,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
                                       " and wants to add " +
                                       aChildNode);
     }
-    super.onAppendChild (aChildNode);
+    super.onAddChild (aChildNode);
   }
 
   @Nonnull

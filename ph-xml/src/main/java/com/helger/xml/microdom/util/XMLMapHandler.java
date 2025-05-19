@@ -190,10 +190,10 @@ public final class XMLMapHandler
     ValueEnforcer.notNull (aMap, "Map");
 
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_MAPPING);
+    final IMicroElement eRoot = aDoc.addElement (ELEMENT_MAPPING);
     for (final Map.Entry <String, String> aEntry : aMap.entrySet ())
     {
-      final IMicroElement eMap = eRoot.appendElement (ELEMENT_MAP);
+      final IMicroElement eMap = eRoot.addElement (ELEMENT_MAP);
       eMap.setAttribute (ATTR_KEY, aEntry.getKey ());
       eMap.setAttribute (ATTR_VALUE, aEntry.getValue ());
     }

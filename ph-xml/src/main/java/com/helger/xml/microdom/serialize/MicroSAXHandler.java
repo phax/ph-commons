@@ -158,9 +158,9 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
     final IMicroElement aElement;
     if (StringHelper.hasText (sNamespaceURI))
-      aElement = m_aParent.appendElement (sNamespaceURI, sLocalName);
+      aElement = m_aParent.addElement (sNamespaceURI, sLocalName);
     else
-      aElement = m_aParent.appendElement (sLocalName);
+      aElement = m_aParent.addElement (sLocalName);
 
     // copy attributes
     if (aAttributes != null)
@@ -193,7 +193,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   {
     _updatePosition ("processingInstruction");
     _createParentDocument ();
-    m_aParent.appendProcessingInstruction (sTarget, sData);
+    m_aParent.addProcessingInstruction (sTarget, sData);
   }
 
   public void characters (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
@@ -253,7 +253,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
       // In case the comment comes before the root element....
       _createParentDocument ();
 
-      m_aParent.appendComment (aChars, nStart, nLength);
+      m_aParent.addComment (aChars, nStart, nLength);
     }
   }
 

@@ -64,7 +64,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected void onAppendChild (@Nonnull final AbstractMicroNode aChildNode)
+  protected void onAddChild (@Nonnull final AbstractMicroNode aChildNode)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to documents");

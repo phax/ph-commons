@@ -80,10 +80,10 @@ public final class MicroEventTest
     {
       assertEquals (0, aIEL.getInvocationCount ());
       // Direct invoke!
-      eRoot = aDoc.appendElement ("root_element");
+      eRoot = aDoc.addElement ("root_element");
       assertEquals (1, aIEL.getInvocationCount ());
       // Recursive invoke!
-      eRoot.appendElement ("root_element");
+      eRoot.addElement ("root_element");
       assertEquals (2, aIEL.getInvocationCount ());
       // Simple create a text node
       eRoot.addText ("My Text node");
@@ -96,7 +96,7 @@ public final class MicroEventTest
     }
 
     // append another element to the root -> no change!
-    eRoot.appendElement ("dummy");
+    eRoot.addElement ("dummy");
     assertEquals (3, aIEL.getInvocationCount ());
 
     try
@@ -141,8 +141,8 @@ public final class MicroEventTest
     try
     {
       assertEquals (0, aIEL.getInvocationCount ());
-      eRoot = aDoc.appendElement ("root_element");
-      final IMicroNode aNode1 = eRoot.appendElement ("root_element");
+      eRoot = aDoc.addElement ("root_element");
+      final IMicroNode aNode1 = eRoot.addElement ("root_element");
       final IMicroNode aNode2 = eRoot.addText ("My Text node");
 
       // Only insertions so far
@@ -161,9 +161,9 @@ public final class MicroEventTest
       assertFalse (eRoot.hasChildren ());
 
       // Rebuild and than remove all at once
-      eRoot.appendElement ("root_element");
+      eRoot.addElement ("root_element");
       eRoot.addText ("My Text node");
-      eRoot.appendElement ("a").appendElement ("b").addText ("c");
+      eRoot.addElement ("a").addElement ("b").addText ("c");
       assertEquals (3, eRoot.getChildCount ());
       eRoot.removeAllChildren ();
       assertEquals (2 + 3, aIEL.getInvocationCount ());
@@ -176,9 +176,9 @@ public final class MicroEventTest
 
     // Rebuild and than remove all at once again - no events triggered because
     // event listener was removed
-    eRoot.appendElement ("root_element");
+    eRoot.addElement ("root_element");
     eRoot.addText ("My Text node");
-    eRoot.appendElement ("a").appendElement ("b").addText ("c");
+    eRoot.addElement ("a").addElement ("b").addText ("c");
     assertEquals (3, eRoot.getChildCount ());
     eRoot.removeAllChildren ();
     assertEquals (2 + 3, aIEL.getInvocationCount ());

@@ -102,9 +102,9 @@ public final class StaxFuncTest
 
           IMicroElement aElement;
           if (StringHelper.hasText (sNamespaceURI))
-            aElement = aParent.appendElement (sNamespaceURI, sLocalName);
+            aElement = aParent.addElement (sNamespaceURI, sLocalName);
           else
-            aElement = aParent.appendElement (sLocalName);
+            aElement = aParent.addElement (sLocalName);
 
           final int nAttrs = aReader.getAttributeCount ();
           if (nAttrs > 0)
@@ -138,7 +138,7 @@ public final class StaxFuncTest
           }
           final String sTarget = aReader.getPITarget ();
           final String sData = aReader.getPIData ();
-          aParent.appendProcessingInstruction (sTarget, sData);
+          aParent.addProcessingInstruction (sTarget, sData);
           break;
         }
         case XMLStreamConstants.CHARACTERS:

@@ -184,10 +184,10 @@ public final class XMLListHandler
     ValueEnforcer.notNull (aCollection, "Collection");
 
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_LIST);
+    final IMicroElement eRoot = aDoc.addElement (ELEMENT_LIST);
     for (final String sItem : aCollection)
     {
-      final IMicroElement eItem = eRoot.appendElement (ELEMENT_ITEM);
+      final IMicroElement eItem = eRoot.addElement (ELEMENT_ITEM);
       eItem.setAttribute (ATTR_VALUE, sItem);
     }
     return aDoc;

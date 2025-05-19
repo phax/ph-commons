@@ -54,9 +54,9 @@ public final class ReadWriteXML11FuncTest
   private static void _generateXmlFile (final String sFilename, @Nonnegative final int nElementCount)
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eMain = aDoc.appendElement ("main_tag");
+    final IMicroElement eMain = aDoc.addElement ("main_tag");
     for (int i = 0; i < nElementCount; ++i)
-      eMain.appendElement ("test").addText (StringHelper.getLeadingZero (i, 4));
+      eMain.addElement ("test").addText (StringHelper.getLeadingZero (i, 4));
 
     assertTrue (MicroWriter.writeToFile (aDoc, new File (sFilename), XWS_11).isSuccess ());
   }

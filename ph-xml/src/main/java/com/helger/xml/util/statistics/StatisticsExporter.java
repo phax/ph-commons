@@ -79,7 +79,7 @@ public final class StatisticsExporter
   public static IMicroDocument getAsXMLDocument ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_STATISTICS);
+    final IMicroElement eRoot = aDoc.addElement (ELEMENT_STATISTICS);
     StatisticsVisitor.visitStatistics (new StatisticsVisitorCallbackToXML (eRoot));
     return aDoc;
   }

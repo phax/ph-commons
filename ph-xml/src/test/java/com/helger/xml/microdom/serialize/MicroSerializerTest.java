@@ -47,10 +47,10 @@ public final class MicroSerializerTest
                                           final boolean bWithText,
                                           final boolean bWithAttrs)
   {
-    final IMicroElement aDocElement = doc.appendElement ("root");
+    final IMicroElement aDocElement = doc.addElement ("root");
     for (int i = 1; i <= 10; ++i)
     {
-      final IMicroElement e1 = aDocElement.appendElement ("level1");
+      final IMicroElement e1 = aDocElement.addElement ("level1");
       if (bWithAttrs)
       {
         e1.setAttribute ("a1", "Supsi1");
@@ -58,12 +58,12 @@ public final class MicroSerializerTest
       }
       for (int j = 1; j <= 20; ++j)
       {
-        final IMicroElement e2 = e1.appendElement ("level2");
+        final IMicroElement e2 = e1.addElement ("level2");
         if (bWithAttrs)
           e2.setAttribute ("a2", "Supsi");
         for (int k = 1; k <= 100; ++k)
         {
-          final IMicroElement e3 = e2.appendElement ("level3");
+          final IMicroElement e3 = e2.addElement ("level3");
           if (bWithAttrs)
             e3.setAttribute ("a3", "Supsi");
           if (bWithText)
@@ -124,17 +124,17 @@ public final class MicroSerializerTest
   public void testIndent ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eHTML = aDoc.appendElement ("html");
-    final IMicroElement eBody = eHTML.appendElement ("body");
-    eBody.appendElement ("div");
-    eBody.appendElement ("span").addText ("bla");
-    eBody.appendElement ("span").appendElement ("span").appendElement ("span").setAttribute ("a", 3).addText ("");
-    final IMicroElement eSpan3 = eBody.appendElement ("span");
+    final IMicroElement eHTML = aDoc.addElement ("html");
+    final IMicroElement eBody = eHTML.addElement ("body");
+    eBody.addElement ("div");
+    eBody.addElement ("span").addText ("bla");
+    eBody.addElement ("span").addElement ("span").addElement ("span").setAttribute ("a", 3).addText ("");
+    final IMicroElement eSpan3 = eBody.addElement ("span");
     eSpan3.addText ("f");
     eSpan3.addText ("oo");
-    eSpan3.appendElement ("strong").addText ("bar");
+    eSpan3.addElement ("strong").addText ("bar");
     eSpan3.addText ("baz");
-    eBody.appendElement ("div");
+    eBody.addElement ("div");
 
     final String sCRLF = XMLWriterSettings.DEFAULT_XML_SETTINGS.getNewLineString ();
     final String s = MicroWriter.getNodeAsString (aDoc,

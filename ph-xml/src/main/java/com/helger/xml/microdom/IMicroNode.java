@@ -182,11 +182,14 @@ public interface IMicroNode extends
    * @return The appended node, or <code>null</code> if the parameter was <code>null</code>.
    * @throws MicroException
    *         if this node cannot have children
-   * @deprecated Use {@link #addChild(NODETYPE)} instead
+   * @deprecated Use {@link #addChild(IMicroNode)} instead
    */
   @Deprecated
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE appendChild (@Nullable NODETYPE aChildNode);
+  default <NODETYPE extends IMicroNode> NODETYPE appendChild (@Nullable final NODETYPE aChildNode)
+  {
+    return addChild (aChildNode);
+  }
 
   /**
    * Append any child to the node.
@@ -856,11 +859,51 @@ public interface IMicroNode extends
    * @return The created comment.
    * @throws MicroException
    *         if this node cannot have children
+   * @deprecated Use {@link #addComment(char[])} instead
    */
+  @Deprecated
   @Nonnull
   default IMicroComment appendComment (@Nonnull final char [] aChars)
   {
-    return appendComment (aChars, 0, aChars.length);
+    return addComment (aChars);
+  }
+
+  /**
+   * Append a comment node to this node.
+   *
+   * @param aChars
+   *        Characters to append. May not be <code>null</code>
+   * @return The created comment.
+   * @throws MicroException
+   *         if this node cannot have children
+   */
+  @Nonnull
+  default IMicroComment addComment (@Nonnull final char [] aChars)
+  {
+    return addComment (aChars, 0, aChars.length);
+  }
+
+  /**
+   * Append a comment node to this node.
+   *
+   * @param aChars
+   *        Characters to append. May not be <code>null</code>
+   * @param nOfs
+   *        Offset into the array where to start copying data. May not be &lt; 0.
+   * @param nLen
+   *        Number of bytes to take from the array. May not be &lt; 0.
+   * @return The created comment.
+   * @throws MicroException
+   *         if this node cannot have children
+   * @deprecated Use {@link #addComment(char[],int,int)} instead
+   */
+  @Deprecated
+  @Nonnull
+  default IMicroComment appendComment (@Nonnull final char [] aChars,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
+  {
+    return addComment (aChars, nOfs, nLen);
   }
 
   /**
@@ -877,9 +920,9 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroComment appendComment (@Nonnull final char [] aChars,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
+  default IMicroComment addComment (@Nonnull final char [] aChars,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
   {
     return addChild (new MicroComment (aChars, nOfs, nLen));
   }
@@ -894,9 +937,28 @@ public interface IMicroNode extends
    * @return The created comment node.
    * @throws MicroException
    *         if this node cannot have children
+   * @deprecated Use {@link #addCommentWithConversion(Object)} instead
    */
+  @Deprecated
   @Nonnull
   default IMicroComment appendCommentWithConversion (@Nullable final Object aValue)
+  {
+    return addCommentWithConversion (aValue);
+  }
+
+  /**
+   * Append a comment node to this node. If the type of the value is not {@link String}, the
+   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
+   * {@link String} object.
+   *
+   * @param aValue
+   *        Comment to be added
+   * @return The created comment node.
+   * @throws MicroException
+   *         if this node cannot have children
+   */
+  @Nonnull
+  default IMicroComment addCommentWithConversion (@Nullable final Object aValue)
   {
     // Throws IlliegalArgumentException when no conversion is available
     final String sValue = TypeConverter.convert (aValue, String.class);
@@ -911,9 +973,26 @@ public interface IMicroNode extends
    * @return The created entity reference.
    * @throws MicroException
    *         if this node cannot have children
+   * @deprecated Use {@link #addEntityReference(String)} instead
    */
+  @Deprecated
   @Nonnull
   default IMicroEntityReference appendEntityReference (@Nonnull final String sName)
+  {
+    return addEntityReference (sName);
+  }
+
+  /**
+   * Append an entity reference to this node.
+   *
+   * @param sName
+   *        The name of the entity reference.
+   * @return The created entity reference.
+   * @throws MicroException
+   *         if this node cannot have children
+   */
+  @Nonnull
+  default IMicroEntityReference addEntityReference (@Nonnull final String sName)
   {
     return addChild (new MicroEntityReference (sName));
   }
@@ -926,11 +1005,47 @@ public interface IMicroNode extends
    * @return The created element
    * @throws MicroException
    *         if this node cannot have children
+   * @deprecated Use {@link #addElement(String)} instead
    */
+  @Deprecated
   @Nonnull
   default IMicroElement appendElement (@Nonnull @Nonempty final String sTagName)
   {
-    return appendElement (null, sTagName);
+    return addElement (sTagName);
+  }
+
+  /**
+   * Append an element without namespace to this node.
+   *
+   * @param sTagName
+   *        Element name to be created. May neither be <code>null</code> nor empty.
+   * @return The created element
+   * @throws MicroException
+   *         if this node cannot have children
+   */
+  @Nonnull
+  default IMicroElement addElement (@Nonnull @Nonempty final String sTagName)
+  {
+    return addElement (null, sTagName);
+  }
+
+  /**
+   * Append an element with namespace to this node.
+   *
+   * @param sNamespaceURI
+   *        Namespace URI to use. May be <code>null</code>.
+   * @param sTagName
+   *        Element name to be created. May neither be <code>null</code> nor empty.
+   * @return The created element
+   * @throws MicroException
+   *         if this node cannot have children
+   * @deprecated Use {@link #addElement(String,String)} instead
+   */
+  @Deprecated
+  @Nonnull
+  default IMicroElement appendElement (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
+  {
+    return addElement (sNamespaceURI, sTagName);
   }
 
   /**
@@ -945,7 +1060,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroElement appendElement (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
+  default IMicroElement addElement (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
   {
     return addChild (new MicroElement (sNamespaceURI, sTagName));
   }
@@ -960,10 +1075,30 @@ public interface IMicroNode extends
    * @return The created element
    * @throws MicroException
    *         if this node cannot have children
+   * @deprecated Use {@link #addProcessingInstruction(String,String)} instead
    */
+  @Deprecated
   @Nonnull
   default IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty final String sTarget,
                                                                    @Nullable final String sData)
+  {
+    return addProcessingInstruction (sTarget, sData);
+  }
+
+  /**
+   * Append a processing instruction to this node.
+   *
+   * @param sTarget
+   *        The PI target
+   * @param sData
+   *        The PI data
+   * @return The created element
+   * @throws MicroException
+   *         if this node cannot have children
+   */
+  @Nonnull
+  default IMicroProcessingInstruction addProcessingInstruction (@Nonnull @Nonempty final String sTarget,
+                                                                @Nullable final String sData)
   {
     return addChild (new MicroProcessingInstruction (sTarget, sData));
   }
@@ -974,9 +1109,24 @@ public interface IMicroNode extends
    * @return The created container.
    * @throws MicroException
    *         if this node cannot have children
+   * @deprecated Use {@link #addContainer()} instead
    */
+  @Deprecated
   @Nonnull
   default IMicroContainer appendContainer ()
+  {
+    return addContainer ();
+  }
+
+  /**
+   * Append a new container to this node
+   *
+   * @return The created container.
+   * @throws MicroException
+   *         if this node cannot have children
+   */
+  @Nonnull
+  default IMicroContainer addContainer ()
   {
     return addChild (new MicroContainer ());
   }

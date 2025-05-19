@@ -57,7 +57,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
       for (final Map.Entry <Locale, String> aEntry : aSource.texts ().getSortedByKey (Comparator.comparing (Locale::toString)).entrySet ())
       {
-        final IMicroElement eText = eMText.appendElement (sNamespaceURI, ELEMENT_TEXT);
+        final IMicroElement eText = eMText.addElement (sNamespaceURI, ELEMENT_TEXT);
         eText.setAttribute (ATTR_LOCALE, aEntry.getKey ().toString ());
         eText.addText (aEntry.getValue ());
       }
