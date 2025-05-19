@@ -16,6 +16,7 @@
  */
 package com.helger.config.fallback;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -100,5 +101,19 @@ public final class ConfigWithFallbackTest
     assertEquals (123456, aConfig.getAsLongOrFallback ("int", -1, -1, "int-new"));
     assertEquals (123456, aConfig.getAsLongOrFallback ("int-new", -1, -1, "int"));
     assertEquals (-1, aConfig.getAsLongOrFallback ("foo", -2, -1, "bla"));
+  }
+
+  @Test
+  public void testGetAsCharArrayOrFallback ()
+  {
+    final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
+    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+      assertEquals ("chararray", sOld);
+      assertEquals ("chararray-new", sNew);
+    });
+    final char [] aExpected = "from-application-to-chararray".toCharArray ();
+    assertArrayEquals (aExpected, aConfig.getAsCharArrayOrFallback ("chararray", "chararray-new"));
+    assertArrayEquals (aExpected, aConfig.getAsCharArrayOrFallback ("chararray-new", "chararray"));
+    assertNull (aConfig.getAsCharArrayOrFallback ("foo", "bla"));
   }
 }
