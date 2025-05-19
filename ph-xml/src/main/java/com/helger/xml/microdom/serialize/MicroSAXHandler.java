@@ -213,7 +213,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
       else
       {
         // Add to parent
-        m_aParent.appendCDATA (aChars, nStart, nLength);
+        m_aParent.addCDATA (aChars, nStart, nLength);
       }
     }
     else
@@ -232,13 +232,13 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
         else
         {
           // Add to parent
-          m_aParent.appendText (aChars, nStart, nLength);
+          m_aParent.addText (aChars, nStart, nLength);
         }
       }
       else
       {
         // Add to parent
-        m_aParent.appendText (aChars, nStart, nLength);
+        m_aParent.addText (aChars, nStart, nLength);
       }
     }
   }
@@ -275,10 +275,10 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
           aLastText.appendData (aChars, nStart, nLength);
         }
         else
-          m_aParent.appendIgnorableWhitespaceText (aChars, nStart, nLength);
+          m_aParent.addIgnorableWhitespaceText (aChars, nStart, nLength);
       }
       else
-        m_aParent.appendIgnorableWhitespaceText (aChars, nStart, nLength);
+        m_aParent.addIgnorableWhitespaceText (aChars, nStart, nLength);
     }
   }
 

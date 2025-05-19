@@ -91,7 +91,7 @@ public final class MicroCommentTest
     try
     {
       // Cannot add any child to a comment
-      e.appendChild (new MicroComment ("other"));
+      e.addChild (new MicroComment ("other"));
       fail ();
     }
     catch (final MicroException ex)

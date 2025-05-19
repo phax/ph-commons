@@ -386,7 +386,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
       ret.m_aAttrs = new CommonsLinkedHashMap <> (m_aAttrs);
 
     // Deep clone all child nodes
-    forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
+    forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
     return ret;
   }
 

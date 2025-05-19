@@ -91,7 +91,7 @@ public final class MicroCDATATest
     try
     {
       // Cannot add any child to a comment
-      e.appendChild (new MicroCDATA ("other"));
+      e.addChild (new MicroCDATA ("other"));
       fail ();
     }
     catch (final MicroException ex)

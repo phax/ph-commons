@@ -97,10 +97,10 @@ public final class MicroDocumentTest
     {}
 
     d = new MicroDocument ();
-    assertNotNull (d.appendComment ("This is a root comment"));
-    assertNotNull (d.appendComment ("Well I forgot something"));
+    assertNotNull (d.addComment ("This is a root comment"));
+    assertNotNull (d.addComment ("Well I forgot something"));
     assertNotNull (d.appendElement ("root"));
-    assertNotNull (d.appendComment ("Some more comment after the root element"));
+    assertNotNull (d.addComment ("Some more comment after the root element"));
   }
 
   @Test

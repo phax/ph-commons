@@ -145,11 +145,11 @@ public final class MicroHelperTest
     assertNull (MicroHelper.getChildTextContent (e, "y"));
     final IMicroElement y = e.appendElement ("y");
     assertNull (MicroHelper.getChildTextContent (e, "y"));
-    y.appendText ("Text");
+    y.addText ("Text");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, "y"));
     y.appendElement ("z1");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, "y"));
-    y.appendCDATA ("data");
+    y.addCDATA ("data");
     assertEquals ("Textdata", MicroHelper.getChildTextContent (e, "y"));
   }
 
@@ -160,11 +160,11 @@ public final class MicroHelperTest
     assertNull (MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
     final IMicroElement y = e.appendElement ("y");
     assertNull (MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
-    y.appendText ("100");
+    y.addText ("100");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
     y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
-    y.appendCDATA ("234");
+    y.addCDATA ("234");
     assertEquals (BigInteger.valueOf (100234),
                   MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
   }
@@ -177,11 +177,11 @@ public final class MicroHelperTest
     assertNull (MicroHelper.getChildTextContent (e, sNSURI, "y"));
     final IMicroElement y = e.appendElement (sNSURI, "y");
     assertNull (MicroHelper.getChildTextContent (e, sNSURI, "y"));
-    y.appendText ("Text");
+    y.addText ("Text");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, sNSURI, "y"));
     y.appendElement ("z1");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, sNSURI, "y"));
-    y.appendCDATA ("data");
+    y.addCDATA ("data");
     assertEquals ("Textdata", MicroHelper.getChildTextContent (e, sNSURI, "y"));
   }
 
@@ -193,11 +193,11 @@ public final class MicroHelperTest
     assertNull (MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
     final IMicroElement y = e.appendElement (sNSURI, "y");
     assertNull (MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
-    y.appendText ("100");
+    y.addText ("100");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
     y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
-    y.appendCDATA ("234");
+    y.addCDATA ("234");
     assertEquals (BigInteger.valueOf (100234),
                   MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
   }

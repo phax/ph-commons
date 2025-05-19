@@ -64,7 +64,7 @@ public final class MicroContainerTest
 
     assertTrue (new MicroContainer ().isEqualContent (new MicroContainer ()));
     e = new MicroContainer ();
-    e.appendText ("text");
+    e.addText ("text");
     assertFalse (new MicroContainer ().isEqualContent (e));
     final IMicroNode [] aChildNodes = { new MicroText ("any") };
 

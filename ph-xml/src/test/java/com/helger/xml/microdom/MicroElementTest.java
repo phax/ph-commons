@@ -98,7 +98,7 @@ public final class MicroElementTest
     e = new MicroElement ("myns", "xyz").setAttribute ("name", "value");
     assertTrue (e.isEqualContent (e.getClone ()));
     e = new MicroElement ("myns", "xyz");
-    e.appendText ("any");
+    e.addText ("any");
     assertTrue (e.isEqualContent (e.getClone ()));
     e = new MicroElement ("myns", "xyz");
     e.appendElement ("x", "z");
@@ -162,8 +162,8 @@ public final class MicroElementTest
 
     final IMicroElement e1 = eRoot.appendElement ("level1");
     e1.appendElement ("e11");
-    eRoot.appendText ("My text node");
-    eRoot.appendComment ("Comment");
+    eRoot.addText ("My text node");
+    eRoot.addComment ("Comment");
     eRoot.appendElement ("xyz");
     CommonsTestHelper.testToStringImplementation (eRoot);
 
@@ -181,11 +181,11 @@ public final class MicroElementTest
     assertEquals (1, eRoot.getAllChildElements ("level1").size ());
     final IMicroElement e2a = ec.appendElement ("level2a");
     e2a.appendElement ("e2a1");
-    e2a.appendComment ("any");
+    e2a.addComment ("any");
     e2a.appendElement ("e2a2");
     final IMicroElement e2b = ec.appendElement ("level2b");
     e2b.appendElement ("e2b1");
-    e2b.appendComment ("any");
+    e2b.addComment ("any");
     e2b.appendElement ("e2b2");
     assertEquals (4, eRoot.getAllChildElements ().size ());
     assertEquals (1, eRoot.getAllChildElements ("level1").size ());
@@ -227,8 +227,8 @@ public final class MicroElementTest
     final IMicroElement eRoot = new MicroElement ("root");
     final IMicroElement e1 = eRoot.appendElement ("level1");
     e1.appendElement ("e11");
-    final IMicroText eText = eRoot.appendText ("Mein text node");
-    final IMicroComment eComment = eRoot.appendComment ("Comment");
+    final IMicroText eText = eRoot.addText ("Mein text node");
+    final IMicroComment eComment = eRoot.addComment ("Comment");
     final IMicroElement eElem = eRoot.appendElement ("xyz");
 
     assertSame (eText, e1.getNextSibling ());
@@ -262,8 +262,8 @@ public final class MicroElementTest
     final IMicroElement eRoot = new MicroElement ("root");
     final IMicroElement e1 = eRoot.appendElement ("level1");
     final IMicroElement e11 = e1.appendElement ("e11");
-    final IMicroText eText = eRoot.appendText ("Mein text node");
-    final IMicroComment eComment = eRoot.appendComment ("Comment");
+    final IMicroText eText = eRoot.addText ("Mein text node");
+    final IMicroComment eComment = eRoot.addComment ("Comment");
     final IMicroElement e2 = eRoot.appendElement ("level2");
     assertNull (e11.getParentElementWithName ("gibtsNed"));
     assertSame (e1, e11.getParentElementWithName ("level1"));
@@ -391,8 +391,8 @@ public final class MicroElementTest
     assertEquals (eRoot.getAllQAttributes (), eClone.getAllQAttributes ());
 
     assertTrue (eRoot.isEqualContent (eRoot.getClone ()));
-    eRoot.appendText ("text");
-    eRoot.appendCDATA ("CDATA content <>");
+    eRoot.addText ("text");
+    eRoot.addCDATA ("CDATA content <>");
     assertTrue (eRoot.isEqualContent (eRoot.getClone ()));
   }
 
@@ -455,26 +455,26 @@ public final class MicroElementTest
   {
     IMicroElement e = new MicroElement ("any");
     assertNull (e.getTextContent ());
-    e.appendText ("ab");
+    e.addText ("ab");
     assertEquals ("ab", e.getTextContent ());
-    e.appendText ("cd");
+    e.addText ("cd");
     assertEquals ("abcd", e.getTextContent ());
-    e.appendCDATA ("xx");
+    e.addCDATA ("xx");
     assertEquals ("abcdxx", e.getTextContent ());
     final IMicroContainer aCont = e.appendContainer ();
     assertEquals ("abcdxx", e.getTextContent ());
-    aCont.appendText ("z1");
+    aCont.addText ("z1");
     assertEquals ("abcdxxz1", e.getTextContent ());
-    aCont.appendCDATA ("z2");
+    aCont.addCDATA ("z2");
     assertEquals ("abcdxxz1z2", e.getTextContent ());
-    aCont.appendText ("z3");
+    aCont.addText ("z3");
     assertEquals ("abcdxxz1z2z3", e.getTextContent ());
-    e.appendText ("end");
+    e.addText ("end");
     assertEquals ("abcdxxz1z2z3end", e.getTextContent ());
 
     e = new MicroElement ("any");
     assertNull (e.getTextContentWithConversion (Integer.class));
-    e.appendText ("1234");
+    e.addText ("1234");
     assertEquals (1234, e.getTextContentWithConversion (Integer.class).intValue ());
   }
 
@@ -538,7 +538,7 @@ public final class MicroElementTest
   public void testChildren ()
   {
     final IMicroElement e = new MicroElement ("any");
-    assertNull (e.appendChild (null));
+    assertNull (e.addChild (null));
     final IMicroElement eChild = e.appendElement ("child");
     assertNull (e.insertAfter (null, eChild));
     assertNull (e.insertBefore (null, eChild));
@@ -546,11 +546,11 @@ public final class MicroElementTest
     assertNotNull (e.insertAfter (new MicroElement ("after"), eChild));
     assertNotNull (e.insertBefore (new MicroElement ("before"), eChild));
     assertEquals (3, e.getChildCount ());
-    assertNotNull (e.appendChild (new MicroElement ("end")));
-    assertNotNull (e.appendIgnorableWhitespaceText ("    "));
+    assertNotNull (e.addChild (new MicroElement ("end")));
+    assertNotNull (e.addIgnorableWhitespaceText ("    "));
     assertNotNull (e.appendEntityReference ("name"));
     assertNotNull (e.appendProcessingInstruction ("target", "data"));
-    assertEquals ("5", e.appendTextWithConversion (Integer.valueOf (5)).getData ().toString ());
+    assertEquals ("5", e.addTextWithConversion (Integer.valueOf (5)).getData ().toString ());
     assertTrue (e.getChildAtIndex (0).isElement ());
     assertEquals (8, e.getAllChildrenRecursive ().size ());
 
@@ -687,7 +687,7 @@ public final class MicroElementTest
     assertNotNull (e.getAllChildElementsRecursive ());
     assertEquals (0, e.getAllChildElementsRecursive ().size ());
 
-    e.appendText ("foo");
+    e.addText ("foo");
     assertNotNull (e.getAllChildElementsRecursive ());
     assertEquals (0, e.getAllChildElementsRecursive ().size ());
     assertEquals (1, e.getAllChildrenRecursive ().size ());
@@ -696,7 +696,7 @@ public final class MicroElementTest
     assertEquals (1, e.getAllChildElementsRecursive ().size ());
     assertEquals (2, e.getAllChildrenRecursive ().size ());
 
-    e1.appendComment ("doesn't really matter");
+    e1.addComment ("doesn't really matter");
     assertEquals (1, e.getAllChildElementsRecursive ().size ());
     assertEquals (3, e.getAllChildrenRecursive ().size ());
 
@@ -704,7 +704,7 @@ public final class MicroElementTest
     assertEquals (2, e.getAllChildElementsRecursive ().size ());
     assertEquals (4, e.getAllChildrenRecursive ().size ());
 
-    e2.appendComment ("doesn't really matter");
+    e2.addComment ("doesn't really matter");
     assertEquals (2, e.getAllChildElementsRecursive ().size ());
     assertEquals (5, e.getAllChildrenRecursive ().size ());
 

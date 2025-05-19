@@ -68,19 +68,19 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
     {
       eRet.appendElement (sNamespaceURI, ELEMENT_MIMETYPE)
           .setAttribute (ATTR_SOURCE, aMimeType.getSource ())
-          .appendText (aMimeType.getMimeTypeAsString ());
+          .addText (aMimeType.getMimeTypeAsString ());
     }
     if (aObject.hasComment ())
-      eRet.appendElement (sNamespaceURI, ELEMENT_COMMENT).appendText (aObject.getComment ());
+      eRet.appendElement (sNamespaceURI, ELEMENT_COMMENT).addText (aObject.getComment ());
     for (final String sParentType : aObject.getAllParentTypes ())
-      eRet.appendElement (sNamespaceURI, ELEMENT_PARENT_TYPE).appendText (sParentType);
+      eRet.appendElement (sNamespaceURI, ELEMENT_PARENT_TYPE).addText (sParentType);
     for (final String sGlob : aObject.getAllGlobs ())
-      eRet.appendElement (sNamespaceURI, ELEMENT_GLOB).appendText (sGlob);
+      eRet.appendElement (sNamespaceURI, ELEMENT_GLOB).addText (sGlob);
     for (final ExtensionWithSource aExtension : aObject.getAllExtensionsWithSource ())
     {
       eRet.appendElement (sNamespaceURI, ELEMENT_EXTENSION)
           .setAttribute (ATTR_SOURCE, aExtension.getSource ())
-          .appendText (aExtension.getExtension ());
+          .addText (aExtension.getExtension ());
     }
     eRet.setAttribute (ATTR_SOURCE, aObject.getSource ());
     return eRet;

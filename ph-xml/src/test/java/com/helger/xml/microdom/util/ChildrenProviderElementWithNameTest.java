@@ -38,7 +38,7 @@ public final class ChildrenProviderElementWithNameTest
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement ("root");
     eRoot.appendElement ("any");
-    eRoot.appendText ("Text");
+    eRoot.addText ("Text");
     eRoot.appendElement ("else");
     eRoot.appendElement ("namespace", "any");
     return aDoc;

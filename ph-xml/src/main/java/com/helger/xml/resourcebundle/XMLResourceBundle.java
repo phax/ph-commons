@@ -72,7 +72,7 @@ public final class XMLResourceBundle extends ResourceBundle
     final IMicroDocument ret = new MicroDocument ();
     final IMicroElement eRoot = ret.appendElement ("properties");
     for (final Map.Entry <String, String> aEntry : aMap.entrySet ())
-      eRoot.appendElement ("entry").setAttribute ("key", aEntry.getKey ()).appendText (aEntry.getValue ());
+      eRoot.appendElement ("entry").setAttribute ("key", aEntry.getKey ()).addText (aEntry.getValue ());
     return ret;
   }
 

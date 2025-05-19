@@ -393,7 +393,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     if (eRoot != null)
       aDoc.insertBefore (aComment, eRoot);
     else
-      aDoc.appendChild (aComment);
+      aDoc.addChild (aComment);
   }
 
   /**

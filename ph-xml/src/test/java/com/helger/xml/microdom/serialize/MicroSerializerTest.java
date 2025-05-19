@@ -67,13 +67,13 @@ public final class MicroSerializerTest
           if (bWithAttrs)
             e3.setAttribute ("a3", "Supsi");
           if (bWithText)
-            e3.appendText ("Level 3 text <> " + Double.toString (Math.random ()));
+            e3.addText ("Level 3 text <> " + Double.toString (Math.random ()));
         }
         if (bWithText)
-          e2.appendText ("Level 2 text " + Double.toString (Math.random ()));
+          e2.addText ("Level 2 text " + Double.toString (Math.random ()));
       }
       if (bWithText)
-        e1.appendText ("Level 1 text " + Double.toString (Math.random ()));
+        e1.addText ("Level 1 text " + Double.toString (Math.random ()));
     }
     return doc;
   }
@@ -127,13 +127,13 @@ public final class MicroSerializerTest
     final IMicroElement eHTML = aDoc.appendElement ("html");
     final IMicroElement eBody = eHTML.appendElement ("body");
     eBody.appendElement ("div");
-    eBody.appendElement ("span").appendText ("bla");
-    eBody.appendElement ("span").appendElement ("span").appendElement ("span").setAttribute ("a", 3).appendText ("");
+    eBody.appendElement ("span").addText ("bla");
+    eBody.appendElement ("span").appendElement ("span").appendElement ("span").setAttribute ("a", 3).addText ("");
     final IMicroElement eSpan3 = eBody.appendElement ("span");
-    eSpan3.appendText ("f");
-    eSpan3.appendText ("oo");
-    eSpan3.appendElement ("strong").appendText ("bar");
-    eSpan3.appendText ("baz");
+    eSpan3.addText ("f");
+    eSpan3.addText ("oo");
+    eSpan3.appendElement ("strong").addText ("bar");
+    eSpan3.addText ("baz");
     eBody.appendElement ("div");
 
     final String sCRLF = XMLWriterSettings.DEFAULT_XML_SETTINGS.getNewLineString ();

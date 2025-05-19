@@ -33,14 +33,14 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
   {
     if (aChildNodes != null)
       for (final IMicroNode aChildNode : aChildNodes)
-        appendChild (aChildNode);
+        addChild (aChildNode);
   }
 
   public MicroContainer (@Nullable final Iterable <? extends IMicroNode> aChildNodes)
   {
     if (aChildNodes != null)
       for (final IMicroNode aChildNode : aChildNodes)
-        appendChild (aChildNode);
+        addChild (aChildNode);
   }
 
   @Nonnull
@@ -59,7 +59,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
   public IMicroContainer getClone ()
   {
     final IMicroContainer ret = new MicroContainer ();
-    forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
+    forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
     return ret;
   }
 
@@ -77,7 +77,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
     final IMicroContainer ret = new MicroContainer ();
     if (aChildNodes != null)
       for (final IMicroNode aChildNode : aChildNodes)
-        ret.appendChild (aChildNode == null ? null : aChildNode.getClone ());
+        ret.addChild (aChildNode == null ? null : aChildNode.getClone ());
     return ret;
   }
 
@@ -95,7 +95,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
     final IMicroContainer ret = new MicroContainer ();
     if (aChildNodes != null)
       for (final IMicroNode aChildNode : aChildNodes)
-        ret.appendChild (aChildNode == null ? null : aChildNode.getClone ());
+        ret.addChild (aChildNode == null ? null : aChildNode.getClone ());
     return ret;
   }
 }

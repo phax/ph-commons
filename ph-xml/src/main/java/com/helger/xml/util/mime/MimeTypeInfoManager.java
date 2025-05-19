@@ -176,7 +176,7 @@ public class MimeTypeInfoManager
 
     m_aRWLock.readLocked ( () -> {
       for (final MimeTypeInfo aInfo : m_aList.getSorted (Comparator.comparing (MimeTypeInfo::getPrimaryMimeTypeString)))
-        eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
+        eRoot.addChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
     });
 
     return aDoc;

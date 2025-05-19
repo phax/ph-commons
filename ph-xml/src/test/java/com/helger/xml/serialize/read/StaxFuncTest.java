@@ -158,13 +158,13 @@ public final class StaxFuncTest
             else
             {
               // Add to parent
-              aParent.appendText (sText);
+              aParent.addText (sText);
             }
           }
           else
           {
             // Add to parent
-            aParent.appendText (sText);
+            aParent.addText (sText);
           }
           break;
         }
@@ -181,7 +181,7 @@ public final class StaxFuncTest
               aDoc = new MicroDocument (aDocType);
               aParent = aDoc;
             }
-            aParent.appendComment (sText);
+            aParent.addComment (sText);
           }
           break;
         }
@@ -201,10 +201,10 @@ public final class StaxFuncTest
                 aLastText.appendData (sText);
               }
               else
-                aParent.appendIgnorableWhitespaceText (sText);
+                aParent.addIgnorableWhitespaceText (sText);
             }
             else
-              aParent.appendIgnorableWhitespaceText (sText);
+              aParent.addIgnorableWhitespaceText (sText);
           }
           break;
         }
@@ -261,7 +261,7 @@ public final class StaxFuncTest
           else
           {
             // Add to parent
-            aParent.appendCDATA (sText);
+            aParent.addCDATA (sText);
           }
           break;
         }

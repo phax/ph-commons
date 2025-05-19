@@ -227,7 +227,7 @@ public final class MicroWriterTest
     // As an element value
     {
       final IMicroElement e = new MicroElement ("bla");
-      e.appendText (SURROGATE_PAIR_TEST_STRING);
+      e.addText (SURROGATE_PAIR_TEST_STRING);
       final String sXML = MicroWriter.getNodeAsString (e, aSettings);
       assertEquals ("<bla>" + SURROGATE_PAIR_TEST_STRING + "</bla>", sXML);
     }
@@ -286,22 +286,22 @@ public final class MicroWriterTest
 
     // Simple CDATA
     IMicroElement e = new MicroElement ("a");
-    e.appendCDATA ("foobar");
+    e.addCDATA ("foobar");
     assertEquals ("<a><![CDATA[foobar]]></a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing the forbidden CDATA end marker
     e = new MicroElement ("a");
-    e.appendCDATA ("a]]>b");
+    e.addCDATA ("a]]>b");
     assertEquals ("<a><![CDATA[a]]]]><![CDATA[>b]]></a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing more than one forbidden CDATA end marker
     e = new MicroElement ("a");
-    e.appendCDATA ("a]]>b]]>c");
+    e.addCDATA ("a]]>b]]>c");
     assertEquals ("<a><![CDATA[a]]]]><![CDATA[>b]]]]><![CDATA[>c]]></a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing a complete CDATA section
     e = new MicroElement ("a");
-    e.appendCDATA ("a<![CDATA[x]]>b");
+    e.addCDATA ("a<![CDATA[x]]>b");
     assertEquals ("<a><![CDATA[a<![CDATA[x]]]]><![CDATA[>b]]></a>", MicroWriter.getNodeAsString (e, aSettings));
   }
 
@@ -313,22 +313,22 @@ public final class MicroWriterTest
 
     // Simple CDATA
     IMicroElement e = new MicroElement ("a");
-    e.appendCDATA ("foobar");
+    e.addCDATA ("foobar");
     assertEquals ("<a>foobar</a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing the forbidden CDATA end marker
     e = new MicroElement ("a");
-    e.appendCDATA ("a]]>b");
+    e.addCDATA ("a]]>b");
     assertEquals ("<a>a]]&gt;b</a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing more than one forbidden CDATA end marker
     e = new MicroElement ("a");
-    e.appendCDATA ("a]]>b]]>c");
+    e.addCDATA ("a]]>b]]>c");
     assertEquals ("<a>a]]&gt;b]]&gt;c</a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing a complete CDATA section
     e = new MicroElement ("a");
-    e.appendCDATA ("a<![CDATA[x]]>b");
+    e.addCDATA ("a<![CDATA[x]]>b");
     assertEquals ("<a>a&lt;![CDATA[x]]&gt;b</a>", MicroWriter.getNodeAsString (e, aSettings));
   }
 
@@ -474,7 +474,7 @@ public final class MicroWriterTest
         final String sText = "abc" + (char) i + "def";
         assertEquals (7, sText.length ());
         final IMicroDocument aDoc = new MicroDocument ();
-        aDoc.appendElement ("root").appendText (sText);
+        aDoc.appendElement ("root").addText (sText);
         final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
         final IMicroDocument aDoc2 = MicroReader.readMicroXML (sXML);
         assertNotNull ("Failed to read with byte " + i + "\n" + sXML, aDoc2);
@@ -496,7 +496,7 @@ public final class MicroWriterTest
         final String sText = "abc" + (char) i + "def";
         assertEquals (7, sText.length ());
         final IMicroDocument aDoc = new MicroDocument ();
-        aDoc.appendElement ("root").appendCDATA (sText);
+        aDoc.appendElement ("root").addCDATA (sText);
         final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
         final IMicroDocument aDoc2 = MicroReader.readMicroXML (sXML);
         assertNotNull ("Failed to read with byte " + i + "\n" + sXML, aDoc2);
@@ -525,7 +525,7 @@ public final class MicroWriterTest
         final String sText = "abc" + (char) i + "def";
         assertEquals (7, sText.length ());
         final IMicroDocument aDoc = new MicroDocument ();
-        aDoc.appendElement ("root").appendText (sText);
+        aDoc.appendElement ("root").addText (sText);
         final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
         final IMicroDocument aDoc2 = MicroReader.readMicroXML (sXML);
         assertNotNull ("Failed to read with byte " + i + "\n" + sXML, aDoc2);
@@ -554,7 +554,7 @@ public final class MicroWriterTest
         final String sText = "abc" + (char) i + "def";
         assertEquals (7, sText.length ());
         final IMicroDocument aDoc = new MicroDocument ();
-        aDoc.appendElement ("root").appendCDATA (sText);
+        aDoc.appendElement ("root").addCDATA (sText);
         final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
         final IMicroDocument aDoc2 = MicroReader.readMicroXML (sXML);
         assertNotNull ("Failed to read with byte " + i + "\n" + sXML, aDoc2);

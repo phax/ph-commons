@@ -49,7 +49,7 @@ public final class StringMicroTypeConverter implements IMicroTypeConverter <Stri
                                               @Nonnull @Nonempty final String sTagName)
   {
     final IMicroElement e = new MicroElement (sNamespaceURI, sTagName);
-    e.appendText (aObject);
+    e.addText (aObject);
     return e;
   }
 

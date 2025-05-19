@@ -143,7 +143,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
       // No event manager invocation on writing
       final SettingsMicroDocumentConverter <T> aConverter = new SettingsMicroDocumentConverter <> (m_aSettingsFactory);
       final IMicroDocument aDoc = new MicroDocument ();
-      aDoc.appendChild (aConverter.convertToMicroElement (GenericReflection.uncheckedCast (aSettings),
+      aDoc.addChild (aConverter.convertToMicroElement (GenericReflection.uncheckedCast (aSettings),
                                                           getWriteNamespaceURI (),
                                                           getWriteElementName ()));
 

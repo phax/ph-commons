@@ -210,7 +210,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
     for (final IMPLTYPE aItem : internalGetAllSortedByKey ())
-      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aItem, ELEMENT_ITEM));
+      eRoot.addChild (MicroTypeConverter.convertToMicroElement (aItem, ELEMENT_ITEM));
     return aDoc;
   }
 

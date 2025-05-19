@@ -106,8 +106,17 @@ public abstract class AbstractMicroNode implements IMicroNode
     throw new MicroException ("Cannot insert children in class " + getClass ().getName ());
   }
 
+  /**
+   * @deprecated Use {@link #addChild(NODETYPE)} instead
+   */
   @Nullable
   public final <NODETYPE extends IMicroNode> NODETYPE appendChild (@Nullable final NODETYPE aChildNode)
+  {
+    return addChild (aChildNode);
+  }
+
+  @Nullable
+  public final <NODETYPE extends IMicroNode> NODETYPE addChild (@Nullable final NODETYPE aChildNode)
   {
     if (aChildNode != null)
       onAppendChild ((AbstractMicroNode) aChildNode);

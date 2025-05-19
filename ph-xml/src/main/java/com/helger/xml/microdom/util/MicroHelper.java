@@ -68,13 +68,13 @@ public final class MicroHelper
       if (aChild instanceof final IMicroNode aChildNode)
       {
         // directly append Node
-        aSrcNode.appendChild (aChildNode);
+        aSrcNode.addChild (aChildNode);
       }
       else
         if (aChild instanceof final String sChild)
         {
           // append a string node
-          aSrcNode.appendText (sChild);
+          aSrcNode.addText (sChild);
         }
         else
           if (aChild instanceof final Iterable <?> aChildList)
@@ -219,7 +219,7 @@ public final class MicroHelper
     }
 
     // handle children recursively (works for different node types)
-    XMLHelper.iterateChildren (aNode, x -> ret.appendChild (convertToMicroNode (x)));
+    XMLHelper.iterateChildren (aNode, x -> ret.addChild (convertToMicroNode (x)));
 
     return ret;
   }
@@ -376,7 +376,7 @@ public final class MicroHelper
   public static IMicroContainer getAllChildrenAsContainer (@Nonnull final IMicroNode aParent)
   {
     final IMicroContainer ret = new MicroContainer ();
-    aParent.forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
+    aParent.forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
     return ret;
   }
 
@@ -395,7 +395,7 @@ public final class MicroHelper
   public static IMicroContainer getAllOriginalChildrenAsContainer (@Nonnull final IMicroNode aParent)
   {
     final IMicroContainer ret = new MicroContainer ();
-    aParent.forAllChildren (aChildNode -> ret.appendChild (aChildNode.detachFromParent ()));
+    aParent.forAllChildren (aChildNode -> ret.addChild (aChildNode.detachFromParent ()));
     return ret;
   }
 }

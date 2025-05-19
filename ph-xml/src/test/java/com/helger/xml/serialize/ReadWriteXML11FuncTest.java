@@ -56,7 +56,7 @@ public final class ReadWriteXML11FuncTest
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eMain = aDoc.appendElement ("main_tag");
     for (int i = 0; i < nElementCount; ++i)
-      eMain.appendElement ("test").appendText (StringHelper.getLeadingZero (i, 4));
+      eMain.appendElement ("test").addText (StringHelper.getLeadingZero (i, 4));
 
     assertTrue (MicroWriter.writeToFile (aDoc, new File (sFilename), XWS_11).isSuccess ());
   }

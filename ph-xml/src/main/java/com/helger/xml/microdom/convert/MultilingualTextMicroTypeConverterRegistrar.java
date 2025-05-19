@@ -59,7 +59,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
       {
         final IMicroElement eText = eMText.appendElement (sNamespaceURI, ELEMENT_TEXT);
         eText.setAttribute (ATTR_LOCALE, aEntry.getKey ().toString ());
-        eText.appendText (aEntry.getValue ());
+        eText.addText (aEntry.getValue ());
       }
       return eMText;
     }

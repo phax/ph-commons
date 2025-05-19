@@ -86,7 +86,7 @@ public final class MicroEventTest
       eRoot.appendElement ("root_element");
       assertEquals (2, aIEL.getInvocationCount ());
       // Simple create a text node
-      eRoot.appendText ("My Text node");
+      eRoot.addText ("My Text node");
       assertEquals (3, aIEL.getInvocationCount ());
     }
     finally
@@ -143,7 +143,7 @@ public final class MicroEventTest
       assertEquals (0, aIEL.getInvocationCount ());
       eRoot = aDoc.appendElement ("root_element");
       final IMicroNode aNode1 = eRoot.appendElement ("root_element");
-      final IMicroNode aNode2 = eRoot.appendText ("My Text node");
+      final IMicroNode aNode2 = eRoot.addText ("My Text node");
 
       // Only insertions so far
       assertEquals (0, aIEL.getInvocationCount ());
@@ -162,8 +162,8 @@ public final class MicroEventTest
 
       // Rebuild and than remove all at once
       eRoot.appendElement ("root_element");
-      eRoot.appendText ("My Text node");
-      eRoot.appendElement ("a").appendElement ("b").appendText ("c");
+      eRoot.addText ("My Text node");
+      eRoot.appendElement ("a").appendElement ("b").addText ("c");
       assertEquals (3, eRoot.getChildCount ());
       eRoot.removeAllChildren ();
       assertEquals (2 + 3, aIEL.getInvocationCount ());
@@ -177,8 +177,8 @@ public final class MicroEventTest
     // Rebuild and than remove all at once again - no events triggered because
     // event listener was removed
     eRoot.appendElement ("root_element");
-    eRoot.appendText ("My Text node");
-    eRoot.appendElement ("a").appendElement ("b").appendText ("c");
+    eRoot.addText ("My Text node");
+    eRoot.appendElement ("a").appendElement ("b").addText ("c");
     assertEquals (3, eRoot.getChildCount ());
     eRoot.removeAllChildren ();
     assertEquals (2 + 3, aIEL.getInvocationCount ());

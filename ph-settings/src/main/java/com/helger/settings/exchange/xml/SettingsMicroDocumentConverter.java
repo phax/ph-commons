@@ -79,7 +79,7 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
       else
       {
         final String sValue = TypeConverter.convert (aValue, String.class);
-        eSetting.appendText (sValue);
+        eSetting.addText (sValue);
       }
     }
     return eRoot;

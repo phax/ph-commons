@@ -110,7 +110,7 @@ public final class MicroProcessingInstructionTest
     try
     {
       // Cannot add any child to a comment
-      e.appendChild (new MicroProcessingInstruction ("other"));
+      e.addChild (new MicroProcessingInstruction ("other"));
       fail ();
     }
     catch (final MicroException ex)

@@ -231,12 +231,23 @@ public class JsonValue implements IJsonValue
     return create (Long.valueOf (nValue));
   }
 
+  /**
+   * Create a plain JSON value from the passed object. This will never be an array or an object.
+   *
+   * @param aValue
+   *        The source value
+   * @return the {@link JsonValue}
+   */
   @Nonnull
   public static JsonValue create (@Nullable final Object aValue)
   {
     // Special null constant
     if (aValue == null)
       return NULL;
+
+    if (aValue instanceof final JsonValue aJson)
+      return aJson;
+
     // Special true/false
     if (aValue == Boolean.TRUE)
       return TRUE;

@@ -140,7 +140,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   {
     final IMicroElement eRet = new MicroElement ("threadlist");
     if (StringHelper.hasText (m_sError))
-      eRet.appendElement ("error").appendText (m_sError);
+      eRet.appendElement ("error").addText (m_sError);
 
     // Overall thread count
     eRet.setAttribute ("threadcount", m_aList.size ());
@@ -156,11 +156,11 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
       eThreadState.setAttribute ("id", eState.toString ());
       eThreadState.setAttribute ("threadcount", nSize);
       if (nSize > 0)
-        eThreadState.appendText (StringHelper.getImploded (',', aThreadIDs));
+        eThreadState.addText (StringHelper.getImploded (',', aThreadIDs));
     }
     // Append all stack traces at the end
     for (final ThreadDescriptor aDescriptor : m_aList)
-      eRet.appendChild (aDescriptor.getAsMicroNode ());
+      eRet.addChild (aDescriptor.getAsMicroNode ());
     return eRet;
   }
 

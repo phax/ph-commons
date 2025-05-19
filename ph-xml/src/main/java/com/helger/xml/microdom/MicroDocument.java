@@ -41,7 +41,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   public MicroDocument (@Nullable final IMicroDocumentType aDocType)
   {
     if (aDocType != null)
-      appendChild (aDocType);
+      addChild (aDocType);
   }
 
   @Nonnull
@@ -118,7 +118,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   {
     final MicroDocument ret = new MicroDocument ();
     ret.setStandalone (m_eStandalone);
-    forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
+    forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
     return ret;
   }
 

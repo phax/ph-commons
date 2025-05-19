@@ -35,7 +35,7 @@ public final class MockHasNameConverter implements IConverterTreeXML <MockHasNam
   {
     final IMicroElement eName = eDataElement.appendElement (getNamespaceURI (), "name");
     if (aAnyName != null)
-      eName.appendText (aAnyName.getName ());
+      eName.addText (aAnyName.getName ());
   }
 
   @Nonnull

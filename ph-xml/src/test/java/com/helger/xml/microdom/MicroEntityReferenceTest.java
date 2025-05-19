@@ -92,7 +92,7 @@ public final class MicroEntityReferenceTest
     try
     {
       // Cannot add any child to a comment
-      e.appendChild (new MicroEntityReference ("other"));
+      e.addChild (new MicroEntityReference ("other"));
       fail ();
     }
     catch (final MicroException ex)

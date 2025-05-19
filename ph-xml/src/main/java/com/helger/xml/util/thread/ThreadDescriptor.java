@@ -201,7 +201,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
       eRet.setAttribute ("state", m_eState.toString ());
     eRet.setAttribute ("priority", m_nPriority);
     eRet.setAttribute ("threadgroup", m_sThreadGroup);
-    eRet.appendElement ("stacktrace").appendText (getStackTraceNotNull ());
+    eRet.appendElement ("stacktrace").addText (getStackTraceNotNull ());
     if (m_aThreadInfo != null)
     {
       final IMicroElement eThreadInfo = eRet.appendElement ("threadinfo");
@@ -238,7 +238,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
       }
       catch (final Exception ex)
       {
-        eThreadInfo.setAttribute ("error", ex.getMessage ()).appendText (StackTraceHelper.getStackAsString (ex));
+        eThreadInfo.setAttribute ("error", ex.getMessage ()).addText (StackTraceHelper.getStackAsString (ex));
       }
     }
     return eRet;
