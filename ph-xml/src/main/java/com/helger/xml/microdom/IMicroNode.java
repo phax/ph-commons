@@ -36,7 +36,8 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
- * This is the base interface for all kind of nodes in the micro document object model.
+ * This is the base interface for all kind of nodes in the micro document object
+ * model.
  *
  * @author Philip Helger
  */
@@ -47,17 +48,17 @@ public interface IMicroNode extends
                             IHasParent <IMicroNode>
 {
   /**
-   * @return Just an abstract name that depends on the implementing class. For {@link IMicroElement}
-   *         nodes this is the same as the tag name.
+   * @return Just an abstract name that depends on the implementing class. For
+   *         {@link IMicroElement} nodes this is the same as the tag name.
    */
   @Nonnull
   @Nonempty
   String getNodeName ();
 
   /**
-   * @return The value of this node. This depends on the concrete implementation class. It is
-   *         currently implemented for {@link IMicroText}, {@link IMicroComment} and
-   *         {@link IMicroEntityReference}.
+   * @return The value of this node. This depends on the concrete implementation
+   *         class. It is currently implemented for {@link IMicroText},
+   *         {@link IMicroComment} and {@link IMicroEntityReference}.
    */
   default String getNodeValue ()
   {
@@ -76,9 +77,10 @@ public interface IMicroNode extends
    * Check if any direct child matching the provided filter is contained.
    *
    * @param aFilter
-   *        The filter that is applied to all child nodes. May not be <code>null</code>.
-   * @return <code>true</code> if any child matching the provided filter is contained,
-   *         <code>false</code> otherwise.
+   *        The filter that is applied to all child nodes. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if any child matching the provided filter is
+   *         contained, <code>false</code> otherwise.
    */
   default boolean containsAnyChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
   {
@@ -89,25 +91,27 @@ public interface IMicroNode extends
   }
 
   /**
-   * @return The first child node of this node, or <code>null</code> if this node has no children.
+   * @return The first child node of this node, or <code>null</code> if this
+   *         node has no children.
    */
   @Override
   @Nullable
   IMicroNode getFirstChild ();
 
   /**
-   * @return The last child node of this node, or <code>null</code> if this node has no children.
+   * @return The last child node of this node, or <code>null</code> if this node
+   *         has no children.
    */
   @Override
   @Nullable
   IMicroNode getLastChild ();
 
   /**
-   * Recursively get all children. Micro container are contained in this list (incl. their children
-   * of course)
+   * Recursively get all children. Micro container are contained in this list
+   * (incl. their children of course)
    *
-   * @return A list containing all recursively contained child elements. May be <code>null</code> if
-   *         this node has no children.
+   * @return A list containing all recursively contained child elements. May be
+   *         <code>null</code> if this node has no children.
    */
   @Nullable
   default ICommonsList <IMicroNode> getAllChildrenRecursive ()
@@ -121,22 +125,22 @@ public interface IMicroNode extends
   }
 
   /**
-   * @return The previous node on the same level as this node, or <code>null</code> if this node has
-   *         no preceding siblings.
+   * @return The previous node on the same level as this node, or
+   *         <code>null</code> if this node has no preceding siblings.
    */
   @Nullable
   IMicroNode getPreviousSibling ();
 
   /**
-   * @return The next node on the same level as this node, or <code>null</code> if this node has no
-   *         succeeding siblings.
+   * @return The next node on the same level as this node, or <code>null</code>
+   *         if this node has no succeeding siblings.
    */
   @Nullable
   IMicroNode getNextSibling ();
 
   /**
-   * @return <code>true</code> if this node has a parent node assigned, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this node has a parent node assigned,
+   *         <code>false</code> otherwise.
    */
   @Override
   boolean hasParent ();
@@ -148,9 +152,10 @@ public interface IMicroNode extends
   IMicroNode getParent ();
 
   /**
-   * Detach this node from the parent node so it can be inserted into another node without problems.
-   * Otherwise you would get an {@link IllegalStateException} if adding this node again to another
-   * parent since each node can only have one parent.
+   * Detach this node from the parent node so it can be inserted into another
+   * node without problems. Otherwise you would get an
+   * {@link IllegalStateException} if adding this node again to another parent
+   * since each node can only have one parent.
    *
    * @return this
    */
@@ -179,7 +184,8 @@ public interface IMicroNode extends
    *        Parameter type == return type
    * @param aChildNode
    *        The child node to append. May be <code>null</code>.
-   * @return The appended node, or <code>null</code> if the parameter was <code>null</code>.
+   * @return The appended node, or <code>null</code> if the parameter was
+   *         <code>null</code>.
    * @throws MicroException
    *         if this node cannot have children
    * @deprecated Use {@link #addChild(IMicroNode)} instead
@@ -198,7 +204,8 @@ public interface IMicroNode extends
    *        Parameter type == return type
    * @param aChildNode
    *        The child node to append. May be <code>null</code>.
-   * @return The appended node, or <code>null</code> if the parameter was <code>null</code>.
+   * @return The appended node, or <code>null</code> if the parameter was
+   *         <code>null</code>.
    * @throws MicroException
    *         if this node cannot have children
    */
@@ -209,8 +216,8 @@ public interface IMicroNode extends
    * Append multiple children to the node at once.
    *
    * @param aChildren
-   *        The child nodes to be appended. May be <code>null</code> and may contain
-   *        <code>null</code> values.
+   *        The child nodes to be appended. May be <code>null</code> and may
+   *        contain <code>null</code> values.
    * @throws MicroException
    *         if this node cannot have children
    * @since 9.0.3
@@ -226,8 +233,8 @@ public interface IMicroNode extends
    * Append multiple children to the node at once.
    *
    * @param aChildren
-   *        The child nodes to be appended. May be <code>null</code> and may contain
-   *        <code>null</code> values.
+   *        The child nodes to be appended. May be <code>null</code> and may
+   *        contain <code>null</code> values.
    * @throws MicroException
    *         if this node cannot have children
    * @since 9.0.3
@@ -243,12 +250,12 @@ public interface IMicroNode extends
    * Append multiple children to the node at once.
    *
    * @param aChildren
-   *        The child nodes to be appended. May be <code>null</code> and may contain
-   *        <code>null</code> values.
+   *        The child nodes to be appended. May be <code>null</code> and may
+   *        contain <code>null</code> values.
    * @throws MicroException
    *         if this node cannot have children
    * @since 9.0.3
-   * @deprecated Use {@link #addChildren(Iterable<? extends IMicroNode>)} instead
+   * @deprecated Use {@link #addChildren(Iterable)} instead
    */
   @Deprecated
   default void appendChildren (@Nullable final Iterable <? extends IMicroNode> aChildren)
@@ -260,8 +267,8 @@ public interface IMicroNode extends
    * Append multiple children to the node at once.
    *
    * @param aChildren
-   *        The child nodes to be appended. May be <code>null</code> and may contain
-   *        <code>null</code> values.
+   *        The child nodes to be appended. May be <code>null</code> and may
+   *        contain <code>null</code> values.
    * @throws MicroException
    *         if this node cannot have children
    * @since 9.0.3
@@ -493,7 +500,8 @@ public interface IMicroNode extends
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt; 0.
+   *        Offset into the array where to start copying data. May not be &lt;
+   *        0.
    * @param nLen
    *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created text node.
@@ -516,7 +524,8 @@ public interface IMicroNode extends
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt; 0.
+   *        Offset into the array where to start copying data. May not be &lt;
+   *        0.
    * @param nLen
    *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created text node.
@@ -530,9 +539,9 @@ public interface IMicroNode extends
   }
 
   /**
-   * Append a text node to this node. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * Append a text node to this node. If the type of the value is not
+   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * invoked to convert it to a {@link String} object.
    *
    * @param aValue
    *        text to be added
@@ -549,9 +558,9 @@ public interface IMicroNode extends
   }
 
   /**
-   * Append a text node to this node. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * Append a text node to this node. If the type of the value is not
+   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * invoked to convert it to a {@link String} object.
    *
    * @param aValue
    *        text to be added
@@ -637,7 +646,8 @@ public interface IMicroNode extends
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt; 0.
+   *        Offset into the array where to start copying data. May not be &lt;
+   *        0.
    * @param nLen
    *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created text node.
@@ -660,7 +670,8 @@ public interface IMicroNode extends
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt; 0.
+   *        Offset into the array where to start copying data. May not be &lt;
+   *        0.
    * @param nLen
    *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created text node.
@@ -745,7 +756,8 @@ public interface IMicroNode extends
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt; 0.
+   *        Offset into the array where to start copying data. May not be &lt;
+   *        0.
    * @param nLen
    *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created CDATA node.
@@ -768,7 +780,8 @@ public interface IMicroNode extends
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt; 0.
+   *        Offset into the array where to start copying data. May not be &lt;
+   *        0.
    * @param nLen
    *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created CDATA node.
@@ -782,9 +795,9 @@ public interface IMicroNode extends
   }
 
   /**
-   * Append a CDATA node to this node. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * Append a CDATA node to this node. If the type of the value is not
+   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * invoked to convert it to a {@link String} object.
    *
    * @param aValue
    *        CDATA to be added
@@ -801,9 +814,9 @@ public interface IMicroNode extends
   }
 
   /**
-   * Append a CDATA node to this node. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * Append a CDATA node to this node. If the type of the value is not
+   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * invoked to convert it to a {@link String} object.
    *
    * @param aValue
    *        CDATA to be added
@@ -889,7 +902,8 @@ public interface IMicroNode extends
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt; 0.
+   *        Offset into the array where to start copying data. May not be &lt;
+   *        0.
    * @param nLen
    *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created comment.
@@ -912,7 +926,8 @@ public interface IMicroNode extends
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt; 0.
+   *        Offset into the array where to start copying data. May not be &lt;
+   *        0.
    * @param nLen
    *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created comment.
@@ -928,9 +943,9 @@ public interface IMicroNode extends
   }
 
   /**
-   * Append a comment node to this node. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * Append a comment node to this node. If the type of the value is not
+   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * invoked to convert it to a {@link String} object.
    *
    * @param aValue
    *        Comment to be added
@@ -947,9 +962,9 @@ public interface IMicroNode extends
   }
 
   /**
-   * Append a comment node to this node. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * Append a comment node to this node. If the type of the value is not
+   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * invoked to convert it to a {@link String} object.
    *
    * @param aValue
    *        Comment to be added
@@ -1001,7 +1016,8 @@ public interface IMicroNode extends
    * Append an element without namespace to this node.
    *
    * @param sTagName
-   *        Element name to be created. May neither be <code>null</code> nor empty.
+   *        Element name to be created. May neither be <code>null</code> nor
+   *        empty.
    * @return The created element
    * @throws MicroException
    *         if this node cannot have children
@@ -1018,7 +1034,8 @@ public interface IMicroNode extends
    * Append an element without namespace to this node.
    *
    * @param sTagName
-   *        Element name to be created. May neither be <code>null</code> nor empty.
+   *        Element name to be created. May neither be <code>null</code> nor
+   *        empty.
    * @return The created element
    * @throws MicroException
    *         if this node cannot have children
@@ -1035,7 +1052,8 @@ public interface IMicroNode extends
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
    * @param sTagName
-   *        Element name to be created. May neither be <code>null</code> nor empty.
+   *        Element name to be created. May neither be <code>null</code> nor
+   *        empty.
    * @return The created element
    * @throws MicroException
    *         if this node cannot have children
@@ -1054,7 +1072,8 @@ public interface IMicroNode extends
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
    * @param sTagName
-   *        Element name to be created. May neither be <code>null</code> nor empty.
+   *        Element name to be created. May neither be <code>null</code> nor
+   *        empty.
    * @return The created element
    * @throws MicroException
    *         if this node cannot have children
@@ -1147,8 +1166,8 @@ public interface IMicroNode extends
    *
    * @param nIndex
    *        The 0-based index of the item to be removed.
-   * @return {@link EChange#CHANGED} if the node was successfully removed, {@link EChange#UNCHANGED}
-   *         otherwise.
+   * @return {@link EChange#CHANGED} if the node was successfully removed,
+   *         {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
   EChange removeChildAtIndex (@Nonnegative int nIndex);
@@ -1156,8 +1175,8 @@ public interface IMicroNode extends
   /**
    * Remove all children from this node.
    *
-   * @return {@link EChange#CHANGED} if at least one child was present, and was successfully
-   *         removed, {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if at least one child was present, and was
+   *         successfully removed, {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
   EChange removeAllChildren ();
@@ -1192,37 +1211,44 @@ public interface IMicroNode extends
   EMicroNodeType getType ();
 
   /**
-   * @return <code>true</code> if this node can safely be casted to {@link IMicroDocument}.
+   * @return <code>true</code> if this node can safely be casted to
+   *         {@link IMicroDocument}.
    */
   boolean isDocument ();
 
   /**
-   * @return <code>true</code> if this node can safely be casted to {@link IMicroDocumentType}.
+   * @return <code>true</code> if this node can safely be casted to
+   *         {@link IMicroDocumentType}.
    */
   boolean isDocumentType ();
 
   /**
-   * @return <code>true</code> if this node can safely be casted to {@link IMicroText}.
+   * @return <code>true</code> if this node can safely be casted to
+   *         {@link IMicroText}.
    */
   boolean isText ();
 
   /**
-   * @return <code>true</code> if this node can safely be casted to {@link IMicroCDATA}.
+   * @return <code>true</code> if this node can safely be casted to
+   *         {@link IMicroCDATA}.
    */
   boolean isCDATA ();
 
   /**
-   * @return <code>true</code> if this node can safely be casted to {@link IMicroComment}.
+   * @return <code>true</code> if this node can safely be casted to
+   *         {@link IMicroComment}.
    */
   boolean isComment ();
 
   /**
-   * @return <code>true</code> if this node can safely be casted to {@link IMicroEntityReference}.
+   * @return <code>true</code> if this node can safely be casted to
+   *         {@link IMicroEntityReference}.
    */
   boolean isEntityReference ();
 
   /**
-   * @return <code>true</code> if this node can safely be casted to {@link IMicroElement}.
+   * @return <code>true</code> if this node can safely be casted to
+   *         {@link IMicroElement}.
    */
   boolean isElement ();
 
@@ -1233,20 +1259,21 @@ public interface IMicroNode extends
   boolean isProcessingInstruction ();
 
   /**
-   * @return <code>true</code> if this node can safely be casted to {@link IMicroContainer}.
+   * @return <code>true</code> if this node can safely be casted to
+   *         {@link IMicroContainer}.
    */
   boolean isContainer ();
 
   /**
-   * Register a specific MicroDOM event listener. One event listener can only be attached once to an
-   * event!
+   * Register a specific MicroDOM event listener. One event listener can only be
+   * attached once to an event!
    *
    * @param eEventType
    *        The event type. May not be <code>null</code>.
    * @param aTarget
    *        The event target to be added. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the event listener was registered, {@link EChange#UNCHANGED}
-   *         otherwise.
+   * @return {@link EChange#CHANGED} if the event listener was registered,
+   *         {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
   EChange registerEventTarget (@Nonnull EMicroEvent eEventType, @Nonnull IMicroEventTarget aTarget);
@@ -1283,13 +1310,13 @@ public interface IMicroNode extends
   CallbackList <IMicroEventTarget> getAllEventTargets (@Nullable EMicroEvent eEvent);
 
   /**
-   * As instances of this class may not implement equals/hashCode we need a way to determine, if 2
-   * nodes are equal by content.
+   * As instances of this class may not implement equals/hashCode we need a way
+   * to determine, if 2 nodes are equal by content.
    *
    * @param aNode
    *        The node to compare to this.
-   * @return <code>true</code> if the nodes are of the same type and the same content,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the nodes are of the same type and the same
+   *         content, <code>false</code> otherwise.
    */
   boolean isEqualContent (@Nullable IMicroNode aNode);
 }
