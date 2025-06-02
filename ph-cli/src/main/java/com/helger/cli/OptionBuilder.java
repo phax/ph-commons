@@ -54,8 +54,8 @@ public class OptionBuilder implements IBuilder <Option>
   int m_nMaxArgs = 0;
 
   /**
-   * the name of the argument for this option. Makes only sense, if minArgs
-   * &gt; 0
+   * the name of the argument for this option. Makes only sense, if minArgs &gt;
+   * 0
    */
   String m_sArgName;
 
@@ -72,8 +72,8 @@ public class OptionBuilder implements IBuilder <Option>
   char m_cValueSep = Option.DEFAULT_VALUE_SEPARATOR;
 
   /**
-   * Constructs a new <code>Builder</code> with the minimum required
-   * parameters for an <code>Option</code> instance.
+   * Constructs a new <code>Builder</code> with the minimum required parameters
+   * for an <code>Option</code> instance.
    *
    * @param sShortOpt
    *        short representation of the option
@@ -116,9 +116,9 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Set the minimum number of arguments that must be present. By default it
-   * is 0. This is the number of required arguments. If the option is
-   * repeatable, this value is per occurrence.
+   * Set the minimum number of arguments that must be present. By default it is
+   * 0. This is the number of required arguments. If the option is repeatable,
+   * this value is per occurrence.
    *
    * @param nMinArgs
    *        Number of minimum arguments. Must be &ge; 0.
@@ -139,14 +139,15 @@ public class OptionBuilder implements IBuilder <Option>
    *
    * @param nMaxArgs
    *        Number of maximum arguments. Must be &ge; 0 or
-   *        {@link #INFINITE_VALUES}
+   *        {@link Option#INFINITE_VALUES}
    * @return this for chaining
    * @see #maxArgsInfinite()
    */
   @Nonnull
   public OptionBuilder maxArgs (final int nMaxArgs)
   {
-    ValueEnforcer.isTrue (nMaxArgs == Option.INFINITE_VALUES || nMaxArgs >= 0, () -> "MaxArgs must be " + Option.INFINITE_VALUES + " or >= 0!");
+    ValueEnforcer.isTrue (nMaxArgs == Option.INFINITE_VALUES || nMaxArgs >= 0,
+                          () -> "MaxArgs must be " + Option.INFINITE_VALUES + " or >= 0!");
     m_nMaxArgs = nMaxArgs;
     return this;
   }
@@ -171,7 +172,7 @@ public class OptionBuilder implements IBuilder <Option>
    *        Number of minimum arguments. Must be &ge; 0.
    * @param nMaxArgs
    *        Number of maximum arguments. Must be &ge; 0 or
-   *        {@link #INFINITE_VALUES}
+   *        {@link Option#INFINITE_VALUES}
    * @return this for chaining
    * @see #minArgs(int)
    * @see #maxArgs(int)
@@ -184,9 +185,9 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Shortcut for setting minArgs and maxArgs to the same value, making this
-   * the number of required arguments. If the option is repeatable, this value
-   * is per occurrence.
+   * Shortcut for setting minArgs and maxArgs to the same value, making this the
+   * number of required arguments. If the option is repeatable, this value is
+   * per occurrence.
    *
    * @param nArgs
    *        Number of arguments. Must be &ge; 0.
@@ -202,8 +203,8 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Sets the display name for the argument value. May only be used if at
-   * least one argument is present.
+   * Sets the display name for the argument value. May only be used if at least
+   * one argument is present.
    *
    * @param sArgName
    *        the display name for the argument value.
@@ -237,8 +238,8 @@ public class OptionBuilder implements IBuilder <Option>
    * Mark this option as repeatable or not. By default it is not repeatable.
    *
    * @param bRepeatable
-   *        <code>true</code> if this option can be repeated,
-   *        <code>false</code> if not.
+   *        <code>true</code> if this option can be repeated, <code>false</code>
+   *        if not.
    * @return this builder, to allow method chaining
    */
   @Nonnull
@@ -280,7 +281,8 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Constructs an Option with the values declared by this {@link OptionBuilder}.
+   * Constructs an Option with the values declared by this
+   * {@link OptionBuilder}.
    *
    * @return the new {@link Option}
    * @throws IllegalArgumentException
