@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.state.ESuccess;
@@ -33,6 +33,7 @@ import com.helger.commons.state.ESuccess;
  * @author Philip Helger
  */
 @Immutable
+@ThreadSafe
 public final class ThreadHelper
 {
   private ThreadHelper ()
@@ -43,8 +44,8 @@ public final class ThreadHelper
    *
    * @param nMinutes
    *        The minutes to sleep. Must be &ge; 0.
-   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
-   *         {@link ESuccess#FAILURE} if sleeping was interrupted
+   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
+   *         sleeping was interrupted
    */
   @Nonnull
   public static ESuccess sleepMinutes (@Nonnegative final long nMinutes)
@@ -58,8 +59,8 @@ public final class ThreadHelper
    *
    * @param nSeconds
    *        The seconds to sleep. Must be &ge; 0.
-   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
-   *         {@link ESuccess#FAILURE} if sleeping was interrupted
+   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
+   *         sleeping was interrupted
    */
   @Nonnull
   public static ESuccess sleepSeconds (@Nonnegative final long nSeconds)
@@ -73,8 +74,8 @@ public final class ThreadHelper
    *
    * @param aDuration
    *        The time value to use. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
-   *         {@link ESuccess#FAILURE} if sleeping was interrupted
+   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
+   *         sleeping was interrupted
    */
   @Nonnull
   public static ESuccess sleep (@Nonnull final Duration aDuration)
@@ -90,8 +91,8 @@ public final class ThreadHelper
    *        The duration to sleep. Must be &ge; 0.
    * @param aTimeUnit
    *        The time unit to use. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
-   *         {@link ESuccess#FAILURE} if sleeping was interrupted
+   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
+   *         sleeping was interrupted
    */
   @Nonnull
   public static ESuccess sleep (@Nonnegative final long nDuration, @Nonnull final TimeUnit aTimeUnit)
@@ -107,13 +108,15 @@ public final class ThreadHelper
    *
    * @param nMilliseconds
    *        The milliseconds to sleep. Must be &ge; 0.
-   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
-   *         {@link ESuccess#FAILURE} if sleeping was interrupted
+   * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
+   *         sleeping was interrupted
    */
   @Nonnull
   public static ESuccess sleep (@Nonnegative final long nMilliseconds)
   {
     ValueEnforcer.isGE0 (nMilliseconds, "MilliSeconds");
+    // ValueEnforcer.isLE (nMilliseconds, Long.MAX_VALUE / 2, "MilliSeconds must not exceed
+    // Long.MAX_VALUE/2");
 
     try
     {
