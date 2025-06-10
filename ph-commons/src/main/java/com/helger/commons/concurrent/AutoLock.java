@@ -39,7 +39,7 @@ public class AutoLock implements AutoCloseable
     m_aLock.lock ();
   }
 
-  public void close () throws Exception
+  public void close ()
   {
     m_aLock.unlock ();
   }
