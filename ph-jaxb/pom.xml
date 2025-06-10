@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.6-SNAPSHOT</version>
+    <version>11.2.6</version>
   </parent>
   <artifactId>ph-jaxb</artifactId>
   <packaging>bundle</packaging>
