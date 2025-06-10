@@ -69,7 +69,7 @@
     -->
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
-    <bc.version>1.80</bc.version>
+    <bc.version>1.81</bc.version>
     <bcpg.version>${bc.version}</bcpg.version>
     <jsr305.version>3.0.2</jsr305.version>
     <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version>
