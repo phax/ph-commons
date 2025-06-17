@@ -38,6 +38,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.charset.EUnicodeBOM;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -135,6 +137,19 @@ public final class DOMReaderTest
     {}
     // non-XML
     assertNull (DOMReader.readXMLDOM (""));
+  }
+
+  @Test
+  public void testReadXMLDOMWithBOM ()
+  {
+    byte [] aXML = "<root/>".getBytes (StandardCharsets.ISO_8859_1);
+    for (final EUnicodeBOM eBOM : EUnicodeBOM.values ())
+      if (eBOM.isSupportedByXmlReader ())
+      {
+        byte [] aXMLWithBOM = ArrayHelper.getConcatenated (eBOM.getAllBytes (), aXML);
+        Document aDoc = DOMReader.readXMLDOM (aXMLWithBOM);
+        assertNotNull ("Failed to read XML with BOM " + eBOM, aDoc);
+      }
   }
 
   /**

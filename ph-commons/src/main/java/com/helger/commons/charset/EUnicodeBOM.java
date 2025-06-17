@@ -28,13 +28,10 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.ByteArrayWrapper;
 
 /**
- * Defines the most common Byte Order Markers for Unicode encoded text files.
- * <br>
+ * Defines the most common Byte Order Markers for Unicode encoded text files. <br>
  * Source: http://de.wikipedia.org/wiki/Byte_Order_Mark<br>
- * Important: BOMS with more bytes should come first to avoid wrong detections.
- * <br>
- * Note: SCSU = A Standard Compression Scheme for Unicode:
- * http://www.unicode.org/reports/tr6/<br>
+ * Important: BOMS with more bytes should come first to avoid wrong detections. <br>
+ * Note: SCSU = A Standard Compression Scheme for Unicode: http://www.unicode.org/reports/tr6/<br>
  * Note: BOCU = Binary Ordered Compression for Unicode<br>
  *
  * @author Philip Helger
@@ -133,10 +130,9 @@ public enum EUnicodeBOM
    * Check if the passed byte array starts with this BOM's bytes.
    *
    * @param aBytes
-   *        The byte array to search for a BOM. May be <code>null</code> or
-   *        empty.
-   * @return <code>true</code> if the passed byte array starts with this BOM,
-   *         <code>false</code> otherwise.
+   *        The byte array to search for a BOM. May be <code>null</code> or empty.
+   * @return <code>true</code> if the passed byte array starts with this BOM, <code>false</code>
+   *         otherwise.
    */
   public boolean isPresent (@Nullable final byte [] aBytes)
   {
@@ -146,10 +142,9 @@ public enum EUnicodeBOM
   }
 
   /**
-   * @return The name of the charset. This may be <code>null</code> if no known
-   *         charset exists for Java. This string may be present, even if
-   *         {@link #getCharset()} returns <code>null</code>. To support e.g.
-   *         "utf-7" you need to add additional JAR files.
+   * @return The name of the charset. This may be <code>null</code> if no known charset exists for
+   *         Java. This string may be present, even if {@link #getCharset()} returns
+   *         <code>null</code>. To support e.g. "utf-7" you need to add additional JAR files.
    */
   @Nullable
   public String getCharsetName ()
@@ -158,9 +153,8 @@ public enum EUnicodeBOM
   }
 
   /**
-   * @return The charset matching this BOM. May be <code>null</code> if the
-   *         charset is not part of the Sun JDK or there is not even a defined
-   *         charset.
+   * @return The charset matching this BOM. May be <code>null</code> if the charset is not part of
+   *         the Sun JDK or there is not even a defined charset.
    */
   @Nullable
   public Charset getCharset ()
@@ -169,14 +163,41 @@ public enum EUnicodeBOM
   }
 
   /**
-   * @return <code>true</code> if this BOM has an assigned charset,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if this BOM has an assigned charset, <code>false</code> if not.
    * @see #getCharset()
    * @since 9.0.0
    */
   public boolean hasCharset ()
   {
     return m_aCharset != null;
+  }
+
+  public boolean isSupportedByXmlReader ()
+  {
+    if (true)
+      return this == BOM_UTF_8;
+    return this != BOM_UTF_32_BIG_ENDIAN &&
+           this != BOM_UTF_32_LITTLE_ENDIAN &&
+           this != BOM_UTF_7_ALT2 &&
+           this != BOM_UTF_7_ALT3 &&
+           this != BOM_UTF_7_ALT4 &&
+           this != BOM_UTF_EBCDIC &&
+           this != BOM_BOCU_1_ALT2 &&
+           this != BOM_GB_18030 &&
+           this != BOM_UTF_1 &&
+           this != BOM_BOCU_1 &&
+           this != BOM_SCSU &&
+           this != BOM_SCSU_TO_UCS &&
+           this != BOM_SCSU_W0_TO_FE80 &&
+           this != BOM_SCSU_W1_TO_FE80 &&
+           this != BOM_SCSU_W2_TO_FE80 &&
+           this != BOM_SCSU_W3_TO_FE80 &&
+           this != BOM_SCSU_W4_TO_FE80 &&
+           this != BOM_SCSU_W5_TO_FE80 &&
+           this != BOM_SCSU_W6_TO_FE80 &&
+           this != BOM_SCSU_W7_TO_FE80 &&
+           this != BOM_UTF_16_BIG_ENDIAN &&
+           this != BOM_UTF_16_LITTLE_ENDIAN;
   }
 
   /**
@@ -192,9 +213,8 @@ public enum EUnicodeBOM
    * Find the BOM that is matching the passed byte array.
    *
    * @param aBytes
-   *        The bytes to be checked for the BOM. May be <code>null</code>. To
-   *        check all BOMs, this array must have at least 4 (=
-   *        {@link #getMaximumByteCount()}) bytes.
+   *        The bytes to be checked for the BOM. May be <code>null</code>. To check all BOMs, this
+   *        array must have at least 4 (= {@link #getMaximumByteCount()}) bytes.
    * @return <code>null</code> if the passed bytes do not resemble a BOM.
    */
   @Nullable
