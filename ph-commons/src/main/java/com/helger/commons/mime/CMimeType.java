@@ -30,6 +30,9 @@ public final class CMimeType
   /** Atom XML feed. */
   public static final IMimeType APPLICATION_ATOM_XML = EMimeContentType.APPLICATION.buildMimeType ("atom+xml");
 
+  /** EDIFACT document. */
+  public static final IMimeType APPLICATION_EDIFACT = EMimeContentType.APPLICATION.buildMimeType ("edifact");
+
   /** Downloadable document. Special MimeType not used with filenames! */
   public static final IMimeType APPLICATION_FORCE_DOWNLOAD = EMimeContentType.APPLICATION.buildMimeType ("force-download");
 
@@ -166,8 +169,7 @@ public final class CMimeType
   public static final String PARAMETER_NAME_CHARSET = "charset";
 
   /**
-   * The default quoting algorithm to be used:
-   * {@link EMimeQuoting#QUOTED_STRING}
+   * The default quoting algorithm to be used: {@link EMimeQuoting#QUOTED_STRING}
    */
   public static final EMimeQuoting DEFAULT_QUOTING = EMimeQuoting.QUOTED_STRING;
 
