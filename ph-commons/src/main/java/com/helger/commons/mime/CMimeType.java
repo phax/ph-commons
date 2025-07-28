@@ -33,6 +33,9 @@ public final class CMimeType
   /** EDIFACT document. */
   public static final IMimeType APPLICATION_EDIFACT = EMimeContentType.APPLICATION.buildMimeType ("edifact");
 
+  /** X12 document. */
+  public static final IMimeType APPLICATION_EDI_X12 = EMimeContentType.APPLICATION.buildMimeType ("edi-x12");
+
   /** Downloadable document. Special MimeType not used with filenames! */
   public static final IMimeType APPLICATION_FORCE_DOWNLOAD = EMimeContentType.APPLICATION.buildMimeType ("force-download");
 
