@@ -17,9 +17,8 @@
 package com.helger.security.password.hash;
 
 /**
- * The new default implementation of {@link IPasswordHashCreator} that requires
- * a salt and uses the PBKDF2 algorithm with 1000 iterations and 48 bytes hash
- * size.
+ * The new default implementation of {@link IPasswordHashCreator} that requires a salt and uses the
+ * PBKDF2 algorithm with 1000 iterations and 48 bytes hash size.
  *
  * @author Philip Helger
  * @since 10.0.0
@@ -27,7 +26,7 @@ package com.helger.security.password.hash;
 public final class PasswordHashCreatorPBKDF2_SHA256_1000_48 extends AbstractPasswordHashCreatorPBKDF2
 {
   public static final String ALGORITHM = "PBKDF2_SHA256_1000_48";
-  public static final int PBKDF2_ITERATIONS = 1000;
+  public static final int PBKDF2_ITERATIONS = 1_000;
   public static final int HASH_BYTE_SIZE = 48;
 
   public PasswordHashCreatorPBKDF2_SHA256_1000_48 ()
