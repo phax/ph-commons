@@ -17,7 +17,6 @@
 package com.helger.security.password.salt;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
@@ -33,8 +32,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Default implementation of {@link IPasswordSalt} using
- * {@link VerySecureRandom}.
+ * Default implementation of {@link IPasswordSalt} using {@link VerySecureRandom}.
  *
  * @author Philip Helger
  */
@@ -102,12 +100,12 @@ public final class PasswordSalt implements IPasswordSalt
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("bytes#", m_aSaltBytes.length).getToString ();
+    return new ToStringGenerator (this).append ("Bytes#", m_aSaltBytes.length).getToString ();
   }
 
   /**
-   * @return A new password salt with the default length of
-   *         {@value #DEFAULT_SALT_BYTES} and random bytes.
+   * @return A new password salt with the default length of {@value #DEFAULT_SALT_BYTES} and random
+   *         bytes.
    * @since 10.1.4
    */
   @Nonnull
@@ -129,18 +127,17 @@ public final class PasswordSalt implements IPasswordSalt
   {
     ValueEnforcer.isGT0 (nSaltBytes, "SaltBytes");
     final byte [] aBytes = new byte [nSaltBytes];
-    ThreadLocalRandom.current ().nextBytes (aBytes);
+    VerySecureRandom.getInstance ().nextBytes (aBytes);
     return new PasswordSalt (aBytes);
   }
 
   /**
-   * Try to create a {@link PasswordSalt} object from the passed string. First
-   * the string is hex decoded into a byte array and this is the password salt.
+   * Try to create a {@link PasswordSalt} object from the passed string. First the string is hex
+   * decoded into a byte array and this is the password salt.
    *
    * @param sSalt
    *        The string to be used. May be <code>null</code>.
-   * @return <code>null</code> if the passed salt string is <code>null</code> or
-   *         empty.
+   * @return <code>null</code> if the passed salt string is <code>null</code> or empty.
    * @throws IllegalArgumentException
    *         if the passed salt string cannot be hex decoded.
    */
