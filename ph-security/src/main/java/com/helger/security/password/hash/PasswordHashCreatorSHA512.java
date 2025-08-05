@@ -20,24 +20,23 @@ import java.nio.charset.StandardCharsets;
 
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 import com.helger.security.password.salt.IPasswordSalt;
 
 /**
- * The default implementation of {@link IPasswordHashCreator} using unsalted
- * SHA512 hashes.
+ * The default implementation of {@link IPasswordHashCreator} using salted SHA512 hashes.
  *
  * @author Philip Helger
  */
 public final class PasswordHashCreatorSHA512 extends AbstractPasswordHashCreator
 {
-  public static final String ALGORITHM = "default";
-
   /** Hashing algorithm to use for user passwords - never change it! */
-  public static final EMessageDigestAlgorithm USER_PASSWORD_ALGO = EMessageDigestAlgorithm.SHA_512;
+  public static final EMessageDigestAlgorithm MESSAGE_DIGEST_ALGO = EMessageDigestAlgorithm.SHA_512;
+
+  /** Algorithm name. Prior to v12 this was "default" */
+  public static final String ALGORITHM = MESSAGE_DIGEST_ALGO.getAlgorithm ();
 
   public PasswordHashCreatorSHA512 ()
   {
@@ -54,7 +53,7 @@ public final class PasswordHashCreatorSHA512 extends AbstractPasswordHashCreator
   {
     ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");
 
-    return MessageDigestValue.create (sPlainTextPassword.getBytes (StandardCharsets.UTF_8), USER_PASSWORD_ALGO)
+    return MessageDigestValue.create (sPlainTextPassword.getBytes (StandardCharsets.UTF_8), MESSAGE_DIGEST_ALGO)
                              .getHexEncodedDigestString ();
   }
 }
