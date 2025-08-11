@@ -26,6 +26,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -372,6 +373,7 @@ public class JsonParser
     return (c >= 0x21 && c <= 0x7a) && c != ':';
   }
 
+  @Immutable
   private static final class TwoStrings
   {
     private final String m_sOriginal;
@@ -521,7 +523,10 @@ public class JsonParser
     // positive maximas
     long r = 0;
     while (nPos < nMax)
-      r = (r * 10L) + ('0' - s.charAt (nPos++));
+    {
+      r = (r * 10L) + ('0' - s.charAt (nPos));
+      nPos++;
+    }
 
     if (bMustCheck)
     {
