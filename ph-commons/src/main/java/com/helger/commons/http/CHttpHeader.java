@@ -45,6 +45,7 @@ public final class CHttpHeader
   public static final String DATE = "Date";
   public static final String ETAG = "ETag";
   public static final String EXPIRES = "Expires";
+  public static final String FORWARDED = "Forwarded";
   public static final String HOST = "Host";
   public static final String IF_NON_MATCH = "If-None-Match";
   public static final String IF_MATCH = "If-Match";
