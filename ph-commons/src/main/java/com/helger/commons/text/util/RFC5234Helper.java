@@ -31,18 +31,67 @@ public final class RFC5234Helper
   public static final int CHECK_RANGE_MIN_INCL = 0x00;
   public static final int CHECK_RANGE_MAX_INCL = 0x7f;
 
+  /**
+   * ALPHA = %x41-5A / %x61-7A<br>
+   * A-Z / a-z
+   */
   private static final int BIT_ALPHA = 0x0001;
+  /**
+   * BIT = "0" / "1"
+   */
   private static final int BIT_BIT = 0x0002;
+  /**
+   * CHAR = %x01-7F<br>
+   * any 7-bit US-ASCII character, excluding NUL
+   */
   private static final int BIT_CHAR = 0x0004;
+  /**
+   * CR = %x0D<br>
+   * carriage return
+   */
   private static final int BIT_CR = 0x0008;
+  /**
+   * CTL = %x00-1F / %x7F<br>
+   * controls
+   */
   private static final int BIT_CTL = 0x0010;
+  /**
+   * DIGIT = %x30-39 <br>
+   * 0-9
+   */
   private static final int BIT_DIGIT = 0x0020;
+  /**
+   * DQUOTE = %x22<br>
+   * " (Double Quote)
+   */
   private static final int BIT_DQUOTE = 0x0040;
+  /**
+   * HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+   */
   private static final int BIT_HEXDIGIT = 0x0080;
+  /**
+   * HTAB = %x09 <br>
+   * horizontal tab
+   */
   private static final int BIT_HTAB = 0x0100;
+  /**
+   * LF = %x0A<br>
+   * linefeed
+   */
   private static final int BIT_LF = 0x0200;
+  /**
+   * SP = %x20
+   */
   private static final int BIT_SP = 0x0400;
+  /**
+   * VCHAR = %x21-7E<br>
+   * visible (printing) characters
+   */
   private static final int BIT_VCHAR = 0x0800;
+  /**
+   * WSP = SP / HTAB <br>
+   * white space
+   */
   private static final int BIT_WSP = 0x1000;
 
   private static final int [] BITS = { // 0x00-0x0f
