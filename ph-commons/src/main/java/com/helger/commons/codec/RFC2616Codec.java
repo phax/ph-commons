@@ -24,12 +24,11 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.Nonnull;
 import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
-
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.text.util.ABNF;
+import com.helger.commons.text.util.RFC5234Helper;
 
 /**
- * Codec for RFC 2616 HTTP header values.
+ * Codec for RFC 2616 (HTTP/1.1) HTTP header values.
  *
  * @author Philip Helger
  * @since 9.3.6
@@ -44,8 +43,8 @@ public class RFC2616Codec implements ICharArrayCodec
 
   static
   {
-    for (int i = ABNF.CHECK_RANGE_MIN_INCL; i <= ABNF.CHECK_RANGE_MAX_INCL; ++i)
-      if (ABNF.isCtl (i) || ABNF.isSP (i) || ABNF.isHTab (i))
+    for (int i = RFC5234Helper.CHECK_RANGE_MIN_INCL; i <= RFC5234Helper.CHECK_RANGE_MAX_INCL; ++i)
+      if (RFC5234Helper.isCtl (i) || RFC5234Helper.isSP (i) || RFC5234Helper.isHTab (i))
         NON_TOKEN_RFC2616.set (i);
     NON_TOKEN_RFC2616.set ('(');
     NON_TOKEN_RFC2616.set (')');

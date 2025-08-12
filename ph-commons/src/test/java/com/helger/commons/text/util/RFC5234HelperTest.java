@@ -22,136 +22,124 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Test class for class {@link ABNF}.
+ * Test class for class {@link RFC5234Helper}.
  *
  * @author Philip Helger
  */
-public final class ABNFTest
+public final class RFC5234HelperTest
 {
   @Test
   public void testIsAlpha ()
   {
     for (int i = 'a'; i <= 'z'; ++i)
-      assertTrue (ABNF.isAlpha (i));
+      assertTrue (RFC5234Helper.isAlpha (i));
     for (int i = 'A'; i <= 'Z'; ++i)
-      assertTrue (ABNF.isAlpha (i));
-    assertFalse (ABNF.isAlpha (0));
+      assertTrue (RFC5234Helper.isAlpha (i));
+    assertFalse (RFC5234Helper.isAlpha (0));
   }
 
   @Test
   public void testIsBit ()
   {
-    assertTrue (ABNF.isBit ('0'));
-    assertTrue (ABNF.isBit ('1'));
-    assertFalse (ABNF.isBit (0));
+    assertTrue (RFC5234Helper.isBit ('0'));
+    assertTrue (RFC5234Helper.isBit ('1'));
+    assertFalse (RFC5234Helper.isBit (0));
   }
 
   @Test
   public void testIsChar ()
   {
     for (int i = 1; i <= 0x7f; ++i)
-      assertTrue (ABNF.isChar (i));
-    assertFalse (ABNF.isChar (0));
+      assertTrue (RFC5234Helper.isChar (i));
+    assertFalse (RFC5234Helper.isChar (0));
   }
 
   @Test
   public void testIsCR ()
   {
-    assertTrue (ABNF.isCR ('\r'));
-    assertFalse (ABNF.isCR (0));
+    assertTrue (RFC5234Helper.isCR ('\r'));
+    assertFalse (RFC5234Helper.isCR (0));
   }
 
   @Test
   public void testIsCtl ()
   {
     for (int i = 0; i < 0x1f; ++i)
-      assertTrue (ABNF.isCtl (i));
-    assertTrue (ABNF.isCtl (0x7f));
-    assertFalse (ABNF.isCtl (0x20));
+      assertTrue (RFC5234Helper.isCtl (i));
+    assertTrue (RFC5234Helper.isCtl (0x7f));
+    assertFalse (RFC5234Helper.isCtl (0x20));
   }
 
   @Test
   public void testIsDigit ()
   {
     for (int i = '0'; i < '9'; ++i)
-      assertTrue (ABNF.isDigit (i));
-    assertFalse (ABNF.isDigit (0));
+      assertTrue (RFC5234Helper.isDigit (i));
+    assertFalse (RFC5234Helper.isDigit (0));
   }
 
   @Test
   public void testIsDQuote ()
   {
-    assertTrue (ABNF.isDQuote ('"'));
-    assertFalse (ABNF.isDQuote (0));
+    assertTrue (RFC5234Helper.isDQuote ('"'));
+    assertFalse (RFC5234Helper.isDQuote (0));
   }
 
   @Test
   public void testIsHexDigit ()
   {
     for (int i = '0'; i < '9'; ++i)
-      assertTrue (ABNF.isHexDigit (i));
+      assertTrue (RFC5234Helper.isHexDigit (i));
     for (int i = 'A'; i < 'F'; ++i)
-      assertTrue (ABNF.isHexDigit (i));
+      assertTrue (RFC5234Helper.isHexDigit (i));
     for (int i = 'a'; i < 'f'; ++i)
-      assertFalse (ABNF.isHexDigit (i));
-    assertFalse (ABNF.isHexDigit (0));
-  }
-
-  @Test
-  public void testIsHexDigitCaseInsensitive ()
-  {
-    for (int i = '0'; i < '9'; ++i)
-      assertTrue (ABNF.isHexDigitCaseInsensitive (i));
-    for (int i = 'A'; i < 'F'; ++i)
-      assertTrue (ABNF.isHexDigitCaseInsensitive (i));
-    for (int i = 'a'; i < 'f'; ++i)
-      assertTrue (ABNF.isHexDigitCaseInsensitive (i));
-    assertFalse (ABNF.isHexDigitCaseInsensitive (0));
+      assertTrue (RFC5234Helper.isHexDigit (i));
+    assertFalse (RFC5234Helper.isHexDigit (0));
   }
 
   @Test
   public void testIsHTab ()
   {
-    assertTrue (ABNF.isHTab (0x09));
-    assertFalse (ABNF.isHTab (0));
+    assertTrue (RFC5234Helper.isHTab (0x09));
+    assertFalse (RFC5234Helper.isHTab (0));
   }
 
   @Test
   public void testIsLF ()
   {
-    assertTrue (ABNF.isLF ('\n'));
-    assertFalse (ABNF.isLF (0));
+    assertTrue (RFC5234Helper.isLF ('\n'));
+    assertFalse (RFC5234Helper.isLF (0));
   }
 
   @Test
   public void testIsOctet ()
   {
     for (int i = 0x00; i <= 0xff; ++i)
-      assertTrue (ABNF.isOctet (i));
-    assertFalse (ABNF.isOctet (-1));
-    assertFalse (ABNF.isOctet (256));
+      assertTrue (RFC5234Helper.isOctet (i));
+    assertFalse (RFC5234Helper.isOctet (-1));
+    assertFalse (RFC5234Helper.isOctet (256));
   }
 
   @Test
   public void testIsSP ()
   {
-    assertTrue (ABNF.isSP (0x20));
-    assertFalse (ABNF.isSP (0));
+    assertTrue (RFC5234Helper.isSP (0x20));
+    assertFalse (RFC5234Helper.isSP (0));
   }
 
   @Test
   public void testIsVChar ()
   {
     for (int i = 0x21; i <= 0x7e; ++i)
-      assertTrue (ABNF.isVChar (i));
-    assertFalse (ABNF.isVChar (0));
+      assertTrue (RFC5234Helper.isVChar (i));
+    assertFalse (RFC5234Helper.isVChar (0));
   }
 
   @Test
   public void testIsWSP ()
   {
-    assertTrue (ABNF.isWSP (0x09));
-    assertTrue (ABNF.isWSP (0x20));
-    assertFalse (ABNF.isWSP (0));
+    assertTrue (RFC5234Helper.isWSP (0x09));
+    assertTrue (RFC5234Helper.isWSP (0x20));
+    assertFalse (RFC5234Helper.isWSP (0));
   }
 }
