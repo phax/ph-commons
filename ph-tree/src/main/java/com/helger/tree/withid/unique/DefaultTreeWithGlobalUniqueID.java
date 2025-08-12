@@ -16,10 +16,10 @@
  */
 package com.helger.tree.withid.unique;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.tree.withid.DefaultTreeItemWithID;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A managed tree is a specialized version of the tree, where each item is

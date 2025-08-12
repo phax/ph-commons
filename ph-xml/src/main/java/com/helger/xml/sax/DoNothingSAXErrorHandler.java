@@ -16,12 +16,12 @@
  */
 package com.helger.xml.sax;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.Immutable;
-
 import org.xml.sax.SAXParseException;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.error.level.IErrorLevel;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * java.xml error handler that ignores all errors.

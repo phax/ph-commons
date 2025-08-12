@@ -20,8 +20,6 @@ import java.io.OutputStream;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -31,6 +29,9 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A resource provider chain implementation of {@link IWritableResourceProvider} .

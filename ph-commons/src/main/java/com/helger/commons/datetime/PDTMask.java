@@ -26,10 +26,10 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalQuery;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Tuple with date time pattern string and query to parse into object.

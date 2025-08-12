@@ -16,14 +16,13 @@
  */
 package com.helger.jaxb.adapter;
 
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTWebDateHelper;
 import com.helger.commons.datetime.XMLOffsetDate;
 
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**

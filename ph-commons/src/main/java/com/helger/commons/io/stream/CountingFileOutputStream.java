@@ -22,13 +22,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.io.EAppend;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link FileOutputStream} sub class that keeps track of all written

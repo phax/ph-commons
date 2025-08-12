@@ -22,8 +22,6 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -34,6 +32,9 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.json.convert.JsonConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a JSON object that is a map from String to IJson

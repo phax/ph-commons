@@ -40,7 +40,6 @@ import java.util.SortedSet;
 
 import org.junit.Test;
 
-import com.helger.annotation.Nonnull;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -60,6 +59,8 @@ import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.supplementary.tools.collection.MainCreateCollectionHelperCode2;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link CollectionHelper}

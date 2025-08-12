@@ -16,9 +16,9 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.state.ESuccess;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for a concurrent queue worker. It asynchronously collects

@@ -23,13 +23,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
-import com.helger.annotation.Nullable;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.compare.ESortOrder;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link ToStringGenerator}.

@@ -16,10 +16,10 @@
  */
 package com.helger.tree.mock;
 
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.hierarchy.IChildrenProvider;
+
+import jakarta.annotation.Nullable;
 
 public class MockChildrenProvider implements IChildrenProvider <MockHasChildren>
 {

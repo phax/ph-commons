@@ -25,14 +25,12 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.GuardedBy;
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.UsedViaReflection;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.UsedViaReflection;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -41,6 +39,8 @@ import com.helger.commons.concurrent.BasicThreadFactory;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The global write ahead logging manager that schedules future writings of a

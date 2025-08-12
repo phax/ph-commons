@@ -16,23 +16,14 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.meta.When;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public interface IMockNullableTest
 {
   void paramUndefined (String s);
 
   void paramNonnull (@Nonnull String s);
-
-  void paramNonnullAlways (@Nonnull (when = When.ALWAYS) String s);
-
-  void paramNonnullMaybe (@Nonnull (when = When.MAYBE) String s);
-
-  void paramNonnullNever (@Nonnull (when = When.NEVER) String s);
-
-  void paramNonnullUnknown (@Nonnull (when = When.UNKNOWN) String s);
 
   void paramNullable (@Nullable String s);
 }

@@ -18,14 +18,14 @@ package com.helger.xml.microdom.util;
 
 import java.util.NoSuchElementException;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.microdom.IMicroNode;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Class for recursively visiting all children of an {@link IMicroNode}. It

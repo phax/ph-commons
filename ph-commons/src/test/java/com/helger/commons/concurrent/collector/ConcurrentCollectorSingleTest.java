@@ -29,8 +29,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
-import com.helger.annotation.Nonnull;
 import com.helger.commons.state.ESuccess;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link ConcurrentCollectorSingle}.

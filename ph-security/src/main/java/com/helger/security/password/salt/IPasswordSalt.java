@@ -17,9 +17,10 @@
 package com.helger.security.password.salt;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for a password salt.

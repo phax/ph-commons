@@ -16,19 +16,20 @@
  */
 package com.helger.commons.location;
 
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.Immutable;
 import javax.xml.stream.Location;
 import javax.xml.transform.SourceLocator;
 
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.functional.Predicates;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link ILocation} interface. The implementation

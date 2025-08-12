@@ -17,13 +17,14 @@
 package com.helger.commons.hierarchy;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.id.IHasID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasSortedChildren>, IHasID <String>
 {

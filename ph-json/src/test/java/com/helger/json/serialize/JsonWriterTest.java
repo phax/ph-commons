@@ -29,8 +29,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.helger.annotation.Nullable;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
@@ -54,6 +52,8 @@ import com.helger.json.IJson;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.convert.JsonConverter;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link JsonWriter}.

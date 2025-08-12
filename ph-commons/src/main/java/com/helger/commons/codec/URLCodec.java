@@ -21,12 +21,13 @@ import java.io.OutputStream;
 import java.util.BitSet;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Encoder and decoder for URL stuff based on RFC 3986.

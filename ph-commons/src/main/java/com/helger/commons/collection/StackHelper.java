@@ -21,10 +21,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 @Immutable
 public final class StackHelper

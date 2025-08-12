@@ -16,8 +16,6 @@
  */
 package com.helger.xml.transform;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
@@ -27,6 +25,9 @@ import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.ls.SimpleLSResourceResolver;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link javax.xml.transform.URIResolver} interface using

@@ -21,8 +21,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
@@ -36,6 +34,9 @@ import com.helger.commons.lang.IExplicitlyCloneable;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.serialize.SerializationHelper;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains default test methods to test the correctness of implementations of standard

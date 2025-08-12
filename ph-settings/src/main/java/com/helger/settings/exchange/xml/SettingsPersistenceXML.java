@@ -21,8 +21,6 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.commons.ValueEnforcer;
@@ -39,6 +37,9 @@ import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special {@link ISettingsPersistence} implementation that reads and writes

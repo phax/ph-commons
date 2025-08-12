@@ -16,15 +16,12 @@
  */
 package com.helger.config.source.envvar;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.config.source.AbstractConfigurationSource;
@@ -32,6 +29,9 @@ import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.IIterableConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IConfigurationSource} for environment

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.lang;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * A marker interface for objects using {@link Cloneable} but in a more explicit

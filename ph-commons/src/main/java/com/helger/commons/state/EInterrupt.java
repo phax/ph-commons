@@ -16,7 +16,7 @@
  */
 package com.helger.commons.state;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Small enum for setter method to identify whether a value has changed or not.

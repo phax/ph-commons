@@ -18,8 +18,8 @@ package com.helger.commons.log;
 
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Conditional logger activity interface

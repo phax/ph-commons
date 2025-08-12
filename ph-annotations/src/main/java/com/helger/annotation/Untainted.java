@@ -21,7 +21,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import com.helger.annotation.meta.TypeQualifier;
 import com.helger.annotation.meta.When;
 
 /**
@@ -37,7 +36,6 @@ import com.helger.annotation.meta.When;
  * @see Tainted
  */
 @Documented
-@TypeQualifier
 @Retention (RetentionPolicy.RUNTIME)
 public @interface Untainted
 {

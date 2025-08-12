@@ -26,8 +26,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
@@ -35,6 +33,9 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.map.MapEntry;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special {@link Map} interface with extended functionality

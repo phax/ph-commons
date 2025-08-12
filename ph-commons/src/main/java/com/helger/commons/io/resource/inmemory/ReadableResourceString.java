@@ -19,11 +19,11 @@ package com.helger.commons.io.resource.inmemory;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * An in-memory {@link IReadableResource} based on a {@link String} which is converted to a byte

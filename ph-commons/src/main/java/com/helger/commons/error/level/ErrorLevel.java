@@ -18,12 +18,12 @@ package com.helger.commons.error.level;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A standalone implementation of the {@link IErrorLevel} interface.

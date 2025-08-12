@@ -16,7 +16,7 @@
  */
 package com.helger.commons.system;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Determine the current JVM (Java Virtual Machine) vendor.

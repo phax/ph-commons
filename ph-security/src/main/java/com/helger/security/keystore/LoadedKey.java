@@ -19,13 +19,13 @@ package com.helger.security.keystore;
 import java.security.KeyStore;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.util.TextHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains the result of loading the configured private key as configured in the

@@ -16,9 +16,10 @@
  */
 package com.helger.commons.io.resource;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.io.IHasInputStreamAndReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for an abstract readable resource.

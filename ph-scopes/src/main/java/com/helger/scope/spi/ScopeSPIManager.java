@@ -16,16 +16,13 @@
  */
 package com.helger.scope.spi;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.mock.IMockException;
@@ -33,6 +30,9 @@ import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.IRequestScope;
 import com.helger.scope.ISessionScope;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is an internal class, that triggers the SPI implementations registered

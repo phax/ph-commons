@@ -19,13 +19,13 @@ package com.helger.commons.text.display;
 import java.util.Locale;
 import java.util.Map;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.text.util.TextHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class MockHasDisplayText implements IHasDisplayText
 {

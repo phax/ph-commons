@@ -18,12 +18,10 @@ package com.helger.config.source.res;
 
 import java.io.File;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -32,6 +30,8 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract implementation of {@link IConfigurationSource} for file based

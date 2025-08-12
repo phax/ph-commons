@@ -18,19 +18,19 @@ package com.helger.xml.serialize.read;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.annotation.style.ReturnsMutableObject;
-
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base Read-only interface for DOM and SAX reader settings.

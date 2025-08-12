@@ -22,12 +22,12 @@ import java.io.UncheckedIOException;
 import java.nio.file.Path;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.ISuccessIndicator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a set of predefined error codes that can occur in file operations.

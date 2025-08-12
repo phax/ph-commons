@@ -19,16 +19,16 @@ package com.helger.commons.deadlock;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.CGlobal;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IStoppable;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A dead lock detection timer that checks for dead locks in a certain interval.

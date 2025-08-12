@@ -22,14 +22,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.OverridingMethodsMustInvokeSuper;
-import com.helger.annotation.style.ReturnsMutableObject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
@@ -38,6 +35,9 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A {@link Map} based implementation of {@link IMultilingualText} that does not provide writing

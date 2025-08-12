@@ -18,11 +18,12 @@ package com.helger.commons.concurrent;
 
 import java.util.concurrent.ThreadFactory;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.builder.IResettableBuilder;
 import com.helger.commons.state.ETriState;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * <p>

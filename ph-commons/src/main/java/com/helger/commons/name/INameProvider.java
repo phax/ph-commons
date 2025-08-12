@@ -16,8 +16,8 @@
  */
 package com.helger.commons.name;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for a handler the provides the name of an object.

@@ -17,9 +17,10 @@
 package com.helger.commons.io.file;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a set of predefined open modes for RandomAccessFile objects.

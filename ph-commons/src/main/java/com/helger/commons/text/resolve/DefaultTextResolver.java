@@ -18,13 +18,14 @@ package com.helger.commons.text.resolve;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.misc.Singleton;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Resolves texts either from a text provider or otherwise uses a fallback to a

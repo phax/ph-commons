@@ -17,10 +17,11 @@
 package com.helger.security.authentication.result;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Create authentication token IDs.

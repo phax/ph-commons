@@ -19,16 +19,13 @@ package com.helger.settings.exchange.configfile;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.style.ReturnsImmutableObject;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.builder.IBuilder;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -43,6 +40,9 @@ import com.helger.commons.system.SystemProperties;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Builder class for {@link ConfigFile} objects. By default this build class

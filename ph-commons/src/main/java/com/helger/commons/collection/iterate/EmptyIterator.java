@@ -20,7 +20,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.string.ToStringGenerator;
 
 /**

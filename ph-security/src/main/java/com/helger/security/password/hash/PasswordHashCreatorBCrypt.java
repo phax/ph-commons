@@ -16,12 +16,12 @@
  */
 package com.helger.security.password.hash;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.security.bcrypt.BCrypt;
 import com.helger.security.password.salt.IPasswordSalt;
 import com.helger.security.password.salt.PasswordSaltBCrypt;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The new default implementation of {@link IPasswordHashCreator} that requires

@@ -19,11 +19,11 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
-
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A {@link IJsonValueSerializer} implementation that uses "toString" to convert

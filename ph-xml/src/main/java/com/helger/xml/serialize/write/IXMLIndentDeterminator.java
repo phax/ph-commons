@@ -18,11 +18,12 @@ package com.helger.xml.serialize.write;
 
 import java.util.Map;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import javax.xml.namespace.QName;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
-import javax.xml.namespace.QName;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface used in writing XML to determine the real indentation and align (as

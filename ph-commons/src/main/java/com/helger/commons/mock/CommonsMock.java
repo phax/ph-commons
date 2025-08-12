@@ -34,8 +34,6 @@ import java.util.function.Supplier;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.CGlobal;
@@ -55,6 +53,9 @@ import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.traits.IGetterDirectTrait;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Mock objects by invoking their constructors with arbitrary objects. It

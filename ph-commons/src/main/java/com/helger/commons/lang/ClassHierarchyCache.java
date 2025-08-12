@@ -18,16 +18,14 @@ package com.helger.commons.lang;
 
 import java.lang.ref.WeakReference;
 
-import com.helger.annotation.Nonnull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
@@ -41,6 +39,8 @@ import com.helger.commons.collection.map.LRUMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A small class hierarchy cache

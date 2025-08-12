@@ -21,11 +21,12 @@ import java.util.function.IntUnaryOperator;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.IHasSize;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special int-int-primitive map. Source: https://github.com/mikvor/hashmapTest

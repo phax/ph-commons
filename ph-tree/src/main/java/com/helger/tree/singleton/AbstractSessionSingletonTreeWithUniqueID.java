@@ -16,9 +16,10 @@
  */
 package com.helger.tree.singleton;
 
-import com.helger.annotation.Nonnull;
 import com.helger.scope.singleton.AbstractSessionSingleton;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents a global singleton tree with a unique ID. It basically is a

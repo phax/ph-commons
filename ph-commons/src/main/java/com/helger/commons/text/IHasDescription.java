@@ -16,9 +16,9 @@
  */
 package com.helger.commons.text;
 
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for objects that have a locale <b>independent</b> description.

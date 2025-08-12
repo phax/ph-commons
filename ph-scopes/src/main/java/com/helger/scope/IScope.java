@@ -19,14 +19,15 @@ package com.helger.scope;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.id.IHasID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This interface is used for all the common stuff of a scope. The following types of scopes are

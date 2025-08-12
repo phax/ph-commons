@@ -17,10 +17,11 @@
 package com.helger.commons.state;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents an object that has one of 3 different states compared to a boolean

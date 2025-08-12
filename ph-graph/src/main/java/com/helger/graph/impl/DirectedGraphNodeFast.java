@@ -16,11 +16,11 @@
  */
 package com.helger.graph.impl;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hashcode.IHashCodeGenerator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link com.helger.graph.IMutableDirectedGraphNode}

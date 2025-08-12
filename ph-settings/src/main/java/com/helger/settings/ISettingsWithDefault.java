@@ -16,10 +16,10 @@
  */
 package com.helger.settings;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Read-only settings with default are a special kind of settings. The behave

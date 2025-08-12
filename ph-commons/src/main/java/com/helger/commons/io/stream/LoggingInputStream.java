@@ -19,14 +19,14 @@ package com.helger.commons.io.stream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.style.OverrideOnDemand;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around an {@link InputStream} that logs read and skip actions.

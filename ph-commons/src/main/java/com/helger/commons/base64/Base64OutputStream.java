@@ -21,12 +21,12 @@ import java.io.OutputStream;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.WrappedOutputStream;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A {@link Base64OutputStream} will write data to another

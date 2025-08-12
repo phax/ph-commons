@@ -25,14 +25,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.function.Consumer;
 
-import com.helger.annotation.CheckForSigned;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -41,6 +38,9 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.URLHelper;
 import com.helger.commons.wrapper.IMutableWrapper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link IReadableResource} interface for URL objects.

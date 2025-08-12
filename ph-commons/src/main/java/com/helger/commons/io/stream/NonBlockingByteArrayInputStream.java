@@ -19,9 +19,10 @@ package com.helger.commons.io.stream;
 import java.io.InputStream;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A non-synchronized copy of the class {@link java.io.ByteArrayInputStream}.

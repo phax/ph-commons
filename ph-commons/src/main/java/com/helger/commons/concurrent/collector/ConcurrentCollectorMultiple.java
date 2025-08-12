@@ -19,19 +19,19 @@ package com.helger.commons.concurrent.collector;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Concurrent collector that performs action on multiple objects at once

@@ -16,15 +16,12 @@
  */
 package com.helger.commons.callback.exception;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.style.OverrideOnDemand;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -32,6 +29,9 @@ import com.helger.commons.error.level.IHasErrorLevel;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.log.LogHelper;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A specific implementation of the {@link IExceptionCallback} interface, that

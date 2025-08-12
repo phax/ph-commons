@@ -20,10 +20,11 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Identical to the Base64 encoding defined by

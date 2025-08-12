@@ -18,8 +18,6 @@ package com.helger.graph.impl;
 
 import java.util.function.Consumer;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
@@ -39,6 +37,9 @@ import com.helger.graph.IMutableDirectedGraphObjectFactory;
 import com.helger.graph.IMutableDirectedGraphRelation;
 import com.helger.graph.iterate.DirectedGraphIteratorForward;
 import com.helger.matrix.Matrix;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A simple graph object that bidirectionally links graph nodes.

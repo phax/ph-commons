@@ -17,9 +17,9 @@
 package com.helger.commons.text.codepoint;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera

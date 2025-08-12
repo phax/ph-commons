@@ -17,10 +17,11 @@
 package com.helger.xml.serialize.write;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Used for creating string representation of XML. Determines whether the

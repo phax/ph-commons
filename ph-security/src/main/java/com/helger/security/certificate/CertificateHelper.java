@@ -46,8 +46,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
@@ -59,6 +57,9 @@ import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.string.StringHelper;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Some utility methods handling X.509 certificates.

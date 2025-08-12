@@ -18,15 +18,15 @@ package com.helger.commons.text.resolve;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
-
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.text.IHasText;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Resolves texts either from an override, a text provider or otherwise uses a

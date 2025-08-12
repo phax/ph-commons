@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special marker interface that is implemented by classes, that really

@@ -27,10 +27,6 @@ public final class CallNullableFuncTest
     n.paramUndefined (null);
     // FindBugs complains here:
     n.paramNonnull (null);
-    n.paramNonnullAlways (null);
-    n.paramNonnullMaybe (null);
-    n.paramNonnullNever (null);
-    n.paramNonnullUnknown (null);
   }
 
   public static void testCorrect2 ()
@@ -39,10 +35,6 @@ public final class CallNullableFuncTest
     n.paramUndefined (null);
     // FindBugs complains here:
     n.paramNonnull (null);
-    n.paramNonnullAlways (null);
-    n.paramNonnullMaybe (null);
-    n.paramNonnullNever (null);
-    n.paramNonnullUnknown (null);
   }
 
   public static void testNonNull ()
@@ -51,10 +43,6 @@ public final class CallNullableFuncTest
     n.paramUndefined (null);
     // FindBugs complains here:
     n.paramNonnull (null);
-    n.paramNonnullAlways (null);
-    n.paramNonnullMaybe (null);
-    n.paramNonnullNever (null);
-    n.paramNonnullUnknown (null);
   }
 
   public static void testNonNull2 ()
@@ -63,10 +51,6 @@ public final class CallNullableFuncTest
     n.paramUndefined (null);
     // FindBugs complains here:
     n.paramNonnull (null);
-    n.paramNonnullAlways (null);
-    n.paramNonnullMaybe (null);
-    n.paramNonnullNever (null);
-    n.paramNonnullUnknown (null);
   }
 
   public static void testNullable ()
@@ -74,10 +58,6 @@ public final class CallNullableFuncTest
     final MockNullableTestNullable n = new MockNullableTestNullable ();
     n.paramUndefined (null);
     n.paramNonnull (null);
-    n.paramNonnullAlways (null);
-    n.paramNonnullMaybe (null);
-    n.paramNonnullNever (null);
-    n.paramNonnullUnknown (null);
   }
 
   public static void testNullable2 ()
@@ -86,9 +66,5 @@ public final class CallNullableFuncTest
     n.paramUndefined (null);
     // FindBugs complains here:
     n.paramNonnull (null);
-    n.paramNonnullAlways (null);
-    n.paramNonnullMaybe (null);
-    n.paramNonnullNever (null);
-    n.paramNonnullUnknown (null);
   }
 }

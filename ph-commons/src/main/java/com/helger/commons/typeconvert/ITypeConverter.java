@@ -18,8 +18,8 @@ package com.helger.commons.typeconvert;
 
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special interface that is used to convert between values of different types.

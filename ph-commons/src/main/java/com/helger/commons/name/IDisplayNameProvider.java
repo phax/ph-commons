@@ -19,10 +19,10 @@ package com.helger.commons.name;
 import java.util.Comparator;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.compare.IComparator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for a handler the provides the locale <b>independent</b> name of an

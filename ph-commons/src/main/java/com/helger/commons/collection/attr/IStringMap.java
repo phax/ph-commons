@@ -16,9 +16,9 @@
  */
 package com.helger.commons.collection.attr;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special mutable attribute container with a String key and a String value.

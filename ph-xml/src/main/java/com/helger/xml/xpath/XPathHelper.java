@@ -16,12 +16,6 @@
  */
 package com.helger.xml.xpath;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
@@ -30,9 +24,15 @@ import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFunctionResolver;
 import javax.xml.xpath.XPathVariableResolver;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.xml.EXMLParserFeature;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility class to create {@link XPath} and {@link XPathExpression} objects

@@ -18,13 +18,14 @@ package com.helger.xml.namespace;
 
 import java.util.Iterator;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.XMLConstants;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyIterator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents an abstract namespace context that does the predefined mapping as

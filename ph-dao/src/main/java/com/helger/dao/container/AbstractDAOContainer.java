@@ -18,7 +18,6 @@ package com.helger.dao.container;
 
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.ThreadSafe;
-
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.dao.IDAO;

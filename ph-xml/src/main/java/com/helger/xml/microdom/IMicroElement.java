@@ -21,8 +21,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -31,6 +29,9 @@ import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a single element (=tag) of a document.

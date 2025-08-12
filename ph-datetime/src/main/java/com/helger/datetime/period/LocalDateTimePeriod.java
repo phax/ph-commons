@@ -18,12 +18,12 @@ package com.helger.datetime.period;
 
 import java.time.LocalDateTime;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link ILocalDateTimePeriod}.

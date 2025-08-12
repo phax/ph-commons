@@ -22,7 +22,6 @@ import java.security.MessageDigest;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -32,6 +31,8 @@ import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents a single message digest value as the combination of the algorithm

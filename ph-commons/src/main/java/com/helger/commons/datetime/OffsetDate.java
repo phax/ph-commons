@@ -52,10 +52,11 @@ import java.time.temporal.ValueRange;
 import java.time.zone.ZoneRules;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Copyright (c) 2007-present, Stephen Colebourne &amp; Michael Nascimento Santos.<br>

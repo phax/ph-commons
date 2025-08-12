@@ -18,10 +18,10 @@ package com.helger.tree;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for simple tree items

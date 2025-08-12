@@ -20,12 +20,12 @@ import java.io.File;
 import java.io.OutputStream;
 import java.net.URL;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A wrapper around a writable resource for {@link OutputStream} manipulation .

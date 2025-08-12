@@ -23,13 +23,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
- * For methods to be overridden, it indicates, that the method is locked. When
- * using read-write locks (class ReadWriteLock), please selected the matching
- * lock type. When using exclusive locks (class Lock) use the lock type
- * <code>WRITE</code>.
+ * For methods to be overridden, it indicates, that the method is locked. When using read-write
+ * locks (class ReadWriteLock), please selected the matching lock type. When using exclusive locks
+ * (class Lock) use the lock type <code>WRITE</code>.
  *
  * @author Philip Helger
  */

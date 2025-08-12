@@ -26,8 +26,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.UnaryOperator;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -40,6 +38,9 @@ import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.url.ISimpleURL;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper class to ease the use of {@link Properties} class.

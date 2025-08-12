@@ -18,18 +18,18 @@ package com.helger.xml.ls;
 
 import java.lang.ref.WeakReference;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.style.OverrideOnDemand;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.commons.lang.IHasClassLoader;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A simple LS resource resolver that can handle URLs, JAR files and file system

@@ -23,12 +23,6 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.ByteBuffer;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.WillClose;
-import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
@@ -36,6 +30,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
@@ -48,6 +46,8 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.timing.StopWatch;
 import com.helger.xml.sax.InputSourceFactory;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to read XML documents via SAX

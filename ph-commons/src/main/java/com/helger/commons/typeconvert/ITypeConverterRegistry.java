@@ -18,12 +18,12 @@ package com.helger.commons.typeconvert;
 
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAnySourceFixedDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAssignableSourceFixedDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAnyDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAssignableDestination;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface for registering new type converters.

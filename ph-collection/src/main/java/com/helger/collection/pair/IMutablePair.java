@@ -16,9 +16,9 @@
  */
 package com.helger.collection.pair;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a writable pair.

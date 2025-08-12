@@ -16,11 +16,12 @@
  */
 package com.helger.xml.serialize.read;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.Schema;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Read-only interface for DOM reader settings.

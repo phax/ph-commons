@@ -16,8 +16,9 @@
  */
 package com.helger.commons.id.factory;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for an object creating unique IDs.

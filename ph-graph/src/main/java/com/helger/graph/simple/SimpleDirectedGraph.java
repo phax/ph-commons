@@ -17,12 +17,13 @@
 package com.helger.graph.simple;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphObjectFactory;
 import com.helger.graph.IMutableDirectedGraphRelation;
 import com.helger.graph.impl.DirectedGraph;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A simple graph object that bidirectionally links graph nodes.

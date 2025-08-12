@@ -16,12 +16,13 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a single attribute within an element (=tag).

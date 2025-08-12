@@ -21,10 +21,10 @@ import java.util.function.IntPredicate;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Provides an iterator over Unicode Codepoints

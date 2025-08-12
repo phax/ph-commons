@@ -23,10 +23,10 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
-
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera

@@ -18,10 +18,10 @@ package com.helger.collection.map;
 
 import java.util.function.IntConsumer;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.lang.IHasSize;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special int-Set. Uses {@link IntObjectMap} internally.

@@ -16,11 +16,11 @@
  */
 package com.helger.commons.email;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Aggregation of a personal name and an email address.

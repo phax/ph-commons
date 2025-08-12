@@ -16,8 +16,8 @@
  */
 package com.helger.commons.state;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for the tri state.

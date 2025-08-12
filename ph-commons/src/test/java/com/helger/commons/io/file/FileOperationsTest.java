@@ -26,9 +26,9 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link FileOperations}.

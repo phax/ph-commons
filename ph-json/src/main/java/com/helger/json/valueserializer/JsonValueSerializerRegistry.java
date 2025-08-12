@@ -16,15 +16,12 @@
  */
 package com.helger.json.valueserializer;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.GuardedBy;
-import com.helger.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -32,6 +29,9 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Registry that determines the {@link IJsonValueSerializer} object to be used

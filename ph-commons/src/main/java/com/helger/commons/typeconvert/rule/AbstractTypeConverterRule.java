@@ -16,11 +16,11 @@
  */
 package com.helger.commons.typeconvert.rule;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.ITypeConverterRule;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract type converter rule implementation

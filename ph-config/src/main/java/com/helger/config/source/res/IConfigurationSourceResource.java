@@ -16,12 +16,13 @@
  */
 package com.helger.config.source.res;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.state.ESuccess;
 import com.helger.config.source.IIterableConfigurationSource;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Specific configuration source based on a readable resource.

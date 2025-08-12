@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
@@ -43,6 +42,8 @@ import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link ISettingsPersistence} implementation that reads and writes .json files. It

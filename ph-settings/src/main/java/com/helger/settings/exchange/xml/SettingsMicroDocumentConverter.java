@@ -19,9 +19,6 @@ package com.helger.settings.exchange.xml;
 import java.util.Comparator;
 import java.util.Map;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.typeconvert.TypeConverter;
@@ -32,6 +29,9 @@ import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class SettingsMicroDocumentConverter <T extends ISettings> implements IMicroTypeConverter <T>
 {

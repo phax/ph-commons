@@ -19,8 +19,6 @@ package com.helger.graph.impl;
 import java.util.function.Consumer;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
@@ -32,6 +30,9 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation if the {@link IMutableGraphNode} interface

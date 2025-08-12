@@ -18,10 +18,11 @@ package com.helger.commons.typeconvert;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.misc.NoTranslationRequired;
 import com.helger.commons.text.util.TextHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Exceptions of this type are only thrown from the {@link TypeConverter} class

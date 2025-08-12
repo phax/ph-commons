@@ -16,7 +16,7 @@
  */
 package com.helger.commons.version;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for objects having a version range.

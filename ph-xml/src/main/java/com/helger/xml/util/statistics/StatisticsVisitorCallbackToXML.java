@@ -18,8 +18,6 @@ package com.helger.xml.util.statistics;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.statistics.IStatisticsHandlerCache;
 import com.helger.commons.statistics.IStatisticsHandlerCounter;
@@ -30,6 +28,8 @@ import com.helger.commons.statistics.IStatisticsHandlerSize;
 import com.helger.commons.statistics.IStatisticsHandlerTimer;
 import com.helger.commons.statistics.util.IStatisticsVisitorCallback;
 import com.helger.xml.microdom.IMicroElement;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special implementation of the {@link IStatisticsVisitorCallback} interface

@@ -22,7 +22,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.regex.Pattern;
 
-import com.helger.annotation.meta.TypeQualifier;
 import com.helger.annotation.meta.TypeQualifierValidator;
 import com.helger.annotation.meta.When;
 
@@ -35,7 +34,6 @@ import com.helger.annotation.meta.When;
  * @since 12.0.0 in this package
  */
 @Documented
-@TypeQualifier (applicableTo = String.class)
 @Retention (RetentionPolicy.RUNTIME)
 public @interface MatchesPattern
 {

@@ -19,8 +19,9 @@ package com.helger.security.keystore;
 import java.security.Provider;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface describing the parameters needed to reference a key store (without

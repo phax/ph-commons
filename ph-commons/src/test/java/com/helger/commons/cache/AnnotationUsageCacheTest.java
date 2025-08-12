@@ -22,14 +22,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.style.UseDirectEqualsAndHashCode;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.UseDirectEqualsAndHashCode;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.map.LRUMap;
@@ -37,6 +34,9 @@ import com.helger.commons.collection.map.LRUSet;
 import com.helger.commons.collection.map.LoggingLRUMap;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.commons.timing.StopWatch;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link AnnotationUsageCache}.

@@ -16,12 +16,12 @@
  */
 package com.helger.commons.deadlock;
 
-import com.helger.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.lang.StackTraceHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A logging implementation of {@link IThreadDeadlockCallback}.

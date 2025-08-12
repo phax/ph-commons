@@ -18,11 +18,11 @@ package com.helger.commons.text;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Basic interface for object providing multilingual texts with and without

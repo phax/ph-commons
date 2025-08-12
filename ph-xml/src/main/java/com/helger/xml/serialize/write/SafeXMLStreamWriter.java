@@ -24,12 +24,6 @@ import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.WillCloseWhenClosed;
-import com.helger.annotation.style.OverrideOnDemand;
-
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
@@ -38,6 +32,9 @@ import javax.xml.stream.XMLStreamWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillCloseWhenClosed;
+import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.NonBlockingStack;
@@ -50,6 +47,9 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special stream writer, that ensures that special XML characters are handled

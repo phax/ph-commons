@@ -19,7 +19,7 @@ package com.helger.commons.hierarchy;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * A simple interface, indicating that an item has children which also has

@@ -16,10 +16,10 @@
  */
 package com.helger.commons.pool;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.state.ESuccess;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Simple pool interface.

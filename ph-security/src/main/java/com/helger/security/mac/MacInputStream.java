@@ -19,13 +19,14 @@ package com.helger.security.mac;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import javax.crypto.Mac;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.WrappedInputStream;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A transparent stream that updates the associated Mac using the bits going

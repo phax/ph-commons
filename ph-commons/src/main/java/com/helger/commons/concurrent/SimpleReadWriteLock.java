@@ -23,10 +23,10 @@ import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.functional.IThrowingSupplier;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is an extension around {@link ReentrantReadWriteLock} that allows for

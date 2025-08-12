@@ -18,11 +18,12 @@ package com.helger.commons.cache;
 
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.builder.IBuilder;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Builder class for {@link Cache} objects.

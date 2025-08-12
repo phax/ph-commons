@@ -20,9 +20,10 @@ import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special {@link CopyOnWriteArraySet} implementation based on

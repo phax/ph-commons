@@ -20,20 +20,20 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.CGlobal;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTFromString;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper class that holds the current class version. Must be a separate class

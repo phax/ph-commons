@@ -16,9 +16,10 @@
  */
 package com.helger.commons.url;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.IsSPIInterface;
 import com.helger.commons.collection.impl.ICommonsSet;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for a registrar providing custom URL protocols

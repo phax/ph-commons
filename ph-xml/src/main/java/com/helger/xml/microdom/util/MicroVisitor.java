@@ -16,7 +16,6 @@
  */
 package com.helger.xml.microdom.util;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
@@ -24,6 +23,8 @@ import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
 import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.xml.microdom.IMicroNode;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper class that visits a {@link com.helger.xml.microdom.IMicroNode} with a

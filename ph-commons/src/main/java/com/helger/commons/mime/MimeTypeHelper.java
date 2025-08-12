@@ -18,10 +18,10 @@ package com.helger.commons.mime;
 
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.charset.CharsetHelper;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Contains some utility methods for handling MIME types.

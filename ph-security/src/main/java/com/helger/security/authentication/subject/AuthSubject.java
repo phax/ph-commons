@@ -17,12 +17,12 @@
 package com.helger.security.authentication.subject;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Default dummy implementation of the {@link IAuthSubject} interface that has

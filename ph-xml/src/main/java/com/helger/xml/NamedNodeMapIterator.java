@@ -19,16 +19,16 @@ package com.helger.xml;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special {@link Iterator} for {@link Node} objects based on

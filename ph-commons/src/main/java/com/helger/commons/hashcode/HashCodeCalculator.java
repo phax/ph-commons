@@ -16,10 +16,11 @@
  */
 package com.helger.commons.hashcode;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.CGlobal;
+
+import jakarta.annotation.Nullable;
 
 /**
  * This class provides the hash code generation for different data types.

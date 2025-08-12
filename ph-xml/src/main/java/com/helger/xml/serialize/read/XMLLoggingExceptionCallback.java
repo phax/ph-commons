@@ -24,13 +24,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.commons.callback.exception.LoggingExceptionCallback;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.xml.sax.AbstractSAXErrorHandler;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special version of the {@link LoggingExceptionCallback} that handles the most common XML

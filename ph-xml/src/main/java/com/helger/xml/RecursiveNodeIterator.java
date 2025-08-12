@@ -18,8 +18,6 @@ package com.helger.xml;
 
 import java.util.NoSuchElementException;
 
-import com.helger.annotation.Nonnull;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -28,6 +26,8 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Iterate all children of the start node, but NOT the start node itself.

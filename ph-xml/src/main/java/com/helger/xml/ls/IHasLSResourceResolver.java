@@ -16,9 +16,9 @@
  */
 package com.helger.xml.ls;
 
-import com.helger.annotation.Nonnull;
-
 import org.w3c.dom.ls.LSResourceResolver;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Factory interface for objects having an {@link LSResourceResolver}.

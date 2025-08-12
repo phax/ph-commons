@@ -16,9 +16,10 @@
  */
 package com.helger.commons.lang;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Misc helper methods for handling booleans.

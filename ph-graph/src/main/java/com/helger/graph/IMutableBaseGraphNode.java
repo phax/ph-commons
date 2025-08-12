@@ -16,9 +16,10 @@
  */
 package com.helger.graph;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for a single graph node.

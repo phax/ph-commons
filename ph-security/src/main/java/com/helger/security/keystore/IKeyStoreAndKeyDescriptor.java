@@ -19,7 +19,8 @@ package com.helger.security.keystore;
 import java.security.KeyStore.PrivateKeyEntry;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface describing the parameters needed to reference a key store with a

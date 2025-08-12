@@ -21,13 +21,10 @@ import java.io.UncheckedIOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -37,6 +34,9 @@ import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A simple resource resolver that can handle URLs, JAR files and file system

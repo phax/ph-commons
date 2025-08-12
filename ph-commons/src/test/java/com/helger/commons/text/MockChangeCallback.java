@@ -18,10 +18,10 @@ package com.helger.commons.text;
 
 import static org.junit.Assert.assertNotNull;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.state.EContinue;
+
+import jakarta.annotation.Nonnull;
 
 public final class MockChangeCallback implements IChangeCallback <IMutableMultilingualText>
 {

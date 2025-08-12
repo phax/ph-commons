@@ -20,10 +20,10 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.random.VerySecureRandom;
+
+import jakarta.annotation.Nonnull;
 
 //Copyright (c) 2006 Damien Miller <djm@mindrot.org>
 //

@@ -18,7 +18,7 @@ package com.helger.commons.id;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for all objects having a long ID.

@@ -21,7 +21,6 @@ import com.helger.annotation.concurrent.ELockType;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.IsLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.hashcode.HashCodeGenerator;

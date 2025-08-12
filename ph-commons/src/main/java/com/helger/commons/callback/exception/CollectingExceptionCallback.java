@@ -16,10 +16,10 @@
  */
 package com.helger.commons.callback.exception;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * A specific implementation of the {@link IExceptionCallback} interface, that

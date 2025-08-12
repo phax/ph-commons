@@ -16,10 +16,10 @@
  */
 package com.helger.tree;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Implementation of the {@link ITreeItemFactory} for {@link DefaultTreeItem}

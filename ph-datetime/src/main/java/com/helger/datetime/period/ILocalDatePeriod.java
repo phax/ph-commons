@@ -18,12 +18,12 @@ package com.helger.datetime.period;
 
 import java.time.LocalDate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.datetime.domain.IHasStartAndEnd;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a period consisting of 2 local date periods.

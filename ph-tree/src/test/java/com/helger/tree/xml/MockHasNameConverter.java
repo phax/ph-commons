@@ -16,12 +16,12 @@
  */
 package com.helger.tree.xml;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.tree.mock.MockHasName;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.util.MicroHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class MockHasNameConverter implements IConverterTreeXML <MockHasName>
 {

@@ -21,9 +21,10 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.io.resource.IReadableResource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A read-only version of a path-relative IO component.

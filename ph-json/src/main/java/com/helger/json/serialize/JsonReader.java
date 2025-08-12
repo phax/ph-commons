@@ -27,8 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -57,6 +55,9 @@ import com.helger.json.parser.errorhandler.LoggingJsonParseExceptionCallback;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
 import com.helger.json.parser.handler.DoNothingJsonParserHandler;
 import com.helger.json.parser.handler.IJsonParserHandler;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is the central user class for reading and parsing Json from different sources. This class

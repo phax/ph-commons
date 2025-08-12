@@ -16,9 +16,9 @@
  */
 package com.helger.commons.wrapper;
 
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for mutable wrapping an object within another object.

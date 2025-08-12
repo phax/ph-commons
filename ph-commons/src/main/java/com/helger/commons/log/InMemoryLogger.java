@@ -20,8 +20,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -34,6 +32,9 @@ import com.helger.commons.lang.IHasSize;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Keeps a set of {@link LogMessage} objects in memory, offering an API similar

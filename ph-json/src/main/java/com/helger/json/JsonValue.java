@@ -23,8 +23,6 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.equals.EqualsHelper;
@@ -39,6 +37,9 @@ import com.helger.json.valueserializer.IJsonValueSerializer;
 import com.helger.json.valueserializer.JsonValueSerializerConstant;
 import com.helger.json.valueserializer.JsonValueSerializerEscaped;
 import com.helger.json.valueserializer.JsonValueSerializerRegistry;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IJsonValue}.

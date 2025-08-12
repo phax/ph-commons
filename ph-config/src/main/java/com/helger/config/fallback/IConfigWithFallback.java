@@ -19,10 +19,11 @@ package com.helger.config.fallback;
 import java.math.BigDecimal;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.config.IConfig;
 import com.helger.config.value.ConfiguredValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is an extended configuration interface that supports the resolution of

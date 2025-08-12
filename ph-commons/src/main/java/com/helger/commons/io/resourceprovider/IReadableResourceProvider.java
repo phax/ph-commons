@@ -18,10 +18,11 @@ package com.helger.commons.io.resourceprovider;
 
 import java.io.InputStream;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.io.resource.IReadableResource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Resource provider interface for readable resources.

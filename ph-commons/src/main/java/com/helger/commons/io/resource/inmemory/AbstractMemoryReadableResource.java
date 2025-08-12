@@ -20,12 +20,13 @@ import java.io.File;
 import java.net.URL;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for an {@link IReadableResource} that is not really a resource but where the

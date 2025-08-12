@@ -19,10 +19,10 @@ package com.helger.commons.email;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.regex.RegExCache;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Perform simple email address validation based on a regular expression.

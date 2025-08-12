@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.commons.wrapper.Wrapper;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
@@ -31,6 +30,8 @@ import com.helger.json.IJsonObject;
 import com.helger.json.parser.JsonParseException;
 import com.helger.json.parser.JsonParserSettings;
 import com.helger.json.serialize.JsonReader;
+
+import jakarta.annotation.Nonnull;
 
 public final class TestIssue34
 {

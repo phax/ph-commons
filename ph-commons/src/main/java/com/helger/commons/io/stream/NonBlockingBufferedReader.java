@@ -27,11 +27,11 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A non-synchronized copy of the class {@link java.io.BufferedReader}.

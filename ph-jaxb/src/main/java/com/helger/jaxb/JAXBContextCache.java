@@ -19,7 +19,6 @@ package com.helger.jaxb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.commons.cache.Cache;
@@ -27,6 +26,7 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBContext;
 
 /**

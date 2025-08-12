@@ -21,11 +21,12 @@ import java.io.Reader;
 import org.xml.sax.InputSource;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special {@link InputSource} implementation that reads from a predefined String.

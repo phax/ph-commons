@@ -20,9 +20,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special implementation of {@link IByteArrayCodec} that does nothing. This is

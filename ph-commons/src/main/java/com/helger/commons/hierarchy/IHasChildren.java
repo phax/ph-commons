@@ -21,12 +21,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.state.EContinue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A simple interface, indicating that an item has direct children.

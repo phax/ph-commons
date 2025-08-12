@@ -19,11 +19,12 @@ package com.helger.commons.collection.impl;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.map.MapEntry;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special {@link Map} interface for ordered maps (like

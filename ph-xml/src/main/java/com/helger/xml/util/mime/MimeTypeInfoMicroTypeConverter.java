@@ -33,9 +33,6 @@
  */
 package com.helger.xml.util.mime;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.mime.MimeType;
@@ -48,6 +45,9 @@ import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.util.MicroHelper;
 import com.helger.xml.util.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter <MimeTypeInfo>
 {

@@ -18,10 +18,10 @@ package com.helger.commons.pool;
 
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.state.ESuccess;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An extended factory for objects in the {@link ObjectPool}.

@@ -16,12 +16,13 @@
  */
 package com.helger.scope.singleton;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.scope.IRequestScope;
 import com.helger.scope.mgr.ScopeManager;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is the base class for singleton objects that reside in the request

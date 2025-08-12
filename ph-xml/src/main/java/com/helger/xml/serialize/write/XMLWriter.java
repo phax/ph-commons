@@ -19,18 +19,15 @@ package com.helger.xml.serialize.write;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.WillClose;
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import javax.xml.namespace.NamespaceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
@@ -40,6 +37,9 @@ import com.helger.commons.state.ESuccess;
 import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.xml.EXMLVersion;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a helper class to serialize DOM nodes to a String.

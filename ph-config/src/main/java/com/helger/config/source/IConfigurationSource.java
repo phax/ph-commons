@@ -16,9 +16,9 @@
  */
 package com.helger.config.source;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.config.value.IConfigurationValueProvider;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An abstract configuration source.

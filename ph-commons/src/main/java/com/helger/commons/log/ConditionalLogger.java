@@ -19,16 +19,16 @@ package com.helger.commons.log;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.state.IEnabledIndicator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Conditional logger

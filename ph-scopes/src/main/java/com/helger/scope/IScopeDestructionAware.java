@@ -16,7 +16,7 @@
  */
 package com.helger.scope;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * A listener interfaces that is invoked before a scope is destroyed. If an

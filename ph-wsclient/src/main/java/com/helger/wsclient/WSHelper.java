@@ -16,12 +16,11 @@
  */
 package com.helger.wsclient;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.CGlobal;
 import com.helger.commons.system.SystemProperties;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.handler.MessageContext;
 
 /**

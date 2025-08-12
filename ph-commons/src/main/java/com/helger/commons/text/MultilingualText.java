@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class represents a multilingual text. It is internally represented as a

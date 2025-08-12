@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
@@ -32,6 +31,8 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special {@link java.util.ResourceBundle.Control} to handle XML files

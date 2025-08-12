@@ -18,11 +18,11 @@ package com.helger.commons.typeconvert.rule;
 
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract type converter than can convert from a base source class to a

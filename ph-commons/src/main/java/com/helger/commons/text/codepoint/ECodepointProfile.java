@@ -18,7 +18,7 @@ package com.helger.commons.text.codepoint;
 
 import java.util.function.IntPredicate;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera

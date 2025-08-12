@@ -20,10 +20,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Defines the type of configuration source resources.

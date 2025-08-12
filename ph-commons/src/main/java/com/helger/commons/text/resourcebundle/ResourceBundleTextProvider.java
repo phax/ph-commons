@@ -18,8 +18,6 @@ package com.helger.commons.text.resourcebundle;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.ValueEnforcer;
@@ -27,6 +25,9 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.AbstractHasText;
 import com.helger.commons.text.IHasTextWithArgs;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class encapsulates the resource bundle handling.

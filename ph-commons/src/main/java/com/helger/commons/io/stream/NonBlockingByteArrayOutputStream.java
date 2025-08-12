@@ -22,7 +22,6 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -31,6 +30,8 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.IWriteToStream;
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A non-synchronized copy of the class {@link java.io.ByteArrayOutputStream}.

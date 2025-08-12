@@ -16,9 +16,9 @@
  */
 package com.helger.commons.serialize.convert;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.state.EContinue;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A callback interface that is used to iterate all available serialization

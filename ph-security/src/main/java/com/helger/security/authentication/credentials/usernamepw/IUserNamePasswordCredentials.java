@@ -16,9 +16,9 @@
  */
 package com.helger.security.authentication.credentials.usernamepw;
 
-import com.helger.annotation.Nullable;
-
 import com.helger.security.authentication.credentials.IAuthCredentials;
+
+import jakarta.annotation.Nullable;
 
 /**
  * This interface represents username and password credentials passed from a

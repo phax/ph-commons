@@ -20,17 +20,17 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.style.UnsupportedOperation;
-
 import org.w3c.dom.ls.LSInput;
 
+import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Simple {@link LSInput} implementation.

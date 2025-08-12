@@ -19,10 +19,7 @@ package com.helger.tree.io;
 import java.io.File;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -31,6 +28,9 @@ import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.tree.withid.folder.DefaultFolderTree;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a folder tree with the file system contents. This structure is

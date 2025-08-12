@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around an {@link InputStream} that counts the number of read bytes.

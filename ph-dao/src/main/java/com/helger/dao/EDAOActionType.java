@@ -17,10 +17,11 @@
 package com.helger.dao;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Enumeration with the different actions that can occur in a DAO. This is used

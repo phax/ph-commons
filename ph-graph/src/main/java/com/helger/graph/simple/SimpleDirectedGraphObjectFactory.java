@@ -16,14 +16,14 @@
  */
 package com.helger.graph.simple;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphObjectFactory;
 import com.helger.graph.IMutableDirectedGraphRelation;
 import com.helger.graph.impl.DirectedGraphNode;
 import com.helger.graph.impl.DirectedGraphRelation;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMutableDirectedGraphObjectFactory} with

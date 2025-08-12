@@ -23,7 +23,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import com.helger.annotation.meta.TypeQualifierNickname;
 import com.helger.annotation.meta.TypeQualifierValidator;
 import com.helger.annotation.meta.When;
 
@@ -37,7 +36,6 @@ import com.helger.annotation.meta.When;
  */
 @Documented
 @Syntax ("RegEx")
-@TypeQualifierNickname
 @Retention (RetentionPolicy.RUNTIME)
 public @interface RegEx
 {

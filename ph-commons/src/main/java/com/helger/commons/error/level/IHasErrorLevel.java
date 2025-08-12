@@ -16,11 +16,11 @@
  */
 package com.helger.commons.error.level;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.state.IErrorIndicator;
 import com.helger.commons.state.ISuccessIndicator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface representing an object having an error level.

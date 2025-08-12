@@ -19,7 +19,8 @@ package com.helger.commons.statistics;
 import java.math.BigInteger;
 
 import com.helger.annotation.CheckForSigned;
-import com.helger.annotation.Nullable;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for size and timer handler.

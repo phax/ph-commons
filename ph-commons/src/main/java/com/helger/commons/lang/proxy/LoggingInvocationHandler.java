@@ -22,15 +22,15 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class LoggingInvocationHandler implements InvocationHandler
 {

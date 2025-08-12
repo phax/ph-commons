@@ -18,11 +18,12 @@ package com.helger.commons.text.display;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.commons.text.IHasTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for objects that have a locale <b>dependent</b> display name.

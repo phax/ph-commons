@@ -21,8 +21,6 @@ import java.util.Comparator;
 import java.util.Locale;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
@@ -51,6 +49,9 @@ import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.util.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is the central manager for all {@link MimeTypeInfo} objects.

@@ -19,11 +19,11 @@ package com.helger.commons.text;
 import java.util.Comparator;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.text.display.IHasDisplayText;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Basic interface for object providing multilingual texts without arguments.

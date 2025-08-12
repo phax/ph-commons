@@ -19,7 +19,6 @@ package com.helger.commons.lang;
 import java.io.PrintStream;
 import java.util.function.Consumer;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -29,6 +28,8 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.system.SystemProperties;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Utility class for dealing with the Java class path.

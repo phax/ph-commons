@@ -19,7 +19,6 @@ package com.helger.commons.typeconvert;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.mutable.MutableBigDecimal;
@@ -32,6 +31,8 @@ import com.helger.commons.mutable.MutableFloat;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.mutable.MutableShort;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Register the mutable* specific type converter

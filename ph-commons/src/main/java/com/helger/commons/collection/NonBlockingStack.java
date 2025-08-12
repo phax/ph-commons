@@ -20,13 +20,13 @@ import java.util.Collection;
 import java.util.EmptyStackException;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A version of a stack that does not use {@link java.util.Vector} but an

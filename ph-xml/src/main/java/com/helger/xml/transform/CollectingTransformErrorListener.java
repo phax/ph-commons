@@ -16,7 +16,6 @@
  */
 package com.helger.xml.transform;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,6 +24,8 @@ import com.helger.commons.error.IError;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This implementation of {@link javax.xml.transform.ErrorListener} saves all

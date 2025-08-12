@@ -17,10 +17,10 @@
 package com.helger.commons.system;
 
 import com.helger.annotation.CheckForSigned;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.CGlobal;
 import com.helger.commons.string.StringParser;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Enum for representing the current processor architecture. Works only on Sun

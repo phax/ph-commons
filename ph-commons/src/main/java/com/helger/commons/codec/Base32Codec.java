@@ -20,12 +20,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
-
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.math.MathHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base32 encoder and decoder based on Apache Commons Codec Base32. Defined in

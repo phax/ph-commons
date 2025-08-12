@@ -26,8 +26,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -43,6 +41,9 @@ import com.helger.commons.state.EChange;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * SAX reader default settings

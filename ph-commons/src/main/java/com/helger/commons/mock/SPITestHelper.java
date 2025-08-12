@@ -20,12 +20,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.CommonsTreeSet;
@@ -38,6 +36,8 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
 
 public final class SPITestHelper
 {

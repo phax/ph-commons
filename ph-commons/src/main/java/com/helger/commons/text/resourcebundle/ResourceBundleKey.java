@@ -19,14 +19,14 @@ package com.helger.commons.text.resourcebundle;
 import java.util.Locale;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The key of a resource bundle.

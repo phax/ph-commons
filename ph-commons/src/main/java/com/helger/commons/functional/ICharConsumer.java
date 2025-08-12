@@ -18,8 +18,8 @@ package com.helger.commons.functional;
 
 import java.util.function.Consumer;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents an operation that accepts a single {@code char}-valued argument

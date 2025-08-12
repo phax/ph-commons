@@ -18,10 +18,6 @@ package com.helger.xml.schema;
 
 import java.util.Collection;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.ThreadSafe;
 import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -31,6 +27,8 @@ import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -39,6 +37,9 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.transform.TransformSourceFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base class for caching abstract {@link Schema} objects. A {@link Schema} is

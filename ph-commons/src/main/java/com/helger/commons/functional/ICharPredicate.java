@@ -16,9 +16,9 @@
  */
 package com.helger.commons.functional;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents a predicate (char-valued function) of one {@code char}-valued

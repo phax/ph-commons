@@ -21,10 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
@@ -39,6 +36,9 @@ import com.helger.xml.serialize.write.EXMLCharMode;
 import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
 import com.helger.xml.serialize.write.EXMLSerializeVersion;
 import com.helger.xml.serialize.write.XMLMaskHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility class to export a graph to something else

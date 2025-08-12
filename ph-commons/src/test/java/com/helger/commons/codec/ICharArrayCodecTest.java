@@ -21,11 +21,11 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.ArrayHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link ICharArrayCodec}

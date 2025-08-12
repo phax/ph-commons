@@ -18,11 +18,12 @@ package com.helger.config.source;
 
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.config.value.ConfiguredValue;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a configuration source that provides all its possible keys.

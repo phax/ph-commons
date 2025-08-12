@@ -19,8 +19,6 @@ package com.helger.tree.xml;
 import java.util.Comparator;
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.collection.NonBlockingStack;
@@ -39,6 +37,9 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.util.ChildrenProviderElementWithName;
 import com.helger.xml.microdom.util.MicroVisitor;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Convert a tree to XML

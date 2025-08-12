@@ -16,7 +16,7 @@
  */
 package com.helger.commons.error;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * The default builder to build {@link SingleError} instances.

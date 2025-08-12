@@ -17,8 +17,9 @@
 package com.helger.xml.microdom;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.commons.name.IHasName;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents the reference to an entity. An example entity is e.g.

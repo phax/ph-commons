@@ -16,8 +16,9 @@
  */
 package com.helger.security.authentication.credentials;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.IsSPIInterface;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This SPI needs to be implemented by all implementing application to validate

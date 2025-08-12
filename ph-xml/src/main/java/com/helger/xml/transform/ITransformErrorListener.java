@@ -16,10 +16,11 @@
  */
 package com.helger.xml.transform;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Extended {@link ErrorListener} interface with chaining method.

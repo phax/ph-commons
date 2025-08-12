@@ -37,7 +37,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.datetime.OffsetDate;
@@ -46,6 +45,8 @@ import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.datetime.XMLOffsetTime;
 import com.helger.commons.string.StringParser;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Register the date and time specific type converter

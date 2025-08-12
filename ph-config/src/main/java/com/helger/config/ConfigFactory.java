@@ -19,12 +19,10 @@ package com.helger.config;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -42,6 +40,8 @@ import com.helger.config.source.res.ConfigurationSourceJson;
 import com.helger.config.source.res.ConfigurationSourceProperties;
 import com.helger.config.source.res.EConfigSourceResourceType;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Factory for creating {@link IConfig} objects.

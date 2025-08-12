@@ -21,11 +21,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
 import com.helger.commons.statistics.StatisticsManager;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link FileInputStream} sub class that keeps track of all read

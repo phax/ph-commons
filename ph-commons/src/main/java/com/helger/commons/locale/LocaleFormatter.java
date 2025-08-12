@@ -22,10 +22,11 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to safely print numbers in a formatted way.

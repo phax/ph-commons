@@ -21,16 +21,13 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.style.ReturnsImmutableObject;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
@@ -48,6 +45,9 @@ import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.wrapper.Wrapper;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroElement} interface.

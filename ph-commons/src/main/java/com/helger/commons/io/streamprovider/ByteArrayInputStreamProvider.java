@@ -17,12 +17,13 @@
 package com.helger.commons.io.streamprovider;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.InputStream} provider based on a byte array.

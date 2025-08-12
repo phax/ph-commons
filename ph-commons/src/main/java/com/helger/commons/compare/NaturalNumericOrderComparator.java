@@ -18,9 +18,9 @@ package com.helger.commons.compare;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special comparator that ensures that e.g. "3.10" is sorted after "3.9".

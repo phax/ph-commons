@@ -20,8 +20,6 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.callback.CallbackList;
@@ -34,6 +32,9 @@ import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 import com.helger.commons.typeconvert.TypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is the base interface for all kind of nodes in the micro document object

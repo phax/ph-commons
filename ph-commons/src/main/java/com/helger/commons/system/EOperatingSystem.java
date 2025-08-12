@@ -18,14 +18,14 @@ package com.helger.commons.system;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
 import com.helger.commons.name.IHasDisplayName;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This enumeration is used to determine the currently running Operating system.

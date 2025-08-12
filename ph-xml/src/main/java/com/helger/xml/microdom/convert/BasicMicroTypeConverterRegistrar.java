@@ -37,7 +37,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.datetime.OffsetDate;
@@ -56,6 +55,8 @@ import com.helger.commons.state.ESuccess;
 import com.helger.commons.state.ETopBottom;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.state.EValidity;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Implementation of {@link IMicroTypeConverterRegistrarSPI} for basic types

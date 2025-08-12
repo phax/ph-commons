@@ -18,9 +18,10 @@ package com.helger.matrix;
 
 import java.util.Arrays;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.math.MathHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Singular Value Decomposition.

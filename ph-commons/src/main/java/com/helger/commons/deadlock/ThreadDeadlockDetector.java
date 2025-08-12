@@ -22,15 +22,15 @@ import java.lang.management.ThreadMXBean;
 import java.util.Arrays;
 import java.util.Map;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.style.ReturnsMutableObject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.ArrayHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is the main dead lock detector, based on JMX {@link ThreadMXBean}

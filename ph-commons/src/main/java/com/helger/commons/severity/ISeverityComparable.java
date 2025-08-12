@@ -16,7 +16,7 @@
  */
 package com.helger.commons.severity;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for comparable objects based on their severity.

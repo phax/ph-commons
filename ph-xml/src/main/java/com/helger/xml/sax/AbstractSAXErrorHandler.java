@@ -16,8 +16,6 @@
  */
 package com.helger.xml.sax;
 
-import com.helger.annotation.Nonnull;
-
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -27,6 +25,8 @@ import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * java.xml error handler base class.

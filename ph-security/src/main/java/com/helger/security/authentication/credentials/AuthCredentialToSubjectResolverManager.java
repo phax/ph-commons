@@ -17,13 +17,14 @@
 package com.helger.security.authentication.credentials;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.security.authentication.subject.IAuthSubject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This handler is used to resolve a subject from validated credentials. This is

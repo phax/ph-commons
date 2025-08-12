@@ -18,10 +18,9 @@ package com.helger.jaxb.mock.external;
 
 import java.util.List;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.collection.impl.CommonsArrayList;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;

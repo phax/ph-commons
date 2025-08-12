@@ -21,8 +21,9 @@ import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Non-synchronized version of {@link java.io.BufferedInputStream}.

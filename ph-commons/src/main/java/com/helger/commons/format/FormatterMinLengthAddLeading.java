@@ -17,12 +17,12 @@
 package com.helger.commons.format;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * A string formatter that ensures that a string has a minimum length by filling

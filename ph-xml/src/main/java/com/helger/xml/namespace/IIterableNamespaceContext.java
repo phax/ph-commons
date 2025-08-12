@@ -16,13 +16,13 @@
  */
 package com.helger.xml.namespace;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import javax.xml.namespace.NamespaceContext;
 
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsMap;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special namespace context interface that allows the iteration of the

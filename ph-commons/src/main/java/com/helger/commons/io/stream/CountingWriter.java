@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around an {@link Writer} that counts the number of read chars.

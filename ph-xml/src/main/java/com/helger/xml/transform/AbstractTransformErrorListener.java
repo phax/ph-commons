@@ -16,7 +16,6 @@
  */
 package com.helger.xml.transform;
 
-import com.helger.annotation.Nonnull;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
 
@@ -28,6 +27,8 @@ import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultilingualText;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract implementation of a transformation {@link ErrorListener}.

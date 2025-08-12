@@ -19,12 +19,12 @@ package com.helger.collection.iterate;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Specialized iterator for iterating exactly one element.

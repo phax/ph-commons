@@ -16,11 +16,11 @@
  */
 package com.helger.dao;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.callback.ICallback;
 import com.helger.commons.io.resource.IReadableResource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Callback interface to handle thrown exception objects on DAO reading.

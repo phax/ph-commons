@@ -17,10 +17,11 @@
 package com.helger.commons.http;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * HTTP 1.1 methods.<br>

@@ -21,9 +21,9 @@ import java.io.IOException;
 import java.io.Reader;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A non-synchronized copy of the class {@link java.io.PushbackReader}.

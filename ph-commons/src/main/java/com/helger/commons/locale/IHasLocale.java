@@ -18,7 +18,7 @@ package com.helger.commons.locale;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for objects having a locale.

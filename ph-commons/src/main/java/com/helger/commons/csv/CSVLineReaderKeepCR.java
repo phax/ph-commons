@@ -19,11 +19,11 @@ package com.helger.commons.csv;
 import java.io.IOException;
 import java.io.Reader;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class was created for issue #106

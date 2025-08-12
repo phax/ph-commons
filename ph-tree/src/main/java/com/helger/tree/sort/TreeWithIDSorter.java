@@ -18,8 +18,6 @@ package com.helger.tree.sort;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
@@ -30,6 +28,9 @@ import com.helger.tree.IBasicTree;
 import com.helger.tree.IBasicTreeItem;
 import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.ITreeItemWithID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Sort {@link com.helger.tree.withid.ITreeWithID} instances recursively -

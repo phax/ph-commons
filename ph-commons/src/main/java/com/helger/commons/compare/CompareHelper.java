@@ -20,11 +20,12 @@ import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.equals.EqualsHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A small helper class that provides comparison methods that are <code>null</code> safe. Also

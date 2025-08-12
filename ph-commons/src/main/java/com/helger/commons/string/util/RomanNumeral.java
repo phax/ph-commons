@@ -19,10 +19,10 @@ package com.helger.commons.string.util;
 import java.util.Locale;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An object of type RomanNumeral is an integer between 1 and 3999. It can be

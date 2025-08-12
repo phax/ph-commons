@@ -17,8 +17,6 @@
 package com.helger.tree.withid.unique;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsCollection;
@@ -28,6 +26,9 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.tree.withid.BasicTreeWithID;
 import com.helger.tree.withid.ITreeItemWithID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A managed tree is a specialized version of the tree, where each item is

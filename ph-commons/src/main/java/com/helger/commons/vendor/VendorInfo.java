@@ -18,7 +18,6 @@ package com.helger.commons.vendor;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -31,6 +30,8 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.EURLProtocol;
 import com.helger.commons.url.IURLProtocol;
 import com.helger.commons.url.URLProtocolRegistry;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Contains some general vendor specific information. This is mainly for keeping

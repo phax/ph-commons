@@ -21,7 +21,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import com.helger.annotation.meta.TypeQualifier;
 import com.helger.annotation.meta.When;
 
 /**
@@ -29,7 +28,6 @@ import com.helger.annotation.meta.When;
  * @since 12.0.0 in this package
  */
 @Documented
-@TypeQualifier
 @Retention (RetentionPolicy.RUNTIME)
 public @interface PropertyKey
 {

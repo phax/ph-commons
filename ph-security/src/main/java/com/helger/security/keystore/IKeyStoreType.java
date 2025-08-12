@@ -22,8 +22,9 @@ import java.security.NoSuchProviderException;
 import java.security.Provider;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.commons.id.IHasID;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for the different types of key stores (like JKS or PKCS12).

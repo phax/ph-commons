@@ -24,13 +24,14 @@ import java.nio.charset.StandardCharsets;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.serialize.convert.SerializationConverter;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Implements methods common to all codecs defined in RFC 1522.

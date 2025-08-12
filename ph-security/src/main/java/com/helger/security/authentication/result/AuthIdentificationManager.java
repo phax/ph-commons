@@ -16,18 +16,18 @@
  */
 package com.helger.security.authentication.result;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.security.authentication.credentials.AuthCredentialToSubjectResolverManager;
 import com.helger.security.authentication.credentials.AuthCredentialValidatorManager;
 import com.helger.security.authentication.credentials.IAuthCredentials;
 import com.helger.security.authentication.credentials.ICredentialValidationResult;
 import com.helger.security.authentication.subject.IAuthSubject;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is the main class for creating an {@link IAuthToken} from

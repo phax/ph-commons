@@ -16,7 +16,7 @@
  */
 package com.helger.commons.state;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Small enum to identify whether something was handled or not.

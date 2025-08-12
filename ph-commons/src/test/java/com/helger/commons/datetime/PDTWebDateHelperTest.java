@@ -29,9 +29,9 @@ import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PDTWebDateHelper}.

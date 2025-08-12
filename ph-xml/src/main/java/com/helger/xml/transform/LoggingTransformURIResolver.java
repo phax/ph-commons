@@ -16,14 +16,16 @@
  */
 package com.helger.xml.transform;
 
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.helger.annotation.concurrent.NotThreadSafe;
+
+import jakarta.annotation.Nullable;
 
 /**
  * {@link javax.xml.transform.URIResolver} that logs to a logger but does not

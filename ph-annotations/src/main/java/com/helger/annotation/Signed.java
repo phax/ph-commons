@@ -21,7 +21,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import com.helger.annotation.meta.TypeQualifierNickname;
 import com.helger.annotation.meta.When;
 
 /**
@@ -31,7 +30,6 @@ import com.helger.annotation.meta.When;
  * @since 12.0.0 in this package
  */
 @Documented
-@TypeQualifierNickname
 @Nonnegative (when = When.UNKNOWN)
 @Retention (RetentionPolicy.RUNTIME)
 public @interface Signed

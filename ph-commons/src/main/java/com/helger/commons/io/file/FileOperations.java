@@ -26,13 +26,11 @@ import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
@@ -40,6 +38,8 @@ import com.helger.commons.io.EAppend;
 import com.helger.commons.io.channel.ChannelHelper;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Wraps file operations.

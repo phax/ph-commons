@@ -18,11 +18,12 @@ package com.helger.matrix;
 
 import java.util.Arrays;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.math.MathHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Eigenvalues and eigenvectors of a real matrix.

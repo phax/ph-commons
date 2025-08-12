@@ -16,7 +16,6 @@
  */
 package com.helger.settings.config;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.settings.Settings;
@@ -25,6 +24,8 @@ import com.helger.settings.factory.ISettingsFactory;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Register settings specific {@link IMicroTypeConverter}.

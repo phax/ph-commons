@@ -16,12 +16,12 @@
  */
 package com.helger.xml.sax;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Extended {@link ErrorHandler} interface with chaining method.

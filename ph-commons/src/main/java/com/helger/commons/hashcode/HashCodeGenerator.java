@@ -20,10 +20,11 @@ import java.util.Map;
 
 import org.w3c.dom.Node;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A small hash code creation class based on the article found in the net. See

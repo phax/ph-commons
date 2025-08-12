@@ -22,9 +22,6 @@ import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
@@ -34,6 +31,7 @@ import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
@@ -46,6 +44,9 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
 import com.helger.xml.serialize.read.SAXReaderSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for reading JAXB documents from various sources.

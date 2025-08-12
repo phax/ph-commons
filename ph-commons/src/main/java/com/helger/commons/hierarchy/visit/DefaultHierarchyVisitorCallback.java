@@ -17,8 +17,9 @@
 package com.helger.commons.hierarchy.visit;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The default implementation of the {@link IHierarchyVisitorCallback} interface

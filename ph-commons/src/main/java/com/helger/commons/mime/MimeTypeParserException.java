@@ -16,8 +16,8 @@
  */
 package com.helger.commons.mime;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Exception for errors that occur during MIME type parsing.<br>

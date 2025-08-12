@@ -16,7 +16,7 @@
  */
 package com.helger.commons.traits;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * An object having or requiring a converter from primitive to something else.

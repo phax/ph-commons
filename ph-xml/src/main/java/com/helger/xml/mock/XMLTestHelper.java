@@ -18,14 +18,14 @@ package com.helger.xml.mock;
 
 import static org.junit.Assert.assertNotNull;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroWriter;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper methods for handling XML based testing

@@ -16,7 +16,7 @@
  */
 package com.helger.config.value;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface for enumeration of available configuration value

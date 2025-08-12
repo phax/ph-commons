@@ -22,12 +22,12 @@ import static org.junit.Assert.fail;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.locale.LocaleCache;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PDTFormatPatterns}.

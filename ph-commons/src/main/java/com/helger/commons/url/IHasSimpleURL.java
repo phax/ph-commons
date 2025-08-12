@@ -16,8 +16,9 @@
  */
 package com.helger.commons.url;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a simple URL provider.<br>

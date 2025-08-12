@@ -17,8 +17,9 @@
 package com.helger.commons.url;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for an URL protocol descriptor. See {@link EURLProtocol} for

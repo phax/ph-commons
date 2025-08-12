@@ -23,8 +23,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -44,6 +42,9 @@ import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroEntityReference;
 import com.helger.xml.microdom.MicroProcessingInstruction;
 import com.helger.xml.microdom.MicroText;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Some utility methods on micro nodes.

@@ -17,8 +17,9 @@
 package com.helger.json.serialize;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.commons.lang.ICloneable;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Settings for configuring the JSON write process.

@@ -16,7 +16,7 @@
  */
 package com.helger.json.valueserializer;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * This is the callback interface implemented by

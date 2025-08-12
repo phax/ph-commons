@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.state.ETriState;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a complete document.

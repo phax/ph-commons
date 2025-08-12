@@ -16,9 +16,8 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.meta.When;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class MockNullableTestCorrect implements IMockNullableTest
 {
@@ -26,18 +25,6 @@ public class MockNullableTestCorrect implements IMockNullableTest
   {}
 
   public void paramNonnull (@Nonnull final String s)
-  {}
-
-  public void paramNonnullAlways (@Nonnull (when = When.ALWAYS) final String s)
-  {}
-
-  public void paramNonnullMaybe (@Nonnull (when = When.MAYBE) final String s)
-  {}
-
-  public void paramNonnullNever (@Nonnull (when = When.NEVER) final String s)
-  {}
-
-  public void paramNonnullUnknown (@Nonnull (when = When.UNKNOWN) final String s)
   {}
 
   public void paramNullable (@Nullable final String s)

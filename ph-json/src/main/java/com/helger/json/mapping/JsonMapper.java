@@ -17,8 +17,6 @@
 package com.helger.json.mapping;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.StackTraceHelper;
@@ -28,6 +26,9 @@ import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Contains some JSON mappings to commonly used data types.

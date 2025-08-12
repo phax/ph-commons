@@ -16,11 +16,12 @@
  */
 package com.helger.commons.location;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.CGlobal;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface indication the position of something within a single resource

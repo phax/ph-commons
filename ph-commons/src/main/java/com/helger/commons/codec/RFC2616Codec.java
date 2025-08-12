@@ -21,11 +21,12 @@ import java.io.Writer;
 import java.util.BitSet;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.util.RFC5234Helper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Codec for RFC 2616 (HTTP/1.1) HTTP header values.

@@ -20,10 +20,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -31,6 +28,9 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A simple forward iterator for directed graphs (following the outgoing nodes).

@@ -18,10 +18,11 @@ package com.helger.security.keystore;
 
 import java.security.Key;
 
-import com.helger.annotation.Nullable;
 import javax.xml.crypto.KeySelectorResult;
 
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Special implements of {@link KeySelectorResult} with a constant, nullable

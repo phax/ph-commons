@@ -20,9 +20,10 @@ import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to handle read-only property resource bundles reading only UTF-8 text strings.

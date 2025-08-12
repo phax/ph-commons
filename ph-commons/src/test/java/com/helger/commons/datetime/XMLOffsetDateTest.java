@@ -84,8 +84,6 @@ import java.time.temporal.TemporalQueries;
 import java.time.temporal.TemporalUnit;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -93,6 +91,8 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.typeconvert.TypeConverterException;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test {@link XMLOffsetDate}.

@@ -18,10 +18,10 @@ package com.helger.commons.debug;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ThreadSafe;
-
 import com.helger.commons.system.SystemProperties;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Global class for handling the following typical application modes:

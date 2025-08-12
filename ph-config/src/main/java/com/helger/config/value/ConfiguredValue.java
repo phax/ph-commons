@@ -16,11 +16,11 @@
  */
 package com.helger.config.value;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class represents a resolved configuration value. It contains the

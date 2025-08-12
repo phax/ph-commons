@@ -21,12 +21,13 @@ import java.nio.ByteBuffer;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.lang.ByteBufferHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * {@link java.io.InputStream} wrapped around one or more

@@ -18,7 +18,7 @@ package com.helger.commons.io.stream;
 
 import java.io.Writer;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link Writer} that does not close the stream.

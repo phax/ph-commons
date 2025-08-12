@@ -16,14 +16,14 @@
  */
 package com.helger.commons.hierarchy.visit;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.IHasChildren;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Recursively visit all children provided by a given {@link IChildrenProvider}

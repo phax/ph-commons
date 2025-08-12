@@ -19,7 +19,7 @@ package com.helger.commons.io.stream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * An input stream based on an input String.

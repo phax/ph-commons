@@ -38,13 +38,14 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.Immutable;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.CGlobal;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Philip's Date Time (PDT) factory. Create and convert different date and time

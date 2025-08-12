@@ -18,7 +18,6 @@ package com.helger.jaxb.validation;
 
 import java.util.function.Consumer;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -29,6 +28,8 @@ import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}

@@ -17,9 +17,9 @@
 package com.helger.commons.hierarchy.visit;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.callback.ICallback;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface with callbacks for visiting a hierarchy.

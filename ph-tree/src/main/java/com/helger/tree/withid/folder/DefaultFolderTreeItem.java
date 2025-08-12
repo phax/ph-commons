@@ -18,8 +18,9 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of the {@link IFolderTreeItem} interface.

@@ -19,8 +19,9 @@ package com.helger.commons.cache;
 import java.util.function.Function;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.ThreadSafe;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The default implementation of {@link ICache} and {@link IMutableCache}. Since v9.3.8 this class

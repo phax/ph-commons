@@ -20,8 +20,6 @@ package com.helger.cli;
 import java.util.Map;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
@@ -32,6 +30,9 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGetterByKeyTrait;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class represents a parsed command line. Parsing happens in class {@link CmdLineParser}.

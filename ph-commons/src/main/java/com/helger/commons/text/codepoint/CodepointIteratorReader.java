@@ -18,10 +18,10 @@ package com.helger.commons.text.codepoint;
 
 import java.io.Reader;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
-
 import com.helger.commons.io.stream.StreamHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera

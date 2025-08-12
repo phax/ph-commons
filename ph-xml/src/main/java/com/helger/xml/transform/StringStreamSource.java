@@ -19,11 +19,12 @@ package com.helger.xml.transform;
 import javax.xml.transform.stream.StreamSource;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special {@link StreamSource} implementation that reads from {@link String} objects.

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.text;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Basic interface for object providing multilingual texts.

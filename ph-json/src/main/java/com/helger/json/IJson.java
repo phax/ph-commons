@@ -16,14 +16,15 @@
  */
 package com.helger.json;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.traits.IAddableByTrait;
 import com.helger.json.serialize.IJsonWriterSettings;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for all JSON object types: list, object and key-value-pair

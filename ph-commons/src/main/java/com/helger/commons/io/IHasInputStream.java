@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.StreamHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link InputStream} objects.

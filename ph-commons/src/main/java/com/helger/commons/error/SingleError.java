@@ -18,8 +18,6 @@ package com.helger.commons.error;
 
 import java.time.LocalDateTime;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.commons.ValueEnforcer;
@@ -32,6 +30,9 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IError}.<br>

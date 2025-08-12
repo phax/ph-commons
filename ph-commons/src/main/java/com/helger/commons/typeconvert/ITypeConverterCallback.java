@@ -16,9 +16,9 @@
  */
 package com.helger.commons.typeconvert;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.state.EContinue;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A callback interface that is used in several places of the type conversion

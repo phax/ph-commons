@@ -19,9 +19,9 @@ package com.helger.commons.aggregate;
 import java.util.Collection;
 import java.util.function.Function;
 
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.collection.impl.CommonsArrayList;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Aggregate a list of input objects to a single output object (change n to 1).

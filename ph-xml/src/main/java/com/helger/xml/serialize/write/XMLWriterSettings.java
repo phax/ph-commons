@@ -19,14 +19,11 @@ package com.helger.xml.serialize.write;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.style.ReturnsMutableCopy;
-
 import javax.xml.namespace.NamespaceContext;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -36,6 +33,9 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IXMLWriterSettings} interface.<br>

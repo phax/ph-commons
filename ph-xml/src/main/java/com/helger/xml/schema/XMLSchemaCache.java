@@ -16,18 +16,15 @@
  */
 package com.helger.xml.schema;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.GuardedBy;
-import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.misc.Singleton;
-
 import javax.xml.XMLConstants;
 import javax.xml.validation.SchemaFactory;
 
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.Singleton;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -35,6 +32,9 @@ import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class is used to cache XML schema objects.

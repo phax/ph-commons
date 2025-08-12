@@ -23,11 +23,11 @@ import java.io.InputStream;
 import java.nio.ByteOrder;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The {@link NonBlockingBitInputStream} allows reading individual bits from a

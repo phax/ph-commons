@@ -17,8 +17,9 @@
 package com.helger.commons.deadlock;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.commons.callback.ICallback;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is called whenever a problem with threads is detected.

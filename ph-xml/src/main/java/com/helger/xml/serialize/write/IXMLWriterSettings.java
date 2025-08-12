@@ -18,12 +18,13 @@ package com.helger.xml.serialize.write;
 
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import javax.xml.namespace.NamespaceContext;
 
+import com.helger.annotation.Nonempty;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for the settings to be used for serializing XML nodes.

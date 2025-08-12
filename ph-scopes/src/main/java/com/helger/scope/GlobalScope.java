@@ -16,14 +16,14 @@
  */
 package com.helger.scope;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.lang.ClassHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base implementation of the {@link IGlobalScope} interface.<br>

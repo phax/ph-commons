@@ -16,18 +16,18 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.style.MustImplementComparable;
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-
 import javax.xml.namespace.QName;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.MustImplementComparable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.compare.IComparable;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a simple qualified name. A combination of namespace URI and local

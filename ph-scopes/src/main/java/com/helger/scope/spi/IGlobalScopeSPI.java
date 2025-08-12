@@ -16,9 +16,10 @@
  */
 package com.helger.scope.spi;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.IsSPIInterface;
 import com.helger.scope.IGlobalScope;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * SPI for handling the global scope lifecycle. Is invoked for non-web and web

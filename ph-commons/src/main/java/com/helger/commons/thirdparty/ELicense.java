@@ -17,10 +17,11 @@
 package com.helger.commons.thirdparty;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.version.Version;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a bunch of Open Source licenses regularly used.

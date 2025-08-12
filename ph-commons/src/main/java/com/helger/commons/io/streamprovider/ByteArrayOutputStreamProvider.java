@@ -18,12 +18,13 @@ package com.helger.commons.io.streamprovider;
 
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IHasOutputStreamAndWriter;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.OutputStream} provider based on a byte array.

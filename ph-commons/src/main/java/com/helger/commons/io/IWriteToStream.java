@@ -19,11 +19,11 @@ package com.helger.commons.io;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
-
 import com.helger.commons.io.stream.StreamHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A simple interface for objects that can write to an {@link OutputStream}.

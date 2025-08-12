@@ -19,9 +19,6 @@ package com.helger.xml.sax;
 import java.io.IOException;
 import java.net.URL;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -30,6 +27,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A simple version of {@link EntityResolver} using

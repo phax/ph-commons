@@ -20,12 +20,13 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.state.ESuccess;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Some thread utility methods.

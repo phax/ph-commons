@@ -16,7 +16,7 @@
  */
 package com.helger.commons.lang;
 
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for all objects having optional support for custom

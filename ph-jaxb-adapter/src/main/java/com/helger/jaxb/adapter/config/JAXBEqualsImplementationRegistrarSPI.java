@@ -16,13 +16,13 @@
  */
 package com.helger.jaxb.adapter.config;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.equals.IEqualsImplementationRegistrarSPI;
 import com.helger.commons.equals.IEqualsImplementationRegistry;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBElement;
 
 /**

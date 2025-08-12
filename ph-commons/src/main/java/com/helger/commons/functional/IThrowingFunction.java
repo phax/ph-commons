@@ -18,7 +18,7 @@ package com.helger.commons.functional;
 
 import java.util.Objects;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents a function that accepts one argument and produces a result and may

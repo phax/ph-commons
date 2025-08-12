@@ -21,11 +21,10 @@ import static org.junit.Assert.assertNull;
 
 import java.io.InputStream;
 
-import com.helger.annotation.WillClose;
-import com.helger.annotation.misc.DevelopersNote;
-
 import org.junit.Test;
 
+import com.helger.annotation.WillClose;
+import com.helger.annotation.misc.DevelopersNote;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassLoaderHelper;

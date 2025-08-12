@@ -23,20 +23,20 @@ import java.nio.channels.FileLock;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.WillNotClose;
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Some very basic NIO channel utility stuff.

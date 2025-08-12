@@ -19,17 +19,14 @@ package com.helger.commons.typeconvert;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableObject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
@@ -45,6 +42,9 @@ import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.wrapper.Wrapper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the default type converters for the default types

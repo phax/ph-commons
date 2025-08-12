@@ -16,8 +16,8 @@
  */
 package com.helger.commons.typeconvert;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Find the correct type converter provider from a source class to a destination

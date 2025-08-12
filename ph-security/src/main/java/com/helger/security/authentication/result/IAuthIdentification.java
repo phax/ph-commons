@@ -18,12 +18,12 @@ package com.helger.security.authentication.result;
 
 import java.time.LocalDateTime;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.ISuccessIndicator;
 import com.helger.security.authentication.subject.IAuthSubject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The interface representing the authentication result of an

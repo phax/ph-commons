@@ -18,7 +18,7 @@ package com.helger.commons.text.codepoint;
 
 import java.nio.CharBuffer;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera

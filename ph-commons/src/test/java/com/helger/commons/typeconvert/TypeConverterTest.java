@@ -36,8 +36,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.ArrayHelper;
@@ -70,6 +68,8 @@ import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link TypeConverter}.

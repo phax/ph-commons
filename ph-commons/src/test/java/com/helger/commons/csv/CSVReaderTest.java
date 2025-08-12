@@ -44,8 +44,6 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
@@ -54,6 +52,8 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link CSVReader}.

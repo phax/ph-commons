@@ -33,13 +33,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.annotation.style.ReturnsMutableObject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.ArrayHelper;
@@ -47,6 +45,8 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.system.EOperatingSystem;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Generic directory watching service using the default JDK {@link WatchService}

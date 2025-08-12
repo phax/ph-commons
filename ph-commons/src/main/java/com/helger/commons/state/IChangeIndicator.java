@@ -16,7 +16,7 @@
  */
 package com.helger.commons.state;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Very simple interface for an object that has changed/unchanged indication.

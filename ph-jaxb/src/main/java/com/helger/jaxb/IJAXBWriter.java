@@ -33,8 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
@@ -56,6 +54,9 @@ import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.SafeXMLStreamWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 import com.helger.xml.transform.TransformResultFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for writing JAXB documents to various destinations.

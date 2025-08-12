@@ -18,9 +18,9 @@ package com.helger.commons.concurrent;
 
 import java.util.concurrent.locks.Lock;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Small wrapper around {@link Lock} interface to be used in a

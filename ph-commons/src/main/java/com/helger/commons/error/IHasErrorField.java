@@ -18,11 +18,11 @@ package com.helger.commons.error;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for an object that has an error field.

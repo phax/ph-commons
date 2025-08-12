@@ -30,20 +30,20 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.WillClose;
-import com.helger.annotation.concurrent.Immutable;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.EOperatingSystem;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Reads a TTF font file and provides access to kerning information. Thanks to

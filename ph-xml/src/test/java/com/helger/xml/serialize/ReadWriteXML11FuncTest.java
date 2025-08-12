@@ -21,10 +21,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import com.helger.annotation.Nonnegative;
-
 import org.junit.Test;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemProperties;
 import com.helger.xml.microdom.IMicroDocument;

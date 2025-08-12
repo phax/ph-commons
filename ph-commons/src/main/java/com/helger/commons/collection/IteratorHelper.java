@@ -23,9 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.collection.iterate.ArrayIterator;
 import com.helger.commons.collection.iterate.CombinedIterator;
 import com.helger.commons.collection.iterate.EmptyEnumeration;
@@ -34,6 +31,9 @@ import com.helger.commons.collection.iterate.EnumerationFromIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIteratorFromEnumeration;
 import com.helger.commons.collection.iterate.ReverseListIterator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper class containing several {@link Iterator}, {@link Iterable},

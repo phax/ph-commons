@@ -32,8 +32,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -48,6 +46,9 @@ import com.helger.commons.timing.StopWatch;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.sax.CollectingSAXErrorHandler;
 import com.helger.xml.sax.InputSourceFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper class to read XML documents via SAX or DOM

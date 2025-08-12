@@ -21,11 +21,12 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.CGlobal;
 import com.helger.commons.datetime.PDTFactory;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Predefined HTTP constants.

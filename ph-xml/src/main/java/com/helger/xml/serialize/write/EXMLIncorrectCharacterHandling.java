@@ -18,13 +18,13 @@ package com.helger.xml.serialize.write;
 
 import java.util.Set;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Define what to do, when an invalid character is to be serialized to XML.

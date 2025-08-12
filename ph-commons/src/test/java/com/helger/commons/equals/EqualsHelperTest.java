@@ -32,7 +32,6 @@ import java.util.function.BiPredicate;
 
 import org.junit.Test;
 
-import com.helger.annotation.Nonnull;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.IteratorHelper;
@@ -53,6 +52,8 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.string.StringParser;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link EqualsHelper}.

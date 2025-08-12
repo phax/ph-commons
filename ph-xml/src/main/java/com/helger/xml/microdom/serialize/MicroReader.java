@@ -24,16 +24,14 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.WillClose;
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.ext.EntityResolver2;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -43,6 +41,8 @@ import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.ISAXReaderSettings;
 import com.helger.xml.serialize.read.SAXReader;
 import com.helger.xml.serialize.read.SAXReaderSettings;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Utility class to read an XML stream into an {@link IMicroDocument}.

@@ -21,10 +21,8 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.MissingResourceException;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.collection.map.IntSet;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -34,6 +32,8 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper class providing methods that supply populated Homoglyph objects.

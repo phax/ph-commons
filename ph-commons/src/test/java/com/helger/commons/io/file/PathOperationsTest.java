@@ -29,9 +29,9 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PathOperations}.

@@ -19,13 +19,13 @@ package com.helger.json.serialize;
 import java.nio.charset.StandardCharsets;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.ENewLineMode;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of {@link IJsonWriterSettings}.

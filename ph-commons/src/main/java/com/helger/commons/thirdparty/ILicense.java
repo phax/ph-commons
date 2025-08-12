@@ -16,11 +16,11 @@
  */
 package com.helger.commons.thirdparty;
 
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.version.IHasVersion;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a single license.

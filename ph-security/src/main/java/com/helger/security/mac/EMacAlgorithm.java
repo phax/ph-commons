@@ -19,14 +19,15 @@ package com.helger.security.mac;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.helger.annotation.Nonempty;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A selection of common hash algorithms.

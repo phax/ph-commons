@@ -18,13 +18,11 @@ package com.helger.graph.algo;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsTreeSet;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -35,6 +33,8 @@ import com.helger.graph.IMutableGraphRelation;
 import com.helger.graph.simple.ISimpleGraph;
 import com.helger.graph.simple.SimpleGraph;
 import com.helger.graph.simple.SimpleGraphObjectFastFactory;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Find the minimum spanning tree of a graph, using Kruskal's algorithm.

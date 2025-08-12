@@ -18,13 +18,11 @@ package com.helger.xml.sax;
 
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonnull;
+import org.xml.sax.SAXParseException;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.xml.sax.SAXParseException;
-
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.IErrorLevel;
@@ -32,6 +30,8 @@ import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An error handler implementation that stores all warnings, errors and fatal

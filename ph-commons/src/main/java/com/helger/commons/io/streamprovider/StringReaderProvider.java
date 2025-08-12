@@ -17,13 +17,13 @@
 package com.helger.commons.io.streamprovider;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.IHasReader;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.Reader} provider based on a {@link String}.

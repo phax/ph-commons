@@ -17,13 +17,14 @@
  */
 package com.helger.bc.config;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.thirdparty.ELicense;
 import com.helger.commons.thirdparty.IThirdPartyModule;
 import com.helger.commons.thirdparty.IThirdPartyModuleProviderSPI;
 import com.helger.commons.thirdparty.ThirdPartyModule;
 import com.helger.commons.version.Version;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Implement this SPI interface if your JAR file contains external third party modules.

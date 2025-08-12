@@ -19,7 +19,6 @@ package com.helger.commons.collection.map;
 import java.util.Map;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.UseDirectEqualsAndHashCode;
@@ -27,6 +26,8 @@ import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special ordered map, that has an upper limit of contained elements. It is

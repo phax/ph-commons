@@ -18,18 +18,18 @@ package com.helger.jaxb.builder;
 
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.GuardedBy;
-import com.helger.annotation.concurrent.ThreadSafe;
 import javax.xml.namespace.NamespaceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.ValidationEventHandler;
 
 /**

@@ -16,10 +16,10 @@
  */
 package com.helger.datetime.expiration;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for objects that can expire but offer a replacement once the object

@@ -27,8 +27,6 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +40,7 @@ import com.helger.jaxb.mock.external.MockJAXBCollection;
 import com.helger.jaxb.mock.external.MockJAXBIssue;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;

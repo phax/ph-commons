@@ -30,8 +30,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.io.stream.LoggingInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StringInputStream;
@@ -39,6 +37,9 @@ import com.helger.json.IJson;
 import com.helger.json.IJsonValue;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
 import com.helger.json.serialize.JsonReader;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link JsonParser}.

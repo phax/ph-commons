@@ -18,13 +18,12 @@ package com.helger.jaxb.adapter;
 
 import java.time.LocalDate;
 
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTWebDateHelper;
 
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**

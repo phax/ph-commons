@@ -20,12 +20,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
-
 import com.helger.commons.CGlobal;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Decoder for ASCII Hex encoding

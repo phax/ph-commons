@@ -23,13 +23,13 @@ import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.functional.IBooleanPredicate;
 import com.helger.commons.functional.ICharPredicate;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a utility class for easier <code>toString</code> method creations. It

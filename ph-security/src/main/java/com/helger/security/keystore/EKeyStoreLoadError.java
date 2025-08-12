@@ -19,10 +19,11 @@ package com.helger.security.keystore;
 import java.util.Locale;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Errors that can occur in {@link KeyStoreHelper}

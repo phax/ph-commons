@@ -30,8 +30,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
@@ -49,6 +47,9 @@ import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
 import com.helger.commons.statistics.StatisticsManager;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Some very basic IO stream utility stuff. All input stream (=reading) related stuff is quite

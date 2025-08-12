@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.io.stream.WrappedInputStream;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A {@link Base64InputStream} will read data from another

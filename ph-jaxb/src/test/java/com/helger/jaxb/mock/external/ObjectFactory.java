@@ -16,8 +16,7 @@
  */
 package com.helger.jaxb.mock.external;
 
-import com.helger.annotation.Nonnull;
-
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.annotation.XmlRegistry;
 
 /**

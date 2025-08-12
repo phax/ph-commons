@@ -39,13 +39,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.annotation.Nonnull;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.xpath.XPathExpressionHelper;
 import com.helger.xml.xpath.XPathHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link XMLHelper}.

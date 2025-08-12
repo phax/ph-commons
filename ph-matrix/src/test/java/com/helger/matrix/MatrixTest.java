@@ -33,8 +33,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +40,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * TestMatrix tests the functionality of the Jama Matrix class and associated

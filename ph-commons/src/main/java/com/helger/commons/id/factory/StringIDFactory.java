@@ -16,11 +16,11 @@
  */
 package com.helger.commons.id.factory;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An {@link IStringIDFactory} implementation that uses a constant prefix and an

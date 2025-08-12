@@ -24,8 +24,6 @@ import javax.xml.validation.Schema;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -42,6 +40,9 @@ import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * DOM reader default settings

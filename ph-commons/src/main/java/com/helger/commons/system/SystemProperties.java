@@ -18,16 +18,13 @@ package com.helger.commons.system;
 
 import java.util.Properties;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.collection.impl.CommonsCopyOnWriteArraySet;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -38,6 +35,9 @@ import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class wraps all the Java system properties like version number etc.

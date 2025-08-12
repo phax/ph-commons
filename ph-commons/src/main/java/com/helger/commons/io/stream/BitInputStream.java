@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteOrder;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.concurrent.SimpleLock;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The {@link BitInputStream} allows reading individual bits from a general Java

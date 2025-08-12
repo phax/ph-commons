@@ -19,9 +19,10 @@ package com.helger.commons.collection.impl;
 import java.util.Collections;
 import java.util.NavigableSet;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link NavigableSet} based interface with extended functionality

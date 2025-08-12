@@ -19,10 +19,10 @@ package com.helger.commons.io;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.io.stream.StreamHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link Writer} objects based on

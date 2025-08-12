@@ -19,9 +19,7 @@ package com.helger.commons.mutable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
@@ -29,6 +27,8 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a {@link BigInteger} so that it can be passed a final

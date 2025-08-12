@@ -21,11 +21,11 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.traits.IGetterDirectTrait;
 import com.helger.json.valueserializer.IJsonValueSerializer;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single JSON value

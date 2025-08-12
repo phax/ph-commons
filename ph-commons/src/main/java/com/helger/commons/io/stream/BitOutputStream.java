@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteOrder;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.concurrent.SimpleLock;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The BitOutputStream allows writing individual bits to a general Java

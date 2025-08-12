@@ -19,10 +19,10 @@ package com.helger.commons.collection.iterate;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A specific enumeration iterating over two consecutive enumerations.

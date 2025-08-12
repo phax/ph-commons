@@ -18,9 +18,9 @@ package com.helger.commons.io.watchdir;
 
 import java.nio.file.Path;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.callback.ICallback;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The callback interface to be implemented to get notified about changes in a

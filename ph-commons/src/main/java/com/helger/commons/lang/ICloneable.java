@@ -16,7 +16,7 @@
  */
 package com.helger.commons.lang;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * This is a type-safe replacement interface for the default

@@ -16,14 +16,13 @@
  */
 package com.helger.jaxb;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.callback.exception.IExceptionCallback;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.MarshalException;
 

@@ -18,8 +18,8 @@ package com.helger.commons.io.provider;
 
 import java.io.Reader;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link Reader} objects from a given name.

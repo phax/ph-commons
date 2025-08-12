@@ -18,7 +18,7 @@ package com.helger.commons.io.stream;
 
 import java.io.InputStream;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link InputStream} that does not close the stream. This is e.g.

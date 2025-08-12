@@ -21,7 +21,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
@@ -31,6 +30,8 @@ import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base class for a tree having items with IDs. This implementation is

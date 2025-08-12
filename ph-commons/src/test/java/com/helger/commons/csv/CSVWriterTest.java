@@ -48,8 +48,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -57,6 +55,8 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.NonClosingWriter;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
 
 public final class CSVWriterTest
 {

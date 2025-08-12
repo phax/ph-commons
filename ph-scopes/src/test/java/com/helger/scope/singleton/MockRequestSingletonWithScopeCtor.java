@@ -16,10 +16,11 @@
  */
 package com.helger.scope.singleton;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.commons.ValueEnforcer;
 import com.helger.scope.IScope;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Mock implementation of {@link AbstractRequestSingleton}.

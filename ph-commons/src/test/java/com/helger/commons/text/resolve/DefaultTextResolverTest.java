@@ -23,16 +23,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.misc.NoTranslationRequired;
-
 import org.junit.Test;
 
+import com.helger.annotation.misc.NoTranslationRequired;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link DefaultTextResolver}.

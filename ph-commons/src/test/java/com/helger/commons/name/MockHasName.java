@@ -17,10 +17,10 @@
 package com.helger.commons.name;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
+
+import jakarta.annotation.Nonnull;
 
 public final class MockHasName implements IHasName, Comparable <MockHasName>
 {

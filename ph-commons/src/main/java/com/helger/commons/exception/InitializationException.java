@@ -16,7 +16,7 @@
  */
 package com.helger.commons.exception;
 
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * This class should be used when an error occurs in the initialization phase

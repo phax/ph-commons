@@ -19,11 +19,11 @@ package com.helger.commons.text.display;
 import java.util.Comparator;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.text.IHasText;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for objects that have a locale <b>dependent</b> display name.

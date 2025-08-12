@@ -18,12 +18,12 @@ package com.helger.commons.collection.iterate;
 
 import java.util.Iterator;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class is used for simpler iteration over an Iterator via the new "for"

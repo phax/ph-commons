@@ -17,10 +17,10 @@
 package com.helger.commons.hierarchy;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.collection.impl.ICommonsCollection;
+
+import jakarta.annotation.Nullable;
 
 /**
  * A standard implementation of the {@link IChildrenProvider} interface that

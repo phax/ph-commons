@@ -21,8 +21,9 @@ import java.io.InputStream;
 import java.nio.channels.Channels;
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.WillClose;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera

@@ -27,13 +27,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.style.IsSPIImplementation;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.io.file.FilenameHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class registers the default hash code implementations. The

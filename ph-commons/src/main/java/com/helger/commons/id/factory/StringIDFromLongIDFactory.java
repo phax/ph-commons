@@ -16,7 +16,7 @@
  */
 package com.helger.commons.id.factory;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * A factory that creates String IDs based on a specified {@link ILongIDFactory}

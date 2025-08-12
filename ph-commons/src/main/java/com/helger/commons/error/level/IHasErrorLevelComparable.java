@@ -16,10 +16,10 @@
  */
 package com.helger.commons.error.level;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.severity.ISeverityComparable;
 import com.helger.commons.traits.IGenericImplTrait;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for objects that have a severity based on {@link IErrorLevel}.

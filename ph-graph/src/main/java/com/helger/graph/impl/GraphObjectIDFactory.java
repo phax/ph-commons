@@ -17,14 +17,15 @@
 package com.helger.graph.impl;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.id.factory.IIDFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Factory class that handles the generation of graph object IDs. It allows to

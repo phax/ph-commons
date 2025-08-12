@@ -16,10 +16,10 @@
  */
 package com.helger.xml.transform;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
-
 import com.helger.commons.error.IError;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * {@link javax.xml.transform.ErrorListener} that does nothing.

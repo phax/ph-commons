@@ -18,9 +18,10 @@ package com.helger.commons.collection.map;
 
 import java.util.HashMap;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsHashMap;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Soft {@link HashMap} implementation based on

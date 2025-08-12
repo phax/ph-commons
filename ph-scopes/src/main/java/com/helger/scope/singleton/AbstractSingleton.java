@@ -22,17 +22,14 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
 import java.util.BitSet;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.UsedViaReflection;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -44,6 +41,9 @@ import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.scope.IScope;
 import com.helger.scope.IScopeDestructionAware;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base class for all singletons.

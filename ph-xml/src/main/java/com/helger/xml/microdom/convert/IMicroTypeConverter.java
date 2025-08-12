@@ -17,9 +17,10 @@
 package com.helger.xml.microdom.convert;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.xml.microdom.IMicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface to be implemented to marshal between IMicroElement and a native

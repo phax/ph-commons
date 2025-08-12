@@ -16,8 +16,6 @@
  */
 package com.helger.xml.serialize.write;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
@@ -39,6 +37,9 @@ import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Internal XML serializer that takes org.w3c.dom.Node objects, extracts the

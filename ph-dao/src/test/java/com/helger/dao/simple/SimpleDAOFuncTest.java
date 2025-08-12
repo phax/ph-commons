@@ -20,8 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.io.relative.FileRelativeIO;
@@ -29,6 +27,8 @@ import com.helger.commons.state.EChange;
 import com.helger.dao.DAOException;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.MicroDocument;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link AbstractSimpleDAO}.

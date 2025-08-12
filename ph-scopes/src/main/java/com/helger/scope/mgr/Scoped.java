@@ -17,8 +17,9 @@
 package com.helger.scope.mgr;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.scope.IRequestScope;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Auto closable wrapper around

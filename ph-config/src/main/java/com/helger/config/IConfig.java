@@ -17,8 +17,6 @@
 package com.helger.config;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.traits.IGetterByKeyTrait;
@@ -26,6 +24,9 @@ import com.helger.commons.wrapper.Wrapper;
 import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Read-only configuration

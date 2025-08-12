@@ -24,10 +24,10 @@ import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special string decoder that can be used to convert a byte source to a

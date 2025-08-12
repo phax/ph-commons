@@ -18,7 +18,7 @@ package com.helger.commons.concurrent.collector;
 
 import java.util.concurrent.BlockingQueue;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 final class MockConcurrentCollectorMultiple extends ConcurrentCollectorMultiple <String>
 {

@@ -54,6 +54,13 @@
     </developer>
   </developers>
   
+  <dependencies>
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+    </dependency>
+  </dependencies>
+  
   <build>
     <plugins>
       <plugin>

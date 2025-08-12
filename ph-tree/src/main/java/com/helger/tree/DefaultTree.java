@@ -16,8 +16,9 @@
  */
 package com.helger.tree;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of the {@link ITree} interface using

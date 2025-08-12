@@ -18,8 +18,8 @@ package com.helger.commons.io.file;
 
 import java.io.File;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for a manager operating on the file system. Is implemented by

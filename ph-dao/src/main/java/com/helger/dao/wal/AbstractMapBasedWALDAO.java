@@ -26,8 +26,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.ELockType;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.IsLocked;
@@ -60,6 +58,9 @@ import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base class for WAL based DAO that uses a simple {@link ICommonsMap} for data storage.

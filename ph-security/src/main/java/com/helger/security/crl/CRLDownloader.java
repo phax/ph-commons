@@ -18,9 +18,6 @@ package com.helger.security.crl;
 
 import java.security.cert.CRL;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +26,9 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.url.EURLProtocol;
 import com.helger.commons.url.IURLDownloader;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A class for downloading CRL data. This class is as thread-safe as the used

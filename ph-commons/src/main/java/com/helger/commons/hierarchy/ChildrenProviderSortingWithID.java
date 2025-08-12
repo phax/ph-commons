@@ -18,10 +18,10 @@ package com.helger.commons.hierarchy;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.lang.GenericReflection;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * An {@link IChildrenProviderWithID} with ID that returns the children in

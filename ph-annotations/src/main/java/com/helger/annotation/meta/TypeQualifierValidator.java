@@ -19,7 +19,7 @@ package com.helger.annotation.meta;
 
 import java.lang.annotation.Annotation;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Findbugs JSR 305

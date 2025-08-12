@@ -16,8 +16,9 @@
  */
 package com.helger.commons.serialize.convert;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.IsSPIInterface;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * SPI interface to be implemented by other modules wishing to register their

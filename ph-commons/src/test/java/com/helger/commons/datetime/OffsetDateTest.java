@@ -69,12 +69,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test {@link OffsetDate}.

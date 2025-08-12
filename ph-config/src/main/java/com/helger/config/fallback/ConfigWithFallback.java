@@ -18,9 +18,6 @@ package com.helger.config.fallback;
 
 import java.math.BigDecimal;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +27,9 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.Config;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link IConfigWithFallback}.

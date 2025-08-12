@@ -22,7 +22,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * An enum that defines the revocation checking modes.

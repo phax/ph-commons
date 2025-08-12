@@ -20,12 +20,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingStringReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link ICSVLineReader}.

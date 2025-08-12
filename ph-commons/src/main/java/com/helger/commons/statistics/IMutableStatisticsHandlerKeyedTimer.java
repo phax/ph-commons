@@ -17,7 +17,8 @@
 package com.helger.commons.statistics;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nullable;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Statistics handler for keyed timer.

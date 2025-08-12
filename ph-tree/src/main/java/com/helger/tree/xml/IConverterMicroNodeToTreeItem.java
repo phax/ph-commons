@@ -16,10 +16,10 @@
  */
 package com.helger.tree.xml;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.xml.microdom.IMicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface used to convert a single micro element into a value used as tree

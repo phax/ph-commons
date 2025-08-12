@@ -18,11 +18,11 @@ package com.helger.commons.datetime;
 
 import java.time.ZoneId;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A combination of a date/time string and an optional {@link ZoneId}.

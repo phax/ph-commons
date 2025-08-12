@@ -16,9 +16,9 @@
  */
 package com.helger.commons.supplementary.tools.collection;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.lang.ClassHelper;
+
+import jakarta.annotation.Nonnull;
 
 enum EPrimitiveType
 {

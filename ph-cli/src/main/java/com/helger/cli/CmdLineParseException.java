@@ -17,8 +17,8 @@
  */
 package com.helger.cli;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base class for commandline parse exceptions. Is a checked exception, as

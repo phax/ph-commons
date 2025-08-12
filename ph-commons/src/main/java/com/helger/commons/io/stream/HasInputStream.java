@@ -19,12 +19,13 @@ package com.helger.commons.io.stream;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special implementation of {@link IHasInputStream} with that has an

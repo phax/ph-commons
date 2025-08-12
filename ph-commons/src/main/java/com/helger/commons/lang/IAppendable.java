@@ -18,10 +18,10 @@ package com.helger.commons.lang;
 
 import java.util.Map;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import org.w3c.dom.Node;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Defines a generic interface for appending objects to something.

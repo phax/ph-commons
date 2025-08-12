@@ -16,9 +16,9 @@
  */
 package com.helger.commons.callback;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.state.EContinue;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Simple notification interface.

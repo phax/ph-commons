@@ -24,8 +24,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Function;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +31,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.timing.StopWatch;
+
+import jakarta.annotation.Nonnull;
 
 public class PromiseFuncTest
 {

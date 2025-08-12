@@ -16,9 +16,9 @@
  */
 package com.helger.commons.io.resource.wrapped;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.io.resource.IWritableResource;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for writable resources that are "wrapped".

@@ -50,12 +50,13 @@ import java.time.zone.ZoneRules;
 import java.util.Objects;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.CGlobal;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A version of {@link OffsetTime} that has an optional {@link ZoneOffset}

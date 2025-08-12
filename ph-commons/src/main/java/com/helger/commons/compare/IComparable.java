@@ -16,7 +16,7 @@
  */
 package com.helger.commons.compare;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * A special interface extension to the {@link Comparable} interface that adds

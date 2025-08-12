@@ -16,7 +16,7 @@
  */
 package com.helger.commons.id.factory;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * An {@link IStringIDFactory} implementation that uses a constant prefix and a

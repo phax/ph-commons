@@ -19,10 +19,10 @@ package com.helger.commons.io.stream;
 import java.io.FilterWriter;
 import java.io.Writer;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around another {@link FilterWriter} to make the wrapped

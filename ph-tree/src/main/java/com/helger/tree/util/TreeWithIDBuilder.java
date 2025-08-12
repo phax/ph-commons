@@ -19,8 +19,6 @@ package com.helger.tree.util;
 import java.util.Collection;
 import java.util.List;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
@@ -33,6 +31,9 @@ import com.helger.commons.hierarchy.IParentProvider;
 import com.helger.commons.id.IHasID;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility classes for building a tree from flat collections.

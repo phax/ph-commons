@@ -17,9 +17,10 @@
 package com.helger.graph.simple;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.graph.IMutableGraph;
 import com.helger.graph.IMutableGraphRelation;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a modifiable simple graph.

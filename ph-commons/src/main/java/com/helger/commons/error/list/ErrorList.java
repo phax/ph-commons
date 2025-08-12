@@ -18,12 +18,12 @@ package com.helger.commons.error.list;
 
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
-
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.error.IError;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IErrorList}.

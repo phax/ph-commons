@@ -17,9 +17,10 @@
 package com.helger.json.parser.handler;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.json.CJson;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This {@link IJsonParserHandler} builds the JSON string as a 1:1 copy of the

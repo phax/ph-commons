@@ -20,13 +20,14 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Common interface for single errors and resource errors.

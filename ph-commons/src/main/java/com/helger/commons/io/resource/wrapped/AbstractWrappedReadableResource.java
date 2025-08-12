@@ -20,12 +20,12 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A wrapper around a readable resource for {@link InputStream} manipulation .

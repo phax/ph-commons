@@ -19,12 +19,12 @@ package com.helger.datetime.domain;
 import java.text.DateFormatSymbols;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents the AM/PM values

@@ -20,8 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
@@ -42,6 +40,9 @@ import com.helger.scope.IScope;
 import com.helger.scope.ISessionScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
 import com.helger.scope.spi.ScopeSPIManager;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Internal manager class for session scopes.<br>

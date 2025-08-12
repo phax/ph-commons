@@ -17,10 +17,11 @@
 package com.helger.commons.statistics;
 
 import com.helger.annotation.CheckForSigned;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsSet;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for keyed statistic handlers

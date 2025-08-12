@@ -21,11 +21,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.mutable.MutableBoolean;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link GlobalScope}.

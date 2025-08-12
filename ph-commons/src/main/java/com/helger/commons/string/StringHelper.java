@@ -42,8 +42,6 @@ import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -64,6 +62,9 @@ import com.helger.commons.functional.ICharConsumer;
 import com.helger.commons.functional.ICharPredicate;
 import com.helger.commons.functional.Predicates;
 import com.helger.commons.math.MathHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Generic string transformation and helper methods. If you need to modify a

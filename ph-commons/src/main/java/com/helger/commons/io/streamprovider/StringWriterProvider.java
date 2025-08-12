@@ -16,12 +16,12 @@
  */
 package com.helger.commons.io.streamprovider;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.IHasWriter;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.Writer} provider based on a {@link String}.

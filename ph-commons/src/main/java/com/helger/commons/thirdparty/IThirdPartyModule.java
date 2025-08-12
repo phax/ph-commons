@@ -16,12 +16,12 @@
  */
 package com.helger.commons.thirdparty;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.version.IHasVersion;
 import com.helger.commons.version.Version;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents meta information for a single third-party module (aka JAR file).

@@ -16,13 +16,13 @@
  */
 package com.helger.security.authentication.result;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.security.authentication.credentials.ICredentialValidationResult;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains the overall authentication result.

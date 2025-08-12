@@ -25,8 +25,6 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -42,6 +40,8 @@ import com.helger.config.source.res.ConfigurationSourceProperties;
 import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 import com.helger.config.value.IConfigurationValueProvider;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link ConfigFactory}

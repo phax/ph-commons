@@ -16,7 +16,7 @@
  */
 package com.helger.commons.id;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for objects having an ID.

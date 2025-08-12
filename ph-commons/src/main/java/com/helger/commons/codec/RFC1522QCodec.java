@@ -21,9 +21,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Similar to the Quoted-Printable content-transfer-encoding defined in

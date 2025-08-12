@@ -16,9 +16,9 @@
  */
 package com.helger.commons.callback.exception;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.callback.ICallback;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface to handle thrown exception objects.

@@ -16,10 +16,10 @@
  */
 package com.helger.commons.typeconvert;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.lang.GenericReflection;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A fuzzy type converter provider. Implemented as a singleton.

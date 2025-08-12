@@ -16,7 +16,7 @@
  */
 package com.helger.commons.builder;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Marker interface for a resettable builder

@@ -18,7 +18,6 @@ package com.helger.commons.statistics.util;
 
 import java.util.Comparator;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
@@ -31,6 +30,8 @@ import com.helger.commons.statistics.IStatisticsHandlerKeyedTimer;
 import com.helger.commons.statistics.IStatisticsHandlerSize;
 import com.helger.commons.statistics.IStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Class for iterating all available statistics

@@ -17,9 +17,9 @@
 package com.helger.commons.error.level;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.collection.impl.ICommonsIterable;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface representing an object having multiple objects with an error level

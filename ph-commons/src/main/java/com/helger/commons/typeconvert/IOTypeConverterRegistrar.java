@@ -26,7 +26,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.io.EAppend;
@@ -39,6 +38,8 @@ import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IResourceBase;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.url.URLHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Register the IO specific type converter

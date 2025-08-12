@@ -18,10 +18,10 @@ package com.helger.commons.text.codepoint;
 
 import java.util.function.IntPredicate;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.ValueEnforcer;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base implementation of a CodepointIterator that filters the output of another

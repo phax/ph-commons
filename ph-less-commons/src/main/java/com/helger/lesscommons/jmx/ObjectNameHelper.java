@@ -19,19 +19,19 @@ package com.helger.lesscommons.jmx;
 import java.util.Hashtable;
 import java.util.Map;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.concurrent.GuardedBy;
-import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.style.PresentForCodeCoverage;
-
 import javax.management.JMException;
 import javax.management.ObjectName;
 
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Utility class to create JMX {@link ObjectName} objects.

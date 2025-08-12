@@ -18,12 +18,13 @@ package com.helger.commons.text.resolve;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for an enum-based text resolver.

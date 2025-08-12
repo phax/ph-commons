@@ -18,10 +18,11 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.builder.IBuilder;
 import com.helger.commons.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Builder class for class {@link KeyStoreDescriptor}.

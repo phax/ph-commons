@@ -16,9 +16,10 @@
  */
 package com.helger.commons.collection.attr;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is the writable extension of the {@link IAttributeContainer &lt;String,

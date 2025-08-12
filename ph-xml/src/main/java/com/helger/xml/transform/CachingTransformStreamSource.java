@@ -18,17 +18,18 @@ package com.helger.xml.transform;
 
 import java.io.InputStream;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.WillClose;
-import com.helger.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.stream.StreamSource;
 
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * {@link javax.xml.transform.Source} that ensures that the passed

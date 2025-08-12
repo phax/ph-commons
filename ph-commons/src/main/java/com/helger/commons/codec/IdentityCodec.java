@@ -16,7 +16,7 @@
  */
 package com.helger.commons.codec;
 
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * Special implementation of {@link ICodec} that does nothing. This is a

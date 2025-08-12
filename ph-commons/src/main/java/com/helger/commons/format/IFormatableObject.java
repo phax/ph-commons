@@ -18,7 +18,7 @@ package com.helger.commons.format;
 
 import java.util.function.Function;
 
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * Basic interface for special objects having a certain string representation.

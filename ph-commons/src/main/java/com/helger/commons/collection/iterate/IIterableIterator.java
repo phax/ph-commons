@@ -20,9 +20,9 @@ import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.helger.annotation.Nonnull;
-
 import com.helger.commons.collection.impl.ICommonsIterable;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is a merged interface of {@link Iterator} and {@link Iterable} for

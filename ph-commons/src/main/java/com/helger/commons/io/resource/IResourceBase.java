@@ -19,9 +19,10 @@ package com.helger.commons.io.resource;
 import java.io.File;
 import java.net.URL;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for an abstract readable resource.

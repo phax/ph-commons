@@ -20,9 +20,10 @@ import java.io.InputStream;
 import java.net.URL;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.io.stream.StreamHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Callback interface to download data from web. Used e.g. for CRL downloads.

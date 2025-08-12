@@ -18,10 +18,11 @@ package com.helger.commons.typeconvert;
 
 import java.util.Locale;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.locale.LocaleCache;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Register the locale specific type converter

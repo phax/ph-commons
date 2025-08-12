@@ -17,8 +17,9 @@
 package com.helger.security.password.hash;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.security.password.salt.IPasswordSalt;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a password hash creator.

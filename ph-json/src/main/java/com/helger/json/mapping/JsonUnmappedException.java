@@ -16,8 +16,6 @@
  */
 package com.helger.json.mapping;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -25,6 +23,9 @@ import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a work around to read "exceptions" from JSON without actually having

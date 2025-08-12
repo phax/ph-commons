@@ -17,14 +17,15 @@
 package com.helger.commons.error.level;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.severity.ISeverityComparable;
 import com.helger.commons.state.IErrorIndicator;
 import com.helger.commons.state.ISuccessIndicator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface representing a single error level.

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.statistics;
 
-import com.helger.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * Statistics handler for a keyed counter.

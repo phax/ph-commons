@@ -18,14 +18,14 @@ package com.helger.xml.serialize.read;
 
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nonnull;
-
 import org.w3c.dom.Node;
 
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special input stream provider that takes an existing {@link Node} and

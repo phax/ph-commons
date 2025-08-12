@@ -27,13 +27,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
@@ -44,6 +42,8 @@ import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.system.EOperatingSystem;
 import com.helger.commons.system.SystemProperties;
+
+import jakarta.annotation.Nonnull;
 
 public final class JavaFileAccessFuncTest
 {

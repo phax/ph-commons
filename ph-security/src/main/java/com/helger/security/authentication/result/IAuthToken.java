@@ -19,10 +19,10 @@ package com.helger.security.authentication.result;
 import java.time.LocalDateTime;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-
 import com.helger.commons.id.IHasID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for an auth token.

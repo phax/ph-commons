@@ -20,8 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import com.helger.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
@@ -32,6 +30,8 @@ import com.helger.commons.mutable.MutableInt;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.microdom.serialize.MicroReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link MicroVisitor}.

@@ -18,13 +18,14 @@ package com.helger.jaxb;
 
 import java.nio.charset.Charset;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.Immutable;
 import javax.xml.namespace.NamespaceContext;
 
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 
+import com.helger.annotation.concurrent.Immutable;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.PropertyException;
 

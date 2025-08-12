@@ -22,7 +22,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.mutable.MutableBigDecimal;
@@ -35,6 +34,8 @@ import com.helger.commons.mutable.MutableFloat;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.mutable.MutableShort;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Implementation of {@link IJsonValueSerializerRegistrarSPI} for basic types

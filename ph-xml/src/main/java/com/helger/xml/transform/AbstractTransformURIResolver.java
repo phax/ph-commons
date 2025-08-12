@@ -16,12 +16,13 @@
  */
 package com.helger.xml.transform;
 
-import com.helger.annotation.Nullable;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
 import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract base implementation of the {@link URIResolver} interface.

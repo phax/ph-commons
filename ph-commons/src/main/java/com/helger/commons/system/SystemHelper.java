@@ -20,9 +20,10 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Get information about the system we're running on.

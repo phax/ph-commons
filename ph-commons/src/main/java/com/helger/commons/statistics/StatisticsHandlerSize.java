@@ -16,11 +16,11 @@
  */
 package com.helger.commons.statistics;
 
-import com.helger.annotation.Nonnegative;
-import com.helger.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerSize}

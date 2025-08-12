@@ -18,8 +18,6 @@ package com.helger.xml.microdom.serialize;
 
 import java.util.List;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
@@ -46,6 +44,9 @@ import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLEmitter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Materializes micro nodes into a string representation.

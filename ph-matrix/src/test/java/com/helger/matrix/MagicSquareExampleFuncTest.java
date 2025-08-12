@@ -21,12 +21,11 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.helger.annotation.Nonnegative;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.commons.string.StringHelper;
 
 /** Example of use of Matrix Class, featuring magic squares. **/

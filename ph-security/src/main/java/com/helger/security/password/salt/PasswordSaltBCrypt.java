@@ -21,7 +21,6 @@ import java.util.Arrays;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.commons.ValueEnforcer;
@@ -29,6 +28,8 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.security.bcrypt.BCrypt;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Implementation of {@link IPasswordSalt} using {@link BCrypt#gensalt(int)}.

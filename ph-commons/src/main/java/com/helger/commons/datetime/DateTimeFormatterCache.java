@@ -20,10 +20,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnull;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.commons.cache.Cache;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class provides a cache for {@link DateTimeFormatter} instances. It caches up to a limited

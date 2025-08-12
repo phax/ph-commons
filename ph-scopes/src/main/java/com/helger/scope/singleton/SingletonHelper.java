@@ -16,12 +16,12 @@
  */
 package com.helger.scope.singleton;
 
-import com.helger.annotation.Nullable;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
-
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Global singleton utility methods that don't nicely fit somewhere else.

@@ -38,8 +38,6 @@ import org.xml.sax.ext.Locator2;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.SimpleLocation;
@@ -53,6 +51,9 @@ import com.helger.xml.microdom.IMicroText;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.MicroDocumentType;
 import com.helger.xml.sax.AbstractSAXErrorHandler;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The SAX handler used by the {@link MicroReader}.

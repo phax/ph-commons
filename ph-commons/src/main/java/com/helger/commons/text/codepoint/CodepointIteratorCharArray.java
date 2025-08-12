@@ -16,7 +16,7 @@
  */
 package com.helger.commons.text.codepoint;
 
-import com.helger.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera

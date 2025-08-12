@@ -19,7 +19,8 @@ package com.helger.commons.concurrent;
 import java.util.concurrent.ExecutorService;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Factory for creating {@link ExecutorService} instances.

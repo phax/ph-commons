@@ -29,8 +29,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.commons.ValueEnforcer;
@@ -46,6 +44,9 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.XMLHelper;
 import com.helger.xml.namespace.IIterableNamespaceContext;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract XML serializer implementation that works with IMicroNode and org.w3c.dom.Node objects.

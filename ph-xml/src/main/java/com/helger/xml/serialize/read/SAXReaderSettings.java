@@ -19,12 +19,6 @@ package com.helger.xml.serialize.read;
 import java.util.Locale;
 import java.util.Map;
 
-import com.helger.annotation.Nonnull;
-import com.helger.annotation.Nullable;
-import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.annotation.style.ReturnsMutableObject;
-
 import javax.xml.parsers.SAXParserFactory;
 
 import org.slf4j.Logger;
@@ -37,6 +31,9 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
@@ -46,6 +43,9 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * SAX reader settings
