@@ -14,17 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.functional;
+package com.helger.base.functional;
 
 import java.util.function.Function;
 
 /**
- * Represents a function that accepts a byte-valued argument and produces a
- * result. This is the {@code byte}-consuming primitive specialization for
+ * Represents a function that accepts a float-valued argument and produces a
+ * result. This is the {@code float}-consuming primitive specialization for
  * {@link Function}.
  * <p>
  * This is a functional interface whose functional method is
- * {@link #apply(byte)}.
+ * {@link #apply(float)}.
  *
  * @param <R>
  *        the type of the result of the function
@@ -32,7 +32,7 @@ import java.util.function.Function;
  * @since 9.0.0
  */
 @FunctionalInterface
-public interface IByteFunction <R>
+public interface IFloatFunction <R>
 {
   /**
    * Applies this function to the given argument.
@@ -41,5 +41,5 @@ public interface IByteFunction <R>
    *        the function argument
    * @return the function result
    */
-  R apply (byte value);
+  R apply (float value);
 }

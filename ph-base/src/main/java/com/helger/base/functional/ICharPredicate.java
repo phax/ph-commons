@@ -14,32 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.functional;
+package com.helger.base.functional;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Represents a predicate (boolean-valued function) of one {@code boolean}-valued argument. This is
- * the {@code boolean}-consuming primitive type specialization of
- * {@link java.util.function.Predicate}.
+ * Represents a predicate (char-valued function) of one {@code char}-valued argument. This is the
+ * {@code char}-consuming primitive type specialization of {@link java.util.function.Predicate}.
  * <p>
  * This is a <a href="package-summary.html">functional interface</a> whose functional method is
- * {@link #test(boolean)}.
+ * {@link #test(char)}.
  *
  * @see java.util.function.Predicate
- * @since 8.5.2
+ * @since 9.0.0
  */
 @FunctionalInterface
-public interface IBooleanPredicate
+public interface ICharPredicate
 {
   /**
    * Evaluates this predicate on the given argument.
    *
-   * @param bValue
+   * @param cValue
    *        the input argument
    * @return {@code true} if the input argument matches the predicate, otherwise {@code false}
    */
-  boolean test (boolean bValue);
+  boolean test (char cValue);
 
   /**
    * Returns a predicate that represents the logical negation of this predicate.
@@ -47,7 +46,7 @@ public interface IBooleanPredicate
    * @return a predicate that represents the logical negation of this predicate
    */
   @Nonnull
-  default IBooleanPredicate negate ()
+  default ICharPredicate negate ()
   {
     return x -> !test (x);
   }
@@ -69,7 +68,7 @@ public interface IBooleanPredicate
    *         if other is null
    */
   @Nonnull
-  default IBooleanPredicate and (@Nonnull final IBooleanPredicate aOther)
+  default ICharPredicate and (@Nonnull final ICharPredicate aOther)
   {
     return x -> test (x) && aOther.test (x);
   }
@@ -91,33 +90,8 @@ public interface IBooleanPredicate
    *         if other is null
    */
   @Nonnull
-  default IBooleanPredicate or (@Nonnull final IBooleanPredicate aOther)
+  default ICharPredicate or (@Nonnull final ICharPredicate aOther)
   {
     return x -> test (x) || aOther.test (x);
-  }
-
-  @Nonnull
-  static IBooleanPredicate all ()
-  {
-    return x -> true;
-  }
-
-  @Nonnull
-  static IBooleanPredicate none ()
-  {
-    return x -> false;
-  }
-
-  @Nonnull
-  static IBooleanPredicate ifTrue ()
-  {
-    // This is a brainer ;) "if true" is the identity function
-    return x -> x;
-  }
-
-  @Nonnull
-  static IBooleanPredicate ifFalse ()
-  {
-    return x -> !x;
   }
 }

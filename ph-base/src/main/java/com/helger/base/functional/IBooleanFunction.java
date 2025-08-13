@@ -14,25 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.functional;
+package com.helger.base.functional;
 
 import java.util.function.Function;
 
 /**
- * Represents a function that accepts a float-valued argument and produces a
- * result. This is the {@code float}-consuming primitive specialization for
+ * Represents a function that accepts a boolean-valued argument and produces a
+ * result. This is the {@code boolean}-consuming primitive specialization for
  * {@link Function}.
  * <p>
  * This is a functional interface whose functional method is
- * {@link #apply(float)}.
+ * {@link #apply(boolean)}.
  *
  * @param <R>
  *        the type of the result of the function
  * @see Function
- * @since 9.0.0
+ * @since 8.0.0
  */
 @FunctionalInterface
-public interface IFloatFunction <R>
+public interface IBooleanFunction <R>
 {
   /**
    * Applies this function to the given argument.
@@ -41,5 +41,5 @@ public interface IFloatFunction <R>
    *        the function argument
    * @return the function result
    */
-  R apply (float value);
+  R apply (boolean value);
 }

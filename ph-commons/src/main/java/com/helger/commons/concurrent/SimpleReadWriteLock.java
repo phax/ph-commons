@@ -23,8 +23,8 @@ import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
+import com.helger.base.functional.IThrowingSupplier;
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.functional.IThrowingSupplier;
 
 import jakarta.annotation.Nonnull;
 

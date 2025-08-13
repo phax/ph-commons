@@ -14,31 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.functional;
+package com.helger.base.functional;
 
 /**
- * Represents a supplier of results that may throw an Exception.
+ * Represents a function that produces a boolean-valued result. This is the
+ * {@code boolean}-producing primitive specialization for
+ * {@link java.util.function.Function}.
  * <p>
- * There is no requirement that a new or distinct result be returned each time
- * the supplier is invoked.
- * <p>
- * This is a functional interface whose functional method is {@link #get()}.
+ * This is a functional interface whose functional method is
+ * {@link #applyAsBoolean(Object)}.
  *
  * @param <T>
- *        the type of results supplied by this supplier
- * @param <EXTYPE>
- *        exception type
- * @since 8.3.1
+ *        the type of the input to the function
+ * @see java.util.function.Function
+ * @since 8.0.0
  */
 @FunctionalInterface
-public interface IThrowingSupplier <T, EXTYPE extends Throwable>
+public interface IToBooleanFunction <T>
 {
   /**
-   * Gets a result.
+   * Applies this function to the given argument.
    *
-   * @return a result
-   * @throws EXTYPE
-   *         In case it is needed
+   * @param value
+   *        the function argument
+   * @return the function result
    */
-  T get () throws EXTYPE;
+  boolean applyAsBoolean (T value);
 }

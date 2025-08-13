@@ -23,8 +23,8 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.functional.Predicates;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.Predicates;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;

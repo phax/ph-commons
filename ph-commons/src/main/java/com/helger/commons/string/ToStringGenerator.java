@@ -24,9 +24,9 @@ import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.functional.IBooleanPredicate;
+import com.helger.base.functional.ICharPredicate;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.IBooleanPredicate;
-import com.helger.commons.functional.ICharPredicate;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

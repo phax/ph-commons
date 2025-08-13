@@ -14,32 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.functional;
-
-import java.util.function.Function;
+package com.helger.base.functional;
 
 /**
- * Represents a function that accepts a short-valued argument and produces a
- * result. This is the {@code short}-consuming primitive specialization for
- * {@link Function}.
+ * Represents a supplier of results that may throw an Exception.
  * <p>
- * This is a functional interface whose functional method is
- * {@link #apply(short)}.
+ * There is no requirement that a new or distinct result be returned each time
+ * the supplier is invoked.
+ * <p>
+ * This is a functional interface whose functional method is {@link #get()}.
  *
- * @param <R>
- *        the type of the result of the function
- * @see Function
- * @since 9.0.0
+ * @param <T>
+ *        the type of results supplied by this supplier
+ * @param <EXTYPE>
+ *        exception type
+ * @since 8.3.1
  */
 @FunctionalInterface
-public interface IShortFunction <R>
+public interface IThrowingSupplier <T, EXTYPE extends Throwable>
 {
   /**
-   * Applies this function to the given argument.
+   * Gets a result.
    *
-   * @param value
-   *        the function argument
-   * @return the function result
+   * @return a result
+   * @throws EXTYPE
+   *         In case it is needed
    */
-  R apply (short value);
+  T get () throws EXTYPE;
 }

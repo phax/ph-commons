@@ -31,10 +31,10 @@ import java.util.function.Predicate;
 
 import org.junit.Test;
 
+import com.helger.base.functional.Predicates;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.functional.Predicates;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

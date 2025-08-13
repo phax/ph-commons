@@ -23,9 +23,9 @@ import java.util.function.ObjIntConsumer;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.functional.IThrowingConsumer;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.IteratorHelper;
-import com.helger.commons.functional.IThrowingConsumer;
 import com.helger.commons.state.EContinue;
 
 import jakarta.annotation.Nonnull;

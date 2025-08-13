@@ -33,6 +33,8 @@ import java.util.function.Function;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
+import com.helger.base.functional.ICharPredicate;
+import com.helger.base.functional.IThrowingFunction;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
@@ -42,8 +44,6 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.functional.ICharPredicate;
-import com.helger.commons.functional.IThrowingFunction;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 
 /**
