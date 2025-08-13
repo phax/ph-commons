@@ -26,7 +26,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.state.ext.SuccessWithValue;
 
 /**
  * Test class for class {@link SuccessWithValue}.

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.hashcode;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,13 +30,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.io.file.FilenameHelper;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * This class registers the default hash code implementations. The
- * implementations in here should be aligned with the implementations in the
+ * This class registers the default hash code implementations. The implementations in here should be
+ * aligned with the implementations in the
  * {@link com.helger.commons.equals.DefaultEqualsImplementationRegistrarSPI}
  *
  * @author Philip Helger
@@ -133,8 +131,5 @@ public final class DefaultHashCodeImplementationRegistrarSPI implements IHashCod
         aHC = aHC.append (x.nextElement ());
       return aHC.getHashCode ();
     });
-
-    // Special handling for File
-    aRegistry.registerHashCodeImplementation (File.class, x -> FilenameHelper.getCleanPath (x.getAbsoluteFile ()).hashCode ());
   }
 }

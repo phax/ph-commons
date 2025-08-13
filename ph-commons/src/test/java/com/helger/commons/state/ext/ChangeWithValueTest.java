@@ -26,7 +26,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.state.EChange;
-import com.helger.commons.state.ext.ChangeWithValue;
 
 /**
  * Test class for class {@link ChangeWithValue}.

@@ -16,13 +16,10 @@
  */
 package com.helger.commons.equals;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.PasswordAuthentication;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,13 +35,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.io.file.FilenameHelper;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * This class registers the default equals implementations. The implementations
- * in here should be aligned with the implementations in the
+ * This class registers the default equals implementations. The implementations in here should be
+ * aligned with the implementations in the
  * {@link com.helger.commons.hashcode.DefaultHashCodeImplementationRegistrarSPI}
  *
  * @author Philip Helger
@@ -55,9 +51,8 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
   public void registerEqualsImplementations (@Nonnull final IEqualsImplementationRegistry aRegistry)
   {
     /**
-     * Special equals implementation for BigDecimal because
-     * <code>BigDecimal.equals</code> returns <code>false</code> if they have a
-     * different scale so that "5.5" is not equal "5.50".
+     * Special equals implementation for BigDecimal because <code>BigDecimal.equals</code> returns
+     * <code>false</code> if they have a different scale so that "5.5" is not equal "5.50".
      */
     aRegistry.registerEqualsImplementation (BigDecimal.class, (aObj1, aObj2) -> {
       // Compare is ~15% quicker than the setScale version
@@ -76,10 +71,12 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
     aRegistry.registerEqualsImplementation (Float.class, (aObj1, aObj2) -> aObj1.compareTo (aObj2) == 0);
 
     // StringBuffer does not implement equals!
-    aRegistry.registerEqualsImplementation (StringBuffer.class, (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
+    aRegistry.registerEqualsImplementation (StringBuffer.class,
+                                            (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
 
     // StringBuilder does not implement equals!
-    aRegistry.registerEqualsImplementation (StringBuilder.class, (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
+    aRegistry.registerEqualsImplementation (StringBuilder.class,
+                                            (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
 
     // Node does not implement equals
     aRegistry.registerEqualsImplementation (Node.class, (aObj1, aObj2) -> {
@@ -116,13 +113,13 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
     });
 
     /**
-     * Special equals implementation for URLs because <code>URL.equals</code>
-     * performs a host lookup.<br>
-     * <a href=
-     * "http://michaelscharf.blogspot.com/2006/11/javaneturlequals-and-hashcode-make.html"
+     * Special equals implementation for URLs because <code>URL.equals</code> performs a host
+     * lookup.<br>
+     * <a href= "http://michaelscharf.blogspot.com/2006/11/javaneturlequals-and-hashcode-make.html"
      * >Click here for details</a>
      */
-    aRegistry.registerEqualsImplementation (URL.class, (aObj1, aObj2) -> aObj1.toExternalForm ().equals (aObj2.toExternalForm ()));
+    aRegistry.registerEqualsImplementation (URL.class,
+                                            (aObj1, aObj2) -> aObj1.toExternalForm ().equals (aObj2.toExternalForm ()));
 
     // AtomicBoolean does not implement equals!
     aRegistry.registerEqualsImplementation (AtomicBoolean.class, (aObj1, aObj2) -> aObj1.get () == aObj2.get ());
@@ -232,39 +229,15 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
       return !aObj2.hasMoreElements ();
     });
 
-    // Special handling for File
-    aRegistry.registerEqualsImplementation (File.class,
-                                            (aObj1,
-                                             aObj2) -> FilenameHelper.getCleanPath (aObj1.getAbsoluteFile ())
-                                                                     .equals (FilenameHelper.getCleanPath (aObj2.getAbsoluteFile ())));
-
-    aRegistry.registerEqualsImplementation (Path.class, new IEqualsImplementation <Path> ()
-    {
-      public boolean areEqual (final Path aObj1, final Path aObj2)
-      {
-        try
-        {
-          return aObj1.toRealPath ().equals (aObj2.toRealPath ());
-        }
-        catch (final IOException ex)
-        {
-          return aObj1.equals (aObj2);
-        }
-      }
-
-      @Override
-      public boolean implementationEqualsOverridesInterface ()
-      {
-        return false;
-      }
-    });
-
     // Special handling for Locale in JDK >= 1.7
-    aRegistry.registerEqualsImplementation (Locale.class, (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
+    aRegistry.registerEqualsImplementation (Locale.class,
+                                            (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
 
     // Class does not implement equals
     aRegistry.registerEqualsImplementation (PasswordAuthentication.class,
-                                            (aObj1, aObj2) -> EqualsHelper.equals (aObj1.getUserName (), aObj2.getUserName ()) &&
-                                                              Arrays.equals (aObj1.getPassword (), aObj2.getPassword ()));
+                                            (aObj1, aObj2) -> EqualsHelper.equals (aObj1.getUserName (),
+                                                                                   aObj2.getUserName ()) &&
+                                                              Arrays.equals (aObj1.getPassword (),
+                                                                             aObj2.getPassword ()));
   }
 }
