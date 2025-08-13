@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.state;
+package com.helger.commons.state.ext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,36 +25,38 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.state.ESuccess;
+import com.helger.commons.state.ext.SuccessWithValue;
 
 /**
- * Test class for class {@link ChangeWithValue}.
+ * Test class for class {@link SuccessWithValue}.
  *
  * @author Philip Helger
  */
-public final class ChangeWithValueTest
+public final class SuccessWithValueTest
 {
   @Test
   public void testAll ()
   {
-    ChangeWithValue <String> x = new ChangeWithValue <> (EChange.CHANGED, "bla");
-    assertTrue (x.isChanged ());
-    assertFalse (x.isUnchanged ());
+    SuccessWithValue <String> x = new SuccessWithValue <> (ESuccess.SUCCESS, "bla");
+    assertTrue (x.isSuccess ());
+    assertFalse (x.isFailure ());
     assertEquals ("bla", x.get ());
-    assertEquals ("bla", x.getIfChanged ("other"));
-    assertEquals ("bla", x.getIfChangedOrNull ());
-    assertEquals ("other", x.getIfUnchanged ("other"));
-    assertNull (x.getIfUnchangedOrNull ());
+    assertEquals ("bla", x.getIfSuccess ("other"));
+    assertEquals ("bla", x.getIfSuccessOrNull ());
+    assertEquals ("other", x.getIfFailure ("other"));
+    assertNull (x.getIfFailureOrNull ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, SuccessWithValue.createSuccess ("bla"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createFailure ("bla"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createSuccess ("Other"));
 
-    x = new ChangeWithValue <> (EChange.CHANGED, null);
+    x = new SuccessWithValue <> (ESuccess.SUCCESS, null);
     assertNull (x.get ());
 
     try
     {
-      new ChangeWithValue <> (null, "bla");
+      new SuccessWithValue <> (null, "bla");
       fail ();
     }
     catch (final NullPointerException ex)

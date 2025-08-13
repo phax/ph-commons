@@ -14,11 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.state;
+package com.helger.commons.state.ext;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.state.EChange;
+import com.helger.commons.state.IChangeIndicator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.commons.wrapper.IWrapper;
