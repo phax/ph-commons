@@ -19,7 +19,6 @@ package com.helger.commons.pool;
 import java.util.function.Supplier;
 
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -34,8 +33,8 @@ import jakarta.annotation.Nonnull;
 public interface IObjectPoolFactory <DATATYPE>
 {
   /**
-   * Create a new object for usage in the pool. This method is called if no
-   * object is in the pool, or if activation of a pooled object failed.
+   * Create a new object for usage in the pool. This method is called if no object is in the pool,
+   * or if activation of a pooled object failed.
    *
    * @return A new object of data type. Never <code>null</code>.
    */
@@ -43,20 +42,19 @@ public interface IObjectPoolFactory <DATATYPE>
   DATATYPE create ();
 
   /**
-   * Called when an existing object is borrowed from the pool. If activation
-   * failed, a new object will be created.
+   * Called when an existing object is borrowed from the pool. If activation failed, a new object
+   * will be created.
    *
    * @param aItem
    *        The item to be borrowed. Never <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if the object can be reused,
-   *         {@link ESuccess#FAILURE} if not.
+   * @return {@link ESuccess#SUCCESS} if the object can be reused, {@link ESuccess#FAILURE} if not.
    */
   @Nonnull
   ESuccess activate (@Nonnull DATATYPE aItem);
 
   /**
-   * Called when an object is returned to the pool. This method has no return
-   * value - only {@link #activate(Object)} can change the path.
+   * Called when an object is returned to the pool. This method has no return value - only
+   * {@link #activate(Object)} can change the path.
    *
    * @param aItem
    *        The item to be returned. Never <code>null</code>.
@@ -75,8 +73,6 @@ public interface IObjectPoolFactory <DATATYPE>
   @Nonnull
   static <T> IObjectPoolFactory <T> wrap (@Nonnull final Supplier <? extends T> aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     return new IObjectPoolFactory <> ()
     {
       @Nonnull

@@ -23,22 +23,20 @@ import java.nio.charset.Charset;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Interface for a simple URL that works around the usability issues with the
- * Java default java.net.URL.
+ * Interface for a simple URL that works around the usability issues with the Java default
+ * java.net.URL.
  *
  * @author Philip Helger
  */
 public interface ISimpleURL
 {
   /**
-   * @return The protocol used. May be <code>null</code> for an unknown
-   *         protocol.
+   * @return The protocol used. May be <code>null</code> for an unknown protocol.
    */
   @Nullable
   default IURLProtocol getProtocol ()
@@ -55,9 +53,8 @@ public interface ISimpleURL
   }
 
   /**
-   * @return The path part of the URL (everything before the "?" and the "#",
-   *         incl. the protocol). Never <code>null</code> but maybe empty (e.g.
-   *         for "?x=y").
+   * @return The path part of the URL (everything before the "?" and the "#", incl. the protocol).
+   *         Never <code>null</code> but maybe empty (e.g. for "?x=y").
    */
   @Nonnull
   String getPath ();
@@ -70,15 +67,14 @@ public interface ISimpleURL
   URLParameterList params ();
 
   /**
-   * @return The name of the anchor (everything after the "#") or
-   *         <code>null</code> if none is defined.
+   * @return The name of the anchor (everything after the "#") or <code>null</code> if none is
+   *         defined.
    */
   @Nullable
   String getAnchor ();
 
   /**
-   * @return <code>true</code> if an anchor is present, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if an anchor is present, <code>false</code> otherwise.
    */
   default boolean hasAnchor ()
   {
@@ -98,8 +94,7 @@ public interface ISimpleURL
   }
 
   /**
-   * @return The final string representation of this URL not encoding the
-   *         request parameters.
+   * @return The final string representation of this URL not encoding the request parameters.
    */
   @Nonnull
   default String getAsStringWithoutEncodedParameters ()
@@ -108,9 +103,8 @@ public interface ISimpleURL
   }
 
   /**
-   * @return The final string representation of this URL with encoded URL
-   *         parameter keys and values. Using the default URL charset as
-   *         determined by {@link URLHelper#CHARSET_URL_OBJ}.
+   * @return The final string representation of this URL with encoded URL parameter keys and values.
+   *         Using the default URL charset as determined by {@link URLHelper#CHARSET_URL_OBJ}.
    */
   @Nonnull
   default String getAsStringWithEncodedParameters ()
@@ -120,15 +114,12 @@ public interface ISimpleURL
 
   /**
    * @param aCharset
-   *        The charset used for encoding the parameters. May not be
-   *        <code>null</code>.
-   * @return The final string representation of this URL with encoded URL
-   *         parameter keys and values.
+   *        The charset used for encoding the parameters. May not be <code>null</code>.
+   * @return The final string representation of this URL with encoded URL parameter keys and values.
    */
   @Nonnull
   default String getAsStringWithEncodedParameters (@Nonnull final Charset aCharset)
   {
-    ValueEnforcer.notNull (aCharset, "ParameterCharset");
     return URLHelper.getURLString (this, aCharset);
   }
 
