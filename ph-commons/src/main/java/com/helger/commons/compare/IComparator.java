@@ -23,14 +23,13 @@ import java.util.Locale;
 import java.util.function.Function;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A special interface that combines {@link Comparator} and {@link Serializable}
- * for easier reuse since {@link Comparator}s should be Serializable.
+ * A special interface that combines {@link Comparator} and {@link Serializable} for easier reuse
+ * since {@link Comparator}s should be Serializable.
  *
  * @author Philip Helger
  * @param <DATATYPE>
@@ -49,18 +48,19 @@ public interface IComparator <DATATYPE> extends Comparator <DATATYPE>, Serializa
   @Nonnull
   static Comparator <String> getComparatorCollating (@Nonnull final Collator aCollator)
   {
-    ValueEnforcer.notNull (aCollator, "Collator");
     return Comparator.nullsFirst (aCollator::compare);
   }
 
   @Nonnull
-  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper, @Nullable final Locale aSortLocale)
+  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper,
+                                                    @Nullable final Locale aSortLocale)
   {
     return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aSortLocale));
   }
 
   @Nonnull
-  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper, @Nonnull final Collator aCollator)
+  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper,
+                                                    @Nonnull final Collator aCollator)
   {
     return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aCollator));
   }

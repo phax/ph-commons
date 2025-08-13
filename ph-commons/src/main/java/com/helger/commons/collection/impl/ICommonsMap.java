@@ -32,7 +32,6 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.map.MapEntry;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -46,11 +45,12 @@ import jakarta.annotation.Nullable;
  * @param <VALUETYPE>
  *        Map value type
  */
-public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYPE>, ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>
+public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
+                             Map <KEYTYPE, VALUETYPE>,
+                             ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>
 {
   /**
-   * Create a new empty map. Overwrite this if you don't want to use
-   * {@link CommonsHashMap}.
+   * Create a new empty map. Overwrite this if you don't want to use {@link CommonsHashMap}.
    *
    * @return A new empty map. Never <code>null</code>.
    * @param <K>
@@ -114,8 +114,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return A new list with all matching values. If no filter is provided the
-   *         returned value is identical as of {@link #copyOfValues()}
+   * @return A new list with all matching values. If no filter is provided the returned value is
+   *         identical as of {@link #copyOfValues()}
    * @see #values()
    * @see #copyOfValues()
    * @see #copyOfValuesMapped(Function)
@@ -151,16 +151,15 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * Create a copy of all values matching the passed filter which are then
-   * converted using the provided function.
+   * Create a copy of all values matching the passed filter which are then converted using the
+   * provided function.
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
    * @param aMapper
    *        The mapping function to be applied. May not be <code>null</code>.
-   * @return A new list with all matching converted values. If no filter is
-   *         provided the returned value is identical as of
-   *         {@link #copyOfValuesMapped(Function)}
+   * @return A new list with all matching converted values. If no filter is provided the returned
+   *         value is identical as of {@link #copyOfValuesMapped(Function)}
    * @param <DSTTYPE>
    *        The destination type to be mapped to
    * @see #values()
@@ -193,8 +192,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * @return <code>true</code> if the map is not empty, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the map is not empty, <code>false</code> otherwise.
    */
   default boolean isNotEmpty ()
   {
@@ -217,10 +215,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    * Get the first element of this map or the provided default value.
    *
    * @param aDefault
-   *        The default value to be returned if this map is empty. May be
-   *        <code>null</code>.
-   * @return The provided default value if the map is empty, the first entry
-   *         otherwise.
+   *        The default value to be returned if this map is empty. May be <code>null</code>.
+   * @return The provided default value if the map is empty, the first entry otherwise.
    * @see #getFirstEntry()
    */
   @Nullable
@@ -245,10 +241,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    * Get the first key of this map or the provided default value.
    *
    * @param aDefault
-   *        The default value to be returned if this map is empty. May be
-   *        <code>null</code>.
-   * @return The provided default value if the map is empty, the first key
-   *         otherwise.
+   *        The default value to be returned if this map is empty. May be <code>null</code>.
+   * @return The provided default value if the map is empty, the first key otherwise.
    * @see #getFirstKey()
    */
   @Nullable
@@ -273,10 +267,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    * Get the first value of this map or the provided default value.
    *
    * @param aDefault
-   *        The default value to be returned if this map is empty. May be
-   *        <code>null</code>.
-   * @return The provided default value if the map is empty, the first value
-   *         otherwise.
+   *        The default value to be returned if this map is empty. May be <code>null</code>.
+   * @return The provided default value if the map is empty, the first value otherwise.
    * @see #getFirstValue()
    */
   @Nullable
@@ -290,8 +282,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return <code>null</code> if no matching element was found. I no filter was
-   *         provided, the result is the same as {@link #getFirstEntry()}.
+   * @return <code>null</code> if no matching element was found. I no filter was provided, the
+   *         result is the same as {@link #getFirstEntry()}.
    */
   @Nullable
   default Map.Entry <KEYTYPE, VALUETYPE> findFirstEntry (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
@@ -304,8 +296,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return <code>null</code> if no matching element was found. I no filter was
-   *         provided, the result is the same as {@link #getFirstKey()}.
+   * @return <code>null</code> if no matching element was found. I no filter was provided, the
+   *         result is the same as {@link #getFirstKey()}.
    */
   @Nullable
   default KEYTYPE findFirstKey (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
@@ -319,8 +311,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return <code>null</code> if no matching element was found. I no filter was
-   *         provided, the result is the same as {@link #getFirstValue()}.
+   * @return <code>null</code> if no matching element was found. I no filter was provided, the
+   *         result is the same as {@link #getFirstValue()}.
    */
   @Nullable
   default VALUETYPE findFirstValue (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
@@ -334,10 +326,9 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return <code>true</code> if the map is not empty and contains at least one
-   *         element matching the filter, <code>false</code> otherwise. If no
-   *         filter is provided the return value is identical to
-   *         {@link #isNotEmpty()}.
+   * @return <code>true</code> if the map is not empty and contains at least one element matching
+   *         the filter, <code>false</code> otherwise. If no filter is provided the return value is
+   *         identical to {@link #isNotEmpty()}.
    */
   default boolean containsAnyEntry (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
   {
@@ -349,9 +340,9 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return <code>true</code> if the map is not empty and contains at least one
-   *         key matching the filter, <code>false</code> otherwise. If no filter
-   *         is provided the return value is identical to {@link #isNotEmpty()}.
+   * @return <code>true</code> if the map is not empty and contains at least one key matching the
+   *         filter, <code>false</code> otherwise. If no filter is provided the return value is
+   *         identical to {@link #isNotEmpty()}.
    */
   default boolean containsAnyKey (@Nullable final Predicate <? super KEYTYPE> aFilter)
   {
@@ -363,10 +354,9 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return <code>true</code> if the map is not empty and contains at least one
-   *         value matching the filter, <code>false</code> otherwise. If no
-   *         filter is provided the return value is identical to
-   *         {@link #isNotEmpty()}.
+   * @return <code>true</code> if the map is not empty and contains at least one value matching the
+   *         filter, <code>false</code> otherwise. If no filter is provided the return value is
+   *         identical to {@link #isNotEmpty()}.
    */
   default boolean containsAnyValue (@Nullable final Predicate <? super VALUETYPE> aFilter)
   {
@@ -396,8 +386,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * Invoke the provided consumer on each entry (pair of key and value) that
-   * matches the provided filter.
+   * Invoke the provided consumer on each entry (pair of key and value) that matches the provided
+   * filter.
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
@@ -430,7 +420,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    * @see #forEachKey(Consumer)
    * @see #forEach(BiPredicate, BiConsumer)
    */
-  default void forEachKey (@Nullable final Predicate <? super KEYTYPE> aFilter, @Nonnull final Consumer <? super KEYTYPE> aConsumer)
+  default void forEachKey (@Nullable final Predicate <? super KEYTYPE> aFilter,
+                           @Nonnull final Consumer <? super KEYTYPE> aConsumer)
   {
     if (aFilter == null)
       forEachKey (aConsumer);
@@ -439,8 +430,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * Invoke the provided consumer on each value that matches the provided
-   * filter.
+   * Invoke the provided consumer on each value that matches the provided filter.
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
@@ -449,7 +439,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    * @see #forEachValue(Consumer)
    * @see #forEach(BiPredicate, BiConsumer)
    */
-  default void forEachValue (@Nullable final Predicate <? super VALUETYPE> aFilter, @Nonnull final Consumer <? super VALUETYPE> aConsumer)
+  default void forEachValue (@Nullable final Predicate <? super VALUETYPE> aFilter,
+                             @Nonnull final Consumer <? super VALUETYPE> aConsumer)
   {
     if (aFilter == null)
       forEachValue (aConsumer);
@@ -458,8 +449,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * Get the map sorted by its keys. The comparison order is defined by the
-   * passed comparator object.
+   * Get the map sorted by its keys. The comparison order is defined by the passed comparator
+   * object.
    *
    * @param aKeyComparator
    *        The comparator to be used. May not be <code>null</code>.
@@ -473,8 +464,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * Get the map sorted by its values. The comparison order is defined by the
-   * passed comparator object.
+   * Get the map sorted by its values. The comparison order is defined by the passed comparator
+   * object.
    *
    * @param aValueComparator
    *        The comparator to be used. May not be <code>null</code>.
@@ -490,8 +481,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   /**
    * Get a map where keys and values are exchanged.
    *
-   * @return The swapped hash map based on the type returned by
-   *         {@link #createInstance()}.
+   * @return The swapped hash map based on the type returned by {@link #createInstance()}.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -504,13 +494,11 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * Special put overload that takes an entry and should simplify copying from
-   * other maps.
+   * Special put overload that takes an entry and should simplify copying from other maps.
    *
    * @param aEntry
    *        Entry to be added. May not be <code>null</code>.
-   * @return the return value of {@link #put(Object, Object)}. May be
-   *         <code>null</code>.
+   * @return the return value of {@link #put(Object, Object)}. May be <code>null</code>.
    * @since 9.0.0
    */
   @Nullable
@@ -525,15 +513,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    * @param aKey
    *        Key to use. May not be <code>null</code> for certain map types.
    * @param aValue
-   *        The value to be added. May be <code>null</code> in which case
-   *        nothing happens.
+   *        The value to be added. May be <code>null</code> in which case nothing happens.
    * @param aFilter
-   *        The value predicate to be checked before insertion. May not be
-   *        <code>null</code>.
+   *        The value predicate to be checked before insertion. May not be <code>null</code>.
    */
-  default void putIf (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue, @Nonnull final Predicate <? super VALUETYPE> aFilter)
+  default void putIf (@Nonnull final KEYTYPE aKey,
+                      @Nullable final VALUETYPE aValue,
+                      @Nonnull final Predicate <? super VALUETYPE> aFilter)
   {
-    ValueEnforcer.notNull (aFilter, "Filter");
     if (aFilter.test (aValue))
       put (aKey, aValue);
   }
@@ -544,8 +531,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
    * @param aKey
    *        Key to use. May not be <code>null</code> for certain map types.
    * @param aValue
-   *        The value to be added. May be <code>null</code> in which case
-   *        nothing happens.
+   *        The value to be added. May be <code>null</code> in which case nothing happens.
    */
   default void putIfNotNull (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
@@ -591,8 +577,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * Add all items from the passed array to this map using the provided key and
-   * value mapper.
+   * Add all items from the passed array to this map using the provided key and value mapper.
    *
    * @param aElements
    *        Source collection. May be <code>null</code>.
@@ -608,16 +593,13 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
                                            @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
                                            @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
   {
-    ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
-    ValueEnforcer.notNull (aValueMapper, "ValueMapper");
     if (aElements != null)
       for (final ELEMENTTYPE aElement : aElements)
         put (aKeyMapper.apply (aElement), aValueMapper.apply (aElement));
   }
 
   /**
-   * Add all items from the passed iterable to this map using the provided key
-   * and value mapper.
+   * Add all items from the passed iterable to this map using the provided key and value mapper.
    *
    * @param aElements
    *        Source collection. May be <code>null</code>.
@@ -633,16 +615,13 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
                                            @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
                                            @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
   {
-    ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
-    ValueEnforcer.notNull (aValueMapper, "ValueMapper");
     if (aElements != null)
       for (final ELEMENTTYPE aItem : aElements)
         put (aKeyMapper.apply (aItem), aValueMapper.apply (aItem));
   }
 
   /**
-   * Add all items from the passed map to this map using the provided key and
-   * value mapper.
+   * Add all items from the passed map to this map using the provided key and value mapper.
    *
    * @param aMap
    *        Source map. May be <code>null</code>.
@@ -660,8 +639,6 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
                                                         @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
                                                         @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
   {
-    ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
-    ValueEnforcer.notNull (aValueMapper, "ValueMapper");
     if (aMap != null)
       for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
         put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
@@ -701,12 +678,11 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   }
 
   /**
-   * Remove all elements from this collection. This is similar to
-   * {@link #clear()} but it returns a different value whether something was
-   * cleared or not.
+   * Remove all elements from this collection. This is similar to {@link #clear()} but it returns a
+   * different value whether something was cleared or not.
    *
-   * @return {@link EChange#CHANGED} if the collection was not empty and
-   *         something was removed, {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the collection was not empty and something was removed,
+   *         {@link EChange#UNCHANGED} otherwise.
    * @see #clear()
    */
   @Nonnull
@@ -720,13 +696,13 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
 
   /**
    * Remove the object with the passed key from this map. <br>
-   * Note: this method returns {@link EChange#UNCHANGED} even if removal was
-   * successful if the value was <code>null</code>.
+   * Note: this method returns {@link EChange#UNCHANGED} even if removal was successful if the value
+   * was <code>null</code>.
    *
    * @param aKey
    *        The key to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the removal was successful,
-   *         {@link EChange#UNCHANGED} if removal fails.
+   * @return {@link EChange#CHANGED} if the removal was successful, {@link EChange#UNCHANGED} if
+   *         removal fails.
    * @see #remove(Object)
    */
   @Nonnull
@@ -738,7 +714,6 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   @Nonnull
   default EChange removeIf (@Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
   {
-    ValueEnforcer.notNull (aFilter, "Filter");
     EChange ret = EChange.UNCHANGED;
     final Iterator <Map.Entry <KEYTYPE, VALUETYPE>> it = entrySet ().iterator ();
     while (it.hasNext ())

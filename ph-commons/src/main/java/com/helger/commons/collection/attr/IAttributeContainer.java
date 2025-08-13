@@ -28,17 +28,14 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.traits.IGetterByKeyTrait;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Base interface for a generic read-only attribute container. It maps keys to
- * values.<br>
- * Note: don't implement <code>Iterable&lt;Map.Entry&lt;...&gt;&gt;</code>
- * because this would make the object ambiguous to e.g.
- * <code>HashCodeGenerator</code>
+ * Base interface for a generic read-only attribute container. It maps keys to values.<br>
+ * Note: don't implement <code>Iterable&lt;Map.Entry&lt;...&gt;&gt;</code> because this would make
+ * the object ambiguous to e.g. <code>HashCodeGenerator</code>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -46,7 +43,9 @@ import jakarta.annotation.Nullable;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <KEYTYPE, VALUETYPE>, IGetterByKeyTrait <KEYTYPE>
+public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
+                                     ICommonsMap <KEYTYPE, VALUETYPE>,
+                                     IGetterByKeyTrait <KEYTYPE>
 {
   @FunctionalInterface
   interface IBeforeSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
@@ -58,8 +57,8 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
      *        The attribute key. May not be <code>null</code>.
      * @param aNewValue
      *        The new value to be set. May be <code>null</code>.
-     * @return {@link EContinue#CONTINUE} if the value can be set,
-     *         <code>false</code> if the value cannot be set.
+     * @return {@link EContinue#CONTINUE} if the value can be set, <code>false</code> if the value
+     *         cannot be set.
      */
     @Nonnull
     EContinue beforeSetValue (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aNewValue);
@@ -76,8 +75,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
      * @param aOldValue
      *        The old value. May be <code>null</code>.
      * @param aNewValue
-     *        The new value. May be <code>null</code> in which case the value
-     *        was removed.
+     *        The new value. May be <code>null</code> in which case the value was removed.
      */
     void afterSetValue (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aOldValue, @Nullable VALUETYPE aNewValue);
   }
@@ -101,8 +99,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
+   * @return The attribute value or {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
   @Override
@@ -117,8 +114,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such
+   * @return The attribute value or {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such
    *         attribute exists
    */
   @Override
@@ -133,8 +129,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
+   * @return The attribute value or {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
   @Override
@@ -148,8 +143,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
+   * @return The attribute value or {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
   @Override
@@ -164,8 +158,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or <code>false</code> if no such attribute
-   *         exists
+   * @return The attribute value or <code>false</code> if no such attribute exists
    */
   @Override
   default boolean getAsBoolean (@Nullable final KEYTYPE aName)
@@ -174,16 +167,14 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
   }
 
   /**
-   * @return Callbacks to be invoked before values are set. May not be
-   *         <code>null</code>.
+   * @return Callbacks to be invoked before values are set. May not be <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableObject
   CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> beforeSetValueCallbacks ();
 
   /**
-   * @return Callbacks to be invoked after values are set. May not be
-   *         <code>null</code>.
+   * @return Callbacks to be invoked after values are set. May not be <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableObject
@@ -196,8 +187,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
    *        The name of the attribute. May not be <code>null</code>.
    * @param aNewValue
    *        The new value of the attribute. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something changed, {@link EChange#UNCHANGED} otherwise.
    * @see #beforeSetValueCallbacks()
    * @see #afterSetValueCallbacks()
    * @see #removeObject(Object)
@@ -205,8 +195,6 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <K
   @Nonnull
   default EChange putIn (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aNewValue)
   {
-    ValueEnforcer.notNull (aName, "Name");
-
     // Before change checking callback
     if (beforeSetValueCallbacks ().forEachBreakable (x -> x.beforeSetValue (aName, aNewValue)).isBreak ())
       return EChange.UNCHANGED;
