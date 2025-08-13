@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.ValueEnforcer;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.security.authentication.credentials.AuthCredentialToSubjectResolverManager;
 import com.helger.security.authentication.credentials.AuthCredentialValidatorManager;
 import com.helger.security.authentication.credentials.IAuthCredentials;

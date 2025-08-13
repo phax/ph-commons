@@ -21,8 +21,8 @@ import java.util.Enumeration;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CharsetHelper;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

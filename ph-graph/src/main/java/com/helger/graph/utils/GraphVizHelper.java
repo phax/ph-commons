@@ -22,10 +22,10 @@ import java.util.Iterator;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.graph.IBaseGraph;
 import com.helger.graph.IBaseGraphNode;
 import com.helger.graph.IBaseGraphRelation;

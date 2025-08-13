@@ -17,10 +17,10 @@
 package com.helger.commons.hierarchy.visit;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.IHasChildren;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

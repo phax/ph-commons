@@ -27,7 +27,6 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsTreeMap;
@@ -41,6 +40,7 @@ import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EContinue;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.commons.wrapper.Wrapper;
 
 import jakarta.annotation.Nonnull;

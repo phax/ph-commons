@@ -17,8 +17,8 @@
 package com.helger.security.password.hash;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

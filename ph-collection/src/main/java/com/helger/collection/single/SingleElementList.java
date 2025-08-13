@@ -28,7 +28,6 @@ import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.collection.iterate.EmptyListIterator;
 import com.helger.collection.iterate.SingleElementIterator;
 import com.helger.collection.iterate.SingleElementListIterator;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -37,6 +36,7 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -25,7 +25,6 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.lang.IHasSize;
@@ -53,14 +52,13 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   }
 
   /**
-   * @return <code>true</code> if the contained byte array was copied in the
-   *         constructor or not.
+   * @return <code>true</code> if the contained byte array was copied in the constructor or not.
    */
   boolean isCopy ();
 
   /**
-   * @return A copy of all bytes contained, from {@link #getOffset()} for
-   *         {@link #size()} bytes. Never <code>null</code>.
+   * @return A copy of all bytes contained, from {@link #getOffset()} for {@link #size()} bytes.
+   *         Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -70,19 +68,17 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   }
 
   /**
-   * @return A reference to the contained byte array. Gives write access to the
-   *         payload! Don't forget to apply {@link #getOffset()} and
-   *         {@link #size()}. Never <code>null</code>.
+   * @return A reference to the contained byte array. Gives write access to the payload! Don't
+   *         forget to apply {@link #getOffset()} and {@link #size()}. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableObject
   byte [] bytes ();
 
   /**
-   * @return <code>true</code> if this object deals with a partial array that
-   *         either has an offset or which is not completely used. Based on this
-   *         method, some performance optimizations might be used to avoid
-   *         copying data.
+   * @return <code>true</code> if this object deals with a partial array that either has an offset
+   *         or which is not completely used. Based on this method, some performance optimizations
+   *         might be used to avoid copying data.
    * @since 11.1.5
    */
   default boolean isPartialArray ()
@@ -91,8 +87,8 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   }
 
   /**
-   * @return The offset into the byte array to start reading. This is always 0
-   *         when copied. Must be ge; 0.
+   * @return The offset into the byte array to start reading. This is always 0 when copied. Must be
+   *         ge; 0.
    * @see #bytes()
    * @see #size()
    */
@@ -100,8 +96,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   int getOffset ();
 
   /**
-   * @return <code>true</code> if an offset is present, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if an offset is present, <code>false</code> if not.
    */
   default boolean hasOffset ()
   {
@@ -129,7 +124,6 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
    */
   default void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
-    ValueEnforcer.notNull (aOS, "OutputStream");
     aOS.write (bytes (), getOffset (), size ());
   }
 
@@ -138,8 +132,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
    *
    * @param aCmpBytes
    *        The bytes to compare to. May not be <code>null</code>.
-   * @return <code>true</code> if the passed bytes start with the bytes in this
-   *         object.
+   * @return <code>true</code> if the passed bytes start with the bytes in this object.
    */
   default boolean startsWith (@Nonnull final byte [] aCmpBytes)
   {
@@ -147,8 +140,8 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   }
 
   /**
-   * @return The hex encoded version of this string. Never <code>null</code> but
-   *         maybe empty, if the underlying array length is empty.
+   * @return The hex encoded version of this string. Never <code>null</code> but maybe empty, if the
+   *         underlying array length is empty.
    */
   @Nonnull
   default String getHexEncoded ()
@@ -159,8 +152,8 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   /**
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
-   * @return The byte array converted to a String, honoring {@link #getOffset()}
-   *         and {@link #size()}.
+   * @return The byte array converted to a String, honoring {@link #getOffset()} and
+   *         {@link #size()}.
    * @since 10.1.3
    */
   @Nonnull

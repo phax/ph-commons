@@ -29,10 +29,10 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingPushbackReader;
 import com.helger.commons.state.EEOI;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.json.CJson;
 import com.helger.json.parser.handler.IJsonParserHandler;
 

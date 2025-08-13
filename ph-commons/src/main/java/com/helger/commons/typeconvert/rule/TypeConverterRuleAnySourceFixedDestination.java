@@ -18,8 +18,8 @@ package com.helger.commons.typeconvert.rule;
 
 import java.util.function.Function;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

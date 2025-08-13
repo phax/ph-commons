@@ -19,10 +19,10 @@ package com.helger.xml.microdom.convert;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IMicroElement;
 
 import jakarta.annotation.Nonnull;

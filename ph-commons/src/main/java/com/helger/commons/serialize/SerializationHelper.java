@@ -23,10 +23,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

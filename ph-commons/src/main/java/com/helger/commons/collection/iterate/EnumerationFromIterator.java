@@ -19,8 +19,8 @@ package com.helger.commons.collection.iterate;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

@@ -21,6 +21,7 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsVector;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 /**
  * Test class for class {@link ValueEnforcer}.

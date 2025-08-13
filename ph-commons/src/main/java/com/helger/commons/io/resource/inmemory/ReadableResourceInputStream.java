@@ -19,10 +19,10 @@ package com.helger.commons.io.resource.inmemory;
 import java.io.InputStream;
 
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

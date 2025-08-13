@@ -27,8 +27,8 @@ import javax.xml.xpath.XPathVariableResolver;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.EXMLParserFeature;
 
 import jakarta.annotation.Nonnull;

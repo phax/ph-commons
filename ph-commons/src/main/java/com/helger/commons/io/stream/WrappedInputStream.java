@@ -19,8 +19,8 @@ package com.helger.commons.io.stream;
 import java.io.FilterInputStream;
 import java.io.InputStream;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

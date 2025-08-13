@@ -22,7 +22,6 @@ import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.IHasInputStreamAndReader;
 import com.helger.commons.io.IHasReader;
@@ -31,6 +30,7 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.serialize.convert.SerializationConverter;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

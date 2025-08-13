@@ -16,8 +16,8 @@
  */
 package com.helger.config.value;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.config.source.IConfigurationSource;
 
 import jakarta.annotation.Nonnull;

@@ -24,10 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.cache.MappedCache;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.datetime.expiration.ExpiringObject;
 
 import jakarta.annotation.Nonnull;

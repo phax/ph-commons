@@ -21,9 +21,9 @@ import java.io.Writer;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.json.CJson;
 
 import jakarta.annotation.Nonnull;

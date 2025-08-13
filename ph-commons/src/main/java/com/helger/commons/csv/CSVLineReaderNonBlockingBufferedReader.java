@@ -19,8 +19,8 @@ package com.helger.commons.csv;
 import java.io.IOException;
 
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

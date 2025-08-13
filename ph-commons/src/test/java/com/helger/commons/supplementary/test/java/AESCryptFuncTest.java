@@ -30,9 +30,9 @@ import org.junit.Test;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.CGlobal;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.system.CryptoPolicy;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

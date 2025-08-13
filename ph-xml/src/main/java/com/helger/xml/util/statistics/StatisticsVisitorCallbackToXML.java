@@ -18,7 +18,6 @@ package com.helger.xml.util.statistics;
 
 import java.util.Comparator;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.statistics.IStatisticsHandlerCache;
 import com.helger.commons.statistics.IStatisticsHandlerCounter;
 import com.helger.commons.statistics.IStatisticsHandlerKeyedCounter;
@@ -27,6 +26,7 @@ import com.helger.commons.statistics.IStatisticsHandlerKeyedTimer;
 import com.helger.commons.statistics.IStatisticsHandlerSize;
 import com.helger.commons.statistics.IStatisticsHandlerTimer;
 import com.helger.commons.statistics.util.IStatisticsVisitorCallback;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IMicroElement;
 
 import jakarta.annotation.Nonnull;

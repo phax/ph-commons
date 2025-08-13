@@ -17,9 +17,9 @@
 package com.helger.tree.mock;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.name.IHasName;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

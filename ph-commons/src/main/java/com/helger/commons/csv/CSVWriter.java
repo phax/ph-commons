@@ -43,9 +43,9 @@ import java.util.List;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillCloseWhenClosed;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.iterate.ArrayIterator;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

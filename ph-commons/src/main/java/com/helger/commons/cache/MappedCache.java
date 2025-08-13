@@ -32,7 +32,6 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.map.SoftHashMap;
@@ -43,6 +42,7 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.commons.wrapper.Wrapper;
 
 import jakarta.annotation.Nonnull;

@@ -34,10 +34,10 @@ import org.xml.sax.SAXException;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.system.SystemProperties;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.serialize.read.DOMReaderDefaultSettings;
 
 import jakarta.annotation.Nonnull;

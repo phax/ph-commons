@@ -20,12 +20,12 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IMicroAttribute;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroComment;

@@ -22,8 +22,8 @@ import java.io.FilenameFilter;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.regex.RegExHelper;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

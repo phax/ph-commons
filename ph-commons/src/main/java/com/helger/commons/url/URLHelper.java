@@ -44,7 +44,6 @@ import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
@@ -62,6 +61,7 @@ import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.commons.wrapper.IMutableWrapper;
 
 import jakarta.annotation.Nonnull;

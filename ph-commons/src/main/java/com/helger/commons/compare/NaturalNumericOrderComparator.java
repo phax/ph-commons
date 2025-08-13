@@ -18,7 +18,7 @@ package com.helger.commons.compare;
 
 import java.util.Comparator;
 
-import com.helger.commons.ValueEnforcer;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

@@ -20,8 +20,8 @@ import javax.xml.namespace.NamespaceContext;
 
 import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

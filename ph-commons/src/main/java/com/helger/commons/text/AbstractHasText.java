@@ -18,7 +18,7 @@ package com.helger.commons.text;
 
 import java.util.Locale;
 
-import com.helger.commons.ValueEnforcer;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

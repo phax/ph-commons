@@ -18,9 +18,9 @@ package com.helger.commons.concurrent;
 
 import java.util.concurrent.ThreadFactory;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.builder.IResettableBuilder;
 import com.helger.commons.state.ETriState;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

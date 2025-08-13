@@ -18,8 +18,8 @@ package com.helger.commons.pool;
 
 import java.util.function.Supplier;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.state.ESuccess;
+import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
