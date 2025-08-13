@@ -21,7 +21,7 @@ import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;

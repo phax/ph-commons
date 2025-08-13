@@ -132,6 +132,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-base</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -268,6 +273,7 @@
   
   <modules>
     <module>ph-annotations</module>
+    <module>ph-base</module>
     <module>ph-commons</module>
     <module>ph-collection</module>
     <module>ph-scopes</module>

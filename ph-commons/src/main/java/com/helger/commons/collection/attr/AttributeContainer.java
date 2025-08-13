@@ -23,7 +23,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.CollectionEqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -31,8 +31,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Base class for all kind of any-any mapping container. This implementation is
- * not thread-safe!
+ * Base class for all kind of any-any mapping container. This implementation is not thread-safe!
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -85,7 +84,7 @@ public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMa
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     // Required for correct content checking with equalsHelper
-    return EqualsHelper.equalsMap (this, (AttributeContainer <?, ?>) o);
+    return CollectionEqualsHelper.equalsMap (this, (AttributeContainer <?, ?>) o);
   }
 
   @Override

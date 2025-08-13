@@ -17,7 +17,7 @@
 package com.helger.commons.system;
 
 import com.helger.annotation.CheckForSigned;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.string.StringParser;
 
 import jakarta.annotation.Nonnull;

@@ -21,7 +21,7 @@ import java.math.BigInteger;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 import jakarta.annotation.Nonnull;

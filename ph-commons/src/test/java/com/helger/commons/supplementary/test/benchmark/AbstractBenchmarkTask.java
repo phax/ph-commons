@@ -19,7 +19,7 @@ package com.helger.commons.supplementary.test.benchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.system.SystemHelper;
 import com.helger.commons.system.SystemProperties;

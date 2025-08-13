@@ -89,7 +89,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
    *        the number that should be added to the read value. Always &gt; 0.
    * @return 0 if this method is called for a non-initialized device, the value
    *         read from the device otherwise or
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} in case of an
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} in case of an
    *         error.
    */
   @IsLocked (ELockType.WRITE)

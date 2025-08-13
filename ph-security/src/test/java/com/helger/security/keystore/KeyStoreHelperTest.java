@@ -49,8 +49,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.CGlobal;
 import com.helger.bc.PBCProvider;
-import com.helger.commons.CGlobal;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;

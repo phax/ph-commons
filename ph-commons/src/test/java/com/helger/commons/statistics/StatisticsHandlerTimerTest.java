@@ -22,7 +22,7 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 
 /**
  * Test class for class {@link StatisticsHandlerTimer}.

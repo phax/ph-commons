@@ -27,7 +27,7 @@ import java.math.RoundingMode;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.mock.CommonsAssert;
 
 /**

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.string.StringHelper;
 
 /**

@@ -32,7 +32,7 @@ import java.time.temporal.ChronoField;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.typeconvert.TypeConverterException;

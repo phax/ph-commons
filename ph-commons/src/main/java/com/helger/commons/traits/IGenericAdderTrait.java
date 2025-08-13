@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

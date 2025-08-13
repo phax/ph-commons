@@ -29,7 +29,7 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.resource.ClassPathResource;

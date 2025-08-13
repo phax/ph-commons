@@ -26,7 +26,7 @@ import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IterableIterator;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.CollectionEqualsHelper;
 
 /**
  * Test class for class {@link QueueHelper}
@@ -50,17 +50,17 @@ public final class QueueHelperTest
     QueueHelper.newQueueMapped (new Object [] { "a" }, Object::toString);
 
     final ICommonsList <String> aCont = new CommonsArrayList <> ("a", "b", "c");
-    assertTrue (EqualsHelper.equalsCollection (aCont, QueueHelper.newQueue (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
-    assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
+    assertTrue (CollectionEqualsHelper.equalsCollection (aCont, QueueHelper.newQueue (aCont)));
+    assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
+    assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
 
-    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), QueueHelper.newQueue (aCont).iterator ()));
-    assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
-    assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
+    assertTrue (CollectionEqualsHelper.equalsCollection (aCont.iterator (), QueueHelper.newQueue (aCont).iterator ()));
+    assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
+    assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
 
-    assertTrue (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                               IteratorHelper.getEnumeration (QueueHelper.newQueue (aCont))));
-    assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
-    assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
+    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
+                                                         IteratorHelper.getEnumeration (QueueHelper.newQueue (aCont))));
+    assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
+    assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
   }
 }

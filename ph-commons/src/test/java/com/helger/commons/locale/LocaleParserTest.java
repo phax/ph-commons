@@ -28,7 +28,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 

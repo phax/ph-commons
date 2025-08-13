@@ -42,7 +42,7 @@ public interface IStatisticsHandlerKeyedNumeric extends IStatisticsHandlerKeyed
    * @param sKey
    *        The key to be queried.
    * @return The smallest value. Returns
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such key
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key
    *         exists.
    */
   @CheckForSigned
@@ -52,7 +52,7 @@ public interface IStatisticsHandlerKeyedNumeric extends IStatisticsHandlerKeyed
    * @param sKey
    *        The key to be queried.
    * @return The average value (=sum/invocationCount). Returns
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such key
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key
    *         exists.
    */
   @CheckForSigned
@@ -62,7 +62,7 @@ public interface IStatisticsHandlerKeyedNumeric extends IStatisticsHandlerKeyed
    * @param sKey
    *        The key to be queried.
    * @return The biggest value. Returns
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such key
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key
    *         exists.
    */
   @CheckForSigned

@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.channel.ChannelHelper;

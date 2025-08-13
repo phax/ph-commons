@@ -20,7 +20,7 @@ import java.util.Map;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.ICallback;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -99,7 +99,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
+   * @return The attribute value or {@link com.helger.base.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
   @Override
@@ -114,7 +114,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such
+   * @return The attribute value or {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such
    *         attribute exists
    */
   @Override
@@ -129,7 +129,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
+   * @return The attribute value or {@link com.helger.base.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
   @Override
@@ -143,7 +143,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    *
    * @param aName
    *        the attribute name
-   * @return The attribute value or {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
+   * @return The attribute value or {@link com.helger.base.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
   @Override

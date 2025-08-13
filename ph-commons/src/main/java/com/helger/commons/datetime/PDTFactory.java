@@ -42,7 +42,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

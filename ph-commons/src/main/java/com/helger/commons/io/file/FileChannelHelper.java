@@ -34,7 +34,7 @@ import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.stream.ByteBufferInputStream;
 import com.helger.commons.io.stream.ByteBufferOutputStream;

@@ -31,7 +31,7 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;

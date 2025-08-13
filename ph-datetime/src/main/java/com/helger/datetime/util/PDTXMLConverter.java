@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.datetime.PDTConfig;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.exception.InitializationException;

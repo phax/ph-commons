@@ -26,7 +26,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 
 /**
  * Test class for {@link SizeHelper}

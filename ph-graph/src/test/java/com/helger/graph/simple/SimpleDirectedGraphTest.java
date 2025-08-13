@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.CollectionEqualsHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.AbstractGraphTestCase;
 import com.helger.graph.IMutableDirectedGraphNode;
@@ -207,8 +207,10 @@ public final class SimpleDirectedGraphTest extends AbstractGraphTestCase
     assertTrue (sg.containsCycles ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (_buildDirectedGraph (), _buildDirectedGraph ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SimpleDirectedGraph (), new SimpleDirectedGraph ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (_buildDirectedGraph (), new SimpleDirectedGraph ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SimpleDirectedGraph (),
+                                                                       new SimpleDirectedGraph ());
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (_buildDirectedGraph (),
+                                                                           new SimpleDirectedGraph ());
   }
 
   @Test
@@ -237,7 +239,7 @@ public final class SimpleDirectedGraphTest extends AbstractGraphTestCase
     final ICommonsSet <String> aRelationIDs1 = sg.getAllRelationIDs ();
     final ICommonsSet <String> aRelationIDs2 = new CommonsHashSet <> ();
     sg.forEachRelation (x -> aRelationIDs2.add (x.getID ()));
-    assertTrue (EqualsHelper.equalsCollection (aRelationIDs1, aRelationIDs2));
+    assertTrue (CollectionEqualsHelper.equalsCollection (aRelationIDs1, aRelationIDs2));
   }
 
   @Test

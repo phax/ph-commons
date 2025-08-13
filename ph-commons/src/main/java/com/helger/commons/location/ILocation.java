@@ -17,7 +17,7 @@
 package com.helger.commons.location;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.commons.CGlobal;
+import com.helger.base.CGlobal;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;

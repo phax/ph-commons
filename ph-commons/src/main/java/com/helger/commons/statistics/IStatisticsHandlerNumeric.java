@@ -37,7 +37,7 @@ public interface IStatisticsHandlerNumeric extends IStatisticsHandler
 
   /**
    * @return The smallest value. Returns
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if the invocation
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the invocation
    *         count is 0.
    */
   @CheckForSigned
@@ -45,7 +45,7 @@ public interface IStatisticsHandlerNumeric extends IStatisticsHandler
 
   /**
    * @return The average value (=sum/invocationCount). Returns
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if the invocation
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the invocation
    *         count is 0 to avoid a division by 0.
    */
   @CheckForSigned
@@ -53,7 +53,7 @@ public interface IStatisticsHandlerNumeric extends IStatisticsHandler
 
   /**
    * @return The biggest value. Returns
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if the invocation
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the invocation
    *         count is 0.
    */
   @CheckForSigned

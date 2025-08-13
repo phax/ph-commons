@@ -44,7 +44,7 @@ public interface IStatisticsHandlerKeyed extends IStatisticsHandler
    * @param sKey
    *        The key to be queried. May be <code>null</code>.
    * @return The invocation count for a single key or
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such key
+   *         {@link com.helger.base.CGlobal#ILLEGAL_UINT} if no such key
    *         exists
    */
   @CheckForSigned
