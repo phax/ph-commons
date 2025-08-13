@@ -43,7 +43,9 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Implementation of {@link IConfigurationSource} for properties file based configuration sources.
+ * Implementation of {@link IConfigurationSource} for properties file based configuration
+ * sources.<br>
+ * If you want to use this class, you need to add the dependency "com.helger.commons:ph-json".
  *
  * @author Philip Helger
  */
