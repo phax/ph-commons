@@ -34,13 +34,13 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeCalculator;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.reflection.GenericReflection;
+import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.cache.AnnotationUsageCache;
-import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.typeconvert.util.ClassHierarchyCache;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

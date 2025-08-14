@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

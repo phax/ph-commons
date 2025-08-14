@@ -24,8 +24,8 @@ import java.time.LocalTime;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.reflection.GenericReflection;
-import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

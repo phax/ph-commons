@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import com.helger.base.numeric.mutable.MutableBoolean;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 
 public class MutableTypeConvertFuncTest
 {

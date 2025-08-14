@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.spi;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -28,11 +28,10 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.base.reflection.GenericReflection;
-import com.helger.base.state.EChange;
-import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
+import com.helger.base.string.StringParser;
+import com.helger.typeconvert.ITypeConverterRegistrarSPI;
+import com.helger.typeconvert.ITypeConverterRegistry;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 
@@ -264,40 +263,6 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
       if (aSource instanceof final CharSequence aCS)
         return new StringBuffer (aCS);
       return new StringBuffer (TypeConverter.convert (aSource, String.class));
-    });
-
-    // Enum
-    /*
-     * We need to append the Enum class name, otherwise we cannot resolve it! Use the colon as it is
-     * not allowed in class names.
-     */
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Enum.class,
-                                                                         String.class,
-                                                                         aSource -> aSource.getClass ().getName () +
-                                                                                    ':' +
-                                                                                    aSource.name ());
-
-    aRegistry.registerTypeConverterRuleFixedSourceAssignableDestination (String.class, Enum.class, x -> {
-      /*
-       * Split class name and enum value name
-       */
-      final ICommonsList <String> aParts = StringHelper.getExploded (':', x, 2);
-      try
-      {
-        /*
-         * Resolve any enum class. Note: The explicit EChange is just here, because an explicit enum
-         * type is needed. It must of course not only be EChange :)
-         */
-        final Class <EChange> aClass = GenericReflection.getClassFromName (aParts.get (0));
-        /*
-         * And look up the element by name
-         */
-        return Enum.valueOf (aClass, aParts.get (1));
-      }
-      catch (final ClassNotFoundException ex)
-      {
-        return null;
-      }
     });
 
     // String[] to any

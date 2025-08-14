@@ -37,7 +37,6 @@ import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
 import com.helger.commons.io.channel.ChannelHelper;
-import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 
@@ -582,7 +581,7 @@ public final class FileOperations
 
       try
       {
-        return StreamHelperExt.copyInputStreamToOutputStream (aSrcIS, aDstOS);
+        return StreamHelper.copyInputStreamToOutputStream (aSrcIS, aDstOS);
       }
       finally
       {

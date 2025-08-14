@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.string;
+package com.helger.base.tostring;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,13 +22,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
 import com.helger.base.compare.ESortOrder;
-import com.helger.base.tostring.ToStringGenerator;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.helper.CollectionHelperExt;
 
 import jakarta.annotation.Nullable;
 
@@ -69,8 +69,11 @@ public final class ToStringGeneratorTest
     _testNullable (null);
     _test ("Hallo");
     _test (Long.valueOf (123456789));
-    _test (new CommonsArrayList <> ("Hello", "World"));
-    _test (CollectionHelperExt.newMap ("Hello", "Hallo", "World", "Welt"));
+    _test (Arrays.asList ("Hello", "World"));
+    Map <String, String> aMap = new HashMap <> ();
+    aMap.put ("Hello", "Hallo");
+    aMap.put ("World", "Welt");
+    _test (aMap);
     _test (new BigDecimal ("234324.23421378091235931253769"));
     _test (new boolean [] { true, false, true });
     _test (new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE });
@@ -83,7 +86,14 @@ public final class ToStringGeneratorTest
                            Double.NaN,
                            Double.POSITIVE_INFINITY,
                            Double.NEGATIVE_INFINITY });
-    _test (new float [] { Float.MIN_VALUE, 1, 2, 31.415f, Float.MAX_VALUE, Float.NaN, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY });
+    _test (new float [] { Float.MIN_VALUE,
+                          1,
+                          2,
+                          31.415f,
+                          Float.MAX_VALUE,
+                          Float.NaN,
+                          Float.POSITIVE_INFINITY,
+                          Float.NEGATIVE_INFINITY });
     _test (new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE });
     _test (new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE });
     _test (new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE });
@@ -105,7 +115,8 @@ public final class ToStringGeneratorTest
                                 .appendPassword ("pwfield")
                                 .append ("boolean[]", new boolean [] { true, false, true })
                                 .append ("byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
-                                .append ("char[]", new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
+                                .append ("char[]",
+                                         new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
                                 .append ("double[]",
                                          new double [] { Double.MIN_VALUE,
                                                          1,
@@ -130,7 +141,12 @@ public final class ToStringGeneratorTest
                                 .append ("String[]", new String [] { "a", "b", "c" })
                                 .appendIfNotNull ("boolean[]", new boolean [] { true, false, true })
                                 .appendIfNotNull ("byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
-                                .appendIfNotNull ("char[]", new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
+                                .appendIfNotNull ("char[]",
+                                                  new char [] { Character.MIN_VALUE,
+                                                                'x',
+                                                                'y',
+                                                                'Z',
+                                                                Character.MAX_VALUE })
                                 .appendIfNotNull ("double[]",
                                                   new double [] { Double.MIN_VALUE,
                                                                   1,
@@ -149,9 +165,11 @@ public final class ToStringGeneratorTest
                                                                  Float.NaN,
                                                                  Float.POSITIVE_INFINITY,
                                                                  Float.NEGATIVE_INFINITY })
-                                .appendIfNotNull ("int[]", new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
+                                .appendIfNotNull ("int[]",
+                                                  new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
                                 .appendIfNotNull ("long[]", new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE })
-                                .appendIfNotNull ("short[]", new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE })
+                                .appendIfNotNull ("short[]",
+                                                  new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE })
                                 .appendIfNotNull ("String[]", new String [] { "a", "b", "c" })
                                 .appendIfNotNull ("boolean[]", (boolean []) null)
                                 .appendIfNotNull ("byte[]", (byte []) null)

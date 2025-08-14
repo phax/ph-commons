@@ -23,6 +23,8 @@ import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIInterface;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
@@ -35,7 +37,6 @@ import com.helger.collection.commons.ICommonsSortedMap;
 import com.helger.collection.commons.ICommonsSortedSet;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileSystemIterator;
-import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
@@ -108,7 +109,7 @@ public final class SPITestHelper
             {
               final Class <?> aInterfaceClass = aCL.loadClass (sInterfaceClassName);
               if (sInterfaceClassName.startsWith ("com.helger.") &&
-                  !ServiceLoaderHelper.CACHE_INTERFACE.hasAnnotation (aInterfaceClass))
+                  aInterfaceClass.getAnnotation (IsSPIInterface.class) == null)
                 LOGGER.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
             }
             catch (final Exception ex)
@@ -141,7 +142,7 @@ public final class SPITestHelper
                   try
                   {
                     final Class <?> aImplClass = aCL.loadClass (sImplClassName);
-                    if (!ServiceLoaderHelper.CACHE_IMPLEMENTATION.hasAnnotation (aImplClass))
+                    if (aImplClass.getAnnotation (IsSPIImplementation.class) == null)
                       LOGGER.warn (aImplClass + " should have the @IsSPIImplementation annotation");
                     ++nCount;
                     aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())

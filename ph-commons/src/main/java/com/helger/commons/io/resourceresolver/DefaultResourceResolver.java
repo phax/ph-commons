@@ -49,7 +49,7 @@ import jakarta.annotation.Nullable;
 public class DefaultResourceResolver implements IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (DefaultResourceResolver.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, false);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
 
   protected DefaultResourceResolver ()
   {}

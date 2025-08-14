@@ -24,16 +24,15 @@ import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * {@link org.xml.sax.InputSource} that ensures that the passed
- * {@link InputStream} is closed. This is achieved by copying the content in a
- * {@link NonBlockingByteArrayInputStream}.
+ * {@link org.xml.sax.InputSource} that ensures that the passed {@link InputStream} is closed. This
+ * is achieved by copying the content in a {@link NonBlockingByteArrayInputStream}.
  *
  * @author Philip Helger
  */
@@ -43,7 +42,7 @@ public class CachingSAXInputSource extends InputSource
   @Nonnull
   private static NonBlockingByteArrayInputStream _getCachedInputStream (@Nonnull @WillClose final InputStream aIS)
   {
-    return new NonBlockingByteArrayInputStream (StreamHelperExt.getAllBytes (aIS));
+    return new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS));
   }
 
   public CachingSAXInputSource (@Nonnull final IReadableResource aRes)

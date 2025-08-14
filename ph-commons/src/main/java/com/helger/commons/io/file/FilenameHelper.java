@@ -32,6 +32,7 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
+import com.helger.base.string.StringFind;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsArrayList;
@@ -484,7 +485,8 @@ public final class FilenameHelper
   public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1,
                                                     @Nullable final String sAbsoluteFilename2)
   {
-    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1), getPathUsingUnixSeparator (sAbsoluteFilename2));
+    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1),
+                                getPathUsingUnixSeparator (sAbsoluteFilename2));
   }
 
   /**
@@ -729,7 +731,7 @@ public final class FilenameHelper
    */
   public static boolean startsWithPathSeparatorChar (@Nullable final CharSequence s)
   {
-    return isPathSeparatorChar (StringHelper.getFirstChar (s));
+    return isPathSeparatorChar (StringFind.getFirstChar (s));
   }
 
   /**
@@ -743,7 +745,7 @@ public final class FilenameHelper
    */
   public static boolean endsWithPathSeparatorChar (@Nullable final CharSequence s)
   {
-    return isPathSeparatorChar (StringHelper.getLastChar (s));
+    return isPathSeparatorChar (StringFind.getLastChar (s));
   }
 
   /**

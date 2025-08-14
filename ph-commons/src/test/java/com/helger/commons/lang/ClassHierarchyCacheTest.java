@@ -29,6 +29,7 @@ import com.helger.base.id.IHasID;
 import com.helger.commons.type.IHasObjectType;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.TypedObject;
+import com.helger.typeconvert.util.ClassHierarchyCache;
 
 /**
  * Test class for class {@link ClassHierarchyCache}.

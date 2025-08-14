@@ -24,8 +24,8 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.Strings;
-import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.graph.IBaseGraph;
 import com.helger.graph.IBaseGraphNode;
 import com.helger.graph.IBaseGraphRelation;
@@ -213,7 +213,7 @@ public final class GraphVizHelper
     p.getOutputStream ().close ();
     // Read neato stdout
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    StreamHelperExt.copyInputStreamToOutputStream (p.getInputStream (), aBAOS);
+    StreamHelper.copyInputStreamToOutputStream (p.getInputStream (), aBAOS);
     p.waitFor ();
     return aBAOS;
   }

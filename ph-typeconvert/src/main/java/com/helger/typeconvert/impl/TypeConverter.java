@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.log.ConditionalLogger;
@@ -48,7 +47,7 @@ import jakarta.annotation.Nullable;
 public final class TypeConverter implements IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TypeConverter.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
 
   @PresentForCodeCoverage
   private static final TypeConverter INSTANCE = new TypeConverter ();

@@ -24,6 +24,7 @@ import java.nio.charset.Charset;
 import org.junit.Test;
 
 import com.helger.commons.charset.CharsetHelper;
+import com.helger.typeconvert.impl.TypeConverter;
 
 /**
  * Test class for class {@link CharsetTypeConverterRegistrar}.

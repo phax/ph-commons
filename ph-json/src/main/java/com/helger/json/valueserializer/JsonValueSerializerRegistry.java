@@ -25,10 +25,10 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.lang.ServiceLoaderHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

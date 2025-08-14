@@ -25,7 +25,6 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.io.stream.StreamHelperExt;
 
 /**
  * Test class for class {@link ByteArrayInputStreamProvider}.
@@ -40,7 +39,7 @@ public final class ByteArrayInputStreamProviderTest
     final byte [] aBytes = "Hallo Weltäöü".getBytes (StandardCharsets.ISO_8859_1);
     final ByteArrayInputStreamProvider aISP = new ByteArrayInputStreamProvider (aBytes);
     final InputStream aIS = aISP.getInputStream ();
-    assertArrayEquals (aBytes, StreamHelperExt.getAllBytes (aIS));
+    assertArrayEquals (aBytes, StreamHelper.getAllBytes (aIS));
     StreamHelper.close (aISP.getReader (StandardCharsets.UTF_8));
     assertNotNull (aISP.toString ());
   }

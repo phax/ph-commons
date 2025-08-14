@@ -24,6 +24,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.base.CGlobal;
 import com.helger.base.functional.ICharPredicate;
 
 /**
@@ -34,6 +35,26 @@ import com.helger.base.functional.ICharPredicate;
 public final class StringFindTest
 {
   private static final Locale L_DE = new Locale ("de");
+
+  @Test
+  public void testGetFirstChar ()
+  {
+    assertEquals ('a', StringFind.getFirstChar ("abc"));
+    assertEquals ('a', StringFind.getFirstChar ("a"));
+    assertEquals (CGlobal.ILLEGAL_CHAR, StringFind.getFirstChar (""));
+    assertEquals (CGlobal.ILLEGAL_CHAR, StringFind.getFirstChar ((CharSequence) null));
+    assertEquals (CGlobal.ILLEGAL_CHAR, StringFind.getFirstChar ((char []) null));
+  }
+
+  @Test
+  public void testGetLastChar ()
+  {
+    assertEquals ('c', StringFind.getLastChar ("abc"));
+    assertEquals ('a', StringFind.getLastChar ("a"));
+    assertEquals (CGlobal.ILLEGAL_CHAR, StringFind.getLastChar (""));
+    assertEquals (CGlobal.ILLEGAL_CHAR, StringFind.getLastChar ((CharSequence) null));
+    assertEquals (CGlobal.ILLEGAL_CHAR, StringFind.getLastChar ((char []) null));
+  }
 
   @Test
   public void testGetIndexOfString ()

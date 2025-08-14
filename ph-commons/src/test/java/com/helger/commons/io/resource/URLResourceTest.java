@@ -31,8 +31,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.url.URLHelper;
 
@@ -85,7 +85,7 @@ public final class URLResourceTest
     assertTrue (ur.exists ());
     assertTrue (ur.getResourceID ().endsWith ("/pom.xml"));
     assertTrue (ur.getPath ().endsWith ("/pom.xml"));
-    final byte [] aBytes = StreamHelperExt.getAllBytes (ur);
+    final byte [] aBytes = StreamHelper.getAllBytes (ur);
     assertTrue (aBytes.length > 0);
     assertNotNull (ur.getAsURL ());
     assertNotNull (ur.getAsFile ());
@@ -94,7 +94,8 @@ public final class URLResourceTest
     final URL aNoNExistingURL = FileHelper.getAsURL (new File ("pom2.xml"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur,
+                                                                       ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
     assertNotNull (URLHelper.getAsFile (aFileURL));

@@ -27,10 +27,10 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
+import com.helger.base.string.StringParser;
 import com.helger.base.string.StringRemove;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTFromString;
-import com.helger.commons.string.StringParser;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

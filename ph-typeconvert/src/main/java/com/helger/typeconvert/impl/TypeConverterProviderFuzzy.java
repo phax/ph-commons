@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.impl;
 
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.ITypeConverter;
@@ -24,19 +24,19 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * An exact type converter provider. Implemented as a singleton.
+ * A fuzzy type converter provider. Implemented as a singleton.
  *
  * @author Philip Helger
  */
-public final class TypeConverterProviderExact implements ITypeConverterProvider
+public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
 {
-  private static final TypeConverterProviderExact INSTANCE = new TypeConverterProviderExact ();
+  private static final TypeConverterProviderFuzzy INSTANCE = new TypeConverterProviderFuzzy ();
 
-  private TypeConverterProviderExact ()
+  private TypeConverterProviderFuzzy ()
   {}
 
   @Nonnull
-  public static TypeConverterProviderExact getInstance ()
+  public static TypeConverterProviderFuzzy getInstance ()
   {
     return INSTANCE;
   }
@@ -44,6 +44,6 @@ public final class TypeConverterProviderExact implements ITypeConverterProvider
   @Nullable
   public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getExactConverter (aSrcClass, aDstClass));
+    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getFuzzyConverter (aSrcClass, aDstClass));
   }
 }

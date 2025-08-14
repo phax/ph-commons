@@ -33,10 +33,10 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
-import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 

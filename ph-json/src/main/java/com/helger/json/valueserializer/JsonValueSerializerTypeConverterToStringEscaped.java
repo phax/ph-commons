@@ -22,7 +22,7 @@ import java.io.Writer;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

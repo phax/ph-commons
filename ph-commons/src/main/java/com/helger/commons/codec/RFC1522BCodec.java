@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.base64.Base64;
+import com.helger.base.codec.Base64;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

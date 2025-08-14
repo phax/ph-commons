@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.impl;
 
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.ITypeConverter;
@@ -24,19 +24,19 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A rule based type converter provider. Implemented as a singleton.
+ * An exact type converter provider. Implemented as a singleton.
  *
  * @author Philip Helger
  */
-public final class TypeConverterProviderRuleBased implements ITypeConverterProvider
+public final class TypeConverterProviderExact implements ITypeConverterProvider
 {
-  private static final TypeConverterProviderRuleBased INSTANCE = new TypeConverterProviderRuleBased ();
+  private static final TypeConverterProviderExact INSTANCE = new TypeConverterProviderExact ();
 
-  private TypeConverterProviderRuleBased ()
+  private TypeConverterProviderExact ()
   {}
 
   @Nonnull
-  public static TypeConverterProviderRuleBased getInstance ()
+  public static TypeConverterProviderExact getInstance ()
   {
     return INSTANCE;
   }
@@ -44,6 +44,6 @@ public final class TypeConverterProviderRuleBased implements ITypeConverterProvi
   @Nullable
   public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getRuleBasedConverter (aSrcClass, aDstClass));
+    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getExactConverter (aSrcClass, aDstClass));
   }
 }

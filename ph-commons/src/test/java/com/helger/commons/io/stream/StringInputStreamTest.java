@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.charset.CharsetHelper;
 
 /**
@@ -38,11 +39,12 @@ public final class StringInputStreamTest
   {
     final String sTestString = "test äöü 123 - This counts!";
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    StreamHelperExt.copyInputStreamToOutputStream (new StringInputStream (sTestString, StandardCharsets.ISO_8859_1), aBAOS);
+    StreamHelper.copyInputStreamToOutputStream (new StringInputStream (sTestString, StandardCharsets.ISO_8859_1),
+                                                aBAOS);
     assertEquals (sTestString, aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
     final Charset aCS = CharsetHelper.getCharsetFromName ("UTF-16");
-    StreamHelperExt.copyInputStreamToOutputStream (new StringInputStream (sTestString, aCS), aBAOS);
+    StreamHelper.copyInputStreamToOutputStream (new StringInputStream (sTestString, aCS), aBAOS);
     assertEquals (sTestString, aBAOS.getAsString (aCS));
   }
 }

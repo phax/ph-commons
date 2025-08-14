@@ -39,12 +39,15 @@ import java.util.function.Function;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.string.StringParser;
 import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.datetime.XMLOffsetTime;
-import com.helger.commons.string.StringParser;
+import com.helger.typeconvert.ITypeConverterRegistrarSPI;
+import com.helger.typeconvert.ITypeConverterRegistry;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 
@@ -60,28 +63,38 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // Source: Calendar
-    aRegistry.registerTypeConverter (Calendar.class, String.class, aSource -> Long.toString (aSource.getTimeInMillis ()));
+    aRegistry.registerTypeConverter (Calendar.class,
+                                     String.class,
+                                     aSource -> Long.toString (aSource.getTimeInMillis ()));
     aRegistry.registerTypeConverter (Calendar.class, Long.class, aSource -> Long.valueOf (aSource.getTimeInMillis ()));
     aRegistry.registerTypeConverter (Calendar.class, Date.class, Calendar::getTime);
     aRegistry.registerTypeConverter (Calendar.class, Instant.class, Calendar::toInstant);
 
     // Source: GregorianCalendar (required!)
-    aRegistry.registerTypeConverter (GregorianCalendar.class, String.class, aSource -> Long.toString (aSource.getTimeInMillis ()));
-    aRegistry.registerTypeConverter (GregorianCalendar.class, Long.class, aSource -> Long.valueOf (aSource.getTimeInMillis ()));
+    aRegistry.registerTypeConverter (GregorianCalendar.class,
+                                     String.class,
+                                     aSource -> Long.toString (aSource.getTimeInMillis ()));
+    aRegistry.registerTypeConverter (GregorianCalendar.class,
+                                     Long.class,
+                                     aSource -> Long.valueOf (aSource.getTimeInMillis ()));
     aRegistry.registerTypeConverter (GregorianCalendar.class, Date.class, Calendar::getTime);
     aRegistry.registerTypeConverter (GregorianCalendar.class, Instant.class, Calendar::toInstant);
 
     // Destination: GregorianCalendar
     aRegistry.registerTypeConverter (String.class, GregorianCalendar.class, aSource -> {
-      final GregorianCalendar aCal = new GregorianCalendar (TimeZone.getDefault (), Locale.getDefault (Locale.Category.FORMAT));
+      final GregorianCalendar aCal = new GregorianCalendar (TimeZone.getDefault (),
+                                                            Locale.getDefault (Locale.Category.FORMAT));
       aCal.setTimeInMillis (StringParser.parseLong (aSource, 0));
       return aCal;
     });
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class, GregorianCalendar.class, aSource -> {
-      final GregorianCalendar aCal = new GregorianCalendar (TimeZone.getDefault (), Locale.getDefault (Locale.Category.FORMAT));
-      aCal.setTimeInMillis (aSource.longValue ());
-      return aCal;
-    });
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                         GregorianCalendar.class,
+                                                                         aSource -> {
+                                                                           final GregorianCalendar aCal = new GregorianCalendar (TimeZone.getDefault (),
+                                                                                                                                 Locale.getDefault (Locale.Category.FORMAT));
+                                                                           aCal.setTimeInMillis (aSource.longValue ());
+                                                                           return aCal;
+                                                                         });
     aRegistry.registerTypeConverter (ZonedDateTime.class, GregorianCalendar.class, GregorianCalendar::from);
     aRegistry.registerTypeConverter (OffsetDateTime.class,
                                      GregorianCalendar.class,
@@ -132,7 +145,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     });
     aRegistry.registerTypeConverter (Date.class, String.class, aSource -> Long.toString (aSource.getTime ()));
     aRegistry.registerTypeConverter (Date.class, Long.class, aSource -> Long.valueOf (aSource.getTime ()));
-    aRegistry.registerTypeConverter (String.class, Date.class, aSource -> new Date (StringParser.parseLong (aSource, 0)));
+    aRegistry.registerTypeConverter (String.class,
+                                     Date.class,
+                                     aSource -> new Date (StringParser.parseLong (aSource, 0)));
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (Date.class, Date::toInstant);
 
     // Source: Month
@@ -156,18 +171,36 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (OffsetDateTime.class, Instant.class, OffsetDateTime::toInstant);
     aRegistry.registerTypeConverter (XMLOffsetDateTime.class, Instant.class, XMLOffsetDateTime::toInstant);
 
-    aRegistry.registerTypeConverter (OffsetDate.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
-    aRegistry.registerTypeConverter (XMLOffsetDate.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (OffsetDate.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (XMLOffsetDate.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
 
-    aRegistry.registerTypeConverter (OffsetTime.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
-    aRegistry.registerTypeConverter (XMLOffsetTime.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (OffsetTime.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (XMLOffsetTime.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
 
-    aRegistry.registerTypeConverter (LocalDateTime.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
-    aRegistry.registerTypeConverter (LocalDate.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
-    aRegistry.registerTypeConverter (LocalTime.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (LocalDateTime.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (LocalDate.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (LocalTime.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
 
-    aRegistry.registerTypeConverter (YearMonth.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
-    aRegistry.registerTypeConverter (Year.class, Instant.class, aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (YearMonth.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    aRegistry.registerTypeConverter (Year.class,
+                                     Instant.class,
+                                     aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
     // Not possible for MonthDay!
 
     // Destination: ZonedDateTime
@@ -201,7 +234,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (String.class, OffsetDateTime.class, OffsetDateTime::parse);
 
     aRegistry.registerTypeConverter (ZonedDateTime.class, OffsetDateTime.class, ZonedDateTime::toOffsetDateTime);
-    aRegistry.registerTypeConverter (XMLOffsetDateTime.class, OffsetDateTime.class, XMLOffsetDateTime::toOffsetDateTime);
+    aRegistry.registerTypeConverter (XMLOffsetDateTime.class,
+                                     OffsetDateTime.class,
+                                     XMLOffsetDateTime::toOffsetDateTime);
 
     aRegistry.registerTypeConverter (OffsetDate.class, OffsetDateTime.class, PDTFactory::createOffsetDateTime);
     aRegistry.registerTypeConverter (XMLOffsetDate.class, OffsetDateTime.class, PDTFactory::createOffsetDateTime);
@@ -223,7 +258,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                                                          PDTFactory::createOffsetDateTime);
 
     // Destination: XMLOffsetDateTime
-    aRegistry.registerTypeConverter (GregorianCalendar.class, XMLOffsetDateTime.class, PDTFactory::createXMLOffsetDateTime);
+    aRegistry.registerTypeConverter (GregorianCalendar.class,
+                                     XMLOffsetDateTime.class,
+                                     PDTFactory::createXMLOffsetDateTime);
     aRegistry.registerTypeConverter (String.class, XMLOffsetDateTime.class, XMLOffsetDateTime::parse);
 
     aRegistry.registerTypeConverter (ZonedDateTime.class, XMLOffsetDateTime.class, PDTFactory::createXMLOffsetDateTime);
@@ -243,7 +280,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (Year.class, XMLOffsetDateTime.class, PDTFactory::createXMLOffsetDateTime);
     aRegistry.registerTypeConverter (Instant.class, XMLOffsetDateTime.class, PDTFactory::createXMLOffsetDateTime);
     aRegistry.registerTypeConverter (Date.class, XMLOffsetDateTime.class, PDTFactory::createXMLOffsetDateTime);
-    aRegistry.registerTypeConverter (java.sql.Timestamp.class, XMLOffsetDateTime.class, PDTFactory::createXMLOffsetDateTime);
+    aRegistry.registerTypeConverter (java.sql.Timestamp.class,
+                                     XMLOffsetDateTime.class,
+                                     PDTFactory::createXMLOffsetDateTime);
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          XMLOffsetDateTime.class,
                                                                          PDTFactory::createXMLOffsetDateTime);
@@ -269,7 +308,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (Year.class, LocalDateTime.class, PDTFactory::createLocalDateTime);
     aRegistry.registerTypeConverter (Instant.class, LocalDateTime.class, PDTFactory::createLocalDateTime);
     aRegistry.registerTypeConverter (Date.class, LocalDateTime.class, PDTFactory::createLocalDateTime);
-    aRegistry.registerTypeConverter (java.sql.Timestamp.class, LocalDateTime.class, java.sql.Timestamp::toLocalDateTime);
+    aRegistry.registerTypeConverter (java.sql.Timestamp.class,
+                                     LocalDateTime.class,
+                                     java.sql.Timestamp::toLocalDateTime);
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          LocalDateTime.class,
                                                                          PDTFactory::createLocalDateTime);
@@ -292,7 +333,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (Instant.class, OffsetDate.class, PDTFactory::createOffsetDate);
     aRegistry.registerTypeConverter (Date.class, OffsetDate.class, PDTFactory::createOffsetDate);
     aRegistry.registerTypeConverter (java.sql.Timestamp.class, OffsetDate.class, PDTFactory::createOffsetDate);
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class, OffsetDate.class, PDTFactory::createOffsetDate);
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                         OffsetDate.class,
+                                                                         PDTFactory::createOffsetDate);
 
     // Destination: XMLOffsetDate
     aRegistry.registerTypeConverter (GregorianCalendar.class, XMLOffsetDate.class, PDTFactory::createXMLOffsetDate);
@@ -317,7 +360,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                                                          PDTFactory::createXMLOffsetDate);
 
     // Destination: LocalDate
-    aRegistry.registerTypeConverter (GregorianCalendar.class, LocalDate.class, aSource -> aSource.toZonedDateTime ().toLocalDate ());
+    aRegistry.registerTypeConverter (GregorianCalendar.class,
+                                     LocalDate.class,
+                                     aSource -> aSource.toZonedDateTime ().toLocalDate ());
     aRegistry.registerTypeConverter (String.class, LocalDate.class, LocalDate::parse);
 
     aRegistry.registerTypeConverter (ZonedDateTime.class, LocalDate.class, ZonedDateTime::toLocalDate);
@@ -379,7 +424,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                                                          aSource -> PDTFactory.createXMLOffsetTime (fToInstant.apply (aSource)));
 
     // Destination: LocalTime
-    aRegistry.registerTypeConverter (GregorianCalendar.class, LocalTime.class, aSource -> aSource.toZonedDateTime ().toLocalTime ());
+    aRegistry.registerTypeConverter (GregorianCalendar.class,
+                                     LocalTime.class,
+                                     aSource -> aSource.toZonedDateTime ().toLocalTime ());
     aRegistry.registerTypeConverter (String.class, LocalTime.class, LocalTime::parse);
 
     aRegistry.registerTypeConverter (ZonedDateTime.class, LocalTime.class, ZonedDateTime::toLocalTime);
@@ -400,7 +447,8 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
 
     // Destination: Date
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Date.class,
-                                                                  aSource -> Date.from (TypeConverter.convert (aSource, Instant.class)));
+                                                                  aSource -> Date.from (TypeConverter.convert (aSource,
+                                                                                                               Instant.class)));
 
     // Destination: MonthDay
     aRegistry.registerTypeConverter (String.class, MonthDay.class, MonthDay::parse);
@@ -415,7 +463,8 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     // Destination: Year
     aRegistry.registerTypeConverter (String.class, Year.class, Year::parse);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Year.class,
-                                                                  aSource -> Year.from (TypeConverter.convert (aSource, LocalDate.class)));
+                                                                  aSource -> Year.from (TypeConverter.convert (aSource,
+                                                                                                               LocalDate.class)));
 
     // Destination: Duration
     aRegistry.registerTypeConverter (String.class, Duration.class, Duration::parse);

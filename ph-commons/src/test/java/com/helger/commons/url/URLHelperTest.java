@@ -33,8 +33,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.stream.StreamHelperExt;
 
 /**
  * Test class for class {@link URLHelper}.
@@ -150,7 +150,7 @@ public final class URLHelperTest
     try
     {
       final InputStream aIS = URLHelper.getInputStream (new URL ("http://www.orf.at"), 3000, -1, null, null);
-      final byte [] aContent = StreamHelperExt.getAllBytes (aIS);
+      final byte [] aContent = StreamHelper.getAllBytes (aIS);
       LOGGER.info ("Read " + aContent.length + " bytes");
     }
     catch (final Throwable t)

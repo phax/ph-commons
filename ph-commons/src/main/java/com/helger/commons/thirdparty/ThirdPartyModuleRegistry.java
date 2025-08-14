@@ -28,10 +28,10 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.commons.lang.ServiceLoaderHelper;
 
 import jakarta.annotation.Nonnull;
 

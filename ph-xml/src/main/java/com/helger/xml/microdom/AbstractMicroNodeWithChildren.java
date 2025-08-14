@@ -32,7 +32,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -23,13 +23,13 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.codec.Base64;
+import com.helger.base.codec.Base64InputStream;
+import com.helger.base.codec.Base64OutputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.NonClosingOutputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.numeric.MathHelper;
-import com.helger.commons.base64.Base64;
-import com.helger.commons.base64.Base64InputStream;
-import com.helger.commons.base64.Base64OutputStream;
-import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -78,7 +78,9 @@ public class Base64Codec implements IByteArrayCodec
   @Nullable
   @ReturnsMutableCopy
   @Override
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
@@ -102,10 +104,12 @@ public class Base64Codec implements IByteArrayCodec
                       @Nonnull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer != null)
-      try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen);
+      try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                              nOfs,
+                                                                                              nLen);
            final Base64InputStream aB64IS = createBase64InputStream (aBAIS))
       {
-        if (StreamHelperExt.copyInputStreamToOutputStream (aB64IS, aOS).isFailure ())
+        if (StreamHelper.copyInputStreamToOutputStream (aB64IS, aOS).isFailure ())
           throw new DecodeException ("Failed to decode Base64 to OutputStream");
       }
       catch (final IOException ex)
@@ -117,7 +121,9 @@ public class Base64Codec implements IByteArrayCodec
   @Nullable
   @ReturnsMutableCopy
   @Override
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
     return Base64.safeDecode (aEncodedBuffer, nOfs, nLen);
   }

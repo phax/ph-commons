@@ -31,7 +31,7 @@ import jakarta.annotation.Nullable;
 /**
  * A utility class for converting objects from and to {@link IMicroElement}.<br>
  * The functionality is a special case of the
- * {@link com.helger.commons.typeconvert.TypeConverter} as we need a parameter
+ * {@link com.helger.typeconvert.impl.TypeConverter} as we need a parameter
  * for conversion in this case.<br>
  * All converters are registered in the {@link MicroTypeConverterRegistry}.
  *

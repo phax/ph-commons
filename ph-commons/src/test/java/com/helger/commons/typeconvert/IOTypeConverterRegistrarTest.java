@@ -31,6 +31,7 @@ import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.impl.TypeConverter;
 
 /**
  * Test class for class {@link IOTypeConverterRegistrar}.

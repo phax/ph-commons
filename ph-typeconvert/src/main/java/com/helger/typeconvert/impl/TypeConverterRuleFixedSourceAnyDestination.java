@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert.rule;
+package com.helger.typeconvert.impl;
 
 import java.util.function.Function;
 
@@ -22,55 +22,56 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract type converter than can convert from a base source class to a
- * destination class. Example from String.class to specific Enum.class
+ * destination class. Example from Number.class to String.class
  *
  * @author Philip Helger
  * @param <SRC>
  *        Source type
- * @param <DST>
- *        Destination type
  */
-public class TypeConverterRuleFixedSourceAssignableDestination <SRC, DST> extends AbstractTypeConverterRule <SRC, DST>
+public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTypeConverterRule <SRC, Object>
 {
   private final Class <SRC> m_aSrcClass;
-  private final Class <DST> m_aDstClass;
-  private final Function <? super SRC, ? extends DST> m_aConverter;
+  private final Function <? super SRC, ? extends Object> m_aInBetweenConverter;
+  // Status vars
+  private Class <?> m_aEffectiveDstClass;
 
-  public TypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                            @Nonnull final Class <DST> aDstClass,
-                                                            @Nonnull final Function <? super SRC, ? extends DST> aConverter)
+  public TypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
+                                                     @Nonnull final Function <? super SRC, ? extends Object> aInBetweenConverter)
   {
-    super (ESubType.FIXED_SRC_ASSIGNABLE_DST);
+    super (ESubType.FIXED_SRC_ANY_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
-    m_aDstClass = ValueEnforcer.notNull (aDstClass, "DestClass");
-    m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
+    m_aInBetweenConverter = ValueEnforcer.notNull (aInBetweenConverter, "InBetweenConverter");
   }
 
   public final boolean canConvert (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return m_aSrcClass.equals (aSrcClass) && m_aDstClass.isAssignableFrom (aDstClass);
+    // destination class can be anything
+    if (!m_aSrcClass.equals (aSrcClass))
+      return false;
+    // Remember destination class for target conversion
+    m_aEffectiveDstClass = aDstClass;
+    return true;
   }
 
   @Nonnull
-  public final Class <SRC> getSourceClass ()
+  protected Object getInBetweenValue (@Nonnull final SRC aSource)
+  {
+    return m_aInBetweenConverter.apply (aSource);
+  }
+
+  public final Object apply (@Nonnull final SRC aSource)
+  {
+    final Object aInBetweenValue = getInBetweenValue (aSource);
+    return TypeConverter.convert (aInBetweenValue, m_aEffectiveDstClass);
+  }
+
+  @Nonnull
+  public final Class <?> getSourceClass ()
   {
     return m_aSrcClass;
-  }
-
-  @Nonnull
-  public final Class <DST> getDestinationClass ()
-  {
-    return m_aDstClass;
-  }
-
-  @Nullable
-  public DST apply (@Nonnull final SRC aSource)
-  {
-    return m_aConverter.apply (aSource);
   }
 
   @Override
@@ -78,8 +79,7 @@ public class TypeConverterRuleFixedSourceAssignableDestination <SRC, DST> extend
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("SrcClass", m_aSrcClass)
-                            .append ("DstClass", m_aDstClass)
-                            .append ("Converter", m_aConverter)
+                            .append ("InBetweenConverter", m_aInBetweenConverter)
                             .getToString ();
   }
 }

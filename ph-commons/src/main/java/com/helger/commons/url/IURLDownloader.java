@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.base.io.stream.StreamHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -47,8 +47,7 @@ public interface IURLDownloader
   byte [] downloadURL (@Nonnull @Nonempty String sURL) throws Exception;
 
   /**
-   * @return The default URL downloader using {@link URL#openStream()}. Never
-   *         <code>null</code>.
+   * @return The default URL downloader using {@link URL#openStream()}. Never <code>null</code>.
    */
   @Nonnull
   static IURLDownloader createDefault ()
@@ -57,7 +56,7 @@ public interface IURLDownloader
       // Use the built in HTTP client here (global proxy, etc.)
       try (final InputStream aIS = new URL (sURL).openStream ())
       {
-        return StreamHelperExt.getAllBytes (aIS);
+        return StreamHelper.getAllBytes (aIS);
       }
     };
   }

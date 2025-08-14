@@ -34,7 +34,6 @@ import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.EOperatingSystem;
 
@@ -94,7 +93,7 @@ public final class FileSystemResourceTest
     assertTrue (fr.getResourceID ().endsWith ("pom.xml"));
     assertTrue (fr.getPath ().endsWith ("pom.xml"));
     StreamHelper.close (fr.getReader (StandardCharsets.ISO_8859_1));
-    final byte [] aBytes = StreamHelperExt.getAllBytes (fr);
+    final byte [] aBytes = StreamHelper.getAllBytes (fr);
     assertTrue (aBytes.length > 0);
     assertNotNull (fr.getAsURL ());
     assertNotNull (fr.getAsFile ());

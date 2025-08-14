@@ -28,10 +28,10 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
+import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.typeconvert.util.ClassHierarchyCache;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -40,7 +40,7 @@ import jakarta.annotation.Nullable;
  * A utility class for converting objects from and to
  * {@link com.helger.xml.microdom.IMicroElement}.<br>
  * The functionality is a special case of the
- * {@link com.helger.commons.typeconvert.TypeConverterRegistry} as we need a
+ * {@link com.helger.typeconvert.impl.TypeConverterRegistry} as we need a
  * parameter for conversion in this case.
  *
  * @author Philip Helger

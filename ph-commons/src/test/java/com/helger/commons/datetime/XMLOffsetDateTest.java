@@ -89,8 +89,8 @@ import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 

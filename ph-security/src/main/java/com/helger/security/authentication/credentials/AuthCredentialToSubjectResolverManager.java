@@ -16,27 +16,29 @@
  */
 package com.helger.security.authentication.credentials;
 
+import java.util.List;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.spi.ServiceLoaderHelper;
+import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.security.authentication.subject.IAuthSubject;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This handler is used to resolve a subject from validated credentials. This is
- * necessary because the {@link IAuthCredentials} interface does not state
- * anything about the subject by default.
+ * This handler is used to resolve a subject from validated credentials. This is necessary because
+ * the {@link IAuthCredentials} interface does not state anything about the subject by default.
  *
  * @author Philip Helger
  */
 @Immutable
 public final class AuthCredentialToSubjectResolverManager
 {
-  private static final ICommonsList <IAuthCredentialToSubjectResolverSPI> HDL_LIST;
+  private static final List <IAuthCredentialToSubjectResolverSPI> HDL_LIST;
 
   static
   {
@@ -48,15 +50,14 @@ public final class AuthCredentialToSubjectResolverManager
   {}
 
   /**
-   * @return A list of all contained implementations of
-   *         {@link IAuthCredentialToSubjectResolverSPI}. Never
-   *         <code>null</code> but maybe empty.
+   * @return A list of all contained implementations of {@link IAuthCredentialToSubjectResolverSPI}.
+   *         Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
   public static ICommonsList <IAuthCredentialToSubjectResolverSPI> getAllAuthCredentialToSubjectResolvers ()
   {
-    return HDL_LIST.getClone ();
+    return new CommonsArrayList <> (HDL_LIST);
   }
 
   /**

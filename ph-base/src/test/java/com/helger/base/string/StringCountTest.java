@@ -184,4 +184,50 @@ public final class StringCountTest
     assertEquals (20, StringCount.getCharacterCount (Long.MIN_VALUE + 1));
     assertEquals (19, StringCount.getCharacterCount (Long.MAX_VALUE));
   }
+
+  @Test
+  public void testGetLeadingWhitespaceCount ()
+  {
+    assertEquals (0, StringCount.getLeadingWhitespaceCount ("Hallo Welt"));
+    assertEquals (1, StringCount.getLeadingWhitespaceCount (" Hallo Welt"));
+    assertEquals (2, StringCount.getLeadingWhitespaceCount ("  Hallo Welt"));
+    assertEquals (2, StringCount.getLeadingWhitespaceCount ("\t\tHallo Welt"));
+    assertEquals (2, StringCount.getLeadingWhitespaceCount ("  "));
+    assertEquals (0, StringCount.getLeadingWhitespaceCount (""));
+    assertEquals (0, StringCount.getLeadingWhitespaceCount (null));
+  }
+
+  @Test
+  public void testGetTrailingWhitespaceCount ()
+  {
+    assertEquals (0, StringCount.getTrailingWhitespaceCount ("Hallo Welt"));
+    assertEquals (1, StringCount.getTrailingWhitespaceCount (" Hallo Welt "));
+    assertEquals (2, StringCount.getTrailingWhitespaceCount ("  Hallo Welt  "));
+    assertEquals (2, StringCount.getTrailingWhitespaceCount ("\t\tHallo Welt\t\t"));
+    assertEquals (2, StringCount.getTrailingWhitespaceCount ("  "));
+    assertEquals (0, StringCount.getTrailingWhitespaceCount (""));
+    assertEquals (0, StringCount.getTrailingWhitespaceCount (null));
+  }
+
+  @Test
+  public void testGetLeadingCharCount ()
+  {
+    assertEquals (0, StringCount.getLeadingCharCount ("Hallo Welt", 'x'));
+    assertEquals (1, StringCount.getLeadingCharCount ("xHallo Welt", 'x'));
+    assertEquals (2, StringCount.getLeadingCharCount ("xxHallo Welt", 'x'));
+    assertEquals (2, StringCount.getLeadingCharCount ("xx", 'x'));
+    assertEquals (0, StringCount.getLeadingCharCount ("", 'x'));
+    assertEquals (0, StringCount.getLeadingCharCount (null, 'x'));
+  }
+
+  @Test
+  public void testGetTrailingCharCount ()
+  {
+    assertEquals (0, StringCount.getTrailingCharCount ("Hallo Welt", 'x'));
+    assertEquals (1, StringCount.getTrailingCharCount (" Hallo Weltx", 'x'));
+    assertEquals (2, StringCount.getTrailingCharCount ("  Hallo Weltxx", 'x'));
+    assertEquals (2, StringCount.getTrailingCharCount ("xx", 'x'));
+    assertEquals (0, StringCount.getTrailingCharCount ("", 'x'));
+    assertEquals (0, StringCount.getTrailingCharCount (null, 'x'));
+  }
 }

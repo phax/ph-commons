@@ -250,4 +250,94 @@ public final class StringCount
   {
     return sText != null ? getOccurrenceCount (sText.toLowerCase (aSortLocale), Character.toLowerCase (cSearch)) : 0;
   }
+
+  /**
+   * Get the number of leading white spaces according to {@link Character#isWhitespace(char)}
+   *
+   * @param s
+   *        The string to be parsed. May be <code>null</code>.
+   * @return Always &ge; 0.
+   */
+  @Nonnegative
+  public static int getLeadingWhitespaceCount (@Nullable final String s)
+  {
+    int ret = 0;
+    if (s != null)
+    {
+      final int nMax = s.length ();
+      while (ret < nMax && Character.isWhitespace (s.charAt (ret)))
+        ++ret;
+    }
+    return ret;
+  }
+
+  /**
+   * Get the number of trailing white spaces according to {@link Character#isWhitespace(char)}
+   *
+   * @param s
+   *        The string to be parsed. May be <code>null</code>.
+   * @return Always &ge; 0.
+   */
+  @Nonnegative
+  public static int getTrailingWhitespaceCount (@Nullable final String s)
+  {
+    int ret = 0;
+    if (s != null)
+    {
+      int nLast = s.length () - 1;
+      while (nLast >= 0 && Character.isWhitespace (s.charAt (nLast)))
+      {
+        ++ret;
+        --nLast;
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Get the number of specified chars, the passed string starts with.
+   *
+   * @param s
+   *        The string to be parsed. May be <code>null</code>.
+   * @param c
+   *        The char to be searched.
+   * @return Always &ge; 0.
+   */
+  @Nonnegative
+  public static int getLeadingCharCount (@Nullable final String s, final char c)
+  {
+    int ret = 0;
+    if (s != null)
+    {
+      final int nMax = s.length ();
+      while (ret < nMax && s.charAt (ret) == c)
+        ++ret;
+    }
+    return ret;
+  }
+
+  /**
+   * Get the number of specified chars, the passed string ends with.
+   *
+   * @param s
+   *        The string to be parsed. May be <code>null</code>.
+   * @param c
+   *        The char to be searched.
+   * @return Always &ge; 0.
+   */
+  @Nonnegative
+  public static int getTrailingCharCount (@Nullable final String s, final char c)
+  {
+    int ret = 0;
+    if (s != null)
+    {
+      int nLast = s.length () - 1;
+      while (nLast >= 0 && s.charAt (nLast) == c)
+      {
+        ++ret;
+        --nLast;
+      }
+    }
+    return ret;
+  }
 }

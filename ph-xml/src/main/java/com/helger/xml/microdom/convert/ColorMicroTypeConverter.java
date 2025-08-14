@@ -18,7 +18,7 @@ package com.helger.xml.microdom.convert;
 
 import java.awt.Color;
 
-import com.helger.commons.string.StringParser;
+import com.helger.base.string.StringParser;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 

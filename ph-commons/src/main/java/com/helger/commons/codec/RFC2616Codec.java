@@ -22,7 +22,7 @@ import java.util.BitSet;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringFind;
 import com.helger.commons.text.util.RFC5234Helper;
 
 import jakarta.annotation.Nonnull;
@@ -90,7 +90,7 @@ public class RFC2616Codec implements ICharArrayCodec
 
   public static boolean isMaybeEncoded (@Nullable final String s)
   {
-    return s != null && s.length () >= 2 && s.charAt (0) == QUOTE_CHAR && StringHelper.getLastChar (s) == QUOTE_CHAR;
+    return s != null && s.length () >= 2 && s.charAt (0) == QUOTE_CHAR && StringFind.getLastChar (s) == QUOTE_CHAR;
   }
 
   public static boolean isMaybeEncoded (@Nullable final char [] s)

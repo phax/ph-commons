@@ -14,15 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.base64;
+package com.helger.base.codec;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -33,11 +30,8 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.Strings;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.stream.StreamHelperExt;
 
 /**
  * Test class for class {@link Base64}.<br>
@@ -69,7 +63,7 @@ public final class Base64Test
                   sEncoded);
 
     // Check that it can be read again
-    byte [] aReadBytes = StreamHelperExt.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
+    byte [] aReadBytes = StreamHelper.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
     assertArrayEquals (aSource, aReadBytes);
 
     sEncoded = Base64.safeEncodeBytes (aSource, Base64.DO_BREAK_LINES | Base64.DO_NEWLINE_CRLF);
@@ -78,7 +72,7 @@ public final class Base64Test
                   sEncoded);
 
     // Check that it can be read again
-    aReadBytes = StreamHelperExt.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
+    aReadBytes = StreamHelper.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
     assertArrayEquals (aSource, aReadBytes);
   }
 
@@ -145,88 +139,6 @@ public final class Base64Test
   {
     for (int i = 2000; i < 80000; i += 1000)
       _runStreamTest (i);
-  }
-
-  @Test
-  public void testEncodeFileToFile () throws IOException
-  {
-    final File f1 = new File ("base64.decoded");
-    final File f2 = new File ("base64.encoded");
-    try
-    {
-      assertFalse (FileHelper.existsFile (f2));
-      SimpleFileIO.writeFile (f1, "Hallo Wält", StandardCharsets.UTF_8);
-      Base64.encodeFileToFile (f1.getAbsolutePath (), f2.getAbsoluteFile ());
-      assertTrue (FileHelper.existsFile (f2));
-      final String sEncoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
-      assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sEncoded, StandardCharsets.UTF_8));
-    }
-    finally
-    {
-      FileOperations.deleteFile (f1);
-      FileOperations.deleteFile (f2);
-    }
-  }
-
-  @Test
-  public void testEncodeToFile () throws IOException
-  {
-    final File f2 = new File ("base64.encoded");
-    try
-    {
-      assertFalse (FileHelper.existsFile (f2));
-      final String sDecoded = "Hallo Wält";
-      Base64.encodeToFile (sDecoded.getBytes (StandardCharsets.UTF_8), f2.getAbsoluteFile ());
-      assertTrue (FileHelper.existsFile (f2));
-      final String sEncoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
-      assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sEncoded, StandardCharsets.UTF_8));
-    }
-    finally
-    {
-      FileOperations.deleteFile (f2);
-    }
-  }
-
-  @Test
-  public void testDecodeFileToFile () throws IOException
-  {
-    final File f1 = new File ("base64.encoded");
-    final File f2 = new File ("base64.decoded");
-    try
-    {
-      assertFalse (FileHelper.existsFile (f2));
-      SimpleFileIO.writeFile (f1,
-                              Base64.safeEncode ("Hallo Wält", StandardCharsets.UTF_8)
-                                    .getBytes (StandardCharsets.ISO_8859_1));
-      Base64.decodeFileToFile (f1.getAbsolutePath (), f2.getAbsoluteFile ());
-      assertTrue (FileHelper.existsFile (f2));
-      final String sDecoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
-      assertEquals ("Hallo Wält", sDecoded);
-    }
-    finally
-    {
-      FileOperations.deleteFile (f1);
-      FileOperations.deleteFile (f2);
-    }
-  }
-
-  @Test
-  public void testDecodeToFile () throws IOException
-  {
-    final File f2 = new File ("base64.decoded");
-    try
-    {
-      assertFalse (FileHelper.existsFile (f2));
-      final String sEncoded = Base64.safeEncode ("Hallo Wält", StandardCharsets.UTF_8);
-      Base64.decodeToFile (sEncoded, f2.getAbsoluteFile ());
-      assertTrue (FileHelper.existsFile (f2));
-      final String sDecoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
-      assertEquals ("Hallo Wält", sDecoded);
-    }
-    finally
-    {
-      FileOperations.deleteFile (f2);
-    }
   }
 
   @Test

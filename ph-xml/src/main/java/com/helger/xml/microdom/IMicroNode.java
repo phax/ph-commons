@@ -31,7 +31,7 @@ import com.helger.commons.callback.CallbackList;
 import com.helger.commons.hierarchy.IHasChildrenRecursive;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -541,7 +541,7 @@ public interface IMicroNode extends
 
   /**
    * Append a text node to this node. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * {@link String}, the {@link com.helger.typeconvert.impl.TypeConverter} is
    * invoked to convert it to a {@link String} object.
    *
    * @param aValue
@@ -560,7 +560,7 @@ public interface IMicroNode extends
 
   /**
    * Append a text node to this node. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * {@link String}, the {@link com.helger.typeconvert.impl.TypeConverter} is
    * invoked to convert it to a {@link String} object.
    *
    * @param aValue
@@ -797,7 +797,7 @@ public interface IMicroNode extends
 
   /**
    * Append a CDATA node to this node. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * {@link String}, the {@link com.helger.typeconvert.impl.TypeConverter} is
    * invoked to convert it to a {@link String} object.
    *
    * @param aValue
@@ -816,7 +816,7 @@ public interface IMicroNode extends
 
   /**
    * Append a CDATA node to this node. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * {@link String}, the {@link com.helger.typeconvert.impl.TypeConverter} is
    * invoked to convert it to a {@link String} object.
    *
    * @param aValue
@@ -945,7 +945,7 @@ public interface IMicroNode extends
 
   /**
    * Append a comment node to this node. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * {@link String}, the {@link com.helger.typeconvert.impl.TypeConverter} is
    * invoked to convert it to a {@link String} object.
    *
    * @param aValue
@@ -964,7 +964,7 @@ public interface IMicroNode extends
 
   /**
    * Append a comment node to this node. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
+   * {@link String}, the {@link com.helger.typeconvert.impl.TypeConverter} is
    * invoked to convert it to a {@link String} object.
    *
    * @param aValue

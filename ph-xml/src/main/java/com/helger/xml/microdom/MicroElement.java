@@ -42,7 +42,7 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
 

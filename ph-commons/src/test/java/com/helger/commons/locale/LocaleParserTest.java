@@ -30,7 +30,7 @@ import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.base.mock.CommonsAssert;
-import com.helger.commons.string.StringParser;
+import com.helger.base.string.StringParser;
 
 /**
  * Test class for class {@link LocaleParser}.

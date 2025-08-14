@@ -26,12 +26,12 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.functional.ITriConsumer;
 import com.helger.base.state.EChange;
+import com.helger.base.string.StringParser;
 import com.helger.base.string.Strings;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.commons.string.StringParser;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -190,7 +190,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   /**
    * Get the attribute value of the given attribute name. If this element has no such attribute,
    * <code>null</code> is returned. The attribute value is converted via the
-   * {@link com.helger.commons.typeconvert.TypeConverter} to the desired destination class. If no
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no
    * such attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
@@ -213,7 +213,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   /**
    * Get the attribute value of the given attribute name. If this element has no such attribute,
    * <code>null</code> is returned. The attribute value is converted via the
-   * {@link com.helger.commons.typeconvert.TypeConverter} to the desired destination class. If no
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no
    * such attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
@@ -241,7 +241,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   /**
    * Get the attribute value of the given attribute name. If this element has no such attribute,
    * <code>null</code> is returned. The attribute value is converted via the
-   * {@link com.helger.commons.typeconvert.TypeConverter} to the desired destination class. If no
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no
    * such attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
@@ -777,7 +777,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a
    * {@link String} object.
    *
    * @param sAttrName
@@ -812,7 +812,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a
    * {@link String} object.
    *
    * @param sNamespaceURI
@@ -855,7 +855,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. If the type of the value is not {@link String}, the
-   * {@link com.helger.commons.typeconvert.TypeConverter} is invoked to convert it to a
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a
    * {@link String} object.
    *
    * @param aAttrName

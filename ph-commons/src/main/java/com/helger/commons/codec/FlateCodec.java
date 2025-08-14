@@ -28,7 +28,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.NonClosingOutputStream;
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.base.io.stream.StreamHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -45,7 +45,9 @@ public class FlateCodec implements IByteArrayCodec
   public FlateCodec ()
   {}
 
-  public static boolean isZlibHead (@Nonnull final byte [] buf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static boolean isZlibHead (@Nonnull final byte [] buf,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
   {
     if (nLen >= 2)
     {
@@ -71,9 +73,11 @@ public class FlateCodec implements IByteArrayCodec
     if (!isZlibHead (aEncodedBuffer, nOfs, nLen))
       LOGGER.warn ("ZLib header not found");
 
-    try (final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen)))
+    try (final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                                             nOfs,
+                                                                                                             nLen)))
     {
-      if (StreamHelperExt.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
+      if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
         throw new DecodeException ("Failed to flate decode!");
     }
     catch (final IOException ex)
@@ -92,8 +96,8 @@ public class FlateCodec implements IByteArrayCodec
 
     try (final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (new NonClosingOutputStream (aOS)))
     {
-      if (StreamHelperExt.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen), aEncodeOS)
-                      .isFailure ())
+      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen),
+                                                      aEncodeOS).isFailure ())
         throw new EncodeException ("Failed to flate encode!");
     }
     catch (final IOException ex)

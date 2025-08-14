@@ -30,11 +30,11 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
+import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.typeconvert.util.ClassHierarchyCache;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -28,11 +28,11 @@ import java.net.URL;
 import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
+import com.helger.base.string.StringParser;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.collection.stack.StackHelper;
-import com.helger.commons.string.StringParser;
 
 /**
  * Test class for class {@link EqualsHelperExt}.

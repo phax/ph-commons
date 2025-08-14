@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.impl;
 
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.ITypeConverter;
@@ -24,21 +24,19 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * An type converter provider that tries to provide an exact match before trying
- * fuzzy matches. This should be the preferred type converter provider.
- * Implemented as a singleton.
+ * A rule based type converter provider. Implemented as a singleton.
  *
  * @author Philip Helger
  */
-public final class TypeConverterProviderBestMatch implements ITypeConverterProvider
+public final class TypeConverterProviderRuleBased implements ITypeConverterProvider
 {
-  private static final TypeConverterProviderBestMatch INSTANCE = new TypeConverterProviderBestMatch ();
+  private static final TypeConverterProviderRuleBased INSTANCE = new TypeConverterProviderRuleBased ();
 
-  private TypeConverterProviderBestMatch ()
+  private TypeConverterProviderRuleBased ()
   {}
 
   @Nonnull
-  public static TypeConverterProviderBestMatch getInstance ()
+  public static TypeConverterProviderRuleBased getInstance ()
   {
     return INSTANCE;
   }
@@ -46,20 +44,6 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
   @Nullable
   public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    final TypeConverterRegistry aTCR = TypeConverterRegistry.getInstance ();
-
-    // Find exact hit first
-    ITypeConverter <?, ?> ret = aTCR.getExactConverter (aSrcClass, aDstClass);
-    if (ret == null)
-    {
-      // No exact match was found -> try rule based converter
-      ret = aTCR.getRuleBasedConverter (aSrcClass, aDstClass);
-      if (ret == null)
-      {
-        // No exact match was found -> try fuzzy converter
-        ret = aTCR.getFuzzyConverter (aSrcClass, aDstClass);
-      }
-    }
-    return GenericReflection.uncheckedCast (ret);
+    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getRuleBasedConverter (aSrcClass, aDstClass));
   }
 }

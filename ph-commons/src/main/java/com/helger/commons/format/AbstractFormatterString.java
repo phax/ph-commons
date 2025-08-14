@@ -20,7 +20,7 @@ import java.util.function.Function;
 
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -24,17 +24,16 @@ import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * {@link javax.xml.transform.Source} that ensures that the passed
- * {@link InputStream} is copied. This is achieved by copying the content in a
- * {@link NonBlockingByteArrayInputStream}.
+ * {@link javax.xml.transform.Source} that ensures that the passed {@link InputStream} is copied.
+ * This is achieved by copying the content in a {@link NonBlockingByteArrayInputStream}.
  *
  * @author Philip Helger
  */
@@ -63,7 +62,7 @@ public class CachingTransformStreamSource extends StreamSource
 
   public CachingTransformStreamSource (@Nullable @WillClose final InputStream aIS, @Nullable final String sSystemID)
   {
-    super (aIS == null ? null : new NonBlockingByteArrayInputStream (StreamHelperExt.getAllBytes (aIS)), sSystemID);
+    super (aIS == null ? null : new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS)), sSystemID);
   }
 
   @Override

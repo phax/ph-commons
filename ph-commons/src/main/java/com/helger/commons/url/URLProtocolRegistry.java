@@ -26,11 +26,11 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.lang.ServiceLoaderHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

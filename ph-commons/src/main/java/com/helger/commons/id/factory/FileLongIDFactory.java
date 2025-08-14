@@ -24,6 +24,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringParser;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.file.EFileIOErrorCode;
 import com.helger.commons.io.file.EFileIOOperation;
@@ -31,7 +32,6 @@ import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileIOError;
 import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.string.StringParser;
 
 import jakarta.annotation.Nonnull;
 

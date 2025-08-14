@@ -27,7 +27,6 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleLock;
-import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
@@ -49,7 +48,7 @@ import jakarta.annotation.Nullable;
 public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE>, IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ObjectPool.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
 
   // Lock for this object
   private final SimpleLock m_aLock = new SimpleLock ();

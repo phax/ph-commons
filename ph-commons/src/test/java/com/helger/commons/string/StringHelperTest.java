@@ -30,7 +30,6 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
-import com.helger.base.CGlobal;
 import com.helger.base.functional.IThrowingFunction;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.collection.commons.CommonsArrayList;
@@ -48,53 +47,6 @@ import com.helger.collection.helper.CollectionHelperExt;
  */
 public final class StringHelperTest
 {
-
-  @Test
-  public void testGetLeadingWhitespaceCount ()
-  {
-    assertEquals (0, StringHelper.getLeadingWhitespaceCount ("Hallo Welt"));
-    assertEquals (1, StringHelper.getLeadingWhitespaceCount (" Hallo Welt"));
-    assertEquals (2, StringHelper.getLeadingWhitespaceCount ("  Hallo Welt"));
-    assertEquals (2, StringHelper.getLeadingWhitespaceCount ("\t\tHallo Welt"));
-    assertEquals (2, StringHelper.getLeadingWhitespaceCount ("  "));
-    assertEquals (0, StringHelper.getLeadingWhitespaceCount (""));
-    assertEquals (0, StringHelper.getLeadingWhitespaceCount (null));
-  }
-
-  @Test
-  public void testGetTrailingWhitespaceCount ()
-  {
-    assertEquals (0, StringHelper.getTrailingWhitespaceCount ("Hallo Welt"));
-    assertEquals (1, StringHelper.getTrailingWhitespaceCount (" Hallo Welt "));
-    assertEquals (2, StringHelper.getTrailingWhitespaceCount ("  Hallo Welt  "));
-    assertEquals (2, StringHelper.getTrailingWhitespaceCount ("\t\tHallo Welt\t\t"));
-    assertEquals (2, StringHelper.getTrailingWhitespaceCount ("  "));
-    assertEquals (0, StringHelper.getTrailingWhitespaceCount (""));
-    assertEquals (0, StringHelper.getTrailingWhitespaceCount (null));
-  }
-
-  @Test
-  public void testGetLeadingCharCount ()
-  {
-    assertEquals (0, StringHelper.getLeadingCharCount ("Hallo Welt", 'x'));
-    assertEquals (1, StringHelper.getLeadingCharCount ("xHallo Welt", 'x'));
-    assertEquals (2, StringHelper.getLeadingCharCount ("xxHallo Welt", 'x'));
-    assertEquals (2, StringHelper.getLeadingCharCount ("xx", 'x'));
-    assertEquals (0, StringHelper.getLeadingCharCount ("", 'x'));
-    assertEquals (0, StringHelper.getLeadingCharCount (null, 'x'));
-  }
-
-  @Test
-  public void testGetTrailingCharCount ()
-  {
-    assertEquals (0, StringHelper.getTrailingCharCount ("Hallo Welt", 'x'));
-    assertEquals (1, StringHelper.getTrailingCharCount (" Hallo Weltx", 'x'));
-    assertEquals (2, StringHelper.getTrailingCharCount ("  Hallo Weltxx", 'x'));
-    assertEquals (2, StringHelper.getTrailingCharCount ("xx", 'x'));
-    assertEquals (0, StringHelper.getTrailingCharCount ("", 'x'));
-    assertEquals (0, StringHelper.getTrailingCharCount (null, 'x'));
-  }
-
   @Test
   public void testImplodeIterable ()
   {
@@ -148,11 +100,11 @@ public final class StringHelperTest
   public void testImplodeMap ()
   {
     final ICommonsOrderedMap <String, String> aMap = CollectionHelperExt.newOrderedMap ("a",
-                                                                                     "true",
-                                                                                     "b",
-                                                                                     "true",
-                                                                                     "c",
-                                                                                     "false");
+                                                                                        "true",
+                                                                                        "b",
+                                                                                        "true",
+                                                                                        "c",
+                                                                                        "false");
     assertEquals ("atruebtruecfalse", StringHelper.getImploded ("", "", aMap));
     assertEquals ("atrue,btrue,cfalse", StringHelper.getImploded (",", "", aMap));
     assertEquals ("a,trueb,truec,false", StringHelper.getImploded ("", ",", aMap));
@@ -643,26 +595,6 @@ public final class StringHelperTest
     assertEquals ("", StringHelper.trim (""));
     assertEquals ("", StringHelper.trim (""));
     assertSame (null, StringHelper.trim (null));
-  }
-
-  @Test
-  public void testGetFirstChar ()
-  {
-    assertEquals ('a', StringHelper.getFirstChar ("abc"));
-    assertEquals ('a', StringHelper.getFirstChar ("a"));
-    assertEquals (CGlobal.ILLEGAL_CHAR, StringHelper.getFirstChar (""));
-    assertEquals (CGlobal.ILLEGAL_CHAR, StringHelper.getFirstChar ((CharSequence) null));
-    assertEquals (CGlobal.ILLEGAL_CHAR, StringHelper.getFirstChar ((char []) null));
-  }
-
-  @Test
-  public void testGetLastChar ()
-  {
-    assertEquals ('c', StringHelper.getLastChar ("abc"));
-    assertEquals ('a', StringHelper.getLastChar ("a"));
-    assertEquals (CGlobal.ILLEGAL_CHAR, StringHelper.getLastChar (""));
-    assertEquals (CGlobal.ILLEGAL_CHAR, StringHelper.getLastChar ((CharSequence) null));
-    assertEquals (CGlobal.ILLEGAL_CHAR, StringHelper.getLastChar ((char []) null));
   }
 
   @Test

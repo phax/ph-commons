@@ -54,7 +54,7 @@ public interface IMicroNodeWithChildren extends IMicroNode
   /**
    * Get the concatenated text content of all direct {@link IMicroText} child
    * nodes of this element. The value is converted via the
-   * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired
    * destination class.
    *
    * @param <DSTTYPE>

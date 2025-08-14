@@ -29,8 +29,8 @@ import java.time.ZonedDateTime;
 
 import org.junit.Test;
 
+import com.helger.base.string.StringParser;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.string.StringParser;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 

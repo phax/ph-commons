@@ -38,6 +38,8 @@ import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IResourceBase;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.url.URLHelper;
+import com.helger.typeconvert.ITypeConverterRegistrarSPI;
+import com.helger.typeconvert.ITypeConverterRegistry;
 
 import jakarta.annotation.Nonnull;
 

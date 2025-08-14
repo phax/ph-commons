@@ -41,6 +41,7 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.iface.IThrowingRunnable;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.Strings;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.io.file.FileHelper;
@@ -48,7 +49,6 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.EJavaVersion;
@@ -346,8 +346,8 @@ public final class DOMReaderTest
     // Include a dummy file
     final File aFile = new File ("src/test/resources/test1.txt");
     assertTrue (aFile.exists ());
-    final String sFileContent = StreamHelperExt.getAllBytesAsString (new FileSystemResource (aFile),
-                                                                     StandardCharsets.ISO_8859_1);
+    final String sFileContent = StreamHelper.getAllBytesAsString (new FileSystemResource (aFile),
+                                                                  StandardCharsets.ISO_8859_1);
 
     // The XML with XXE problem
     final String sXML = "<?xml version='1.0' encoding='utf-8'?>" +

@@ -153,7 +153,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SafeXMLStreamWriter.class);
-  private static final AtomicBoolean DEFAULT_DEBUG_MODE = new AtomicBoolean (false);
+  private static final AtomicBoolean DEFAULT_DEBUG_MODE = new AtomicBoolean (ConditionalLogger.DEFAULT_ENABLED);
 
   public static boolean isDefaultDebugMode ()
   {

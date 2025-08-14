@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.spi;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -31,6 +31,9 @@ import com.helger.base.numeric.mutable.MutableFloat;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.base.numeric.mutable.MutableShort;
+import com.helger.typeconvert.ITypeConverterRegistrarSPI;
+import com.helger.typeconvert.ITypeConverterRegistry;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 

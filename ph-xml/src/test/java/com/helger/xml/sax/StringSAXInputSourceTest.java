@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -35,7 +35,7 @@ public final class StringSAXInputSourceTest
   public void testBasic ()
   {
     final StringSAXInputSource sis = new StringSAXInputSource ("bla foo 90");
-    assertEquals ("bla foo 90", StreamHelperExt.getAllCharactersAsString (sis.getCharacterStream ()));
+    assertEquals ("bla foo 90", StreamHelper.getAllCharactersAsString (sis.getCharacterStream ()));
     CommonsTestHelper.testToStringImplementation (sis);
   }
 

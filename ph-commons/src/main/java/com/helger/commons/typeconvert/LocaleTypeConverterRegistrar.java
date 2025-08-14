@@ -21,6 +21,8 @@ import java.util.Locale;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.typeconvert.ITypeConverterRegistrarSPI;
+import com.helger.typeconvert.ITypeConverterRegistry;
 
 import jakarta.annotation.Nonnull;
 

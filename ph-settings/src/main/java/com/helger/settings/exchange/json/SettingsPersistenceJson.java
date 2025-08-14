@@ -32,7 +32,6 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
 import com.helger.collection.helper.CollectionSort;
-import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.json.IJson;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
@@ -42,6 +41,7 @@ import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 

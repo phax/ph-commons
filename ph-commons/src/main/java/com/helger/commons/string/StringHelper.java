@@ -68,96 +68,6 @@ public final class StringHelper extends Strings
   {}
 
   /**
-   * Get the number of leading white spaces according to {@link Character#isWhitespace(char)}
-   *
-   * @param s
-   *        The string to be parsed. May be <code>null</code>.
-   * @return Always &ge; 0.
-   */
-  @Nonnegative
-  public static int getLeadingWhitespaceCount (@Nullable final String s)
-  {
-    int ret = 0;
-    if (s != null)
-    {
-      final int nMax = s.length ();
-      while (ret < nMax && Character.isWhitespace (s.charAt (ret)))
-        ++ret;
-    }
-    return ret;
-  }
-
-  /**
-   * Get the number of trailing white spaces according to {@link Character#isWhitespace(char)}
-   *
-   * @param s
-   *        The string to be parsed. May be <code>null</code>.
-   * @return Always &ge; 0.
-   */
-  @Nonnegative
-  public static int getTrailingWhitespaceCount (@Nullable final String s)
-  {
-    int ret = 0;
-    if (s != null)
-    {
-      int nLast = s.length () - 1;
-      while (nLast >= 0 && Character.isWhitespace (s.charAt (nLast)))
-      {
-        ++ret;
-        --nLast;
-      }
-    }
-    return ret;
-  }
-
-  /**
-   * Get the number of specified chars, the passed string starts with.
-   *
-   * @param s
-   *        The string to be parsed. May be <code>null</code>.
-   * @param c
-   *        The char to be searched.
-   * @return Always &ge; 0.
-   */
-  @Nonnegative
-  public static int getLeadingCharCount (@Nullable final String s, final char c)
-  {
-    int ret = 0;
-    if (s != null)
-    {
-      final int nMax = s.length ();
-      while (ret < nMax && s.charAt (ret) == c)
-        ++ret;
-    }
-    return ret;
-  }
-
-  /**
-   * Get the number of specified chars, the passed string ends with.
-   *
-   * @param s
-   *        The string to be parsed. May be <code>null</code>.
-   * @param c
-   *        The char to be searched.
-   * @return Always &ge; 0.
-   */
-  @Nonnegative
-  public static int getTrailingCharCount (@Nullable final String s, final char c)
-  {
-    int ret = 0;
-    if (s != null)
-    {
-      int nLast = s.length () - 1;
-      while (nLast >= 0 && s.charAt (nLast) == c)
-      {
-        ++ret;
-        --nLast;
-      }
-    }
-    return ret;
-  }
-
-  /**
    * A simple builder that allows to implode collections of arguments with a lot of customization.
    * It used by all the "getImploded*" overloads and fulfills the requests of other use cases as
    * well.
@@ -1962,13 +1872,13 @@ public final class StringHelper extends Strings
 
   public static boolean endsWith (@Nullable final CharSequence aCS, final char c)
   {
-    return isNotEmpty (aCS) && getLastChar (aCS) == c;
+    return isNotEmpty (aCS) && StringFind.getLastChar (aCS) == c;
   }
 
   public static boolean endsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
   {
     if (isNotEmpty (aCS) && aChars != null)
-      if (ArrayHelper.contains (aChars, getLastChar (aCS)))
+      if (ArrayHelper.contains (aChars, StringFind.getLastChar (aCS)))
         return true;
     return false;
   }
@@ -2009,7 +1919,7 @@ public final class StringHelper extends Strings
 
   public static boolean endsWithIgnoreCase (@Nullable final CharSequence aCS, final char c)
   {
-    return isNotEmpty (aCS) && Character.toLowerCase (getLastChar (aCS)) == Character.toLowerCase (c);
+    return isNotEmpty (aCS) && Character.toLowerCase (StringFind.getLastChar (aCS)) == Character.toLowerCase (c);
   }
 
   public static boolean endsWithIgnoreCase (@Nullable final String sStr, @Nullable final String sSearch)
@@ -2036,7 +1946,7 @@ public final class StringHelper extends Strings
   @CheckReturnValue
   public static String trimLeadingWhitespaces (@Nullable final String s)
   {
-    final int n = getLeadingWhitespaceCount (s);
+    final int n = StringCount.getLeadingWhitespaceCount (s);
     return n == 0 ? s : s.substring (n);
   }
 
@@ -2051,7 +1961,7 @@ public final class StringHelper extends Strings
   @CheckReturnValue
   public static String trimTrailingWhitespaces (@Nullable final String s)
   {
-    final int n = getTrailingWhitespaceCount (s);
+    final int n = StringCount.getTrailingWhitespaceCount (s);
     return n == 0 ? s : s.substring (0, s.length () - n);
   }
 
@@ -2339,55 +2249,6 @@ public final class StringHelper extends Strings
   public static String trim (@Nullable final String s)
   {
     return isEmpty (s) ? s : s.trim ();
-  }
-
-  /**
-   * Get the first character of the passed character sequence
-   *
-   * @param aCS
-   *        The source character sequence
-   * @return {@link CGlobal#ILLEGAL_CHAR} if the passed sequence was empty
-   */
-  public static char getFirstChar (@Nullable final CharSequence aCS)
-  {
-    return isNotEmpty (aCS) ? aCS.charAt (0) : CGlobal.ILLEGAL_CHAR;
-  }
-
-  /**
-   * Get the first character of the passed array
-   *
-   * @param aChars
-   *        The character array
-   * @return {@link CGlobal#ILLEGAL_CHAR} if the passed array was empty
-   */
-  public static char getFirstChar (@Nullable final char [] aChars)
-  {
-    return ArrayHelper.getFirst (aChars, CGlobal.ILLEGAL_CHAR);
-  }
-
-  /**
-   * Get the last character of the passed character sequence
-   *
-   * @param aCS
-   *        The source character sequence
-   * @return {@link CGlobal#ILLEGAL_CHAR} if the passed sequence was empty
-   */
-  public static char getLastChar (@Nullable final CharSequence aCS)
-  {
-    final int nLength = getLength (aCS);
-    return nLength > 0 ? aCS.charAt (nLength - 1) : CGlobal.ILLEGAL_CHAR;
-  }
-
-  /**
-   * Get the last character of the passed array
-   *
-   * @param aChars
-   *        The character array
-   * @return {@link CGlobal#ILLEGAL_CHAR} if the passed array was empty
-   */
-  public static char getLastChar (@Nullable final char [] aChars)
-  {
-    return ArrayHelper.getLast (aChars, CGlobal.ILLEGAL_CHAR);
   }
 
   @Nonnull

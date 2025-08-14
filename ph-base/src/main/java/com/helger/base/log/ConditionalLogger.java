@@ -39,12 +39,14 @@ import jakarta.annotation.Nullable;
 @ThreadSafe
 public final class ConditionalLogger implements IConditionalLogger, IEnabledIndicator
 {
+  public static final boolean DEFAULT_ENABLED = !GlobalDebug.DEFAULT_SILENT_MODE;
+
   private final Logger m_aLogger;
   private final AtomicBoolean m_aEnabled;
 
   public ConditionalLogger (@Nonnull final Logger aLogger)
   {
-    this (aLogger, GlobalDebug.isDebugMode ());
+    this (aLogger, DEFAULT_ENABLED);
   }
 
   public ConditionalLogger (@Nonnull final Logger aLogger, final boolean bEnabled)

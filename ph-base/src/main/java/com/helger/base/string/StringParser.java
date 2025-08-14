@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.string;
+package com.helger.base.string;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -25,14 +25,13 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.StringReplace;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
  * This class contains the methods to parse String objects to numeric values. Before v3.7.0 this was
- * contained in class {@link StringHelper}.
+ * contained in class StringHelper.
  *
  * @author Philip Helger
  */

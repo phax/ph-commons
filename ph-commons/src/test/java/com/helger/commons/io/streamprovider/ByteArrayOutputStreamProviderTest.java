@@ -28,7 +28,6 @@ import org.junit.Test;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.io.stream.StringInputStream;
 
 /**
@@ -44,16 +43,16 @@ public final class ByteArrayOutputStreamProviderTest
     final ByteArrayOutputStreamProvider aOSP = new ByteArrayOutputStreamProvider ();
     final OutputStream aOS = aOSP.getOutputStream (EAppend.DEFAULT);
     assertNotNull (aOS);
-    StreamHelperExt.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho",
-                                                                                    StandardCharsets.ISO_8859_1), aOS);
+    StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho", StandardCharsets.ISO_8859_1),
+                                                          aOS);
     assertEquals ("Hiho", aOSP.getAsString (StandardCharsets.ISO_8859_1));
     assertArrayEquals ("Hiho".getBytes (StandardCharsets.ISO_8859_1), aOSP.getBytes ());
     // Close the underlying OS
     StreamHelper.close (aOSP.getWriter (StandardCharsets.UTF_8, EAppend.DEFAULT));
 
     // Reader/Writer
-    StreamHelperExt.copyReaderToWriterAndCloseWriter (new NonBlockingStringReader ("Hiho"),
-                                                      aOSP.getWriter (StandardCharsets.UTF_8, EAppend.DEFAULT));
+    StreamHelper.copyReaderToWriterAndCloseWriter (new NonBlockingStringReader ("Hiho"),
+                                                   aOSP.getWriter (StandardCharsets.UTF_8, EAppend.DEFAULT));
     assertEquals ("Hiho", aOSP.getAsString (StandardCharsets.UTF_8));
   }
 }

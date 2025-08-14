@@ -14,10 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.impl;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.state.EContinue;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.commons.CommonsArrayList;
@@ -40,11 +42,12 @@ import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSortedMap;
-import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.typeconvert.ITypeConverter;
 import com.helger.typeconvert.ITypeConverterCallback;
+import com.helger.typeconvert.ITypeConverterRegistrarSPI;
+import com.helger.typeconvert.ITypeConverterRegistry;
 import com.helger.typeconvert.ITypeConverterRule;
+import com.helger.typeconvert.util.ClassHierarchyCache;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -362,6 +365,36 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                     ClassHelper.getClassLocalName (aTypeConverterRule) +
                     " with type " +
                     aTypeConverterRule.getSubType ());
+  }
+
+  public <DST> void registerTypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
+                                                                        @Nonnull final Function <? super Object, ? extends DST> aConverter)
+  {
+    registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination <> (aDstClass, aConverter));
+  }
+
+  public <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@Nonnull final Class <SRC> aSrcClass,
+                                                                                    @Nonnull final Class <DST> aDstClass,
+                                                                                    @Nonnull final Function <? super SRC, ? extends DST> aConverter)
+  {
+    registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination <> (aSrcClass,
+                                                                                         aDstClass,
+                                                                                         aConverter));
+  }
+
+  public <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
+                                                                        @Nonnull final Function <? super SRC, ? extends Object> aInBetweenConverter)
+  {
+    registerTypeConverterRule (new TypeConverterRuleFixedSourceAnyDestination <> (aSrcClass, aInBetweenConverter));
+  }
+
+  public <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
+                                                                                    @Nonnull final Class <DST> aDstClass,
+                                                                                    @Nonnull final Function <? super SRC, ? extends DST> aConverter)
+  {
+    registerTypeConverterRule (new TypeConverterRuleFixedSourceAssignableDestination <> (aSrcClass,
+                                                                                         aDstClass,
+                                                                                         aConverter));
   }
 
   @Nonnegative

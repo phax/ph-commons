@@ -27,7 +27,6 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.VisibleForTesting;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
@@ -59,7 +58,7 @@ public final class LanguageCache implements IHasConditionalLogger
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LanguageCache.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
 
   private static boolean s_bDefaultInstantiated = false;
 

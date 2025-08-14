@@ -42,7 +42,7 @@ public final class CountingFileInputStreamTest
     {
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
-      StreamHelperExt.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
+      StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
       CommonsTestHelper.testToStringImplementation (aCIS);
     }
     finally
@@ -55,7 +55,7 @@ public final class CountingFileInputStreamTest
     {
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
-      StreamHelperExt.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
+      StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
       CommonsTestHelper.testToStringImplementation (aCIS);
     }
     finally

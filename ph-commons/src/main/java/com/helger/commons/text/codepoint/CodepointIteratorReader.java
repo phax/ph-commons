@@ -19,7 +19,7 @@ package com.helger.commons.text.codepoint;
 import java.io.Reader;
 
 import com.helger.annotation.WillClose;
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.base.io.stream.StreamHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -30,6 +30,6 @@ public class CodepointIteratorReader extends CodepointIteratorCharArray
 {
   public CodepointIteratorReader (@Nonnull @WillClose final Reader aReader)
   {
-    super (StreamHelperExt.getAllCharacters (aReader));
+    super (StreamHelper.getAllCharacters (aReader));
   }
 }

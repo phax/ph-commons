@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.impl;
 
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.ITypeConverter;
@@ -24,19 +24,21 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A fuzzy type converter provider. Implemented as a singleton.
+ * An type converter provider that tries to provide an exact match before trying
+ * fuzzy matches. This should be the preferred type converter provider.
+ * Implemented as a singleton.
  *
  * @author Philip Helger
  */
-public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
+public final class TypeConverterProviderBestMatch implements ITypeConverterProvider
 {
-  private static final TypeConverterProviderFuzzy INSTANCE = new TypeConverterProviderFuzzy ();
+  private static final TypeConverterProviderBestMatch INSTANCE = new TypeConverterProviderBestMatch ();
 
-  private TypeConverterProviderFuzzy ()
+  private TypeConverterProviderBestMatch ()
   {}
 
   @Nonnull
-  public static TypeConverterProviderFuzzy getInstance ()
+  public static TypeConverterProviderBestMatch getInstance ()
   {
     return INSTANCE;
   }
@@ -44,6 +46,20 @@ public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
   @Nullable
   public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getFuzzyConverter (aSrcClass, aDstClass));
+    final TypeConverterRegistry aTCR = TypeConverterRegistry.getInstance ();
+
+    // Find exact hit first
+    ITypeConverter <?, ?> ret = aTCR.getExactConverter (aSrcClass, aDstClass);
+    if (ret == null)
+    {
+      // No exact match was found -> try rule based converter
+      ret = aTCR.getRuleBasedConverter (aSrcClass, aDstClass);
+      if (ret == null)
+      {
+        // No exact match was found -> try fuzzy converter
+        ret = aTCR.getFuzzyConverter (aSrcClass, aDstClass);
+      }
+    }
+    return GenericReflection.uncheckedCast (ret);
   }
 }

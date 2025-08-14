@@ -26,6 +26,7 @@ import org.junit.Test;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.NonClosingInputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.io.stream.WrappedInputStream;
 
 /**
@@ -60,7 +61,7 @@ public final class NonClosingInputStreamTest
   public void testClosing ()
   {
     final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)));
-    StreamHelperExt.copyInputStreamToOutputStream (aX, new NonBlockingByteArrayOutputStream ());
+    StreamHelper.copyInputStreamToOutputStream (aX, new NonBlockingByteArrayOutputStream ());
     assertEquals (1, aX.getCloseCount ());
   }
 
@@ -68,7 +69,8 @@ public final class NonClosingInputStreamTest
   public void testNonClosing ()
   {
     final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)));
-    StreamHelperExt.copyInputStreamToOutputStream (new NonClosingInputStream (aX), new NonBlockingByteArrayOutputStream ());
+    StreamHelper.copyInputStreamToOutputStream (new NonClosingInputStream (aX),
+                                                new NonBlockingByteArrayOutputStream ());
     assertEquals (0, aX.getCloseCount ());
   }
 }

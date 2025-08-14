@@ -18,7 +18,7 @@ package com.helger.xml.microdom.convert;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.impl.TypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 
 import jakarta.annotation.Nonnull;

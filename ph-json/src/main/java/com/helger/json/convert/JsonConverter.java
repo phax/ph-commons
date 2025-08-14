@@ -22,7 +22,6 @@ import java.util.Map;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.json.IHasJson;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
@@ -30,6 +29,7 @@ import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;
+import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -14,8 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.lang;
+package com.helger.base.spi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ServiceLoader;
 
 import org.slf4j.Logger;
@@ -27,9 +29,7 @@ import com.helger.annotation.style.IsSPIInterface;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.cache.AnnotationUsageCache;
+import com.helger.base.log.ConditionalLogger;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -43,12 +43,31 @@ import jakarta.annotation.Nullable;
 @Immutable
 public final class ServiceLoaderHelper
 {
-  public static final AnnotationUsageCache CACHE_INTERFACE = new AnnotationUsageCache (IsSPIInterface.class);
-  public static final AnnotationUsageCache CACHE_IMPLEMENTATION = new AnnotationUsageCache (IsSPIImplementation.class);
   private static final Logger LOGGER = LoggerFactory.getLogger (ServiceLoaderHelper.class);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
 
   private ServiceLoaderHelper ()
   {}
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it is enabled.
+   */
+  public static boolean isSilentMode ()
+  {
+    return CONDLOG.isDisabled ();
+  }
+
+  /**
+   * Enable or disable certain regular log messages.
+   *
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable logging
+   * @return The previous value of the silent mode.
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return !CONDLOG.setEnabled (!bSilentMode);
+  }
 
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the passed class
@@ -61,7 +80,7 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass)
+  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass)
   {
     return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), null);
   }
@@ -79,8 +98,8 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                               @Nonnull final ClassLoader aClassLoader)
+  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+                                                       @Nonnull final ClassLoader aClassLoader)
   {
     return getAllSPIImplementations (aSPIClass, aClassLoader, null);
   }
@@ -98,8 +117,8 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                               @Nullable final Logger aLogger)
+  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+                                                       @Nullable final Logger aLogger)
   {
     return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), aLogger);
   }
@@ -119,9 +138,9 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                               @Nonnull final ClassLoader aClassLoader,
-                                                               @Nullable final Logger aLogger)
+  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+                                                       @Nonnull final ClassLoader aClassLoader,
+                                                       @Nullable final Logger aLogger)
   {
     ValueEnforcer.notNull (aSPIClass, "SPIClass");
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
@@ -131,18 +150,20 @@ public final class ServiceLoaderHelper
     if (aRealLogger.isTraceEnabled ())
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
-    if (!CACHE_INTERFACE.hasAnnotation (aSPIClass))
-      LOGGER.warn (aSPIClass + " should have the @IsSPIInterface annotation");
+    if (CONDLOG.isEnabled ())
+      if (aSPIClass.getAnnotation (IsSPIInterface.class) == null)
+        CONDLOG.warn (aSPIClass + " should have the @IsSPIInterface annotation");
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
-    final ICommonsList <T> ret = new CommonsArrayList <> ();
+    final List <T> ret = new ArrayList <> ();
 
     for (final T aInstance : aServiceLoader)
     {
       try
       {
-        if (!CACHE_IMPLEMENTATION.hasAnnotation (aInstance))
-          LOGGER.warn (aInstance + " should have the @IsSPIImplementation annotation");
+        if (CONDLOG.isEnabled ())
+          if (aInstance.getClass ().getAnnotation (IsSPIImplementation.class) == null)
+            LOGGER.warn (aInstance + " should have the @IsSPIImplementation annotation");
         ret.add (aInstance);
       }
       catch (final Exception ex)
@@ -231,7 +252,7 @@ public final class ServiceLoaderHelper
                                                  @Nullable final Logger aLogger)
   {
     final Logger aRealLogger = aLogger != null ? aLogger : LOGGER;
-    final ICommonsList <T> aAll = getAllSPIImplementations (aSPIClass, aClassLoader, aRealLogger);
+    final List <T> aAll = getAllSPIImplementations (aSPIClass, aClassLoader, aRealLogger);
     if (aAll.isEmpty ())
     {
       // No SPI implementation found
@@ -247,6 +268,6 @@ public final class ServiceLoaderHelper
                         " - using the first one. Details: " +
                         aAll);
     }
-    return aAll.getFirstOrNull ();
+    return aAll.get (0);
   }
 }

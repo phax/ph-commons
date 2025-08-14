@@ -22,7 +22,6 @@ import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hashcode.HashCodeImplementationRegistry;
-import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
@@ -36,8 +35,9 @@ import com.helger.commons.system.SystemProperties;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
-import com.helger.commons.typeconvert.TypeConverterRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
+import com.helger.typeconvert.impl.TypeConverterRegistry;
+import com.helger.typeconvert.util.ClassHierarchyCache;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this library.

@@ -267,7 +267,7 @@ public final class MicroHelper
   /**
    * Helper method to extract the text content of the child element denoted by the parameter
    * sChildElementName of the passed parent element. The read text content is converted via the
-   * {@link com.helger.commons.typeconvert.TypeConverter} to the desired destination type.
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination type.
    *
    * @param <DSTTYPE>
    *        Destination type
@@ -337,7 +337,7 @@ public final class MicroHelper
   /**
    * Helper method to extract the text content of the child element denoted by the parameters
    * sNamespaceURI and sChildElementName of the passed parent element. The read text content is
-   * converted via the {@link com.helger.commons.typeconvert.TypeConverter} to the desired
+   * converted via the {@link com.helger.typeconvert.impl.TypeConverter} to the desired
    * destination type.
    *
    * @param <DSTTYPE>
