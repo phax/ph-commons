@@ -55,15 +55,13 @@
   
   <dependencies>
     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+ 
+     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-annotations</artifactId>
-    </dependency>
-    
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>compile</scope>
-      <optional>true</optional>
     </dependency>
   </dependencies>
 
@@ -77,7 +75,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.base</Automatic-Module-Name>
             <Export-Package>com.helger.base.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

@@ -71,6 +71,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.annotations</Automatic-Module-Name>
             <Export-Package>com.helger.annotations.*</Export-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
