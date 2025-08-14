@@ -17,17 +17,19 @@
  */
 package com.helger.annotation.misc;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Internal annotation for myself to remember changes for the next major
- * release. Makes it easy to search for it.
+ * Internal annotation for myself to remember changes for the next major release. Makes it easy to
+ * search for it.
  *
  * @author Philip Helger
  */
+@Documented
 @Retention (RetentionPolicy.SOURCE)
 @Target ({ ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD })
 public @interface ChangeNextMajorRelease
