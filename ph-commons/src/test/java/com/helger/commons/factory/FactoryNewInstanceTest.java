@@ -26,6 +26,7 @@ import java.util.function.Supplier;
 import org.junit.Test;
 
 import com.helger.annotation.style.UsedViaReflection;
+import com.helger.base.lang.clazz.FactoryNewInstance;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

@@ -19,9 +19,9 @@ package com.helger.commons.io.resourceprovider;
 import java.net.MalformedURLException;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 

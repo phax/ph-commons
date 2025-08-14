@@ -26,9 +26,9 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.helger.base.compare.ESortOrder;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.helper.CollectionHelperExt;
 
 import jakarta.annotation.Nullable;
 
@@ -70,7 +70,7 @@ public final class ToStringGeneratorTest
     _test ("Hallo");
     _test (Long.valueOf (123456789));
     _test (new CommonsArrayList <> ("Hello", "World"));
-    _test (CollectionHelper.newMap ("Hello", "Hallo", "World", "Welt"));
+    _test (CollectionHelperExt.newMap ("Hello", "Hallo", "World", "Welt"));
     _test (new BigDecimal ("234324.23421378091235931253769"));
     _test (new boolean [] { true, false, true });
     _test (new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE });

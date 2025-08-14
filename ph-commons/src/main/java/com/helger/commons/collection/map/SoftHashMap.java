@@ -19,7 +19,7 @@ package com.helger.commons.collection.map;
 import java.util.HashMap;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.collection.commons.CommonsHashMap;
 
 import jakarta.annotation.Nonnull;
 

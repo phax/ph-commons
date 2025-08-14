@@ -20,11 +20,11 @@ import java.time.LocalDateTime;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeCalculator;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.text.IHasErrorText;

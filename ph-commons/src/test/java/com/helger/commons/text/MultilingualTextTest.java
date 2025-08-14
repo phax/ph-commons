@@ -27,7 +27,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.util.TextHelper;
 
@@ -170,12 +170,12 @@ public final class MultilingualTextTest
     final MultilingualText t = new MultilingualText ();
 
     // 1 element
-    assertTrue (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
+    assertTrue (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelperExt.newMap (L_DE, "de"))).isChanged ());
     assertEquals (1, t.texts ().size ());
     assertTrue (t.texts ().containsKey (L_DE));
 
     // Assign the exact same content again
-    assertFalse (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
+    assertFalse (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelperExt.newMap (L_DE, "de"))).isChanged ());
     assertEquals (1, t.texts ().size ());
     assertTrue (t.texts ().containsKey (L_DE));
 

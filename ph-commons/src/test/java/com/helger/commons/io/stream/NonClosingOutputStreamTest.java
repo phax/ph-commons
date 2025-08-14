@@ -23,10 +23,10 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.NonClosingOutputStream;
 import com.helger.base.io.stream.WrappedOutputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 
 /**
  * Test class for class {@link CountingOutputStream}.

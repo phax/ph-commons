@@ -29,8 +29,8 @@ import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
 

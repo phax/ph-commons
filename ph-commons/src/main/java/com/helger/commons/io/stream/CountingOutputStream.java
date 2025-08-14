@@ -21,7 +21,7 @@ import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.io.stream.WrappedOutputStream;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

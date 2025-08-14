@@ -24,11 +24,11 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.lang.ClassHelper;
-import com.helger.base.lang.GenericReflection;
 import com.helger.base.lang.ICloneable;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

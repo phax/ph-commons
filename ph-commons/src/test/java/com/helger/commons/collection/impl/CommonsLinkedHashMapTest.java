@@ -23,6 +23,10 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

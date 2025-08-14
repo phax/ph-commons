@@ -23,6 +23,9 @@ import java.util.Comparator;
 import org.junit.Test;
 
 import com.helger.base.state.EChange;
+import com.helger.collection.commons.CommonsEnumMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

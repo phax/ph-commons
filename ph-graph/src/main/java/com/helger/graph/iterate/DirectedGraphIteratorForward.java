@@ -21,11 +21,11 @@ import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.commons.collection.NonBlockingStack;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.iterator.IIterableIterator;
+import com.helger.collection.stack.NonBlockingStack;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
 

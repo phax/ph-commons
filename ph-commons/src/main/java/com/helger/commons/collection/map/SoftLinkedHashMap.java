@@ -24,7 +24,8 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.MapEntry;
 
 import jakarta.annotation.Nonnull;
 

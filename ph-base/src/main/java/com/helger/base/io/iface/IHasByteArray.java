@@ -27,7 +27,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.iface.IHasSize;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.string.StringHex;
 
 import jakarta.annotation.Nonnull;

@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.commons.locale.LocaleCache;
 
 import jakarta.annotation.Nonnull;

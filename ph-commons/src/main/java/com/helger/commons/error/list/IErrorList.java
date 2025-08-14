@@ -26,12 +26,12 @@ import com.helger.annotation.RegEx;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -181,7 +181,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   @ReturnsMutableCopy
   default IErrorList getListOfFields (@Nullable final Collection <String> aSearchFieldNames)
   {
-    if (CollectionHelper.isEmpty (aSearchFieldNames))
+    if (CollectionHelperExt.isEmpty (aSearchFieldNames))
     {
       // Empty sublist
       return getSubList (x -> false);

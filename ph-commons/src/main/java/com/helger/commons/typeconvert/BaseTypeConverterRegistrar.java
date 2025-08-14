@@ -28,9 +28,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.EChange;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 

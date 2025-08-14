@@ -18,7 +18,7 @@ package com.helger.xml.microdom.util;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
 import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;

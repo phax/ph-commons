@@ -24,7 +24,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IStoppable;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

@@ -32,9 +32,9 @@ import java.util.Random;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.nonblocking.NonBlockingBufferedReader;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
 
 /**
  * Test class for class {@link CharsetHelper}.

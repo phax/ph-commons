@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.commons.charset.CharsetHelper;
 
 /**

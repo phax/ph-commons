@@ -25,8 +25,8 @@ import java.nio.CharBuffer;
 
 import org.junit.Test;
 
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.WrappedReader;
-import com.helger.base.nonblocking.NonBlockingStringReader;
 import com.helger.base.string.Strings;
 import com.helger.commons.mock.CommonsTestHelper;
 

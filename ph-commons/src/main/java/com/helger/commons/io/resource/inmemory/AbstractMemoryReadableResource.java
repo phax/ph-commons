@@ -21,8 +21,8 @@ import java.net.URL;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.UnsupportedOperation;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;

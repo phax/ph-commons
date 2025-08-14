@@ -25,9 +25,9 @@ import org.junit.Test;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.misc.DevelopersNote;
+import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.lang.ClassHelper;
-import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.commons.lang.ClassHelperExt;
 import com.helger.commons.lang.ClassLoaderHelperExt;
 import com.helger.commons.system.EJavaVersion;

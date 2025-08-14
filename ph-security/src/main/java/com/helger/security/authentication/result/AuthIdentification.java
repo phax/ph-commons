@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.security.authentication.subject.IAuthSubject;
 

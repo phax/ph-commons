@@ -25,7 +25,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.collection.CollectionTestHelper;
 
 /**
  * Test class for class {@link SingleElementEnumeration}
@@ -50,11 +50,11 @@ public final class SingleElementEnumerationTest
     {}
     assertFalse (eit.hasMoreElements ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementEnumeration <> ("any"),
-                                                                       new SingleElementEnumeration <> ("any"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <> ("any"),
-                                                                           new SingleElementEnumeration <> ("any2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <> ("any"),
-                                                                           new SingleElementEnumeration <> (Integer.valueOf (1)));
+    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementEnumeration <> ("any"),
+                                                                          new SingleElementEnumeration <> ("any"));
+    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <> ("any"),
+                                                                              new SingleElementEnumeration <> ("any2"));
+    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <> ("any"),
+                                                                              new SingleElementEnumeration <> (Integer.valueOf (1)));
   }
 }

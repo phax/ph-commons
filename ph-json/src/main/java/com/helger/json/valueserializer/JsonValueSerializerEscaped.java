@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import com.helger.annotation.WillNotClose;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.json.convert.JsonEscapeHelper;
 
 import jakarta.annotation.Nonnull;

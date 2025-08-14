@@ -28,10 +28,10 @@ import java.net.URL;
 import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.IteratorHelper;
-import com.helger.commons.collection.StackHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.iterator.IteratorHelper;
+import com.helger.collection.stack.StackHelper;
 import com.helger.commons.string.StringParser;
 
 /**

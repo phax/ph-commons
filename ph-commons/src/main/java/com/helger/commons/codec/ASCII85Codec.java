@@ -21,7 +21,7 @@ import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

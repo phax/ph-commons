@@ -22,8 +22,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.url.URLHelper;
 
 import jakarta.annotation.Nonnull;

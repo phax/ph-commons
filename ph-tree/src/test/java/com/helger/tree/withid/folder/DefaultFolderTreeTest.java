@@ -23,8 +23,8 @@ import static org.junit.Assert.assertSame;
 import org.junit.Test;
 
 import com.helger.base.aggregate.IAggregator;
-import com.helger.commons.collection.PrimitiveCollectionHelper;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.PrimitiveCollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 

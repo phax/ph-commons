@@ -24,12 +24,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.string.Strings;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
 

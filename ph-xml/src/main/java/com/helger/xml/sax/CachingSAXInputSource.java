@@ -23,7 +23,7 @@ import org.xml.sax.InputSource;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.io.iface.IHasInputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelperExt;
 

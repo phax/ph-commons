@@ -28,10 +28,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.helger.annotation.WillNotClose;
+import com.helger.base.io.nonblocking.NonBlockingBufferedWriter;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.nonblocking.NonBlockingBufferedWriter;
 import com.helger.base.string.StringHex;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.commons.system.ENewLineMode;
 
 import jakarta.annotation.Nonnull;

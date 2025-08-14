@@ -24,7 +24,7 @@ import javax.crypto.spec.PBEKeySpec;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringHex;
 import com.helger.security.password.salt.IPasswordSalt;
 

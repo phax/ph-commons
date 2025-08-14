@@ -16,9 +16,9 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.state.ETriState;
 
 import jakarta.annotation.Nonnull;

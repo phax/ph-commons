@@ -31,7 +31,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.numeric.mutable.MutableBoolean;
-import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.MapEntry;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import jakarta.annotation.Nonnull;

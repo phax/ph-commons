@@ -21,7 +21,7 @@ import java.util.Map;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.json.IHasJson;
 import com.helger.json.IJson;

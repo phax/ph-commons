@@ -27,8 +27,8 @@ import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

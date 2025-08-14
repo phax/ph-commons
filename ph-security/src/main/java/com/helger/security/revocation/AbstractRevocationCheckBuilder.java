@@ -47,13 +47,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.builder.IBuilder;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.iface.IThrowingRunnable;
 import com.helger.base.traits.IGenericImplTrait;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.timing.StopWatch;

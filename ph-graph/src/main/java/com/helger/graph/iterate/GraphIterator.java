@@ -19,13 +19,13 @@ package com.helger.graph.iterate;
 import java.util.Iterator;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.iterator.IIterableIterator;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
 

@@ -23,11 +23,11 @@ import java.util.MissingResourceException;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.set.IntSet;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;

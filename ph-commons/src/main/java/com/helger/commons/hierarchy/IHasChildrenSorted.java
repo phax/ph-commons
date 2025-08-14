@@ -20,7 +20,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -35,22 +35,23 @@ import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.functional.Predicates;
 import com.helger.base.id.IHasID;
-import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.string.Strings;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
+import com.helger.collection.CollectionFind;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.callback.CallbackList;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.dao.DAOException;
 import com.helger.dao.EDAOActionType;
@@ -543,7 +544,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     // INTERFACETYPE"
     final ICommonsList <INTERFACETYPE> ret = new CommonsArrayList <> ();
     // (Runnable) cast for Java 9
-    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAll (m_aMap.values (), aFilter, ret::add));
+    m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAll (m_aMap.values (), aFilter, ret::add));
     return ret;
   }
 
@@ -568,7 +569,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
                              @Nonnull final Consumer <? super INTERFACETYPE> aConsumer)
   {
     // (Runnable) cast for Java 9
-    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAll (m_aMap.values (), aFilter, aConsumer));
+    m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAll (m_aMap.values (), aFilter, aConsumer));
   }
 
   @Nonnull
@@ -586,17 +587,17 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
                                              @Nonnull final Consumer <? super RETTYPE> aConsumer)
   {
     // (Runnable) cast for Java 9
-    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAllMapped (m_aMap.values (),
-                                                                           aFilter,
-                                                                           aMapper,
-                                                                           aConsumer));
+    m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAllMapped (m_aMap.values (),
+                                                                         aFilter,
+                                                                         aMapper,
+                                                                         aConsumer));
   }
 
   @IsLocked (ELockType.READ)
   @Nullable
   public final INTERFACETYPE findFirst (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedGet ( () -> CollectionHelper.findFirst (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedGet ( () -> CollectionFind.findFirst (m_aMap.values (), aFilter));
   }
 
   @Nullable
@@ -604,7 +605,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final <RETTYPE> RETTYPE findFirstMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
                                                   @Nonnull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
   {
-    return m_aRWLock.readLockedGet ( () -> CollectionHelper.findFirstMapped (m_aMap.values (), aFilter, aMapper));
+    return m_aRWLock.readLockedGet ( () -> CollectionFind.findFirstMapped (m_aMap.values (), aFilter, aMapper));
   }
 
   @Override
@@ -617,7 +618,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean containsAny (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsAny (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsAny (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)
@@ -629,13 +630,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean containsNone (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsNone (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsNone (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)
   public final boolean containsOnly (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsOnly (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsOnly (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)

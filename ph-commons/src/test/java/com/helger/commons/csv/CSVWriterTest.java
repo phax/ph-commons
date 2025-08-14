@@ -50,10 +50,10 @@ import java.nio.file.Files;
 
 import org.junit.Test;
 
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.NonClosingWriter;
-import com.helger.base.nonblocking.NonBlockingStringWriter;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;

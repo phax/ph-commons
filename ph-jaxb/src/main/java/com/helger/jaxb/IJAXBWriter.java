@@ -35,10 +35,10 @@ import org.w3c.dom.Element;
 
 import com.helger.annotation.WillClose;
 import com.helger.base.io.EAppend;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.ByteBufferOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
-import com.helger.base.nonblocking.NonBlockingStringWriter;
 import com.helger.base.state.ESuccess;
 import com.helger.base.string.Strings;
 import com.helger.commons.io.file.FileHelper;

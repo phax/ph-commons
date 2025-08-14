@@ -24,10 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.exception.InitializationException;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeParser;
@@ -154,7 +154,7 @@ public final class MainReadSharedMimeInfo
     LOGGER.info ("Read " + FileExtMap.size () + " entries");
 
     // Check old data
-    for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (FileExtMap).entrySet ())
+    for (final Map.Entry <String, String> aEntry : CollectionHelperExt.getSortedByKey (FileExtMap).entrySet ())
     {
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
@@ -216,11 +216,11 @@ public final class MainReadSharedMimeInfo
           // No such mapping from ext to mime type
 
           // Create a new entry
-          aMgr.registerMimeType (new MimeTypeInfo (CollectionHelper.newOrderedSet (new MimeTypeWithSource (sOldMimeType)),
+          aMgr.registerMimeType (new MimeTypeInfo (CollectionHelperExt.newOrderedSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
                                                    new CommonsLinkedHashSet <> (),
                                                    new CommonsLinkedHashSet <> (),
-                                                   CollectionHelper.newOrderedSet (new ExtensionWithSource (sOldExt)),
+                                                   CollectionHelperExt.newOrderedSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)
             LOGGER.info ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");

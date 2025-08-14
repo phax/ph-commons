@@ -23,11 +23,11 @@ import javax.xml.XMLConstants;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.helper.CollectionHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -93,7 +93,7 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getPrefixToNamespaceURIMap ()
   {
-    return CollectionHelper.newMap (m_sPrefix, m_sNamespaceURI);
+    return CollectionHelperExt.newMap (m_sPrefix, m_sNamespaceURI);
   }
 
   @Override

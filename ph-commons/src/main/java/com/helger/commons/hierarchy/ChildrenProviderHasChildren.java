@@ -18,7 +18,7 @@ package com.helger.commons.hierarchy;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.collection.impl.ICommonsCollection;
+import com.helger.collection.commons.ICommonsCollection;
 
 import jakarta.annotation.Nullable;
 

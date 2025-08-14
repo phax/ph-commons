@@ -22,9 +22,9 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

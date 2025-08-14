@@ -23,8 +23,8 @@ import java.util.function.Predicate;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EContinue;
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.collection.impl.ICommonsIterable;
+import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.commons.ICommonsIterable;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

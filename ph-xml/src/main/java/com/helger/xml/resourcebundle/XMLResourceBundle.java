@@ -29,11 +29,11 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.commons.collection.IteratorHelper;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.commons.collection.IteratorHelperExt;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -119,7 +119,7 @@ public final class XMLResourceBundle extends ResourceBundle
   @Override
   public Enumeration <String> getKeys ()
   {
-    return IteratorHelper.getEnumeration (m_aValues.keySet ());
+    return IteratorHelperExt.getEnumeration (m_aValues.keySet ());
   }
 
   @Nonnull

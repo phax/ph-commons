@@ -26,8 +26,8 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.io.EAppend;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.nonblocking.NonBlockingStringReader;
 import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.io.stream.StringInputStream;
 

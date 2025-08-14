@@ -21,7 +21,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
 import com.helger.base.string.Strings;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;

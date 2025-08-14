@@ -22,8 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

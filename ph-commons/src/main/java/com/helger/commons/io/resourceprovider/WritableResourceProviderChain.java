@@ -25,9 +25,9 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.EAppend;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.resource.IWritableResource;
 
 import jakarta.annotation.Nonnull;

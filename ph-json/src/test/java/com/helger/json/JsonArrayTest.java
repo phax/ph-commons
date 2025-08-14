@@ -27,8 +27,8 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

@@ -17,7 +17,7 @@
 package com.helger.commons.text.codepoint;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

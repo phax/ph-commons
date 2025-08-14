@@ -18,10 +18,10 @@ package com.helger.commons.valueenforcer;
 
 import org.junit.Test;
 
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsVector;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsVector;
 
 /**
  * Test class for class {@link ValueEnforcer}.

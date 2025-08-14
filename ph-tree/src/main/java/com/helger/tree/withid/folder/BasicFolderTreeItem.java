@@ -22,9 +22,9 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.aggregate.IAggregator;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.tree.withid.BasicTreeItemWithID;
 
 import jakarta.annotation.Nonnull;

@@ -28,10 +28,10 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillClose;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.json.IJson;
 import com.helger.json.IJsonObject;
@@ -149,7 +149,7 @@ public class SettingsPersistenceJson implements ISettingsPersistence
     try
     {
       final IJsonObject aProps = new JsonObject ();
-      for (final Map.Entry <String, Object> aEntry : CollectionHelper.getSorted (aSettings.entrySet (),
+      for (final Map.Entry <String, Object> aEntry : CollectionHelperExt.getSorted (aSettings.entrySet (),
                                                                                  Comparator.comparing (Map.Entry::getKey)))
       {
         final String sName = aEntry.getKey ();

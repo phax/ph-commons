@@ -40,16 +40,16 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.builder.IBuilder;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.lang.ClassHelper;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -391,33 +391,33 @@ public final class XMLHelper
   @Nonnegative
   public static int getDirectChildElementCount (@Nullable final Element aParent)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent));
+    return aParent == null ? 0 : CollectionHelperExt.getSize (getChildElementIterator (aParent));
   }
 
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent));
+    return aParent == null ? 0 : CollectionHelperExt.getSize (getChildElementIteratorNoNS (aParent));
   }
 
   @Nonnegative
   public static int getDirectChildElementCount (@Nullable final Element aParent,
                                                 @Nonnull @Nonempty final String sTagName)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent, sTagName));
+    return aParent == null ? 0 : CollectionHelperExt.getSize (getChildElementIterator (aParent, sTagName));
   }
 
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent,
                                                     @Nonnull @Nonempty final String sTagName)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent, sTagName));
+    return aParent == null ? 0 : CollectionHelperExt.getSize (getChildElementIteratorNoNS (aParent, sTagName));
   }
 
   @Nonnegative
   public static int getDirectChildElementCountNS (@Nullable final Element aParent, @Nullable final String sNamespaceURI)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI));
+    return aParent == null ? 0 : CollectionHelperExt.getSize (getChildElementIteratorNS (aParent, sNamespaceURI));
   }
 
   @Nonnegative
@@ -425,7 +425,7 @@ public final class XMLHelper
                                                   @Nullable final String sNamespaceURI,
                                                   @Nonnull @Nonempty final String sLocalName)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent,
+    return aParent == null ? 0 : CollectionHelperExt.getSize (getChildElementIteratorNS (aParent,
                                                                                       sNamespaceURI,
                                                                                       sLocalName));
   }

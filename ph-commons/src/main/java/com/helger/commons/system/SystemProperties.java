@@ -30,11 +30,11 @@ import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.state.EChange;
 import com.helger.base.system.CSystemProperties;
-import com.helger.commons.collection.impl.CommonsCopyOnWriteArraySet;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.CommonsCopyOnWriteArraySet;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.debug.GlobalDebugExt;
 import com.helger.commons.lang.PropertiesHelper;
 

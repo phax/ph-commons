@@ -24,18 +24,18 @@ import javax.xml.XMLConstants;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.lang.ICloneable;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.CollectionFind;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsSet;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -134,11 +134,10 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    *
    * @param sPrefix
    *        The prefix to be used. May not be <code>null</code>. If it equals
-   *        {@link XMLConstants#DEFAULT_NS_PREFIX} that the namespace is
-   *        considered to be the default one.
+   *        {@link XMLConstants#DEFAULT_NS_PREFIX} that the namespace is considered to be the
+   *        default one.
    * @param sNamespaceURI
-   *        The namespace URI to be mapped. May not be <code>null</code> but
-   *        maybe empty.
+   *        The namespace URI to be mapped. May not be <code>null</code> but maybe empty.
    * @return this
    * @throws IllegalArgumentException
    *         If another mapping for the passed prefix is already present
@@ -151,16 +150,14 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   /**
-   * Add a new prefix to namespace mapping. If a prefix is already present it is
-   * overwritten.
+   * Add a new prefix to namespace mapping. If a prefix is already present it is overwritten.
    *
    * @param sPrefix
    *        The prefix to be used. May not be <code>null</code>. If it equals
-   *        {@link XMLConstants#DEFAULT_NS_PREFIX} that the namespace is
-   *        considered to be the default one.
+   *        {@link XMLConstants#DEFAULT_NS_PREFIX} that the namespace is considered to be the
+   *        default one.
    * @param sNamespaceURI
-   *        The namespace URI to be mapped. May not be <code>null</code> but
-   *        maybe empty.
+   *        The namespace URI to be mapped. May not be <code>null</code> but maybe empty.
    * @return this
    * @see #addMapping(String, String)
    */
@@ -205,12 +202,12 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   /**
-   * Add the default namespace URL, so the mapping to the default XML namespace
-   * prefix (<code>""</code>).
+   * Add the default namespace URL, so the mapping to the default XML namespace prefix
+   * (<code>""</code>).
    *
    * @param sNamespaceURI
-   *        The namespace URI to be used as the default. May not be
-   *        <code>null</code> but maybe empty.
+   *        The namespace URI to be used as the default. May not be <code>null</code> but maybe
+   *        empty.
    * @return this
    */
   @Nonnull
@@ -220,12 +217,12 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   /**
-   * Set the default namespace URL, so the mapping to the default XML namespace
-   * prefix (<code>""</code>).
+   * Set the default namespace URL, so the mapping to the default XML namespace prefix
+   * (<code>""</code>).
    *
    * @param sNamespaceURI
-   *        The namespace URI to be used as the default. May not be
-   *        <code>null</code> but maybe empty.
+   *        The namespace URI to be used as the default. May not be <code>null</code> but maybe
+   *        empty.
    * @return this
    */
   @Nonnull
@@ -287,7 +284,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   public String getCustomPrefix (@Nonnull final String sNamespaceURI)
   {
     final ICommonsSet <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
-    return CollectionHelper.getFirstElement (aAllPrefixes);
+    return CollectionFind.getFirstElement (aAllPrefixes);
   }
 
   @Override

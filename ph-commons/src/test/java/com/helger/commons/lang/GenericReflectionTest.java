@@ -26,10 +26,10 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Test;
 
-import com.helger.base.lang.ClassLoaderHelper;
-import com.helger.base.lang.GenericReflection;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * Test class for class {@link GenericReflection}.

@@ -32,11 +32,11 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.nonblocking.NonBlockingBufferedInputStream;
-import com.helger.base.nonblocking.NonBlockingBufferedOutputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingBufferedInputStream;
+import com.helger.base.io.nonblocking.NonBlockingBufferedOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.state.ESuccess;
 import com.helger.commons.io.file.FileHelper;
 

@@ -19,7 +19,7 @@ package com.helger.commons.io.stream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 
 import jakarta.annotation.Nonnull;
 

@@ -18,8 +18,8 @@ package com.helger.commons.lang.proxy;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * Test class for class {@link LoggingInvocationHandler}.

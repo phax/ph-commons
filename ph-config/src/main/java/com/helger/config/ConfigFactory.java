@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.string.Strings;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;

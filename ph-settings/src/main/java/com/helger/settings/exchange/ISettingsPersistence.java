@@ -22,9 +22,9 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.WillClose;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.state.ESuccess;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.StringInputStream;

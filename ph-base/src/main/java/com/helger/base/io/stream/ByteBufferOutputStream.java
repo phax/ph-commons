@@ -25,9 +25,9 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IWriteToStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 
 import jakarta.annotation.Nonnull;
 

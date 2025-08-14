@@ -21,7 +21,7 @@ import java.util.BitSet;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

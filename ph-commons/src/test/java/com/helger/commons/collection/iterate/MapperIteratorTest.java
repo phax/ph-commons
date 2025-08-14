@@ -27,7 +27,8 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.iterator.MapperIterator;
 import com.helger.commons.string.StringParser;
 
 /**
@@ -40,7 +41,7 @@ public final class MapperIteratorTest
   @Test
   public void testGetIteratorWithConversion ()
   {
-    final Iterator <Integer> it = new MapperIterator <> (CollectionHelper.newList ("100", "-25"), StringParser::parseIntObj);
+    final Iterator <Integer> it = new MapperIterator <> (CollectionHelperExt.newList ("100", "-25"), StringParser::parseIntObj);
     assertNotNull (it);
     assertTrue (it.hasNext ());
     assertEquals (Integer.valueOf (100), it.next ());

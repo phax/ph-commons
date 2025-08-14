@@ -27,7 +27,9 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.iterator.IIterableIterator;
+import com.helger.collection.iterator.IterableIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -47,13 +49,13 @@ public final class IterableIteratorTest
     assertTrue (iit.hasNext ());
     assertEquals ("Hallo", iit.next ());
 
-    iit = new IterableIterator <> (CollectionHelper.newList ("Hallo", "Welt", "from", "Copenhagen"));
+    iit = new IterableIterator <> (CollectionHelperExt.newList ("Hallo", "Welt", "from", "Copenhagen"));
     iit.next ();
     iit.remove ();
 
-    assertEquals (3, CollectionHelper.newList (new IterableIterator <> (new String [] { "a", "b", "c" })).size ());
-    assertEquals (3, CollectionHelper.newList (new IterableIterator <> (CollectionHelper.newList ("a", "b", "c"))).size ());
-    assertEquals (3, CollectionHelper.newList (new IterableIterator <> (CollectionHelper.newList ("a", "b", "c").iterator ())).size ());
+    assertEquals (3, CollectionHelperExt.newList (new IterableIterator <> (new String [] { "a", "b", "c" })).size ());
+    assertEquals (3, CollectionHelperExt.newList (new IterableIterator <> (CollectionHelperExt.newList ("a", "b", "c"))).size ());
+    assertEquals (3, CollectionHelperExt.newList (new IterableIterator <> (CollectionHelperExt.newList ("a", "b", "c").iterator ())).size ());
     CommonsTestHelper.testToStringImplementation (iit);
 
     try

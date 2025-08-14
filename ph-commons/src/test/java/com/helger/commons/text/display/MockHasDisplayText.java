@@ -19,9 +19,9 @@ package com.helger.commons.text.display;
 import java.util.Locale;
 import java.util.Map;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.text.util.TextHelper;
 
 import jakarta.annotation.Nonnull;
@@ -50,6 +50,6 @@ public final class MockHasDisplayText implements IHasDisplayText
   @Nonnull
   public static MockHasDisplayText createDE_EN (@Nullable final String sDE, @Nullable final String sEN)
   {
-    return new MockHasDisplayText (CollectionHelper.newMap (new Locale [] { TextHelper.DE, TextHelper.EN }, new String [] { sDE, sEN }));
+    return new MockHasDisplayText (CollectionHelperExt.newMap (new Locale [] { TextHelper.DE, TextHelper.EN }, new String [] { sDE, sEN }));
   }
 }

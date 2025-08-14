@@ -16,8 +16,8 @@
  */
 package com.helger.commons.math;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * Test base class for combinator testing

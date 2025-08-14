@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingCharArrayWriter;
+import com.helger.base.io.nonblocking.NonBlockingCharArrayWriter;
 
 /**
  * Test class for class {@link NonBlockingCharArrayWriter}.

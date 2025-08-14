@@ -23,8 +23,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

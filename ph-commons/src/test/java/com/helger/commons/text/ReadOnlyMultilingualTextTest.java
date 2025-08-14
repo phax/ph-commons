@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -51,7 +51,7 @@ public final class ReadOnlyMultilingualTextTest
     assertNotNull (aMLT.texts ().keySet ());
     assertTrue (aMLT.texts ().isEmpty ());
 
-    final Map <Locale, String> aMap = CollectionHelper.newMap (new Locale [] { L_DE, L_EN }, new String [] { "de", "en" });
+    final Map <Locale, String> aMap = CollectionHelperExt.newMap (new Locale [] { L_DE, L_EN }, new String [] { "de", "en" });
     aMLT = new ReadOnlyMultilingualText (aMap);
     assertEquals (2, aMLT.texts ().size ());
     assertTrue (aMLT.texts ().containsKey (L_DE));
@@ -83,7 +83,7 @@ public final class ReadOnlyMultilingualTextTest
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
-                                                                       new ReadOnlyMultilingualText (CollectionHelper.newMap (new Locale [] { L_DE,
+                                                                       new ReadOnlyMultilingualText (CollectionHelperExt.newMap (new Locale [] { L_DE,
                                                                                                                                               L_EN },
                                                                                                                               new String [] { "de",
                                                                                                                                               "en" })));

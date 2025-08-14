@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.commons.system.EJavaVersion;
 
 import jakarta.annotation.Nonnull;

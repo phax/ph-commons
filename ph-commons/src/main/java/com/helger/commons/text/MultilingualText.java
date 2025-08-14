@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

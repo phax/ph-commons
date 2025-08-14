@@ -24,11 +24,11 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.lang.GenericReflection;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 

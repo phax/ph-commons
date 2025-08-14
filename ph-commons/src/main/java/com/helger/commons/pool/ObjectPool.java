@@ -28,12 +28,12 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleLock;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
+import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.ESuccess;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

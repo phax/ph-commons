@@ -36,8 +36,8 @@ import java.io.IOException;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.string.StringFind;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

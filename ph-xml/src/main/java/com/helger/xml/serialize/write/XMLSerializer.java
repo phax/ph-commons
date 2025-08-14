@@ -32,8 +32,8 @@ import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.commons.state.ETriState;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLHelper;

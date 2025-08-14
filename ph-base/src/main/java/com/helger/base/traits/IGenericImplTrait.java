@@ -16,7 +16,7 @@
  */
 package com.helger.base.traits;
 
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.reflection.GenericReflection;
 
 import jakarta.annotation.Nonnull;
 

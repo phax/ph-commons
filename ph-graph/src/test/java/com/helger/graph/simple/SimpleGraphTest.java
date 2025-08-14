@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.AbstractGraphTestCase;
 import com.helger.graph.IMutableGraphNode;

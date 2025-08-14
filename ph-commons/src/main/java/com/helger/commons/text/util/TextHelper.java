@@ -24,7 +24,7 @@ import java.util.Map;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;

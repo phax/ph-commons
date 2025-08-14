@@ -21,10 +21,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Locale;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.commons.datetime.PDTFromString;
 
 import jakarta.annotation.Nonnull;

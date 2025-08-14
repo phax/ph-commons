@@ -21,9 +21,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.traits.IGetterByKeyTrait;

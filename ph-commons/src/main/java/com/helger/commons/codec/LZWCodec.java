@@ -30,11 +30,11 @@ import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.stream.NonBlockingBitInputStream;
 import com.helger.commons.io.stream.NonBlockingBitOutputStream;
 

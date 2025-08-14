@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.Strings;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;

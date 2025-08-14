@@ -19,8 +19,8 @@ package com.helger.commons.supplementary.test.benchmark;
 import java.util.regex.Pattern;
 
 import com.helger.base.string.StringReplace;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
 
 /**
  * This code benchmarks the performance of copying an array purely in Java versus copying it with

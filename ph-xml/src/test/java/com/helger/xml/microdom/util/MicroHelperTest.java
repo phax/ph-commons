@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
 
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLFactory;
@@ -60,7 +60,7 @@ public final class MicroHelperTest
     final IMicroElement eRoot = aDoc.addElement ("root");
     MicroHelper.append (eRoot, "Any text");
     MicroHelper.append (eRoot, new MicroElement ("child"));
-    MicroHelper.append (eRoot, CollectionHelper.newList ("t1", "t2"));
+    MicroHelper.append (eRoot, CollectionHelperExt.newList ("t1", "t2"));
     MicroHelper.append (eRoot, ArrayHelper.newArray ("t1", "t2"));
     try
     {

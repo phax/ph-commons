@@ -16,9 +16,9 @@
  */
 package com.helger.security.authentication.result;
 
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.ISuccessIndicator;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.security.authentication.credentials.ICredentialValidationResult;
 
 import jakarta.annotation.Nonnull;

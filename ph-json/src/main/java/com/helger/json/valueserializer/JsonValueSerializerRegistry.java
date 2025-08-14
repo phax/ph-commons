@@ -22,12 +22,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.lang.ClassLoaderHelper;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.impl.CommonsWeakHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsWeakHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
 import jakarta.annotation.Nonnull;

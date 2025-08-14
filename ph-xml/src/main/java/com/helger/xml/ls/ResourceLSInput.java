@@ -23,9 +23,9 @@ import java.nio.charset.Charset;
 import org.w3c.dom.ls.LSInput;
 
 import com.helger.annotation.style.UnsupportedOperation;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.io.resource.IReadableResource;
 

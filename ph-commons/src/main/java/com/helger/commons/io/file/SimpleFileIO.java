@@ -30,9 +30,9 @@ import java.util.function.Consumer;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.state.ESuccess;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;

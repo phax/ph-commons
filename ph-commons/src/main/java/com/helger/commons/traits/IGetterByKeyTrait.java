@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.reflection.GenericReflection;
 import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.commons.typeconvert.TypeConverter;
 

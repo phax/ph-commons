@@ -20,7 +20,7 @@ import java.util.Collection;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.aggregate.IAggregator;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.ICommonsSet;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

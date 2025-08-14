@@ -27,9 +27,10 @@ import java.util.Set;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.lang.GenericReflection;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.MapEntry;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -26,7 +26,7 @@ import java.nio.ByteOrder;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 
 /**
  * Test class for class {@link BitInputStream}.

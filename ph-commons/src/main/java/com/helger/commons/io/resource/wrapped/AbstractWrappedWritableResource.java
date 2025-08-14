@@ -20,8 +20,8 @@ import java.io.File;
 import java.io.OutputStream;
 import java.net.URL;
 
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IWritableResource;
 
 import jakarta.annotation.Nonnull;

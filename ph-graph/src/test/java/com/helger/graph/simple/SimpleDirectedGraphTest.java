@@ -25,9 +25,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.CollectionEqualsHelper;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.CollectionEqualsHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.AbstractGraphTestCase;
 import com.helger.graph.IMutableDirectedGraphNode;

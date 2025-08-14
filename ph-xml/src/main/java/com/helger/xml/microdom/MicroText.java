@@ -18,7 +18,7 @@ package com.helger.xml.microdom;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

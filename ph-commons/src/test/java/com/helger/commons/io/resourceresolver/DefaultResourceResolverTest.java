@@ -27,7 +27,7 @@ import java.net.URL;
 
 import org.junit.Test;
 
-import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;

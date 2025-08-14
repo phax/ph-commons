@@ -25,11 +25,11 @@ import java.util.ResourceBundle;
 
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.lang.ClassLoaderHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.resource.URLResource;
 
 import jakarta.annotation.Nonnull;

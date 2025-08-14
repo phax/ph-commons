@@ -24,9 +24,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.base.nonblocking.NonBlockingStringWriter;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLFactory;

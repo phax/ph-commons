@@ -16,14 +16,16 @@
  */
 package com.helger.commons.collection;
 
-import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimitiveList;
-import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimitiveOrderedSet;
-import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimitiveSet;
-import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimitiveSortedSet;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveList;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveOrderedSet;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveSet;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveSortedSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import com.helger.collection.helper.PrimitiveCollectionHelper;
 
 /**
  * Test class for class {@link PrimitiveCollectionHelper}

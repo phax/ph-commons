@@ -21,8 +21,8 @@ import java.nio.charset.Charset;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.iface.IHasOutputStreamAndWriter;
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

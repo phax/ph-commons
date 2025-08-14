@@ -24,10 +24,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 
 /**
  * Test class for class {@link TextVariableHelper}.

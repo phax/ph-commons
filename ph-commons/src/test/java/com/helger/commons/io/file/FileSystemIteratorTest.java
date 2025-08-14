@@ -25,7 +25,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.collection.iterator.IIterableIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

@@ -28,11 +28,11 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.lang.GenericReflection;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsWeakHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsWeakHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
 

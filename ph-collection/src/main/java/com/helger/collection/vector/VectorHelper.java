@@ -27,10 +27,10 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsVector;
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsVector;
+import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

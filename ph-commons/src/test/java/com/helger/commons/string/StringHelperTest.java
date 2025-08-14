@@ -32,14 +32,14 @@ import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.base.functional.IThrowingFunction;
-import com.helger.base.nonblocking.NonBlockingStringWriter;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.CollectionHelperExt;
 
 /**
  * Test class for class {@link StringHelper}.
@@ -147,7 +147,7 @@ public final class StringHelperTest
   @Test
   public void testImplodeMap ()
   {
-    final ICommonsOrderedMap <String, String> aMap = CollectionHelper.newOrderedMap ("a",
+    final ICommonsOrderedMap <String, String> aMap = CollectionHelperExt.newOrderedMap ("a",
                                                                                      "true",
                                                                                      "b",
                                                                                      "true",

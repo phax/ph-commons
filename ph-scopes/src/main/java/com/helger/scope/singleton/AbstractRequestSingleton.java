@@ -17,7 +17,7 @@
 package com.helger.scope.singleton;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.scope.IRequestScope;
 import com.helger.scope.mgr.ScopeManager;
 

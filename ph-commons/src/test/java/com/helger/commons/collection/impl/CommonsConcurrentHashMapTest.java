@@ -24,7 +24,11 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsConcurrentHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -74,7 +78,7 @@ public final class CommonsConcurrentHashMapTest
   @Test
   public void testGetSwappedKeyValues ()
   {
-    final ICommonsMap <String, Integer> aMap = CollectionHelper.newMap (new String [] { "a", "b", "c" },
+    final ICommonsMap <String, Integer> aMap = CollectionHelperExt.newMap (new String [] { "a", "b", "c" },
                                                                         new Integer [] { Integer.valueOf (0),
                                                                                          Integer.valueOf (1),
                                                                                          Integer.valueOf (2) });

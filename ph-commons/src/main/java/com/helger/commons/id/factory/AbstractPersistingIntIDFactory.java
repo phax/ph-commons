@@ -22,9 +22,9 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.IsLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleLock;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * This implementation of {@link IIntIDFactory} reads IDs from a device. It does

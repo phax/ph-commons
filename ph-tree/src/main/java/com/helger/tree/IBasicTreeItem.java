@@ -19,7 +19,7 @@ package com.helger.tree;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.state.ESuccess;
 import com.helger.base.traits.IGenericImplTrait;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.hierarchy.IHasChildrenRecursive;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;

@@ -30,10 +30,9 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.lang.ClassHelper;
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -3901,6 +3900,19 @@ public final class ArrayHelper
   }
 
   /**
+   * Check if the passed object is an array or not.
+   *
+   * @param aObject
+   *        The object to be checked. May be <code>null</code>.
+   * @return <code>true</code> if the passed object is not <code>null</code> and represents an
+   *         array.
+   */
+  public static boolean isArray (@Nullable final Object aObject)
+  {
+    return aObject != null && aObject.getClass ().isArray ();
+  }
+
+  /**
    * Recursive equal comparison for arrays.
    *
    * @param aHeadArray
@@ -3921,7 +3933,7 @@ public final class ArrayHelper
 
     // If any of the passed object is not an array -> not equal as an array,
     // even if they are equal!
-    if (!ClassHelper.isArray (aHeadArray) || !ClassHelper.isArray (aTailArray))
+    if (!isArray (aHeadArray) || !isArray (aTailArray))
       return false;
 
     // Different component type?
@@ -3938,7 +3950,7 @@ public final class ArrayHelper
     {
       final Object aItem1 = Array.get (aHeadArray, i);
       final Object aItem2 = Array.get (aTailArray, i);
-      if (ClassHelper.isArray (aItem1) && ClassHelper.isArray (aItem2))
+      if (isArray (aItem1) && isArray (aItem2))
       {
         // Recursive call
         if (!isArrayEquals (aItem1, aItem2))

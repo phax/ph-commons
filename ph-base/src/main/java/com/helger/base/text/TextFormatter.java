@@ -5,7 +5,7 @@ import java.util.Locale;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -30,16 +30,16 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsCopyOnWriteArrayList;
+import com.helger.collection.commons.CommonsCopyOnWriteArraySet;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.CommonsLinkedList;
+import com.helger.collection.commons.CommonsTreeSet;
+import com.helger.collection.commons.CommonsVector;
+import com.helger.collection.helper.PrimitiveCollectionHelper;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.collection.PrimitiveCollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsCopyOnWriteArrayList;
-import com.helger.commons.collection.impl.CommonsCopyOnWriteArraySet;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.CommonsLinkedList;
-import com.helger.commons.collection.impl.CommonsTreeSet;
-import com.helger.commons.collection.impl.CommonsVector;
 
 import jakarta.annotation.Nonnull;
 

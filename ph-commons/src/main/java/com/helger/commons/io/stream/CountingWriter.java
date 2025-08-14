@@ -21,7 +21,7 @@ import java.io.Writer;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.io.stream.WrappedWriter;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

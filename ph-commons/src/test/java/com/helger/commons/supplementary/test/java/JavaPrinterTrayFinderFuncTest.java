@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 
 public final class JavaPrinterTrayFinderFuncTest
 {

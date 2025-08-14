@@ -16,7 +16,7 @@
  */
 package com.helger.commons.typeconvert;
 
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.reflection.GenericReflection;
 import com.helger.base.typeconvert.ITypeConverter;
 import com.helger.base.typeconvert.ITypeConverterProvider;
 

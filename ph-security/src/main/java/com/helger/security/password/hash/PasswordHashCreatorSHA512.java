@@ -18,7 +18,7 @@ package com.helger.security.password.hash;
 
 import java.nio.charset.StandardCharsets;
 
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 import com.helger.security.password.salt.IPasswordSalt;

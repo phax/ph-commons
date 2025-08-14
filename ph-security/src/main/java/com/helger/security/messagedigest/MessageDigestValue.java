@@ -25,11 +25,11 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.array.bytes.ByteArrayWrapper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.iface.IHasByteArray;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.io.ByteArrayWrapper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;

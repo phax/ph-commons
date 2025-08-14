@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

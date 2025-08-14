@@ -27,8 +27,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingStringReader;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -38,7 +38,7 @@ import com.helger.commons.string.StringHelper;
  */
 public final class CSVIteratorTest
 {
-  private static final List <String> STRINGS = CollectionHelper.newList ("test1", "test2");
+  private static final List <String> STRINGS = CollectionHelperExt.newList ("test1", "test2");
 
   private CSVReader m_aMockReader;
 

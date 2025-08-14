@@ -25,10 +25,10 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.string.Strings;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.cache.Cache;
 import com.helger.datetime.expiration.ExpiringObject;
 

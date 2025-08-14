@@ -26,7 +26,7 @@ import java.security.cert.X509Certificate;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 

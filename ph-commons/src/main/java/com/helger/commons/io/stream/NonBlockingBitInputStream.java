@@ -24,9 +24,9 @@ import java.nio.ByteOrder;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 import com.helger.annotation.WillNotClose;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

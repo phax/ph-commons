@@ -20,8 +20,8 @@ import java.util.Objects;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.iterate.IterableIterator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.iterator.IterableIterator;
 
 /**
  * Test class for class {@link VectorHelper}

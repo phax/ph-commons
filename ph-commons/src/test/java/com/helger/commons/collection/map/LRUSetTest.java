@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.PrimitiveCollectionHelper;
+import com.helger.collection.helper.PrimitiveCollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

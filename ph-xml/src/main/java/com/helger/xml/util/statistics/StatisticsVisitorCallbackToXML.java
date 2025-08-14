@@ -16,7 +16,7 @@
  */
 package com.helger.xml.util.statistics;
 
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.statistics.IStatisticsHandlerCache;
 import com.helger.base.statistics.IStatisticsHandlerCounter;
 import com.helger.base.statistics.IStatisticsHandlerKeyedCounter;
@@ -24,7 +24,7 @@ import com.helger.base.statistics.IStatisticsHandlerKeyedSize;
 import com.helger.base.statistics.IStatisticsHandlerKeyedTimer;
 import com.helger.base.statistics.IStatisticsHandlerSize;
 import com.helger.base.statistics.IStatisticsHandlerTimer;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.statistics.util.IStatisticsVisitorCallback;
 import com.helger.xml.microdom.IMicroElement;
 
@@ -87,7 +87,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
                                                .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                               aHandler.getInvocationCount ());
-      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : CollectionHelperExt.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedTimer.addElement (StatisticsExporter.ELEMENT_KEY)
                    .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
@@ -122,7 +122,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
                                               .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                              aHandler.getInvocationCount ());
-      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : CollectionHelperExt.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedSize.addElement (StatisticsExporter.ELEMENT_KEY)
                   .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
@@ -154,7 +154,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
                                                  .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                  .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                                 aHandler.getInvocationCount ());
-      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : CollectionHelperExt.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedCounter.addElement (StatisticsExporter.ELEMENT_KEY)
                      .setAttribute (StatisticsExporter.ATTR_NAME, sKey)

@@ -19,7 +19,7 @@ package com.helger.xml.mock;
 import static org.junit.Assert.assertNotNull;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.reflection.GenericReflection;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;

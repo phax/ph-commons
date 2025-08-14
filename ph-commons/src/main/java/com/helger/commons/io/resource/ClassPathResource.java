@@ -28,14 +28,14 @@ import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.classloader.IHasClassLoader;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.lang.ClassLoaderHelper;
-import com.helger.base.lang.IHasClassLoader;
 import com.helger.base.string.Strings;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.lang.ClassLoaderHelperExt;
 import com.helger.commons.string.StringHelper;

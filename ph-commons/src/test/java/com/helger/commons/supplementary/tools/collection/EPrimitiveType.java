@@ -16,7 +16,7 @@
  */
 package com.helger.commons.supplementary.tools.collection;
 
-import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 
 import jakarta.annotation.Nonnull;
 

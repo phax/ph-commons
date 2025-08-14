@@ -29,7 +29,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 
 /**
  * Test class for class {@link SingleElementMap}.
@@ -122,7 +122,7 @@ public final class SingleElementMapTest
     try
     {
       // too many items
-      aMap.putAll (CollectionHelper.newMap (new String [] { "x", "y" }, new Integer [] { I1, I2 }));
+      aMap.putAll (CollectionHelperExt.newMap (new String [] { "x", "y" }, new Integer [] { I1, I2 }));
       fail ();
     }
     catch (final IllegalArgumentException ex)

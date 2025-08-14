@@ -27,12 +27,12 @@ import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.collection.map.MapEntry;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.commons.MapEntry;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -184,7 +184,9 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     final SingleElementMap <?, ?> rhs = (SingleElementMap <?, ?>) o;
     final Object aObj1 = m_aKey;
     final Object aObj11 = m_aValue;
-    return m_bHasElement == rhs.m_bHasElement && EqualsHelper.equals (aObj1, rhs.m_aKey) && EqualsHelper.equals (aObj11, rhs.m_aValue);
+    return m_bHasElement == rhs.m_bHasElement &&
+           EqualsHelper.equals (aObj1, rhs.m_aKey) &&
+           EqualsHelper.equals (aObj11, rhs.m_aValue);
   }
 
   @Override

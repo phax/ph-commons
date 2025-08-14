@@ -20,7 +20,7 @@ package com.helger.cli;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.builder.IBuilder;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.Strings;
 import com.helger.cli.Option.EOptionMultiplicity;
 

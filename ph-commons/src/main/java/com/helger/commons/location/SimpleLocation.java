@@ -26,7 +26,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.functional.Predicates;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nullable;

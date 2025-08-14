@@ -27,7 +27,7 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * Test class for class {@link CSVParser}.

@@ -25,8 +25,8 @@ import java.util.ResourceBundle;
 
 import org.junit.Test;
 
-import com.helger.base.lang.ClassLoaderHelper;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 
 /**
  * Test class for class {@link Utf8ResourceBundle}.
@@ -46,6 +46,6 @@ public final class Utf8ResourceBundleTest
     final ResourceBundle rb = Utf8ResourceBundle.getBundle (sBundle, L_DE, ClassLoaderHelper.getDefaultClassLoader ());
     assertNotNull (rb);
     assertTrue (rb instanceof Utf8PropertyResourceBundle);
-    assertEquals (2, CollectionHelper.newList (rb.getKeys ()).size ());
+    assertEquals (2, CollectionHelperExt.newList (rb.getKeys ()).size ());
   }
 }

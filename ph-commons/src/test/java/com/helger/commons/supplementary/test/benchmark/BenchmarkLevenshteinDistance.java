@@ -22,10 +22,10 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import com.helger.base.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.LocaleFormatter;

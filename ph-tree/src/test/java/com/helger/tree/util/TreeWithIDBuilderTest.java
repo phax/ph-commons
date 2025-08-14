@@ -25,7 +25,7 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.hierarchy.IParentProvider;
 import com.helger.tree.mock.MockChildrenProvider;
 import com.helger.tree.mock.MockHasChildren;
@@ -43,7 +43,7 @@ public final class TreeWithIDBuilderTest
   @Test
   public void testBuildFromParent ()
   {
-    final DefaultTreeWithID <String, MockHasParent> aTree = TreeWithIDBuilder.buildTree (CollectionHelper.newList (new MockHasParent ("a"),
+    final DefaultTreeWithID <String, MockHasParent> aTree = TreeWithIDBuilder.buildTree (CollectionHelperExt.newList (new MockHasParent ("a"),
                                                                                                                    new MockHasParent ("ab"),
                                                                                                                    new MockHasParent ("abc"),
                                                                                                                    new MockHasParent ("abd")));
@@ -55,7 +55,7 @@ public final class TreeWithIDBuilderTest
     assertEquals ("abc", aTree.getRootItem ().getChildAtIndex (0).getChildAtIndex (0).getChildAtIndex (0).getID ());
     assertEquals ("abd", aTree.getRootItem ().getChildAtIndex (0).getChildAtIndex (0).getChildAtIndex (1).getID ());
 
-    assertNotNull (TreeWithIDBuilder.buildTree (CollectionHelper.newList (new MockHasParent ("abc"),
+    assertNotNull (TreeWithIDBuilder.buildTree (CollectionHelperExt.newList (new MockHasParent ("abc"),
                                                                           new MockHasParent ("abd"),
                                                                           new MockHasParent ("a"),
                                                                           new MockHasParent ("ab"))));
@@ -63,7 +63,7 @@ public final class TreeWithIDBuilderTest
     try
     {
       // parent "ab" and "a" missing
-      TreeWithIDBuilder.buildTree (CollectionHelper.newList (new MockHasParent ("abc")));
+      TreeWithIDBuilder.buildTree (CollectionHelperExt.newList (new MockHasParent ("abc")));
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -77,7 +77,7 @@ public final class TreeWithIDBuilderTest
     {}
     try
     {
-      TreeWithIDBuilder.buildTree (CollectionHelper.newList (new MockHasParent ("abc")), null);
+      TreeWithIDBuilder.buildTree (CollectionHelperExt.newList (new MockHasParent ("abc")), null);
       fail ();
     }
     catch (final NullPointerException ex)

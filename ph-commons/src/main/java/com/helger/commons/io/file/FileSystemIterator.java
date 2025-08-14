@@ -19,7 +19,7 @@ package com.helger.commons.io.file;
 import java.io.File;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.collection.iterate.IterableIterator;
+import com.helger.collection.iterator.IterableIterator;
 
 import jakarta.annotation.Nonnull;
 

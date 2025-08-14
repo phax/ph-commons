@@ -39,15 +39,15 @@ import com.helger.base.numeric.mutable.MutableFloat;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.base.numeric.mutable.MutableShort;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsNavigableMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.CommonsTreeMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsNavigableMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.json.IJson;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
@@ -147,7 +147,7 @@ public final class JsonWriterTest
   public void testComplex ()
   {
     final ICommonsList <JsonObject> aObjs = new CommonsArrayList <> ();
-    for (final ICommonsMap <String, String> aRow : new CommonsArrayList <> (CollectionHelper.newMap ("key", "value")))
+    for (final ICommonsMap <String, String> aRow : new CommonsArrayList <> (CollectionHelperExt.newMap ("key", "value")))
     {
       final JsonObject aObj = new JsonObject ();
       for (final Map.Entry <String, String> aEntry : aRow.entrySet ())

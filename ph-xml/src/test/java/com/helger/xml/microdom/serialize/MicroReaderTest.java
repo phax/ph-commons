@@ -32,9 +32,9 @@ import org.junit.Test;
 import org.xml.sax.InputSource;
 
 import com.helger.base.io.iface.IHasInputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
-import com.helger.base.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;

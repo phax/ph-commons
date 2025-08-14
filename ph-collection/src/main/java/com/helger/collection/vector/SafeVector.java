@@ -21,10 +21,10 @@ import java.util.function.Supplier;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.impl.CommonsVector;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsVector;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

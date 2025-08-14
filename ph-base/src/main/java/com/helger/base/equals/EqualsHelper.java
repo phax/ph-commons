@@ -19,8 +19,6 @@ package com.helger.base.equals;
 import java.util.Objects;
 import java.util.function.BiPredicate;
 
-import com.helger.base.enforcer.ValueEnforcer;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -235,7 +233,7 @@ public class EqualsHelper
                                           @Nullable final T aObj2,
                                           @Nonnull final BiPredicate <T, T> aPredicate)
   {
-    ValueEnforcer.notNull (aPredicate, "Predicate");
+    Objects.requireNonNull (aPredicate, "Predicate");
 
     // Same object - check first
     if (identityEqual (aObj1, aObj2))

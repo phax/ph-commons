@@ -22,8 +22,8 @@ import java.util.Iterator;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.string.Strings;
 import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.graph.IBaseGraph;

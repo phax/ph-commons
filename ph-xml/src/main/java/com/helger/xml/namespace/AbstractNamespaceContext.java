@@ -20,9 +20,9 @@ import java.util.Iterator;
 
 import javax.xml.XMLConstants;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.iterate.EmptyIterator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.iterator.EmptyIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

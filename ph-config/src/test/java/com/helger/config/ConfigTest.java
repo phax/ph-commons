@@ -22,10 +22,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.numeric.mutable.MutableInt;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;

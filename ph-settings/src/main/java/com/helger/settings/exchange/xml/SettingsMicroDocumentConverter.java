@@ -19,7 +19,7 @@ package com.helger.settings.exchange.xml;
 import java.util.Comparator;
 import java.util.Map;
 
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.Strings;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.settings.ISettings;

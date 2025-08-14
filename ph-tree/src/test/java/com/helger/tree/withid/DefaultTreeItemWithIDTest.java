@@ -29,7 +29,7 @@ import java.util.Comparator;
 import org.junit.Test;
 
 import com.helger.base.id.IHasID;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.tree.IBasicTreeItem;
 
@@ -57,7 +57,7 @@ public final class DefaultTreeItemWithIDTest
     assertEquals ("Hallo", ti.getData ());
     assertFalse (ti.hasChildren ());
     assertEquals (0, ti.getChildCount ());
-    assertTrue (CollectionHelper.isEmpty (ti.getAllChildren ()));
+    assertTrue (CollectionHelperExt.isEmpty (ti.getAllChildren ()));
     assertSame (t.getRootItem (), ti.getParent ());
     assertFalse (ti.isRootItem ());
     assertTrue (ti.isSameOrChildOf (t.getRootItem ()));
@@ -70,7 +70,7 @@ public final class DefaultTreeItemWithIDTest
     assertEquals ("Welt", ti1.getData ());
     assertFalse (ti1.hasChildren ());
     assertEquals (0, ti1.getChildCount ());
-    assertTrue (CollectionHelper.isEmpty (ti1.getAllChildren ()));
+    assertTrue (CollectionHelperExt.isEmpty (ti1.getAllChildren ()));
     assertSame (ti, ti1.getParent ());
 
     assertTrue (ti.hasChildren ());

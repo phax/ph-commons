@@ -22,6 +22,10 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

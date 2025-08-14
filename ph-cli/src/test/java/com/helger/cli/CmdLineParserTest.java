@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.collection.commons.CommonsArrayList;
 
 /**
  * Test class for class {@link CmdLineParser}.

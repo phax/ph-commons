@@ -18,7 +18,7 @@ package com.helger.json.parser.handler;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.collection.NonBlockingStack;
+import com.helger.collection.stack.NonBlockingStack;
 import com.helger.json.IJson;
 import com.helger.json.IJsonCollection;
 import com.helger.json.JsonArray;

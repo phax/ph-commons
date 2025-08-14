@@ -27,7 +27,7 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
 import com.helger.scope.GlobalScope;
 import com.helger.scope.IGlobalScope;

@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.tree.mock.MockHasParent;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
@@ -38,7 +38,7 @@ public final class TreeWithIDSearcherTest
   @Test
   public void testSearch ()
   {
-    final DefaultTreeWithID <String, MockHasParent> aTree = TreeWithIDBuilder.buildTree (CollectionHelper.newList (new MockHasParent ("a"),
+    final DefaultTreeWithID <String, MockHasParent> aTree = TreeWithIDBuilder.buildTree (CollectionHelperExt.newList (new MockHasParent ("a"),
                                                                                                                    new MockHasParent ("ab"),
                                                                                                                    new MockHasParent ("abc"),
                                                                                                                    new MockHasParent ("abd")));

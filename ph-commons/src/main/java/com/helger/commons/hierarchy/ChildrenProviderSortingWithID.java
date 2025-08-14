@@ -18,7 +18,7 @@ package com.helger.commons.hierarchy;
 
 import java.util.Comparator;
 
-import com.helger.base.lang.GenericReflection;
+import com.helger.base.reflection.GenericReflection;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

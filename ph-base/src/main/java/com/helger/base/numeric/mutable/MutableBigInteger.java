@@ -21,12 +21,12 @@ import java.math.BigInteger;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.CGlobal;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.numeric.BigHelper;
 import com.helger.base.state.EChange;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

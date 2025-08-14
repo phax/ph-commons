@@ -19,7 +19,7 @@ package com.helger.commons.format;
 import java.util.function.Function;
 
 import com.helger.annotation.style.OverrideOnDemand;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
 
 import jakarta.annotation.Nonnull;

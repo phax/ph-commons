@@ -33,9 +33,9 @@ import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.base.mock.CommonsAssert;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -108,19 +108,19 @@ public final class AttributeContainerAnyTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (),
                                                                        new AttributeContainerAny <> ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key",
                                                                                                                                               "key2" },
                                                                                                                               new Object [] { "value",
                                                                                                                                               "value2" })),
-                                                                       new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+                                                                       new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key",
                                                                                                                                               "key2" },
                                                                                                                               new Object [] { "value",
                                                                                                                                               "value2" })));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key",
                                                                                                                                                   "key2" },
                                                                                                                                   new Object [] { "value",
                                                                                                                                                   "value2" })),
-                                                                           new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+                                                                           new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key",
                                                                                                                                                   "key2" },
                                                                                                                                   new Object [] { "value",
                                                                                                                                                   "value" })));

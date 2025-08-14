@@ -46,12 +46,12 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingBufferedReader;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
-import com.helger.base.nonblocking.NonBlockingStringReader;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.helper.CollectionHelperExt;
 
 import jakarta.annotation.Nonnull;
 
@@ -600,13 +600,13 @@ public final class CSVReaderTest
   public void testIteratorFunctionality () throws IOException
   {
     final ICommonsList <ICommonsList <String>> expectedResult = new CommonsArrayList <> ();
-    expectedResult.add (CollectionHelper.newList ("a", "b", "aReader"));
-    expectedResult.add (CollectionHelper.newList ("a", "b,b,b", "aReader"));
-    expectedResult.add (CollectionHelper.newList ("", "", ""));
-    expectedResult.add (CollectionHelper.newList ("a", "PO Box 123,\nKippax,ACT. 2615.\nAustralia", "d."));
-    expectedResult.add (CollectionHelper.newList ("Glen \"The Man\" Smith", "Athlete", "Developer"));
-    expectedResult.add (CollectionHelper.newList ("\"\"", "test"));
-    expectedResult.add (CollectionHelper.newList ("a\nb", "b", "\nd", "e"));
+    expectedResult.add (CollectionHelperExt.newList ("a", "b", "aReader"));
+    expectedResult.add (CollectionHelperExt.newList ("a", "b,b,b", "aReader"));
+    expectedResult.add (CollectionHelperExt.newList ("", "", ""));
+    expectedResult.add (CollectionHelperExt.newList ("a", "PO Box 123,\nKippax,ACT. 2615.\nAustralia", "d."));
+    expectedResult.add (CollectionHelperExt.newList ("Glen \"The Man\" Smith", "Athlete", "Developer"));
+    expectedResult.add (CollectionHelperExt.newList ("\"\"", "test"));
+    expectedResult.add (CollectionHelperExt.newList ("a\nb", "b", "\nd", "e"));
     int idx = 0;
     try (final CSVReader aReader = _createCSVReader ())
     {

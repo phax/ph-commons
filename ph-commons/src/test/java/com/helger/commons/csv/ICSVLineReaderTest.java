@@ -22,8 +22,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingBufferedReader;
-import com.helger.base.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 
 import jakarta.annotation.Nonnull;
 

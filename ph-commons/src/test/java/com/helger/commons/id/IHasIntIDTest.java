@@ -21,8 +21,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.helger.base.id.IHasIntID;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * Test class for class {@link IHasIntID}.

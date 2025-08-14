@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
 import com.helger.commons.text.IMultilingualText;
@@ -61,7 +61,7 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
   @Test
   public void testReadonlyMultiLingualText ()
   {
-    final ReadOnlyMultilingualText aMLT = new ReadOnlyMultilingualText (CollectionHelper.newOrderedMap (new Locale [] { Locale.GERMAN,
+    final ReadOnlyMultilingualText aMLT = new ReadOnlyMultilingualText (CollectionHelperExt.newOrderedMap (new Locale [] { Locale.GERMAN,
                                                                                                                         Locale.CHINA },
                                                                                                         new String [] { "Cumberlandstraße",
                                                                                                                         "Whatspever" }));

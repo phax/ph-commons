@@ -19,7 +19,7 @@ package com.helger.json.mapping;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;

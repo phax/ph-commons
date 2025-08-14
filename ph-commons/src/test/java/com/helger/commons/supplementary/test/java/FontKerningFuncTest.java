@@ -36,10 +36,10 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.system.EOperatingSystem;
 

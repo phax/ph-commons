@@ -17,8 +17,8 @@
 package com.helger.json.mapping;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.IJsonObject;

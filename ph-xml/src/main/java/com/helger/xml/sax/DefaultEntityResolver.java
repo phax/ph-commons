@@ -23,7 +23,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;

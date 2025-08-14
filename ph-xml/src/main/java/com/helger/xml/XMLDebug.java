@@ -24,10 +24,10 @@ import org.w3c.dom.DOMImplementation;
 
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsEnumMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsEnumMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.dom.EXMLDOMFeature;
 import com.helger.xml.dom.EXMLDOMFeatureVersion;
 import com.helger.xml.dom.EXMLDOMNodeType;

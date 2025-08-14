@@ -19,9 +19,9 @@ package com.helger.commons.hierarchy;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.id.IHasID;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.helper.CollectionHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -34,7 +34,7 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
   public MockHasSortedChildren (@Nonnull final String sID, @Nullable final MockHasSortedChildren... aList)
   {
     m_sID = sID;
-    m_aList = CollectionHelper.getSorted (aList, IHasID.getComparatorID ());
+    m_aList = CollectionHelperExt.getSorted (aList, IHasID.getComparatorID ());
   }
 
   public String getID ()

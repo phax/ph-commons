@@ -23,7 +23,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.collection.commons.CommonsHashSet;
 
 public final class IntFloatMapTest
 {

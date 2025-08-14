@@ -22,7 +22,7 @@ import javax.xml.stream.XMLStreamException;
 
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.commons.system.ENewLineMode;
 
 /**

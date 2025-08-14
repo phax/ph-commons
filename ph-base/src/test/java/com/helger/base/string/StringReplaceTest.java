@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 
 /**
  * Test class for class {@link StringReplace}.

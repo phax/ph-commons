@@ -29,9 +29,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.string.Strings;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
 
 public final class XMLCharsetDeterminatorTest
 {

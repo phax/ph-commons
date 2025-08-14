@@ -33,14 +33,14 @@ import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.statistics.IMutableStatisticsHandlerCache;
 import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.collection.map.SoftHashMap;
 import com.helger.commons.collection.map.SoftLinkedHashMap;
 import com.helger.commons.statistics.StatisticsManager;
@@ -405,18 +405,18 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   @Nonnegative
   public int size ()
   {
-    return m_aRWLock.readLockedInt ( () -> CollectionHelper.getSize (m_aCache));
+    return m_aRWLock.readLockedInt ( () -> CollectionHelperExt.getSize (m_aCache));
   }
 
   public boolean isEmpty ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isEmpty (m_aCache));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionHelperExt.isEmpty (m_aCache));
   }
 
   @Override
   public boolean isNotEmpty ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isNotEmpty (m_aCache));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionHelperExt.isNotEmpty (m_aCache));
   }
 
   @Override

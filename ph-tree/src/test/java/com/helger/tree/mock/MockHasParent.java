@@ -18,7 +18,7 @@ package com.helger.tree.mock;
 
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.id.IHasID;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.hierarchy.IHasParent;
 
 import jakarta.annotation.Nullable;

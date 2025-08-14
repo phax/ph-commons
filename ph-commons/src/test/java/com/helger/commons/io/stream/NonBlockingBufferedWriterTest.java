@@ -25,8 +25,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.base.nonblocking.NonBlockingBufferedWriter;
-import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.io.nonblocking.NonBlockingBufferedWriter;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 
 /**
  * Test class for class {@link NonBlockingBufferedWriter}.

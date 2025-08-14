@@ -26,13 +26,13 @@ import java.nio.charset.StandardCharsets;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
 import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

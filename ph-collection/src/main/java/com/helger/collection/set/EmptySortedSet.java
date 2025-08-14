@@ -23,8 +23,8 @@ import java.util.SortedSet;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.CodingStyleguideUnaware;
-import com.helger.commons.collection.impl.ICommonsSortedSet;
-import com.helger.commons.collection.iterate.EmptyIterator;
+import com.helger.collection.commons.ICommonsSortedSet;
+import com.helger.collection.iterator.EmptyIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

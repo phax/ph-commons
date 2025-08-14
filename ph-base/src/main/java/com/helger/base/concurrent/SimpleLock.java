@@ -23,7 +23,7 @@ import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.functional.IThrowingSupplier;
 import com.helger.base.iface.IThrowingRunnable;
 

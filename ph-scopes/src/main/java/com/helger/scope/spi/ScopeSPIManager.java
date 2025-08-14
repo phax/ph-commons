@@ -25,7 +25,7 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.mock.exception.IMockException;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.IRequestScope;

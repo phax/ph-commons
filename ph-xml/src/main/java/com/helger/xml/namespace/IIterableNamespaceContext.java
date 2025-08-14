@@ -20,7 +20,7 @@ import javax.xml.namespace.NamespaceContext;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.collection.commons.ICommonsMap;
 
 import jakarta.annotation.Nonnull;
 

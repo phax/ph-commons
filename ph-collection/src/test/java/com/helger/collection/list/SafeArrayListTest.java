@@ -23,8 +23,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.factory.FactoryNewInstance;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.base.lang.clazz.FactoryNewInstance;
+import com.helger.collection.CollectionTestHelper;
 
 /**
  * Test class for class {@link SafeArrayList}.
@@ -91,8 +91,8 @@ public final class SafeArrayListTest
     final SafeArrayList <String> sl2 = new SafeArrayList <> ();
     sl2.set (10, "any");
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (sl, sl2);
+    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (sl, sl2);
     sl2.set (9, "x");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (sl, sl2);
+    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (sl, sl2);
   }
 }

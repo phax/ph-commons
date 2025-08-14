@@ -17,7 +17,7 @@
 package com.helger.commons.error.level;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.collection.impl.ICommonsIterable;
+import com.helger.collection.commons.ICommonsIterable;
 
 import jakarta.annotation.Nonnull;
 

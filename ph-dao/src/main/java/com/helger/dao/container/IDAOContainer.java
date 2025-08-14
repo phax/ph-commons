@@ -19,7 +19,7 @@ package com.helger.dao.container;
 import java.util.function.Predicate;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.dao.IAutoSaveAware;
 import com.helger.dao.IDAO;
 

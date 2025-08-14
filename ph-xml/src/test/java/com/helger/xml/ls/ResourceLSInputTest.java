@@ -28,8 +28,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.CommonsTestHelper;
 

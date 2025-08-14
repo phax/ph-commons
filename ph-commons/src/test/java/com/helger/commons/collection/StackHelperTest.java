@@ -25,8 +25,10 @@ import java.util.Objects;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.iterate.IterableIterator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.iterator.IterableIterator;
+import com.helger.collection.stack.NonBlockingStack;
+import com.helger.collection.stack.StackHelper;
 
 /**
  * Test class for class {@link StackHelper}

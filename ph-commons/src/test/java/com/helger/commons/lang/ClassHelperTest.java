@@ -30,8 +30,8 @@ import java.math.BigInteger;
 import org.junit.Test;
 
 import com.helger.annotation.style.ReturnsImmutableObject;
-import com.helger.base.lang.ClassHelper;
-import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.system.EOperatingSystem;
 

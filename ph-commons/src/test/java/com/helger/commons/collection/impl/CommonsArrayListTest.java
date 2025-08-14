@@ -27,6 +27,8 @@ import org.junit.Test;
 
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.EContinue;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

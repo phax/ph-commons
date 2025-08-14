@@ -19,7 +19,7 @@ package com.helger.commons.supplementary.tools.collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.PrimitiveCollectionHelper;
+import com.helger.collection.helper.PrimitiveCollectionHelper;
 
 /**
  * Create the code for the {@link PrimitiveCollectionHelper} class.

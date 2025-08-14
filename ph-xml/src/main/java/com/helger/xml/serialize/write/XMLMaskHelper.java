@@ -26,11 +26,11 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.xml.EXMLVersion;
 
 import jakarta.annotation.Nonnull;

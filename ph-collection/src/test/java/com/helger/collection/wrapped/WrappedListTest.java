@@ -30,8 +30,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.base.lang.GenericReflection;
-import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
 
 import jakarta.annotation.Nonnull;
 

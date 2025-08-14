@@ -17,7 +17,7 @@
 package com.helger.base.callback.exception;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
 

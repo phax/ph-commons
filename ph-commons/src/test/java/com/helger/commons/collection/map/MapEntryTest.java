@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import com.helger.collection.commons.MapEntry;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

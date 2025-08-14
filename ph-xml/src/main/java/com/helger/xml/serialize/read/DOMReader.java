@@ -35,7 +35,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.base.statistics.IMutableStatisticsHandlerTimer;

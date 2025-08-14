@@ -44,23 +44,23 @@ import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.lang.ClassHelper;
-import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.base.wrapper.IMutableWrapper;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.codec.URLCodec;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelperExt;
@@ -565,7 +565,7 @@ public final class URLHelper
   public static String getQueryParametersAsString (@Nullable final List <? extends URLParameter> aQueryParams,
                                                    @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
-    if (CollectionHelper.isEmpty (aQueryParams))
+    if (CollectionHelperExt.isEmpty (aQueryParams))
       return null;
 
     final StringBuilder aSB = new StringBuilder ();

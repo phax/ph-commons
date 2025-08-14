@@ -20,7 +20,7 @@ import java.security.Key;
 
 import javax.xml.crypto.KeySelectorResult;
 
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
 

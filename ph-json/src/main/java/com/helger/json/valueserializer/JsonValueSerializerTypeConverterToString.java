@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.io.Writer;
 
 import com.helger.annotation.WillNotClose;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
 
 import jakarta.annotation.Nonnull;

@@ -19,9 +19,9 @@ package com.helger.commons.io.resource.inmemory;
 import java.io.InputStream;
 
 import com.helger.annotation.WillNotClose;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.Strings;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;

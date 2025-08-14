@@ -22,9 +22,9 @@ import java.io.InputStream;
 import javax.crypto.Mac;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.WrappedInputStream;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

@@ -39,8 +39,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.iterate.IterableIterator;
+import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.iterator.IterableIterator;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.xpath.XPathExpressionHelper;
@@ -241,11 +241,11 @@ public final class XMLHelperTest
     XMLHelper.append (eRoot, doc2.createElement ("child"));
     XMLHelper.append (eRoot, "TextNode");
     XMLHelper.append (eRoot, doc2.createElement ("child"));
-    XMLHelper.append (eRoot, CollectionHelper.newList ("Text 1", " ", "Text 2"));
-    XMLHelper.append (eRoot, new IterableIterator <> (CollectionHelper.newList ("Text 1", " ", "Text 2")));
+    XMLHelper.append (eRoot, CollectionHelperExt.newList ("Text 1", " ", "Text 2"));
+    XMLHelper.append (eRoot, new IterableIterator <> (CollectionHelperExt.newList ("Text 1", " ", "Text 2")));
     XMLHelper.append (eRoot, doc.createElement ("foobar"));
     XMLHelper.append (eRoot, _getTestDoc ());
-    XMLHelper.append (eRoot, CollectionHelper.newSet (doc.createElement ("e1"), doc.createElement ("e2")));
+    XMLHelper.append (eRoot, CollectionHelperExt.newSet (doc.createElement ("e1"), doc.createElement ("e2")));
     XMLHelper.append (eRoot, new Element [] { doc.createElement ("e3"), doc.createElement ("e4") });
 
     try

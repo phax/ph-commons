@@ -21,8 +21,8 @@ import java.nio.ByteBuffer;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.lang.ByteBufferHelper;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.rt.bytebuffer.ByteBufferHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

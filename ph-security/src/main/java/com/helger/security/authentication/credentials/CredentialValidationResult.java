@@ -19,8 +19,8 @@ package com.helger.security.authentication.credentials;
 import java.util.Locale;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.string.ToStringGenerator;
+import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

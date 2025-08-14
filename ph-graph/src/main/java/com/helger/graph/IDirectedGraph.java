@@ -17,7 +17,7 @@
 package com.helger.graph;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.ICommonsSet;
 
 import jakarta.annotation.Nonnull;
 

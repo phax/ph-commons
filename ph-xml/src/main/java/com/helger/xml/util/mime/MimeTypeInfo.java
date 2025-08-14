@@ -21,16 +21,16 @@ import java.util.Locale;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.string.Strings;
-import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.mime.MimeTypeParser;
 import com.helger.commons.mime.MimeTypeParserException;
@@ -408,9 +408,9 @@ public final class MimeTypeInfo
   {
     return new ToStringGenerator (this).append ("mimeTypes", m_aMimeTypes)
                                        .appendIfNotNull ("comment", m_sComment)
-                                       .appendIf ("parentTypes", m_aParentTypes, CollectionHelper::isNotEmpty)
-                                       .appendIf ("globs", m_aGlobs, CollectionHelper::isNotEmpty)
-                                       .appendIf ("extensions", m_aExtensions, CollectionHelper::isNotEmpty)
+                                       .appendIf ("parentTypes", m_aParentTypes, CollectionHelperExt::isNotEmpty)
+                                       .appendIf ("globs", m_aGlobs, CollectionHelperExt::isNotEmpty)
+                                       .appendIf ("extensions", m_aExtensions, CollectionHelperExt::isNotEmpty)
                                        .appendIfNotNull ("source", m_sSource)
                                        .getToString ();
   }

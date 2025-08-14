@@ -52,7 +52,7 @@ import java.time.temporal.ValueRange;
 import java.time.zone.ZoneRules;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;

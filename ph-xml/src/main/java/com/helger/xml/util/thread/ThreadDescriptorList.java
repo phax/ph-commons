@@ -27,16 +27,16 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.Strings;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsEnumMap;
-import com.helger.commons.collection.impl.CommonsTreeSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsNavigableSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsEnumMap;
+import com.helger.collection.commons.CommonsTreeSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsNavigableSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
@@ -183,7 +183,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     try
     {
       // Get all stack traces, sorted by thread ID
-      for (final Map.Entry <Thread, StackTraceElement []> aEntry : CollectionHelper.getSortedByKey (Thread.getAllStackTraces (),
+      for (final Map.Entry <Thread, StackTraceElement []> aEntry : CollectionHelperExt.getSortedByKey (Thread.getAllStackTraces (),
                                                                                                     Comparator.comparing (Thread::getId))
                                                                                    .entrySet ())
       {

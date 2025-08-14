@@ -25,8 +25,8 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 
 import jakarta.annotation.Nonnull;
 

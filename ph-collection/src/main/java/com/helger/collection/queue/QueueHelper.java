@@ -28,8 +28,9 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.collection.CollectionFind;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -104,8 +105,8 @@ public final class QueueHelper
   }
 
   /**
-   * Compared to {@link Collections#list(Enumeration)} this method is more
-   * flexible in Generics parameter.
+   * Compared to {@link Collections#list(Enumeration)} this method is more flexible in Generics
+   * parameter.
    *
    * @param <ELEMENTTYPE>
    *        Type of the elements
@@ -164,7 +165,7 @@ public final class QueueHelper
     if (CollectionHelper.isEmpty (aCollection))
       return newQueue (0);
     final PriorityQueue <ELEMENTTYPE> ret = newQueue (aCollection.size ());
-    CollectionHelper.findAll (aCollection, aFilter, ret::add);
+    CollectionFind.findAll (aCollection, aFilter, ret::add);
     return ret;
   }
 

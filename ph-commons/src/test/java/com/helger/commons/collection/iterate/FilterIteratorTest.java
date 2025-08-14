@@ -32,9 +32,11 @@ import java.util.function.Predicate;
 import org.junit.Test;
 
 import com.helger.base.functional.Predicates;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.iterator.FilterIterator;
+import com.helger.collection.iterator.IterableIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -50,7 +52,7 @@ public final class FilterIteratorTest
   @Test
   public void testConstructorIterator ()
   {
-    final List <String> aList = CollectionHelper.newList ("i1", "i2");
+    final List <String> aList = CollectionHelperExt.newList ("i1", "i2");
     final Iterator <String> it = aList.iterator ();
     final Predicate <String> aFilter = Predicates.notNull ();
 
@@ -122,7 +124,7 @@ public final class FilterIteratorTest
   @Test
   public void testIteration1 ()
   {
-    final List <String> aList = CollectionHelper.newList ("s1", "s2", null, "s3");
+    final List <String> aList = CollectionHelperExt.newList ("s1", "s2", null, "s3");
     new FilterIterator <> (new IterableIterator <> (aList), Objects::nonNull);
     final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
@@ -149,7 +151,7 @@ public final class FilterIteratorTest
   @Test
   public void testIteration2 ()
   {
-    final List <String> aList = CollectionHelper.newList ("s1", "s2", null, "s3");
+    final List <String> aList = CollectionHelperExt.newList ("s1", "s2", null, "s3");
     final FilterIterator <String> it = new FilterIterator <> (aList.iterator (), Objects::nonNull);
     assertNotNull (it);
     assertSame (it, it.iterator ());
@@ -181,7 +183,7 @@ public final class FilterIteratorTest
   public void testIteration3 ()
   {
     // filtered element in the middle
-    final List <String> aList = CollectionHelper.newList ("s1", null, "s2", null, "s3");
+    final List <String> aList = CollectionHelperExt.newList ("s1", null, "s2", null, "s3");
     final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
 
@@ -203,7 +205,7 @@ public final class FilterIteratorTest
   public void testIteration4 ()
   {
     // filtered elements at the end
-    final List <String> aList = CollectionHelper.newList ("s1", "s2", "s3", null, null);
+    final List <String> aList = CollectionHelperExt.newList ("s1", "s2", "s3", null, null);
     final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
 
@@ -225,7 +227,7 @@ public final class FilterIteratorTest
   public void testIteration5 ()
   {
     // filtered elements at the beginning
-    final List <String> aList = CollectionHelper.newList (null, null, "s1", "s2", "s3");
+    final List <String> aList = CollectionHelperExt.newList (null, null, "s1", "s2", "s3");
     final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
 

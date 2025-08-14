@@ -24,7 +24,7 @@ import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.WillClose;
-import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 
 import jakarta.annotation.Nonnull;
 

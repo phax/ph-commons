@@ -39,8 +39,8 @@ import org.xml.sax.SAXException;
 
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.iface.IThrowingRunnable;
-import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
-import com.helger.base.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.string.Strings;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.io.file.FileHelper;

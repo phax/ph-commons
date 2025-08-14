@@ -22,11 +22,11 @@ import java.util.Objects;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.IteratorHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.iterate.IterableIterator;
-import com.helger.commons.equals.CollectionEqualsHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.helper.CollectionEqualsHelper;
+import com.helger.collection.iterator.IterableIterator;
+import com.helger.collection.iterator.IteratorHelper;
 
 /**
  * Test class for class {@link QueueHelper}

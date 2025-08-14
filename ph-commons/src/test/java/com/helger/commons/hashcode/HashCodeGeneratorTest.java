@@ -36,9 +36,9 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.state.ESuccess;
-import com.helger.commons.collection.IteratorHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.iterator.IteratorHelper;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.system.SystemHelper;
 

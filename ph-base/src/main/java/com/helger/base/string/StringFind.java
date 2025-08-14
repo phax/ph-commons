@@ -21,7 +21,7 @@ import java.util.Locale;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.functional.ICharConsumer;
 import com.helger.base.functional.ICharPredicate;
 
