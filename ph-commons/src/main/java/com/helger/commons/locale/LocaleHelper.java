@@ -27,6 +27,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.string.Strings;
 import com.helger.commons.cache.Cache;
@@ -120,6 +121,11 @@ public final class LocaleHelper
 
   private LocaleHelper ()
   {}
+
+  public static boolean equalLocales (@Nonnull final Locale aObj1, @Nonnull final Locale aObj2)
+  {
+    return EqualsHelper.equalsCustom (aObj1, aObj2, (x, y) -> x.toString ().equals (y.toString ()));
+  }
 
   /**
    * Get the display name of the passed language in the currently selected UI language.

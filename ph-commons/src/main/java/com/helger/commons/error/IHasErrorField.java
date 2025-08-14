@@ -18,8 +18,8 @@ package com.helger.commons.error;
 
 import java.util.Comparator;
 
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.Strings;
-import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -66,7 +66,7 @@ public interface IHasErrorField
    */
   default boolean hasErrorFieldName (@Nullable final String sErrorFieldName)
   {
-    return EqualsHelperExt.extEquals (getErrorFieldName (), sErrorFieldName);
+    return EqualsHelper.equals (getErrorFieldName (), sErrorFieldName);
   }
 
   @Nonnull

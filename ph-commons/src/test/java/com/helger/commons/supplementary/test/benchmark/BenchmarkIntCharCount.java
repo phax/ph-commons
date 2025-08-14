@@ -19,7 +19,7 @@ package com.helger.commons.supplementary.test.benchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringCount;
 import com.helger.commons.timing.StopWatch;
 
 public final class BenchmarkIntCharCount
@@ -30,7 +30,7 @@ public final class BenchmarkIntCharCount
     int getCharacterCount (int n);
   }
 
-  public static final IDoIt A1 = n -> StringHelper.getCharacterCount (n);
+  public static final IDoIt A1 = n -> StringCount.getCharacterCount (n);
   public static final IDoIt A2 = n -> Integer.toString (n).length ();
 
   private static final Logger LOGGER = LoggerFactory.getLogger (BenchmarkIntCharCount.class);

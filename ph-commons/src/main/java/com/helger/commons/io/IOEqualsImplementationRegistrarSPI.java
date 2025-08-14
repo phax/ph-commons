@@ -17,14 +17,14 @@
 package com.helger.commons.io;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.equals.IEqualsImplementation;
 import com.helger.commons.equals.IEqualsImplementationRegistrarSPI;
 import com.helger.commons.equals.IEqualsImplementationRegistry;
-import com.helger.commons.io.file.FilenameHelper;
+import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.PathHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -34,29 +34,22 @@ import jakarta.annotation.Nonnull;
  * {@link com.helger.commons.io.IOHashCodeImplementationRegistrarSPI}
  *
  * @author Philip Helger
+ * @deprecated For simplicity
  */
 @IsSPIImplementation
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class IOEqualsImplementationRegistrarSPI implements IEqualsImplementationRegistrarSPI
 {
   public void registerEqualsImplementations (@Nonnull final IEqualsImplementationRegistry aRegistry)
   {
     // Special handling for File
-    aRegistry.registerEqualsImplementation (File.class,
-                                            (aObj1, aObj2) -> FilenameHelper.getCleanPath (aObj1.getAbsoluteFile ())
-                                                                            .equals (FilenameHelper.getCleanPath (aObj2.getAbsoluteFile ())));
+    aRegistry.registerEqualsImplementation (File.class, FileHelper::equalFiles);
 
     aRegistry.registerEqualsImplementation (Path.class, new IEqualsImplementation <Path> ()
     {
       public boolean areEqual (final Path aObj1, final Path aObj2)
       {
-        try
-        {
-          return aObj1.toRealPath ().equals (aObj2.toRealPath ());
-        }
-        catch (final IOException ex)
-        {
-          return aObj1.equals (aObj2);
-        }
+        return PathHelper.equalPaths (aObj1, aObj2);
       }
 
       @Override

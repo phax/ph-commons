@@ -28,13 +28,13 @@ import com.helger.annotation.meta.TypeQualifierValidator;
 import com.helger.annotation.meta.When;
 
 /**
- * A specialization of the {@link com.helger.annotation.Nonnull} annotation that is to be used for
+ * A specialization of the {@link jakarta.annotation.Nonnull} annotation that is to be used for
  * String and collection parameters as well as return values only. It indicates that a string may
  * neither be <code>null</code> nor empty ( <code>""</code>) or that a collection may neither be
  * <code>null</code> nor empty).<br>
  * This means that the usage of this annotation implies the usage of the
- * {@link com.helger.annotation.Nonnull} annotation but because of better FindBugs handling, the
- * {@link com.helger.annotation.Nonnull} annotation must be present as well.
+ * {@link jakarta.annotation.Nonnull} annotation but because of better FindBugs handling, the
+ * {@link jakarta.annotation.Nonnull} annotation must be present as well.
  *
  * @author Philip Helger
  */

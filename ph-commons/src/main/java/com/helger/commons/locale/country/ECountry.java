@@ -19,10 +19,10 @@ package com.helger.commons.locale.country;
 import java.util.Locale;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.id.IHasID;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.display.IHasDisplayText;

@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.config.source.AbstractConfigurationSource;
@@ -86,7 +86,7 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
     if (!super.equals (o))
       return false;
     final AbstractConfigurationSourceResource rhs = (AbstractConfigurationSourceResource) o;
-    return EqualsHelperExt.extEquals (m_aRes, rhs.m_aRes);
+    return EqualsHelper.equals (m_aRes, rhs.m_aRes);
   }
 
   @Override

@@ -18,6 +18,7 @@ package com.helger.commons.collection.iterate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -26,7 +27,6 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ArrayIterator}.
@@ -112,20 +112,11 @@ public final class ArrayIteratorTest
                                                                                   "Welt",
                                                                                   "from",
                                                                                   "Copenhagen"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
-                                                                       new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
-                                                                                                                   "Welt",
-                                                                                                                   "from",
-                                                                                                                   "Copenhagen")));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                           new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
-                                                                                                                       "Welt",
-                                                                                                                       "from")));
+    assertEquals (ae, new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen")));
+    assertNotEquals (ae, new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from")));
+
+    // Change index
     ae.next ();
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                           new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
-                                                                                                                       "Welt",
-                                                                                                                       "from",
-                                                                                                                       "Copenhagen")));
+    assertNotEquals (ae, new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen")));
   }
 }

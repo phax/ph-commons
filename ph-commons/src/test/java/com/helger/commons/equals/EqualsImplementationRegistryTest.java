@@ -16,6 +16,8 @@
  */
 package com.helger.commons.equals;
 
+import static org.junit.Assert.assertTrue;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,13 +28,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.mock.CommonsAssertExt;
 
 /**
  * Test class for class {@link EqualsImplementationRegistry}.
  *
  * @author Philip Helger
  */
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class EqualsImplementationRegistryTest
 {
   @Test
@@ -50,13 +52,13 @@ public final class EqualsImplementationRegistryTest
     ((Element) aRoot2.appendChild (d2.createElement ("child"))).setAttribute ("any", "works");
 
     // Regular
-    CommonsAssertExt.assertEquals (d1, d2);
+    assertTrue (EqualsHelperExt.extEquals (d1, d2));
 
     // 1 level array
-    CommonsAssertExt.assertEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2));
+    assertTrue (EqualsHelperExt.extEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2)));
 
     // 2 level array
-    CommonsAssertExt.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
-                                ArrayHelper.newArray (ArrayHelper.newArray (d2)));
+    assertTrue (EqualsHelperExt.extEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
+                                           ArrayHelper.newArray (ArrayHelper.newArray (d2))));
   }
 }

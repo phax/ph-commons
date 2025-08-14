@@ -19,9 +19,9 @@ package com.helger.commons.error.level;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.id.IHasID;
 import com.helger.base.state.IErrorIndicator;
 import com.helger.base.state.ISuccessIndicator;
-import com.helger.commons.id.IHasID;
 import com.helger.commons.severity.ISeverityComparable;
 
 import jakarta.annotation.Nonnull;

@@ -19,9 +19,9 @@ package com.helger.tree.withid;
 import java.util.Comparator;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.id.IHasID;
 import com.helger.base.state.EChange;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.id.IHasID;
 import com.helger.tree.IBasicTreeItem;
 
 import jakarta.annotation.Nonnull;

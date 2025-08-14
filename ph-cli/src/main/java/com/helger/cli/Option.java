@@ -24,9 +24,9 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -360,8 +360,7 @@ public class Option implements IOptionBase
       return false;
 
     final Option rhs = (Option) o;
-    return EqualsHelperExt.extEquals (m_sShortOpt, rhs.m_sShortOpt) &&
-           EqualsHelperExt.extEquals (m_sLongOpt, rhs.m_sLongOpt);
+    return EqualsHelper.equals (m_sShortOpt, rhs.m_sShortOpt) && EqualsHelper.equals (m_sLongOpt, rhs.m_sLongOpt);
   }
 
   @Override

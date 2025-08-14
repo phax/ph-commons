@@ -19,8 +19,8 @@ package com.helger.commons.collection.map;
 import java.util.Map;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -84,7 +84,8 @@ public class MapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUET
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MapEntry <?, ?> rhs = (MapEntry <?, ?>) o;
-    return EqualsHelperExt.extEquals (m_aKey, rhs.m_aKey) && EqualsHelperExt.extEquals (m_aValue, rhs.m_aValue);
+    final Object aObj1 = m_aValue;
+    return EqualsHelper.equals (m_aKey, rhs.m_aKey) && EqualsHelper.equals (aObj1, rhs.m_aValue);
   }
 
   @Override

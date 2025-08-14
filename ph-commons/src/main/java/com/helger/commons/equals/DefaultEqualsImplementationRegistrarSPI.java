@@ -34,7 +34,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.math.BigHelper;
+import com.helger.commons.locale.LocaleHelper;
+import com.helger.commons.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -43,8 +46,10 @@ import jakarta.annotation.Nonnull;
  * aligned with the implementations in the hash code registry.
  *
  * @author Philip Helger
+ * @deprecated For simplicity
  */
 @IsSPIImplementation
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImplementationRegistrarSPI
 {
   public void registerEqualsImplementations (@Nonnull final IEqualsImplementationRegistry aRegistry)
@@ -105,8 +110,7 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
      * <a href= "http://michaelscharf.blogspot.com/2006/11/javaneturlequals-and-hashcode-make.html"
      * >Click here for details</a>
      */
-    aRegistry.registerEqualsImplementation (URL.class,
-                                            (aObj1, aObj2) -> aObj1.toExternalForm ().equals (aObj2.toExternalForm ()));
+    aRegistry.registerEqualsImplementation (URL.class, URLHelper::equalURLs);
 
     // AtomicBoolean does not implement equals!
     aRegistry.registerEqualsImplementation (AtomicBoolean.class, (aObj1, aObj2) -> aObj1.get () == aObj2.get ());
@@ -217,12 +221,11 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
     });
 
     // Special handling for Locale in JDK >= 1.7
-    aRegistry.registerEqualsImplementation (Locale.class,
-                                            (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
+    aRegistry.registerEqualsImplementation (Locale.class, LocaleHelper::equalLocales);
 
     // Class does not implement equals
     aRegistry.registerEqualsImplementation (PasswordAuthentication.class,
-                                            (aObj1, aObj2) -> EqualsHelperExt.extEquals (aObj1.getUserName (),
+                                            (aObj1, aObj2) -> EqualsHelper.equals (aObj1.getUserName (),
                                                                                    aObj2.getUserName ()) &&
                                                               Arrays.equals (aObj1.getPassword (),
                                                                              aObj2.getPassword ()));

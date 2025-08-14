@@ -18,8 +18,8 @@ package com.helger.security.oscp;
 
 import org.bouncycastle.asn1.ocsp.OCSPResponseStatus;
 
+import com.helger.base.id.IHasIntID;
 import com.helger.base.state.ISuccessIndicator;
-import com.helger.commons.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
 
 import jakarta.annotation.Nullable;

@@ -60,7 +60,7 @@ public final class CollectionEqualsHelper
     }
 
     // Not collections
-    return EqualsImplementationRegistry.areEqual (aObj1, aObj2);
+    return EqualsHelper.equals (aObj1, aObj2);
   }
 
   public static <T> boolean equalsCollectionOnly (@Nonnull final Collection <T> aCont1,
@@ -239,7 +239,7 @@ public final class CollectionEqualsHelper
 
         // No different types possible -> use EqualsImplementationRegistry
         // directly
-        return EqualsImplementationRegistry.areEqual (aObj1, aObj2);
+        return EqualsHelper.equals (aObj1, aObj2);
       }
       case ITERATOR:
       {

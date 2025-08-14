@@ -24,20 +24,19 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.StringCount;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Recursively iterate the content of a file system directory. This is a depth
- * first iteration, because as soon as a directory is encountered, the children
- * of this directory are iterated.<br>
- * Note: the order of iteration is undefined and depends on the order returned
- * by {@link FileHelper#getDirectoryContent(File)}.
+ * Recursively iterate the content of a file system directory. This is a depth first iteration,
+ * because as soon as a directory is encountered, the children of this directory are iterated.<br>
+ * Note: the order of iteration is undefined and depends on the order returned by
+ * {@link FileHelper#getDirectoryContent(File)}.
  *
  * @author Philip Helger
  */
@@ -52,7 +51,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   @Nonnegative
   private static int _getLevel (@Nonnull final File aFile)
   {
-    return StringHelper.getCharCount (aFile.getAbsolutePath (), File.separatorChar);
+    return StringCount.getCharCount (aFile.getAbsolutePath (), File.separatorChar);
   }
 
   /**
@@ -83,8 +82,8 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    * @param sBaseDir
    *        The base directory to start with. May not be <code>null</code>.
    * @param aRecursionFilter
-   *        An optional filter that controls, into which sub-directories this
-   *        iterator should descend to. May be <code>null</code>.
+   *        An optional filter that controls, into which sub-directories this iterator should
+   *        descend to. May be <code>null</code>.
    */
   public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final Predicate <File> aRecursionFilter)
   {
@@ -97,8 +96,8 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    * @param aBaseDir
    *        The base directory to start with. May not be <code>null</code>.
    * @param aRecursionFilter
-   *        An optional filter that controls, into which sub-directories this
-   *        iterator should descend to. May be <code>null</code>.
+   *        An optional filter that controls, into which sub-directories this iterator should
+   *        descend to. May be <code>null</code>.
    */
   public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final Predicate <File> aRecursionFilter)
   {
@@ -126,13 +125,11 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   }
 
   /**
-   * Override this method to manually filter the directories, which are recursed
-   * into.
+   * Override this method to manually filter the directories, which are recursed into.
    *
    * @param aDirectory
    *        The non-<code>null</code> directory
-   * @return <code>true</code> if all children of this directory should be
-   *         investigated
+   * @return <code>true</code> if all children of this directory should be investigated
    */
   @OverrideOnDemand
   protected boolean recurseIntoDirectory (@Nonnull final File aDirectory)
@@ -161,8 +158,8 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   }
 
   /**
-   * @return The nesting level of the last file retrieved by {@link #next()}.
-   *         Always &ge; 0. The starting directory has level 0.
+   * @return The nesting level of the last file retrieved by {@link #next()}. Always &ge; 0. The
+   *         starting directory has level 0.
    */
   @Nonnegative
   public final int getLevel ()

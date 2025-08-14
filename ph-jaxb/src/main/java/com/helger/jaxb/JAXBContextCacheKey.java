@@ -27,13 +27,13 @@ import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.ClassLoaderHelper;
 import com.helger.base.lang.GenericReflection;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.string.StringHelper;
@@ -241,8 +241,8 @@ public class JAXBContextCacheKey
       return false;
     final JAXBContextCacheKey rhs = (JAXBContextCacheKey) o;
     return m_sEqualsHashCodeKey.equals (rhs.m_sEqualsHashCodeKey) &&
-           EqualsHelperExt.extEquals (_getClassLoader (), rhs._getClassLoader ()) &&
-           EqualsHelperExt.extEquals (m_aProperties, rhs.m_aProperties);
+           EqualsHelper.equals (_getClassLoader (), rhs._getClassLoader ()) &&
+           EqualsHelper.equals (m_aProperties, rhs.m_aProperties);
   }
 
   @Override

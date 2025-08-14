@@ -25,13 +25,13 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.collection.map.MapEntry;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -77,12 +77,14 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
 
   public boolean containsKey (@Nullable final Object aKey)
   {
-    return m_bHasElement && EqualsHelperExt.extEquals (m_aKey, aKey);
+    final Object aObj1 = m_aKey;
+    return m_bHasElement && EqualsHelper.equals (aObj1, aKey);
   }
 
   public boolean containsValue (@Nullable final Object aValue)
   {
-    return m_bHasElement && EqualsHelperExt.extEquals (m_aValue, aValue);
+    final Object aObj1 = m_aValue;
+    return m_bHasElement && EqualsHelper.equals (aObj1, aValue);
   }
 
   @Nullable
@@ -100,7 +102,8 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   public final VALUETYPE put (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aElement)
   {
     VALUETYPE aOldElement = null;
-    if (EqualsHelperExt.extEquals (aKey, m_aKey))
+    final Object aObj2 = m_aKey;
+    if (EqualsHelper.equals (aKey, aObj2))
     {
       // Key is the same as before -> return old value
       aOldElement = m_aValue;
@@ -179,7 +182,9 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementMap <?, ?> rhs = (SingleElementMap <?, ?>) o;
-    return m_bHasElement == rhs.m_bHasElement && EqualsHelperExt.extEquals (m_aKey, rhs.m_aKey) && EqualsHelperExt.extEquals (m_aValue, rhs.m_aValue);
+    final Object aObj1 = m_aKey;
+    final Object aObj11 = m_aValue;
+    return m_bHasElement == rhs.m_bHasElement && EqualsHelper.equals (aObj1, rhs.m_aKey) && EqualsHelper.equals (aObj11, rhs.m_aValue);
   }
 
   @Override

@@ -19,7 +19,7 @@ package com.helger.security.authentication.result;
 import java.time.LocalDateTime;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.id.IHasID;
+import com.helger.base.id.IHasID;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

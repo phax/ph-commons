@@ -34,7 +34,6 @@ import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -355,7 +354,9 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BasicTreeItem <?, ?> rhs = (BasicTreeItem <?, ?>) o;
-    return EqualsHelperExt.extEquals (m_aData, rhs.m_aData) && EqualsHelperExt.extEquals (m_aChildren, rhs.m_aChildren);
+    final Object aObj1 = m_aData;
+    final Object aObj11 = m_aChildren;
+    return EqualsHelper.equals (aObj1, rhs.m_aData) && EqualsHelper.equals (aObj11, rhs.m_aChildren);
   }
 
   @Override

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.type;
 
-import com.helger.commons.id.IHasID;
+import com.helger.base.id.IHasID;
 
 /**
  * Base interface for objects having an {@link ObjectType} and an ID.

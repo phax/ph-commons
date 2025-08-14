@@ -27,11 +27,11 @@ import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.lang.IExplicitlyCloneable;
+import com.helger.base.mock.CommonsAssert;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.collection.impl.CommonsVector;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.serialize.SerializationHelper;
 import com.helger.commons.string.StringHelper;
@@ -56,7 +56,7 @@ public final class CommonsTestHelper
 
   private static void _fail (@Nonnull final String sMsg)
   {
-    throw new IllegalStateException (sMsg);
+    CommonsAssert.fail (sMsg);
   }
 
   private static void _assertTrue (@Nonnull final String sMsg, final boolean bTrue)
@@ -79,7 +79,7 @@ public final class CommonsTestHelper
 
   public static <T> void _assertEquals (@Nonnull final String sMsg, @Nullable final T aObj1, @Nullable final T aObj2)
   {
-    if (!EqualsHelperExt.extEquals (aObj1, aObj2))
+    if (!EqualsHelper.equals (aObj1, aObj2))
       _fail (sMsg + "\nOBJ1: " + aObj1 + "\nOBJ2: " + aObj2);
   }
 
@@ -88,6 +88,7 @@ public final class CommonsTestHelper
     _assertNotNull ("Passed object may not be null!", aObject);
     _assertTrue ("Passed objects are not equal", aObject.equals (aObject));
     _assertFalse ("Object may no be equal to String", aObject.equals ("any string"));
+    _assertFalse ("Object may no be equal to String", "any string".equals (aObject));
     _assertFalse ("Object may no be equal to null", aObject.equals (null));
   }
 

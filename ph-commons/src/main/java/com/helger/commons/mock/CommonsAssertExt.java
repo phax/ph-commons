@@ -19,9 +19,6 @@ package com.helger.commons.mock;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.mock.CommonsAssert;
-import com.helger.commons.equals.EqualsHelperExt;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Extensions for the default JUnit assertions.
@@ -36,85 +33,4 @@ public final class CommonsAssertExt extends CommonsAssert
 
   private CommonsAssertExt ()
   {}
-
-  public static void fail ()
-  {
-    fail ("Forced fail");
-  }
-
-  /**
-   * Like JUnit assertEquals but using {@link EqualsHelperExt}.
-   *
-   * @param x
-   *        Fist object. May be <code>null</code>
-   * @param y
-   *        Second object. May be <code>null</code>.
-   * @param <T>
-   *        data type to compare
-   */
-  public static <T> void assertEquals (@Nullable final T x, @Nullable final T y)
-  {
-    assertEquals ((String) null, x, y);
-  }
-
-  /**
-   * Like JUnit assertEquals but using {@link EqualsHelperExt}.
-   *
-   * @param sUserMsg
-   *        Optional user message. May be <code>null</code>.
-   * @param x
-   *        Fist object. May be <code>null</code>
-   * @param y
-   *        Second object. May be <code>null</code>.
-   * @param <T>
-   *        data type to compare
-   */
-  public static <T> void assertEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
-  {
-    if (!EqualsHelperExt.extEquals (x, y))
-      fail ("<" +
-            x +
-            "> is not equal to <" +
-            y +
-            ">" +
-            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
-  }
-
-  /**
-   * Like JUnit assertNotEquals but using {@link EqualsHelperExt}.
-   *
-   * @param x
-   *        Fist object. May be <code>null</code>
-   * @param y
-   *        Second object. May be <code>null</code>.
-   * @param <T>
-   *        data type to compare
-   */
-  public static <T> void assertNotEquals (@Nullable final T x, @Nullable final T y)
-  {
-    assertNotEquals ((String) null, x, y);
-  }
-
-  /**
-   * Like JUnit assertNotEquals but using {@link EqualsHelperExt}.
-   *
-   * @param sUserMsg
-   *        Optional user message. May be <code>null</code>.
-   * @param x
-   *        Fist object. May be <code>null</code>
-   * @param y
-   *        Second object. May be <code>null</code>.
-   * @param <T>
-   *        data type to compare
-   */
-  public static <T> void assertNotEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
-  {
-    if (EqualsHelperExt.extEquals (x, y))
-      fail ("<" +
-            x +
-            "> is equal to <" +
-            y +
-            ">" +
-            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
-  }
 }

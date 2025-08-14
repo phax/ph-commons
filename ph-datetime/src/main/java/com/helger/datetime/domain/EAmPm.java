@@ -20,7 +20,7 @@ import java.text.DateFormatSymbols;
 import java.util.Locale;
 
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.id.IHasIntID;
+import com.helger.base.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;

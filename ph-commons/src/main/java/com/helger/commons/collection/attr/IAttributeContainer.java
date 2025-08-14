@@ -21,12 +21,12 @@ import java.util.Map;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.ICallback;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.traits.IGetterByKeyTrait;
 
 import jakarta.annotation.Nonnull;
@@ -201,7 +201,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
 
     // Set and compare
     final VALUETYPE aOldValue = put (aName, aNewValue);
-    if (EqualsHelperExt.extEquals (aNewValue, aOldValue))
+    if (EqualsHelper.equals (aNewValue, aOldValue))
       return EChange.UNCHANGED;
 
     // After change callback

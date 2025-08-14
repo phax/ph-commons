@@ -21,8 +21,8 @@ import java.util.Locale;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.display.IHasDisplayText;
@@ -71,7 +71,7 @@ public class DynamicHasErrorText implements IHasErrorText
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final DynamicHasErrorText rhs = (DynamicHasErrorText) o;
-    return EqualsHelperExt.extEquals (m_aText, rhs.m_aText);
+    return EqualsHelper.equals (m_aText, rhs.m_aText);
   }
 
   @Override

@@ -18,8 +18,8 @@ package com.helger.commons.error;
 
 import java.util.Comparator;
 
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.Strings;
-import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -65,7 +65,7 @@ public interface IHasErrorID
    */
   default boolean hasErrorID (@Nullable final String sErrorID)
   {
-    return EqualsHelperExt.extEquals (getErrorID (), sErrorID);
+    return EqualsHelper.equals (getErrorID (), sErrorID);
   }
 
   @Nonnull

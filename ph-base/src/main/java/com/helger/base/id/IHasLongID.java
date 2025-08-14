@@ -14,26 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.id;
+package com.helger.base.id;
+
+import java.util.Comparator;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Interface for objects having an int ID.
+ * Base interface for all objects having a long ID.
  *
  * @author Philip Helger
- * @param <VALUETYPE>
- *        Object type
  */
-public interface IIntIDProvider <VALUETYPE>
+@FunctionalInterface
+public interface IHasLongID
 {
   /**
-   * Get the ID of the passed object.
-   *
-   * @param aObject
-   *        The object who's ID is to be retrieved. May not be <code>null</code>
-   *        .
-   * @return The ID of the object.
+   * @return The simple long ID of this object.
    */
-  int getID (@Nonnull VALUETYPE aObject);
+  long getID ();
+
+  /**
+   * @return The {@link Long} representation of the contained "long" ID.
+   */
+  @Nonnull
+  default Long getIDObj ()
+  {
+    return Long.valueOf (getID ());
+  }
+
+  @Nonnull
+  static Comparator <IHasLongID> getComparatorID ()
+  {
+    return Comparator.comparingLong (IHasLongID::getID);
+  }
 }

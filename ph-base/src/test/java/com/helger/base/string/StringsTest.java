@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.base.string;
 
 import static org.junit.Assert.assertEquals;
@@ -7,8 +23,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-
-import com.helger.base.functional.ICharPredicate;
 
 /**
  * Test class for class {@link Strings}.
@@ -162,85 +176,13 @@ public final class StringsTest
   }
 
   @Test
-  public void testContainsAnyOnlyNoneString ()
+  public void testGetReverse ()
   {
-    assertTrue (Strings.containsAny ("aa", x -> x == 'a'));
-    assertTrue (Strings.containsAny ("abc", x -> x == 'a'));
-    assertTrue (Strings.containsAny ("abc", x -> x == 'b'));
-    assertTrue (Strings.containsAny ("abc", (ICharPredicate) null));
-    assertFalse (Strings.containsAny ("", (ICharPredicate) null));
-    assertFalse (Strings.containsAny ((String) null, (ICharPredicate) null));
-    assertFalse (Strings.containsAny ("", x -> x == 'a'));
-    assertFalse (Strings.containsAny ((String) null, x -> x == 'a'));
-    assertFalse (Strings.containsAny ("abc", x -> x == 'd'));
-
-    assertTrue (Strings.containsOnly ("aa", x -> x == 'a'));
-    assertFalse (Strings.containsOnly ("abc", x -> x == 'a'));
-    assertFalse (Strings.containsOnly ("abc", x -> x == 'b'));
-    assertTrue (Strings.containsOnly ("abc", (ICharPredicate) null));
-    assertFalse (Strings.containsOnly ("", (ICharPredicate) null));
-    assertFalse (Strings.containsOnly ((String) null, (ICharPredicate) null));
-    assertFalse (Strings.containsOnly ("", x -> x == 'a'));
-    assertFalse (Strings.containsOnly ((String) null, x -> x == 'a'));
-    assertFalse (Strings.containsOnly ("abc", x -> x == 'd'));
-
-    assertFalse (Strings.containsNone ("aa", x -> x == 'a'));
-    assertFalse (Strings.containsNone ("abc", x -> x == 'a'));
-    assertFalse (Strings.containsNone ("abc", x -> x == 'b'));
-    assertFalse (Strings.containsNone ("abc", (ICharPredicate) null));
-    assertTrue (Strings.containsNone ("", (ICharPredicate) null));
-    assertTrue (Strings.containsNone ((String) null, (ICharPredicate) null));
-    assertTrue (Strings.containsNone ("", x -> x == 'a'));
-    assertTrue (Strings.containsNone ((String) null, x -> x == 'a'));
-    assertTrue (Strings.containsNone ("abc", x -> x == 'd'));
-  }
-
-  @Test
-  public void testContainsAnyOnlyNoneCharSequence ()
-  {
-    assertTrue (Strings.containsAny ((CharSequence) "aa", x -> x == 'a'));
-    assertTrue (Strings.containsAny ((CharSequence) "abc", x -> x == 'a'));
-    assertTrue (Strings.containsAny ((CharSequence) "abc", x -> x == 'b'));
-    assertTrue (Strings.containsAny ((CharSequence) "abc", (ICharPredicate) null));
-    assertFalse (Strings.containsAny ((CharSequence) "", (ICharPredicate) null));
-    assertFalse (Strings.containsAny ((CharSequence) null, (ICharPredicate) null));
-    assertFalse (Strings.containsAny ((CharSequence) "", x -> x == 'a'));
-    assertFalse (Strings.containsAny ((CharSequence) null, x -> x == 'a'));
-    assertFalse (Strings.containsAny ((CharSequence) "abc", x -> x == 'd'));
-
-    assertTrue (Strings.containsOnly ((CharSequence) "aa", x -> x == 'a'));
-    assertFalse (Strings.containsOnly ((CharSequence) "abc", x -> x == 'a'));
-    assertFalse (Strings.containsOnly ((CharSequence) "abc", x -> x == 'b'));
-    assertTrue (Strings.containsOnly ((CharSequence) "abc", (ICharPredicate) null));
-    assertFalse (Strings.containsOnly ((CharSequence) "", (ICharPredicate) null));
-    assertFalse (Strings.containsOnly ((CharSequence) null, (ICharPredicate) null));
-    assertFalse (Strings.containsOnly ((CharSequence) "", x -> x == 'a'));
-    assertFalse (Strings.containsOnly ((CharSequence) null, x -> x == 'a'));
-    assertFalse (Strings.containsOnly ((CharSequence) "abc", x -> x == 'd'));
-
-    assertFalse (Strings.containsNone ((CharSequence) "aa", x -> x == 'a'));
-    assertFalse (Strings.containsNone ((CharSequence) "abc", x -> x == 'a'));
-    assertFalse (Strings.containsNone ((CharSequence) "abc", x -> x == 'b'));
-    assertFalse (Strings.containsNone ((CharSequence) "abc", (ICharPredicate) null));
-    assertTrue (Strings.containsNone ((CharSequence) "", (ICharPredicate) null));
-    assertTrue (Strings.containsNone ((CharSequence) null, (ICharPredicate) null));
-    assertTrue (Strings.containsNone ((CharSequence) "", x -> x == 'a'));
-    assertTrue (Strings.containsNone ((CharSequence) null, x -> x == 'a'));
-    assertTrue (Strings.containsNone ((CharSequence) "abc", x -> x == 'd'));
-  }
-
-  @Test
-  public void testIsAllWhitespace ()
-  {
-    assertTrue (Strings.isAllWhitespace ("   "));
-    assertTrue (Strings.isAllWhitespace (" \t\r\n"));
-    assertTrue (Strings.isAllWhitespace ("\n"));
-
-    assertFalse (Strings.isAllWhitespace (""));
-    assertFalse (Strings.isAllWhitespace (null));
-    assertFalse (Strings.isAllWhitespace ("a"));
-    assertFalse (Strings.isAllWhitespace ("abc"));
-    assertFalse (Strings.isAllWhitespace ("ab c"));
-    assertFalse (Strings.isAllWhitespace (" a"));
+    assertNull (Strings.getReverse (null));
+    assertEquals ("", Strings.getReverse (""));
+    assertEquals ("a", Strings.getReverse ("a"));
+    assertEquals ("ba", Strings.getReverse ("ab"));
+    assertEquals (" ba", Strings.getReverse ("ab "));
+    assertEquals ("cba", Strings.getReverse ("abc"));
   }
 }

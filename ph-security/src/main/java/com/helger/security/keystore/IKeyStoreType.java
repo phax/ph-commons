@@ -22,7 +22,7 @@ import java.security.NoSuchProviderException;
 import java.security.Provider;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
+import com.helger.base.id.IHasID;
 
 import jakarta.annotation.Nonnull;
 

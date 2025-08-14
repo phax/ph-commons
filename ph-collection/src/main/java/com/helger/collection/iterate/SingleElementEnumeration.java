@@ -20,8 +20,8 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nullable;
@@ -69,7 +69,7 @@ public class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEM
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementEnumeration <?> rhs = (SingleElementEnumeration <?>) o;
-    return m_bHasMoreElements == rhs.m_bHasMoreElements && EqualsHelperExt.extEquals (m_aElement, rhs.m_aElement);
+    return m_bHasMoreElements == rhs.m_bHasMoreElements && EqualsHelper.equals (m_aElement, rhs.m_aElement);
   }
 
   @Override

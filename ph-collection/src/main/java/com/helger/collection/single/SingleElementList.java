@@ -28,6 +28,7 @@ import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.GenericReflection;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.collection.iterate.EmptyListIterator;
@@ -36,7 +37,6 @@ import com.helger.collection.iterate.SingleElementListIterator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyIterator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -125,7 +125,8 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
 
   public boolean contains (@Nullable final Object aElement)
   {
-    return m_bHasElement && EqualsHelperExt.extEquals (m_aElement, aElement);
+    final Object aObj1 = m_aElement;
+    return m_bHasElement && EqualsHelper.equals (aObj1, aElement);
   }
 
   public boolean containsAll (@Nonnull final Collection <?> aElements)
@@ -293,7 +294,8 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementList <?> rhs = (SingleElementList <?>) o;
-    return m_bHasElement == rhs.m_bHasElement && EqualsHelperExt.extEquals (m_aElement, rhs.m_aElement);
+    final Object aObj1 = m_aElement;
+    return m_bHasElement == rhs.m_bHasElement && EqualsHelper.equals (aObj1, rhs.m_aElement);
   }
 
   @Override

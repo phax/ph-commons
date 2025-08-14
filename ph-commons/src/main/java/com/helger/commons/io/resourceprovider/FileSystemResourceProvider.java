@@ -24,10 +24,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -154,7 +154,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemResourceProvider rhs = (FileSystemResourceProvider) o;
-    return EqualsHelperExt.extEquals (m_aBasePath, rhs.m_aBasePath) &&
+    return EqualsHelper.equals (m_aBasePath, rhs.m_aBasePath) &&
            m_bCanReadRelativePaths == rhs.m_bCanReadRelativePaths;
   }
 

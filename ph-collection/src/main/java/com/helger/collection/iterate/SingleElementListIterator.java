@@ -21,8 +21,8 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.UnsupportedOperation;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nullable;
@@ -114,7 +114,7 @@ public class SingleElementListIterator <ELEMENTTYPE> implements ListIterator <EL
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementListIterator <?> rhs = (SingleElementListIterator <?>) o;
-    return m_bHasNext == rhs.m_bHasNext && EqualsHelperExt.extEquals (m_aElement, rhs.m_aElement);
+    return m_bHasNext == rhs.m_bHasNext && EqualsHelper.equals (m_aElement, rhs.m_aElement);
   }
 
   @Override

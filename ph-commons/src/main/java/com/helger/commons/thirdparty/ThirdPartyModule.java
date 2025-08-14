@@ -19,8 +19,8 @@ package com.helger.commons.thirdparty;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.version.Version;
 
@@ -158,8 +158,8 @@ public final class ThirdPartyModule implements IThirdPartyModule
     return m_sDisplayName.equals (rhs.m_sDisplayName) &&
            m_sCopyrightOwner.equals (rhs.m_sCopyrightOwner) &&
            m_aLicense.equals (rhs.m_aLicense) &&
-           EqualsHelperExt.extEquals (m_aVersion, rhs.m_aVersion) &&
-           EqualsHelperExt.extEquals (m_sWebSiteURL, rhs.m_sWebSiteURL) &&
+           EqualsHelper.equals (m_aVersion, rhs.m_aVersion) &&
+           EqualsHelper.equals (m_sWebSiteURL, rhs.m_sWebSiteURL) &&
            m_bOptional == rhs.m_bOptional;
   }
 

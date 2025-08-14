@@ -40,8 +40,7 @@ import com.helger.commons.typeconvert.TypeConverterRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
 
 /**
- * The sole purpose of this class to clear all caches, that reside in this
- * library.
+ * The sole purpose of this class to clear all caches, that reside in this library.
  *
  * @author Philip Helger
  */
@@ -55,9 +54,10 @@ public final class CommonsCleanup
   {}
 
   /**
-   * Cleanup all custom caches contained in this library. Loaded SPI
-   * implementations are not affected by this method!
+   * Cleanup all custom caches contained in this library. Loaded SPI implementations are not
+   * affected by this method!
    */
+  @SuppressWarnings ("removal")
   public static void cleanup ()
   {
     // Reinitialize singletons to the default values

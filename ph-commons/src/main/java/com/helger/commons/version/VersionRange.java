@@ -19,9 +19,9 @@ package com.helger.commons.version;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.IComparable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 
@@ -362,7 +362,7 @@ public final class VersionRange implements IComparable <VersionRange>
     return m_bIncludeFloor == rhs.m_bIncludeFloor &&
            m_aFloorVersion.equals (rhs.m_aFloorVersion) &&
            m_bIncludeCeil == rhs.m_bIncludeCeil &&
-           EqualsHelperExt.extEquals (m_aCeilVersion, rhs.m_aCeilVersion);
+           EqualsHelper.equals (m_aCeilVersion, rhs.m_aCeilVersion);
   }
 
   @Override

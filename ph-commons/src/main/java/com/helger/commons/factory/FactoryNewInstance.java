@@ -20,10 +20,10 @@ import java.util.function.Supplier;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.ClassHelper;
 import com.helger.base.lang.GenericReflection;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -71,7 +71,7 @@ public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FactoryNewInstance <?> rhs = (FactoryNewInstance <?>) o;
-    return EqualsHelperExt.extEquals (m_aClass, rhs.m_aClass);
+    return EqualsHelper.equals (m_aClass, rhs.m_aClass);
   }
 
   @Override

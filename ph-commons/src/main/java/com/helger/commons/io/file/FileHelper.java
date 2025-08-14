@@ -42,6 +42,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.nonblocking.NonBlockingBufferedInputStream;
@@ -75,6 +76,14 @@ public final class FileHelper
 
   private FileHelper ()
   {}
+
+  public static boolean equalFiles (@Nonnull final File aObj1, @Nonnull final File aObj2)
+  {
+    return EqualsHelper.equalsCustom (aObj1,
+                                      aObj2,
+                                      (x, y) -> FilenameHelper.getCleanPath (x.getAbsoluteFile ())
+                                                              .equals (FilenameHelper.getCleanPath (y.getAbsoluteFile ())));
+  }
 
   /**
    * Check if the passed file exists. Must be existing and a file.

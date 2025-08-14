@@ -22,8 +22,8 @@ import java.io.UncheckedIOException;
 import java.nio.file.Path;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.id.IHasIntID;
 import com.helger.base.state.ISuccessIndicator;
-import com.helger.commons.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;

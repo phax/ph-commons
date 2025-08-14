@@ -16,6 +16,8 @@
  */
 package com.helger.commons.id;
 
+import com.helger.base.id.IHasID;
+
 public final class MockHasIDString implements IHasID <String>
 {
   private final String m_sID;

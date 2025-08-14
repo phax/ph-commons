@@ -19,8 +19,8 @@ package com.helger.security.password.hash;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.security.password.salt.IPasswordSalt;
 
@@ -99,7 +99,7 @@ public final class PasswordHash
       return false;
     final PasswordHash rhs = (PasswordHash) o;
     return m_sAlgorithmName.equals (rhs.m_sAlgorithmName) &&
-           EqualsHelperExt.extEquals (m_aSalt, rhs.m_aSalt) &&
+           EqualsHelper.equals (m_aSalt, rhs.m_aSalt) &&
            m_sPasswordHashValue.equals (rhs.m_sPasswordHashValue);
   }
 

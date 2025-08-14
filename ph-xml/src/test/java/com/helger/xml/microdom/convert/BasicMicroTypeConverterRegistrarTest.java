@@ -27,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.math.BigHelper;
+import com.helger.base.mock.CommonsAssert;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.state.EEnabled;
@@ -36,7 +37,6 @@ import com.helger.base.state.EMandatory;
 import com.helger.base.state.ESuccess;
 import com.helger.base.state.ETopBottom;
 import com.helger.base.state.EValidity;
-import com.helger.commons.mock.CommonsAssertExt;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.microdom.IMicroElement;
@@ -102,9 +102,7 @@ public final class BasicMicroTypeConverterRegistrarTest
                                      ETriState.UNDEFINED,
                                      EValidity.VALID,
                                      EValidity.INVALID,
-                                     "Jägalä".getBytes (StandardCharsets.ISO_8859_1),
-                                     new StringBuffer ("Äh ja - wie is das jetzt?"),
-                                     new StringBuilder ("Thät lüks greyt!") };
+                                     "Jägalä".getBytes (StandardCharsets.ISO_8859_1) };
     for (final Object aObj : aDefinedObjs)
     {
       // Convert to XML
@@ -118,7 +116,7 @@ public final class BasicMicroTypeConverterRegistrarTest
       // Convert back to native
       final Object aNative = MicroTypeConverter.convertToNative (aElement, aObj.getClass ());
       assertNotNull (aNative);
-      CommonsAssertExt.assertEquals (aObj, aNative);
+      CommonsAssert.assertEquals (aObj, aNative);
     }
 
     // These object don't implement equals!

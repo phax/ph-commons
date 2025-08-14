@@ -14,18 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.id;
+package com.helger.base.id;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Interface for objects having a long ID.
+ * Interface for objects having an ID.
  *
  * @author Philip Helger
  * @param <VALUETYPE>
  *        Object type
+ * @param <IDTYPE>
+ *        Key type
  */
-public interface ILongIDProvider <VALUETYPE>
+@FunctionalInterface
+public interface IIDProvider <VALUETYPE, IDTYPE>
 {
   /**
    * Get the ID of the passed object.
@@ -33,7 +36,8 @@ public interface ILongIDProvider <VALUETYPE>
    * @param aObject
    *        The object who's ID is to be retrieved. May not be <code>null</code>
    *        .
-   * @return The ID of the object.
+   * @return The ID of the object. May not be <code>null</code>.
    */
-  long getID (@Nonnull VALUETYPE aObject);
+  @Nonnull
+  IDTYPE getID (@Nonnull VALUETYPE aObject);
 }

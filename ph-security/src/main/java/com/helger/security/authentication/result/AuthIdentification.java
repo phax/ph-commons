@@ -19,9 +19,9 @@ package com.helger.security.authentication.result;
 import java.time.LocalDateTime;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.security.authentication.subject.IAuthSubject;
 
@@ -70,7 +70,7 @@ public final class AuthIdentification implements IAuthIdentification
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AuthIdentification rhs = (AuthIdentification) o;
-    return EqualsHelperExt.extEquals (m_aAuthSubject, rhs.m_aAuthSubject) && m_aIdentificationDT.equals (rhs.m_aIdentificationDT);
+    return EqualsHelper.equals (m_aAuthSubject, rhs.m_aAuthSubject) && m_aIdentificationDT.equals (rhs.m_aIdentificationDT);
   }
 
   @Override

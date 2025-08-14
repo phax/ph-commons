@@ -26,7 +26,7 @@ import java.nio.file.StandardCopyOption;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.commons.equals.EqualsHelperExt;
+import com.helger.base.equals.EqualsHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -441,7 +441,7 @@ public final class PathOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_FILE, aRealSourceFile);
 
     // Are source and target different?
-    if (EqualsHelperExt.extEquals (aRealSourceFile, aRealTargetFile))
+    if (EqualsHelper.equals (aRealSourceFile, aRealTargetFile))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_FILE, aRealSourceFile);
 
     // Does the target file already exist?
@@ -487,7 +487,7 @@ public final class PathOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir);
 
     // Are source and target different?
-    if (EqualsHelperExt.extEquals (aRealSourceDir, aRealTargetDir))
+    if (EqualsHelper.equals (aRealSourceDir, aRealTargetDir))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir);
 
     // Does the target directory already exist?
@@ -539,7 +539,7 @@ public final class PathOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_FILE, aRealSourceFile);
 
     // Are source and target different?
-    if (EqualsHelperExt.extEquals (aRealSourceFile, aRealTargetFile))
+    if (EqualsHelper.equals (aRealSourceFile, aRealTargetFile))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_FILE, aRealSourceFile);
 
     // Does the target file already exist?
@@ -585,7 +585,7 @@ public final class PathOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir);
 
     // Are source and target different?
-    if (EqualsHelperExt.extEquals (aRealSourceDir, aRealTargetDir))
+    if (EqualsHelper.equals (aRealSourceDir, aRealTargetDir))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir);
 
     // Is the source a parent of target?

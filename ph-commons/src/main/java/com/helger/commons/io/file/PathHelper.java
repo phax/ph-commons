@@ -75,6 +75,18 @@ public final class PathHelper
   private PathHelper ()
   {}
 
+  public static boolean equalPaths (@Nonnull final Path aObj1, @Nonnull final Path aObj2)
+  {
+    try
+    {
+      return aObj1.toRealPath ().equals (aObj2.toRealPath ());
+    }
+    catch (final IOException ex)
+    {
+      return aObj1.equals (aObj2);
+    }
+  }
+
   /**
    * Check if the passed file can read and write. If the file already exists, the file itself is
    * checked. If the file does not exist, the parent directory

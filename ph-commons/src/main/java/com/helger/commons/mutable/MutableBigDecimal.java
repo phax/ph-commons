@@ -23,10 +23,10 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.CGlobal;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.math.BigHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -317,7 +317,8 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableBigDecimal rhs = (MutableBigDecimal) o;
-    return EqualsHelperExt.extEquals (m_aValue, rhs.m_aValue);
+    final Object aObj1 = m_aValue;
+    return EqualsHelper.equals (aObj1, rhs.m_aValue);
   }
 
   @Override

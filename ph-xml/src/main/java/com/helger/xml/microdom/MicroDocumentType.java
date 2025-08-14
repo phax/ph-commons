@@ -17,8 +17,8 @@
 package com.helger.xml.microdom;
 
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -96,8 +96,8 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
       return false;
     final MicroDocumentType rhs = (MicroDocumentType) o;
     return m_sQualifiedName.equals (rhs.m_sQualifiedName) &&
-           EqualsHelperExt.extEquals (m_sPublicID, rhs.m_sPublicID) &&
-           EqualsHelperExt.extEquals (m_sSystemID, rhs.m_sSystemID);
+           EqualsHelper.equals (m_sPublicID, rhs.m_sPublicID) &&
+           EqualsHelper.equals (m_sSystemID, rhs.m_sSystemID);
   }
 
   @Override

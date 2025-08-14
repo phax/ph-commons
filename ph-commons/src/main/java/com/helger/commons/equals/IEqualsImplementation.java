@@ -25,8 +25,10 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  * @param <T>
  *        Type of objects to compare
+ * @deprecated For simplicity
  */
 @FunctionalInterface
+@Deprecated (forRemoval = true, since = "12.0.0")
 public interface IEqualsImplementation <T>
 {
   /**

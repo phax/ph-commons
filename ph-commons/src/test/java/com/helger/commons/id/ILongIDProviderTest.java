@@ -20,6 +20,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.base.id.IHasLongID;
+import com.helger.base.id.ILongIDProvider;
+
 /**
  * Test class for class {@link ILongIDProvider}.
  *

@@ -52,7 +52,7 @@ import java.util.Objects;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.CGlobal;
-import com.helger.commons.equals.EqualsHelperExt;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -360,7 +360,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   protected XMLOffsetTime with (@Nonnull final LocalTime time, @Nullable final ZoneOffset offset)
   {
-    if (m_aTime == time && EqualsHelperExt.extEquals (m_aOffset, offset))
+    if (m_aTime == time && EqualsHelper.equals (m_aOffset, offset))
       return this;
 
     return new XMLOffsetTime (time, offset);
@@ -598,7 +598,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public XMLOffsetTime withOffsetSameLocal (@Nullable final ZoneOffset offset)
   {
-    return EqualsHelperExt.extEquals (offset, m_aOffset) ? this : new XMLOffsetTime (m_aTime, offset);
+    return EqualsHelper.equals (offset, m_aOffset) ? this : new XMLOffsetTime (m_aTime, offset);
   }
 
   /**
@@ -622,7 +622,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   public XMLOffsetTime withOffsetSameInstant (@Nullable final ZoneOffset offset)
   {
-    if (EqualsHelperExt.extEquals (offset, m_aOffset))
+    if (EqualsHelper.equals (offset, m_aOffset))
       return this;
 
     final int difference = (offset != null ? offset.getTotalSeconds () : 0) -
@@ -1442,7 +1442,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   @Override
   public int compareTo (@Nonnull final XMLOffsetTime o)
   {
-    if (EqualsHelperExt.extEquals (m_aOffset, o.m_aOffset))
+    if (EqualsHelper.equals (m_aOffset, o.m_aOffset))
       return m_aTime.compareTo (o.m_aTime);
 
     int ret = Long.compare (toEpochNano (), o.toEpochNano ());
@@ -1532,7 +1532,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
       return false;
 
     final XMLOffsetTime other = (XMLOffsetTime) o;
-    return m_aTime.equals (other.m_aTime) && EqualsHelperExt.extEquals (m_aOffset, other.m_aOffset);
+    return m_aTime.equals (other.m_aTime) && EqualsHelper.equals (m_aOffset, other.m_aOffset);
   }
 
   /**

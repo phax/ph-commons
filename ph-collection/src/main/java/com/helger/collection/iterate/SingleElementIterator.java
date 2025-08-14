@@ -20,8 +20,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nullable;
@@ -69,7 +69,7 @@ public class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYP
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementIterator <?> rhs = (SingleElementIterator <?>) o;
-    return m_bHasNext == rhs.m_bHasNext && EqualsHelperExt.extEquals (m_aElement, rhs.m_aElement);
+    return m_bHasNext == rhs.m_bHasNext && EqualsHelper.equals (m_aElement, rhs.m_aElement);
   }
 
   @Override

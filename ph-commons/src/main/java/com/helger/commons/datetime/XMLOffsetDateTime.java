@@ -60,7 +60,7 @@ import java.util.function.Supplier;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelperExt;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -120,7 +120,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   protected static int compareInstant (@Nonnull final XMLOffsetDateTime datetime1,
                                        @Nonnull final XMLOffsetDateTime datetime2)
   {
-    if (EqualsHelperExt.extEquals (datetime1.m_aOffset, datetime2.m_aOffset))
+    if (EqualsHelper.equals (datetime1.m_aOffset, datetime2.m_aOffset))
       return datetime1.toLocalDateTime ().compareTo (datetime2.toLocalDateTime ());
 
     int ret = Long.compare (datetime1.toEpochSecond (), datetime2.toEpochSecond ());
@@ -467,7 +467,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @Nonnull
   protected XMLOffsetDateTime with (@Nonnull final LocalDateTime dateTime, @Nullable final ZoneOffset offset)
   {
-    if (m_aDateTime == dateTime && EqualsHelperExt.extEquals (m_aOffset, offset))
+    if (m_aDateTime == dateTime && EqualsHelper.equals (m_aOffset, offset))
       return this;
 
     return new XMLOffsetDateTime (dateTime, offset);
@@ -770,7 +770,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @Nonnull
   public XMLOffsetDateTime withOffsetSameInstant (@Nullable final ZoneOffset offset)
   {
-    if (EqualsHelperExt.extEquals (offset, m_aOffset))
+    if (EqualsHelper.equals (offset, m_aOffset))
       return this;
 
     final int difference = (offset != null ? offset.getTotalSeconds () : 0) -
@@ -2191,7 +2191,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
       return false;
 
     final XMLOffsetDateTime other = (XMLOffsetDateTime) o;
-    return m_aDateTime.equals (other.m_aDateTime) && EqualsHelperExt.extEquals (m_aOffset, other.m_aOffset);
+    return m_aDateTime.equals (other.m_aDateTime) && EqualsHelper.equals (m_aOffset, other.m_aOffset);
   }
 
   /**

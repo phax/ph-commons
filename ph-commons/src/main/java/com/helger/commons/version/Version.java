@@ -22,9 +22,9 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.compare.IComparable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
@@ -322,7 +322,7 @@ public class Version implements IComparable <Version>
     return m_nMajor == rhs.m_nMajor &&
            m_nMinor == rhs.m_nMinor &&
            m_nMicro == rhs.m_nMicro &&
-           EqualsHelperExt.extEquals (m_sQualifier, rhs.m_sQualifier);
+           EqualsHelper.equals (m_sQualifier, rhs.m_sQualifier);
   }
 
   @Override

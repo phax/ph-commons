@@ -17,8 +17,8 @@
 package com.helger.xml.ls;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nullable;
@@ -88,11 +88,11 @@ public class LSResourceData
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final LSResourceData rhs = (LSResourceData) o;
-    return EqualsHelperExt.extEquals (m_sType, rhs.m_sType) &&
-           EqualsHelperExt.extEquals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
-           EqualsHelperExt.extEquals (m_sPublicID, rhs.m_sPublicID) &&
-           EqualsHelperExt.extEquals (m_sSystemID, rhs.m_sSystemID) &&
-           EqualsHelperExt.extEquals (m_sBaseURI, rhs.m_sBaseURI);
+    return EqualsHelper.equals (m_sType, rhs.m_sType) &&
+           EqualsHelper.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
+           EqualsHelper.equals (m_sPublicID, rhs.m_sPublicID) &&
+           EqualsHelper.equals (m_sSystemID, rhs.m_sSystemID) &&
+           EqualsHelper.equals (m_sBaseURI, rhs.m_sBaseURI);
   }
 
   @Override

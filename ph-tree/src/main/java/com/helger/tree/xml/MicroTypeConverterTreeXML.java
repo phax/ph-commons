@@ -19,7 +19,7 @@ package com.helger.tree.xml;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.commons.equals.EqualsHelperExt;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
@@ -108,7 +108,8 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
     final IMicroElement eChildElement = eDataElement.getFirstChildElement ();
     if (eChildElement != null)
     {
-      if (!EqualsHelperExt.extEquals (m_sNamespaceURI, eChildElement.getNamespaceURI ()))
+      final Object aObj1 = m_sNamespaceURI;
+      if (!EqualsHelper.equals (aObj1, eChildElement.getNamespaceURI ()))
         throw new IllegalStateException ("Namespace mismatch! Expected: " + m_sNamespaceURI);
       if (!m_sElementName.equals (eChildElement.getTagName ()))
         throw new IllegalStateException ("Tag name mismatch! Expected: " + m_sElementName);

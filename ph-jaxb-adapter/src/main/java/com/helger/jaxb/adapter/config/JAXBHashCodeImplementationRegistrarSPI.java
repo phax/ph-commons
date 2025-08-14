@@ -17,16 +17,15 @@
 package com.helger.jaxb.adapter.config;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistry;
+import com.helger.jaxb.adapter.JAXBHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBElement;
 
 /**
- * Implementation of {@link IHashCodeImplementationRegistrarSPI} for
- * {@link JAXBElement}.
+ * Implementation of {@link IHashCodeImplementationRegistrarSPI} for {@link JAXBElement}.
  *
  * @author Philip Helger
  */
@@ -36,12 +35,6 @@ public final class JAXBHashCodeImplementationRegistrarSPI implements IHashCodeIm
   public void registerHashCodeImplementations (@Nonnull final IHashCodeImplementationRegistry aRegistry)
   {
     // JAXBElement does not implement hashCode!
-    aRegistry.registerHashCodeImplementation (JAXBElement.class,
-                                              aObj -> new HashCodeGenerator (aObj.getClass ()).append (aObj.getDeclaredType ())
-                                                                                              .append (aObj.getName ())
-                                                                                              .append (aObj.getScope ())
-                                                                                              .append (aObj.isNil ())
-                                                                                              .append (aObj.getValue ())
-                                                                                              .getHashCode ());
+    aRegistry.registerHashCodeImplementation (JAXBElement.class, JAXBHelper::getHashcode);
   }
 }

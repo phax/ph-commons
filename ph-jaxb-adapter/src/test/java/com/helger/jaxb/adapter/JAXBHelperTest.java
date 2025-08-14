@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 
 import org.junit.Test;
 
-import com.helger.commons.equals.EqualsHelperExt;
+import com.helger.base.equals.EqualsHelper;
 
 import jakarta.xml.bind.JAXBElement;
 
@@ -44,7 +44,7 @@ public final class JAXBHelperTest
     assertNotNull (aClone);
     assertNotSame (aJE, aClone);
     assertNotEquals (aJE, aClone);
-    assertTrue (EqualsHelperExt.extEquals (aJE, aClone));
+    assertTrue (EqualsHelper.equals (aJE, aClone));
   }
 
   @Test
@@ -55,6 +55,6 @@ public final class JAXBHelperTest
     assertNotNull (aClone);
     assertNotSame (aJE, aClone);
     assertNotEquals (aJE, aClone);
-    assertTrue (EqualsHelperExt.extEquals (aJE, aClone));
+    assertTrue (EqualsHelper.equals (aJE, aClone));
   }
 }

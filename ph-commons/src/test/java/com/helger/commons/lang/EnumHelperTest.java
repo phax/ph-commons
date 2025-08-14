@@ -26,8 +26,8 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.base.compare.ESortOrder;
+import com.helger.base.id.IHasIntID;
 import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.id.IHasIntID;
 
 /**
  * Test class for class {@link EnumHelper}.

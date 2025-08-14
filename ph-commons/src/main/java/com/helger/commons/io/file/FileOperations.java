@@ -36,7 +36,6 @@ import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.io.channel.ChannelHelper;
 import com.helger.commons.io.stream.StreamHelperExt;
 
@@ -397,7 +396,7 @@ public final class FileOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile);
 
     // Are source and target different?
-    if (EqualsHelperExt.extEquals (aSourceFile, aTargetFile))
+    if (FileHelper.equalFiles (aSourceFile, aTargetFile))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile);
 
     // Does the target file already exist?
@@ -449,7 +448,7 @@ public final class FileOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir);
 
     // Are source and target different?
-    if (EqualsHelperExt.extEquals (aSourceDir, aTargetDir))
+    if (FileHelper.equalFiles (aSourceDir, aTargetDir))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir);
 
     // Does the target directory already exist?
@@ -616,7 +615,7 @@ public final class FileOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile);
 
     // Are source and target different?
-    if (EqualsHelperExt.extEquals (aSourceFile, aTargetFile))
+    if (FileHelper.equalFiles (aSourceFile, aTargetFile))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile);
 
     // Does the target file already exist?
@@ -673,7 +672,7 @@ public final class FileOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir);
 
     // Are source and target different?
-    if (EqualsHelperExt.extEquals (aSourceDir, aTargetDir))
+    if (FileHelper.equalFiles (aSourceDir, aTargetDir))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir);
 
     // Is the source a parent of target?
@@ -694,8 +693,6 @@ public final class FileOperations
     final File aTargetParentDir = aTargetDir.getParentFile ();
     if (aTargetParentDir != null && aTargetParentDir.exists () && !aTargetParentDir.canWrite ())
       return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aTargetDir);
-
-    
 
     // Ensure the targets parent directory is present
     FileIOError eCode = createDirRecursive (aTargetDir);

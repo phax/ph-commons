@@ -16,8 +16,8 @@
  */
 package com.helger.dao.wal;
 
+import com.helger.base.id.IHasID;
 import com.helger.commons.callback.ICallback;
-import com.helger.commons.id.IHasID;
 
 import jakarta.annotation.Nonnull;
 

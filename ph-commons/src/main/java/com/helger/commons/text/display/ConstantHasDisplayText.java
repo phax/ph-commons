@@ -21,8 +21,8 @@ import java.util.Locale;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -61,7 +61,7 @@ public class ConstantHasDisplayText implements IHasDisplayText
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ConstantHasDisplayText rhs = (ConstantHasDisplayText) o;
-    return EqualsHelperExt.extEquals (m_sFixedText, rhs.m_sFixedText);
+    return EqualsHelper.equals (m_sFixedText, rhs.m_sFixedText);
   }
 
   @Override

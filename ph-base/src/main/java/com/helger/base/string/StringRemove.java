@@ -1,5 +1,22 @@
+/*
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.base.string;
 
+import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
 
@@ -31,7 +48,7 @@ public final class StringRemove
 
     // Does the char occur anywhere?
     final int nFirstIndex = sInputString.indexOf (cRemoveChar, 0);
-    if (nFirstIndex == Strings.STRING_NOT_FOUND)
+    if (nFirstIndex == CGlobal.STRING_NOT_FOUND)
       return sInputString;
 
     // build output buffer
@@ -85,7 +102,7 @@ public final class StringRemove
 
     // Does the string occur anywhere?
     int nIndex = sInputString.indexOf (sRemoveString, 0);
-    if (nIndex == Strings.STRING_NOT_FOUND)
+    if (nIndex == CGlobal.STRING_NOT_FOUND)
       return sInputString;
 
     // build output buffer
@@ -96,7 +113,7 @@ public final class StringRemove
       ret.append (sInputString, nOldIndex, nIndex);
       nOldIndex = nIndex + nRemoveLength;
       nIndex = sInputString.indexOf (sRemoveString, nOldIndex);
-    } while (nIndex != Strings.STRING_NOT_FOUND);
+    } while (nIndex != CGlobal.STRING_NOT_FOUND);
     ret.append (sInputString, nOldIndex, sInputString.length ());
     return ret.toString ();
   }
@@ -125,7 +142,7 @@ public final class StringRemove
       return sInputString;
 
     final StringBuilder aSB = new StringBuilder (sInputString.length ());
-    Strings.iterateChars (sInputString, cInput -> {
+    StringFind.iterateChars (sInputString, cInput -> {
       if (!ArrayHelper.contains (aRemoveChars, cInput))
         aSB.append (cInput);
     });

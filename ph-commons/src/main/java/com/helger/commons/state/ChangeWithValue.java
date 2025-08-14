@@ -18,10 +18,10 @@ package com.helger.commons.state;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IChangeIndicator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.wrapper.IWrapper;
 
@@ -131,7 +131,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ChangeWithValue <?> rhs = (ChangeWithValue <?>) o;
-    return m_eChange.equals (rhs.m_eChange) && EqualsHelperExt.extEquals (m_aObj, rhs.m_aObj);
+    return m_eChange.equals (rhs.m_eChange) && EqualsHelper.equals (m_aObj, rhs.m_aObj);
   }
 
   @Override

@@ -450,6 +450,11 @@ public final class CGlobal
   /** Constant empty Class&lt;?&gt; array */
   public static final Class <?> [] EMPTY_CLASS_ARRAY = {};
 
+  /**
+   * The constant to be returned if an String.indexOf call did not find a match!
+   */
+  public static final int STRING_NOT_FOUND = -1;
+
   private CGlobal ()
   {}
 }

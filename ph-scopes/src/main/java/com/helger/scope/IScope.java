@@ -21,10 +21,10 @@ import java.util.function.Function;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.id.IHasID;
 import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.id.IHasID;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

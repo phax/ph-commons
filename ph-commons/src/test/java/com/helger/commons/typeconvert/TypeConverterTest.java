@@ -25,7 +25,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -39,6 +38,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Test;
 
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.ClassHelper;
 import com.helger.base.math.BigHelper;
 import com.helger.base.state.EChange;
@@ -53,9 +53,9 @@ import com.helger.base.state.EValidity;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.locale.ELocaleName;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.mutable.MutableByte;
 import com.helger.commons.mutable.MutableChar;
@@ -216,15 +216,12 @@ public final class TypeConverterTest
                                      ETopBottom.BOTTOM,
                                      ETriState.UNDEFINED,
                                      EValidity.VALID,
-                                     "Jägalä".getBytes (StandardCharsets.ISO_8859_1),
-                                     new StringBuffer ("Äh ja - wie is das jetzt?"),
-                                     new StringBuilder ("Thät lüks greyt!"),
-                                     new File ("foo.bar") };
+                                     "Jägalä".getBytes (StandardCharsets.ISO_8859_1) };
     for (final Object aSrcValue : aDefinedObjs)
     {
       final String sValue = TypeConverter.convert (aSrcValue, String.class);
       final Object aObj2 = TypeConverter.convert (sValue, aSrcValue.getClass ());
-      assertTrue (EqualsHelperExt.extEquals (aSrcValue, aObj2));
+      assertTrue (EqualsHelper.equals (aSrcValue, aObj2));
     }
 
     // Test conversion if no explicit converter available for source class, but
@@ -266,7 +263,7 @@ public final class TypeConverterTest
       final String sLocale = TypeConverter.convert (aLocale, String.class);
       assertNotNull (aLocale.toString (), sLocale);
       final Locale aLocale2 = TypeConverter.convert (sLocale, Locale.class);
-      assertTrue (EqualsHelperExt.extEquals (aLocale, aLocale2));
+      assertTrue (LocaleHelper.equalLocales (aLocale, aLocale2));
     }
   }
 

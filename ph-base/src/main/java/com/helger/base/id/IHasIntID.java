@@ -14,30 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.id;
+package com.helger.base.id;
+
+import java.util.Comparator;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Interface for objects having an ID.
+ * Base interface for all objects having an int ID.
  *
  * @author Philip Helger
- * @param <VALUETYPE>
- *        Object type
- * @param <IDTYPE>
- *        Key type
  */
 @FunctionalInterface
-public interface IIDProvider <VALUETYPE, IDTYPE>
+public interface IHasIntID
 {
   /**
-   * Get the ID of the passed object.
-   *
-   * @param aObject
-   *        The object who's ID is to be retrieved. May not be <code>null</code>
-   *        .
-   * @return The ID of the object. May not be <code>null</code>.
+   * @return The primitive int ID of this object.
+   */
+  int getID ();
+
+  /**
+   * @return The {@link Integer} representation of the contained "int" ID.
    */
   @Nonnull
-  IDTYPE getID (@Nonnull VALUETYPE aObject);
+  default Integer getIDObj ()
+  {
+    return Integer.valueOf (getID ());
+  }
+
+  @Nonnull
+  static Comparator <IHasIntID> getComparatorID ()
+  {
+    return Comparator.comparingInt (IHasIntID::getID);
+  }
 }

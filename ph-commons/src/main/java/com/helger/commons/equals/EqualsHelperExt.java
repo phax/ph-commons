@@ -26,8 +26,10 @@ import jakarta.annotation.Nullable;
  * A small helper class that provides helper methods for easy <code>equals</code> method generation
  *
  * @author Philip Helger
+ * @deprecated For simplicity
  */
 @Immutable
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class EqualsHelperExt extends EqualsHelper
 {
   @PresentForCodeCoverage

@@ -23,9 +23,9 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -82,7 +82,8 @@ public final class GlobalIDFactory
   public static EChange setIntIDFactory (@Nullable final IIntIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
-      if (EqualsHelperExt.extEquals (s_aIntIDFactory, aFactory))
+      final Object aObj1 = s_aIntIDFactory;
+      if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting in-memory int ID factory " + aFactory);
@@ -109,7 +110,8 @@ public final class GlobalIDFactory
   public static EChange setPersistentIntIDFactory (@Nullable final IIntIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
-      if (EqualsHelperExt.extEquals (s_aPersistentIntIDFactory, aFactory))
+      final Object aObj1 = s_aPersistentIntIDFactory;
+      if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting persistent int ID factory " + aFactory);
@@ -136,7 +138,8 @@ public final class GlobalIDFactory
   public static EChange setLongIDFactory (@Nullable final ILongIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
-      if (EqualsHelperExt.extEquals (s_aLongIDFactory, aFactory))
+      final Object aObj1 = s_aLongIDFactory;
+      if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting in-memory long ID factory " + aFactory);
@@ -163,7 +166,8 @@ public final class GlobalIDFactory
   public static EChange setPersistentLongIDFactory (@Nullable final ILongIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
-      if (EqualsHelperExt.extEquals (s_aPersistentLongIDFactory, aFactory))
+      final Object aObj1 = s_aPersistentLongIDFactory;
+      if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting persistent long ID factory " + aFactory);
@@ -190,7 +194,8 @@ public final class GlobalIDFactory
   public static EChange setStringIDFactory (@Nullable final IStringIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
-      if (EqualsHelperExt.extEquals (s_aStringIDFactory, aFactory))
+      final Object aObj1 = s_aStringIDFactory;
+      if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting in-memory string ID factory " + aFactory);
@@ -217,7 +222,8 @@ public final class GlobalIDFactory
   public static EChange setPersistentStringIDFactory (@Nullable final IStringIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
-      if (EqualsHelperExt.extEquals (s_aPersistentStringIDFactory, aFactory))
+      final Object aObj1 = s_aPersistentStringIDFactory;
+      if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting persistent string ID factory " + aFactory);

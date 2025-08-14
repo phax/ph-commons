@@ -22,12 +22,12 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.mutable.MutableInt;
 
 import jakarta.annotation.Nonnull;
@@ -90,7 +90,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    */
   default boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
   {
-    return EqualsHelperExt.extEquals (getNamespaceURI (), sNamespaceURI);
+    return EqualsHelper.equals (getNamespaceURI (), sNamespaceURI);
   }
 
   /**
@@ -112,7 +112,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    */
   default boolean hasLocalName (@Nullable final String sLocalName)
   {
-    return EqualsHelperExt.extEquals (getLocalName (), sLocalName);
+    return EqualsHelper.equals (getLocalName (), sLocalName);
   }
 
   /**

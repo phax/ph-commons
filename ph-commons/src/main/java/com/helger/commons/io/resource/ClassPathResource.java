@@ -29,12 +29,12 @@ import java.nio.charset.Charset;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.ClassLoaderHelper;
 import com.helger.base.lang.IHasClassLoader;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.lang.ClassLoaderHelperExt;
@@ -190,7 +190,6 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return m_sPath;
   }
 
-  @SuppressWarnings ("resource")
   @Nullable
   private static InputStream _getInputStream (@Nonnull @Nonempty final String sPath,
                                               @Nullable final URL aURL,
@@ -419,9 +418,9 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ClassPathResource rhs = (ClassPathResource) o;
+    final Object aObj1 = m_sPath;
     // URL and URLresolved are state variables
-    return EqualsHelperExt.extEquals (m_sPath, rhs.m_sPath) &&
-           EqualsHelperExt.extEquals (getClassLoader (), rhs.getClassLoader ());
+    return EqualsHelper.equals (aObj1, rhs.m_sPath) && EqualsHelper.equals (getClassLoader (), rhs.getClassLoader ());
   }
 
   @Override

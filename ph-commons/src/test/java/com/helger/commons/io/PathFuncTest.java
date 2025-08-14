@@ -38,7 +38,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.io.file.PathHelper;
 import com.helger.commons.system.EOperatingSystem;
 
@@ -57,9 +56,9 @@ public final class PathFuncTest
   public void testSimple () throws IOException
   {
     final Path p = Paths.get ("pom.xml");
-    assertTrue (EqualsHelperExt.extEquals (p, Paths.get ("pom.xml")));
-    assertTrue (EqualsHelperExt.extEquals (p, Paths.get ("../ph-commons/pom.xml")));
-    assertTrue (EqualsHelperExt.extEquals (p.toRealPath (), Paths.get ("../ph-commons/pom.xml").toRealPath ()));
+    assertTrue (PathHelper.equalPaths (p, Paths.get ("pom.xml")));
+    assertTrue (PathHelper.equalPaths (p, Paths.get ("../ph-commons/pom.xml")));
+    assertTrue (PathHelper.equalPaths (p.toRealPath (), Paths.get ("../ph-commons/pom.xml").toRealPath ()));
 
     assertFalse (p.isAbsolute ());
     assertTrue (Files.exists (p));
@@ -103,11 +102,14 @@ public final class PathFuncTest
     assertEquals (".." + SEP + "ph-commons" + SEP + "pom.xml", p.normalize ().toString ());
 
     // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
-    assertTrue ("Is <" + p.toRealPath ().toString () + ">", p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
+    assertTrue ("Is <" + p.toRealPath ().toString () + ">",
+                p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
 
     // C:\Users\xxx\git\ph-commons\ph-commons\..\ph-commons\pom.xml
     assertTrue ("Is <" + p.toAbsolutePath ().toString () + ">",
-                p.toAbsolutePath ().toString ().endsWith (SEP + "ph-commons" + SEP + ".." + SEP + "ph-commons" + SEP + "pom.xml"));
+                p.toAbsolutePath ()
+                 .toString ()
+                 .endsWith (SEP + "ph-commons" + SEP + ".." + SEP + "ph-commons" + SEP + "pom.xml"));
 
     assertEquals (3, p.getNameCount ());
     assertEquals ("..", p.getName (0).toString ());
@@ -166,7 +168,8 @@ public final class PathFuncTest
     if (WIN)
     {
       // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
-      assertTrue ("Is <" + p.toRealPath ().toString () + ">", p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
+      assertTrue ("Is <" + p.toRealPath ().toString () + ">",
+                  p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
     }
     else
     {
@@ -184,7 +187,9 @@ public final class PathFuncTest
 
     // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
     assertTrue ("Is <" + p.toAbsolutePath ().toString () + ">",
-                p.toAbsolutePath ().toString ().endsWith (SEP + "ph-commons" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
+                p.toAbsolutePath ()
+                 .toString ()
+                 .endsWith (SEP + "ph-commons" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
   }
 
   @Test

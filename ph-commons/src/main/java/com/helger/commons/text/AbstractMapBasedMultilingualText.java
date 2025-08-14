@@ -24,13 +24,13 @@ import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.locale.LocaleHelper;
 
 import jakarta.annotation.Nonnull;
@@ -102,7 +102,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
       final String sOldText = internalGetText (aContentLocale);
 
       // Did anything change?
-      if (EqualsHelperExt.extEquals (sOldText, sText))
+      if (EqualsHelper.equals (sOldText, sText))
         return EChange.UNCHANGED;
 
       if (_beforeChange ().isBreak ())

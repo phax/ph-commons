@@ -23,7 +23,6 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.text.IHasErrorText;
@@ -173,7 +172,7 @@ public class SingleError implements IError
       return true;
     if (t1 == null || t2 == null)
       return false;
-    return t1.getClass ().equals (t2.getClass ()) && EqualsHelperExt.extEquals (t1.getMessage (), t2.getMessage ());
+    return t1.getClass ().equals (t2.getClass ()) && EqualsHelper.equals (t1.getMessage (), t2.getMessage ());
   }
 
   @Override
@@ -184,12 +183,12 @@ public class SingleError implements IError
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleError rhs = (SingleError) o;
-    return EqualsHelperExt.extEquals (m_aErrorDT, rhs.m_aErrorDT) &&
+    return EqualsHelper.equals (m_aErrorDT, rhs.m_aErrorDT) &&
            m_aErrorLevel.equals (rhs.m_aErrorLevel) &&
-           EqualsHelperExt.extEquals (m_sErrorID, rhs.m_sErrorID) &&
-           EqualsHelperExt.extEquals (m_sErrorFieldName, rhs.m_sErrorFieldName) &&
-           EqualsHelperExt.extEquals (m_aErrorLocation, rhs.m_aErrorLocation) &&
-           EqualsHelperExt.extEquals (m_aErrorText, rhs.m_aErrorText) &&
+           EqualsHelper.equals (m_sErrorID, rhs.m_sErrorID) &&
+           EqualsHelper.equals (m_sErrorFieldName, rhs.m_sErrorFieldName) &&
+           EqualsHelper.equals (m_aErrorLocation, rhs.m_aErrorLocation) &&
+           EqualsHelper.equals (m_aErrorText, rhs.m_aErrorText) &&
            equalsLinkedException (m_aLinkedException, rhs.m_aLinkedException);
   }
 

@@ -25,12 +25,12 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.state.EChange;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -254,7 +254,7 @@ public class MapBasedXPathVariableResolverQName implements XPathVariableResolver
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MapBasedXPathVariableResolverQName rhs = (MapBasedXPathVariableResolverQName) o;
-    return EqualsHelperExt.extEquals (m_aMap, rhs.m_aMap);
+    return EqualsHelper.equals (m_aMap, rhs.m_aMap);
   }
 
   @Override

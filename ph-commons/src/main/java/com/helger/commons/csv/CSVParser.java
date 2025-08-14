@@ -35,7 +35,7 @@ package com.helger.commons.csv;
 import java.io.IOException;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringFind;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
@@ -548,6 +548,6 @@ public class CSVParser
    */
   protected boolean isAllWhiteSpace (@Nonnull final CharSequence sb)
   {
-    return Strings.isAllWhitespace (sb);
+    return StringFind.isAllWhitespace (sb);
   }
 }

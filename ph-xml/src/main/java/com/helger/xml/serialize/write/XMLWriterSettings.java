@@ -25,10 +25,10 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.string.StringHex;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
@@ -497,6 +497,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final XMLWriterSettings rhs = (XMLWriterSettings) o;
+    final Object aObj1 = m_aNamespaceContext;
     // namespace context does not necessarily implement equals/hashCode
     return m_eSerializeVersion.equals (rhs.m_eSerializeVersion) &&
            m_eSerializeXMLDecl.equals (rhs.m_eSerializeXMLDecl) &&
@@ -507,7 +508,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            m_aIndentDeterminator.equals (rhs.m_aIndentDeterminator) &&
            m_eIncorrectCharacterHandling.equals (rhs.m_eIncorrectCharacterHandling) &&
            m_aCharset.equals (rhs.m_aCharset) &&
-           EqualsHelperExt.extEquals (m_aNamespaceContext, rhs.m_aNamespaceContext) &&
+           EqualsHelper.equals (aObj1, rhs.m_aNamespaceContext) &&
            m_bUseDoubleQuotesForAttributes == rhs.m_bUseDoubleQuotesForAttributes &&
            m_aBracketModeDeterminator.equals (rhs.m_aBracketModeDeterminator) &&
            m_bSpaceOnSelfClosedElement == rhs.m_bSpaceOnSelfClosedElement &&

@@ -30,12 +30,12 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.exception.InitializationException;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.EOperatingSystem;
 import com.helger.commons.system.SystemHelper;
@@ -484,8 +484,7 @@ public final class FilenameHelper
   public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1,
                                                     @Nullable final String sAbsoluteFilename2)
   {
-    return EqualsHelperExt.extEquals (getPathUsingUnixSeparator (sAbsoluteFilename1),
-                                      getPathUsingUnixSeparator (sAbsoluteFilename2));
+    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1), getPathUsingUnixSeparator (sAbsoluteFilename2));
   }
 
   /**

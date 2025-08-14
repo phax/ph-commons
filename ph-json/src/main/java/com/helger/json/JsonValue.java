@@ -25,11 +25,11 @@ import java.math.BigInteger;
 
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.ClassHelper;
 import com.helger.base.math.BigHelper;
 import com.helger.base.nonblocking.NonBlockingStringWriter;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.json.serialize.JsonReader;
@@ -178,7 +178,8 @@ public class JsonValue implements IJsonValue
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final JsonValue rhs = (JsonValue) o;
-    return EqualsHelperExt.extEquals (m_aValue, rhs.m_aValue);
+    final Object aObj1 = m_aValue;
+    return EqualsHelper.equals (aObj1, rhs.m_aValue);
   }
 
   @Override

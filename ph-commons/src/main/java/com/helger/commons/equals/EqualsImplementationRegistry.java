@@ -47,9 +47,11 @@ import jakarta.annotation.Nullable;
  * The default implementation of {@link IEqualsImplementationRegistry}.
  *
  * @author Philip Helger
+ * @deprecated for simplicity
  */
 @ThreadSafe
 @Singleton
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class EqualsImplementationRegistry implements IEqualsImplementationRegistry
 {
   private static final class SingletonHolder

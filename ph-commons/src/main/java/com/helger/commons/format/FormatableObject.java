@@ -19,8 +19,8 @@ package com.helger.commons.format;
 import java.util.function.Function;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nullable;
@@ -75,7 +75,7 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FormatableObject <?> rhs = (FormatableObject <?>) o;
-    return EqualsHelperExt.extEquals (m_aValue, rhs.m_aValue) && EqualsHelperExt.extEquals (m_aFormatter, rhs.m_aFormatter);
+    return EqualsHelper.equals (m_aValue, rhs.m_aValue) && EqualsHelper.equals (m_aFormatter, rhs.m_aFormatter);
   }
 
   @Override

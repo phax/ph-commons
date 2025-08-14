@@ -25,10 +25,10 @@ import java.util.function.Predicate;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.id.IHasID;
 import com.helger.base.iface.IHasSize;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.id.IHasID;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

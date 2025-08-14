@@ -26,7 +26,6 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Function;
 
 import org.junit.Test;
@@ -34,7 +33,6 @@ import org.junit.Test;
 import com.helger.base.CGlobal;
 import com.helger.base.functional.IThrowingFunction;
 import com.helger.base.nonblocking.NonBlockingStringWriter;
-import com.helger.base.string.Strings;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -50,7 +48,6 @@ import com.helger.commons.collection.impl.ICommonsSet;
  */
 public final class StringHelperTest
 {
-  private static final Locale L_DE = new Locale ("de");
 
   @Test
   public void testGetLeadingWhitespaceCount ()
@@ -512,223 +509,6 @@ public final class StringHelperTest
   }
 
   @Test
-  public void testGetIndexOfString ()
-  {
-    assertEquals (-1, StringHelper.getIndexOf (null, null));
-    assertEquals (-1, StringHelper.getIndexOf (null, "a"));
-    assertEquals (-1, StringHelper.getIndexOf ("b", null));
-    assertEquals (-1, StringHelper.getIndexOf ("b", "cd"));
-    assertEquals (-1, StringHelper.getIndexOf ("bla fob", "z"));
-    assertEquals (0, StringHelper.getIndexOf ("bla fob", "b"));
-    assertEquals (2, StringHelper.getIndexOf ("bla fob", "a"));
-  }
-
-  @Test
-  public void testGetLastIndexOfString ()
-  {
-    assertEquals (-1, StringHelper.getLastIndexOf (null, null));
-    assertEquals (-1, StringHelper.getLastIndexOf (null, "a"));
-    assertEquals (-1, StringHelper.getLastIndexOf ("b", null));
-    assertEquals (-1, StringHelper.getLastIndexOf ("b", "cd"));
-    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", "z"));
-    assertEquals (6, StringHelper.getLastIndexOf ("bla fob", "b"));
-    assertEquals (2, StringHelper.getLastIndexOf ("bla fob", "a"));
-  }
-
-  @Test
-  public void testGetIndexOfChar ()
-  {
-    assertEquals (-1, StringHelper.getIndexOf (null, '\0'));
-    assertEquals (-1, StringHelper.getIndexOf (null, 'a'));
-    assertEquals (-1, StringHelper.getIndexOf ("b", '\0'));
-    assertEquals (-1, StringHelper.getIndexOf ("b", 'c'));
-    assertEquals (-1, StringHelper.getIndexOf ("bla fob", 'z'));
-    assertEquals (0, StringHelper.getIndexOf ("bla fob", 'b'));
-    assertEquals (2, StringHelper.getIndexOf ("bla fob", 'a'));
-  }
-
-  @Test
-  public void testGetLastIndexOfChar ()
-  {
-    assertEquals (-1, StringHelper.getLastIndexOf (null, '\0'));
-    assertEquals (-1, StringHelper.getLastIndexOf (null, 'a'));
-    assertEquals (-1, StringHelper.getLastIndexOf ("b", '\0'));
-    assertEquals (-1, StringHelper.getLastIndexOf ("b", 'c'));
-    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", 'z'));
-    assertEquals (6, StringHelper.getLastIndexOf ("bla fob", 'b'));
-    assertEquals (2, StringHelper.getLastIndexOf ("bla fob", 'a'));
-  }
-
-  @Test
-  public void testContainsString ()
-  {
-    assertTrue (StringHelper.contains ("Test", "Test"));
-    assertTrue (StringHelper.contains ("Test", "est"));
-    assertTrue (StringHelper.contains ("Test", "Tes"));
-    assertTrue (StringHelper.contains ("Test", "es"));
-    assertTrue (StringHelper.contains ("Test", ""));
-
-    assertFalse (StringHelper.contains ("Test", null));
-    assertFalse (StringHelper.contains (null, "Test"));
-    assertFalse (StringHelper.contains ("Tes", "Test"));
-    assertFalse (StringHelper.contains ("est", "Test"));
-    assertFalse (StringHelper.contains ("es", "Test"));
-    assertFalse (StringHelper.contains ("", "Test"));
-
-    assertFalse (StringHelper.contains ("Test", "TEST"));
-    assertFalse (StringHelper.contains ("Test", "EST"));
-    assertFalse (StringHelper.contains ("Test", "TES"));
-    assertFalse (StringHelper.contains ("Test", "ES"));
-  }
-
-  @Test
-  public void testContainsChar ()
-  {
-    assertTrue (StringHelper.contains ("Test", 'T'));
-    assertTrue (StringHelper.contains ("Test", 'e'));
-    assertTrue (StringHelper.contains ("Test", 's'));
-    assertTrue (StringHelper.contains ("Test", 't'));
-    assertFalse (StringHelper.contains ("Test", '\0'));
-
-    assertFalse (StringHelper.contains ("Test", null));
-    assertFalse (StringHelper.contains (null, 'T'));
-  }
-
-  @Test
-  public void testIndexOfIgnoreCaseString ()
-  {
-    assertEquals (-1, StringHelper.getIndexOfIgnoreCase (null, null, L_DE));
-    assertEquals (-1, StringHelper.getIndexOfIgnoreCase (null, "a", L_DE));
-    assertEquals (-1, StringHelper.getIndexOfIgnoreCase ("b", null, L_DE));
-    assertEquals (-1, StringHelper.getIndexOfIgnoreCase ("b", "cd", L_DE));
-    assertEquals (-1, StringHelper.getIndexOfIgnoreCase ("bla foo", "z", L_DE));
-    assertEquals (0, StringHelper.getIndexOfIgnoreCase ("bla foo", "b", L_DE));
-    assertEquals (2, StringHelper.getIndexOfIgnoreCase ("bla foo", "a", L_DE));
-    assertEquals (0, StringHelper.getIndexOfIgnoreCase ("bla foo", "B", L_DE));
-    assertEquals (2, StringHelper.getIndexOfIgnoreCase ("bla foo", "A", L_DE));
-    assertEquals (0, StringHelper.getIndexOfIgnoreCase ("BLA FOO", "b", L_DE));
-    assertEquals (2, StringHelper.getIndexOfIgnoreCase ("BLA FOO", "a", L_DE));
-  }
-
-  @Test
-  public void testContainsIgnoreCaseString ()
-  {
-    final Locale aLocale = Locale.ENGLISH;
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "Test", aLocale));
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "est", aLocale));
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "Tes", aLocale));
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "es", aLocale));
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "", aLocale));
-
-    assertFalse (StringHelper.containsIgnoreCase ("Test", null, aLocale));
-    assertFalse (StringHelper.containsIgnoreCase (null, "Test", aLocale));
-    assertFalse (StringHelper.containsIgnoreCase ("Tes", "Test", aLocale));
-    assertFalse (StringHelper.containsIgnoreCase ("est", "Test", aLocale));
-    assertFalse (StringHelper.containsIgnoreCase ("es", "Test", aLocale));
-    assertFalse (StringHelper.containsIgnoreCase ("", "Test", aLocale));
-
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "TEST", aLocale));
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "EST", aLocale));
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "TES", aLocale));
-    assertTrue (StringHelper.containsIgnoreCase ("Test", "ES", aLocale));
-  }
-
-  @Test
-  public void testGetOccurrenceCountString ()
-  {
-    assertEquals (0, StringHelper.getOccurrenceCount ("Test", null));
-    assertEquals (0, StringHelper.getOccurrenceCount (null, "Test"));
-    assertEquals (1, StringHelper.getOccurrenceCount ("Test", "Test"));
-    assertEquals (1, StringHelper.getOccurrenceCount ("Test", "Tes"));
-    assertEquals (1, StringHelper.getOccurrenceCount ("Test", "est"));
-    assertEquals (1, StringHelper.getOccurrenceCount ("Test", "es"));
-    assertEquals (2, StringHelper.getOccurrenceCount ("Testen", "e"));
-    assertEquals (0, StringHelper.getOccurrenceCount ("Testen", ""));
-    assertEquals (4, StringHelper.getOccurrenceCount ("eeee", "e"));
-    assertEquals (2, StringHelper.getOccurrenceCount ("eeee", "ee"));
-    assertEquals (1, StringHelper.getOccurrenceCount ("eeee", "eee"));
-
-    // Invalid case
-    assertEquals (0, StringHelper.getOccurrenceCount ("eeee", "E"));
-    assertEquals (0, StringHelper.getOccurrenceCount ("eeee", "EE"));
-    assertEquals (0, StringHelper.getOccurrenceCount ("eeee", "EEE"));
-  }
-
-  @Test
-  public void testGetOccurrenceCountChar ()
-  {
-    assertEquals (0, StringHelper.getOccurrenceCount (null, 'x'));
-    assertEquals (0, StringHelper.getOccurrenceCount ("e", 'f'));
-    assertEquals (0, StringHelper.getOccurrenceCount ("e", '\u0000'));
-    assertEquals (0, StringHelper.getOccurrenceCount ("eeee", 'f'));
-    assertEquals (0, StringHelper.getOccurrenceCount ("eeee", '\u0000'));
-
-    assertEquals (1, StringHelper.getOccurrenceCount ("e", 'e'));
-    assertEquals (4, StringHelper.getOccurrenceCount ("eeee", 'e'));
-    assertEquals (1, StringHelper.getOccurrenceCount ("abc", 'a'));
-    assertEquals (2, StringHelper.getOccurrenceCount ("aabc", 'a'));
-    assertEquals (1, StringHelper.getOccurrenceCount ("abc", 'b'));
-    assertEquals (1, StringHelper.getOccurrenceCount ("abc", 'c'));
-    assertEquals (2, StringHelper.getOccurrenceCount ("abcc", 'c'));
-  }
-
-  @Test
-  public void testGetOccurrenceCountIgnoreCaseString ()
-  {
-    final Locale aLocale = Locale.ENGLISH;
-    assertEquals (0, StringHelper.getOccurrenceCountIgnoreCase ("Test", null, aLocale));
-    assertEquals (0, StringHelper.getOccurrenceCountIgnoreCase (null, "Test", aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("Test", "Test", aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("Test", "Tes", aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("Test", "est", aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("Test", "es", aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("Testen", "e", aLocale));
-    assertEquals (0, StringHelper.getOccurrenceCountIgnoreCase ("Testen", "", aLocale));
-    assertEquals (4, StringHelper.getOccurrenceCountIgnoreCase ("eeee", "e", aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("eeee", "ee", aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("eeee", "eee", aLocale));
-
-    // Ignoring case
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("Test", "t", aLocale));
-    assertEquals (4, StringHelper.getOccurrenceCountIgnoreCase ("eeee", "E", aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("eeee", "EE", aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("eeee", "EEE", aLocale));
-  }
-
-  @Test
-  public void testGetOccurrenceCountIgnoreCaseChar ()
-  {
-    final Locale aLocale = Locale.ENGLISH;
-    assertEquals (0, StringHelper.getOccurrenceCountIgnoreCase (null, 'x', aLocale));
-    assertEquals (0, StringHelper.getOccurrenceCountIgnoreCase ("e", 'f', aLocale));
-    assertEquals (0, StringHelper.getOccurrenceCountIgnoreCase ("e", '\u0000', aLocale));
-    assertEquals (0, StringHelper.getOccurrenceCountIgnoreCase ("eeee", 'f', aLocale));
-    assertEquals (0, StringHelper.getOccurrenceCountIgnoreCase ("eeee", '\u0000', aLocale));
-
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("e", 'e', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("E", 'e', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("e", 'E', aLocale));
-    assertEquals (4, StringHelper.getOccurrenceCountIgnoreCase ("eeee", 'e', aLocale));
-    assertEquals (4, StringHelper.getOccurrenceCountIgnoreCase ("EEEE", 'e', aLocale));
-    assertEquals (4, StringHelper.getOccurrenceCountIgnoreCase ("eeee", 'E', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("abc", 'a', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("ABC", 'a', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("abc", 'A', aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("aabc", 'a', aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("AABC", 'a', aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("aabc", 'A', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("abc", 'b', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("ABC", 'b', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("abc", 'B', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("abc", 'c', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("ABC", 'c', aLocale));
-    assertEquals (1, StringHelper.getOccurrenceCountIgnoreCase ("abc", 'C', aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("abcc", 'c', aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("ABCC", 'c', aLocale));
-    assertEquals (2, StringHelper.getOccurrenceCountIgnoreCase ("abcc", 'C', aLocale));
-  }
-
-  @Test
   public void testTrimLeadingWhitespaces ()
   {
     assertEquals ("Hallo Welt", StringHelper.trimLeadingWhitespaces ("Hallo Welt"));
@@ -886,67 +666,6 @@ public final class StringHelperTest
   }
 
   @Test
-  public void testGetCharCount ()
-  {
-    assertEquals (0, StringHelper.getCharCount ("abc", 'x'));
-    assertEquals (1, StringHelper.getCharCount ("xabc", 'x'));
-    assertEquals (1, StringHelper.getCharCount ("abxc", 'x'));
-    assertEquals (1, StringHelper.getCharCount ("abcx", 'x'));
-    assertEquals (0, StringHelper.getCharCount ((String) null, 'x'));
-    assertEquals (0, StringHelper.getCharCount ((char []) null, 'x'));
-    assertEquals (0, StringHelper.getCharCount ("", 'x'));
-    for (int i = 0; i < 1000; ++i)
-      assertEquals (i, StringHelper.getCharCount (Strings.getRepeated ('x', i), 'x'));
-  }
-
-  @Test
-  public void testGetLineCount ()
-  {
-    assertEquals (1, StringHelper.getLineCount ("abc"));
-    assertEquals (2, StringHelper.getLineCount ("ab\nc"));
-    assertEquals (2, StringHelper.getLineCount ("ab\r\nc"));
-    assertEquals (1, StringHelper.getLineCount ("ab\rc"));
-  }
-
-  @Test
-  public void testGetCharacterCountInt ()
-  {
-    int iVal = 1;
-    for (int i = 1; i <= 10; ++i)
-    {
-      assertEquals (i, StringHelper.getCharacterCount (iVal));
-      iVal *= 10;
-    }
-    iVal = -1;
-    for (int i = 1; i <= 10; ++i)
-    {
-      assertEquals (1 + i, StringHelper.getCharacterCount (iVal));
-      iVal *= 10;
-    }
-    assertEquals (11, StringHelper.getCharacterCount (Integer.MIN_VALUE + 1));
-    assertEquals (10, StringHelper.getCharacterCount (Integer.MAX_VALUE));
-  }
-
-  @Test
-  public void testGetCharacterCountLong ()
-  {
-    long lVal = 1;
-    for (int i = 1; i <= 19; ++i)
-    {
-      assertEquals (i, StringHelper.getCharacterCount (lVal));
-      lVal *= 10;
-    }
-    lVal = -1;
-    for (int i = 1; i <= 19; ++i)
-    {
-      assertEquals (1 + i, StringHelper.getCharacterCount (lVal));
-      lVal *= 10;
-    }
-    assertEquals (20, StringHelper.getCharacterCount (Long.MIN_VALUE + 1));
-    assertEquals (19, StringHelper.getCharacterCount (Long.MAX_VALUE));
-  }
-
-  @Test
   public void testCutAfterLength ()
   {
     assertEquals ("abc...", StringHelper.getCutAfterLength ("abc die Katze lief im Schnee", 3, "..."));
@@ -988,16 +707,6 @@ public final class StringHelperTest
     assertEquals ("1", StringHelper.getToString (I1, null));
     assertEquals ("any", StringHelper.getToString ("any", null));
     assertNull (StringHelper.getToString (null, null));
-  }
-
-  @Test
-  public void testMultiContains ()
-  {
-    final char [] aIn = "abcde".toCharArray ();
-    assertTrue (StringHelper.containsAny (aIn, "a".toCharArray ()));
-    assertFalse (StringHelper.containsAny (aIn, "z".toCharArray ()));
-    assertFalse (StringHelper.containsAny (aIn, new char [0]));
-    assertFalse (StringHelper.containsAny (new char [0], "a".toCharArray ()));
   }
 
   @Test
@@ -1322,17 +1031,6 @@ public final class StringHelperTest
     assertEquals ("abc", StringHelper.getLastToken ("abc", null));
     assertEquals ("abc", StringHelper.getLastToken ("abc", ""));
     assertEquals ("abc", StringHelper.getLastToken ("abc", "        "));
-  }
-
-  @Test
-  public void testGetReverse ()
-  {
-    assertNull (StringHelper.getReverse (null));
-    assertEquals ("", StringHelper.getReverse (""));
-    assertEquals ("a", StringHelper.getReverse ("a"));
-    assertEquals ("ba", StringHelper.getReverse ("ab"));
-    assertEquals (" ba", StringHelper.getReverse ("ab "));
-    assertEquals ("cba", StringHelper.getReverse ("abc"));
   }
 
   @Test

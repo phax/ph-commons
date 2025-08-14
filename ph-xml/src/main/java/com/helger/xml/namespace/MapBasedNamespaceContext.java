@@ -25,6 +25,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.CollectionHelper;
@@ -34,7 +35,6 @@ import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -330,7 +330,8 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MapBasedNamespaceContext rhs = (MapBasedNamespaceContext) o;
-    return EqualsHelperExt.extEquals (m_sDefaultNamespaceURI, rhs.m_sDefaultNamespaceURI) &&
+    final Object aObj1 = m_sDefaultNamespaceURI;
+    return EqualsHelper.equals (aObj1, rhs.m_sDefaultNamespaceURI) &&
            m_aPrefix2NS.equals (rhs.m_aPrefix2NS) &&
            m_aNS2Prefix.equals (rhs.m_aNS2Prefix);
   }

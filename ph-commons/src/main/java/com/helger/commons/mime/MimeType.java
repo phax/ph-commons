@@ -24,12 +24,12 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.compare.IComparable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -331,7 +331,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     final MimeType rhs = (MimeType) o;
     return m_eContentType.equals (rhs.m_eContentType) &&
            m_sContentSubType.equals (rhs.m_sContentSubType) &&
-           EqualsHelperExt.extEquals (m_aParameters, rhs.m_aParameters);
+           EqualsHelper.equals (m_aParameters, rhs.m_aParameters);
   }
 
   @Override

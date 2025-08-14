@@ -25,10 +25,10 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.StringCount;
 import com.helger.base.string.StringReplace;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -117,7 +117,7 @@ public final class PDTFormatter
         sPattern = StringReplace.replaceAll (sPattern, 'y', 'u');
 
         if (false)
-          if (aCacheKey.m_eMode == EDTFormatterMode.PARSE && StringHelper.getCharCount (sPattern, 'u') == 1)
+          if (aCacheKey.m_eMode == EDTFormatterMode.PARSE && StringCount.getCharCount (sPattern, 'u') == 1)
           {
             // In Java 9, if CLDR mode is active, switch from a single "u" to
             // "uuuu" (for parsing)

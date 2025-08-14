@@ -26,8 +26,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Recursively visit all children provided by a given {@link IChildrenProvider}
- * and call a callback for each visited child.
+ * Recursively visit all children provided by a given {@link IChildrenProvider} and call a callback
+ * for each visited child.
  *
  * @author Philip Helger
  * @param <CHILDTYPE>
@@ -47,8 +47,7 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
   }
 
   /**
-   * @return The children provider as passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The children provider as passed in the constructor. Never <code>null</code>.
    */
   @Nonnull
   public IChildrenProvider <CHILDTYPE> getChildrenProvider ()
@@ -57,8 +56,7 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
   }
 
   /**
-   * @return The callback to be executed as passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The callback to be executed as passed in the constructor. Never <code>null</code>.
    */
   @Nonnull
   public IHierarchyVisitorCallback <? super CHILDTYPE> getCallback ()
@@ -161,7 +159,6 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     }
   }
 
-  @SuppressWarnings ("unused")
   public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                                                             final boolean bInvokeOnStartObject)
   {

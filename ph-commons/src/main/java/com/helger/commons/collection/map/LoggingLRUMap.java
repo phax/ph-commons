@@ -24,8 +24,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.UseDirectEqualsAndHashCode;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -105,7 +105,8 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
     if (!super.equals (o))
       return false;
     final LoggingLRUMap <?, ?> rhs = (LoggingLRUMap <?, ?>) o;
-    return EqualsHelperExt.extEquals (m_sMapName, rhs.m_sMapName);
+    final Object aObj1 = m_sMapName;
+    return EqualsHelper.equals (aObj1, rhs.m_sMapName);
   }
 
   @Override

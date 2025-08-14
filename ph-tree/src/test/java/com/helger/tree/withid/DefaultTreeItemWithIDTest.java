@@ -28,8 +28,8 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
+import com.helger.base.id.IHasID;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.id.IHasID;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.tree.IBasicTreeItem;
 

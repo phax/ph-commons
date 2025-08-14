@@ -18,8 +18,8 @@ package com.helger.commons.hierarchy;
 
 import java.util.Collection;
 
-import com.helger.commons.equals.EqualsHelperExt;
-import com.helger.commons.id.IHasID;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.id.IHasID;
 
 import jakarta.annotation.Nullable;
 
@@ -46,7 +46,7 @@ public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasC
       final Collection <? extends CHILDTYPE> aChildren = aCurrent.getAllChildren ();
       if (aChildren != null)
         for (final CHILDTYPE aChild : aChildren)
-          if (aChild != null && EqualsHelperExt.extEquals (aChild.getID (), aID))
+          if (aChild != null && EqualsHelper.equals (aChild.getID (), aID))
             return aChild;
     }
     return null;

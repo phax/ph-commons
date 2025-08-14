@@ -37,7 +37,6 @@ import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -501,9 +500,11 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BasicTreeItemWithID <?, ?, ?> rhs = (BasicTreeItemWithID <?, ?, ?>) o;
-    return EqualsHelperExt.extEquals (m_aDataID, rhs.m_aDataID) &&
-           EqualsHelperExt.extEquals (m_aData, rhs.m_aData) &&
-           EqualsHelperExt.extEquals (m_aChildMap, rhs.m_aChildMap);
+    final Object aObj1 = m_aData;
+    final Object aObj11 = m_aChildMap;
+    return EqualsHelper.equals (m_aDataID, rhs.m_aDataID) &&
+           EqualsHelper.equals (aObj1, rhs.m_aData) &&
+           EqualsHelper.equals (aObj11, rhs.m_aChildMap);
   }
 
   @Override

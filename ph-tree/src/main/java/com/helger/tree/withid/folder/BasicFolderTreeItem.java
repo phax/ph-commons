@@ -20,10 +20,10 @@ import java.util.Collection;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.aggregate.IAggregator;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.tree.withid.BasicTreeItemWithID;
 
@@ -117,7 +117,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
     if (!super.equals (o))
       return false;
     final BasicFolderTreeItem <?, ?, ?, ?> rhs = (BasicFolderTreeItem <?, ?, ?, ?>) o;
-    return EqualsHelperExt.extEquals (m_aKeyCombinator, rhs.m_aKeyCombinator);
+    return EqualsHelper.equals (m_aKeyCombinator, rhs.m_aKeyCombinator);
   }
 
   @Override

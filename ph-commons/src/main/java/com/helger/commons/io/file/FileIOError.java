@@ -20,9 +20,9 @@ import java.io.File;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -177,9 +177,9 @@ public class FileIOError implements ISuccessIndicator
     final FileIOError rhs = (FileIOError) o;
     return m_eOperation == rhs.m_eOperation &&
            m_eCode == rhs.m_eCode &&
-           EqualsHelperExt.extEquals (m_aFile1, rhs.m_aFile1) &&
-           EqualsHelperExt.extEquals (m_aFile2, rhs.m_aFile2) &&
-           EqualsHelperExt.extEquals (m_aException, rhs.m_aException);
+           EqualsHelper.equals (m_aFile1, rhs.m_aFile1) &&
+           EqualsHelper.equals (m_aFile2, rhs.m_aFile2) &&
+           EqualsHelper.equals (m_aException, rhs.m_aException);
   }
 
   @Override

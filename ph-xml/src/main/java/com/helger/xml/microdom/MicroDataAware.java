@@ -21,7 +21,6 @@ import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -106,18 +105,18 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroDataAware rhs = (MicroDataAware) o;
-    return EqualsHelperExt.extEquals (m_aSB, rhs.m_aSB);
+    return m_aSB.toString ().equals (rhs.m_aSB.toString ());
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aSB).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aSB.toString ()).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("data", m_aSB).getToString ();
+    return new ToStringGenerator (this).append ("Data", m_aSB).getToString ();
   }
 }

@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.base.id.IHasLongID;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 

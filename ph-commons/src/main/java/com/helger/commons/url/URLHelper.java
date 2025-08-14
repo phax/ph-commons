@@ -45,6 +45,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.ClassHelper;
 import com.helger.base.lang.ClassLoaderHelper;
@@ -114,6 +115,23 @@ public final class URLHelper
 
   private URLHelper ()
   {}
+
+  /**
+   * Special equals implementation for URLs because <code>URL.equals</code> performs a host
+   * lookup.<br>
+   * <a href= "http://michaelscharf.blogspot.com/2006/11/javaneturlequals-and-hashcode-make.html"
+   * >Click here for details</a>
+   *
+   * @param aObj1
+   *        first URL
+   * @param aObj2
+   *        secondURL
+   * @return <code>true</code> if they contain the same string
+   */
+  public static boolean equalURLs (@Nonnull final URL aObj1, @Nonnull final URL aObj2)
+  {
+    return EqualsHelper.equalsCustom (aObj1, aObj2, (x, y) -> x.toExternalForm ().equals (y.toExternalForm ()));
+  }
 
   /**
    * URL-decode the passed value automatically handling charset issues. The used char set is

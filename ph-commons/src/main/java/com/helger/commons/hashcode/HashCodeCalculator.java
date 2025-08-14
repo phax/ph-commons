@@ -31,14 +31,14 @@ import jakarta.annotation.Nullable;
 public final class HashCodeCalculator
 {
   /**
-   * Each value is multiplied with this value. 31 because it can easily be
-   * optimized to <code>(1 &lt;&lt; 5) - 1</code>.
+   * Each value is multiplied with this value. 31 because it can easily be optimized to
+   * <code>(1 &lt;&lt; 5) - 1</code>.
    */
   public static final int MULTIPLIER = 31;
 
   /**
-   * The hash code value to be used for <code>null</code> values. Do not use 0
-   * as e.g. <code>BigDecimal ("0")</code> also results in a 0 hash code.
+   * The hash code value to be used for <code>null</code> values. Do not use 0 as e.g.
+   * <code>BigDecimal ("0")</code> also results in a 0 hash code.
    */
   public static final int HASHCODE_NULL = 129;
 

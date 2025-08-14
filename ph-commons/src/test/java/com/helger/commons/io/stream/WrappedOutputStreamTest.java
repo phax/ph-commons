@@ -35,7 +35,6 @@ import com.helger.commons.mock.CommonsTestHelper;
  */
 public final class WrappedOutputStreamTest
 {
-  @SuppressWarnings ("resource")
   @Test
   public void testAll () throws IOException
   {

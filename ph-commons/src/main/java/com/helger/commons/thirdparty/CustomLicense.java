@@ -19,8 +19,8 @@ package com.helger.commons.thirdparty;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.version.Version;
 
@@ -99,8 +99,8 @@ public class CustomLicense implements ILicense
     final CustomLicense rhs = (CustomLicense) o;
     return m_sID.equals (rhs.m_sID) &&
            m_sName.equals (rhs.m_sName) &&
-           EqualsHelperExt.extEquals (m_aVersion, rhs.m_aVersion) &&
-           EqualsHelperExt.extEquals (m_sWebSiteURL, rhs.m_sWebSiteURL);
+           EqualsHelper.equals (m_aVersion, rhs.m_aVersion) &&
+           EqualsHelper.equals (m_sWebSiteURL, rhs.m_sWebSiteURL);
   }
 
   @Override

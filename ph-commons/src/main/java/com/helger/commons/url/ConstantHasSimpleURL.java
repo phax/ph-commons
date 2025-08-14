@@ -18,8 +18,8 @@ package com.helger.commons.url;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -53,7 +53,7 @@ public class ConstantHasSimpleURL implements IHasSimpleURL
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ConstantHasSimpleURL rhs = (ConstantHasSimpleURL) o;
-    return EqualsHelperExt.extEquals (m_aURL, rhs.m_aURL);
+    return EqualsHelper.equals (m_aURL, rhs.m_aURL);
   }
 
   @Override

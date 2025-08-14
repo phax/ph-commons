@@ -50,7 +50,6 @@ import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -211,7 +210,7 @@ public final class XMLHelper
   public static Predicate <? super Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
-    return x -> EqualsHelperExt.extEquals (getElementName (x), sTagName);
+    return x -> EqualsHelper.equals (getElementName (x), sTagName);
   }
 
   @Nonnull

@@ -17,8 +17,11 @@
 package com.helger.jaxb.adapter;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.CloneHelper;
 
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBElement;
 
@@ -34,6 +37,25 @@ public final class JAXBHelper
   private JAXBHelper ()
   {}
 
+  public static boolean equalsJAXBElements (@Nonnull final JAXBElement <?> aObj1, @Nonnull final JAXBElement <?> aObj2)
+  {
+    return EqualsHelper.equals (aObj1.getDeclaredType (), aObj2.getDeclaredType ()) &&
+           EqualsHelper.equals (aObj1.getName (), aObj2.getName ()) &&
+           EqualsHelper.equals (aObj1.getScope (), aObj2.getScope ()) &&
+           EqualsHelper.equals (aObj1.isNil (), aObj2.isNil ()) &&
+           EqualsHelper.equals (aObj1.getValue (), aObj2.getValue ());
+  }
+
+  public static int getHashcode (@Nonnull final JAXBElement <?> aObj)
+  {
+    return new HashCodeGenerator (aObj.getClass ()).append (aObj.getDeclaredType ())
+                                                   .append (aObj.getName ())
+                                                   .append (aObj.getScope ())
+                                                   .append (aObj.isNil ())
+                                                   .append (aObj.getValue ())
+                                                   .getHashCode ();
+  }
+
   @Nullable
   public static <DATATYPE> JAXBElement <DATATYPE> getClonedJAXBElement (@Nullable final JAXBElement <DATATYPE> aObj)
   {
@@ -41,7 +63,10 @@ public final class JAXBHelper
       return null;
 
     final DATATYPE aClonedValue = CloneHelper.getClonedValue (aObj.getValue ());
-    final JAXBElement <DATATYPE> ret = new JAXBElement <> (aObj.getName (), aObj.getDeclaredType (), aObj.getScope (), aClonedValue);
+    final JAXBElement <DATATYPE> ret = new JAXBElement <> (aObj.getName (),
+                                                           aObj.getDeclaredType (),
+                                                           aObj.getScope (),
+                                                           aClonedValue);
     ret.setNil (aObj.isNil ());
     return ret;
   }

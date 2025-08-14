@@ -1723,7 +1723,6 @@ public final class CollectionHelperTest
     assertTrue (containsAnyNullElement (newList (null, Integer.valueOf (5))));
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testContainsOnly ()
   {

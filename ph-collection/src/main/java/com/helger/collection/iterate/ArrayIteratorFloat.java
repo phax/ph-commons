@@ -22,8 +22,8 @@ import java.util.NoSuchElementException;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -79,7 +79,7 @@ public final class ArrayIteratorFloat
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIteratorFloat rhs = (ArrayIteratorFloat) o;
-    return EqualsHelperExt.extEquals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;
+    return EqualsHelper.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;
   }
 
   @Override
