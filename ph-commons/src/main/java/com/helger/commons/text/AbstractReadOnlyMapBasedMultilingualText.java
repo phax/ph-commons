@@ -27,12 +27,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.debug.GlobalDebugExt;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.regex.RegExHelper;
 
@@ -85,7 +86,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
 
   /**
    * @return <code>true</code> if consistency checks are enabled, <code>false</code> if not. The
-   *         default value is {@link GlobalDebug#isDebugMode()}.
+   *         default value is {@link GlobalDebugExt#isDebugMode()}.
    */
   public static boolean isPerformConsistencyChecks ()
   {

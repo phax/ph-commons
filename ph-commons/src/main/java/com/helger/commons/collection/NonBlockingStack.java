@@ -21,9 +21,9 @@ import java.util.EmptyStackException;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

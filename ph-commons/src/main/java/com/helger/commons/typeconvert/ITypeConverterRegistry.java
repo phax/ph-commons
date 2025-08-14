@@ -18,6 +18,8 @@ package com.helger.commons.typeconvert;
 
 import java.util.function.Function;
 
+import com.helger.base.typeconvert.ITypeConverter;
+import com.helger.base.typeconvert.ITypeConverterRule;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAnySourceFixedDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAssignableSourceFixedDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAnyDestination;

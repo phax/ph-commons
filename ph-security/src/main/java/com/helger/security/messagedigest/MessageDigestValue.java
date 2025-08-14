@@ -26,9 +26,9 @@ import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.iface.IHasByteArray;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.io.stream.StreamHelperExt;
 

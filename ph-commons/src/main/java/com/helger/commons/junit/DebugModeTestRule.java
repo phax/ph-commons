@@ -18,7 +18,7 @@ package com.helger.commons.junit;
 
 import org.junit.rules.ExternalResource;
 
-import com.helger.commons.debug.GlobalDebug;
+import com.helger.base.debug.GlobalDebug;
 
 /**
  * A JUnit test rule that sets global debug and trace flag for a test

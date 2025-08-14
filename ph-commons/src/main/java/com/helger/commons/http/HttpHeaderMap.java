@@ -39,6 +39,7 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.state.EChange;
@@ -54,7 +55,6 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;

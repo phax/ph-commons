@@ -27,13 +27,13 @@ import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
@@ -42,9 +42,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Text resolving class that performs the fallback handling for locales other
- * than German and English. Used only from within the
- * {@link DefaultTextResolver} static class.
+ * Text resolving class that performs the fallback handling for locales other than German and
+ * English. Used only from within the {@link DefaultTextResolver} static class.
  *
  * @author Philip Helger
  */
@@ -87,9 +86,8 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   }
 
   /**
-   * @return <code>true</code> if the internal {@link ResourceBundle} cache
-   *         should be used. The default value is
-   *         {@link #DEFAULT_USE_RESOURCE_BUNDLE_CACHE}.
+   * @return <code>true</code> if the internal {@link ResourceBundle} cache should be used. The
+   *         default value is {@link #DEFAULT_USE_RESOURCE_BUNDLE_CACHE}.
    */
   public boolean isUseResourceBundleCache ()
   {
@@ -97,8 +95,8 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   }
 
   /**
-   * Get the cached {@link ResourceBundle}. It is assumed, that the locale name
-   * is contained within the bundle name!!
+   * Get the cached {@link ResourceBundle}. It is assumed, that the locale name is contained within
+   * the bundle name!!
    *
    * @param sBundleName
    *        Name of the bundle. May not be <code>null</code>.
@@ -189,8 +187,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   }
 
   /**
-   * @return A set with all resource keys used in overriding. Never
-   *         <code>null</code>.
+   * @return A set with all resource keys used in overriding. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -200,8 +197,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   }
 
   /**
-   * @return A set with all resource keys used as fallback. Never
-   *         <code>null</code>.
+   * @return A set with all resource keys used as fallback. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy

@@ -19,14 +19,16 @@ package com.helger.commons.hashcode;
 import jakarta.annotation.Nonnull;
 
 /**
- * Interface to implement for custom hash code implementation. This interface is
- * only used within the {@link HashCodeImplementationRegistry}.
+ * Interface to implement for custom hash code implementation. This interface is only used within
+ * the {@link HashCodeImplementationRegistry}.
  *
  * @author Philip Helger
  * @param <T>
  *        The data type for which the hash code should be implemented
+ * @deprecated For simplicity
  */
 @FunctionalInterface
+@Deprecated (forRemoval = true, since = "12.0.0")
 public interface IHashCodeImplementation <T>
 {
   /**

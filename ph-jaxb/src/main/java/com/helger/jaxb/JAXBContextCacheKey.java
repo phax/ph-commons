@@ -28,14 +28,14 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.lang.ClassLoaderHelper;
 import com.helger.base.lang.GenericReflection;
+import com.helger.base.log.ConditionalLogger;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;

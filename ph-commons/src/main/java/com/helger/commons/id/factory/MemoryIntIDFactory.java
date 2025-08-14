@@ -21,8 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 /**
  * A default implementation for non-negative in-memory IDs.

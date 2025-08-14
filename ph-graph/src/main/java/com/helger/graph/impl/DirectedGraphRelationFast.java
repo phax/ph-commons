@@ -17,8 +17,8 @@
 package com.helger.graph.impl;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.graph.IMutableDirectedGraphNode;
 
 import jakarta.annotation.Nonnull;

@@ -23,8 +23,8 @@ import java.util.function.Predicate;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 

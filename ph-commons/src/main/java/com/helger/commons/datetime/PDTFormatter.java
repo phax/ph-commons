@@ -25,10 +25,10 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringCount;
 import com.helger.base.string.StringReplace;
 import com.helger.commons.cache.Cache;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

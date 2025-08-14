@@ -17,7 +17,7 @@
 package com.helger.scope.singleton;
 
 import com.helger.annotation.style.UsedViaReflection;
-import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.base.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 

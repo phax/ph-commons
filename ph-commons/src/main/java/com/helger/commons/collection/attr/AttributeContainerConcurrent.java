@@ -21,10 +21,10 @@ import java.util.Map;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.impl.CommonsConcurrentHashMap;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -19,9 +19,9 @@ package com.helger.datetime.expiration;
 import java.time.LocalDateTime;
 
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

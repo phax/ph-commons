@@ -22,7 +22,9 @@ import jakarta.annotation.Nonnull;
  * Base interface for a registry that contains hashCode implementations.
  *
  * @author Philip Helger
+ * @deprecated for simplicity
  */
+@Deprecated (forRemoval = true, since = "12.0.0")
 public interface IHashCodeImplementationRegistry
 {
   /**

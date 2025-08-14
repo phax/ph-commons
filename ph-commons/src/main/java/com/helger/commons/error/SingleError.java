@@ -22,12 +22,12 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeCalculator;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.text.IHasErrorText;
-import com.helger.commons.hashcode.HashCodeCalculator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
 

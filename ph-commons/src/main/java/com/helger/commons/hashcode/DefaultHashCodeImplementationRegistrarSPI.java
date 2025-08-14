@@ -30,6 +30,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.hashcode.HashCodeCalculator;
+import com.helger.base.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 
@@ -39,8 +41,10 @@ import jakarta.annotation.Nonnull;
  * {@link com.helger.commons.equals.DefaultEqualsImplementationRegistrarSPI}
  *
  * @author Philip Helger
+ * @deprecated For simplicity
  */
 @IsSPIImplementation
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class DefaultHashCodeImplementationRegistrarSPI implements IHashCodeImplementationRegistrarSPI
 {
   public void registerHashCodeImplementations (@Nonnull final IHashCodeImplementationRegistry aRegistry)

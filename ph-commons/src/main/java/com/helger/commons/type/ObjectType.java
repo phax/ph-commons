@@ -20,9 +20,9 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.IComparable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.name.IHasName;
 
 import jakarta.annotation.Nonnull;

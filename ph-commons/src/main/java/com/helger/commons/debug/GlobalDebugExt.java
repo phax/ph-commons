@@ -16,64 +16,32 @@
  */
 package com.helger.commons.debug;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.commons.system.SystemProperties;
 
 import jakarta.annotation.Nullable;
 
 /**
- * Global class for handling the following typical application modes:
- * <ul>
- * <li>trace</li>
- * <li>debug</li>
- * <li>production</li>
- * </ul>
- * trace is the lowest mode, debug is one level higher and production is the
- * highest value. By default all modes are deactivated.
+ * Extension to class {@link GlobalDebug}
  *
  * @author Philip
  */
 @ThreadSafe
-public final class GlobalDebug
+public final class GlobalDebugExt extends GlobalDebug
 {
-  /**
-   * By default debug mode is enabled
-   */
-  public static final boolean DEFAULT_DEBUG_MODE = true;
-  /**
-   * By default production mode is disable
-   */
-  public static final boolean DEFAULT_PRODUCTION_MODE = false;
-  /**
-   * By default silent mode is enabled.
-   * 
-   * @since 9.4.0
-   */
-  public static final boolean DEFAULT_SILENT_MODE = true;
-
   public static final String SYSTEM_PROPERTY_MAIL_DEBUG = "mail.debug";
   public static final String SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG = "java.security.debug";
   public static final String SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG = "javax.activation.debug";
   public static final String SYSTEM_PROPERTY_JAVAX_NET_DEBUG = "javax.net.debug";
   public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
   public static final String SYSTEM_PROPERTY_SERIALIZATION_DEBUG = "sun.io.serialization.extendedDebugInfo";
-
-  private static final AtomicBoolean DEBUG_MODE = new AtomicBoolean (DEFAULT_DEBUG_MODE);
-  private static final AtomicBoolean PRODUCTION_MODE = new AtomicBoolean (DEFAULT_PRODUCTION_MODE);
-
-  // to set it per dependency injection
-  public void setDebugMode (final boolean bDebugMode)
-  {
-    setDebugModeDirect (bDebugMode);
-  }
-
-  // to set it per dependency injection
-  public void setProductionMode (final boolean bProductionMode)
-  {
-    setProductionModeDirect (bProductionMode);
-  }
+  /**
+   * By default silent mode is enabled.
+   *
+   * @since 9.4.0
+   */
+  public static final boolean DEFAULT_SILENT_MODE = true;
 
   /**
    * Set the debug mode for the common Java components:
@@ -84,8 +52,7 @@ public final class GlobalDebug
    * </ul>
    *
    * @param bDebugMode
-   *        <code>true</code> to enable debug mode, <code>false</code> to
-   *        disable it
+   *        <code>true</code> to enable debug mode, <code>false</code> to disable it
    */
   public static void setJavaCommonComponentsDebugMode (final boolean bDebugMode)
   {
@@ -147,53 +114,5 @@ public final class GlobalDebug
   public static void setJavaSecurityDebugMode (@Nullable final String sValue)
   {
     SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG, sValue);
-  }
-
-  /**
-   * Enable or disable debug mode. If debug mode is disabled, also trace mode is
-   * disabled.
-   *
-   * @param bDebugMode
-   *        <code>true</code> to enable, <code>false</code> to disable
-   */
-  public static void setDebugModeDirect (final boolean bDebugMode)
-  {
-    DEBUG_MODE.set (bDebugMode);
-
-    setJavaCommonComponentsDebugMode (bDebugMode);
-  }
-
-  /**
-   * Enable or disable production mode. If production mode is enabled, also
-   * trace mode and debug mode are disabled.
-   *
-   * @param bProductionMode
-   *        <code>true</code> to enable, <code>false</code> to disable
-   */
-  public static void setProductionModeDirect (final boolean bProductionMode)
-  {
-    PRODUCTION_MODE.set (bProductionMode);
-
-    // If enabling production mode, disable debug mode
-    if (bProductionMode)
-      setDebugModeDirect (false);
-  }
-
-  /**
-   * @return <code>true</code> if debug mode is active, <code>false</code> if
-   *         not
-   */
-  public static boolean isDebugMode ()
-  {
-    return DEBUG_MODE.get ();
-  }
-
-  /**
-   * @return <code>true</code> if production mode is active, <code>false</code>
-   *         if not
-   */
-  public static boolean isProductionMode ()
-  {
-    return PRODUCTION_MODE.get ();
   }
 }

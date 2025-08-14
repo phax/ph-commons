@@ -28,11 +28,11 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.lang.GenericReflection;
+import com.helger.base.log.ConditionalLogger;
 import com.helger.base.state.ESuccess;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.concurrent.SimpleLock;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.log.ConditionalLogger;
+import com.helger.commons.debug.GlobalDebugExt;
 import com.helger.commons.log.IHasConditionalLogger;
 
 import jakarta.annotation.Nonnull;
@@ -49,7 +49,7 @@ import jakarta.annotation.Nullable;
 public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE>, IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ObjectPool.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebugExt.DEFAULT_SILENT_MODE);
 
   // Lock for this object
   private final SimpleLock m_aLock = new SimpleLock ();

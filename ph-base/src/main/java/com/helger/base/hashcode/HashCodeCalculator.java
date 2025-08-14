@@ -14,7 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.hashcode;
+package com.helger.base.hashcode;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -172,6 +175,132 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, @Nullable final Object x)
   {
-    return append (nPrevHashCode, HashCodeImplementationRegistry.getHashCode (x));
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Objects.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final boolean [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final byte [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final char [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final double [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final float [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final int [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final long [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final short [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Object array to add. May be <code>null</code>.
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode, @Nullable final Object [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
 }

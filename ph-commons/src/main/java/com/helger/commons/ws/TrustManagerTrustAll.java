@@ -24,8 +24,8 @@ import javax.net.ssl.X509TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.debug.GlobalDebug;
 
 import jakarta.annotation.Nullable;
 

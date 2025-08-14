@@ -24,8 +24,10 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.lang.ClassHelper;
 import com.helger.base.lang.GenericReflection;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.log.ConditionalLogger;
+import com.helger.base.log.ConditionalLogger;
+import com.helger.base.typeconvert.ITypeConverter;
+import com.helger.base.typeconvert.ITypeConverterProvider;
+import com.helger.commons.debug.GlobalDebugExt;
 import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
 
@@ -45,7 +47,7 @@ import jakarta.annotation.Nullable;
 public final class TypeConverter implements IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TypeConverter.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebugExt.DEFAULT_SILENT_MODE);
 
   @PresentForCodeCoverage
   private static final TypeConverter INSTANCE = new TypeConverter ();

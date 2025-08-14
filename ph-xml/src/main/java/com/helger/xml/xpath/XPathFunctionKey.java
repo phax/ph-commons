@@ -23,8 +23,8 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparable;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 

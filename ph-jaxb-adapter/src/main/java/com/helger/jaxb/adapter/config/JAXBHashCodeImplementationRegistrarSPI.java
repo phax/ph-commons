@@ -28,8 +28,10 @@ import jakarta.xml.bind.JAXBElement;
  * Implementation of {@link IHashCodeImplementationRegistrarSPI} for {@link JAXBElement}.
  *
  * @author Philip Helger
+ * @deprecated For simplicity
  */
 @IsSPIImplementation
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class JAXBHashCodeImplementationRegistrarSPI implements IHashCodeImplementationRegistrarSPI
 {
   public void registerHashCodeImplementations (@Nonnull final IHashCodeImplementationRegistry aRegistry)

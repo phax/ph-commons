@@ -32,13 +32,13 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.math.MathHelper;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 

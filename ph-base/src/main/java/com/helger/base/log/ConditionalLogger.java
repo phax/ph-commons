@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.log;
+package com.helger.base.log;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
@@ -22,10 +22,10 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.state.IEnabledIndicator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.debug.GlobalDebug;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

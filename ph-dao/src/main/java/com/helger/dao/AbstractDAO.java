@@ -27,14 +27,14 @@ import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.log.ConditionalLogger;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.debug.GlobalDebug;
+import com.helger.commons.debug.GlobalDebugExt;
 import com.helger.commons.io.file.FileIOError;
 import com.helger.commons.io.file.FileOperationManager;
-import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
 
 import jakarta.annotation.Nonnull;
@@ -65,7 +65,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
 
   protected static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractDAO.class);
-  protected static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
+  protected static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebugExt.DEFAULT_SILENT_MODE);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 

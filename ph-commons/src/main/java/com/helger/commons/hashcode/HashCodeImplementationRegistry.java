@@ -30,6 +30,7 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.UseDirectEqualsAndHashCode;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeCalculator;
 import com.helger.base.lang.ClassHelper;
 import com.helger.base.lang.GenericReflection;
 import com.helger.base.state.EChange;
@@ -48,9 +49,11 @@ import jakarta.annotation.Nullable;
  * The main registry for the different {@link IHashCodeImplementation} implementations.
  *
  * @author Philip Helger
+ * @deprecated For simplicity
  */
 @ThreadSafe
 @Singleton
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class HashCodeImplementationRegistry implements IHashCodeImplementationRegistry
 {
   private static final class SingletonHolder

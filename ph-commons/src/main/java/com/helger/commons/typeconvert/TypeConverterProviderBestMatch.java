@@ -17,6 +17,8 @@
 package com.helger.commons.typeconvert;
 
 import com.helger.base.lang.GenericReflection;
+import com.helger.base.typeconvert.ITypeConverter;
+import com.helger.base.typeconvert.ITypeConverterProvider;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

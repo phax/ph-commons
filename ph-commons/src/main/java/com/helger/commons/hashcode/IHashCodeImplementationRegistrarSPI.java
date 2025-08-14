@@ -24,8 +24,10 @@ import jakarta.annotation.Nonnull;
  * SPI registry interface to implement your custom hashCode implementations.
  *
  * @author Philip Helger
+ * @deprecated for simplicity
  */
 @IsSPIInterface
+@Deprecated (forRemoval = true, since = "12.0.0")
 public interface IHashCodeImplementationRegistrarSPI
 {
   /**

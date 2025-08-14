@@ -18,9 +18,9 @@ package com.helger.commons.format;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nullable;
 

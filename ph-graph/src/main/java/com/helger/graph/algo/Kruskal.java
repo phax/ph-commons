@@ -23,10 +23,10 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsTreeSet;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.string.StringHelper;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;

@@ -20,8 +20,8 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.ByteArrayWrapper;
 
 import jakarta.annotation.Nonnull;

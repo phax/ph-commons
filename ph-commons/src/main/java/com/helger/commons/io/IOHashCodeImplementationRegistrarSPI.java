@@ -31,8 +31,10 @@ import jakarta.annotation.Nonnull;
  * {@link com.helger.commons.io.IOEqualsImplementationRegistrarSPI}
  *
  * @author Philip Helger
+ * @deprecated for simplicity
  */
 @IsSPIImplementation
+@Deprecated (forRemoval = true, since = "12.0.0")
 public final class IOHashCodeImplementationRegistrarSPI implements IHashCodeImplementationRegistrarSPI
 {
   public void registerHashCodeImplementations (@Nonnull final IHashCodeImplementationRegistry aRegistry)

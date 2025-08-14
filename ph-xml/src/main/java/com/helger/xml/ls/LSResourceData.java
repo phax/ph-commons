@@ -18,8 +18,8 @@ package com.helger.xml.ls;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.hashcode.HashCodeGenerator;
 
 import jakarta.annotation.Nullable;
 

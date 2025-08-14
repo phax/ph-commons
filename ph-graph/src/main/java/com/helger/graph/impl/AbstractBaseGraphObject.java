@@ -19,10 +19,10 @@ package com.helger.graph.impl;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.attr.AttributeContainerAny;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.graph.IMutableBaseGraphObject;
 
 import jakarta.annotation.Nonnull;

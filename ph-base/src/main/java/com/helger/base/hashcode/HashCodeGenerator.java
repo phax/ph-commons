@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.hashcode;
+package com.helger.base.hashcode;
 
 import java.util.Map;
 
@@ -22,7 +22,7 @@ import org.w3c.dom.Node;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.hashcode.IHashCodeGenerator;
+import com.helger.base.equals.EqualsHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -435,7 +435,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   public HashCodeGenerator append (@Nullable final StringBuffer x)
   {
     _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x);
+    m_nHC = HashCodeCalculator.append (m_nHC, x == null ? null : x.toString ());
     return this;
   }
 
@@ -450,7 +450,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   public HashCodeGenerator append (@Nullable final StringBuilder x)
   {
     _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x);
+    m_nHC = HashCodeCalculator.append (m_nHC, x == null ? null : x.toString ());
     return this;
   }
 
@@ -521,7 +521,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   @Override
   public boolean equals (final Object o)
   {
-    return o == this;
+    return EqualsHelper.identityEqual (this, o);
   }
 
   /**
@@ -556,7 +556,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * Static helper method to create the hashcode of an object with a single invocation. This method
+   * Static helper method to create the hash code of an object with a single invocation. This method
    * must be used by objects that directly derive from Object.
    *
    * @param aThis
@@ -576,7 +576,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * Static helper method to create the hashcode of an object with a single invocation. This method
+   * Static helper method to create the hash code of an object with a single invocation. This method
    * must be used by objects that derive from a class other than Object.
    *
    * @param nSuperHashCode
