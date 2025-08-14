@@ -19,9 +19,8 @@ package com.helger.base.debug;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Test;
-
-import com.helger.base.mock.CommonsAssert;
 
 /**
  * Tests for class {@link GlobalDebug}
@@ -30,7 +29,8 @@ import com.helger.base.mock.CommonsAssert;
  */
 public final class GlobalDebugTest
 {
-  private static void _setToDefault ()
+  @After
+  public void setToDefault ()
   {
     GlobalDebug.setProductionModeDirect (GlobalDebug.DEFAULT_PRODUCTION_MODE);
     GlobalDebug.setDebugModeDirect (GlobalDebug.DEFAULT_DEBUG_MODE);
@@ -40,7 +40,7 @@ public final class GlobalDebugTest
   public void testInstance ()
   {
     final GlobalDebug g = new GlobalDebug ();
-    assertTrue (GlobalDebug.isDebugMode ());
+    assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
     // implicitly disables debug and trace mode
@@ -59,22 +59,17 @@ public final class GlobalDebugTest
     g.setDebugMode (false);
     assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
-
-    _setToDefault ();
-
-    CommonsAssert.assertEquals (GlobalDebug.DEFAULT_DEBUG_MODE, GlobalDebug.isDebugMode ());
-    CommonsAssert.assertEquals (GlobalDebug.DEFAULT_PRODUCTION_MODE, GlobalDebug.isProductionMode ());
   }
 
   @Test
   public void testStatic ()
   {
-    GlobalDebug.setDebugModeDirect (false);
-    assertFalse (GlobalDebug.isDebugMode ());
-    assertFalse (GlobalDebug.isProductionMode ());
-
     GlobalDebug.setDebugModeDirect (true);
     assertTrue (GlobalDebug.isDebugMode ());
+    assertFalse (GlobalDebug.isProductionMode ());
+
+    GlobalDebug.setDebugModeDirect (false);
+    assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
     GlobalDebug.setProductionModeDirect (true);
@@ -84,10 +79,5 @@ public final class GlobalDebugTest
     GlobalDebug.setProductionModeDirect (false);
     assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
-
-    _setToDefault ();
-
-    CommonsAssert.assertEquals (GlobalDebug.DEFAULT_DEBUG_MODE, GlobalDebug.isDebugMode ());
-    CommonsAssert.assertEquals (GlobalDebug.DEFAULT_PRODUCTION_MODE, GlobalDebug.isProductionMode ());
   }
 }

@@ -24,14 +24,12 @@ package com.helger.base.state;
 public interface IErrorIndicator
 {
   /**
-   * @return <code>true</code> if this level is at least
-   *         {@link com.helger.commons.error.level.EErrorLevel#ERROR} or worse.
+   * @return <code>true</code> if this level is at least EErrorLevel#ERROR or worse.
    */
   boolean isError ();
 
   /**
-   * @return <code>true</code> if this level is below
-   *         {@link com.helger.commons.error.level.EErrorLevel#ERROR}.
+   * @return <code>true</code> if this level is below EErrorLevel#ERROR.
    */
   default boolean isNoError ()
   {
