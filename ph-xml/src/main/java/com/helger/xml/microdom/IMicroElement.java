@@ -23,12 +23,12 @@ import java.util.function.Predicate;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.mutable.MutableInt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

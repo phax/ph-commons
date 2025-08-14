@@ -52,12 +52,12 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.base.state.ESuccess;
 import com.helger.base.statistics.IMutableStatisticsHandlerSize;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.statistics.StatisticsManager;
 
 import jakarta.annotation.Nonnull;

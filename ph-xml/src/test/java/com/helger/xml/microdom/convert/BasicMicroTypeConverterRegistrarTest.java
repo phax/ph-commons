@@ -26,8 +26,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.base.math.BigHelper;
 import com.helger.base.mock.CommonsAssert;
+import com.helger.base.numeric.BigHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.state.EEnabled;

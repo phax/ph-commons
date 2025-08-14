@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mutable.MutableBoolean;
+import com.helger.base.numeric.mutable.MutableBoolean;
 
 import jakarta.annotation.Nonnull;
 

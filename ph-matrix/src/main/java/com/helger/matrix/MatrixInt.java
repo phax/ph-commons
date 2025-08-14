@@ -35,7 +35,7 @@ import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.ICloneable;
-import com.helger.base.math.MathHelper;
+import com.helger.base.numeric.MathHelper;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;

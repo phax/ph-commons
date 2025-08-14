@@ -41,6 +41,12 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.numeric.mutable.MutableByte;
+import com.helger.base.numeric.mutable.MutableDouble;
+import com.helger.base.numeric.mutable.MutableFloat;
+import com.helger.base.numeric.mutable.MutableInt;
+import com.helger.base.numeric.mutable.MutableLong;
+import com.helger.base.numeric.mutable.MutableShort;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.datetime.OffsetDate;
@@ -48,12 +54,6 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.datetime.XMLOffsetTime;
-import com.helger.commons.mutable.MutableByte;
-import com.helger.commons.mutable.MutableDouble;
-import com.helger.commons.mutable.MutableFloat;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.mutable.MutableLong;
-import com.helger.commons.mutable.MutableShort;
 
 /**
  * Test class for class {@link DateTimeTypeConverterRegistrar}.

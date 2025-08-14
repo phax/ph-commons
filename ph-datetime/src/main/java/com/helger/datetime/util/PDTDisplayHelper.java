@@ -25,7 +25,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
-import com.helger.base.math.MathHelper;
+import com.helger.base.numeric.MathHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 

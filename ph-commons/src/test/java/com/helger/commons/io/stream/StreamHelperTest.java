@@ -46,11 +46,11 @@ import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.nonblocking.NonBlockingStringReader;
 import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
-import com.helger.commons.mutable.MutableLong;
 
 /**
  * Test class for class {@link StreamHelperExt}.

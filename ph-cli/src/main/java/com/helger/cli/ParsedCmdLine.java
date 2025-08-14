@@ -29,7 +29,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.traits.IGetterByKeyTrait;
+import com.helger.commons.traits.IGetterByKeyTraitExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -40,7 +40,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ParsedCmdLine implements IGetterByKeyTrait <String>
+public class ParsedCmdLine implements IGetterByKeyTraitExt <String>
 {
   private final ICommonsOrderedMap <IOptionBase, ICommonsList <String>> m_aParams = new CommonsLinkedHashMap <> ();
   private final ICommonsList <String> m_aUnknownTokens = new CommonsArrayList <> ();

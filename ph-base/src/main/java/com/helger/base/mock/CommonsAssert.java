@@ -34,8 +34,9 @@ public class CommonsAssert
 {
   // 1e-4 for float
   public static final float FLOAT_ALLOWED_ROUNDING_DIFFERENCE = 0.000_1f;
+
   // 1e-5 for double
-  public static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.000_01;
+  public static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.000_01d;
 
   @PresentForCodeCoverage
   private static final CommonsAssert INSTANCE = new CommonsAssert ();

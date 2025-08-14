@@ -28,7 +28,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.math.BigHelper;
+import com.helger.base.numeric.BigHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;

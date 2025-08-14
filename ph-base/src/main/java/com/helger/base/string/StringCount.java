@@ -22,7 +22,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.base.CGlobal;
-import com.helger.base.math.MathHelper;
+import com.helger.base.numeric.MathHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

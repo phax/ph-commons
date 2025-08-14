@@ -28,7 +28,7 @@ import java.math.RoundingMode;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
-import com.helger.base.math.BigHelper;
+import com.helger.base.numeric.BigHelper;
 
 public final class JavaBigDecimalFuncTest
 {

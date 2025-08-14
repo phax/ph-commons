@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.base.math.BigHelper;
+import com.helger.base.numeric.BigHelper;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.config.source.res.ConfigurationSourceJson;
 

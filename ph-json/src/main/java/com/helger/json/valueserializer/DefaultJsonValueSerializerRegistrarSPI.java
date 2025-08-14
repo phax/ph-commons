@@ -24,16 +24,16 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.mutable.MutableBigDecimal;
-import com.helger.commons.mutable.MutableBigInteger;
-import com.helger.commons.mutable.MutableBoolean;
-import com.helger.commons.mutable.MutableByte;
-import com.helger.commons.mutable.MutableChar;
-import com.helger.commons.mutable.MutableDouble;
-import com.helger.commons.mutable.MutableFloat;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.mutable.MutableLong;
-import com.helger.commons.mutable.MutableShort;
+import com.helger.base.numeric.mutable.MutableBigDecimal;
+import com.helger.base.numeric.mutable.MutableBigInteger;
+import com.helger.base.numeric.mutable.MutableBoolean;
+import com.helger.base.numeric.mutable.MutableByte;
+import com.helger.base.numeric.mutable.MutableChar;
+import com.helger.base.numeric.mutable.MutableDouble;
+import com.helger.base.numeric.mutable.MutableFloat;
+import com.helger.base.numeric.mutable.MutableInt;
+import com.helger.base.numeric.mutable.MutableLong;
+import com.helger.base.numeric.mutable.MutableShort;
 
 import jakarta.annotation.Nonnull;
 
