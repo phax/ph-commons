@@ -18,7 +18,7 @@ package com.helger.commons.io.file;
 
 import java.io.File;
 
-import com.helger.commons.callback.ICallback;
+import com.helger.base.callback.ICallback;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -44,8 +44,7 @@ public interface IGetterDirectTrait
   Object getValue ();
 
   /**
-   * @return The class of the value or <code>null</code> if no value is
-   *         contained.
+   * @return The class of the value or <code>null</code> if no value is contained.
    */
   @Nullable
   default Class <?> getValueClass ()
@@ -75,8 +74,8 @@ public interface IGetterDirectTrait
   /**
    * Get the contained value casted to the return type.
    *
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code> if the contained
+   *         value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -92,10 +91,9 @@ public interface IGetterDirectTrait
    * Get the contained value casted to the return type.
    *
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   *        The value to be returned if the retrieved value is <code>null</code> .
+   * @return The object value casted to the passed class. May be <code>null</code> if the contained
+   *         value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -113,8 +111,8 @@ public interface IGetterDirectTrait
    *
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code> if the contained
+   *         value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -130,12 +128,11 @@ public interface IGetterDirectTrait
    * Get the contained value casted to the specified class.
    *
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code> if the contained
+   *         value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -153,8 +150,8 @@ public interface IGetterDirectTrait
    *
    * @param aClass
    *        The class to convert to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code> if the contained
+   *         value is <code>null</code>.
    * @throws TypeConverterException
    *         in case of an error
    * @param <T>
@@ -170,12 +167,12 @@ public interface IGetterDirectTrait
    * Get the contained value converted using TypeConverter to the passed class.
    *
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        or if type conversion fails.
+   *        The value to be returned if the retrieved value is <code>null</code> or if type
+   *        conversion fails.
    * @param aClass
    *        The class to convert to. May not be <code>null</code>.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code> if the contained
+   *         value is <code>null</code>.
    * @param <T>
    *        Destination type
    */
@@ -286,8 +283,7 @@ public interface IGetterDirectTrait
 
   /**
    * @param sDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (sDefault, String.class)</code>
    * @see #getConvertedValue(Object,Class)
    */
@@ -309,8 +305,7 @@ public interface IGetterDirectTrait
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aDefault, char[].class)</code>
    * @see #getConvertedValue(Object,Class)
    */
@@ -332,8 +327,7 @@ public interface IGetterDirectTrait
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (sDefault, BigDecimal.class)</code>
    * @see #getConvertedValue(Object,Class)
    */
@@ -355,8 +349,7 @@ public interface IGetterDirectTrait
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (sDefault, BigInteger.class)</code>
    * @see #getConvertedValue(Object,Class)
    */
@@ -378,8 +371,7 @@ public interface IGetterDirectTrait
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aDefault, LocalDate.class)</code>
    * @see #getConvertedValue(Object,Class)
    */
@@ -401,8 +393,7 @@ public interface IGetterDirectTrait
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aDefault, LocalTime.class)</code>
    * @see #getConvertedValue(Object,Class)
    */
@@ -424,8 +415,7 @@ public interface IGetterDirectTrait
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aDefault, LocalDateTime.class)</code>
    * @see #getConvertedValue(Object,Class)
    */
@@ -523,75 +513,5 @@ public interface IGetterDirectTrait
   default Short getAsShortObj ()
   {
     return getConvertedValue (null, Short.class);
-  }
-
-  /**
-   * @return <code>getConvertedValue (null, Blob.class)</code>
-   * @see #getConvertedValue(Object,Class)
-   */
-  @Nullable
-  default java.sql.Blob getAsSqlBlob ()
-  {
-    return getConvertedValue (null, java.sql.Blob.class);
-  }
-
-  /**
-   * @return <code>getConvertedValue (null, Clob.class)</code>
-   * @see #getConvertedValue(Object,Class)
-   */
-  @Nullable
-  default java.sql.Clob getAsSqlClob ()
-  {
-    return getConvertedValue (null, java.sql.Clob.class);
-  }
-
-  /**
-   * @return <code>getConvertedValue (null, Date.class)</code>
-   * @see #getConvertedValue(Object, Class)
-   */
-  @Nullable
-  default java.sql.Date getAsSqlDate ()
-  {
-    return getConvertedValue (null, java.sql.Date.class);
-  }
-
-  /**
-   * @return <code>getConvertedValue (null, NClob.class)</code>
-   * @see #getConvertedValue(Object, Class)
-   */
-  @Nullable
-  default java.sql.NClob getAsSqlNClob ()
-  {
-    return getConvertedValue (null, java.sql.NClob.class);
-  }
-
-  /**
-   * @return <code>getConvertedValue (null, RowId.class)</code>
-   * @see #getConvertedValue(Object,Class)
-   */
-  @Nullable
-  default java.sql.RowId getAsSqlRowId ()
-  {
-    return getConvertedValue (null, java.sql.RowId.class);
-  }
-
-  /**
-   * @return <code>getConvertedValue (null, Time.class)</code>
-   * @see #getConvertedValue(Object,Class)
-   */
-  @Nullable
-  default java.sql.Time getAsSqlTime ()
-  {
-    return getConvertedValue (null, java.sql.Time.class);
-  }
-
-  /**
-   * @return <code>getConvertedValue (null, Timestamp.class)</code>
-   * @see #getConvertedValue(Object, Class)
-   */
-  @Nullable
-  default java.sql.Timestamp getAsSqlTimestamp ()
-  {
-    return getConvertedValue (null, java.sql.Timestamp.class);
   }
 }

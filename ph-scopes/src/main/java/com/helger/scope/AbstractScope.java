@@ -26,13 +26,13 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.attr.AttributeContainerAnyConcurrent;
 import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

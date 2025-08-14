@@ -19,10 +19,10 @@ package com.helger.commons.text;
 import java.util.Locale;
 
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.IChangeCallback;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IClearable;
 import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.IChangeCallback;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

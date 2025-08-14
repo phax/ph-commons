@@ -155,8 +155,9 @@ public final class AttributeContainerAnyTest
     CommonsAssert.assertEquals (1, aCont.getAsFloat ("a"));
     assertEquals (BigDecimal.ONE, aCont.getAsBigDecimal ("a"));
     assertEquals (BigInteger.ONE, aCont.getAsBigInteger ("a"));
-    assertEquals (new CommonsArrayList <> ("1", "20"), aCont.getAsStringList ("a"));
-    assertEquals (new CommonsLinkedHashSet <> ("1", "20"), aCont.getAsStringSet ("a"));
+    assertEquals (new CommonsArrayList <> ("1", "20"), new CommonsArrayList <> ((String []) aCont.getValue ("a")));
+    assertEquals (new CommonsLinkedHashSet <> ("1", "20"),
+                  new CommonsLinkedHashSet <> ((String []) aCont.getValue ("a")));
   }
 
   @Test

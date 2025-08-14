@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.commons.callback.ICallback;
+import com.helger.base.callback.ICallback;
 
 import jakarta.annotation.Nonnull;
 

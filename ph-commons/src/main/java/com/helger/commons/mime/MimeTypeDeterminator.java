@@ -27,6 +27,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.commons.charset.EUnicodeBOM;
@@ -35,7 +36,6 @@ import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

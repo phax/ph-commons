@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.base.callback.ICallback;
 import com.helger.commons.callback.exception.LoggingExceptionCallback;
 
 /**

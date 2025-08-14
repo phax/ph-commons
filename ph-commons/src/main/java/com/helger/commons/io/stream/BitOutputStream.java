@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteOrder;
 
-import com.helger.commons.concurrent.SimpleLock;
+import com.helger.base.concurrent.SimpleLock;
 
 import jakarta.annotation.Nonnull;
 

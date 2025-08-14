@@ -19,9 +19,9 @@ package com.helger.xml.transform;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.state.EChange;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.list.ErrorList;
 

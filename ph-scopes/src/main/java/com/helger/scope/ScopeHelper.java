@@ -18,7 +18,7 @@ package com.helger.scope;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 
 import jakarta.annotation.Nullable;
 

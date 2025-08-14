@@ -16,6 +16,7 @@
  */
 package com.helger.commons.statistics.util;
 
+import com.helger.base.callback.ICallback;
 import com.helger.base.statistics.IStatisticsHandlerCache;
 import com.helger.base.statistics.IStatisticsHandlerCounter;
 import com.helger.base.statistics.IStatisticsHandlerKeyedCounter;
@@ -23,7 +24,6 @@ import com.helger.base.statistics.IStatisticsHandlerKeyedSize;
 import com.helger.base.statistics.IStatisticsHandlerKeyedTimer;
 import com.helger.base.statistics.IStatisticsHandlerSize;
 import com.helger.base.statistics.IStatisticsHandlerTimer;
-import com.helger.commons.callback.ICallback;
 
 import jakarta.annotation.Nonnull;
 

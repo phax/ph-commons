@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.base.iface.IThrowingRunnable;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.sax.CachingSAXInputSource;

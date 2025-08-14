@@ -17,7 +17,7 @@
 package com.helger.commons.hierarchy.visit;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.callback.ICallback;
+import com.helger.base.callback.ICallback;
 
 import jakarta.annotation.Nonnull;
 

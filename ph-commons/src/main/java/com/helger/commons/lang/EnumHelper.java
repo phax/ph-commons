@@ -27,6 +27,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.id.IHasID;
 import com.helger.base.id.IHasIntID;
@@ -37,7 +38,6 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.name.IHasName;
 
 import jakarta.annotation.Nonnull;

@@ -27,6 +27,9 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.callback.ICallback;
+import com.helger.base.callback.ICallbackList;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.state.EChange;
@@ -35,7 +38,6 @@ import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -48,7 +50,9 @@ import jakarta.annotation.Nullable;
  *        The callback type.
  */
 @ThreadSafe
-public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackList <CALLBACKTYPE>, ICloneable <CallbackList <CALLBACKTYPE>>
+public class CallbackList <CALLBACKTYPE extends ICallback> implements
+                          ICallbackList <CALLBACKTYPE>,
+                          ICloneable <CallbackList <CALLBACKTYPE>>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CallbackList.class);
 
@@ -67,8 +71,8 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackL
   }
 
   /**
-   * Clear all elements and add all provided values. If no value is provided,the
-   * collection is empty afterwards.
+   * Clear all elements and add all provided values. If no value is provided,the collection is empty
+   * afterwards.
    *
    * @param rhs
    *        the callback list to set. May not be <code>null</code>.
@@ -223,7 +227,6 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackL
   }
 
   @Nonnull
-  @Override
   public EContinue forEachBreakable (@Nonnull final Function <? super CALLBACKTYPE, EContinue> aFunction)
   {
     // Create a copy to iterate!

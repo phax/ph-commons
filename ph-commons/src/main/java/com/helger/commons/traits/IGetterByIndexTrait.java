@@ -21,16 +21,10 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Locale;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.lang.GenericReflection;
 import com.helger.base.typeconvert.TypeConverterException;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.datetime.PDTFromString;
 import com.helger.commons.typeconvert.TypeConverter;
 
 import jakarta.annotation.Nonnull;
@@ -404,6 +398,43 @@ public interface IGetterByIndexTrait
   }
 
   /**
+   * Check if a attribute with the given name is present in the request and has the specified value.
+   *
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param sDesiredValue
+   *        The value to be matched
+   * @return <code>true</code> if an attribute with the given name is present and has the desired
+   *         value
+   */
+  default boolean hasStringValue (@Nonnegative final int nIndex, @Nullable final String sDesiredValue)
+  {
+    return hasStringValue (nIndex, sDesiredValue, false);
+  }
+
+  /**
+   * Check if a attribute with the given name is present in the request and has the specified value.
+   * If no such attribute is present, the passed default value is returned.
+   *
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param sDesiredValue
+   *        The value to be matched
+   * @param bDefault
+   *        the default value to be returned, if the specified attribute is not present
+   * @return <code>true</code> if an attribute with the given name is present and has the desired
+   *         value, <code>false</code> if the attribute is present but has a different value. If the
+   *         attribute is not present, the default value is returned.
+   */
+  default boolean hasStringValue (@Nonnegative final int nIndex,
+                                  @Nullable final String sDesiredValue,
+                                  final boolean bDefault)
+  {
+    final String sValue = getAsString (nIndex);
+    return sValue == null ? bDefault : sValue.equals (sDesiredValue);
+  }
+
+  /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @return <code>getConvertedValue (nIndex,null,char[].class)</code>
@@ -665,263 +696,5 @@ public interface IGetterByIndexTrait
   default Short getAsShortObj (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, Short.class);
-  }
-
-  /**
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,null,Blob.class)</code>
-   * @see #getConvertedValue(int,Object,Class)
-   */
-  @Nullable
-  default java.sql.Blob getAsSqlBlob (@Nonnegative final int nIndex)
-  {
-    return getConvertedValue (nIndex, null, java.sql.Blob.class);
-  }
-
-  /**
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,null,Clob.class)</code>
-   * @see #getConvertedValue(int,Object,Class)
-   */
-  @Nullable
-  default java.sql.Clob getAsSqlClob (@Nonnegative final int nIndex)
-  {
-    return getConvertedValue (nIndex, null, java.sql.Clob.class);
-  }
-
-  /**
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,null,Date.class)</code>
-   * @see #getConvertedValue(int,Object,Class)
-   */
-  @Nullable
-  default java.sql.Date getAsSqlDate (@Nonnegative final int nIndex)
-  {
-    return getConvertedValue (nIndex, null, java.sql.Date.class);
-  }
-
-  /**
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,null,NClob.class)</code>
-   * @see #getConvertedValue(int,Object,Class)
-   */
-  @Nullable
-  default java.sql.NClob getAsSqlNClob (@Nonnegative final int nIndex)
-  {
-    return getConvertedValue (nIndex, null, java.sql.NClob.class);
-  }
-
-  /**
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,null,RowId.class)</code>
-   * @see #getConvertedValue(int,Object,Class)
-   */
-  @Nullable
-  default java.sql.RowId getAsSqlRowId (@Nonnegative final int nIndex)
-  {
-    return getConvertedValue (nIndex, null, java.sql.RowId.class);
-  }
-
-  /**
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,null,Time.class)</code>
-   * @see #getConvertedValue(int,Object,Class)
-   */
-  @Nullable
-  default java.sql.Time getAsSqlTime (@Nonnegative final int nIndex)
-  {
-    return getConvertedValue (nIndex, null, java.sql.Time.class);
-  }
-
-  /**
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,null,Timestamp.class)</code>
-   * @see #getConvertedValue(int,Object,Class)
-   */
-  @Nullable
-  default java.sql.Timestamp getAsSqlTimestamp (@Nonnegative final int nIndex)
-  {
-    return getConvertedValue (nIndex, null, java.sql.Timestamp.class);
-  }
-
-  /**
-   * Get the value as a String, interpreted as a {@link LocalDate}.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @param aContentLocale
-   *        Locale to use for conversion.
-   * @return <code>null</code> if either the conversion to String or the parsing of the String
-   *         failed.
-   */
-  @Nullable
-  default LocalDate getAsLocalDate (@Nonnegative final int nIndex, @Nonnull final Locale aContentLocale)
-  {
-    final String sStartDate = getAsString (nIndex);
-    return PDTFromString.getLocalDateFromString (sStartDate, aContentLocale);
-  }
-
-  /**
-   * Get the value as a String, interpreted as a {@link LocalTime}.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @param aContentLocale
-   *        Locale to use for conversion.
-   * @return <code>null</code> if either the conversion to String or the parsing of the String
-   *         failed.
-   */
-  @Nullable
-  default LocalTime getAsLocalTime (@Nonnegative final int nIndex, @Nonnull final Locale aContentLocale)
-  {
-    final String sStartDate = getAsString (nIndex);
-    return PDTFromString.getLocalTimeFromString (sStartDate, aContentLocale);
-  }
-
-  /**
-   * Get the value as a String, interpreted as a {@link LocalDateTime}.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @param aContentLocale
-   *        Locale to use for conversion.
-   * @return <code>null</code> if either the conversion to String or the parsing of the String
-   *         failed.
-   */
-  @Nullable
-  default LocalDateTime getAsLocalDateTime (@Nonnegative final int nIndex, @Nonnull final Locale aContentLocale)
-  {
-    final String sStartDate = getAsString (nIndex);
-    return PDTFromString.getLocalDateTimeFromString (sStartDate, aContentLocale);
-  }
-
-  /**
-   * Get a list of all attribute values with the same name.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>null</code> if no such attribute value exists
-   */
-  @Nullable
-  default ICommonsList <String> getAsStringList (@Nonnegative final int nIndex)
-  {
-    return getAsStringList (nIndex, null);
-  }
-
-  /**
-   * Get a list of all attribute values with the same name.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @param aDefault
-   *        The default value to be returned, if no such attribute is present.
-   * @return <code>aDefault</code> if no such attribute value exists
-   */
-  @Nullable
-  default ICommonsList <String> getAsStringList (@Nonnegative final int nIndex,
-                                                 @Nullable final ICommonsList <String> aDefault)
-  {
-    final Object aValue = getValue (nIndex);
-    if (aValue != null)
-    {
-      if (aValue instanceof final String [] aArray)
-      {
-        // multiple values passed in the request
-        return new CommonsArrayList <> (aArray);
-      }
-      if (aValue instanceof final String sValue)
-      {
-        // single value passed in the request
-        return new CommonsArrayList <> (sValue);
-      }
-    }
-    return aDefault;
-  }
-
-  /**
-   * Get a set of all attribute values with the same name.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @return <code>null</code> if no such attribute value exists
-   */
-  @Nullable
-  default ICommonsOrderedSet <String> getAsStringSet (@Nonnegative final int nIndex)
-  {
-    return getAsStringSet (nIndex, null);
-  }
-
-  /**
-   * Get a set of all attribute values with the same name.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @param aDefault
-   *        The default value to be returned, if no such attribute is present.
-   * @return <code>aDefault</code> if no such attribute value exists
-   */
-  @Nullable
-  default ICommonsOrderedSet <String> getAsStringSet (@Nonnegative final int nIndex,
-                                                      @Nullable final ICommonsOrderedSet <String> aDefault)
-  {
-    final Object aValue = getValue (nIndex);
-    if (aValue != null)
-    {
-      if (aValue instanceof final String [] aArray)
-      {
-        // multiple values passed in the request
-        return new CommonsLinkedHashSet <> (aArray);
-      }
-      if (aValue instanceof final String sValue)
-      {
-        // single value passed in the request
-        return new CommonsLinkedHashSet <> (sValue);
-      }
-    }
-    return aDefault;
-  }
-
-  /**
-   * Check if a attribute with the given name is present in the request and has the specified value.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @param sDesiredValue
-   *        The value to be matched
-   * @return <code>true</code> if an attribute with the given name is present and has the desired
-   *         value
-   */
-  default boolean hasStringValue (@Nonnegative final int nIndex, @Nullable final String sDesiredValue)
-  {
-    return hasStringValue (nIndex, sDesiredValue, false);
-  }
-
-  /**
-   * Check if a attribute with the given name is present in the request and has the specified value.
-   * If no such attribute is present, the passed default value is returned.
-   *
-   * @param nIndex
-   *        The index to be accessed. Should be &ge; 0.
-   * @param sDesiredValue
-   *        The value to be matched
-   * @param bDefault
-   *        the default value to be returned, if the specified attribute is not present
-   * @return <code>true</code> if an attribute with the given name is present and has the desired
-   *         value, <code>false</code> if the attribute is present but has a different value. If the
-   *         attribute is not present, the default value is returned.
-   */
-  default boolean hasStringValue (@Nonnegative final int nIndex,
-                                  @Nullable final String sDesiredValue,
-                                  final boolean bDefault)
-  {
-    final String sValue = getAsString (nIndex);
-    return sValue == null ? bDefault : sValue.equals (sDesiredValue);
   }
 }

@@ -20,6 +20,7 @@ import java.util.Map;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.state.ESuccess;
 import com.helger.base.string.Strings;
@@ -27,7 +28,6 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.security.authentication.subject.IAuthSubject;
 
 import jakarta.annotation.Nonnull;

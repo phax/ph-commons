@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.concurrent.SimpleLock;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.lang.GenericReflection;
@@ -33,7 +34,6 @@ import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.state.ESuccess;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.concurrent.SimpleLock;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

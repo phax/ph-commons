@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.functional.IThrowingSupplier;
-import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.base.iface.IThrowingRunnable;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

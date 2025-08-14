@@ -17,7 +17,7 @@
 package com.helger.commons.deadlock;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.callback.ICallback;
+import com.helger.base.callback.ICallback;
 
 import jakarta.annotation.Nonnull;
 
