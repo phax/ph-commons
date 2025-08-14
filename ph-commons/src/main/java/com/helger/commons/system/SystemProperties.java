@@ -25,7 +25,9 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.state.EChange;
 import com.helger.base.system.CSystemProperties;
 import com.helger.commons.collection.impl.CommonsCopyOnWriteArraySet;
@@ -35,7 +37,6 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.debug.GlobalDebugExt;
 import com.helger.commons.lang.PropertiesHelper;
-import com.helger.commons.log.IHasConditionalLogger;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -52,7 +53,7 @@ public final class SystemProperties implements IHasConditionalLogger
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SystemProperties.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebugExt.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
   private static final ICommonsSet <String> WARNED_PROP_NAMES = new CommonsCopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage

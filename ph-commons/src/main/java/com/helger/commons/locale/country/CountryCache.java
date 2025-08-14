@@ -26,18 +26,18 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.VisibleForTesting;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.state.EChange;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.debug.GlobalDebugExt;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleCache.IMissingLocaleHandler;
 import com.helger.commons.locale.LocaleHelper;
-import com.helger.commons.log.IHasConditionalLogger;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -58,7 +58,7 @@ public class CountryCache implements IHasConditionalLogger
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CountryCache.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebugExt.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   private static boolean s_bDefaultInstantiated = false;
 

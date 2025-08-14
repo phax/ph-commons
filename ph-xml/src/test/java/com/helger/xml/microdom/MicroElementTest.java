@@ -31,10 +31,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
+import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.commons.junit.DebugModeTestRule;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.MultilingualText;
-import com.helger.commons.typeconvert.TypeConverterException;
 
 /**
  * Test class for class {@link MicroElement}.

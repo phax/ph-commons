@@ -23,8 +23,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.helger.base.lang.GenericReflection;
+import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.typeconvert.TypeConverterException;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

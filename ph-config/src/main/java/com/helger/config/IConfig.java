@@ -20,7 +20,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.ESuccess;
 import com.helger.base.wrapper.Wrapper;
-import com.helger.commons.traits.IGetterByKeyTraitExt;
+import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
@@ -33,7 +33,7 @@ import jakarta.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public interface IConfig extends IGetterByKeyTraitExt <String>
+public interface IConfig extends IGetterByKeyTrait <String>
 {
   /**
    * Get the configured value, which is the combination of the matching configuration source and the

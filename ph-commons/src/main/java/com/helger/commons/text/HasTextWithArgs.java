@@ -24,14 +24,14 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.text.util.TextHelper;
+import com.helger.base.text.TextFormatter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A special implementation of {@link IHasText} that encapsulates arguments to
- * be put into the message.
+ * A special implementation of {@link IHasText} that encapsulates arguments to be put into the
+ * message.
  *
  * @author Philip Helger
  * @since 8.5.2
@@ -71,7 +71,7 @@ public class HasTextWithArgs implements IHasText
   public String getText (@Nonnull final Locale aContentLocale)
   {
     final String sText = m_aParentText.getText (aContentLocale);
-    return TextHelper.getFormattedText (sText, m_aArgs);
+    return TextFormatter.getFormattedText (sText, m_aArgs);
   }
 
   @Override

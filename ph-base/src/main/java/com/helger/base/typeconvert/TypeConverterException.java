@@ -14,19 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.base.typeconvert;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.misc.NoTranslationRequired;
-import com.helger.commons.text.util.TextHelper;
+import com.helger.base.text.TextFormatter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Exceptions of this type are only thrown from the {@link TypeConverter} class
- * if type conversion fails.
+ * Exceptions of this type are only thrown from the TypeConverter class if type conversion fails.
  *
  * @author Philip Helger
  */
@@ -55,7 +54,7 @@ public final class TypeConverterException extends RuntimeException
     {
       if (m_nParamCount != 1)
         throw new IllegalStateException ("Message does not expect 1 parameter!");
-      return TextHelper.getFormattedText (m_sMsg, aDstClass.getName ());
+      return TextFormatter.getFormattedText (m_sMsg, aDstClass.getName ());
     }
 
     @Nonnull
@@ -64,7 +63,7 @@ public final class TypeConverterException extends RuntimeException
     {
       if (m_nParamCount != 2)
         throw new IllegalStateException ("Message does not expect 2 parameters!");
-      return TextHelper.getFormattedText (m_sMsg, aSrcClass.getName (), aDstClass.getName ());
+      return TextFormatter.getFormattedText (m_sMsg, aSrcClass.getName (), aDstClass.getName ());
     }
   }
 
@@ -78,8 +77,7 @@ public final class TypeConverterException extends RuntimeException
    * @param aDstClass
    *        The conversion destination class. May not be <code>null</code>.
    * @param eReason
-   *        The reason code why the transformation failed. May not be
-   *        <code>null</code>.
+   *        The reason code why the transformation failed. May not be <code>null</code>.
    */
   public TypeConverterException (@Nonnull final Class <?> aDstClass, @Nonnull final EReason eReason)
   {
@@ -97,10 +95,11 @@ public final class TypeConverterException extends RuntimeException
    * @param aDstClass
    *        The conversion destination class. May not be <code>null</code>.
    * @param eReason
-   *        The reason code why the transformation failed. May not be
-   *        <code>null</code>.
+   *        The reason code why the transformation failed. May not be <code>null</code>.
    */
-  public TypeConverterException (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass, @Nonnull final EReason eReason)
+  public TypeConverterException (@Nonnull final Class <?> aSrcClass,
+                                 @Nonnull final Class <?> aDstClass,
+                                 @Nonnull final EReason eReason)
   {
     this (aSrcClass, aDstClass, eReason, null);
   }
@@ -113,8 +112,7 @@ public final class TypeConverterException extends RuntimeException
    * @param aDstClass
    *        The conversion destination class. May not be <code>null</code>.
    * @param eReason
-   *        The reason code why the transformation failed. May not be
-   *        <code>null</code>.
+   *        The reason code why the transformation failed. May not be <code>null</code>.
    * @param aCause
    *        A causing exception. May be <code>null</code>.
    */

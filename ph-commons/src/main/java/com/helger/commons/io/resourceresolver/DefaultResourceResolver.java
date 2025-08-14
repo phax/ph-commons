@@ -26,13 +26,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.string.Strings;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 

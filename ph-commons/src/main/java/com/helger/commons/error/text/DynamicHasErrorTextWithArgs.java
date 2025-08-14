@@ -25,16 +25,16 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.string.ToStringGenerator;
+import com.helger.base.text.TextFormatter;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.display.IHasDisplayText;
-import com.helger.commons.text.util.TextHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A special implementation of {@link IHasErrorText} that encapsulates arguments
- * to be put into the message.
+ * A special implementation of {@link IHasErrorText} that encapsulates arguments to be put into the
+ * message.
  *
  * @author Philip Helger
  * @since 8.5.2
@@ -46,7 +46,8 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
   private final IHasText m_aParentText;
   private final Object [] m_aArgs;
 
-  public DynamicHasErrorTextWithArgs (@Nonnull final IHasDisplayText aParentText, @Nonnull @Nonempty final Object... aArgs)
+  public DynamicHasErrorTextWithArgs (@Nonnull final IHasDisplayText aParentText,
+                                      @Nonnull @Nonempty final Object... aArgs)
   {
     this (aParentText.getAsHasText (), aArgs);
   }
@@ -80,7 +81,7 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
   public String getDisplayText (@Nonnull final Locale aContentLocale)
   {
     final String sText = m_aParentText.getText (aContentLocale);
-    return TextHelper.getFormattedText (sText, m_aArgs);
+    return TextFormatter.getFormattedText (sText, m_aArgs);
   }
 
   public boolean isMultiLingual ()

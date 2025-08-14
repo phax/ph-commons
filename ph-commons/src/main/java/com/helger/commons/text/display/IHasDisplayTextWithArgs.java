@@ -19,8 +19,8 @@ package com.helger.commons.text.display;
 import java.util.Locale;
 
 import com.helger.annotation.misc.DevelopersNote;
+import com.helger.base.text.TextFormatter;
 import com.helger.commons.text.IHasTextWithArgs;
-import com.helger.commons.text.util.TextHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -36,11 +36,9 @@ public interface IHasDisplayTextWithArgs extends IHasDisplayText
   /**
    * @param aContentLocale
    *        The locale to be used for resolving. May not be <code>null</code>.
-   * @return The display text of the object in the given locale. May be
-   *         <code>null</code> if the text could not be resolved in the passed
-   *         locale.
-   * @deprecated Don't call this; Use {@link #getDisplayText(Locale)} if no
-   *             parameters are present
+   * @return The display text of the object in the given locale. May be <code>null</code> if the
+   *         text could not be resolved in the passed locale.
+   * @deprecated Don't call this; Use {@link #getDisplayText(Locale)} if no parameters are present
    */
   @Nullable
   @Deprecated (forRemoval = false)
@@ -54,17 +52,16 @@ public interface IHasDisplayTextWithArgs extends IHasDisplayText
    * @param aContentLocale
    *        The locale to be used for resolving. May not be <code>null</code>.
    * @param aArgs
-   *        Arguments for formatting the provided text. May be <code>null</code>
-   *        but this makes no sense.
-   * @return The display text of the object in the given locale. May be
-   *         <code>null</code> if the text could not be resolved in the passed
-   *         locale.
+   *        Arguments for formatting the provided text. May be <code>null</code> but this makes no
+   *        sense.
+   * @return The display text of the object in the given locale. May be <code>null</code> if the
+   *         text could not be resolved in the passed locale.
    */
   @Nullable
   default String getDisplayTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
   {
     final String sText = getDisplayText (aContentLocale);
-    return TextHelper.getFormattedText (sText, aArgs);
+    return TextFormatter.getFormattedText (sText, aArgs);
   }
 
   /**

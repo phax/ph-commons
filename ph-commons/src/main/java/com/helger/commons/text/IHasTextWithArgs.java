@@ -18,15 +18,14 @@ package com.helger.commons.text;
 
 import java.util.Locale;
 
+import com.helger.base.text.TextFormatter;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
-import com.helger.commons.text.util.TextHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Basic interface for object providing multilingual texts with and without
- * arguments.
+ * Basic interface for object providing multilingual texts with and without arguments.
  *
  * @author Philip Helger
  */
@@ -34,9 +33,8 @@ import jakarta.annotation.Nullable;
 public interface IHasTextWithArgs extends IHasText
 {
   /**
-   * Get the text specific for the passed locale. The implementation class MAY
-   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
-   * <i>default</i>).
+   * Get the text specific for the passed locale. The implementation class MAY add
+   * locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt; <i>default</i>).
    *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
@@ -51,23 +49,22 @@ public interface IHasTextWithArgs extends IHasText
   }
 
   /**
-   * Get the text specific for the passed locale. The implementation class MAY
-   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
-   * <i>default</i>). The placeholders will be resolved with the
-   * {@link java.text.MessageFormat#format(Object)} method.
+   * Get the text specific for the passed locale. The implementation class MAY add
+   * locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt; <i>default</i>). The
+   * placeholders will be resolved with the {@link java.text.MessageFormat#format(Object)} method.
    *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
    * @param aArgs
-   *        The arguments to be added into the string. May be <code>null</code>
-   *        but this makes no sense.
+   *        The arguments to be added into the string. May be <code>null</code> but this makes no
+   *        sense.
    * @return <code>null</code> if no text for the given locale was found.
    */
   @Nullable
   default String getTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
   {
     final String sText = getText (aContentLocale);
-    return TextHelper.getFormattedText (sText, aArgs);
+    return TextFormatter.getFormattedText (sText, aArgs);
   }
 
   /**

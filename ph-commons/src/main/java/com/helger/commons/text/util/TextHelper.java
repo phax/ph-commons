@@ -24,14 +24,12 @@ import java.util.Map;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
 
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Utility methods for formatting text using {@link MessageFormat}.
@@ -51,48 +49,6 @@ public final class TextHelper
 
   private TextHelper ()
   {}
-
-  @Nullable
-  public static String getFormattedText (@Nullable final String sText, @Nullable final Object... aArgs)
-  {
-    if (sText == null)
-    {
-      // Avoid NPE in MessageFormat
-      return null;
-    }
-
-    if (ArrayHelper.isEmpty (aArgs))
-    {
-      // Return text unchanged
-      return sText;
-    }
-
-    final MessageFormat aMF = new MessageFormat (sText, Locale.getDefault (Locale.Category.FORMAT));
-    return aMF.format (aArgs);
-  }
-
-  @Nullable
-  public static String getFormattedText (@Nonnull final Locale aDisplayLocale,
-                                         @Nullable final String sText,
-                                         @Nullable final Object... aArgs)
-  {
-    ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
-
-    if (sText == null)
-    {
-      // Avoid NPE in MessageFormat
-      return null;
-    }
-
-    if (ArrayHelper.isEmpty (aArgs))
-    {
-      // Return text unchanged
-      return sText;
-    }
-
-    final MessageFormat aMF = new MessageFormat (sText, aDisplayLocale);
-    return aMF.format (aArgs);
-  }
 
   @Nonnull
   @ReturnsMutableCopy
@@ -123,16 +79,13 @@ public final class TextHelper
   }
 
   /**
-   * Get a copy of this object with the specified locales. The default locale is
-   * copied.
+   * Get a copy of this object with the specified locales. The default locale is copied.
    *
    * @param aMLT
    *        The initial multilingual text. May not be <code>null</code>.
    * @param aContentLocales
-   *        The list of locales of which the strings are desired. May not be
-   *        <code>null</code>.
-   * @return The object containing only the texts of the given locales. Never
-   *         <code>null</code>.
+   *        The list of locales of which the strings are desired. May not be <code>null</code>.
+   * @return The object containing only the texts of the given locales. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy

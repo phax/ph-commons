@@ -25,6 +25,13 @@ public class GlobalDebug
    */
   public static final boolean DEFAULT_PRODUCTION_MODE = false;
 
+  /**
+   * By default silent mode is enabled.
+   *
+   * @since 9.4.0
+   */
+  public static final boolean DEFAULT_SILENT_MODE = true;
+
   private static final AtomicBoolean DEBUG_MODE = new AtomicBoolean (DEFAULT_DEBUG_MODE);
   private static final AtomicBoolean PRODUCTION_MODE = new AtomicBoolean (DEFAULT_PRODUCTION_MODE);
 

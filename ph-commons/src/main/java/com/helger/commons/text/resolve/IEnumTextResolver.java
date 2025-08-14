@@ -19,9 +19,9 @@ package com.helger.commons.text.resolve;
 import java.util.Locale;
 
 import com.helger.annotation.misc.DevelopersNote;
+import com.helger.base.text.TextFormatter;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
-import com.helger.commons.text.util.TextHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -37,8 +37,7 @@ public interface IEnumTextResolver
    * Get the text of an enumeration item.
    *
    * @param aEnum
-   *        The enumeration item to get the unique ID of. May not be
-   *        <code>null</code>.
+   *        The enumeration item to get the unique ID of. May not be <code>null</code>.
    * @param aTP
    *        The text provider containing the text. May not be <code>null</code>.
    * @param aContentLocale
@@ -52,15 +51,14 @@ public interface IEnumTextResolver
    * Get the text of an enumeration item.
    *
    * @param aEnum
-   *        The enumeration item to get the unique ID of. May not be
-   *        <code>null</code>.
+   *        The enumeration item to get the unique ID of. May not be <code>null</code>.
    * @param aTP
    *        The text provider containing the text. May not be <code>null</code>.
    * @param aContentLocale
    *        The locale to be used. May not be <code>null</code>.
    * @return <code>null</code> if no text could be resolved.
-   * @deprecated Don't call this; Use {@link #getText(Enum, IHasText, Locale)}
-   *             instead when no argument is needed
+   * @deprecated Don't call this; Use {@link #getText(Enum, IHasText, Locale)} instead when no
+   *             argument is needed
    */
   @Nullable
   @Deprecated (forRemoval = false)
@@ -76,15 +74,14 @@ public interface IEnumTextResolver
    * Get the text of an enumeration item with placeholder texts being replaced.
    *
    * @param aEnum
-   *        The enumeration item to get the unique ID of. May not be
-   *        <code>null</code>.
+   *        The enumeration item to get the unique ID of. May not be <code>null</code>.
    * @param aTP
    *        The text provider containing the text. May not be <code>null</code>.
    * @param aContentLocale
    *        The locale to be used. May not be <code>null</code>.
    * @param aArgs
-   *        The arguments to be added into the string. May be <code>null</code>
-   *        but this makes no sense.
+   *        The arguments to be added into the string. May be <code>null</code> but this makes no
+   *        sense.
    * @return <code>null</code> if no text could be resolved.
    */
   @Nullable
@@ -95,6 +92,6 @@ public interface IEnumTextResolver
   {
     final String sText = getText (aEnum, aTP, aContentLocale);
     // And if something was found, resolve the arguments
-    return TextHelper.getFormattedText (sText, aArgs);
+    return TextFormatter.getFormattedText (sText, aArgs);
   }
 }

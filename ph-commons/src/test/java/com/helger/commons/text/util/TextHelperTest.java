@@ -18,7 +18,6 @@ package com.helger.commons.text.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
@@ -41,19 +40,6 @@ public final class TextHelperTest
 {
   private static final Locale L_DE = new Locale ("de");
   private static final Locale L_EN = new Locale ("en");
-
-  @Test
-  public void testGetFormattedText ()
-  {
-    assertEquals ("a", TextHelper.getFormattedText ("a", (Object []) null));
-    assertEquals ("a", TextHelper.getFormattedText ("a", new Object [0]));
-    assertEquals ("a{0}", TextHelper.getFormattedText ("a{0}", new Object [0]));
-    assertEquals ("anull", TextHelper.getFormattedText ("a{0}", (Object) null));
-    assertEquals ("ab", TextHelper.getFormattedText ("a{0}", "b"));
-    assertEquals ("ab{1}", TextHelper.getFormattedText ("a{0}{1}", "b"));
-    assertEquals ("anull{1}", TextHelper.getFormattedText ("a{0}{1}", (Object) null));
-    assertNull (TextHelper.getFormattedText ((String) null, "b"));
-  }
 
   @Test
   public void testGetCopyWithLocales ()

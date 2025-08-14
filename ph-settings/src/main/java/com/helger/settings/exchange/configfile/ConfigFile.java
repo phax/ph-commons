@@ -26,7 +26,7 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.system.SystemProperties;
-import com.helger.commons.traits.IGetterByKeyTraitExt;
+import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.settings.ISettings;
 
 import jakarta.annotation.Nonnull;
@@ -39,7 +39,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @Immutable
-public class ConfigFile implements IGetterByKeyTraitExt <String>
+public class ConfigFile implements IGetterByKeyTrait <String>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFile.class);
 

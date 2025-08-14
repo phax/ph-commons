@@ -24,13 +24,13 @@ import java.time.LocalTime;
 import java.util.Locale;
 
 import com.helger.base.lang.GenericReflection;
+import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.datetime.PDTFromString;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.typeconvert.TypeConverterException;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -43,7 +43,7 @@ import jakarta.annotation.Nullable;
  *        The key type. E.g. String etc.
  */
 @FunctionalInterface
-public interface IGetterByKeyTraitExt <KEYTYPE>
+public interface IGetterByKeyTrait <KEYTYPE>
 {
   /**
    * Get the value matching the provided key.

@@ -25,6 +25,7 @@ import java.net.URL;
 
 import org.junit.Test;
 
+import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;

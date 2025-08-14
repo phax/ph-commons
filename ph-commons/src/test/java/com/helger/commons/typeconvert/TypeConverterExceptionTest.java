@@ -24,7 +24,8 @@ import java.net.URL;
 
 import org.junit.Test;
 
-import com.helger.commons.typeconvert.TypeConverterException.EReason;
+import com.helger.base.typeconvert.TypeConverterException;
+import com.helger.base.typeconvert.TypeConverterException.EReason;
 
 /**
  * Test class for class {@link TypeConverterException}.

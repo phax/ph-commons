@@ -26,14 +26,14 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.lang.GenericReflection;
 import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.state.ESuccess;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.concurrent.SimpleLock;
-import com.helger.commons.debug.GlobalDebugExt;
-import com.helger.commons.log.IHasConditionalLogger;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -49,7 +49,7 @@ import jakarta.annotation.Nullable;
 public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE>, IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ObjectPool.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebugExt.DEFAULT_SILENT_MODE);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
 
   // Lock for this object
   private final SimpleLock m_aLock = new SimpleLock ();
@@ -69,8 +69,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   private final boolean [] m_aUsed;
 
   /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it
-   *         is enabled.
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it is enabled.
    * @since 9.4.0
    */
   public static boolean isSilentMode ()
@@ -82,8 +81,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    * Enable or disable certain regular log messages.
    *
    * @param bSilentMode
-   *        <code>true</code> to disable logging, <code>false</code> to enable
-   *        logging
+   *        <code>true</code> to disable logging, <code>false</code> to enable logging
    * @return The previous value of the silent mode.
    * @since 9.4.0
    */
@@ -93,15 +91,14 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   }
 
   /**
-   * Create a new object pool for a certain amount of items and a factory that
-   * creates the objects on demand.
+   * Create a new object pool for a certain amount of items and a factory that creates the objects
+   * on demand.
    *
    * @param nItemCount
    *        The number of items in the pool. Must be &ge; 1.
    * @param aFactory
-   *        The factory to create object. May not be <code>null</code>. The
-   *        factory may not create <code>null</code> objects, as this leads to
-   *        an error!
+   *        The factory to create object. May not be <code>null</code>. The factory may not create
+   *        <code>null</code> objects, as this leads to an error!
    */
   public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final Supplier <? extends DATATYPE> aFactory)
   {
@@ -109,15 +106,14 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   }
 
   /**
-   * Create a new object pool for a certain amount of items and a factory that
-   * creates the objects on demand.
+   * Create a new object pool for a certain amount of items and a factory that creates the objects
+   * on demand.
    *
    * @param nItemCount
    *        The number of items in the pool. Must be &ge; 1.
    * @param aFactory
-   *        The factory to create object. May not be <code>null</code>. The
-   *        factory may not create <code>null</code> objects, as this leads to
-   *        an error!
+   *        The factory to create object. May not be <code>null</code>. The factory may not create
+   *        <code>null</code> objects, as this leads to an error!
    */
   public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final IObjectPoolFactory <DATATYPE> aFactory)
   {
@@ -143,8 +139,8 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   }
 
   /**
-   * @return The number of objects currently borrowed from the pool. Something
-   *         between 0 and {@link #getPoolSize()}
+   * @return The number of objects currently borrowed from the pool. Something between 0 and
+   *         {@link #getPoolSize()}
    * @see #getPoolSize()
    * @since 11.0.6
    */

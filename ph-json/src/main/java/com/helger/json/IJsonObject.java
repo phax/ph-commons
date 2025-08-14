@@ -30,7 +30,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.traits.IGetterByKeyTraitExt;
+import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.json.convert.JsonConverter;
 
 import jakarta.annotation.Nonnull;
@@ -44,7 +44,7 @@ import jakarta.annotation.Nullable;
 public interface IJsonObject extends
                              IJsonCollection,
                              ICommonsIterable <Map.Entry <String, IJson>>,
-                             IGetterByKeyTraitExt <String>
+                             IGetterByKeyTrait <String>
 {
   /**
    * Add a new child JSON with the given name to this object.

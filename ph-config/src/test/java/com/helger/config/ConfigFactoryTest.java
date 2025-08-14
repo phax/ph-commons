@@ -29,11 +29,11 @@ import org.junit.Test;
 
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.numeric.BigHelper;
+import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.system.SystemProperties;
-import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
 import com.helger.config.source.res.ConfigurationSourceJson;
 import com.helger.config.source.res.ConfigurationSourceProperties;

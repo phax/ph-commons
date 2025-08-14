@@ -27,7 +27,7 @@ import com.helger.base.state.EContinue;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.ICallback;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.traits.IGetterByKeyTraitExt;
+import com.helger.commons.traits.IGetterByKeyTrait;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -45,7 +45,7 @@ import jakarta.annotation.Nullable;
  */
 public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
                                      ICommonsMap <KEYTYPE, VALUETYPE>,
-                                     IGetterByKeyTraitExt <KEYTYPE>
+                                     IGetterByKeyTrait <KEYTYPE>
 {
   @FunctionalInterface
   interface IBeforeSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback

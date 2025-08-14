@@ -36,12 +36,6 @@ public final class GlobalDebugExt extends GlobalDebug
   public static final String SYSTEM_PROPERTY_JAVAX_NET_DEBUG = "javax.net.debug";
   public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
   public static final String SYSTEM_PROPERTY_SERIALIZATION_DEBUG = "sun.io.serialization.extendedDebugInfo";
-  /**
-   * By default silent mode is enabled.
-   *
-   * @since 9.4.0
-   */
-  public static final boolean DEFAULT_SILENT_MODE = true;
 
   /**
    * Set the debug mode for the common Java components:
