@@ -21,10 +21,10 @@ import java.util.Locale;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.text.util.TextHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

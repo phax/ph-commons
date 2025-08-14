@@ -27,11 +27,11 @@ import java.net.URL;
 
 import org.junit.Test;
 
+import com.helger.base.lang.ClassHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.lang.ClassHelper;
 
 /**
  * Test class for class {@link DefaultResourceResolver}.

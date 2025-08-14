@@ -16,7 +16,7 @@
  */
 package com.helger.scope;
 
-import com.helger.commons.state.EContinue;
+import com.helger.base.state.EContinue;
 
 import jakarta.annotation.Nonnull;
 

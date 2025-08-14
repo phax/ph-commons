@@ -18,16 +18,16 @@ package com.helger.commons.supplementary.test.benchmark;
 
 import java.util.regex.Pattern;
 
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.string.StringHelper;
 
 /**
- * This code benchmarks the performance of copying an array purely in Java
- * versus copying it with System.arraycopy.
+ * This code benchmarks the performance of copying an array purely in Java versus copying it with
+ * System.arraycopy.
  * <p>
- * If available on the executing platform, it may be very useful to perform
- * benchmarks with the server JVM as well as the default client JVM.
+ * If available on the executing platform, it may be very useful to perform benchmarks with the
+ * server JVM as well as the default client JVM.
  */
 public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
 {
@@ -60,8 +60,8 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
   }
 
   private static final String SRC = "This is <<a> text";
-  private static final String [] RSRC = new String [] { "&", "<", ">" };
-  private static final String [] RDST = new String [] { "&amp;", "&lt;", "&gt;" };
+  private static final String [] RSRC = { "&", "<", ">" };
+  private static final String [] RDST = { "&amp;", "&lt;", "&gt;" };
   private static final String DST = "This is &lt;&lt;a&gt; text";
 
   private static final class StringReplace implements Runnable
@@ -134,7 +134,7 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
 
       String s = "";
       for (int i = 0; i < m_nRuns; i++)
-        s = new String (StringHelper.replaceMultiple (SRC, aSrc, aDst));
+        s = new String (Strings.replaceMultiple (SRC, aSrc, aDst));
       if (!s.equals (DST))
         throw new IllegalStateException (s);
     }
@@ -157,7 +157,7 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
 
       String s = "";
       for (int i = 0; i < m_nRuns; i++)
-        s = StringHelper.replaceMultiple (SRC, aMap);
+        s = Strings.replaceMultiple (SRC, aMap);
       if (!s.equals (DST))
         throw new IllegalStateException (s);
     }
@@ -176,7 +176,7 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
     {
       String s = "";
       for (int i = 0; i < m_nRuns; i++)
-        s = StringHelper.replaceMultiple (SRC, RSRC, RDST);
+        s = Strings.replaceMultiple (SRC, RSRC, RDST);
       if (!s.equals (DST))
         throw new IllegalStateException (s);
     }

@@ -18,7 +18,7 @@ package com.helger.commons.pool;
 
 import java.util.function.Supplier;
 
-import com.helger.commons.state.ESuccess;
+import com.helger.base.state.ESuccess;
 
 import jakarta.annotation.Nonnull;
 

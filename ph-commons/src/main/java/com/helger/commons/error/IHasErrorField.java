@@ -18,8 +18,8 @@ package com.helger.commons.error;
 
 import java.util.Comparator;
 
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
+import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -39,23 +39,21 @@ public interface IHasErrorField
   String getErrorFieldName ();
 
   /**
-   * @return <code>true</code> if a field name is present, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if a field name is present, <code>false</code> otherwise
    * @since 8.5.0
    */
   default boolean hasErrorFieldName ()
   {
-    return StringHelper.hasText (getErrorFieldName ());
+    return Strings.isNotEmpty (getErrorFieldName ());
   }
 
   /**
-   * @return <code>true</code> if no field name is present, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if no field name is present, <code>false</code> otherwise
    * @since 8.5.0
    */
   default boolean hasNoErrorFieldName ()
   {
-    return StringHelper.hasNoText (getErrorFieldName ());
+    return Strings.isEmpty (getErrorFieldName ());
   }
 
   /**
@@ -63,13 +61,12 @@ public interface IHasErrorField
    *
    * @param sErrorFieldName
    *        The error field name to check. May be null.
-   * @return <code>true</code> if a field name is equal, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if a field name is equal, <code>false</code> otherwise
    * @since 8.5.0
    */
   default boolean hasErrorFieldName (@Nullable final String sErrorFieldName)
   {
-    return EqualsHelper.equals (getErrorFieldName (), sErrorFieldName);
+    return EqualsHelperExt.extEquals (getErrorFieldName (), sErrorFieldName);
   }
 
   @Nonnull

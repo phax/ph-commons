@@ -22,12 +22,13 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.StringHex;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.random.VerySecureRandom;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -57,7 +58,7 @@ public final class PasswordSalt implements IPasswordSalt
   {
     ValueEnforcer.notEmpty (aBytes, "Bytes");
     m_aSaltBytes = aBytes;
-    m_sSaltString = StringHelper.getHexEncoded (aBytes);
+    m_sSaltString = StringHex.getHexEncoded (aBytes);
   }
 
   @Nonnegative
@@ -145,12 +146,12 @@ public final class PasswordSalt implements IPasswordSalt
   @Nullable
   public static PasswordSalt createFromStringMaybe (@Nullable final String sSalt)
   {
-    if (StringHelper.hasNoText (sSalt))
+    if (Strings.isEmpty (sSalt))
       return null;
 
     // Decode String to bytes
     // Throws an IllegalArgumentException if an invalid character is encountered
-    final byte [] aBytes = StringHelper.getHexDecoded (sSalt);
+    final byte [] aBytes = StringHex.getHexDecoded (sSalt);
     return new PasswordSalt (aBytes);
   }
 }

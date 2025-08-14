@@ -36,12 +36,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.system.EOperatingSystem;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -169,7 +169,7 @@ public final class FontKerningFuncTest
       for (int i = 0; i < nTableCount; i++)
       {
         m_nBytePosition += tagBytes.length;
-        StreamHelper.readFully (aIS, tagBytes);
+        StreamHelperExt.readFully (aIS, tagBytes);
         final String tag = new String (tagBytes, StandardCharsets.ISO_8859_1);
 
         _skip (aIS, 4);
@@ -254,7 +254,7 @@ public final class FontKerningFuncTest
 
     private void _skip (final InputStream aIS, final int bytes) throws IOException
     {
-      StreamHelper.skipFully (aIS, bytes);
+      StreamHelperExt.skipFully (aIS, bytes);
       m_nBytePosition += bytes;
     }
 
@@ -262,7 +262,7 @@ public final class FontKerningFuncTest
     {
       if (false)
         LOGGER.info ("position=" + position + "; pos=" + m_nBytePosition);
-      StreamHelper.skipFully (aIS, position - m_nBytePosition);
+      StreamHelperExt.skipFully (aIS, position - m_nBytePosition);
       m_nBytePosition = position;
     }
   }

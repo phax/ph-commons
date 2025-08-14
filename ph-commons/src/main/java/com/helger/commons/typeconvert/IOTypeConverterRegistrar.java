@@ -28,11 +28,11 @@ import java.net.URL;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IHasOutputStream;
-import com.helger.commons.io.IHasReader;
-import com.helger.commons.io.IHasWriter;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.iface.IHasOutputStream;
+import com.helger.base.io.iface.IHasReader;
+import com.helger.base.io.iface.IHasWriter;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IResourceBase;

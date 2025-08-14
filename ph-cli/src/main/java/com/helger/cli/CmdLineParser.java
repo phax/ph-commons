@@ -23,6 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -30,7 +32,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -158,7 +159,7 @@ public class CmdLineParser
       for (int nArgIndex = 0; nArgIndex < aArgs.length; ++nArgIndex)
       {
         final String sArg = StringHelper.trim (aArgs[nArgIndex]);
-        if (StringHelper.hasText (sArg))
+        if (Strings.isNotEmpty (sArg))
         {
           final MatchedOption aMatchedOption = _findMatchingOption (aStrToOptionMap, sArg);
           if (aMatchedOption != null)
@@ -196,7 +197,7 @@ public class CmdLineParser
             final boolean bUnlimitedArgs = aOption.hasInfiniteArgs ();
             final ICommonsList <String> aValues = new CommonsArrayList <> ();
 
-            if (StringHelper.hasText (sValueInArg))
+            if (Strings.isNotEmpty (sValueInArg))
             {
               // As e.g. in "-Dtest=value"
               if (aOption.hasValueSeparator ())
@@ -230,7 +231,7 @@ public class CmdLineParser
               // Lets consume this argument
               nArgIndex++;
 
-              if (StringHelper.hasText (sNextArg))
+              if (Strings.isNotEmpty (sNextArg))
               {
                 // As e.g. in "-Dtest=value"
                 if (aOption.hasValueSeparator ())

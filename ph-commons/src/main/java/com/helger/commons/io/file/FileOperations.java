@@ -32,12 +32,13 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.io.EAppend;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.io.channel.ChannelHelper;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 
@@ -107,12 +108,11 @@ public final class FileOperations
   }
 
   /**
-   * Create a new directory if it does not exist. The direct parent directory
-   * already needs to exist.
+   * Create a new directory if it does not exist. The direct parent directory already needs to
+   * exist.
    *
    * @param aDir
-   *        The directory to be created if it does not exist. May not be
-   *        <code>null</code>.
+   *        The directory to be created if it does not exist. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
   @Nonnull
@@ -125,8 +125,7 @@ public final class FileOperations
   }
 
   /**
-   * Create a new directory. The parent directories are created if they are
-   * missing.
+   * Create a new directory. The parent directories are created if they are missing.
    *
    * @param aDir
    *        The directory to be created. May not be <code>null</code>.
@@ -158,12 +157,11 @@ public final class FileOperations
   }
 
   /**
-   * Create a new directory if it does not exist. The direct parent directory
-   * already needs to exist.
+   * Create a new directory if it does not exist. The direct parent directory already needs to
+   * exist.
    *
    * @param aDir
-   *        The directory to be created if it does not exist. May not be
-   *        <code>null</code>.
+   *        The directory to be created if it does not exist. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    * @see #createDirRecursive(File)
    */
@@ -177,8 +175,7 @@ public final class FileOperations
   }
 
   /**
-   * Delete an existing directory. The directory needs to be empty before it can
-   * be deleted.
+   * Delete an existing directory. The directory needs to be empty before it can be deleted.
    *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
@@ -228,8 +225,8 @@ public final class FileOperations
   }
 
   /**
-   * Delete an existing directory if it is existing. The directory needs to be
-   * empty before it can be deleted.
+   * Delete an existing directory if it is existing. The directory needs to be empty before it can
+   * be deleted.
    *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
@@ -400,7 +397,7 @@ public final class FileOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile);
 
     // Are source and target different?
-    if (EqualsHelper.equals (aSourceFile, aTargetFile))
+    if (EqualsHelperExt.extEquals (aSourceFile, aTargetFile))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile);
 
     // Does the target file already exist?
@@ -452,7 +449,7 @@ public final class FileOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir);
 
     // Are source and target different?
-    if (EqualsHelper.equals (aSourceDir, aTargetDir))
+    if (EqualsHelperExt.extEquals (aSourceDir, aTargetDir))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir);
 
     // Does the target directory already exist?
@@ -491,8 +488,8 @@ public final class FileOperations
   }
 
   /**
-   * Copy the content of the source file to the destination file using
-   * {@link FileChannel}. This version seems to fail with UNC paths.
+   * Copy the content of the source file to the destination file using {@link FileChannel}. This
+   * version seems to fail with UNC paths.
    *
    * @param aSrcFile
    *        Source file. May not be <code>null</code>.
@@ -562,8 +559,8 @@ public final class FileOperations
   }
 
   /**
-   * Copy the content of the source file to the destination file using
-   * {@link InputStream} and {@link OutputStream}.
+   * Copy the content of the source file to the destination file using {@link InputStream} and
+   * {@link OutputStream}.
    *
    * @param aSrcFile
    *        Source file. May not be <code>null</code>.
@@ -586,7 +583,7 @@ public final class FileOperations
 
       try
       {
-        return StreamHelper.copyInputStreamToOutputStream (aSrcIS, aDstOS);
+        return StreamHelperExt.copyInputStreamToOutputStream (aSrcIS, aDstOS);
       }
       finally
       {
@@ -603,11 +600,9 @@ public final class FileOperations
    * Copies the source file to the target file.
    *
    * @param aSourceFile
-   *        The source file to use. May not be <code>null</code>. Needs to be an
-   *        existing file.
+   *        The source file to use. May not be <code>null</code>. Needs to be an existing file.
    * @param aTargetFile
-   *        The destination files. May not be <code>null</code> and may not be
-   *        an existing file.
+   *        The destination files. May not be <code>null</code> and may not be an existing file.
    * @return A non-<code>null</code> error code.
    */
   @Nonnull
@@ -621,7 +616,7 @@ public final class FileOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile);
 
     // Are source and target different?
-    if (EqualsHelper.equals (aSourceFile, aTargetFile))
+    if (EqualsHelperExt.extEquals (aSourceFile, aTargetFile))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile);
 
     // Does the target file already exist?
@@ -663,8 +658,8 @@ public final class FileOperations
    * @param aSourceDir
    *        The source directory to be copied. May not be <code>null</code>.
    * @param aTargetDir
-   *        The destination directory where to be copied. This directory may not
-   *        be existing. May not be <code>null</code>.
+   *        The destination directory where to be copied. This directory may not be existing. May
+   *        not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
   @Nonnull
@@ -678,7 +673,7 @@ public final class FileOperations
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir);
 
     // Are source and target different?
-    if (EqualsHelper.equals (aSourceDir, aTargetDir))
+    if (EqualsHelperExt.extEquals (aSourceDir, aTargetDir))
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir);
 
     // Is the source a parent of target?
@@ -700,10 +695,10 @@ public final class FileOperations
     if (aTargetParentDir != null && aTargetParentDir.exists () && !aTargetParentDir.canWrite ())
       return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aTargetDir);
 
-    FileIOError eCode;
+    
 
     // Ensure the targets parent directory is present
-    eCode = createDirRecursive (aTargetDir);
+    FileIOError eCode = createDirRecursive (aTargetDir);
     if (eCode.isFailure ())
       return eCode;
 

@@ -21,11 +21,11 @@ import java.time.LocalDateTime;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -52,7 +52,7 @@ public final class AuthToken implements IAuthToken
 
     // create new ID
     m_sID = AuthTokenIDGenerator.generateNewTokenID ();
-    if (StringHelper.hasNoText (m_sID))
+    if (Strings.isEmpty (m_sID))
       throw new IllegalStateException ("Failed to create token ID");
 
     m_aIdentification = aIdentification;
@@ -98,11 +98,10 @@ public final class AuthToken implements IAuthToken
   }
 
   /**
-   * Get the date time when this token will expire. This date time changes every
-   * time the last access is updated.
+   * Get the date time when this token will expire. This date time changes every time the last
+   * access is updated.
    *
-   * @return The expiration date and time or <code>null</code> if this token
-   *         cannot expire.
+   * @return The expiration date and time or <code>null</code> if this token cannot expire.
    * @see #isExpirationPossible()
    */
   @Nullable
@@ -116,7 +115,8 @@ public final class AuthToken implements IAuthToken
     if (!m_bExpired && isExpirationPossible ())
     {
       // Only if expiration is defined
-      if (Duration.between (m_aLastAccessDT, PDTFactory.getCurrentLocalDateTime ()).getSeconds () > m_nExpirationSeconds)
+      if (Duration.between (m_aLastAccessDT, PDTFactory.getCurrentLocalDateTime ()).getSeconds () >
+          m_nExpirationSeconds)
         m_bExpired = true;
     }
     return m_bExpired;
@@ -131,8 +131,8 @@ public final class AuthToken implements IAuthToken
   }
 
   /**
-   * Update the last access date and time of this token. This means that the
-   * expiration time starts again (if any).
+   * Update the last access date and time of this token. This means that the expiration time starts
+   * again (if any).
    */
   void updateLastAccess ()
   {

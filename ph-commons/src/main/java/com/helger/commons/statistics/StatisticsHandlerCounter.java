@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerCounter}

@@ -16,9 +16,9 @@
  */
 package com.helger.commons.hierarchy;
 
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
 

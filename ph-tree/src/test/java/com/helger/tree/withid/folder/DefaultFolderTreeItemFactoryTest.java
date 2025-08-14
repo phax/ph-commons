@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.aggregate.IAggregator;
+import com.helger.base.aggregate.IAggregator;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 

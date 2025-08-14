@@ -27,14 +27,14 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

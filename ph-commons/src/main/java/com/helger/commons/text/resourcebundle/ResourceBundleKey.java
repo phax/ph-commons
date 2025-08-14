@@ -21,9 +21,9 @@ import java.util.Locale;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

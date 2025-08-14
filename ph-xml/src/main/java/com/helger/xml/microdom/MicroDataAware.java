@@ -17,12 +17,12 @@
 package com.helger.xml.microdom;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -44,7 +44,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
 
   public MicroDataAware (@Nullable final CharSequence aText)
   {
-    if (StringHelper.hasNoText (aText))
+    if (Strings.isEmpty (aText))
       m_aSB = new StringBuilder ();
     else
       m_aSB = new StringBuilder (aText);
@@ -106,7 +106,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroDataAware rhs = (MicroDataAware) o;
-    return EqualsHelper.equals (m_aSB, rhs.m_aSB);
+    return EqualsHelperExt.extEquals (m_aSB, rhs.m_aSB);
   }
 
   @Override

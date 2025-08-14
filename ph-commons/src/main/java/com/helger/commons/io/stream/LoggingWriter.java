@@ -24,7 +24,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.OverrideOnDemand;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.io.stream.WrappedWriter;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

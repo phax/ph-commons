@@ -24,23 +24,27 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.EAppend;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Implementation of the {@link IInputStreamProvider} and
- * {@link IOutputStreamProvider} interfaces for {@link File} objects.
+ * Implementation of the {@link IInputStreamProvider} and {@link IOutputStreamProvider} interfaces
+ * for {@link File} objects.
  *
  * @author Philip Helger
  */
 @Immutable
-public final class FileSystemCharStreamProvider implements IInputStreamProvider, IOutputStreamProvider, IReaderProvider, IWriterProvider
+public final class FileSystemCharStreamProvider implements
+                                                IInputStreamProvider,
+                                                IOutputStreamProvider,
+                                                IReaderProvider,
+                                                IWriterProvider
 {
   private final FileSystemByteStreamProvider m_aByteStreamResolver;
   private final Charset m_aCharset;
@@ -112,6 +116,8 @@ public final class FileSystemCharStreamProvider implements IInputStreamProvider,
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("byteStreamResolver", m_aByteStreamResolver).append ("charset", m_aCharset).getToString ();
+    return new ToStringGenerator (this).append ("byteStreamResolver", m_aByteStreamResolver)
+                                       .append ("charset", m_aCharset)
+                                       .getToString ();
   }
 }

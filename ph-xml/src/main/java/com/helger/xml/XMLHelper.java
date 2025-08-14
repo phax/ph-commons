@@ -39,17 +39,18 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -141,7 +142,7 @@ public final class XMLHelper
 
   public static boolean hasNoNamespaceURI (@Nonnull final Node aNode)
   {
-    return StringHelper.hasNoText (aNode.getNamespaceURI ());
+    return Strings.isEmpty (aNode.getNamespaceURI ());
   }
 
   public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)
@@ -183,7 +184,7 @@ public final class XMLHelper
   @Nonnull
   public static Predicate <? super Element> filterElementWithNamespace ()
   {
-    return x -> x != null && StringHelper.hasText (x.getNamespaceURI ());
+    return x -> x != null && Strings.isNotEmpty (x.getNamespaceURI ());
   }
 
   @Nonnull
@@ -210,7 +211,7 @@ public final class XMLHelper
   public static Predicate <? super Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
-    return x -> EqualsHelper.equals (getElementName (x), sTagName);
+    return x -> EqualsHelperExt.extEquals (getElementName (x), sTagName);
   }
 
   @Nonnull
@@ -365,7 +366,7 @@ public final class XMLHelper
                 append (aParentNode, aSubChild);
             }
             else
-              if (ArrayHelper.isArray (aChild))
+              if (ClassHelper.isArray (aChild))
               {
                 // it's a nested collection -> recursion
                 for (final Object aSubChild : (Object []) aChild)
@@ -513,13 +514,13 @@ public final class XMLHelper
   {
     final String sFirstNS = aFirst.getNamespaceURI ();
     final String sSecondNS = aSecond.getNamespaceURI ();
-    if (StringHelper.hasText (sFirstNS))
+    if (Strings.isNotEmpty (sFirstNS))
     {
       // NS + local name
       return sFirstNS.equals (sSecondNS) && aFirst.getLocalName ().equals (aSecond.getLocalName ());
     }
     // No NS + tag name
-    return StringHelper.hasNoText (sSecondNS) && aFirst.getTagName ().equals (aSecond.getTagName ());
+    return Strings.isEmpty (sSecondNS) && aFirst.getTagName ().equals (aSecond.getTagName ());
   }
 
   @Nonnull
@@ -536,10 +537,11 @@ public final class XMLHelper
     ValueEnforcer.notNull (sSep, "Separator");
 
     final Function <String, String> funGetNSPrefix = aNamespaceCtx == null ? ns -> "" : ns -> {
-      if (StringHelper.hasText (ns))
+      final String sStr = ns;
+      if (Strings.isNotEmpty (sStr))
       {
         final String sPrefix = aNamespaceCtx.getPrefix (ns);
-        if (StringHelper.hasText (sPrefix))
+        if (Strings.isNotEmpty (sPrefix))
           return sPrefix + ":";
       }
       return "";
@@ -565,7 +567,7 @@ public final class XMLHelper
       final StringBuilder aName = new StringBuilder ();
       if (nNodeType == Node.ATTRIBUTE_NODE)
         aName.append ('@');
-      if (StringHelper.hasText (sNamespaceURI))
+      if (Strings.isNotEmpty (sNamespaceURI))
       {
         aName.append (funGetNSPrefix.apply (sNamespaceURI));
         aName.append (aCurNode.getLocalName ());

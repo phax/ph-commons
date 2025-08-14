@@ -19,17 +19,16 @@ package com.helger.cli;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.cli.Option.EOptionMultiplicity;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A nested builder class to create <code>Option</code> instances using
- * descriptive methods.
+ * A nested builder class to create <code>Option</code> instances using descriptive methods.
  * <p>
  * Example usage:
  *
@@ -55,26 +54,23 @@ public class OptionBuilder implements IBuilder <Option>
   int m_nMaxArgs = 0;
 
   /**
-   * the name of the argument for this option. Makes only sense, if minArgs &gt;
-   * 0
+   * the name of the argument for this option. Makes only sense, if minArgs &gt; 0
    */
   String m_sArgName;
 
   /**
-   * specifies whether this option is required to be present. Makes only sense
-   * if minArgs &gt; 0
+   * specifies whether this option is required to be present. Makes only sense if minArgs &gt; 0
    */
   EOptionMultiplicity m_eMultiplicity = EOptionMultiplicity.OPTIONAL_ONCE;
 
   /**
-   * the character that is the value separator in case the value. Makes only
-   * sense if minArgs &gt; 0
+   * the character that is the value separator in case the value. Makes only sense if minArgs &gt; 0
    */
   char m_cValueSep = Option.DEFAULT_VALUE_SEPARATOR;
 
   /**
-   * Constructs a new <code>Builder</code> with the minimum required parameters
-   * for an <code>Option</code> instance.
+   * Constructs a new <code>Builder</code> with the minimum required parameters for an
+   * <code>Option</code> instance.
    *
    * @param sShortOpt
    *        short representation of the option
@@ -117,9 +113,8 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Set the minimum number of arguments that must be present. By default it is
-   * 0. This is the number of required arguments. If the option is repeatable,
-   * this value is per occurrence.
+   * Set the minimum number of arguments that must be present. By default it is 0. This is the
+   * number of required arguments. If the option is repeatable, this value is per occurrence.
    *
    * @param nMinArgs
    *        Number of minimum arguments. Must be &ge; 0.
@@ -134,13 +129,12 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Set the maximum number of arguments that can be present. By default it is
-   * 0. The difference between minimum and maximum arguments are the optional
-   * arguments. If the option is repeatable, this value is per occurrence.
+   * Set the maximum number of arguments that can be present. By default it is 0. The difference
+   * between minimum and maximum arguments are the optional arguments. If the option is repeatable,
+   * this value is per occurrence.
    *
    * @param nMaxArgs
-   *        Number of maximum arguments. Must be &ge; 0 or
-   *        {@link Option#INFINITE_VALUES}
+   *        Number of maximum arguments. Must be &ge; 0 or {@link Option#INFINITE_VALUES}
    * @return this for chaining
    * @see #maxArgsInfinite()
    */
@@ -166,14 +160,13 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Shortcut for setting minArgs and maxArgs at once. If the option is
-   * repeatable, this value is per occurrence.
+   * Shortcut for setting minArgs and maxArgs at once. If the option is repeatable, this value is
+   * per occurrence.
    *
    * @param nMinArgs
    *        Number of minimum arguments. Must be &ge; 0.
    * @param nMaxArgs
-   *        Number of maximum arguments. Must be &ge; 0 or
-   *        {@link Option#INFINITE_VALUES}
+   *        Number of maximum arguments. Must be &ge; 0 or {@link Option#INFINITE_VALUES}
    * @return this for chaining
    * @see #minArgs(int)
    * @see #maxArgs(int)
@@ -186,9 +179,8 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Shortcut for setting minArgs and maxArgs to the same value, making this the
-   * number of required arguments. If the option is repeatable, this value is
-   * per occurrence.
+   * Shortcut for setting minArgs and maxArgs to the same value, making this the number of required
+   * arguments. If the option is repeatable, this value is per occurrence.
    *
    * @param nArgs
    *        Number of arguments. Must be &ge; 0.
@@ -204,8 +196,8 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Sets the display name for the argument value. May only be used if at least
-   * one argument is present.
+   * Sets the display name for the argument value. May only be used if at least one argument is
+   * present.
    *
    * @param sArgName
    *        the display name for the argument value.
@@ -239,8 +231,7 @@ public class OptionBuilder implements IBuilder <Option>
    * Mark this option as repeatable or not. By default it is not repeatable.
    *
    * @param bRepeatable
-   *        <code>true</code> if this option can be repeated, <code>false</code>
-   *        if not.
+   *        <code>true</code> if this option can be repeated, <code>false</code> if not.
    * @return this builder, to allow method chaining
    */
   @Nonnull
@@ -254,8 +245,7 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * The Option will use <code>sep</code> as a means to separate argument
-   * values.
+   * The Option will use <code>sep</code> as a means to separate argument values.
    * <p>
    * <b>Example:</b>
    *
@@ -282,8 +272,7 @@ public class OptionBuilder implements IBuilder <Option>
   }
 
   /**
-   * Constructs an Option with the values declared by this
-   * {@link OptionBuilder}.
+   * Constructs an Option with the values declared by this {@link OptionBuilder}.
    *
    * @return the new {@link Option}
    * @throws IllegalArgumentException
@@ -293,7 +282,7 @@ public class OptionBuilder implements IBuilder <Option>
   @ReturnsMutableCopy
   public Option build ()
   {
-    if (StringHelper.hasNoText (m_sShortOpt) && StringHelper.hasNoText (m_sLongOpt))
+    if (Strings.isEmpty (m_sShortOpt) && Strings.isEmpty (m_sLongOpt))
       throw new IllegalStateException ("Either opt or longOpt must be specified");
     if (m_nMaxArgs != Option.INFINITE_VALUES && m_nMaxArgs < m_nMinArgs)
       throw new IllegalStateException ("MinArgs (" + m_nMinArgs + ") must be <= MaxArgs (" + m_nMaxArgs + ")");

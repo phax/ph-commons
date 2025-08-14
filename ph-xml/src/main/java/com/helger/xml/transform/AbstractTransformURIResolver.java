@@ -20,7 +20,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
 

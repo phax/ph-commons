@@ -20,10 +20,10 @@ import java.util.function.Consumer;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.state.IClearable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.state.IClearable;
 import com.helger.matrix.Matrix;
 
 import jakarta.annotation.Nonnull;

@@ -34,15 +34,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.annotation.WillClose;
-import com.helger.commons.io.EAppend;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.stream.ByteBufferOutputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.Strings;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.IWritableResource;
-import com.helger.commons.io.stream.ByteBufferOutputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
@@ -111,7 +111,7 @@ public interface IJAXBWriter <JAXBTYPE>
 
   default boolean hasIndentString ()
   {
-    return StringHelper.hasText (getIndentString ());
+    return Strings.isNotEmpty (getIndentString ());
   }
 
   /**
@@ -130,7 +130,7 @@ public interface IJAXBWriter <JAXBTYPE>
 
   default boolean hasSchemaLocation ()
   {
-    return StringHelper.hasText (getSchemaLocation ());
+    return Strings.isNotEmpty (getSchemaLocation ());
   }
 
   /**
@@ -142,7 +142,7 @@ public interface IJAXBWriter <JAXBTYPE>
 
   default boolean hasNoNamespaceSchemaLocation ()
   {
-    return StringHelper.hasText (getNoNamespaceSchemaLocation ());
+    return Strings.isNotEmpty (getNoNamespaceSchemaLocation ());
   }
 
   /**

@@ -41,10 +41,16 @@ import com.helger.annotation.concurrent.IsLocked;
 import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.EAppend;
+import com.helger.base.state.EChange;
+import com.helger.base.state.ESuccess;
+import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.base.statistics.IMutableStatisticsHandlerTimer;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.EFileIOErrorCode;
 import com.helger.commons.io.file.EFileIOOperation;
 import com.helger.commons.io.file.FileHelper;
@@ -53,15 +59,9 @@ import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.timing.StopWatch;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.dao.AbstractDAO;
 import com.helger.dao.DAOException;
 import com.helger.dao.EDAOActionType;
@@ -545,7 +545,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
             final String sActionTypeID;
             try
             {
-              sActionTypeID = StreamHelper.readSafeUTF (aOIS);
+              sActionTypeID = StreamHelperExt.readSafeUTF (aOIS);
             }
             catch (final EOFException ex)
             {
@@ -561,7 +561,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
             // Read all elements
             for (int i = 0; i < nElements; ++i)
             {
-              final String sElement = StreamHelper.readSafeUTF (aOIS);
+              final String sElement = StreamHelperExt.readSafeUTF (aOIS);
               final DATATYPE aElement = convertWALStringToNative (sElement);
               if (aElement == null)
               {
@@ -1011,7 +1011,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     try (final DataOutputStream aDOS = new DataOutputStream (aWALRes.getOutputStream (EAppend.APPEND)))
     {
       // Write action type ID
-      StreamHelper.writeSafeUTF (aDOS, eActionType.getID ());
+      StreamHelperExt.writeSafeUTF (aDOS, eActionType.getID ());
 
       // Write number of elements
       aDOS.writeInt (aModifiedElements.size ());
@@ -1020,7 +1020,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
       for (final DATATYPE aModifiedElement : aModifiedElements)
       {
         final String sElement = convertNativeToWALString (aModifiedElement);
-        StreamHelper.writeSafeUTF (aDOS, sElement);
+        StreamHelperExt.writeSafeUTF (aDOS, sElement);
       }
 
       CONDLOG.info ( () -> "Finished writing WAL file " + aWALRes);

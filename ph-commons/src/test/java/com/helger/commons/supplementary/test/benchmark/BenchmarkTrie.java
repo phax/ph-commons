@@ -23,6 +23,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsTreeMap;
@@ -30,9 +32,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.locale.LocaleFormatter;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.supplementary.test.code.StringTrieFuncTest;
 
 /**
@@ -52,8 +52,8 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     execute ();
   }
 
-  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
-                                                      final Charset aCharset) throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes, final Charset aCharset)
+                                                                                                            throws IOException
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
     final BufferedReader aBR = new BufferedReader (new InputStreamReader (aRes.getInputStream (), aCharset));
@@ -85,7 +85,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
       // 309 chars
       aStrings.add ("Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very ");
       // 1024 chars
-      aStrings.add (StringHelper.getRepeated ("a", 1024));
+      aStrings.add (Strings.getRepeated ("a", 1024));
     }
     final String [] aStringArray = aStrings.toArray (new String [aStrings.size ()]);
     LOGGER.info ("Comparing " +
@@ -99,9 +99,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     final AbstractStringMapBase aL2a = new StringMapTST (aStringArray);
     LOGGER.info ("Initial check done!");
 
-    double dTime;
-
-    dTime = benchmarkTask (aL2a);
+    double dTime = benchmarkTask (aL2a);
     LOGGER.info ("StringMapTST: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
     LOGGER.info (aL2a.size () + " entries");
 

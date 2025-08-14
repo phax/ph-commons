@@ -35,6 +35,9 @@ import org.junit.Test;
 import com.helger.base.CGlobal;
 import com.helger.base.functional.ICharPredicate;
 import com.helger.base.functional.IThrowingFunction;
+import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.string.StringHex;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
@@ -44,7 +47,6 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
 
 /**
  * Test class for class {@link StringHelper}.
@@ -58,62 +60,62 @@ public final class StringHelperTest
   @Test
   public void testHasTextAndHasNoText ()
   {
-    assertTrue (StringHelper.hasText ("any"));
-    assertTrue (StringHelper.hasText (" "));
-    assertFalse (StringHelper.hasText (""));
-    assertFalse (StringHelper.hasText (null));
+    assertTrue (Strings.isNotEmpty ("any"));
+    assertTrue (Strings.isNotEmpty (" "));
+    assertFalse (Strings.isNotEmpty (""));
+    assertFalse (Strings.isNotEmpty ((String) null));
 
-    assertTrue (StringHelper.hasTextAfterTrim ("any"));
-    assertFalse (StringHelper.hasTextAfterTrim (" "));
-    assertFalse (StringHelper.hasTextAfterTrim (""));
-    assertFalse (StringHelper.hasTextAfterTrim (null));
+    assertTrue (Strings.isNotEmptyAfterTrim ("any"));
+    assertFalse (Strings.isNotEmptyAfterTrim (" "));
+    assertFalse (Strings.isNotEmptyAfterTrim (""));
+    assertFalse (Strings.isNotEmptyAfterTrim (null));
 
-    assertFalse (StringHelper.hasNoText ("any"));
-    assertFalse (StringHelper.hasNoText (" "));
-    assertTrue (StringHelper.hasNoText (""));
-    assertTrue (StringHelper.hasNoText (null));
+    assertFalse (Strings.isEmpty ("any"));
+    assertFalse (Strings.isEmpty (" "));
+    assertTrue (Strings.isEmpty (""));
+    assertTrue (Strings.isEmpty (null));
 
-    assertFalse (StringHelper.hasNoTextAfterTrim ("any"));
-    assertTrue (StringHelper.hasNoTextAfterTrim (" "));
-    assertTrue (StringHelper.hasNoTextAfterTrim (""));
-    assertTrue (StringHelper.hasNoTextAfterTrim (null));
+    assertFalse (Strings.isEmptyAfterTrim ("any"));
+    assertTrue (Strings.isEmptyAfterTrim (" "));
+    assertTrue (Strings.isEmptyAfterTrim (""));
+    assertTrue (Strings.isEmptyAfterTrim (null));
   }
 
   @Test
   public void testLeadingZero ()
   {
-    assertEquals ("005", StringHelper.getLeadingZero (5, 3));
-    assertEquals ("0005", StringHelper.getLeadingZero (5, 4));
-    assertEquals ("5", StringHelper.getLeadingZero (5, 1));
-    assertEquals ("56", StringHelper.getLeadingZero (56, 1));
-    assertEquals ("56", StringHelper.getLeadingZero (56, 2));
-    assertEquals ("056", StringHelper.getLeadingZero (56, 3));
-    assertEquals ("0000056", StringHelper.getLeadingZero (56, 7));
-    assertEquals ("0005678", StringHelper.getLeadingZero (5678, 7));
-    assertEquals ("-5", StringHelper.getLeadingZero (-5, 1));
-    assertEquals ("-05", StringHelper.getLeadingZero (-5, 2));
-    assertEquals ("-005", StringHelper.getLeadingZero (-5, 3));
+    assertEquals ("005", Strings.getLeadingZero (5, 3));
+    assertEquals ("0005", Strings.getLeadingZero (5, 4));
+    assertEquals ("5", Strings.getLeadingZero (5, 1));
+    assertEquals ("56", Strings.getLeadingZero (56, 1));
+    assertEquals ("56", Strings.getLeadingZero (56, 2));
+    assertEquals ("056", Strings.getLeadingZero (56, 3));
+    assertEquals ("0000056", Strings.getLeadingZero (56, 7));
+    assertEquals ("0005678", Strings.getLeadingZero (5678, 7));
+    assertEquals ("-5", Strings.getLeadingZero (-5, 1));
+    assertEquals ("-05", Strings.getLeadingZero (-5, 2));
+    assertEquals ("-005", Strings.getLeadingZero (-5, 3));
 
-    assertEquals ("005", StringHelper.getLeadingZero (5L, 3));
-    assertEquals ("0005", StringHelper.getLeadingZero (5L, 4));
-    assertEquals ("5", StringHelper.getLeadingZero (5L, 1));
-    assertEquals ("56", StringHelper.getLeadingZero (56L, 1));
-    assertEquals ("56", StringHelper.getLeadingZero (56L, 2));
-    assertEquals ("056", StringHelper.getLeadingZero (56L, 3));
-    assertEquals ("0000056", StringHelper.getLeadingZero (56L, 7));
-    assertEquals ("0005678", StringHelper.getLeadingZero (5678L, 7));
-    assertEquals ("-5", StringHelper.getLeadingZero (-5L, 1));
-    assertEquals ("-05", StringHelper.getLeadingZero (-5L, 2));
-    assertEquals ("-005", StringHelper.getLeadingZero (-5L, 3));
+    assertEquals ("005", Strings.getLeadingZero (5L, 3));
+    assertEquals ("0005", Strings.getLeadingZero (5L, 4));
+    assertEquals ("5", Strings.getLeadingZero (5L, 1));
+    assertEquals ("56", Strings.getLeadingZero (56L, 1));
+    assertEquals ("56", Strings.getLeadingZero (56L, 2));
+    assertEquals ("056", Strings.getLeadingZero (56L, 3));
+    assertEquals ("0000056", Strings.getLeadingZero (56L, 7));
+    assertEquals ("0005678", Strings.getLeadingZero (5678L, 7));
+    assertEquals ("-5", Strings.getLeadingZero (-5L, 1));
+    assertEquals ("-05", Strings.getLeadingZero (-5L, 2));
+    assertEquals ("-005", Strings.getLeadingZero (-5L, 3));
 
-    assertNull (StringHelper.getLeadingZero ((Byte) null, 5));
-    assertEquals ("00013", StringHelper.getLeadingZero (Byte.valueOf ((byte) 13), 5));
-    assertNull (StringHelper.getLeadingZero ((Integer) null, 5));
-    assertEquals ("00013", StringHelper.getLeadingZero (Integer.valueOf (13), 5));
-    assertNull (StringHelper.getLeadingZero ((Long) null, 5));
-    assertEquals ("00013", StringHelper.getLeadingZero (Long.valueOf (13), 5));
-    assertNull (StringHelper.getLeadingZero ((Short) null, 5));
-    assertEquals ("00013", StringHelper.getLeadingZero (Short.valueOf ((short) 13), 5));
+    assertNull (Strings.getLeadingZero ((Byte) null, 5));
+    assertEquals ("00013", Strings.getLeadingZero (Byte.valueOf ((byte) 13), 5));
+    assertNull (Strings.getLeadingZero ((Integer) null, 5));
+    assertEquals ("00013", Strings.getLeadingZero (Integer.valueOf (13), 5));
+    assertNull (Strings.getLeadingZero ((Long) null, 5));
+    assertEquals ("00013", Strings.getLeadingZero (Long.valueOf (13), 5));
+    assertNull (Strings.getLeadingZero ((Short) null, 5));
+    assertEquals ("00013", Strings.getLeadingZero (Short.valueOf ((short) 13), 5));
   }
 
   @Test
@@ -122,7 +124,7 @@ public final class StringHelperTest
     try
     {
       // null not allowed
-      StringHelper.getHexEncoded (null);
+      StringHex.getHexEncoded (null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -130,46 +132,46 @@ public final class StringHelperTest
     try
     {
       // null not allowed
-      StringHelper.getHexEncoded (null, 0, 5);
+      StringHex.getHexEncoded (null, 0, 5);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.getHexEncoded (new byte [0], -1, 5);
+      StringHex.getHexEncoded (new byte [0], -1, 5);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      StringHelper.getHexEncoded (new byte [0], 0, -1);
+      StringHex.getHexEncoded (new byte [0], 0, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      StringHelper.getHexEncoded (new byte [0], 0, 1);
+      StringHex.getHexEncoded (new byte [0], 0, 1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    assertEquals ("", StringHelper.getHexEncoded (new byte [] {}));
-    assertEquals ("01", StringHelper.getHexEncoded (new byte [] { 1 }));
-    assertEquals ("010a", StringHelper.getHexEncoded (new byte [] { 1, 10 }));
-    assertEquals ("00010aff", StringHelper.getHexEncoded (new byte [] { 0, 1, 10, (byte) 255 }));
+    assertEquals ("", StringHex.getHexEncoded (new byte [] {}));
+    assertEquals ("01", StringHex.getHexEncoded (new byte [] { 1 }));
+    assertEquals ("010a", StringHex.getHexEncoded (new byte [] { 1, 10 }));
+    assertEquals ("00010aff", StringHex.getHexEncoded (new byte [] { 0, 1, 10, (byte) 255 }));
 
     // Byte offset
-    assertEquals ("010a", StringHelper.getHexEncoded (new byte [] { 1, 10 }, 0, 2));
-    assertEquals ("01", StringHelper.getHexEncoded (new byte [] { 1, 10 }, 0, 1));
-    assertEquals ("0a", StringHelper.getHexEncoded (new byte [] { 1, 10 }, 1, 1));
+    assertEquals ("010a", StringHex.getHexEncoded (new byte [] { 1, 10 }, 0, 2));
+    assertEquals ("01", StringHex.getHexEncoded (new byte [] { 1, 10 }, 0, 1));
+    assertEquals ("0a", StringHex.getHexEncoded (new byte [] { 1, 10 }, 1, 1));
     try
     {
       // length is too large
-      StringHelper.getHexEncoded (new byte [] { 1, 10 }, 1, 2);
+      StringHex.getHexEncoded (new byte [] { 1, 10 }, 1, 2);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -179,26 +181,26 @@ public final class StringHelperTest
   @Test
   public void testGetHexValue ()
   {
-    assertEquals (0, StringHelper.getHexValue ('0'));
-    assertEquals (9, StringHelper.getHexValue ('9'));
-    assertEquals (10, StringHelper.getHexValue ('a'));
-    assertEquals (10, StringHelper.getHexValue ('A'));
-    assertEquals (15, StringHelper.getHexValue ('f'));
-    assertEquals (15, StringHelper.getHexValue ('F'));
-    assertEquals (-1, StringHelper.getHexValue ('g'));
-    assertEquals (-1, StringHelper.getHexValue ('z'));
+    assertEquals (0, StringHex.getHexValue ('0'));
+    assertEquals (9, StringHex.getHexValue ('9'));
+    assertEquals (10, StringHex.getHexValue ('a'));
+    assertEquals (10, StringHex.getHexValue ('A'));
+    assertEquals (15, StringHex.getHexValue ('f'));
+    assertEquals (15, StringHex.getHexValue ('F'));
+    assertEquals (-1, StringHex.getHexValue ('g'));
+    assertEquals (-1, StringHex.getHexValue ('z'));
   }
 
   @Test
   public void testGetHexChar ()
   {
-    assertEquals ('0', StringHelper.getHexChar (0));
-    assertEquals ('9', StringHelper.getHexChar (9));
-    assertEquals ('a', StringHelper.getHexChar (10));
-    assertEquals ('f', StringHelper.getHexChar (15));
-    assertEquals ('\0', StringHelper.getHexChar (-1));
-    assertEquals ('\0', StringHelper.getHexChar (16));
-    assertEquals ('\0', StringHelper.getHexChar (999));
+    assertEquals ('0', StringHex.getHexChar (0));
+    assertEquals ('9', StringHex.getHexChar (9));
+    assertEquals ('a', StringHex.getHexChar (10));
+    assertEquals ('f', StringHex.getHexChar (15));
+    assertEquals ('\0', StringHex.getHexChar (-1));
+    assertEquals ('\0', StringHex.getHexChar (16));
+    assertEquals ('\0', StringHex.getHexChar (999));
   }
 
   @Test
@@ -207,7 +209,7 @@ public final class StringHelperTest
     try
     {
       // null not allowed
-      StringHelper.getHexDecoded ((String) null);
+      StringHex.getHexDecoded ((String) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -215,7 +217,7 @@ public final class StringHelperTest
     try
     {
       // null not allowed
-      StringHelper.getHexDecoded ((char []) null);
+      StringHex.getHexDecoded ((char []) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -223,7 +225,7 @@ public final class StringHelperTest
     try
     {
       // odd length
-      StringHelper.getHexDecoded ("000");
+      StringHex.getHexDecoded ("000");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -231,7 +233,7 @@ public final class StringHelperTest
     try
     {
       // No valid hex char 'g'
-      StringHelper.getHexDecoded ("0g");
+      StringHex.getHexDecoded ("0g");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -239,7 +241,7 @@ public final class StringHelperTest
     try
     {
       // No valid hex char 'g'
-      StringHelper.getHexDecoded ("g0");
+      StringHex.getHexDecoded ("g0");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -247,124 +249,124 @@ public final class StringHelperTest
 
     for (final String sString : new String [] { "Super", "Hallo", "", "Welt!", "fff" })
       assertEquals (sString,
-                    new String (StringHelper.getHexDecoded (StringHelper.getHexEncoded (sString.getBytes (StandardCharsets.ISO_8859_1))),
+                    new String (StringHex.getHexDecoded (StringHex.getHexEncoded (sString.getBytes (StandardCharsets.ISO_8859_1))),
                                 StandardCharsets.ISO_8859_1));
 
-    assertArrayEquals (new byte [] { 0 }, StringHelper.getHexDecoded ("00"));
-    assertArrayEquals (new byte [] { 0, 1 }, StringHelper.getHexDecoded ("0001"));
-    assertArrayEquals (new byte [] { 0 }, StringHelper.getHexDecoded ("0001".toCharArray (), 0, 2));
-    assertArrayEquals (new byte [] { 1 }, StringHelper.getHexDecoded ("0001".toCharArray (), 2, 2));
+    assertArrayEquals (new byte [] { 0 }, StringHex.getHexDecoded ("00"));
+    assertArrayEquals (new byte [] { 0, 1 }, StringHex.getHexDecoded ("0001"));
+    assertArrayEquals (new byte [] { 0 }, StringHex.getHexDecoded ("0001".toCharArray (), 0, 2));
+    assertArrayEquals (new byte [] { 1 }, StringHex.getHexDecoded ("0001".toCharArray (), 2, 2));
   }
 
   @Test
   public void testHexStringByte ()
   {
-    assertEquals ("ff", StringHelper.getHexString ((byte) -1));
-    assertEquals ("0", StringHelper.getHexString ((byte) 0));
-    assertEquals ("9", StringHelper.getHexString ((byte) 9));
-    assertEquals ("a", StringHelper.getHexString ((byte) 10));
-    assertEquals ("10", StringHelper.getHexString ((byte) 16));
-    assertEquals ("ff", StringHelper.getHexString ((byte) 255));
+    assertEquals ("ff", StringHex.getHexString ((byte) -1));
+    assertEquals ("0", StringHex.getHexString ((byte) 0));
+    assertEquals ("9", StringHex.getHexString ((byte) 9));
+    assertEquals ("a", StringHex.getHexString ((byte) 10));
+    assertEquals ("10", StringHex.getHexString ((byte) 16));
+    assertEquals ("ff", StringHex.getHexString ((byte) 255));
   }
 
   @Test
   public void testHexStringLeadingZeroByte ()
   {
-    assertEquals ("00ff", StringHelper.getHexStringLeadingZero ((byte) -1, 4));
-    assertEquals ("0000", StringHelper.getHexStringLeadingZero ((byte) 0, 4));
-    assertEquals ("0009", StringHelper.getHexStringLeadingZero ((byte) 9, 4));
-    assertEquals ("000a", StringHelper.getHexStringLeadingZero ((byte) 10, 4));
-    assertEquals ("0010", StringHelper.getHexStringLeadingZero ((byte) 16, 4));
-    assertEquals ("00ff", StringHelper.getHexStringLeadingZero ((byte) 255, 4));
+    assertEquals ("00ff", StringHex.getHexStringLeadingZero ((byte) -1, 4));
+    assertEquals ("0000", StringHex.getHexStringLeadingZero ((byte) 0, 4));
+    assertEquals ("0009", StringHex.getHexStringLeadingZero ((byte) 9, 4));
+    assertEquals ("000a", StringHex.getHexStringLeadingZero ((byte) 10, 4));
+    assertEquals ("0010", StringHex.getHexStringLeadingZero ((byte) 16, 4));
+    assertEquals ("00ff", StringHex.getHexStringLeadingZero ((byte) 255, 4));
   }
 
   @Test
   public void testHexStringLeadingZero2Byte ()
   {
-    assertEquals ("ff", StringHelper.getHexStringLeadingZero2 ((byte) -1));
-    assertEquals ("00", StringHelper.getHexStringLeadingZero2 ((byte) 0));
-    assertEquals ("09", StringHelper.getHexStringLeadingZero2 ((byte) 9));
-    assertEquals ("0a", StringHelper.getHexStringLeadingZero2 ((byte) 10));
-    assertEquals ("10", StringHelper.getHexStringLeadingZero2 ((byte) 16));
-    assertEquals ("ff", StringHelper.getHexStringLeadingZero2 ((byte) 255));
+    assertEquals ("ff", StringHex.getHexStringLeadingZero2 ((byte) -1));
+    assertEquals ("00", StringHex.getHexStringLeadingZero2 ((byte) 0));
+    assertEquals ("09", StringHex.getHexStringLeadingZero2 ((byte) 9));
+    assertEquals ("0a", StringHex.getHexStringLeadingZero2 ((byte) 10));
+    assertEquals ("10", StringHex.getHexStringLeadingZero2 ((byte) 16));
+    assertEquals ("ff", StringHex.getHexStringLeadingZero2 ((byte) 255));
   }
 
   @Test
   public void testHexStringInt ()
   {
-    assertEquals ("-10", StringHelper.getHexString (-16));
-    assertEquals ("-1", StringHelper.getHexString (-1));
-    assertEquals ("0", StringHelper.getHexString (0));
-    assertEquals ("9", StringHelper.getHexString (9));
-    assertEquals ("a", StringHelper.getHexString (10));
-    assertEquals ("10", StringHelper.getHexString (16));
-    assertEquals ("ff", StringHelper.getHexString (255));
-    assertEquals ("ffff", StringHelper.getHexString (65535));
+    assertEquals ("-10", StringHex.getHexString (-16));
+    assertEquals ("-1", StringHex.getHexString (-1));
+    assertEquals ("0", StringHex.getHexString (0));
+    assertEquals ("9", StringHex.getHexString (9));
+    assertEquals ("a", StringHex.getHexString (10));
+    assertEquals ("10", StringHex.getHexString (16));
+    assertEquals ("ff", StringHex.getHexString (255));
+    assertEquals ("ffff", StringHex.getHexString (65535));
   }
 
   @Test
   public void testHexStringLeadingZeroInt ()
   {
-    assertEquals ("-10", StringHelper.getHexStringLeadingZero (-16, 2));
-    assertEquals ("-1", StringHelper.getHexStringLeadingZero (-1, 2));
-    assertEquals ("00", StringHelper.getHexStringLeadingZero (0, 2));
-    assertEquals ("09", StringHelper.getHexStringLeadingZero (9, 2));
-    assertEquals ("00a", StringHelper.getHexStringLeadingZero (10, 3));
-    assertEquals ("010", StringHelper.getHexStringLeadingZero (16, 3));
-    assertEquals ("00ff", StringHelper.getHexStringLeadingZero (255, 4));
-    assertEquals ("ffff", StringHelper.getHexStringLeadingZero (65535, 4));
-    assertEquals ("ffff", StringHelper.getHexStringLeadingZero (65535, 0));
+    assertEquals ("-10", StringHex.getHexStringLeadingZero (-16, 2));
+    assertEquals ("-1", StringHex.getHexStringLeadingZero (-1, 2));
+    assertEquals ("00", StringHex.getHexStringLeadingZero (0, 2));
+    assertEquals ("09", StringHex.getHexStringLeadingZero (9, 2));
+    assertEquals ("00a", StringHex.getHexStringLeadingZero (10, 3));
+    assertEquals ("010", StringHex.getHexStringLeadingZero (16, 3));
+    assertEquals ("00ff", StringHex.getHexStringLeadingZero (255, 4));
+    assertEquals ("ffff", StringHex.getHexStringLeadingZero (65535, 4));
+    assertEquals ("ffff", StringHex.getHexStringLeadingZero (65535, 0));
   }
 
   @Test
   public void testHexStringLong ()
   {
-    assertEquals ("-10", StringHelper.getHexString (-16L));
-    assertEquals ("-1", StringHelper.getHexString (-1L));
-    assertEquals ("0", StringHelper.getHexString (0L));
-    assertEquals ("9", StringHelper.getHexString (9L));
-    assertEquals ("a", StringHelper.getHexString (10L));
-    assertEquals ("10", StringHelper.getHexString (16L));
-    assertEquals ("ff", StringHelper.getHexString (255L));
-    assertEquals ("ffff", StringHelper.getHexString (65535L));
-    assertEquals ("ffff0000", StringHelper.getHexString (65536L * 65535L));
+    assertEquals ("-10", StringHex.getHexString (-16L));
+    assertEquals ("-1", StringHex.getHexString (-1L));
+    assertEquals ("0", StringHex.getHexString (0L));
+    assertEquals ("9", StringHex.getHexString (9L));
+    assertEquals ("a", StringHex.getHexString (10L));
+    assertEquals ("10", StringHex.getHexString (16L));
+    assertEquals ("ff", StringHex.getHexString (255L));
+    assertEquals ("ffff", StringHex.getHexString (65535L));
+    assertEquals ("ffff0000", StringHex.getHexString (65536L * 65535L));
   }
 
   @Test
   public void testHexStringLeadingZeroLong ()
   {
-    assertEquals ("-10", StringHelper.getHexStringLeadingZero (-16L, 2));
-    assertEquals ("-01", StringHelper.getHexStringLeadingZero (-1L, 3));
-    assertEquals ("000", StringHelper.getHexStringLeadingZero (0L, 3));
-    assertEquals ("09", StringHelper.getHexStringLeadingZero (9L, 2));
-    assertEquals ("00a", StringHelper.getHexStringLeadingZero (10L, 3));
-    assertEquals ("00ff", StringHelper.getHexStringLeadingZero (255L, 4));
-    assertEquals ("ffff", StringHelper.getHexStringLeadingZero (65535L, 4));
-    assertEquals ("0000ffff", StringHelper.getHexStringLeadingZero (65535L, 8));
-    assertEquals ("ffff0000", StringHelper.getHexStringLeadingZero (65536L * 65535L, 5));
+    assertEquals ("-10", StringHex.getHexStringLeadingZero (-16L, 2));
+    assertEquals ("-01", StringHex.getHexStringLeadingZero (-1L, 3));
+    assertEquals ("000", StringHex.getHexStringLeadingZero (0L, 3));
+    assertEquals ("09", StringHex.getHexStringLeadingZero (9L, 2));
+    assertEquals ("00a", StringHex.getHexStringLeadingZero (10L, 3));
+    assertEquals ("00ff", StringHex.getHexStringLeadingZero (255L, 4));
+    assertEquals ("ffff", StringHex.getHexStringLeadingZero (65535L, 4));
+    assertEquals ("0000ffff", StringHex.getHexStringLeadingZero (65535L, 8));
+    assertEquals ("ffff0000", StringHex.getHexStringLeadingZero (65536L * 65535L, 5));
   }
 
   @Test
   public void testHexStringShort ()
   {
-    assertEquals ("fffe", StringHelper.getHexString ((short) -2));
-    assertEquals ("ffff", StringHelper.getHexString ((short) -1));
-    assertEquals ("0", StringHelper.getHexString ((short) 0));
-    assertEquals ("9", StringHelper.getHexString ((short) 9));
-    assertEquals ("a", StringHelper.getHexString ((short) 10));
-    assertEquals ("10", StringHelper.getHexString ((short) 16));
-    assertEquals ("ff", StringHelper.getHexString ((short) 255));
+    assertEquals ("fffe", StringHex.getHexString ((short) -2));
+    assertEquals ("ffff", StringHex.getHexString ((short) -1));
+    assertEquals ("0", StringHex.getHexString ((short) 0));
+    assertEquals ("9", StringHex.getHexString ((short) 9));
+    assertEquals ("a", StringHex.getHexString ((short) 10));
+    assertEquals ("10", StringHex.getHexString ((short) 16));
+    assertEquals ("ff", StringHex.getHexString ((short) 255));
   }
 
   @Test
   public void testHexStringLeadingZeroShort ()
   {
-    assertEquals ("0ffff", StringHelper.getHexStringLeadingZero ((short) -1, 5));
-    assertEquals ("0000", StringHelper.getHexStringLeadingZero ((short) 0, 4));
-    assertEquals ("0009", StringHelper.getHexStringLeadingZero ((short) 9, 4));
-    assertEquals ("000a", StringHelper.getHexStringLeadingZero ((short) 10, 4));
-    assertEquals ("0010", StringHelper.getHexStringLeadingZero ((short) 16, 4));
-    assertEquals ("00ff", StringHelper.getHexStringLeadingZero ((short) 255, 4));
+    assertEquals ("0ffff", StringHex.getHexStringLeadingZero ((short) -1, 5));
+    assertEquals ("0000", StringHex.getHexStringLeadingZero ((short) 0, 4));
+    assertEquals ("0009", StringHex.getHexStringLeadingZero ((short) 9, 4));
+    assertEquals ("000a", StringHex.getHexStringLeadingZero ((short) 10, 4));
+    assertEquals ("0010", StringHex.getHexStringLeadingZero ((short) 16, 4));
+    assertEquals ("00ff", StringHex.getHexStringLeadingZero ((short) 255, 4));
   }
 
   @Test
@@ -632,33 +634,33 @@ public final class StringHelperTest
   @Test
   public void testGetRepeated ()
   {
-    assertEquals ("", StringHelper.getRepeated ('a', 0));
-    assertEquals ("a", StringHelper.getRepeated ('a', 1));
-    assertEquals ("aaa", StringHelper.getRepeated ('a', 3));
-    assertEquals ("  ", StringHelper.getRepeated (' ', 2));
+    assertEquals ("", Strings.getRepeated ('a', 0));
+    assertEquals ("a", Strings.getRepeated ('a', 1));
+    assertEquals ("aaa", Strings.getRepeated ('a', 3));
+    assertEquals ("  ", Strings.getRepeated (' ', 2));
     try
     {
-      StringHelper.getRepeated (' ', -1);
+      Strings.getRepeated (' ', -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    assertEquals ("", StringHelper.getRepeated ("a", 0));
-    assertEquals ("a", StringHelper.getRepeated ("a", 1));
-    assertEquals ("aaa", StringHelper.getRepeated ("a", 3));
-    assertEquals ("ababab", StringHelper.getRepeated ("ab", 3));
-    assertEquals ("  ", StringHelper.getRepeated (" ", 2));
+    assertEquals ("", Strings.getRepeated ("a", 0));
+    assertEquals ("a", Strings.getRepeated ("a", 1));
+    assertEquals ("aaa", Strings.getRepeated ("a", 3));
+    assertEquals ("ababab", Strings.getRepeated ("ab", 3));
+    assertEquals ("  ", Strings.getRepeated (" ", 2));
     try
     {
-      StringHelper.getRepeated (null, 5);
+      Strings.getRepeated (null, 5);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.getRepeated (" ", -1);
+      Strings.getRepeated (" ", -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -667,7 +669,7 @@ public final class StringHelperTest
     // Check overflow
     try
     {
-      StringHelper.getRepeated ("  ", Integer.MAX_VALUE);
+      Strings.getRepeated ("  ", Integer.MAX_VALUE);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -1256,7 +1258,7 @@ public final class StringHelperTest
     assertEquals (0, StringHelper.getCharCount ((char []) null, 'x'));
     assertEquals (0, StringHelper.getCharCount ("", 'x'));
     for (int i = 0; i < 1000; ++i)
-      assertEquals (i, StringHelper.getCharCount (StringHelper.getRepeated ('x', i), 'x'));
+      assertEquals (i, StringHelper.getCharCount (Strings.getRepeated ('x', i), 'x'));
   }
 
   @Test
@@ -1336,73 +1338,73 @@ public final class StringHelperTest
   @Test
   public void testGetNotNullString ()
   {
-    assertEquals ("abc", StringHelper.getNotNull ("abc"));
-    assertEquals ("", StringHelper.getNotNull (""));
-    assertEquals ("", StringHelper.getNotNull (null));
-    assertEquals ("bla", StringHelper.getNotNull (null, "bla"));
-    assertEquals ("bla", StringHelper.getNotNull (null, () -> "bla"));
+    assertEquals ("abc", Strings.getNotNull ("abc"));
+    assertEquals ("", Strings.getNotNull (""));
+    assertEquals ("", Strings.getNotNull (null));
+    assertEquals ("bla", Strings.getNotNull (null, "bla"));
+    assertEquals ("bla", Strings.getNotNull (null, () -> "bla"));
   }
 
   @Test
   public void testGetNotEmptyString ()
   {
-    assertEquals ("abc", StringHelper.getNotEmpty ("abc", "bla"));
-    assertEquals ("bla", StringHelper.getNotEmpty ("", "bla"));
-    assertEquals ("bla", StringHelper.getNotEmpty (null, "bla"));
-    assertEquals ("bla", StringHelper.getNotEmpty (null, "bla"));
-    assertEquals ("bla", StringHelper.getNotEmpty (null, () -> "bla"));
+    assertEquals ("abc", Strings.getNotEmpty ("abc", "bla"));
+    assertEquals ("bla", Strings.getNotEmpty ("", "bla"));
+    assertEquals ("bla", Strings.getNotEmpty (null, "bla"));
+    assertEquals ("bla", Strings.getNotEmpty (null, "bla"));
+    assertEquals ("bla", Strings.getNotEmpty (null, () -> "bla"));
   }
 
   @Test
   public void testGetNotNullCharSeq ()
   {
-    assertEquals ("abc", StringHelper.getNotNull (new StringBuilder ("abc")).toString ());
-    assertEquals ("", StringHelper.getNotNull (new StringBuilder ()).toString ());
-    assertEquals ("", StringHelper.getNotNull ((StringBuilder) null));
-    assertEquals ("bla", StringHelper.getNotNull ((StringBuilder) null, () -> "bla"));
+    assertEquals ("abc", Strings.getNotNull (new StringBuilder ("abc")).toString ());
+    assertEquals ("", Strings.getNotNull (new StringBuilder ()).toString ());
+    assertEquals ("", Strings.getNotNull ((StringBuilder) null));
+    assertEquals ("bla", Strings.getNotNull ((StringBuilder) null, () -> "bla"));
   }
 
   @Test
   public void testGetNotEmptyCharSeq ()
   {
-    assertEquals ("abc", StringHelper.getNotEmpty (new StringBuilder ("abc"), "bla").toString ());
-    assertEquals ("bla", StringHelper.getNotEmpty (new StringBuilder (), "bla").toString ());
-    assertEquals ("bla", StringHelper.getNotEmpty ((StringBuilder) null, "bla"));
-    assertEquals ("bla", StringHelper.getNotEmpty ((StringBuilder) null, () -> "bla"));
+    assertEquals ("abc", Strings.getNotEmpty (new StringBuilder ("abc"), "bla").toString ());
+    assertEquals ("bla", Strings.getNotEmpty (new StringBuilder (), "bla").toString ());
+    assertEquals ("bla", Strings.getNotEmpty ((StringBuilder) null, "bla"));
+    assertEquals ("bla", Strings.getNotEmpty ((StringBuilder) null, () -> "bla"));
   }
 
   @Test
   public void testReplaceAllString ()
   {
-    assertEquals ("abc", StringHelper.replaceAll ("abc", "d", "e"));
-    assertEquals ("abd", StringHelper.replaceAll ("abc", "c", "d"));
-    assertEquals ("adc", StringHelper.replaceAll ("abc", "b", "d"));
-    assertEquals ("dbc", StringHelper.replaceAll ("abc", "a", "d"));
-    assertEquals ("ddd", StringHelper.replaceAll ("aaa", "a", "d"));
-    assertEquals ("xyxyxy", StringHelper.replaceAll ("aaa", "a", "xy"));
-    assertEquals ("", StringHelper.replaceAll ("", "anything", "nothing"));
-    assertEquals ("", StringHelper.replaceAll ("aaa", "a", ""));
-    assertEquals ("bb", StringHelper.replaceAll ("ababa", "a", ""));
-    assertEquals ("acd", StringHelper.replaceAll ("abcd", "ab", "a"));
-    assertEquals ("abd", StringHelper.replaceAll ("abcd", "bc", "b"));
-    assertEquals ("abc", StringHelper.replaceAll ("abcd", "cd", "c"));
-    assertEquals ("abc", StringHelper.replaceAll ("abcd", "d", ""));
-    assertEquals ("bcbc", StringHelper.replaceAll ("bcbcbc", "bcbc", "bc"));
-    assertEquals ("aa", StringHelper.replaceAll ("aaaa", "aa", "a"));
-    assertEquals ("a  a b ", StringHelper.replaceAll ("a    a  b ", "  ", " "));
-    assertNull (StringHelper.replaceAll (null, "aa", "a"));
-    assertEquals ("aaaa", StringHelper.replaceAll ("aaaa", "aa", "aa"));
+    assertEquals ("abc", Strings.replaceAll ("abc", "d", "e"));
+    assertEquals ("abd", Strings.replaceAll ("abc", "c", "d"));
+    assertEquals ("adc", Strings.replaceAll ("abc", "b", "d"));
+    assertEquals ("dbc", Strings.replaceAll ("abc", "a", "d"));
+    assertEquals ("ddd", Strings.replaceAll ("aaa", "a", "d"));
+    assertEquals ("xyxyxy", Strings.replaceAll ("aaa", "a", "xy"));
+    assertEquals ("", Strings.replaceAll ("", "anything", "nothing"));
+    assertEquals ("", Strings.replaceAll ("aaa", "a", ""));
+    assertEquals ("bb", Strings.replaceAll ("ababa", "a", ""));
+    assertEquals ("acd", Strings.replaceAll ("abcd", "ab", "a"));
+    assertEquals ("abd", Strings.replaceAll ("abcd", "bc", "b"));
+    assertEquals ("abc", Strings.replaceAll ("abcd", "cd", "c"));
+    assertEquals ("abc", Strings.replaceAll ("abcd", "d", ""));
+    assertEquals ("bcbc", Strings.replaceAll ("bcbcbc", "bcbc", "bc"));
+    assertEquals ("aa", Strings.replaceAll ("aaaa", "aa", "a"));
+    assertEquals ("a  a b ", Strings.replaceAll ("a    a  b ", "  ", " "));
+    assertNull (Strings.replaceAll (null, "aa", "a"));
+    assertEquals ("aaaa", Strings.replaceAll ("aaaa", "aa", "aa"));
 
     try
     {
-      StringHelper.replaceAll ("aaaaach", null, "a");
+      Strings.replaceAll ("aaaaach", null, "a");
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.replaceAll ("aaaaach", "aa", null);
+      Strings.replaceAll ("aaaaach", "aa", null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1412,77 +1414,77 @@ public final class StringHelperTest
   @Test
   public void testReplaceAllChar ()
   {
-    assertEquals ("abc", StringHelper.replaceAll ("abc", 'd', 'e'));
-    assertEquals ("abd", StringHelper.replaceAll ("abc", 'c', 'd'));
-    assertEquals ("adc", StringHelper.replaceAll ("abc", 'b', 'd'));
-    assertEquals ("dbc", StringHelper.replaceAll ("abc", 'a', 'd'));
-    assertEquals ("ddd", StringHelper.replaceAll ("aaa", 'a', 'd'));
-    assertEquals ("", StringHelper.replaceAll ("", 'a', 'b'));
-    assertEquals ("aaa", StringHelper.replaceAll ("aaa", 'a', 'a'));
-    assertEquals ("aaa", StringHelper.replaceAll ("aaa", 'b', 'b'));
-    assertEquals ("bbbbb", StringHelper.replaceAll ("ababa", 'a', 'b'));
-    assertEquals ("\0b\0b\0", StringHelper.replaceAll ("ababa", 'a', '\0'));
+    assertEquals ("abc", Strings.replaceAll ("abc", 'd', 'e'));
+    assertEquals ("abd", Strings.replaceAll ("abc", 'c', 'd'));
+    assertEquals ("adc", Strings.replaceAll ("abc", 'b', 'd'));
+    assertEquals ("dbc", Strings.replaceAll ("abc", 'a', 'd'));
+    assertEquals ("ddd", Strings.replaceAll ("aaa", 'a', 'd'));
+    assertEquals ("", Strings.replaceAll ("", 'a', 'b'));
+    assertEquals ("aaa", Strings.replaceAll ("aaa", 'a', 'a'));
+    assertEquals ("aaa", Strings.replaceAll ("aaa", 'b', 'b'));
+    assertEquals ("bbbbb", Strings.replaceAll ("ababa", 'a', 'b'));
+    assertEquals ("\0b\0b\0", Strings.replaceAll ("ababa", 'a', '\0'));
   }
 
   @Test
   public void testReplaceAllSafe ()
   {
-    assertEquals ("abc", StringHelper.replaceAllSafe ("abc", "d", "e"));
-    assertEquals ("abd", StringHelper.replaceAllSafe ("abc", "c", "d"));
-    assertEquals ("adc", StringHelper.replaceAllSafe ("abc", "b", "d"));
-    assertEquals ("dbc", StringHelper.replaceAllSafe ("abc", "a", "d"));
-    assertEquals ("ddd", StringHelper.replaceAllSafe ("aaa", "a", "d"));
-    assertEquals ("xyxyxy", StringHelper.replaceAllSafe ("aaa", "a", "xy"));
-    assertEquals ("", StringHelper.replaceAllSafe ("", "anything", "nothing"));
-    assertEquals ("", StringHelper.replaceAllSafe ("aaa", "a", ""));
-    assertEquals ("bb", StringHelper.replaceAllSafe ("ababa", "a", ""));
-    assertEquals ("acd", StringHelper.replaceAllSafe ("abcd", "ab", "a"));
-    assertEquals ("abd", StringHelper.replaceAllSafe ("abcd", "bc", "b"));
-    assertEquals ("abc", StringHelper.replaceAllSafe ("abcd", "cd", "c"));
-    assertEquals ("abc", StringHelper.replaceAllSafe ("abcd", "d", ""));
-    assertEquals ("bcbc", StringHelper.replaceAllSafe ("bcbcbc", "bcbc", "bc"));
-    assertEquals ("aa", StringHelper.replaceAllSafe ("aaaa", "aa", "a"));
-    assertEquals ("a  a b ", StringHelper.replaceAllSafe ("a    a  b ", "  ", " "));
-    assertNull (StringHelper.replaceAllSafe (null, "aa", "a"));
-    assertEquals ("aaaa", StringHelper.replaceAllSafe ("aaaa", "aa", "aa"));
+    assertEquals ("abc", Strings.replaceAllSafe ("abc", "d", "e"));
+    assertEquals ("abd", Strings.replaceAllSafe ("abc", "c", "d"));
+    assertEquals ("adc", Strings.replaceAllSafe ("abc", "b", "d"));
+    assertEquals ("dbc", Strings.replaceAllSafe ("abc", "a", "d"));
+    assertEquals ("ddd", Strings.replaceAllSafe ("aaa", "a", "d"));
+    assertEquals ("xyxyxy", Strings.replaceAllSafe ("aaa", "a", "xy"));
+    assertEquals ("", Strings.replaceAllSafe ("", "anything", "nothing"));
+    assertEquals ("", Strings.replaceAllSafe ("aaa", "a", ""));
+    assertEquals ("bb", Strings.replaceAllSafe ("ababa", "a", ""));
+    assertEquals ("acd", Strings.replaceAllSafe ("abcd", "ab", "a"));
+    assertEquals ("abd", Strings.replaceAllSafe ("abcd", "bc", "b"));
+    assertEquals ("abc", Strings.replaceAllSafe ("abcd", "cd", "c"));
+    assertEquals ("abc", Strings.replaceAllSafe ("abcd", "d", ""));
+    assertEquals ("bcbc", Strings.replaceAllSafe ("bcbcbc", "bcbc", "bc"));
+    assertEquals ("aa", Strings.replaceAllSafe ("aaaa", "aa", "a"));
+    assertEquals ("a  a b ", Strings.replaceAllSafe ("a    a  b ", "  ", " "));
+    assertNull (Strings.replaceAllSafe (null, "aa", "a"));
+    assertEquals ("aaaa", Strings.replaceAllSafe ("aaaa", "aa", "aa"));
 
     try
     {
-      StringHelper.replaceAllSafe ("aaaaach", null, "a");
+      Strings.replaceAllSafe ("aaaaach", null, "a");
       fail ();
     }
     catch (final NullPointerException ex)
     {}
-    assertEquals ("ach", StringHelper.replaceAllSafe ("aaaaach", "aa", null));
+    assertEquals ("ach", Strings.replaceAllSafe ("aaaaach", "aa", null));
   }
 
   @Test
   public void testReplaceAllRepeatedly ()
   {
-    assertEquals ("abc", StringHelper.replaceAllRepeatedly ("abc", "d", "e"));
-    assertEquals ("dbc", StringHelper.replaceAllRepeatedly ("abc", "a", "d"));
-    assertEquals ("ddd", StringHelper.replaceAllRepeatedly ("aaa", "a", "d"));
-    assertEquals ("a a b ", StringHelper.replaceAllRepeatedly ("a    a  b ", "  ", " "));
-    assertEquals ("", StringHelper.replaceAllRepeatedly ("", " a", "b"));
-    assertNull (StringHelper.replaceAllRepeatedly (null, " a", "b"));
+    assertEquals ("abc", Strings.replaceAllRepeatedly ("abc", "d", "e"));
+    assertEquals ("dbc", Strings.replaceAllRepeatedly ("abc", "a", "d"));
+    assertEquals ("ddd", Strings.replaceAllRepeatedly ("aaa", "a", "d"));
+    assertEquals ("a a b ", Strings.replaceAllRepeatedly ("a    a  b ", "  ", " "));
+    assertEquals ("", Strings.replaceAllRepeatedly ("", " a", "b"));
+    assertNull (Strings.replaceAllRepeatedly (null, " a", "b"));
 
     try
     {
-      StringHelper.replaceAllRepeatedly ("aaaaach", null, "a");
+      Strings.replaceAllRepeatedly ("aaaaach", null, "a");
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.replaceAllRepeatedly ("aaaaach", "aa", null);
+      Strings.replaceAllRepeatedly ("aaaaach", "aa", null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.replaceAllRepeatedly ("aaaaach", "a", "aa");
+      Strings.replaceAllRepeatedly ("aaaaach", "a", "aa");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -1496,64 +1498,58 @@ public final class StringHelperTest
     aMap.put ("Hallo", "Hi");
     aMap.put ("Welt", "world");
     aMap.put ("!", "???");
-    assertEquals ("Abc die Katze lief im Schnee", StringHelper.replaceMultiple ("Abc die Katze lief im Schnee", aMap));
-    assertEquals ("Hi Katze", StringHelper.replaceMultiple ("Hallo Katze", aMap));
-    assertEquals ("Moin world", StringHelper.replaceMultiple ("Moin Welt", aMap));
-    assertEquals ("Moin welt", StringHelper.replaceMultiple ("Moin welt", aMap));
-    assertEquals ("Hi", StringHelper.replaceMultiple ("Hallo", aMap));
-    assertEquals ("Hi Hi", StringHelper.replaceMultiple ("Hallo Hallo", aMap));
-    assertEquals ("HiHiHi", StringHelper.replaceMultiple ("HalloHalloHallo", aMap));
-    assertEquals ("Hi world???", StringHelper.replaceMultiple ("Hallo Welt!", aMap));
-    assertEquals ("Hi world???Hi world???", StringHelper.replaceMultiple ("Hallo Welt!Hallo Welt!", aMap));
+    assertEquals ("Abc die Katze lief im Schnee", Strings.replaceMultiple ("Abc die Katze lief im Schnee", aMap));
+    assertEquals ("Hi Katze", Strings.replaceMultiple ("Hallo Katze", aMap));
+    assertEquals ("Moin world", Strings.replaceMultiple ("Moin Welt", aMap));
+    assertEquals ("Moin welt", Strings.replaceMultiple ("Moin welt", aMap));
+    assertEquals ("Hi", Strings.replaceMultiple ("Hallo", aMap));
+    assertEquals ("Hi Hi", Strings.replaceMultiple ("Hallo Hallo", aMap));
+    assertEquals ("HiHiHi", Strings.replaceMultiple ("HalloHalloHallo", aMap));
+    assertEquals ("Hi world???", Strings.replaceMultiple ("Hallo Welt!", aMap));
+    assertEquals ("Hi world???Hi world???", Strings.replaceMultiple ("Hallo Welt!Hallo Welt!", aMap));
   }
 
   @Test
   public void testReplaceMultipleCharArrays ()
   {
     assertArrayEquals ("bb".toCharArray (),
-                       StringHelper.replaceMultiple ("a", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
+                       Strings.replaceMultiple ("a", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("bbbb".toCharArray (),
-                       StringHelper.replaceMultiple ("aa",
-                                                     new char [] { 'a' },
-                                                     new char [] [] { "bb".toCharArray () }));
+                       Strings.replaceMultiple ("aa", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("cdc".toCharArray (),
-                       StringHelper.replaceMultiple ("cdc",
-                                                     new char [] { 'a' },
-                                                     new char [] [] { "bb".toCharArray () }));
+                       Strings.replaceMultiple ("cdc", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("cbbc".toCharArray (),
-                       StringHelper.replaceMultiple ("cac",
-                                                     new char [] { 'a' },
-                                                     new char [] [] { "bb".toCharArray () }));
+                       Strings.replaceMultiple ("cac", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("ddbbdd".toCharArray (),
-                       StringHelper.replaceMultiple ("cac",
-                                                     new char [] { 'a', 'c' },
-                                                     new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
+                       Strings.replaceMultiple ("cac",
+                                                new char [] { 'a', 'c' },
+                                                new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
     assertArrayEquals ("<ddbbdd>".toCharArray (),
-                       StringHelper.replaceMultiple ("<cac>",
-                                                     new char [] { 'a', 'c' },
-                                                     new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
+                       Strings.replaceMultiple ("<cac>",
+                                                new char [] { 'a', 'c' },
+                                                new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
     assertArrayEquals (new char [0],
-                       StringHelper.replaceMultiple ("",
-                                                     new char [] { 'a', 'c' },
-                                                     new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
-    assertArrayEquals ("any".toCharArray (), StringHelper.replaceMultiple ("any", new char [0], new char [0] []));
+                       Strings.replaceMultiple ("",
+                                                new char [] { 'a', 'c' },
+                                                new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
+    assertArrayEquals ("any".toCharArray (), Strings.replaceMultiple ("any", new char [0], new char [0] []));
     try
     {
-      StringHelper.replaceMultiple ("any", (char []) null, new char [] [] { "bb".toCharArray (), "dd".toCharArray () });
+      Strings.replaceMultiple ("any", (char []) null, new char [] [] { "bb".toCharArray (), "dd".toCharArray () });
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.replaceMultiple ("any", "an".toCharArray (), null);
+      Strings.replaceMultiple ("any", "an".toCharArray (), null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.replaceMultiple ("any", new char [1], new char [2] []);
+      Strings.replaceMultiple ("any", new char [1], new char [2] []);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -1564,70 +1560,70 @@ public final class StringHelperTest
   public void testReplaceMultipleTo () throws IOException
   {
     NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("a", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }, aSW);
+    Strings.replaceMultipleTo ("a", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }, aSW);
     assertEquals ("bb", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("aa", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }, aSW);
+    Strings.replaceMultipleTo ("aa", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }, aSW);
     assertEquals ("bbbb", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("cdc", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }, aSW);
+    Strings.replaceMultipleTo ("cdc", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }, aSW);
     assertEquals ("cdc", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("cac", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }, aSW);
+    Strings.replaceMultipleTo ("cac", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }, aSW);
     assertEquals ("cbbc", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("cac",
-                                    new char [] { 'a', 'c' },
-                                    new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
-                                    aSW);
+    Strings.replaceMultipleTo ("cac",
+                               new char [] { 'a', 'c' },
+                               new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
+                               aSW);
     assertEquals ("ddbbdd", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("<cac>",
-                                    new char [] { 'a', 'c' },
-                                    new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
-                                    aSW);
+    Strings.replaceMultipleTo ("<cac>",
+                               new char [] { 'a', 'c' },
+                               new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
+                               aSW);
     assertEquals ("<ddbbdd>", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("",
-                                    new char [] { 'a', 'c' },
-                                    new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
-                                    aSW);
+    Strings.replaceMultipleTo ("",
+                               new char [] { 'a', 'c' },
+                               new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
+                               aSW);
     assertEquals ("", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("any", new char [0], new char [0] [], aSW);
+    Strings.replaceMultipleTo ("any", new char [0], new char [0] [], aSW);
     assertEquals ("any", aSW.getAsString ());
 
     try
     {
-      StringHelper.replaceMultipleTo ("any", null, new char [0] [], aSW);
+      Strings.replaceMultipleTo ("any", null, new char [0] [], aSW);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.replaceMultipleTo ("any", new char [0], null, aSW);
+      Strings.replaceMultipleTo ("any", new char [0], null, aSW);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      StringHelper.replaceMultipleTo ("any", new char [0], new char [1] [], aSW);
+      Strings.replaceMultipleTo ("any", new char [0], new char [1] [], aSW);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      StringHelper.replaceMultipleTo ("any", new char [0], new char [0] [], null);
+      Strings.replaceMultipleTo ("any", new char [0], new char [0] [], null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1637,20 +1633,20 @@ public final class StringHelperTest
   @Test
   public void testReplaceMultipleCharArrayToChar ()
   {
-    assertArrayEquals ("abc".toCharArray (), StringHelper.replaceMultiple ("abc", "def".toCharArray (), ' '));
-    assertArrayEquals ("   ".toCharArray (), StringHelper.replaceMultiple ("abc", "abc".toCharArray (), ' '));
-    assertArrayEquals ("   ".toCharArray (), StringHelper.replaceMultiple ("abc", "abcabc".toCharArray (), ' '));
-    assertArrayEquals ("   ".toCharArray (), StringHelper.replaceMultiple ("abc", "aabbcc".toCharArray (), ' '));
-    assertArrayEquals ("      ".toCharArray (), StringHelper.replaceMultiple ("abcabc", "abc".toCharArray (), ' '));
-    assertArrayEquals ("      ".toCharArray (), StringHelper.replaceMultiple ("aabbcc", "abc".toCharArray (), ' '));
-    assertArrayEquals ("a  ".toCharArray (), StringHelper.replaceMultiple ("abc", "bc".toCharArray (), ' '));
-    assertArrayEquals (" b ".toCharArray (), StringHelper.replaceMultiple ("abc", "ac".toCharArray (), ' '));
-    assertArrayEquals ("  c".toCharArray (), StringHelper.replaceMultiple ("abc", "ab".toCharArray (), ' '));
-    assertArrayEquals ("abc".toCharArray (), StringHelper.replaceMultiple ("abc", "".toCharArray (), ' '));
-    assertArrayEquals ("".toCharArray (), StringHelper.replaceMultiple ("", "abc".toCharArray (), ' '));
-    assertArrayEquals ("".toCharArray (), StringHelper.replaceMultiple ("", "".toCharArray (), ' '));
-    assertArrayEquals ("".toCharArray (), StringHelper.replaceMultiple (null, "abc".toCharArray (), ' '));
-    assertArrayEquals ("".toCharArray (), StringHelper.replaceMultiple (null, "".toCharArray (), ' '));
+    assertArrayEquals ("abc".toCharArray (), Strings.replaceMultiple ("abc", "def".toCharArray (), ' '));
+    assertArrayEquals ("   ".toCharArray (), Strings.replaceMultiple ("abc", "abc".toCharArray (), ' '));
+    assertArrayEquals ("   ".toCharArray (), Strings.replaceMultiple ("abc", "abcabc".toCharArray (), ' '));
+    assertArrayEquals ("   ".toCharArray (), Strings.replaceMultiple ("abc", "aabbcc".toCharArray (), ' '));
+    assertArrayEquals ("      ".toCharArray (), Strings.replaceMultiple ("abcabc", "abc".toCharArray (), ' '));
+    assertArrayEquals ("      ".toCharArray (), Strings.replaceMultiple ("aabbcc", "abc".toCharArray (), ' '));
+    assertArrayEquals ("a  ".toCharArray (), Strings.replaceMultiple ("abc", "bc".toCharArray (), ' '));
+    assertArrayEquals (" b ".toCharArray (), Strings.replaceMultiple ("abc", "ac".toCharArray (), ' '));
+    assertArrayEquals ("  c".toCharArray (), Strings.replaceMultiple ("abc", "ab".toCharArray (), ' '));
+    assertArrayEquals ("abc".toCharArray (), Strings.replaceMultiple ("abc", "".toCharArray (), ' '));
+    assertArrayEquals ("".toCharArray (), Strings.replaceMultiple ("", "abc".toCharArray (), ' '));
+    assertArrayEquals ("".toCharArray (), Strings.replaceMultiple ("", "".toCharArray (), ' '));
+    assertArrayEquals ("".toCharArray (), Strings.replaceMultiple (null, "abc".toCharArray (), ' '));
+    assertArrayEquals ("".toCharArray (), Strings.replaceMultiple (null, "".toCharArray (), ' '));
   }
 
   @Test

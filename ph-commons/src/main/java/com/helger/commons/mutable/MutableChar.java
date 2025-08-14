@@ -17,11 +17,11 @@
 package com.helger.commons.mutable;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.compare.CompareHelper;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

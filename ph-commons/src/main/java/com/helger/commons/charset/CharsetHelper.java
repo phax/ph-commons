@@ -35,14 +35,14 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.nonblocking.NonBlockingPushbackInputStream;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.stream.NonBlockingPushbackInputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -73,13 +73,11 @@ public final class CharsetHelper
   {}
 
   /**
-   * Resolve the charset by the specified name. The difference to
-   * {@link Charset#forName(String)} is, that this method has no checked
-   * exceptions but only unchecked exceptions.
+   * Resolve the charset by the specified name. The difference to {@link Charset#forName(String)}
+   * is, that this method has no checked exceptions but only unchecked exceptions.
    *
    * @param sCharsetName
-   *        The charset to be resolved. May neither be <code>null</code> nor
-   *        empty.
+   *        The charset to be resolved. May neither be <code>null</code> nor empty.
    * @return The Charset object
    * @throws IllegalArgumentException
    *         If the charset could not be resolved.
@@ -105,13 +103,12 @@ public final class CharsetHelper
   }
 
   /**
-   * Resolve the charset by the specified name. The difference to
-   * {@link Charset#forName(String)} is, that this method throws no exceptions.
+   * Resolve the charset by the specified name. The difference to {@link Charset#forName(String)}
+   * is, that this method throws no exceptions.
    *
    * @param sCharsetName
    *        The charset to be resolved. May be <code>null</code> or empty.
-   * @return The Charset object or <code>null</code> if no such charset was
-   *         found.
+   * @return The Charset object or <code>null</code> if no such charset was found.
    */
   @Nullable
   public static Charset getCharsetFromNameOrNull (@Nullable final String sCharsetName)
@@ -120,22 +117,20 @@ public final class CharsetHelper
   }
 
   /**
-   * Resolve the charset by the specified name. The difference to
-   * {@link Charset#forName(String)} is, that this method throws no exceptions.
+   * Resolve the charset by the specified name. The difference to {@link Charset#forName(String)}
+   * is, that this method throws no exceptions.
    *
    * @param sCharsetName
    *        The charset to be resolved. May be <code>null</code> or empty.
    * @param aDefault
-   *        the default charset to be returned if none is provided. May be
-   *        <code>null</code>.
-   * @return The Charset object or the provided default if no such charset was
-   *         found.
+   *        the default charset to be returned if none is provided. May be <code>null</code>.
+   * @return The Charset object or the provided default if no such charset was found.
    */
   @Nullable
   public static Charset getCharsetFromNameOrDefault (@Nullable final String sCharsetName,
                                                      @Nullable final Charset aDefault)
   {
-    if (StringHelper.hasText (sCharsetName))
+    if (Strings.isNotEmpty (sCharsetName))
       try
       {
         return getCharsetFromName (sCharsetName);
@@ -148,8 +143,7 @@ public final class CharsetHelper
   }
 
   /**
-   * @return An immutable collection of all available charsets from the standard
-   *         charset provider.
+   * @return An immutable collection of all available charsets from the standard charset provider.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -173,8 +167,7 @@ public final class CharsetHelper
   }
 
   /**
-   * Get the number of bytes necessary to represent the passed string as an
-   * UTF-8 string.
+   * Get the number of bytes necessary to represent the passed string as an UTF-8 string.
    *
    * @param s
    *        The string to count the length. May be <code>null</code> or empty.
@@ -187,12 +180,10 @@ public final class CharsetHelper
   }
 
   /**
-   * Get the number of bytes necessary to represent the passed char array as an
-   * UTF-8 string.
+   * Get the number of bytes necessary to represent the passed char array as an UTF-8 string.
    *
    * @param aChars
-   *        The characters to count the length. May be <code>null</code> or
-   *        empty.
+   *        The characters to count the length. May be <code>null</code> or empty.
    * @return A non-negative value.
    */
   @Nonnegative
@@ -242,8 +233,8 @@ public final class CharsetHelper
   }
 
   /**
-   * A wrapper that has an {@link InputStream}, an optional Unicode BOM as
-   * {@link EUnicodeBOM} and an optional {@link Charset}.
+   * A wrapper that has an {@link InputStream}, an optional Unicode BOM as {@link EUnicodeBOM} and
+   * an optional {@link Charset}.
    *
    * @author Philip Helger
    */
@@ -303,15 +294,14 @@ public final class CharsetHelper
   }
 
   /**
-   * If a BOM is present in the {@link InputStream} it is read and if possible
-   * the charset is automatically determined from the BOM.
+   * If a BOM is present in the {@link InputStream} it is read and if possible the charset is
+   * automatically determined from the BOM.
    *
    * @param aIS
    *        The input stream to use. May not be <code>null</code>.
-   * @return Never <code>null</code>. Always use the input stream contained in
-   *         the returned object and never the one passed in as a parameter,
-   *         because the returned IS is a push-back InputStream that has a
-   *         couple of bytes already buffered!
+   * @return Never <code>null</code>. Always use the input stream contained in the returned object
+   *         and never the one passed in as a parameter, because the returned IS is a push-back
+   *         InputStream that has a couple of bytes already buffered!
    */
   @Nonnull
   public static InputStreamAndCharset getInputStreamAndCharsetFromBOM (@Nonnull @WillNotClose final InputStream aIS)

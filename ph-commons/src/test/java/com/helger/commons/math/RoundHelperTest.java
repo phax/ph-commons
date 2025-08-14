@@ -25,8 +25,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.base.mock.CommonsAssert;
 import com.helger.commons.math.RoundHelper.EDecimalType;
-import com.helger.commons.mock.CommonsAssert;
 
 /**
  * Test class for class {@link RoundHelper}.

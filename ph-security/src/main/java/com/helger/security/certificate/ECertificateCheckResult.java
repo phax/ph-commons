@@ -17,9 +17,9 @@
 package com.helger.security.certificate;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.state.IValidityIndicator;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.state.IValidityIndicator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

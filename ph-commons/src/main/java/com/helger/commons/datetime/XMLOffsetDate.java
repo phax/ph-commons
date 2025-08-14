@@ -83,9 +83,9 @@ import java.time.temporal.ValueRange;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -433,7 +433,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Nonnull
   private XMLOffsetDate with (@Nonnull final LocalDate date, @Nullable final ZoneOffset offset)
   {
-    if (this.m_aDate == date && EqualsHelper.equals (m_aOffset, offset))
+    if (this.m_aDate == date && EqualsHelperExt.extEquals (m_aOffset, offset))
       return this;
 
     return new XMLOffsetDate (date, offset);
@@ -1511,7 +1511,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @Override
   public int compareTo (@Nonnull final XMLOffsetDate o)
   {
-    if (EqualsHelper.equals (m_aOffset, o.m_aOffset))
+    if (EqualsHelperExt.extEquals (m_aOffset, o.m_aOffset))
       return m_aDate.compareTo (o.m_aDate);
 
     int ret = Long.compare (toEpochSecond (), o.toEpochSecond ());
@@ -1601,7 +1601,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
       return false;
 
     final XMLOffsetDate other = (XMLOffsetDate) o;
-    return m_aDate.equals (other.m_aDate) && EqualsHelper.equals (m_aOffset, other.m_aOffset);
+    return m_aDate.equals (other.m_aDate) && EqualsHelperExt.extEquals (m_aOffset, other.m_aOffset);
   }
 
   /**

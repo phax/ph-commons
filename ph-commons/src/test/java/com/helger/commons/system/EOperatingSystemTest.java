@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 /**
  * Test class for class {@link EOperatingSystem}.
@@ -37,7 +37,7 @@ public final class EOperatingSystemTest
   {
     for (final EOperatingSystem e : EOperatingSystem.values ())
     {
-      assertTrue (StringHelper.hasText (e.getDisplayName ()));
+      assertTrue (Strings.isNotEmpty (e.getDisplayName ()));
       assertSame (e, EOperatingSystem.valueOf (e.name ()));
       assertSame (e, EOperatingSystem.forName (e.getDisplayName ()));
       if (e != EOperatingSystem.UNKNOWN)

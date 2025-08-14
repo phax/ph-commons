@@ -19,7 +19,7 @@ package com.helger.commons.collection.iterate;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
 

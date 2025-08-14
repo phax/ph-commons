@@ -22,11 +22,11 @@ import javax.xml.transform.stream.StreamSource;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -63,7 +63,7 @@ public class CachingTransformStreamSource extends StreamSource
 
   public CachingTransformStreamSource (@Nullable @WillClose final InputStream aIS, @Nullable final String sSystemID)
   {
-    super (aIS == null ? null : new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS)), sSystemID);
+    super (aIS == null ? null : new NonBlockingByteArrayInputStream (StreamHelperExt.getAllBytes (aIS)), sSystemID);
   }
 
   @Override

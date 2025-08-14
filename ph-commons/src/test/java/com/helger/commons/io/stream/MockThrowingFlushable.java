@@ -19,7 +19,7 @@ package com.helger.commons.io.stream;
 import java.io.Flushable;
 import java.io.IOException;
 
-import com.helger.commons.exception.mock.MockIOException;
+import com.helger.base.mock.exception.MockIOException;
 
 /**
  * Mock implementation of the {@link Flushable} interface just throwing a

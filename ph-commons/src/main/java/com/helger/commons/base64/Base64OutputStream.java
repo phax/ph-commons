@@ -22,9 +22,9 @@ import java.io.OutputStream;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.io.stream.WrappedOutputStream;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.WrappedOutputStream;
 
 import jakarta.annotation.Nonnull;
 

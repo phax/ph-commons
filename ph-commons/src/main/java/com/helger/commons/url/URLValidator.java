@@ -21,8 +21,8 @@ import java.util.regex.Pattern;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.string.Strings;
 import com.helger.commons.regex.RegExCache;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nullable;
 
@@ -59,13 +59,11 @@ public final class URLValidator
   {}
 
   /**
-   * Get the unified version of a URL. It trims leading and trailing spaces and
-   * lower-cases the URL.
+   * Get the unified version of a URL. It trims leading and trailing spaces and lower-cases the URL.
    *
    * @param sURL
    *        The URL to unify. May be <code>null</code>.
-   * @return The unified URL or <code>null</code> if the input address is
-   *         <code>null</code>.
+   * @return The unified URL or <code>null</code> if the input address is <code>null</code>.
    */
   @Nullable
   public static String getUnifiedURL (@Nullable final String sURL)
@@ -77,13 +75,13 @@ public final class URLValidator
    * Checks if a value is a valid URL.
    *
    * @param sURL
-   *        The value validation is being performed on. A <code>null</code> or
-   *        empty value is considered invalid.
+   *        The value validation is being performed on. A <code>null</code> or empty value is
+   *        considered invalid.
    * @return <code>true</code> if URL is valid, <code>false</code> otherwise.
    */
   public static boolean isValid (@Nullable final String sURL)
   {
-    if (StringHelper.hasNoText (sURL))
+    if (Strings.isEmpty (sURL))
       return false;
 
     final String sUnifiedURL = getUnifiedURL (sURL);

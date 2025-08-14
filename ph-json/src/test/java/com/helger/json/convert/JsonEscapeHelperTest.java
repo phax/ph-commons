@@ -24,7 +24,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHex;
 import com.helger.json.serialize.JsonReader;
 
 /**
@@ -78,14 +78,14 @@ public final class JsonEscapeHelperTest
       // Escape
       final String sEscaped = JsonEscapeHelper.jsonEscape (sTestString);
       // Try to parse escaped string
-      assertNotNull (StringHelper.getHexEncoded (sEscaped, StandardCharsets.UTF_8),
+      assertNotNull (StringHex.getHexEncoded (sEscaped, StandardCharsets.UTF_8),
                      JsonReader.builder ().source ("\"" + sEscaped + "\"").read ());
       // Unescape
       final String sUnescaped = JsonEscapeHelper.jsonUnescape (sEscaped);
       // Must be identical to source string
-      assertEquals (StringHelper.getHexEncoded (sTestString, StandardCharsets.UTF_8) +
+      assertEquals (StringHex.getHexEncoded (sTestString, StandardCharsets.UTF_8) +
                     "\nvs.\n" +
-                    StringHelper.getHexEncoded (sEscaped, StandardCharsets.UTF_8),
+                    StringHex.getHexEncoded (sEscaped, StandardCharsets.UTF_8),
                     sTestString,
                     sUnescaped);
     }

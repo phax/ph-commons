@@ -27,10 +27,10 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.base.mock.CommonsAssert;
+import com.helger.base.string.Strings;
 import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
@@ -153,7 +153,7 @@ public final class XMLWriterSettingsTest
                       {
                         aXWS.setNewLineMode (eNewlineMode);
                         assertEquals (eNewlineMode, aXWS.getNewLineMode ());
-                        assertTrue (StringHelper.hasText (aXWS.getNewLineString ()));
+                        assertTrue (Strings.isNotEmpty (aXWS.getNewLineString ()));
                         for (final String sIndentation : new String [] { "\t", "  " })
                         {
                           aXWS.setIndentationString (sIndentation);

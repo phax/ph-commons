@@ -23,6 +23,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.helger.base.io.stream.WrappedWriter;
+import com.helger.base.nonblocking.NonBlockingStringWriter;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

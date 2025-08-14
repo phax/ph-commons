@@ -26,7 +26,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsEnumMap;
@@ -38,7 +40,6 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
@@ -110,9 +111,10 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   public String getAsString ()
   {
     final StringBuilder aSB = new StringBuilder ();
+    final String sStr = m_sError;
 
     // Error always shown first!
-    if (StringHelper.hasText (m_sError))
+    if (Strings.isNotEmpty (sStr))
       aSB.append ("ERROR retrieving all thread stack traces: ").append (m_sError).append ("\n\n");
 
     // Total thread count
@@ -139,7 +141,8 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   public IMicroElement getAsMicroNode ()
   {
     final IMicroElement eRet = new MicroElement ("threadlist");
-    if (StringHelper.hasText (m_sError))
+    final String sStr = m_sError;
+    if (Strings.isNotEmpty (sStr))
       eRet.addElement ("error").addText (m_sError);
 
     // Overall thread count

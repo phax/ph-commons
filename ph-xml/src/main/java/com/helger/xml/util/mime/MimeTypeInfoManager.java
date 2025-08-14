@@ -26,6 +26,9 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.VisibleForTesting;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
@@ -39,9 +42,6 @@ import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mime.IMimeType;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -92,8 +92,7 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * @return The default instance that contains all predefined
-   *         {@link MimeTypeInfo}s.
+   * @return The default instance that contains all predefined {@link MimeTypeInfo}s.
    */
   @Nonnull
   public static MimeTypeInfoManager getDefaultInstance ()
@@ -254,7 +253,7 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeInfo> getAllInfosOfFilename (@Nullable final String sFilename)
   {
-    if (StringHelper.hasNoText (sFilename))
+    if (Strings.isEmpty (sFilename))
       return null;
 
     final String sExtension = FilenameHelper.getExtension (sFilename);
@@ -266,8 +265,8 @@ public class MimeTypeInfoManager
    *
    * @param sExtension
    *        The extension to search. May be <code>null</code> or empty.
-   * @return <code>null</code> if the passed extension is <code>null</code> or
-   *         if no such extension is registered.
+   * @return <code>null</code> if the passed extension is <code>null</code> or if no such extension
+   *         is registered.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -296,8 +295,8 @@ public class MimeTypeInfoManager
    *
    * @param aMimeType
    *        The mime type to search. May be <code>null</code>.
-   * @return <code>null</code> if a <code>null</code> mime type was passed or
-   *         the passed mime type is unknown.
+   * @return <code>null</code> if a <code>null</code> mime type was passed or the passed mime type
+   *         is unknown.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -313,8 +312,7 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * @return A non-<code>null</code> set with all mime types infos known to this
-   *         instance.
+   * @return A non-<code>null</code> set with all mime types infos known to this instance.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -324,8 +322,7 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * @return A non-<code>null</code> set with all mime types known to this
-   *         instance.
+   * @return A non-<code>null</code> set with all mime types known to this instance.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -337,8 +334,7 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * @return A non-<code>null</code> set with all mime types known to this
-   *         instance.
+   * @return A non-<code>null</code> set with all mime types known to this instance.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -350,13 +346,12 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * Check if any mime type is registered for the extension of the specified
-   * filename.
+   * Check if any mime type is registered for the extension of the specified filename.
    *
    * @param sFilename
    *        The filename to search. May neither be <code>null</code> nor empty.
-   * @return <code>true</code> if at least one mime type is associated with the
-   *         extension of the passed filename, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one mime type is associated with the extension of the
+   *         passed filename, <code>false</code> otherwise.
    */
   public boolean containsMimeTypeForFilename (@Nonnull @Nonempty final String sFilename)
   {
@@ -367,13 +362,12 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * Get all mime types that are associated to the extension of the specified
-   * filename.
+   * Get all mime types that are associated to the extension of the specified filename.
    *
    * @param sFilename
    *        The filename to search. May neither be <code>null</code> nor empty.
-   * @return Never <code>null</code> but maybe empty set if no mime type is
-   *         associated with the extension of the passed filename.
+   * @return Never <code>null</code> but maybe empty set if no mime type is associated with the
+   *         extension of the passed filename.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -386,13 +380,12 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * Get all mime types that are associated to the extension of the specified
-   * filename.
+   * Get all mime types that are associated to the extension of the specified filename.
    *
    * @param sFilename
    *        The filename to search. May neither be <code>null</code> nor empty.
-   * @return Never <code>null</code> but maybe empty set if no mime type is
-   *         associated with the extension of the passed filename.
+   * @return Never <code>null</code> but maybe empty set if no mime type is associated with the
+   *         extension of the passed filename.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -408,10 +401,10 @@ public class MimeTypeInfoManager
    * Get the primary (=first) mime type associated with the specified filename.
    *
    * @param sFilename
-   *        The filename to retrieve the primary mime type from. May neither be
-   *        <code>null</code> nor empty.
-   * @return <code>null</code> if no mime type is associated with the extension
-   *         of the passed filename
+   *        The filename to retrieve the primary mime type from. May neither be <code>null</code>
+   *        nor empty.
+   * @return <code>null</code> if no mime type is associated with the extension of the passed
+   *         filename
    */
   @Nullable
   public IMimeType getPrimaryMimeTypeForFilename (@Nonnull @Nonempty final String sFilename)
@@ -426,10 +419,10 @@ public class MimeTypeInfoManager
    * Get the primary (=first) mime type associated with the specified filename.
    *
    * @param sFilename
-   *        The filename to retrieve the primary mime type from. May neither be
-   *        <code>null</code> nor empty.
-   * @return <code>null</code> if no mime type is associated with the extension
-   *         of the passed filename
+   *        The filename to retrieve the primary mime type from. May neither be <code>null</code>
+   *        nor empty.
+   * @return <code>null</code> if no mime type is associated with the extension of the passed
+   *         filename
    */
   @Nullable
   public String getPrimaryMimeTypeStringForFilename (@Nonnull @Nonempty final String sFilename)
@@ -445,8 +438,8 @@ public class MimeTypeInfoManager
    *
    * @param sExtension
    *        The filename extension to search. May not be <code>null</code>.
-   * @return <code>true</code> if at least one mime type is associated,
-   *         <code>false</code> if no mime type is associated with the extension
+   * @return <code>true</code> if at least one mime type is associated, <code>false</code> if no
+   *         mime type is associated with the extension
    */
   public boolean containsMimeTypeForExtension (@Nonnull final String sExtension)
   {
@@ -461,8 +454,8 @@ public class MimeTypeInfoManager
    *
    * @param sExtension
    *        The filename extension to search. May not be <code>null</code>.
-   * @return Never <code>null</code> but maybe empty set if no mime type is
-   *         associated with the passed extension.
+   * @return Never <code>null</code> but maybe empty set if no mime type is associated with the
+   *         passed extension.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -483,8 +476,8 @@ public class MimeTypeInfoManager
    *
    * @param sExtension
    *        The filename extension to search. May not be <code>null</code>.
-   * @return Never <code>null</code> but maybe empty set if no mime type is
-   *         associated with the passed extension.
+   * @return Never <code>null</code> but maybe empty set if no mime type is associated with the
+   *         passed extension.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -501,13 +494,11 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * Get the primary (=first) mime type that is associated to the specified
-   * filename extension.
+   * Get the primary (=first) mime type that is associated to the specified filename extension.
    *
    * @param sExtension
    *        The filename extension to search. May not be <code>null</code>.
-   * @return <code>null</code> if no mime type is associated with the passed
-   *         extension.
+   * @return <code>null</code> if no mime type is associated with the passed extension.
    */
   @Nullable
   public IMimeType getPrimaryMimeTypeForExtension (@Nonnull final String sExtension)
@@ -521,13 +512,11 @@ public class MimeTypeInfoManager
   }
 
   /**
-   * Get the primary (=first) mime type that is associated to the specified
-   * filename extension.
+   * Get the primary (=first) mime type that is associated to the specified filename extension.
    *
    * @param sExtension
    *        The filename extension to search. May not be <code>null</code>.
-   * @return <code>null</code> if no mime type is associated with the passed
-   *         extension.
+   * @return <code>null</code> if no mime type is associated with the passed extension.
    */
   @Nullable
   public String getPrimaryMimeTypeStringForExtension (@Nonnull final String sExtension)

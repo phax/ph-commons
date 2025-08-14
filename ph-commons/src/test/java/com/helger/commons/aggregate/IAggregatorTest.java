@@ -25,6 +25,7 @@ import java.util.Collection;
 
 import org.junit.Test;
 
+import com.helger.base.aggregate.IAggregator;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;

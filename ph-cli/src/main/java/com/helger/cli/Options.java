@@ -20,10 +20,10 @@ package com.helger.cli;
 import java.util.Iterator;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

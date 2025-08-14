@@ -28,9 +28,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.timing.StopWatch;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

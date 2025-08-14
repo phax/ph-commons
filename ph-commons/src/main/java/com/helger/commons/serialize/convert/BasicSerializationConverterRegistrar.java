@@ -27,7 +27,7 @@ import javax.imageio.ImageIO;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 
@@ -59,12 +59,12 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
   {
     public void writeConvertedObject (@Nonnull final Charset aSourceObject, @Nonnull final ObjectOutputStream aOOS) throws IOException
     {
-      StreamHelper.writeSafeUTF (aOOS, aSourceObject.name ());
+      StreamHelperExt.writeSafeUTF (aOOS, aSourceObject.name ());
     }
 
     public Charset readConvertedObject (@Nonnull final ObjectInputStream aOIS) throws IOException
     {
-      final String sCharsetName = StreamHelper.readSafeUTF (aOIS);
+      final String sCharsetName = StreamHelperExt.readSafeUTF (aOIS);
       return CharsetHelper.getCharsetFromName (sCharsetName);
     }
   }

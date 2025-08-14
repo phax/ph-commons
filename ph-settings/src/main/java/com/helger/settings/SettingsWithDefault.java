@@ -18,11 +18,11 @@ package com.helger.settings;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -109,7 +109,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
 
   public final boolean isSetToDefault (@Nullable final String sFieldName)
   {
-    return containsKeyDirect (sFieldName) && EqualsHelper.equals (getValueDirect (sFieldName), m_aDefaultSettings.getValue (sFieldName));
+    return containsKeyDirect (sFieldName) && EqualsHelperExt.extEquals (getValueDirect (sFieldName), m_aDefaultSettings.getValue (sFieldName));
   }
 
   @Override

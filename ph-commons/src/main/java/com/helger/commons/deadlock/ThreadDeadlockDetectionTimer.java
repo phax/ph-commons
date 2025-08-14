@@ -25,8 +25,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.CGlobal;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.IStoppable;
+import com.helger.base.state.EChange;
+import com.helger.base.state.IStoppable;
 
 import jakarta.annotation.Nonnull;
 

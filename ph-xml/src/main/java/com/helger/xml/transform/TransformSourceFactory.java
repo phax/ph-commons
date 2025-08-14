@@ -32,11 +32,11 @@ import org.w3c.dom.Node;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.stream.ByteBufferInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.ByteBufferInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.url.URLHelper;
 
 import jakarta.annotation.Nonnull;

@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.base.state.EContinue;
+
 /**
  * Test class for class {@link EContinue}.
  *

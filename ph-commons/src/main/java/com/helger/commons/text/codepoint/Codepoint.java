@@ -23,12 +23,12 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.compare.IComparable;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.compare.IComparable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -44,8 +44,7 @@ public class Codepoint implements IComparable <Codepoint>
   private final int m_nValue;
 
   /**
-   * Create a Codepoint from a byte array with the specified charset encoding.
-   * Length must equal 1
+   * Create a Codepoint from a byte array with the specified charset encoding. Length must equal 1
    *
    * @param aBytes
    *        Bytes
@@ -54,7 +53,7 @@ public class Codepoint implements IComparable <Codepoint>
    */
   public Codepoint (@Nonnull final byte [] aBytes, @Nonnull final Charset aEncoding)
   {
-    this (StringHelper.decodeBytesToChars (aBytes, aEncoding));
+    this (Strings.decodeBytesToChars (aBytes, aEncoding));
   }
 
   private static int _getValueFromCharSequence (@Nonnull final CharSequence s)
@@ -160,8 +159,7 @@ public class Codepoint implements IComparable <Codepoint>
   }
 
   /**
-   * Special protected constructor that allows creating special codepoints that
-   * are invalid.
+   * Special protected constructor that allows creating special codepoints that are invalid.
    *
    * @param nValue
    *        The codepoint value to be used. Must not be a valid codepoint.
@@ -261,8 +259,8 @@ public class Codepoint implements IComparable <Codepoint>
   }
 
   /**
-   * @return The number of chars necessary to represent this codepoint. Returns
-   *         2 if this is a supplementary codepoint, 1 otherwise.
+   * @return The number of chars necessary to represent this codepoint. Returns 2 if this is a
+   *         supplementary codepoint, 1 otherwise.
    */
   @Nonnegative
   public int getCharCount ()
@@ -277,10 +275,9 @@ public class Codepoint implements IComparable <Codepoint>
   }
 
   /**
-   * Plane 0 (0000–FFFF): Basic Multilingual Plane (BMP). This is the plane
-   * containing most of the character assignments so far. A primary objective
-   * for the BMP is to support the unification of prior character sets as well
-   * as characters for writing systems in current use.<br>
+   * Plane 0 (0000–FFFF): Basic Multilingual Plane (BMP). This is the plane containing most of the
+   * character assignments so far. A primary objective for the BMP is to support the unification of
+   * prior character sets as well as characters for writing systems in current use.<br>
    * Plane 1 (10000–1FFFF): Supplementary Multilingual Plane (SMP).<br>
    * Plane 2 (20000–2FFFF): Supplementary Ideographic Plane (SIP)<br>
    * Planes 3 to 13 (30000–DFFFF) are unassigned<br>

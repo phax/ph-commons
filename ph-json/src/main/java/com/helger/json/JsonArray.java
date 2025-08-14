@@ -26,13 +26,13 @@ import java.util.function.ObjIntConsumer;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.json.serialize.JsonReader;
 
 import jakarta.annotation.Nonnull;
@@ -74,14 +74,14 @@ public class JsonArray implements IJsonArray
   {
     aOOS.writeInt (m_aValues.size ());
     final String sJson = getAsJsonString ();
-    StreamHelper.writeSafeUTF (aOOS, sJson);
+    StreamHelperExt.writeSafeUTF (aOOS, sJson);
   }
 
   private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
   {
     final int nInitialSize = aOIS.readInt ();
     m_aValues = new CommonsArrayList <> (nInitialSize);
-    final String sJson = StreamHelper.readSafeUTF (aOIS);
+    final String sJson = StreamHelperExt.readSafeUTF (aOIS);
     final JsonArray aJson = (JsonArray) JsonReader.readFromString (sJson);
     if (aJson == null)
       throw new IOException ("Failed to parse JSON array:\n" + sJson);

@@ -18,11 +18,11 @@ package com.helger.commons.error.level;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.state.IErrorIndicator;
+import com.helger.base.state.ISuccessIndicator;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.severity.ISeverityComparable;
-import com.helger.commons.state.IErrorIndicator;
-import com.helger.commons.state.ISuccessIndicator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -33,13 +33,16 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IErrorLevel extends IHasID <String>, ISuccessIndicator, IErrorIndicator, ISeverityComparable <IErrorLevel>
+public interface IErrorLevel extends
+                             IHasID <String>,
+                             ISuccessIndicator,
+                             IErrorIndicator,
+                             ISeverityComparable <IErrorLevel>
 {
   /**
-   * @return The numeric level of this error level. Must be &ge; 0. The higher
-   *         the numeric level, the higher the priority of the error level. So
-   *         e.g. ERROR has a higher/larger/greater numerical level than
-   *         WARNING.
+   * @return The numeric level of this error level. Must be &ge; 0. The higher the numeric level,
+   *         the higher the priority of the error level. So e.g. ERROR has a higher/larger/greater
+   *         numerical level than WARNING.
    */
   @Nonnegative
   int getNumericLevel ();

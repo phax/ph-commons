@@ -17,8 +17,8 @@
 package com.helger.config;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.state.ESuccess;
 import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.state.ESuccess;
 import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.commons.wrapper.Wrapper;
 import com.helger.config.source.res.IConfigurationSourceResource;

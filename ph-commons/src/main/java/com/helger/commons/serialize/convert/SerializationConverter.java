@@ -22,10 +22,10 @@ import java.io.ObjectOutputStream;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.lang.GenericReflection;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

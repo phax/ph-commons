@@ -26,6 +26,9 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.VisibleForTesting;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -35,16 +38,12 @@ import com.helger.commons.locale.LocaleCache.IMissingLocaleHandler;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This is a global cache for country objects to avoid too many object flowing
- * around.<br>
+ * This is a global cache for country objects to avoid too many object flowing around.<br>
  * This cache is application independent.
  *
  * @author Philip Helger
@@ -75,8 +74,7 @@ public class CountryCache implements IHasConditionalLogger
   }
 
   /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it
-   *         is enabled.
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it is enabled.
    * @since 9.4.0
    */
   public static boolean isSilentMode ()
@@ -88,8 +86,7 @@ public class CountryCache implements IHasConditionalLogger
    * Enable or disable certain regular log messages.
    *
    * @param bSilentMode
-   *        <code>true</code> to disable logging, <code>false</code> to enable
-   *        logging
+   *        <code>true</code> to disable logging, <code>false</code> to enable logging
    * @return The previous value of the silent mode.
    * @since 9.4.0
    */
@@ -131,8 +128,8 @@ public class CountryCache implements IHasConditionalLogger
    *
    * @param aCountry
    *        Source locale. May be <code>null</code>.
-   * @return <code>null</code> if the source locale is <code>null</code> or if
-   *         the source locale does not contain country information.
+   * @return <code>null</code> if the source locale is <code>null</code> or if the source locale
+   *         does not contain country information.
    */
   @Nullable
   public Locale getCountry (@Nullable final Locale aCountry)
@@ -146,10 +143,10 @@ public class CountryCache implements IHasConditionalLogger
    * @param aCountry
    *        Source locale. May be <code>null</code>.
    * @param aMissingHandler
-   *        The missing locale handler to be passed to {@link LocaleCache}. May
-   *        be <code>null</code> to use {@link LocaleCache} default handler.
-   * @return <code>null</code> if the source locale is <code>null</code> or if
-   *         the source locale does not contain country information.
+   *        The missing locale handler to be passed to {@link LocaleCache}. May be <code>null</code>
+   *        to use {@link LocaleCache} default handler.
+   * @return <code>null</code> if the source locale is <code>null</code> or if the source locale
+   *         does not contain country information.
    * @since 9.4.2
    */
   @Nullable
@@ -160,13 +157,12 @@ public class CountryCache implements IHasConditionalLogger
 
   /**
    * Resolve the country from the provided string.<br>
-   * Note: this method may be invoked recursively, if the country code contains
-   * a locale separator char.
+   * Note: this method may be invoked recursively, if the country code contains a locale separator
+   * char.
    *
    * @param sCountry
    *        The country code. May be <code>null</code> or empty.
-   * @return <code>null</code> if the provided country code is <code>null</code>
-   *         or empty.
+   * @return <code>null</code> if the provided country code is <code>null</code> or empty.
    */
   @Nullable
   public Locale getCountry (@Nullable final String sCountry)
@@ -176,22 +172,21 @@ public class CountryCache implements IHasConditionalLogger
 
   /**
    * Resolve the country from the provided string.<br>
-   * Note: this method may be invoked recursively, if the country code contains
-   * a locale separator char.
+   * Note: this method may be invoked recursively, if the country code contains a locale separator
+   * char.
    *
    * @param sCountry
    *        The country code. May be <code>null</code> or empty.
    * @param aMissingHandler
-   *        The missing locale handler to be passed to {@link LocaleCache}. May
-   *        be <code>null</code> to use {@link LocaleCache} default handler.
-   * @return <code>null</code> if the provided country code is <code>null</code>
-   *         or empty.
+   *        The missing locale handler to be passed to {@link LocaleCache}. May be <code>null</code>
+   *        to use {@link LocaleCache} default handler.
+   * @return <code>null</code> if the provided country code is <code>null</code> or empty.
    * @since 9.4.2
    */
   @Nullable
   public Locale getCountryExt (@Nullable final String sCountry, @Nullable final IMissingLocaleHandler aMissingHandler)
   {
-    if (StringHelper.hasNoText (sCountry))
+    if (Strings.isEmpty (sCountry))
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
@@ -239,8 +234,7 @@ public class CountryCache implements IHasConditionalLogger
    *
    * @param aCountry
    *        The country to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed country is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the passed country is contained, <code>false</code> otherwise.
    */
   public boolean containsCountry (@Nullable final Locale aCountry)
   {
@@ -252,8 +246,7 @@ public class CountryCache implements IHasConditionalLogger
    *
    * @param sCountry
    *        The country to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed country is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the passed country is contained, <code>false</code> otherwise.
    */
   public boolean containsCountry (@Nullable final String sCountry)
   {
@@ -275,7 +268,7 @@ public class CountryCache implements IHasConditionalLogger
     for (final Locale aLocale : LocaleCache.getAllDefaultLocales ())
     {
       final String sCountry = aLocale.getCountry ();
-      if (StringHelper.hasText (sCountry))
+      if (Strings.isNotEmpty (sCountry))
         addCountry (sCountry);
     }
     CONDLOG.debug ( () -> "Reinitialized " + getClass ().getName ());

@@ -25,18 +25,18 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.CGlobal;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.lang.GenericReflection;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ClassLoaderHelper;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -125,8 +125,7 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * @return The list of classes passed in the constructor. May be
-   *         <code>null</code>.
+   * @return The list of classes passed in the constructor. May be <code>null</code>.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -147,8 +146,8 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * @return The class loader passed in the constructor or the default class
-   *         loader. May be <code>null</code>.
+   * @return The class loader passed in the constructor or the default class loader. May be
+   *         <code>null</code>.
    */
   @Nullable
   private ClassLoader _getClassLoader ()
@@ -208,7 +207,7 @@ public class JAXBContextCacheKey
     {
       // Using the version with a ClassLoader would require an
       // ObjectFactory.class or an jaxb.index file in the same package!
-      final Class <?> [] aClassArray = aClasses.toArray (ArrayHelper.EMPTY_CLASS_ARRAY);
+      final Class <?> [] aClassArray = aClasses.toArray (CGlobal.EMPTY_CLASS_ARRAY);
       return JAXBContext.newInstance (aClassArray, m_aProperties);
     }
     catch (final JAXBException ex)
@@ -242,8 +241,8 @@ public class JAXBContextCacheKey
       return false;
     final JAXBContextCacheKey rhs = (JAXBContextCacheKey) o;
     return m_sEqualsHashCodeKey.equals (rhs.m_sEqualsHashCodeKey) &&
-           EqualsHelper.equals (_getClassLoader (), rhs._getClassLoader ()) &&
-           EqualsHelper.equals (m_aProperties, rhs.m_aProperties);
+           EqualsHelperExt.extEquals (_getClassLoader (), rhs._getClassLoader ()) &&
+           EqualsHelperExt.extEquals (m_aProperties, rhs.m_aProperties);
   }
 
   @Override
@@ -327,8 +326,7 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * Factory method with a list of packages and the provided
-   * {@link ClassLoader}.
+   * Factory method with a list of packages and the provided {@link ClassLoader}.
    *
    * @param aPackages
    *        List of packages to load. May not be <code>null</code>.
@@ -345,13 +343,11 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * Get the {@link JAXBContext} from an existing {@link Class} object. If the
-   * class's owning package is a valid JAXB package, this method redirects to
-   * {@link #createForPackage(Package)}
+   * Get the {@link JAXBContext} from an existing {@link Class} object. If the class's owning
+   * package is a valid JAXB package, this method redirects to {@link #createForPackage(Package)}
    *
    * @param aClass
-   *        The class for which the JAXB context is to be created. May not be
-   *        <code>null</code>.
+   *        The class for which the JAXB context is to be created. May not be <code>null</code>.
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
@@ -362,16 +358,15 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * Get the {@link JAXBContext} from an existing {@link Class} object. If the
-   * class's owning package is a valid JAXB package, this method redirects to
+   * Get the {@link JAXBContext} from an existing {@link Class} object. If the class's owning
+   * package is a valid JAXB package, this method redirects to
    * {@link #createForPackage(Package, ClassLoader)}
    *
    * @param aClass
-   *        The class for which the JAXB context is to be created. May not be
-   *        <code>null</code>.
+   *        The class for which the JAXB context is to be created. May not be <code>null</code>.
    * @param aClassLoader
-   *        Class loader to use. May be <code>null</code> in which case the
-   *        default class loader is used.
+   *        Class loader to use. May be <code>null</code> in which case the default class loader is
+   *        used.
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
@@ -394,8 +389,8 @@ public class JAXBContextCacheKey
    * Get the {@link JAXBContext} from existing {@link Class} objects.
    *
    * @param aClasses
-   *        The classes for which the JAXB context is to be created. May not be
-   *        <code>null</code> nor empty.
+   *        The classes for which the JAXB context is to be created. May not be <code>null</code>
+   *        nor empty.
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
@@ -409,8 +404,8 @@ public class JAXBContextCacheKey
    * Get the {@link JAXBContext} from existing {@link Class} objects.
    *
    * @param aClasses
-   *        The classes for which the JAXB context is to be created. May not be
-   *        <code>null</code> nor empty.
+   *        The classes for which the JAXB context is to be created. May not be <code>null</code>
+   *        nor empty.
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
@@ -421,12 +416,12 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * Get the {@link JAXBContext} from existing {@link Class} objects and
-   * optional JAXB Context properties.
+   * Get the {@link JAXBContext} from existing {@link Class} objects and optional JAXB Context
+   * properties.
    *
    * @param aClasses
-   *        The classes for which the JAXB context is to be created. May not be
-   *        <code>null</code> nor empty.
+   *        The classes for which the JAXB context is to be created. May not be <code>null</code>
+   *        nor empty.
    * @param aProperties
    *        JAXB context properties. May be <code>null</code>.
    * @return The created object. Never <code>null</code>.

@@ -17,7 +17,7 @@
 package com.helger.graph;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.commons.state.EChange;
+import com.helger.base.state.EChange;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

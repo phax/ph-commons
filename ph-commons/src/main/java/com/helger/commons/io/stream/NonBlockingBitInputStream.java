@@ -24,17 +24,17 @@ import java.nio.ByteOrder;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * The {@link NonBlockingBitInputStream} allows reading individual bits from a
- * general Java InputStream. Like the various Stream-classes from Java, the
- * BitInputStream has to be created based on another Input stream. It provides a
- * function to read the next bit from the stream, as well as to read multiple
- * bits at once and write the resulting data into an integer value.<br>
+ * The {@link NonBlockingBitInputStream} allows reading individual bits from a general Java
+ * InputStream. Like the various Stream-classes from Java, the BitInputStream has to be created
+ * based on another Input stream. It provides a function to read the next bit from the stream, as
+ * well as to read multiple bits at once and write the resulting data into an integer value.<br>
  * For a thread-safe version see {@link BitInputStream}
  *
  * @author Andreas Jakl
@@ -50,8 +50,8 @@ public class NonBlockingBitInputStream implements Closeable
   private final boolean m_bHighOrderBitFirst;
 
   /**
-   * Next bit of the current byte value that the user will get. If it's 8, the
-   * next bit will be read from the next byte of the InputStream.
+   * Next bit of the current byte value that the user will get. If it's 8, the next bit will be read
+   * from the next byte of the InputStream.
    */
   private int m_nNextBitIndex;
 
@@ -64,8 +64,7 @@ public class NonBlockingBitInputStream implements Closeable
    * Create a new bit input stream based on an existing Java InputStream.
    *
    * @param aIS
-   *        the input stream this class should read the bits from. May not be
-   *        <code>null</code>.
+   *        the input stream this class should read the bits from. May not be <code>null</code>.
    * @param aByteOrder
    *        The non-<code>null</code> byte order to use.
    */
@@ -89,10 +88,9 @@ public class NonBlockingBitInputStream implements Closeable
   }
 
   /**
-   * Read a specified number of bits and return them combined as an integer
-   * value. The bits are written to the integer starting at the highest bit (
-   * &lt;&lt; aNumberOfBits ), going down to the lowest bit ( &lt;&lt; 0 ), so
-   * the returned ByteOrder is always LITTLE_ENDIAN!
+   * Read a specified number of bits and return them combined as an integer value. The bits are
+   * written to the integer starting at the highest bit ( &lt;&lt; aNumberOfBits ), going down to
+   * the lowest bit ( &lt;&lt; 0 ), so the returned ByteOrder is always LITTLE_ENDIAN!
    *
    * @param aNumberOfBits
    *        defines how many bits to read from the stream.
@@ -131,7 +129,8 @@ public class NonBlockingBitInputStream implements Closeable
       m_nNextBitIndex = 0;
     }
 
-    final int nSelectorBit = m_bHighOrderBitFirst ? (1 << (CGlobal.BITS_PER_BYTE - 1 - m_nNextBitIndex)) : (1 << m_nNextBitIndex);
+    final int nSelectorBit = m_bHighOrderBitFirst ? (1 << (CGlobal.BITS_PER_BYTE - 1 - m_nNextBitIndex)) : (1 <<
+                                                                                                            m_nNextBitIndex);
     final int nBitValue = m_nBuffer & nSelectorBit;
     m_nNextBitIndex++;
 

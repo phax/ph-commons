@@ -21,11 +21,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.EAppend;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

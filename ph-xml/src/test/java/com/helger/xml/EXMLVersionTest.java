@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 /**
  * Test class for class {@link EXMLVersion}.
@@ -36,7 +36,7 @@ public final class EXMLVersionTest
   {
     for (final EXMLVersion eVersion : EXMLVersion.values ())
     {
-      assertTrue (StringHelper.hasText (eVersion.getVersion ()));
+      assertTrue (Strings.isNotEmpty (eVersion.getVersion ()));
       assertSame (eVersion, EXMLVersion.getFromVersionOrNull (eVersion.getVersion ()));
       assertSame (eVersion, EXMLVersion.valueOf (eVersion.name ()));
     }

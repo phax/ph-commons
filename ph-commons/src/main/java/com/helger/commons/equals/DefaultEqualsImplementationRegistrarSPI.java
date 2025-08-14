@@ -17,7 +17,6 @@
 package com.helger.commons.equals;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,13 +34,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.math.BigHelper;
 
 import jakarta.annotation.Nonnull;
 
 /**
  * This class registers the default equals implementations. The implementations in here should be
- * aligned with the implementations in the
- * {@link com.helger.commons.hashcode.DefaultHashCodeImplementationRegistrarSPI}
+ * aligned with the implementations in the hash code registry.
  *
  * @author Philip Helger
  */
@@ -50,19 +49,7 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
 {
   public void registerEqualsImplementations (@Nonnull final IEqualsImplementationRegistry aRegistry)
   {
-    /**
-     * Special equals implementation for BigDecimal because <code>BigDecimal.equals</code> returns
-     * <code>false</code> if they have a different scale so that "5.5" is not equal "5.50".
-     */
-    aRegistry.registerEqualsImplementation (BigDecimal.class, (aObj1, aObj2) -> {
-      // Compare is ~15% quicker than the setScale version
-      if (true)
-        return aObj1.compareTo (aObj2) == 0;
-
-      final int nMaxScale = Math.max (aObj1.scale (), aObj2.scale ());
-      // Use the same rounding mode for both
-      return aObj1.setScale (nMaxScale, RoundingMode.HALF_UP).equals (aObj2.setScale (nMaxScale, RoundingMode.HALF_UP));
-    });
+    aRegistry.registerEqualsImplementation (BigDecimal.class, BigHelper::equalValues);
 
     // Special overload for "Double" required!
     aRegistry.registerEqualsImplementation (Double.class, (aObj1, aObj2) -> aObj1.compareTo (aObj2) == 0);
@@ -235,7 +222,7 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
 
     // Class does not implement equals
     aRegistry.registerEqualsImplementation (PasswordAuthentication.class,
-                                            (aObj1, aObj2) -> EqualsHelper.equals (aObj1.getUserName (),
+                                            (aObj1, aObj2) -> EqualsHelperExt.extEquals (aObj1.getUserName (),
                                                                                    aObj2.getUserName ()) &&
                                                               Arrays.equals (aObj1.getPassword (),
                                                                              aObj2.getPassword ()));

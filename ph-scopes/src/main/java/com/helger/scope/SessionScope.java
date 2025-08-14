@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.state.EContinue;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.state.EContinue;
 
 import jakarta.annotation.Nonnull;
 

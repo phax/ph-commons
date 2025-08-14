@@ -18,8 +18,8 @@ package com.helger.commons.error;
 
 import java.util.Comparator;
 
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
+import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -38,23 +38,21 @@ public interface IHasErrorID
   String getErrorID ();
 
   /**
-   * @return <code>true</code> if an error ID is present, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if an error ID is present, <code>false</code> otherwise
    * @see #hasNoErrorID()
    */
   default boolean hasErrorID ()
   {
-    return StringHelper.hasText (getErrorID ());
+    return Strings.isNotEmpty (getErrorID ());
   }
 
   /**
-   * @return <code>true</code> if no error ID is present, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if no error ID is present, <code>false</code> otherwise
    * @see #hasErrorID()
    */
   default boolean hasNoErrorID ()
   {
-    return StringHelper.hasNoText (getErrorID ());
+    return Strings.isEmpty (getErrorID ());
   }
 
   /**
@@ -62,13 +60,12 @@ public interface IHasErrorID
    *
    * @param sErrorID
    *        The error ID to check. May be null.
-   * @return <code>true</code> if the error ID is equal, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if the error ID is equal, <code>false</code> otherwise
    * @since 8.5.0
    */
   default boolean hasErrorID (@Nullable final String sErrorID)
   {
-    return EqualsHelper.equals (getErrorID (), sErrorID);
+    return EqualsHelperExt.extEquals (getErrorID (), sErrorID);
   }
 
   @Nonnull

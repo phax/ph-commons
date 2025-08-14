@@ -19,10 +19,10 @@ package com.helger.commons.io.streamprovider;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IHasOutputStreamAndWriter;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.iface.IHasOutputStreamAndWriter;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

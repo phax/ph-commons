@@ -27,19 +27,18 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * The {@link NonBlockingBitOutputStream} allows writing individual bits to a
- * general Java OutputStream. Like the various Stream-classes from Java, the
- * BitOutputStream has to be created based on another OutputStream. This class
- * is able to write a single bit to a stream (even though a byte has to be
- * filled until the data is flushed to the underlying output stream). It is also
- * able to write an integer value to the stream using the specified number of
- * bits.<br>
+ * The {@link NonBlockingBitOutputStream} allows writing individual bits to a general Java
+ * OutputStream. Like the various Stream-classes from Java, the BitOutputStream has to be created
+ * based on another OutputStream. This class is able to write a single bit to a stream (even though
+ * a byte has to be filled until the data is flushed to the underlying output stream). It is also
+ * able to write an integer value to the stream using the specified number of bits.<br>
  * For a thread-safe version see {@link BitOutputStream}
  *
  * @author Andreas Jakl
@@ -57,8 +56,8 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
   private final boolean m_bHighOrderBitFirst;
 
   /**
-   * The temporary buffer containing the individual bits until a byte has been
-   * completed and can be committed to the output stream.
+   * The temporary buffer containing the individual bits until a byte has been completed and can be
+   * committed to the output stream.
    */
   private int m_nBuffer;
 
@@ -71,8 +70,7 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
    * Create a new bit output stream based on an existing Java OutputStream.
    *
    * @param aOS
-   *        the output stream this class should use. May not be
-   *        <code>null</code>.
+   *        the output stream this class should use. May not be <code>null</code>.
    * @param aByteOrder
    *        The non-<code>null</code> byte order to use.
    */
@@ -96,8 +94,8 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
   }
 
   /**
-   * Write a single bit to the stream. It will only be flushed to the underlying
-   * OutputStream when a byte has been completed or when flush() manually.
+   * Write a single bit to the stream. It will only be flushed to the underlying OutputStream when a
+   * byte has been completed or when flush() manually.
    *
    * @param aBit
    *        1 if the bit should be set, 0 if not
@@ -123,10 +121,9 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
   }
 
   /**
-   * Write the specified number of bits from the int value to the stream.
-   * Corresponding to the InputStream, the bits are written starting at the
-   * highest bit ( &gt;&gt; aNumberOfBits ), going down to the lowest bit (
-   * &gt;&gt; 0 ).
+   * Write the specified number of bits from the int value to the stream. Corresponding to the
+   * InputStream, the bits are written starting at the highest bit ( &gt;&gt; aNumberOfBits ), going
+   * down to the lowest bit ( &gt;&gt; 0 ).
    *
    * @param aValue
    *        the int containing the bits that should be written to the stream.

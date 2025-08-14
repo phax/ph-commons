@@ -23,17 +23,18 @@ import java.util.concurrent.Executors;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.lang.IExplicitlyCloneable;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.collection.impl.CommonsVector;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.lang.IExplicitlyCloneable;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.serialize.SerializationHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -78,7 +79,7 @@ public final class CommonsTestHelper
 
   public static <T> void _assertEquals (@Nonnull final String sMsg, @Nullable final T aObj1, @Nullable final T aObj2)
   {
-    if (!EqualsHelper.equals (aObj1, aObj2))
+    if (!EqualsHelperExt.extEquals (aObj1, aObj2))
       _fail (sMsg + "\nOBJ1: " + aObj1 + "\nOBJ2: " + aObj2);
   }
 

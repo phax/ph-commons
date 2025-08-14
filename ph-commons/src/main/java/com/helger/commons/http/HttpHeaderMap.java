@@ -36,8 +36,15 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.CGlobal;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.iface.IHasSize;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.state.EChange;
+import com.helger.base.state.IClearable;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.codec.RFC2616Codec;
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsIterable;
@@ -46,26 +53,19 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.lang.IHasSize;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.IClearable;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
  * Abstracts HTTP header interface for external usage.<br>
- * Note: since version 9.1.8 (issue #11) the internal scheme changed and the
- * original case is stored. Older versions always stored the lower case header
- * names. The implications are that the casing of the first header is sustained.
- * So if the first API call uses name "Foo" and the second is "foo" they both
- * refer to the same header name and "Foo" will be the name that is retrieved.
+ * Note: since version 9.1.8 (issue #11) the internal scheme changed and the original case is
+ * stored. Older versions always stored the lower case header names. The implications are that the
+ * casing of the first header is sustained. So if the first API call uses name "Foo" and the second
+ * is "foo" they both refer to the same header name and "Foo" will be the name that is retrieved.
  *
  * @author Philip Helger
  * @since 9.0.0
@@ -106,17 +106,15 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Avoid having header values spanning multiple lines. This has been
-   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
-   * HTTP 400 by default. <br>
-   * Since v9.3.6 this method also takes care of quoting header values
-   * correctly. If the value does not correspond to a token according to RFC
-   * 2616 chapter 2.2, the value is enclosed in double quotes.
+   * Avoid having header values spanning multiple lines. This has been deprecated by RFC 7230 and
+   * Jetty 9.3 refuses to parse these requests with HTTP 400 by default. <br>
+   * Since v9.3.6 this method also takes care of quoting header values correctly. If the value does
+   * not correspond to a token according to RFC 2616 chapter 2.2, the value is enclosed in double
+   * quotes.
    *
    * @param sValue
    *        The source header value. May be <code>null</code>.
-   * @return The unified header value without \r, \n and \t. Never
-   *         <code>null</code>.
+   * @return The unified header value without \r, \n and \t. Never <code>null</code>.
    */
   @Nonnull
   public static String getUnifiedValue (@Nullable final String sValue)
@@ -125,17 +123,15 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Avoid having header values spanning multiple lines. This has been
-   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
-   * HTTP 400 by default.
+   * Avoid having header values spanning multiple lines. This has been deprecated by RFC 7230 and
+   * Jetty 9.3 refuses to parse these requests with HTTP 400 by default.
    *
    * @param sValue
    *        The source header value. May be <code>null</code>.
    * @param bQuoteIfNecessary
-   *        <code>true</code> if automatic quoting according to RFC 2616,
-   *        chapter 2.2 should be used if necessary.
-   * @return The unified header value without \r, \n and \t. Never
-   *         <code>null</code>.
+   *        <code>true</code> if automatic quoting according to RFC 2616, chapter 2.2 should be used
+   *        if necessary.
+   * @return The unified header value without \r, \n and \t. Never <code>null</code>.
    * @since 9.3.6
    */
   @Nonnull
@@ -143,7 +139,7 @@ public class HttpHeaderMap implements
   {
     final char [] aOneLiner;
     int nLineLength = 0;
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
     {
       // First replace special characters with space
       // Make sure to merge all consecutive chars to a single space
@@ -173,7 +169,7 @@ public class HttpHeaderMap implements
     else
     {
       // Nothing to replace anyway
-      aOneLiner = ArrayHelper.EMPTY_CHAR_ARRAY;
+      aOneLiner = CGlobal.EMPTY_CHAR_ARRAY;
     }
 
     final char [] aQuoted;
@@ -198,7 +194,7 @@ public class HttpHeaderMap implements
     final String ret = new String (aQuoted, 0, nLineLength);
     if (LOGGER.isDebugEnabled ())
     {
-      if (!EqualsHelper.equals (sValue, ret))
+      if (!EqualsHelperExt.extEquals (sValue, ret))
         LOGGER.debug ("getUnifiedValue('" + sValue + "'," + bQuoteIfNecessary + ") resulted in '" + ret + "'");
     }
     return ret;
@@ -219,7 +215,7 @@ public class HttpHeaderMap implements
   @ReturnsMutableObject
   private Map.Entry <String, ICommonsList <String>> _getHeaderEntryCaseInsensitive (@Nullable final String sName)
   {
-    if (StringHelper.hasText (sName))
+    if (Strings.isNotEmpty (sName))
       for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
         if (aEntry.getKey ().equalsIgnoreCase (sName))
           return aEntry;
@@ -275,8 +271,7 @@ public class HttpHeaderMap implements
    * @param sName
    *        Header name. May neither be <code>null</code> nor empty.
    * @param sValue
-   *        The value to be set. May be <code>null</code> in which case nothing
-   *        happens.
+   *        The value to be set. May be <code>null</code> in which case nothing happens.
    */
   public void setHeader (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
@@ -290,8 +285,7 @@ public class HttpHeaderMap implements
    * @param sName
    *        Header name. May neither be <code>null</code> nor empty.
    * @param sValue
-   *        The value to be set. May be <code>null</code> in which case nothing
-   *        happens.
+   *        The value to be set. May be <code>null</code> in which case nothing happens.
    */
   public void addHeader (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
@@ -336,8 +330,8 @@ public class HttpHeaderMap implements
    * @param sName
    *        Header name. May neither be <code>null</code> nor empty.
    * @param aLD
-   *        The LocalDate to set as a date. The time is set to start of day. May
-   *        not be <code>null</code>.
+   *        The LocalDate to set as a date. The time is set to start of day. May not be
+   *        <code>null</code>.
    */
   public void setDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDate aLD)
   {
@@ -389,8 +383,8 @@ public class HttpHeaderMap implements
    * @param sName
    *        Header name. May neither be <code>null</code> nor empty.
    * @param aLD
-   *        The LocalDate to set as a date. The time is set to start of day. May
-   *        not be <code>null</code>.
+   *        The LocalDate to set as a date. The time is set to start of day. May not be
+   *        <code>null</code>.
    */
   public void addDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDate aLD)
   {
@@ -476,8 +470,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Set all headers from the passed map. Existing headers with the same name
-   * are overwritten. Existing headers are not changed!
+   * Set all headers from the passed map. Existing headers with the same name are overwritten.
+   * Existing headers are not changed!
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -496,8 +490,7 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Add all headers from the passed map. Existing headers with the same name
-   * are extended.
+   * Add all headers from the passed map. Existing headers with the same name are extended.
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -535,14 +528,13 @@ public class HttpHeaderMap implements
    *
    * @param sName
    *        The name to be searched.
-   * @return The list with all matching values. Never <code>null</code> but
-   *         maybe empty.
+   * @return The list with all matching values. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllHeaderValues (@Nullable final String sName)
   {
-    if (StringHelper.hasText (sName))
+    if (Strings.isNotEmpty (sName))
     {
       final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
@@ -552,8 +544,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Get the first header value of a certain header name. The matching of the
-   * name happens case insensitive.
+   * Get the first header value of a certain header name. The matching of the name happens case
+   * insensitive.
    *
    * @param sName
    *        The name to be searched. May be <code>null</code>.
@@ -562,7 +554,7 @@ public class HttpHeaderMap implements
   @Nullable
   public String getFirstHeaderValue (@Nullable final String sName)
   {
-    if (StringHelper.hasText (sName))
+    if (Strings.isNotEmpty (sName))
     {
       final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
@@ -572,8 +564,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Get the header value as a combination of all contained values. The matching
-   * of the name happens case insensitive.
+   * Get the header value as a combination of all contained values. The matching of the name happens
+   * case insensitive.
    *
    * @param sName
    *        The header name to retrieve. May be <code>null</code>.
@@ -584,7 +576,7 @@ public class HttpHeaderMap implements
   @Nullable
   public String getHeaderCombined (@Nullable final String sName, @Nonnull final String sDelimiter)
   {
-    if (StringHelper.hasText (sName))
+    if (Strings.isNotEmpty (sName))
     {
       final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
@@ -595,7 +587,7 @@ public class HttpHeaderMap implements
 
   public boolean containsHeaders (@Nullable final String sName)
   {
-    if (StringHelper.hasNoText (sName))
+    if (Strings.isEmpty (sName))
       return false;
     return _getHeaderListCaseInsensitive (sName) != null;
   }
@@ -623,7 +615,7 @@ public class HttpHeaderMap implements
   @Nonnull
   public EChange removeHeaders (@Nullable final String sName)
   {
-    if (StringHelper.hasNoText (sName))
+    if (Strings.isEmpty (sName))
       return EChange.UNCHANGED;
 
     final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntryCaseInsensitive (sName);
@@ -668,8 +660,7 @@ public class HttpHeaderMap implements
    * Invoke the provided consumer for every name/value pair.
    *
    * @param aConsumer
-   *        Consumer with key and unified value to be invoked. May not be
-   *        <code>null</code>.
+   *        Consumer with key and unified value to be invoked. May not be <code>null</code>.
    * @param bUnifyValue
    *        <code>true</code> to unify the values, <code>false</code> if not
    * @see #getUnifiedValue(String,boolean)
@@ -685,14 +676,12 @@ public class HttpHeaderMap implements
    * Invoke the provided consumer for every name/value pair.
    *
    * @param aConsumer
-   *        Consumer with key and unified value to be invoked. May not be
-   *        <code>null</code>.
+   *        Consumer with key and unified value to be invoked. May not be <code>null</code>.
    * @param bUnifyValue
    *        <code>true</code> to unify the values, <code>false</code> if not
    * @param bQuoteIfNecessary
-   *        <code>true</code> to automatically quote values if it is necessary,
-   *        <code>false</code> to not do it. This is only used, if "unify
-   *        values" is <code>true</code>.
+   *        <code>true</code> to automatically quote values if it is necessary, <code>false</code>
+   *        to not do it. This is only used, if "unify values" is <code>true</code>.
    * @see #getUnifiedValue(String, boolean)
    * @since 9.3.7
    */
@@ -715,8 +704,7 @@ public class HttpHeaderMap implements
    * Invoke the provided consumer for every header line.
    *
    * @param aConsumer
-   *        Consumer with the assembled line to be invoked. May not be
-   *        <code>null</code>.
+   *        Consumer with the assembled line to be invoked. May not be <code>null</code>.
    * @param bUnifyValue
    *        <code>true</code> to unify the values, <code>false</code> if not
    * @see #getUnifiedValue(String,boolean)
@@ -731,14 +719,12 @@ public class HttpHeaderMap implements
    * Invoke the provided consumer for every header line.
    *
    * @param aConsumer
-   *        Consumer with the assembled line to be invoked. May not be
-   *        <code>null</code>.
+   *        Consumer with the assembled line to be invoked. May not be <code>null</code>.
    * @param bUnifyValue
    *        <code>true</code> to unify the values, <code>false</code> if not.
    * @param bQuoteIfNecessary
-   *        <code>true</code> to automatically quote values if it is necessary,
-   *        <code>false</code> to not do it. This is only used, if "unify
-   *        values" is <code>true</code>.
+   *        <code>true</code> to automatically quote values if it is necessary, <code>false</code>
+   *        to not do it. This is only used, if "unify values" is <code>true</code>.
    * @see #getUnifiedValue(String,boolean)
    * @since 9.3.7
    */
@@ -779,9 +765,8 @@ public class HttpHeaderMap implements
    * @param bUnifyValue
    *        <code>true</code> to unify the values, <code>false</code> if not
    * @param bQuoteIfNecessary
-   *        <code>true</code> to automatically quote values if it is necessary,
-   *        <code>false</code> to not do it. This is only used, if "unify
-   *        values" is <code>true</code>.
+   *        <code>true</code> to automatically quote values if it is necessary, <code>false</code>
+   *        to not do it. This is only used, if "unify values" is <code>true</code>.
    * @return Never <code>null</code> but maybe an empty list.
    * @since 9.3.7
    */
@@ -812,8 +797,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * @return The HTTP header map in a different representation. Never
-   *         <code>null</code> but maybe empty.
+   * @return The HTTP header map in a different representation. Never <code>null</code> but maybe
+   *         empty.
    * @since 10.0
    */
   @Nonnull

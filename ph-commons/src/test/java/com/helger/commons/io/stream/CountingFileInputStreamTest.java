@@ -23,6 +23,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -40,7 +42,7 @@ public final class CountingFileInputStreamTest
     {
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
-      StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
+      StreamHelperExt.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
       CommonsTestHelper.testToStringImplementation (aCIS);
     }
     finally
@@ -53,7 +55,7 @@ public final class CountingFileInputStreamTest
     {
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
-      StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
+      StreamHelperExt.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
       CommonsTestHelper.testToStringImplementation (aCIS);
     }
     finally

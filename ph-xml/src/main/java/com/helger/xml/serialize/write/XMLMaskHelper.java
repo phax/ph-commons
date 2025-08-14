@@ -26,11 +26,10 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.EXMLVersion;
 
 import jakarta.annotation.Nonnull;
@@ -338,10 +337,9 @@ public final class XMLMaskHelper
   }
 
   /**
-   * Get the entity reference for the specified character. This returns e.g.
-   * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
-   * &amp;, &quot; and '. All other chars are encoded by their numeric value
-   * (e.g. &amp;#200;)
+   * Get the entity reference for the specified character. This returns e.g. &amp;lt; for '&lt;'
+   * etc. This method has special handling for &lt;, &gt;, &amp;, &quot; and '. All other chars are
+   * encoded by their numeric value (e.g. &amp;#200;)
    *
    * @param c
    *        Character to use.
@@ -365,10 +363,9 @@ public final class XMLMaskHelper
   }
 
   /**
-   * Get the entity reference for the specified character. This returns e.g.
-   * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
-   * &amp;, &quot; and '. All other chars are encoded by their numeric value
-   * (e.g. &amp;#200;)
+   * Get the entity reference for the specified character. This returns e.g. &amp;lt; for '&lt;'
+   * etc. This method has special handling for &lt;, &gt;, &amp;, &quot; and '. All other chars are
+   * encoded by their numeric value (e.g. &amp;#200;)
    *
    * @param c
    *        Character to use.
@@ -394,11 +391,10 @@ public final class XMLMaskHelper
   }
 
   /**
-   * Get the entity reference for the specified character. This returns e.g.
-   * <code>&amp;lt;</code> for '<code>&lt;</code>' etc. This method has special
-   * handling for &lt;, &gt;, &amp; and &quot;. All other chars are encoded by
-   * their numeric value (e.g. <code>&amp;#200;</code>). In contrast to
-   * {@link #getXML10EntityReferenceString(char)} this method does not handle
+   * Get the entity reference for the specified character. This returns e.g. <code>&amp;lt;</code>
+   * for '<code>&lt;</code>' etc. This method has special handling for &lt;, &gt;, &amp; and &quot;.
+   * All other chars are encoded by their numeric value (e.g. <code>&amp;#200;</code>). In contrast
+   * to {@link #getXML10EntityReferenceString(char)} this method does not handle
    * <code>&amp;apos;</code>
    *
    * @param c
@@ -581,7 +577,7 @@ public final class XMLMaskHelper
   {
     final char [] [] ret = new char [aSrcMap.length] [];
     for (int i = 0; i < aSrcMap.length; ++i)
-      ret[i] = ArrayHelper.EMPTY_CHAR_ARRAY;
+      ret[i] = CGlobal.EMPTY_CHAR_ARRAY;
     return ret;
   }
 
@@ -591,8 +587,8 @@ public final class XMLMaskHelper
                                           @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                           @Nullable final String s)
   {
-    if (StringHelper.hasNoText (s))
-      return ArrayHelper.EMPTY_CHAR_ARRAY;
+    if (Strings.isEmpty (s))
+      return CGlobal.EMPTY_CHAR_ARRAY;
 
     char [] aChars = s.toCharArray ();
 
@@ -609,7 +605,7 @@ public final class XMLMaskHelper
         {
           final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
           final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
-          aChars = StringHelper.replaceMultiple (s, aSrcMap, aDstMap);
+          aChars = Strings.replaceMultiple (s, aSrcMap, aDstMap);
         }
       }
     }
@@ -622,7 +618,7 @@ public final class XMLMaskHelper
       return aChars;
     }
     final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-    return StringHelper.replaceMultiple (aChars, aSrcMap, aDstMap);
+    return Strings.replaceMultiple (aChars, aSrcMap, aDstMap);
   }
 
   @Nonnegative
@@ -643,7 +639,7 @@ public final class XMLMaskHelper
                                             @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                             @Nullable final String s)
   {
-    if (StringHelper.hasNoText (s))
+    if (Strings.isEmpty (s))
       return 0;
 
     char [] aChars = s.toCharArray ();
@@ -660,7 +656,7 @@ public final class XMLMaskHelper
       {
         final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
         final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
-        aChars = StringHelper.replaceMultiple (s, aSrcMap, aDstMap);
+        aChars = Strings.replaceMultiple (s, aSrcMap, aDstMap);
       }
     }
 
@@ -670,7 +666,7 @@ public final class XMLMaskHelper
     if (aSrcMap != null)
     {
       final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-      final int nResLen = StringHelper.getReplaceMultipleResultLength (aChars, aSrcMap, aDstMap);
+      final int nResLen = Strings.getReplaceMultipleResultLength (aChars, aSrcMap, aDstMap);
       ret = nResLen == CGlobal.ILLEGAL_UINT ? aChars.length : nResLen;
     }
     else
@@ -688,7 +684,7 @@ public final class XMLMaskHelper
                                     @Nullable final String s,
                                     @Nonnull final Writer aWriter) throws IOException
   {
-    if (StringHelper.hasText (s))
+    if (Strings.isNotEmpty (s))
       maskXMLTextTo (eXMLVersion, eXMLCharMode, eIncorrectCharHandling, s.toCharArray (), 0, s.length (), aWriter);
   }
 
@@ -726,7 +722,7 @@ public final class XMLMaskHelper
           final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
           final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
 
-          aChars = StringHelper.replaceMultiple (s, aSrcMap, aDstMap);
+          aChars = Strings.replaceMultiple (s, aSrcMap, aDstMap);
           nRealOfs = 0;
           nRealLen = aChars.length;
           if (nRealLen == 0)
@@ -750,7 +746,7 @@ public final class XMLMaskHelper
     {
       final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
       // TODO write code points as XML entities
-      StringHelper.replaceMultipleTo (aChars, nRealOfs, nRealLen, aSrcMap, aDstMap, aWriter);
+      Strings.replaceMultipleTo (aChars, nRealOfs, nRealLen, aSrcMap, aDstMap, aWriter);
     }
   }
 }

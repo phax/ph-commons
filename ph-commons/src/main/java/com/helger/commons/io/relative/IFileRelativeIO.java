@@ -22,13 +22,13 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.io.EAppend;
+import com.helger.base.io.EAppend;
+import com.helger.base.state.ESuccess;
 import com.helger.commons.io.file.FileIOError;
 import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -276,7 +276,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
       return ESuccess.FAILURE;
 
     // Close the OS automatically!
-    return StreamHelper.writeStream (aOS, aBytes);
+    return StreamHelperExt.writeStream (aOS, aBytes);
   }
 
   /**

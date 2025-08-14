@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.CGlobal;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -105,56 +105,56 @@ public final class JsonArrayTest
 
     aArray.addAll (new boolean [] { true, true, true });
     assertEquals (4, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_BOOLEAN_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_BOOLEAN_ARRAY);
     assertEquals (4, aArray.size ());
     aArray.addAll ((boolean []) null);
     assertEquals (4, aArray.size ());
 
     aArray.addAll (new byte [] { 1, 2, 3 });
     assertEquals (7, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_BYTE_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_BYTE_ARRAY);
     assertEquals (7, aArray.size ());
     aArray.addAll ((byte []) null);
     assertEquals (7, aArray.size ());
 
     aArray.addAll (new char [] { 'x', 'y', 'z' });
     assertEquals (10, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_CHAR_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_CHAR_ARRAY);
     assertEquals (10, aArray.size ());
     aArray.addAll ((char []) null);
     assertEquals (10, aArray.size ());
 
     aArray.addAll (new double [] { 1.2, 3.4, 5.6 });
     assertEquals (13, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_DOUBLE_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_DOUBLE_ARRAY);
     assertEquals (13, aArray.size ());
     aArray.addAll ((double []) null);
     assertEquals (13, aArray.size ());
 
     aArray.addAll (new float [] { 1.2f, 3.4f, 5.6f });
     assertEquals (16, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_FLOAT_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_FLOAT_ARRAY);
     assertEquals (16, aArray.size ());
     aArray.addAll ((float []) null);
     assertEquals (16, aArray.size ());
 
     aArray.addAll (new int [] { 1, 2, 3 });
     assertEquals (19, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_INT_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_INT_ARRAY);
     assertEquals (19, aArray.size ());
     aArray.addAll ((int []) null);
     assertEquals (19, aArray.size ());
 
     aArray.addAll (new long [] { Integer.MAX_VALUE + 1000L, Integer.MAX_VALUE + 1001L, Integer.MAX_VALUE + 1002L });
     assertEquals (22, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_LONG_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_LONG_ARRAY);
     assertEquals (22, aArray.size ());
     aArray.addAll ((long []) null);
     assertEquals (22, aArray.size ());
 
     aArray.addAll (new short [] { 1, 2, 3 });
     assertEquals (25, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_SHORT_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_SHORT_ARRAY);
     assertEquals (25, aArray.size ());
     aArray.addAll ((short []) null);
     assertEquals (25, aArray.size ());
@@ -163,7 +163,7 @@ public final class JsonArrayTest
                                    Integer.valueOf (7),
                                    new BigDecimal ("11111111111111111111111111111111111122222.4") });
     assertEquals (28, aArray.size ());
-    aArray.addAll (ArrayHelper.EMPTY_OBJECT_ARRAY);
+    aArray.addAll (CGlobal.EMPTY_OBJECT_ARRAY);
     assertEquals (28, aArray.size ());
     aArray.addAll ((Object []) null);
     assertEquals (28, aArray.size ());
@@ -223,42 +223,42 @@ public final class JsonArrayTest
 
     aArray.addAllAt (0, new boolean [] { true, true, true });
     assertEquals (4, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_BOOLEAN_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_BOOLEAN_ARRAY);
     assertEquals (4, aArray.size ());
     aArray.addAllAt (0, (boolean []) null);
     assertEquals (4, aArray.size ());
 
     aArray.addAllAt (0, new byte [] { 1, 2, 3 });
     assertEquals (7, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_BYTE_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_BYTE_ARRAY);
     assertEquals (7, aArray.size ());
     aArray.addAllAt (0, (byte []) null);
     assertEquals (7, aArray.size ());
 
     aArray.addAllAt (0, new char [] { 'x', 'y', 'z' });
     assertEquals (10, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_CHAR_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_CHAR_ARRAY);
     assertEquals (10, aArray.size ());
     aArray.addAllAt (0, (char []) null);
     assertEquals (10, aArray.size ());
 
     aArray.addAllAt (0, new double [] { 1.2, 3.4, 5.6 });
     assertEquals (13, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_DOUBLE_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_DOUBLE_ARRAY);
     assertEquals (13, aArray.size ());
     aArray.addAllAt (0, (double []) null);
     assertEquals (13, aArray.size ());
 
     aArray.addAllAt (0, new float [] { 1.2f, 3.4f, 5.6f });
     assertEquals (16, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_FLOAT_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_FLOAT_ARRAY);
     assertEquals (16, aArray.size ());
     aArray.addAllAt (0, (float []) null);
     assertEquals (16, aArray.size ());
 
     aArray.addAllAt (0, new int [] { 1, 2, 3 });
     assertEquals (19, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_INT_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_INT_ARRAY);
     assertEquals (19, aArray.size ());
     aArray.addAllAt (0, (int []) null);
     assertEquals (19, aArray.size ());
@@ -266,14 +266,14 @@ public final class JsonArrayTest
     aArray.addAllAt (0,
                      new long [] { Integer.MAX_VALUE + 1000L, Integer.MAX_VALUE + 1001L, Integer.MAX_VALUE + 1002L });
     assertEquals (22, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_LONG_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_LONG_ARRAY);
     assertEquals (22, aArray.size ());
     aArray.addAllAt (0, (long []) null);
     assertEquals (22, aArray.size ());
 
     aArray.addAllAt (0, new short [] { 1, 2, 3 });
     assertEquals (25, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_SHORT_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_SHORT_ARRAY);
     assertEquals (25, aArray.size ());
     aArray.addAllAt (0, (short []) null);
     assertEquals (25, aArray.size ());
@@ -283,7 +283,7 @@ public final class JsonArrayTest
                                      Integer.valueOf (7),
                                      new BigDecimal ("11111111111111111111111111111111111122222.4") });
     assertEquals (28, aArray.size ());
-    aArray.addAllAt (0, ArrayHelper.EMPTY_OBJECT_ARRAY);
+    aArray.addAllAt (0, CGlobal.EMPTY_OBJECT_ARRAY);
     assertEquals (28, aArray.size ());
     aArray.addAllAt (0, (Object []) null);
     assertEquals (28, aArray.size ());

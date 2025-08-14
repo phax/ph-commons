@@ -37,20 +37,20 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.nonblocking.NonBlockingStringReader;
+import com.helger.base.string.Strings;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.EJavaVersion;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLSystemProperties;
@@ -346,8 +346,8 @@ public final class DOMReaderTest
     // Include a dummy file
     final File aFile = new File ("src/test/resources/test1.txt");
     assertTrue (aFile.exists ());
-    final String sFileContent = StreamHelper.getAllBytesAsString (new FileSystemResource (aFile),
-                                                                  StandardCharsets.ISO_8859_1);
+    final String sFileContent = StreamHelperExt.getAllBytesAsString (new FileSystemResource (aFile),
+                                                                     StandardCharsets.ISO_8859_1);
 
     // The XML with XXE problem
     final String sXML = "<?xml version='1.0' encoding='utf-8'?>" +
@@ -414,15 +414,14 @@ public final class DOMReaderTest
     // Read successful - entity expansion!
     Document aDoc = DOMReader.readXMLDOM (sXMLEntities + "<root>&e4;</root>", aDRS);
     assertNotNull (aDoc);
-    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 3)),
-                  aDoc.getDocumentElement ().getTextContent ());
+    assertEquals (Strings.getRepeated ("value", (int) Math.pow (10, 3)), aDoc.getDocumentElement ().getTextContent ());
 
     if (!bIsJava24Plus)
     {
       // Read successful - entity expansion!
       aDoc = DOMReader.readXMLDOM (sXMLEntities + "<root>&e5;</root>", aDRS);
       assertNotNull (aDoc);
-      assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 4)),
+      assertEquals (Strings.getRepeated ("value", (int) Math.pow (10, 4)),
                     aDoc.getDocumentElement ().getTextContent ());
     }
 
@@ -450,7 +449,7 @@ public final class DOMReaderTest
       assertNotNull (aDoc);
       final int nCount = (int) Math.pow (10, 5);
       assertEquals ("value".length () * nCount, aDoc.getDocumentElement ().getTextContent ().length ());
-      assertEquals (StringHelper.getRepeated ("value", nCount), aDoc.getDocumentElement ().getTextContent ());
+      assertEquals (Strings.getRepeated ("value", nCount), aDoc.getDocumentElement ().getTextContent ());
 
       // Less logging from here on
       aDRS.setErrorHandler (new DoNothingSAXErrorHandler ()).exceptionCallbacks ().removeAll ();

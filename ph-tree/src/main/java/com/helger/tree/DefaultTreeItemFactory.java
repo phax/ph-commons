@@ -17,7 +17,7 @@
 package com.helger.tree;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.base.lang.ClassLoaderHelper;
 import com.helger.commons.system.EJavaVersion;
 
 import jakarta.annotation.Nonnull;
@@ -34,9 +34,8 @@ import jakarta.annotation.Nullable;
 
 /**
  * Resource bundle utility methods.<br>
- * Note: the UTF-8 resource bundles are only needed when using Java 1.8 or below
- * since the default was ISO-8859-1. Since Java 9 all ResurceBundles are UTF-8
- * by default.
+ * Note: the UTF-8 resource bundles are only needed when using Java 1.8 or below since the default
+ * was ISO-8859-1. Since Java 9 all ResurceBundles are UTF-8 by default.
  *
  * @author Philip Helger
  */
@@ -52,7 +51,8 @@ public final class ResourceBundleHelper
   {}
 
   @Nullable
-  public static ResourceBundle getResourceBundle (@Nonnull final String sBundleName, @Nonnull final Locale aContentLocale)
+  public static ResourceBundle getResourceBundle (@Nonnull final String sBundleName,
+                                                  @Nonnull final Locale aContentLocale)
   {
     return getResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
@@ -73,7 +73,8 @@ public final class ResourceBundleHelper
   }
 
   @Nullable
-  public static ResourceBundle getUtf8ResourceBundle (@Nonnull final String sBundleName, @Nonnull final Locale aContentLocale)
+  public static ResourceBundle getUtf8ResourceBundle (@Nonnull final String sBundleName,
+                                                      @Nonnull final Locale aContentLocale)
   {
     return getUtf8ResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
@@ -99,7 +100,8 @@ public final class ResourceBundleHelper
   }
 
   @Nullable
-  public static String getString (@Nullable final ResourceBundle aResourceBundle, @Nonnull @PropertyKey final String sKey)
+  public static String getString (@Nullable final ResourceBundle aResourceBundle,
+                                  @Nonnull @PropertyKey final String sKey)
   {
     if (aResourceBundle != null)
       try

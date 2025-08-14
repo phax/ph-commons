@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.math.MathHelper;
+import com.helger.base.math.MathHelper;
 import com.helger.commons.traits.IGenericImplTrait;
 
 import jakarta.annotation.Nonnull;

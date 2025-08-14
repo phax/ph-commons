@@ -33,15 +33,14 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Handles the conversion to date, time or date time objects from a
- * {@link String}.
+ * Handles the conversion to date, time or date time objects from a {@link String}.
  *
  * @author Philip Helger
  */
@@ -84,7 +83,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, ZonedDateTime::from);
@@ -109,7 +108,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, OffsetDateTime::from);
@@ -134,7 +133,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, XMLOffsetDateTime::from);
@@ -160,7 +159,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, LocalDate::from);
@@ -183,7 +182,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, OffsetDate::from);
@@ -207,7 +206,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, XMLOffsetDate::from);
@@ -241,7 +240,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, LocalDateTime::from);
@@ -279,7 +278,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, LocalTime::from);
@@ -305,7 +304,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, OffsetTime::from);
@@ -329,7 +328,7 @@ public final class PDTFromString
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
-    if (StringHelper.hasText (sValue))
+    if (Strings.isNotEmpty (sValue))
       try
       {
         return aDF.parse (sValue, XMLOffsetTime::from);

@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.lang.ClassHelper;
 
 public final class JavaPrinterTrayFinderFuncTest
 {
@@ -39,8 +39,10 @@ public final class JavaPrinterTrayFinderFuncTest
     for (final PrintService aService : aAllServices)
     {
       LOGGER.info (aService.toString ());
-      final Object aAttrs = aService.getSupportedAttributeValues (Media.class, DocFlavor.SERVICE_FORMATTED.PAGEABLE, null);
-      if (ArrayHelper.isArray (aAttrs))
+      final Object aAttrs = aService.getSupportedAttributeValues (Media.class,
+                                                                  DocFlavor.SERVICE_FORMATTED.PAGEABLE,
+                                                                  null);
+      if (ClassHelper.isArray (aAttrs))
       {
         for (final Media aElement : (Media []) aAttrs)
           if (aElement instanceof MediaTray)

@@ -18,8 +18,8 @@ package com.helger.security.authentication.result;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.string.StringHex;
 import com.helger.commons.random.VerySecureRandom;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -48,6 +48,6 @@ public final class AuthTokenIDGenerator
   {
     final byte [] aID = new byte [nBytes];
     VerySecureRandom.getInstance ().nextBytes (aID);
-    return StringHelper.getHexEncoded (aID);
+    return StringHex.getHexEncoded (aID);
   }
 }

@@ -17,19 +17,18 @@
 package com.helger.commons.email;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class handles a single email address. It is split into an address part
- * and an optional name. The personal name is optional and may be
- * <code>null</code>.
+ * This class handles a single email address. It is split into an address part and an optional name.
+ * The personal name is optional and may be <code>null</code>.
  *
  * @author Philip Helger
  */
@@ -52,9 +51,10 @@ public class EmailAddress implements IEmailAddress
   public EmailAddress (@Nonnull final String sAddress, @Nullable final String sPersonal)
   {
     ValueEnforcer.notNull (sAddress, "EmailAddress");
-    ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress), () -> "The passed email address '" + sAddress + "' is illegal!");
+    ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress),
+                          () -> "The passed email address '" + sAddress + "' is illegal!");
     m_sAddress = EmailAddressHelper.getUnifiedEmailAddress (sAddress);
-    m_sPersonal = StringHelper.hasNoText (sPersonal) ? null : sPersonal;
+    m_sPersonal = Strings.isEmpty (sPersonal) ? null : sPersonal;
   }
 
   @Nonnull
@@ -89,18 +89,20 @@ public class EmailAddress implements IEmailAddress
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Address", m_sAddress).appendIfNotNull ("Personal", m_sPersonal).getToString ();
+    return new ToStringGenerator (null).append ("Address", m_sAddress)
+                                       .appendIfNotNull ("Personal", m_sPersonal)
+                                       .getToString ();
   }
 
   @Nullable
   public static EmailAddress createOnDemand (@Nullable final String sAddress)
   {
-    return StringHelper.hasNoText (sAddress) ? null : new EmailAddress (sAddress);
+    return Strings.isEmpty (sAddress) ? null : new EmailAddress (sAddress);
   }
 
   @Nullable
   public static EmailAddress createOnDemand (@Nullable final String sAddress, @Nullable final String sPersonal)
   {
-    return StringHelper.hasNoText (sAddress) ? null : new EmailAddress (sAddress, sPersonal);
+    return Strings.isEmpty (sAddress) ? null : new EmailAddress (sAddress, sPersonal);
   }
 }

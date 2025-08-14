@@ -38,15 +38,24 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.math.BigHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.state.EContinue;
+import com.helger.base.state.EEnabled;
+import com.helger.base.state.EInterrupt;
+import com.helger.base.state.ELeftRight;
+import com.helger.base.state.EMandatory;
+import com.helger.base.state.ESuccess;
+import com.helger.base.state.ETopBottom;
+import com.helger.base.state.EValidity;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.locale.ELocaleName;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.math.MathHelper;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.mutable.MutableByte;
 import com.helger.commons.mutable.MutableChar;
@@ -55,16 +64,7 @@ import com.helger.commons.mutable.MutableFloat;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.mutable.MutableShort;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.state.EEnabled;
-import com.helger.commons.state.EInterrupt;
-import com.helger.commons.state.ELeftRight;
-import com.helger.commons.state.EMandatory;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.state.ETopBottom;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
@@ -79,30 +79,30 @@ import jakarta.annotation.Nonnull;
 public final class TypeConverterTest
 {
   // All classes for which type converters from and to each other are defined
-  private static final Class <?> [] CONVERTIBLE_CLASSES = new Class <?> [] { Boolean.class,
-                                                                             Byte.class,
-                                                                             Character.class,
-                                                                             Double.class,
-                                                                             Float.class,
-                                                                             Integer.class,
-                                                                             Long.class,
-                                                                             Short.class,
-                                                                             String.class,
-                                                                             StringBuilder.class,
-                                                                             StringBuffer.class,
-                                                                             BigDecimal.class,
-                                                                             BigInteger.class,
-                                                                             AtomicBoolean.class,
-                                                                             AtomicInteger.class,
-                                                                             AtomicLong.class,
-                                                                             MutableBoolean.class,
-                                                                             MutableByte.class,
-                                                                             MutableChar.class,
-                                                                             MutableDouble.class,
-                                                                             MutableFloat.class,
-                                                                             MutableInt.class,
-                                                                             MutableLong.class,
-                                                                             MutableShort.class };
+  private static final Class <?> [] CONVERTIBLE_CLASSES = { Boolean.class,
+                                                            Byte.class,
+                                                            Character.class,
+                                                            Double.class,
+                                                            Float.class,
+                                                            Integer.class,
+                                                            Long.class,
+                                                            Short.class,
+                                                            String.class,
+                                                            StringBuilder.class,
+                                                            StringBuffer.class,
+                                                            BigDecimal.class,
+                                                            BigInteger.class,
+                                                            AtomicBoolean.class,
+                                                            AtomicInteger.class,
+                                                            AtomicLong.class,
+                                                            MutableBoolean.class,
+                                                            MutableByte.class,
+                                                            MutableChar.class,
+                                                            MutableDouble.class,
+                                                            MutableFloat.class,
+                                                            MutableInt.class,
+                                                            MutableLong.class,
+                                                            MutableShort.class };
 
   @Nonnull
   private static Object _instantiate (@Nonnull final Class <?> aClass) throws Exception
@@ -193,43 +193,43 @@ public final class TypeConverterTest
   public void testToString ()
   {
     // Check conversion with explicit converters defined
-    final Object [] aDefinedObjs = new Object [] { BigDecimal.ONE,
-                                                   MathHelper.toBigDecimal (Double.MAX_VALUE),
-                                                   new BigDecimal ("123446712345678765456547865789762131.9999123446712345678765456547865789762131"),
-                                                   BigInteger.ZERO,
-                                                   new BigInteger ("123446712345678765456547865789762131"),
-                                                   Byte.valueOf ((byte) 5),
-                                                   Boolean.TRUE,
-                                                   Character.valueOf ('c'),
-                                                   Double.valueOf (1245.3433),
-                                                   Float.valueOf (31.451f),
-                                                   Integer.valueOf (17),
-                                                   Long.valueOf (Long.MAX_VALUE),
-                                                   Short.valueOf (Short.MIN_VALUE),
-                                                   EChange.CHANGED,
-                                                   EContinue.BREAK,
-                                                   EEnabled.DISABLED,
-                                                   EInterrupt.INTERRUPTED,
-                                                   ELeftRight.RIGHT,
-                                                   EMandatory.MANDATORY,
-                                                   ESuccess.FAILURE,
-                                                   ETopBottom.BOTTOM,
-                                                   ETriState.UNDEFINED,
-                                                   EValidity.VALID,
-                                                   "Jägalä".getBytes (StandardCharsets.ISO_8859_1),
-                                                   new StringBuffer ("Äh ja - wie is das jetzt?"),
-                                                   new StringBuilder ("Thät lüks greyt!"),
-                                                   new File ("foo.bar") };
+    final Object [] aDefinedObjs = { BigDecimal.ONE,
+                                     BigHelper.toBigDecimal (Double.MAX_VALUE),
+                                     new BigDecimal ("123446712345678765456547865789762131.9999123446712345678765456547865789762131"),
+                                     BigInteger.ZERO,
+                                     new BigInteger ("123446712345678765456547865789762131"),
+                                     Byte.valueOf ((byte) 5),
+                                     Boolean.TRUE,
+                                     Character.valueOf ('c'),
+                                     Double.valueOf (1245.3433),
+                                     Float.valueOf (31.451f),
+                                     Integer.valueOf (17),
+                                     Long.valueOf (Long.MAX_VALUE),
+                                     Short.valueOf (Short.MIN_VALUE),
+                                     EChange.CHANGED,
+                                     EContinue.BREAK,
+                                     EEnabled.DISABLED,
+                                     EInterrupt.INTERRUPTED,
+                                     ELeftRight.RIGHT,
+                                     EMandatory.MANDATORY,
+                                     ESuccess.FAILURE,
+                                     ETopBottom.BOTTOM,
+                                     ETriState.UNDEFINED,
+                                     EValidity.VALID,
+                                     "Jägalä".getBytes (StandardCharsets.ISO_8859_1),
+                                     new StringBuffer ("Äh ja - wie is das jetzt?"),
+                                     new StringBuilder ("Thät lüks greyt!"),
+                                     new File ("foo.bar") };
     for (final Object aSrcValue : aDefinedObjs)
     {
       final String sValue = TypeConverter.convert (aSrcValue, String.class);
       final Object aObj2 = TypeConverter.convert (sValue, aSrcValue.getClass ());
-      assertTrue (EqualsHelper.equals (aSrcValue, aObj2));
+      assertTrue (EqualsHelperExt.extEquals (aSrcValue, aObj2));
     }
 
     // Test conversion if no explicit converter available for source class, but
     // for super class
-    final Object [] aUpCastObjs = new Object [] { ELocaleName.ID_LANGUAGE_ALL };
+    final Object [] aUpCastObjs = { ELocaleName.ID_LANGUAGE_ALL };
     for (final Object aSrcValue : aUpCastObjs)
     {
       final String sValue = TypeConverter.convert (aSrcValue, String.class);
@@ -266,7 +266,7 @@ public final class TypeConverterTest
       final String sLocale = TypeConverter.convert (aLocale, String.class);
       assertNotNull (aLocale.toString (), sLocale);
       final Locale aLocale2 = TypeConverter.convert (sLocale, Locale.class);
-      assertTrue (EqualsHelper.equals (aLocale, aLocale2));
+      assertTrue (EqualsHelperExt.extEquals (aLocale, aLocale2));
     }
   }
 
@@ -338,7 +338,7 @@ public final class TypeConverterTest
   @Test
   public void testBooleanArray ()
   {
-    final boolean [] aBooleans = new boolean [] { true, false, true };
+    final boolean [] aBooleans = { true, false, true };
     assertFalse (TypeConverter.convert (aBooleans, List.class).isEmpty ());
     assertFalse (TypeConverter.convert (aBooleans, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convert (aBooleans, Set.class).isEmpty ());
@@ -350,7 +350,7 @@ public final class TypeConverterTest
   @Test
   public void testByteArray ()
   {
-    final byte [] aBytes = new byte [] { 5, 6, 7 };
+    final byte [] aBytes = { 5, 6, 7 };
     assertFalse (TypeConverter.convert (aBytes, List.class).isEmpty ());
     assertFalse (TypeConverter.convert (aBytes, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convert (aBytes, Set.class).isEmpty ());
@@ -362,7 +362,7 @@ public final class TypeConverterTest
   @Test
   public void testCharArray ()
   {
-    final char [] aChars = new char [] { 'a', 'b', 'c' };
+    final char [] aChars = { 'a', 'b', 'c' };
     assertFalse (TypeConverter.convert (aChars, List.class).isEmpty ());
     assertFalse (TypeConverter.convert (aChars, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convert (aChars, Set.class).isEmpty ());
@@ -374,7 +374,7 @@ public final class TypeConverterTest
   @Test
   public void testDoubleArray ()
   {
-    final double [] aDoubles = new double [] { 7, 3.14, 47.11 };
+    final double [] aDoubles = { 7, 3.14, 47.11 };
     assertFalse (TypeConverter.convert (aDoubles, List.class).isEmpty ());
     assertFalse (TypeConverter.convert (aDoubles, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convert (aDoubles, Set.class).isEmpty ());
@@ -386,7 +386,7 @@ public final class TypeConverterTest
   @Test
   public void testFloatArray ()
   {
-    final float [] aFloats = new float [] { 5, 1.1f, 12234.5f };
+    final float [] aFloats = { 5, 1.1f, 12234.5f };
     assertFalse (TypeConverter.convert (aFloats, List.class).isEmpty ());
     assertFalse (TypeConverter.convert (aFloats, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convert (aFloats, Set.class).isEmpty ());
@@ -398,7 +398,7 @@ public final class TypeConverterTest
   @Test
   public void testIntArray ()
   {
-    final int [] aInts = new int [] { 6, 8, 110 };
+    final int [] aInts = { 6, 8, 110 };
     assertFalse (TypeConverter.convert (aInts, List.class).isEmpty ());
     assertFalse (TypeConverter.convert (aInts, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convert (aInts, Set.class).isEmpty ());
@@ -410,7 +410,7 @@ public final class TypeConverterTest
   @Test
   public void testLongArray ()
   {
-    final long [] aLongs = new long [] { 10, 111, 1212 };
+    final long [] aLongs = { 10, 111, 1212 };
     assertFalse (TypeConverter.convert (aLongs, List.class).isEmpty ());
     assertFalse (TypeConverter.convert (aLongs, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convert (aLongs, Set.class).isEmpty ());
@@ -422,7 +422,7 @@ public final class TypeConverterTest
   @Test
   public void testShortArray ()
   {
-    final short [] aShorts = new short [] { 4, 5, 4 };
+    final short [] aShorts = { 4, 5, 4 };
     assertFalse (TypeConverter.convert (aShorts, List.class).isEmpty ());
     assertFalse (TypeConverter.convert (aShorts, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convert (aShorts, Set.class).isEmpty ());

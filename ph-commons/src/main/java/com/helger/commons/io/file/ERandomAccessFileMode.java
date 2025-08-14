@@ -17,7 +17,7 @@
 package com.helger.commons.io.file;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -32,20 +32,18 @@ public enum ERandomAccessFileMode
   /** Open for reading only. */
   READ_ONLY ("r"),
   /**
-   * Open for reading and writing. If the file does not already exist then an
-   * attempt will be made to create it.
+   * Open for reading and writing. If the file does not already exist then an attempt will be made
+   * to create it.
    */
   READ_WRITE ("rw"),
   /**
-   * Open for reading and writing, as with <code>"rw"</code>, and also require
-   * that every update to the file's content or metadata be written
-   * synchronously to the underlying storage device.
+   * Open for reading and writing, as with <code>"rw"</code>, and also require that every update to
+   * the file's content or metadata be written synchronously to the underlying storage device.
    */
   READ_WRITE_SYNCHRONOUSLY ("rws"),
   /**
-   * Open for reading and writing, as with <code>"rw"</code>, and also require
-   * that every update to the file's content be written synchronously to the
-   * underlying storage device.
+   * Open for reading and writing, as with <code>"rw"</code>, and also require that every update to
+   * the file's content be written synchronously to the underlying storage device.
    */
   READ_WRITE_SYNCHRONOUSLY_ONLY_CONTENT ("rwd");
 
@@ -66,7 +64,7 @@ public enum ERandomAccessFileMode
   @Nullable
   public static ERandomAccessFileMode getFromModeOrNull (@Nullable final String sMode)
   {
-    if (StringHelper.hasText (sMode))
+    if (Strings.isNotEmpty (sMode))
       for (final ERandomAccessFileMode e : values ())
         if (e.getMode ().equals (sMode))
           return e;

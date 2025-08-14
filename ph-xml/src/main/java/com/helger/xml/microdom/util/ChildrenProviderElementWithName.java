@@ -19,20 +19,19 @@ package com.helger.xml.microdom.util;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hierarchy.IChildrenProvider;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IMicroElement;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Implementation of the {@link IChildrenProvider} for {@link IMicroElement}
- * objects considering only elements with a certain element name (and optionally
- * a namespace URI).
+ * Implementation of the {@link IChildrenProvider} for {@link IMicroElement} objects considering
+ * only elements with a certain element name (and optionally a namespace URI).
  *
  * @author Philip Helger
  */
@@ -46,7 +45,8 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
     this (null, sTagName);
   }
 
-  public ChildrenProviderElementWithName (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
+  public ChildrenProviderElementWithName (@Nullable final String sNamespaceURI,
+                                          @Nonnull @Nonempty final String sTagName)
   {
     m_sNamespaceURI = sNamespaceURI;
     m_sTagName = ValueEnforcer.notEmpty (sTagName, "TagName");
@@ -60,7 +60,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
       return false;
 
     // Namespace URI defined?
-    if (StringHelper.hasText (m_sNamespaceURI))
+    if (Strings.isNotEmpty (m_sNamespaceURI))
       return aCurrent.hasChildElements (m_sNamespaceURI, m_sTagName);
     return aCurrent.hasChildElements (m_sTagName);
   }
@@ -82,7 +82,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
       return new CommonsArrayList <> ();
 
     // Namespace URI defined?
-    if (StringHelper.hasText (m_sNamespaceURI))
+    if (Strings.isNotEmpty (m_sNamespaceURI))
       return aCurrent.getAllChildElements (m_sNamespaceURI, m_sTagName);
 
     return aCurrent.getAllChildElements (m_sTagName);

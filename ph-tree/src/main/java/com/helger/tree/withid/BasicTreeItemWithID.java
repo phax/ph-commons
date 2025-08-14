@@ -25,19 +25,20 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.lang.GenericReflection;
+import com.helger.base.state.EChange;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -500,9 +501,9 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BasicTreeItemWithID <?, ?, ?> rhs = (BasicTreeItemWithID <?, ?, ?>) o;
-    return EqualsHelper.equals (m_aDataID, rhs.m_aDataID) &&
-           EqualsHelper.equals (m_aData, rhs.m_aData) &&
-           EqualsHelper.equals (m_aChildMap, rhs.m_aChildMap);
+    return EqualsHelperExt.extEquals (m_aDataID, rhs.m_aDataID) &&
+           EqualsHelperExt.extEquals (m_aData, rhs.m_aData) &&
+           EqualsHelperExt.extEquals (m_aChildMap, rhs.m_aChildMap);
   }
 
   @Override

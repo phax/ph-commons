@@ -25,8 +25,8 @@ import java.util.ResourceBundle;
 
 import org.junit.Test;
 
+import com.helger.base.lang.ClassLoaderHelper;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.lang.ClassLoaderHelper;
 
 /**
  * Test class for class {@link Utf8ResourceBundle}.

@@ -17,8 +17,8 @@
 package com.helger.commons.lang;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.IClearable;
+import com.helger.base.state.EChange;
+import com.helger.base.state.IClearable;
 
 import jakarta.annotation.Nonnull;
 

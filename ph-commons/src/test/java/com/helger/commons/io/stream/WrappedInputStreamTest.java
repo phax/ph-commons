@@ -24,6 +24,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.helger.base.io.stream.WrappedInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

@@ -16,7 +16,7 @@
  */
 package com.helger.security.password.hash;
 
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.security.bcrypt.BCrypt;
 import com.helger.security.password.salt.IPasswordSalt;
 import com.helger.security.password.salt.PasswordSaltBCrypt;

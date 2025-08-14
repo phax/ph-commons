@@ -18,9 +18,9 @@ package com.helger.commons.callback;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.iface.IHasSize;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.lang.IHasSize;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

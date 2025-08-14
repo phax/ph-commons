@@ -25,17 +25,17 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.UsedViaReflection;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.scope.IScope;
 import com.helger.scope.ISessionScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
@@ -104,7 +104,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @Nullable
   public ISessionScope getSessionScopeOfID (@Nullable final String sScopeID)
   {
-    if (StringHelper.hasNoText (sScopeID))
+    if (Strings.isEmpty (sScopeID))
       return null;
 
     return m_aRWLock.readLockedGet ( () -> m_aSessionScopes.get (sScopeID));

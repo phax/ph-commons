@@ -30,10 +30,10 @@ import java.util.function.Consumer;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.state.ESuccess;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -65,7 +65,7 @@ public final class SimpleFileIO
   @Nullable
   public static byte [] getAllFileBytes (@Nullable final File aFile)
   {
-    return aFile == null ? null : StreamHelper.getAllBytes (FileHelper.getInputStream (aFile));
+    return aFile == null ? null : StreamHelperExt.getAllBytes (FileHelper.getInputStream (aFile));
   }
 
   @Nullable
@@ -146,7 +146,7 @@ public final class SimpleFileIO
   @Nullable
   public static String getFileAsString (@Nullable final File aFile, @Nonnull final Charset aCharset)
   {
-    return aFile == null ? null : StreamHelper.getAllBytesAsString (FileHelper.getInputStream (aFile), aCharset);
+    return aFile == null ? null : StreamHelperExt.getAllBytesAsString (FileHelper.getInputStream (aFile), aCharset);
   }
 
   /**
@@ -163,7 +163,7 @@ public final class SimpleFileIO
   @Nullable
   public static ICommonsList <String> getAllFileLines (@Nullable final File aFile, @Nonnull final Charset aCharset)
   {
-    return aFile == null ? null : StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset);
+    return aFile == null ? null : StreamHelperExt.readStreamLines (FileHelper.getInputStream (aFile), aCharset);
   }
 
   /**
@@ -180,7 +180,7 @@ public final class SimpleFileIO
   public static void readFileLines (@Nullable final File aFile, @Nonnull final Charset aCharset, @Nonnull final List <String> aTargetList)
   {
     if (aFile != null)
-      StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aTargetList);
+      StreamHelperExt.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aTargetList);
   }
 
   /**
@@ -200,14 +200,14 @@ public final class SimpleFileIO
                                     @Nonnull final Consumer <? super String> aConsumer)
   {
     if (aFile != null)
-      StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aConsumer);
+      StreamHelperExt.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aConsumer);
   }
 
   @Nonnull
   public static ESuccess writeFile (@Nonnull final File aFile, @Nonnull final byte [] aContent)
   {
     final OutputStream aFOS = FileHelper.getOutputStream (aFile);
-    return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, aContent);
+    return aFOS == null ? ESuccess.FAILURE : StreamHelperExt.writeStream (aFOS, aContent);
   }
 
   @Nonnull
@@ -217,13 +217,13 @@ public final class SimpleFileIO
                                     @Nonnegative final int nLength)
   {
     final OutputStream aFOS = FileHelper.getOutputStream (aFile);
-    return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, aContent, nOffset, nLength);
+    return aFOS == null ? ESuccess.FAILURE : StreamHelperExt.writeStream (aFOS, aContent, nOffset, nLength);
   }
 
   @Nonnull
   public static ESuccess writeFile (@Nonnull final File aFile, @Nonnull final String sContent, @Nonnull final Charset aCharset)
   {
     final OutputStream aFOS = FileHelper.getOutputStream (aFile);
-    return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, sContent, aCharset);
+    return aFOS == null ? ESuccess.FAILURE : StreamHelperExt.writeStream (aFOS, sContent, aCharset);
   }
 }

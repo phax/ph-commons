@@ -22,10 +22,10 @@ import org.xml.sax.InputSource;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -43,7 +43,7 @@ public class CachingSAXInputSource extends InputSource
   @Nonnull
   private static NonBlockingByteArrayInputStream _getCachedInputStream (@Nonnull @WillClose final InputStream aIS)
   {
-    return new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS));
+    return new NonBlockingByteArrayInputStream (StreamHelperExt.getAllBytes (aIS));
   }
 
   public CachingSAXInputSource (@Nonnull final IReadableResource aRes)

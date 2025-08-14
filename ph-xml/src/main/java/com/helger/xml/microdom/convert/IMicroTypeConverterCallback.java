@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom.convert;
 
-import com.helger.commons.state.EContinue;
+import com.helger.base.state.EContinue;
 
 import jakarta.annotation.Nonnull;
 

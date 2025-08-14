@@ -21,8 +21,8 @@ import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.exception.InitializationException;
-import com.helger.commons.math.MathHelper;
+import com.helger.base.exception.InitializationException;
+import com.helger.base.math.MathHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

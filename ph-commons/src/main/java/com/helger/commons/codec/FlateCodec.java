@@ -26,9 +26,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonClosingOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.base.io.stream.NonClosingOutputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -73,7 +73,7 @@ public class FlateCodec implements IByteArrayCodec
 
     try (final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen)))
     {
-      if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
+      if (StreamHelperExt.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
         throw new DecodeException ("Failed to flate decode!");
     }
     catch (final IOException ex)
@@ -92,7 +92,7 @@ public class FlateCodec implements IByteArrayCodec
 
     try (final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (new NonClosingOutputStream (aOS)))
     {
-      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen), aEncodeOS)
+      if (StreamHelperExt.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen), aEncodeOS)
                       .isFailure ())
         throw new EncodeException ("Failed to flate encode!");
     }

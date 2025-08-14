@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.io.EAppend;
+import com.helger.base.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
 
 /**
@@ -44,7 +44,7 @@ public final class CountingFileOutputStreamTest
       try (final CountingFileOutputStream aCFOS = new CountingFileOutputStream (f))
       {
         assertEquals (0, aCFOS.getBytesWritten ());
-        StreamHelper.copyInputStreamToOutputStream (new StringInputStream ("abc", StandardCharsets.ISO_8859_1), aCFOS);
+        StreamHelperExt.copyInputStreamToOutputStream (new StringInputStream ("abc", StandardCharsets.ISO_8859_1), aCFOS);
         aCFOS.write ('a');
         aCFOS.write ("axy".getBytes (StandardCharsets.ISO_8859_1));
         assertEquals (7, aCFOS.getBytesWritten ());

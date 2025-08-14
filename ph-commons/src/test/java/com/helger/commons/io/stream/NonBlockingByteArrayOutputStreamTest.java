@@ -23,6 +23,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+
 /**
  * Test class for class {@link NonBlockingByteArrayOutputStream}.
  *

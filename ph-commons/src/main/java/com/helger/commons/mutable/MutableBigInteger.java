@@ -21,18 +21,18 @@ import java.math.BigInteger;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.CGlobal;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.math.BigHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.math.MathHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Object wrapper around a {@link BigInteger} so that it can be passed a final
- * object but is mutable.
+ * Object wrapper around a {@link BigInteger} so that it can be passed a final object but is
+ * mutable.
  *
  * @author Philip Helger
  */
@@ -156,7 +156,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
   @Nonnull
   public BigInteger divide (final long nDivisor)
   {
-    return divide (MathHelper.toBigInteger (nDivisor));
+    return divide (BigHelper.toBigInteger (nDivisor));
   }
 
   @Nonnull
@@ -178,7 +178,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
   @Nonnull
   public BigInteger multiply (final long nMultiplicand)
   {
-    return multiply (MathHelper.toBigInteger (nMultiplicand));
+    return multiply (BigHelper.toBigInteger (nMultiplicand));
   }
 
   @Nonnull
@@ -223,27 +223,27 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
 
   public boolean is0 ()
   {
-    return MathHelper.isEQ0 (m_aValue);
+    return BigHelper.isEQ0 (m_aValue);
   }
 
   public boolean isLT0 ()
   {
-    return MathHelper.isLT0 (m_aValue);
+    return BigHelper.isLT0 (m_aValue);
   }
 
   public boolean isLE0 ()
   {
-    return MathHelper.isLE0 (m_aValue);
+    return BigHelper.isLE0 (m_aValue);
   }
 
   public boolean isGT0 ()
   {
-    return MathHelper.isGT0 (m_aValue);
+    return BigHelper.isGT0 (m_aValue);
   }
 
   public boolean isGE0 ()
   {
-    return MathHelper.isGE0 (m_aValue);
+    return BigHelper.isGE0 (m_aValue);
   }
 
   @Nonnull
@@ -280,7 +280,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableBigInteger rhs = (MutableBigInteger) o;
-    return EqualsHelper.equals (m_aValue, rhs.m_aValue);
+    return EqualsHelperExt.extEquals (m_aValue, rhs.m_aValue);
   }
 
   @Override

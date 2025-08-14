@@ -23,11 +23,11 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -130,8 +130,7 @@ public class Option implements IOptionBase
   private final int m_nMaxArgs;
 
   /**
-   * the name of the argument for this option. Makes only sense, if minArgs &gt;
-   * 0
+   * the name of the argument for this option. Makes only sense, if minArgs &gt; 0
    */
   private final String m_sArgName;
 
@@ -141,8 +140,7 @@ public class Option implements IOptionBase
   private final EOptionMultiplicity m_eMultiplicity;
 
   /**
-   * the character that is the value separator. Makes only sense if minArgs &gt;
-   * 0
+   * the character that is the value separator. Makes only sense if minArgs &gt; 0
    */
   private final char m_cValueSep;
 
@@ -166,8 +164,7 @@ public class Option implements IOptionBase
   }
 
   /**
-   * @return the 'unique' internal Option identifier. Either short or long
-   *         option name.
+   * @return the 'unique' internal Option identifier. Either short or long option name.
    * @see #getShortOpt()
    * @see #getLongOpt()
    */
@@ -182,8 +179,8 @@ public class Option implements IOptionBase
   /**
    * Retrieve the name of this Option.
    *
-   * @return The name of this option. May be <code>null</code> if this instance
-   *         only has a "long option".
+   * @return The name of this option. May be <code>null</code> if this instance only has a "long
+   *         option".
    * @see #hasShortOpt()
    * @see #getLongOpt()
    */
@@ -195,7 +192,7 @@ public class Option implements IOptionBase
 
   public boolean hasShortOpt ()
   {
-    return StringHelper.hasText (m_sShortOpt);
+    return Strings.isNotEmpty (m_sShortOpt);
   }
 
   public boolean hasShortOpt (@Nullable final String sShortOpt)
@@ -206,8 +203,7 @@ public class Option implements IOptionBase
   /**
    * Retrieve the long name of this Option.
    *
-   * @return Long name of this option, or <code>null</code> if there is no long
-   *         name.
+   * @return Long name of this option, or <code>null</code> if there is no long name.
    * @see #hasLongOpt()
    * @see #getShortOpt()
    */
@@ -249,12 +245,11 @@ public class Option implements IOptionBase
   }
 
   /**
-   * @return <code>true</code> if a description is present, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if a description is present, <code>false</code> if not.
    */
   public boolean hasDescription ()
   {
-    return StringHelper.hasText (m_sDescription);
+    return Strings.isNotEmpty (m_sDescription);
   }
 
   /**
@@ -272,8 +267,8 @@ public class Option implements IOptionBase
   }
 
   /**
-   * @return Maximum number of arguments. Is always &ge; 0 or
-   *         {@link #INFINITE_VALUES} for unlimited arguments.
+   * @return Maximum number of arguments. Is always &ge; 0 or {@link #INFINITE_VALUES} for unlimited
+   *         arguments.
    */
   @Nonnegative
   public int getMaxArgCount ()
@@ -308,8 +303,8 @@ public class Option implements IOptionBase
   }
 
   /**
-   * @return <code>true</code> if this option can appear multiple times on a
-   *         commandline, <code>false</code> if it can occur at maximum once.
+   * @return <code>true</code> if this option can appear multiple times on a commandline,
+   *         <code>false</code> if it can occur at maximum once.
    */
   public boolean isRepeatable ()
   {
@@ -333,7 +328,7 @@ public class Option implements IOptionBase
    */
   public boolean hasArgName ()
   {
-    return StringHelper.hasText (m_sArgName);
+    return Strings.isNotEmpty (m_sArgName);
   }
 
   /**
@@ -365,7 +360,8 @@ public class Option implements IOptionBase
       return false;
 
     final Option rhs = (Option) o;
-    return EqualsHelper.equals (m_sShortOpt, rhs.m_sShortOpt) && EqualsHelper.equals (m_sLongOpt, rhs.m_sLongOpt);
+    return EqualsHelperExt.extEquals (m_sShortOpt, rhs.m_sShortOpt) &&
+           EqualsHelperExt.extEquals (m_sLongOpt, rhs.m_sLongOpt);
   }
 
   @Override
@@ -382,7 +378,8 @@ public class Option implements IOptionBase
                                        .appendIfNotNull ("Description", m_sDescription)
                                        .appendIf ("MinArgs", m_nMinArgs, this::hasMinArgs)
                                        .appendIf ("MaxArgs",
-                                                  m_nMaxArgs == INFINITE_VALUES ? "infinite" : Integer.toString (m_nMaxArgs),
+                                                  m_nMaxArgs == INFINITE_VALUES ? "infinite" : Integer.toString (
+                                                                                                                 m_nMaxArgs),
                                                   this::canHaveArgs)
                                        .appendIfNotNull ("ArgName", m_sArgName)
                                        .append ("Multiplicity", m_eMultiplicity)
@@ -391,8 +388,8 @@ public class Option implements IOptionBase
   }
 
   /**
-   * Returns a {@link OptionBuilder} without a short option to create an
-   * {@link Option} using descriptive methods.
+   * Returns a {@link OptionBuilder} without a short option to create an {@link Option} using
+   * descriptive methods.
    *
    * @return a new {@link OptionBuilder} instance
    * @since 10.1.3
@@ -404,8 +401,7 @@ public class Option implements IOptionBase
   }
 
   /**
-   * Returns a {@link OptionBuilder} to create an {@link Option} using descriptive
-   * methods.
+   * Returns a {@link OptionBuilder} to create an {@link Option} using descriptive methods.
    *
    * @param sShortOpt
    *        short representation of the option

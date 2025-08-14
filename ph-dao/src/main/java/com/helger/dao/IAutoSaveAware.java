@@ -18,9 +18,9 @@ package com.helger.dao;
 
 import java.util.function.Supplier;
 
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.functional.IThrowingSupplier;
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

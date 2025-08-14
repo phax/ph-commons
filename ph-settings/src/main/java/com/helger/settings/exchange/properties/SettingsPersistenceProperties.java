@@ -28,12 +28,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillClose;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
-import com.helger.commons.state.ESuccess;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
@@ -41,8 +41,8 @@ import com.helger.settings.factory.ISettingsFactory;
 import jakarta.annotation.Nonnull;
 
 /**
- * A special {@link ISettingsPersistence} implementation that reads and writes
- * .properties files. It assumes the ISO-8859-1 charset.
+ * A special {@link ISettingsPersistence} implementation that reads and writes .properties files. It
+ * assumes the ISO-8859-1 charset.
  *
  * @author Philip Helger
  */
@@ -71,9 +71,8 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
   }
 
   /**
-   * Declaratively set the character set to use. This has no immediate effect.
-   * The real charset is determined by the implementation (e.g.
-   * <code>Properties.load</code>).
+   * Declaratively set the character set to use. This has no immediate effect. The real charset is
+   * determined by the implementation (e.g. <code>Properties.load</code>).
    *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
@@ -88,8 +87,7 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
   }
 
   /**
-   * @return The settings factory as specified in the constructor. Never
-   *         <code>null</code>.
+   * @return The settings factory as specified in the constructor. Never <code>null</code>.
    */
   @Nonnull
   public final ISettingsFactory <?> getSettingsFactory ()

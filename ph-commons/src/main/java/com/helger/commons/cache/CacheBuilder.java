@@ -19,8 +19,8 @@ package com.helger.commons.cache;
 import java.util.function.Function;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.string.Strings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -79,7 +79,7 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
   {
     if (m_aValueProvider == null)
       throw new IllegalStateException ("The mandatory Cache Value Provider is missing");
-    if (StringHelper.hasNoText (m_sName))
+    if (Strings.isEmpty (m_sName))
       throw new IllegalStateException ("The mandatory Cache Name is missing");
 
     return new Cache <> (m_aValueProvider, m_nMaxSize, m_sName, m_bAllowNullValues);

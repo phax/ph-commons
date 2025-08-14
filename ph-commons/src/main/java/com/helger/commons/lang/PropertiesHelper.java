@@ -29,15 +29,15 @@ import java.util.function.UnaryOperator;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.url.ISimpleURL;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -183,8 +183,8 @@ public final class PropertiesHelper
   }
 
   /**
-   * Special version of {@link #expandSystemProperties(String)} that takes an
-   * arbitrary value provider and is not limited to system properties.
+   * Special version of {@link #expandSystemProperties(String)} that takes an arbitrary value
+   * provider and is not limited to system properties.
    *
    * @param sValue
    *        Source value. May be <code>null</code>.

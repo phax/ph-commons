@@ -22,10 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

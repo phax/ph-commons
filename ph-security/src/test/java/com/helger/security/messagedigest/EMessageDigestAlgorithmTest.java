@@ -34,8 +34,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.string.Strings;
 import com.helger.commons.codec.Base32Codec;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link EMessageDigestAlgorithm}.
@@ -52,11 +52,13 @@ public final class EMessageDigestAlgorithmTest
   {
     for (final EMessageDigestAlgorithm eAlgo : EMessageDigestAlgorithm.values ())
     {
-      assertTrue (StringHelper.hasText (eAlgo.getAlgorithm ()));
+      assertTrue (Strings.isNotEmpty (eAlgo.getAlgorithm ()));
       assertNotNull (eAlgo.createMessageDigest ());
       assertSame (eAlgo, EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ()));
-      assertSame (eAlgo, EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toLowerCase (Locale.US)));
-      assertSame (eAlgo, EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toUpperCase (Locale.US)));
+      assertSame (eAlgo,
+                  EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toLowerCase (Locale.US)));
+      assertSame (eAlgo,
+                  EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toUpperCase (Locale.US)));
       assertSame (eAlgo, EMessageDigestAlgorithm.valueOf (eAlgo.name ()));
     }
     assertNull (EMessageDigestAlgorithm.getFromStringIgnoreCase (null));
@@ -93,16 +95,15 @@ public final class EMessageDigestAlgorithmTest
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA",
                   aBase32.getEncodedAsString (MessageDigestValue.create ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128".getBytes (CHARSET),
                                                                          EMessageDigestAlgorithm.SHA_256)
-                                                                .getAllBytes (),
-                                              CHARSET));
+                                                                .getAllBytes (), CHARSET));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ",
-                  aBase32.getEncodedAsString (MessageDigestValue.create ("abc".getBytes (CHARSET), EMessageDigestAlgorithm.SHA_256)
-                                                                .getAllBytes (),
-                                              CHARSET));
+                  aBase32.getEncodedAsString (MessageDigestValue.create ("abc".getBytes (CHARSET),
+                                                                         EMessageDigestAlgorithm.SHA_256)
+                                                                .getAllBytes (), CHARSET));
     assertEquals ("WXKAIXB7IZX2SH7CZRVL46JDFINFPTPRAT32E3TRNYFB4J4J354A",
-                  aBase32.getEncodedAsString (MessageDigestValue.create ("ABC".getBytes (CHARSET), EMessageDigestAlgorithm.SHA_256)
-                                                                .getAllBytes (),
-                                              CHARSET));
+                  aBase32.getEncodedAsString (MessageDigestValue.create ("ABC".getBytes (CHARSET),
+                                                                         EMessageDigestAlgorithm.SHA_256)
+                                                                .getAllBytes (), CHARSET));
   }
 
   @Test

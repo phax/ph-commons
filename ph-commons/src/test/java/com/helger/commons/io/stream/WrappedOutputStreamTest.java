@@ -24,6 +24,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.base.io.stream.WrappedOutputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

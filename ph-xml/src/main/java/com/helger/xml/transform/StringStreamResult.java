@@ -20,8 +20,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

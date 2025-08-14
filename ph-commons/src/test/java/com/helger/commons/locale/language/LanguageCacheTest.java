@@ -27,12 +27,12 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.helger.base.mock.CommonsAssert;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
-import com.helger.commons.mock.CommonsAssert;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link LanguageCache}.
@@ -55,7 +55,8 @@ public final class LanguageCacheTest
   public void testGetLanguageOfLocale ()
   {
     assertNull (LanguageCache.getInstance ().getLanguage ((Locale) null));
-    assertEquals (LanguageCache.getInstance ().getLanguage (LOCALE.getLanguage ()), LanguageCache.getInstance ().getLanguage (LOCALE));
+    assertEquals (LanguageCache.getInstance ().getLanguage (LOCALE.getLanguage ()),
+                  LanguageCache.getInstance ().getLanguage (LOCALE));
   }
 
   @Test
@@ -79,11 +80,15 @@ public final class LanguageCacheTest
     assertNotNull (LanguageCache.getInstance ().getLanguage ("pl"));
     // Returns a valid locale, but emits a warning:
 
-    assertEquals (LanguageCache.getInstance ().getLanguage ("de"), LanguageCache.getInstance ().getLanguage (new Locale ("de", "ch")));
-    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", ""), LanguageCache.getInstance ().getLanguage ("de_"));
-    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", ""), LanguageCache.getInstance ().getLanguage ("de_AT"));
     assertEquals (LanguageCache.getInstance ().getLanguage ("de"),
-                  LanguageCache.getInstance ().getLanguage (LanguageCache.getInstance ().getLanguage ("de").toString ()));
+                  LanguageCache.getInstance ().getLanguage (new Locale ("de", "ch")));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", ""),
+                  LanguageCache.getInstance ().getLanguage ("de_"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", ""),
+                  LanguageCache.getInstance ().getLanguage ("de_AT"));
+    assertEquals (LanguageCache.getInstance ().getLanguage ("de"),
+                  LanguageCache.getInstance ()
+                               .getLanguage (LanguageCache.getInstance ().getLanguage ("de").toString ()));
     for (final String sLocale : LanguageCache.getInstance ().getAllLanguages ())
       assertTrue (LanguageCache.getInstance ().containsLanguage (sLocale));
     assertFalse (LanguageCache.getInstance ().containsLanguage ((String) null));
@@ -192,9 +197,9 @@ public final class LanguageCacheTest
     for (final Locale aLanguage : aLanguages)
     {
       assertNotNull (aLanguage);
-      assertTrue (StringHelper.hasText (aLanguage.getLanguage ()));
-      assertTrue (StringHelper.hasNoText (aLanguage.getCountry ()));
-      assertTrue (StringHelper.hasNoText (aLanguage.getVariant ()));
+      assertTrue (Strings.isNotEmpty (aLanguage.getLanguage ()));
+      assertTrue (Strings.isEmpty (aLanguage.getCountry ()));
+      assertTrue (Strings.isEmpty (aLanguage.getVariant ()));
     }
   }
 
@@ -208,9 +213,9 @@ public final class LanguageCacheTest
     for (final Locale aLanguage : aLanguages)
     {
       assertNotNull (aLanguage);
-      assertTrue (StringHelper.hasText (aLanguage.getLanguage ()));
-      assertTrue (StringHelper.hasNoText (aLanguage.getCountry ()));
-      assertTrue (StringHelper.hasNoText (aLanguage.getVariant ()));
+      assertTrue (Strings.isNotEmpty (aLanguage.getLanguage ()));
+      assertTrue (Strings.isEmpty (aLanguage.getCountry ()));
+      assertTrue (Strings.isEmpty (aLanguage.getVariant ()));
     }
   }
 }

@@ -29,13 +29,13 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.iface.IHasOutputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
 

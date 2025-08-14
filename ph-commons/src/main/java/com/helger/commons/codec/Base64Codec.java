@@ -23,13 +23,13 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.io.stream.NonClosingOutputStream;
+import com.helger.base.math.MathHelper;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.base64.Base64InputStream;
 import com.helger.commons.base64.Base64OutputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonClosingOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.math.MathHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -105,7 +105,7 @@ public class Base64Codec implements IByteArrayCodec
       try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen);
            final Base64InputStream aB64IS = createBase64InputStream (aBAIS))
       {
-        if (StreamHelper.copyInputStreamToOutputStream (aB64IS, aOS).isFailure ())
+        if (StreamHelperExt.copyInputStreamToOutputStream (aB64IS, aOS).isFailure ())
           throw new DecodeException ("Failed to decode Base64 to OutputStream");
       }
       catch (final IOException ex)

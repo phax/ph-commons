@@ -25,25 +25,25 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.UnsupportedOperation;
+import com.helger.base.CGlobal;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.GenericReflection;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.collection.iterate.EmptyListIterator;
 import com.helger.collection.iterate.SingleElementIterator;
 import com.helger.collection.iterate.SingleElementListIterator;
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyIterator;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Implementation of the {@link ICommonsList} interface handling exactly one
- * element and no more!
+ * Implementation of the {@link ICommonsList} interface handling exactly one element and no more!
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
@@ -125,7 +125,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
 
   public boolean contains (@Nullable final Object aElement)
   {
-    return m_bHasElement && EqualsHelper.equals (m_aElement, aElement);
+    return m_bHasElement && EqualsHelperExt.extEquals (m_aElement, aElement);
   }
 
   public boolean containsAll (@Nonnull final Collection <?> aElements)
@@ -263,7 +263,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
       aObjects[0] = m_aElement;
       return aObjects;
     }
-    return ArrayHelper.EMPTY_OBJECT_ARRAY;
+    return CGlobal.EMPTY_OBJECT_ARRAY;
   }
 
   @Nonnull
@@ -274,7 +274,10 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     if (!m_bHasElement)
       return aDest;
     if (m_aElement != null && !aDest.getClass ().getComponentType ().isAssignableFrom (m_aElement.getClass ()))
-      throw new ArrayStoreException ("The array class " + aDest.getClass () + " cannot store the item of class " + m_aElement.getClass ());
+      throw new ArrayStoreException ("The array class " +
+                                     aDest.getClass () +
+                                     " cannot store the item of class " +
+                                     m_aElement.getClass ());
     final ARRAYELEMENTTYPE [] ret = aDest.length < 1 ? ArrayHelper.newArraySameType (aDest, 1) : aDest;
     ret[0] = GenericReflection.uncheckedCast (m_aElement);
     if (ret.length > 1)
@@ -290,7 +293,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementList <?> rhs = (SingleElementList <?>) o;
-    return m_bHasElement == rhs.m_bHasElement && EqualsHelper.equals (m_aElement, rhs.m_aElement);
+    return m_bHasElement == rhs.m_bHasElement && EqualsHelperExt.extEquals (m_aElement, rhs.m_aElement);
   }
 
   @Override
@@ -302,6 +305,8 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hasElement", m_bHasElement).append ("element", m_aElement).getToString ();
+    return new ToStringGenerator (this).append ("hasElement", m_bHasElement)
+                                       .append ("element", m_aElement)
+                                       .getToString ();
   }
 }

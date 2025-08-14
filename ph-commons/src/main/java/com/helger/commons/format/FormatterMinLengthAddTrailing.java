@@ -17,16 +17,16 @@
 package com.helger.commons.format;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nullable;
 
 /**
- * A string formatter that ensures that a string has a minimum length by filling
- * the remaining chars with a custom character at the end (trailing).
+ * A string formatter that ensures that a string has a minimum length by filling the remaining chars
+ * with a custom character at the end (trailing).
  *
  * @author Philip Helger
  */
@@ -59,7 +59,7 @@ public final class FormatterMinLengthAddTrailing extends AbstractFormatterString
     final String s = getValueAsString (aValue);
     if (s.length () >= m_nMinLength)
       return s;
-    return s + StringHelper.getRepeated (m_cFill, m_nMinLength - s.length ());
+    return s + Strings.getRepeated (m_cFill, m_nMinLength - s.length ());
   }
 
   @Override
@@ -82,6 +82,9 @@ public final class FormatterMinLengthAddTrailing extends AbstractFormatterString
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("minLength", m_nMinLength).append ("fill", m_cFill).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("minLength", m_nMinLength)
+                            .append ("fill", m_cFill)
+                            .getToString ();
   }
 }

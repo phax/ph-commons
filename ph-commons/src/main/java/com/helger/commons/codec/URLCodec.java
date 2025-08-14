@@ -24,7 +24,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHex;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -88,7 +88,7 @@ public class URLCodec implements IByteArrayCodec
 
   /**
    * Constructor with an arbitrary set of printable characters.
-   * 
+   *
    * @param aPrintableChars
    *        The printable character BitSet to use. May not be <code>null</code>.
    */
@@ -120,8 +120,8 @@ public class URLCodec implements IByteArrayCodec
   public static final void writeEncodedURLByte (final int b, @Nonnull final OutputStream aOS) throws IOException
   {
     // Hex chars should be upper case as defined in RFC 3986 section 2.1
-    final char cHigh = StringHelper.getHexCharUpperCase ((b >> 4) & 0xF);
-    final char cLow = StringHelper.getHexCharUpperCase (b & 0xF);
+    final char cHigh = StringHex.getHexCharUpperCase ((b >> 4) & 0xF);
+    final char cLow = StringHex.getHexCharUpperCase (b & 0xF);
     aOS.write (ESCAPE_CHAR);
     aOS.write (cHigh);
     aOS.write (cLow);
@@ -182,7 +182,7 @@ public class URLCodec implements IByteArrayCodec
             final char cHigh = (char) aEncodedBuffer[nOfs + i + 1];
             final char cLow = (char) aEncodedBuffer[nOfs + i + 2];
             i += 2;
-            final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
+            final int nDecodedValue = StringHex.getHexByte (cHigh, cLow);
             if (nDecodedValue < 0)
               throw new DecodeException ("Invalid URL encoding for " + (int) cHigh + " and " + (int) cLow);
 

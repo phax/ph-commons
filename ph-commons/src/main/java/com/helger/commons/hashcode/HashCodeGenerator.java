@@ -21,7 +21,8 @@ import java.util.Map;
 import org.w3c.dom.Node;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.IHashCodeGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

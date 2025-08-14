@@ -20,11 +20,11 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.level.IHasErrorLevelComparable;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -25,8 +25,8 @@ import java.util.function.Predicate;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.state.EChange;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

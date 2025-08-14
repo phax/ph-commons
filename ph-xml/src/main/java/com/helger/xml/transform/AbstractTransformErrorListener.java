@@ -19,13 +19,13 @@ package com.helger.xml.transform;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
 
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultilingualText;
 
 import jakarta.annotation.Nonnull;

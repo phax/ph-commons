@@ -26,6 +26,9 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.VisibleForTesting;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -35,16 +38,12 @@ import com.helger.commons.locale.LocaleCache.IMissingLocaleHandler;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This is a global cache for language objects to avoid too many objects flowing
- * around.<br>
+ * This is a global cache for language objects to avoid too many objects flowing around.<br>
  * This cache is application independent.
  *
  * @author Philip Helger
@@ -76,8 +75,7 @@ public final class LanguageCache implements IHasConditionalLogger
   }
 
   /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it
-   *         is enabled.
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it is enabled.
    * @since 9.4.0
    */
   public static boolean isSilentMode ()
@@ -89,8 +87,7 @@ public final class LanguageCache implements IHasConditionalLogger
    * Enable or disable certain regular log messages.
    *
    * @param bSilentMode
-   *        <code>true</code> to disable logging, <code>false</code> to enable
-   *        logging
+   *        <code>true</code> to disable logging, <code>false</code> to enable logging
    * @return The previous value of the silent mode.
    * @since 9.4.0
    */
@@ -129,8 +126,8 @@ public final class LanguageCache implements IHasConditionalLogger
    *
    * @param aLanguage
    *        Source locale. May be <code>null</code>.
-   * @return <code>null</code> if the source locale is <code>null</code> or if
-   *         the source locale does not contain language information.
+   * @return <code>null</code> if the source locale is <code>null</code> or if the source locale
+   *         does not contain language information.
    */
   @Nullable
   public Locale getLanguage (@Nullable final Locale aLanguage)
@@ -144,10 +141,10 @@ public final class LanguageCache implements IHasConditionalLogger
    * @param aLanguage
    *        Source locale. May be <code>null</code>.
    * @param aMissingHandler
-   *        The missing locale handler to be passed to {@link LocaleCache}. May
-   *        be <code>null</code> to use {@link LocaleCache} default handler.
-   * @return <code>null</code> if the source locale is <code>null</code> or if
-   *         the source locale does not contain language information.
+   *        The missing locale handler to be passed to {@link LocaleCache}. May be <code>null</code>
+   *        to use {@link LocaleCache} default handler.
+   * @return <code>null</code> if the source locale is <code>null</code> or if the source locale
+   *         does not contain language information.
    * @since 9.4.2
    */
   @Nullable
@@ -158,13 +155,12 @@ public final class LanguageCache implements IHasConditionalLogger
 
   /**
    * Resolve the language from the provided string.<br>
-   * Note: this method may be invoked recursively, if the language code contains
-   * a locale separator char.
+   * Note: this method may be invoked recursively, if the language code contains a locale separator
+   * char.
    *
    * @param sLanguage
    *        The language code. May be <code>null</code> or empty.
-   * @return <code>null</code> if the provided language code is
-   *         <code>null</code> or empty.
+   * @return <code>null</code> if the provided language code is <code>null</code> or empty.
    */
   @Nullable
   public Locale getLanguage (@Nullable final String sLanguage)
@@ -174,22 +170,21 @@ public final class LanguageCache implements IHasConditionalLogger
 
   /**
    * Resolve the language from the provided string.<br>
-   * Note: this method may be invoked recursively, if the language code contains
-   * a locale separator char.
+   * Note: this method may be invoked recursively, if the language code contains a locale separator
+   * char.
    *
    * @param sLanguage
    *        The language code. May be <code>null</code> or empty.
    * @param aMissingHandler
-   *        The missing locale handler to be passed to {@link LocaleCache}. May
-   *        be <code>null</code> to use {@link LocaleCache} default handler.
-   * @return <code>null</code> if the provided language code is
-   *         <code>null</code> or empty.
+   *        The missing locale handler to be passed to {@link LocaleCache}. May be <code>null</code>
+   *        to use {@link LocaleCache} default handler.
+   * @return <code>null</code> if the provided language code is <code>null</code> or empty.
    * @since 9.4.2
    */
   @Nullable
   public Locale getLanguageExt (@Nullable final String sLanguage, @Nullable final IMissingLocaleHandler aMissingHandler)
   {
-    if (StringHelper.hasNoText (sLanguage))
+    if (Strings.isEmpty (sLanguage))
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
@@ -234,8 +229,7 @@ public final class LanguageCache implements IHasConditionalLogger
    *
    * @param aLanguage
    *        The language to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed language is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the passed language is contained, <code>false</code> otherwise.
    */
   public boolean containsLanguage (@Nullable final Locale aLanguage)
   {
@@ -247,8 +241,7 @@ public final class LanguageCache implements IHasConditionalLogger
    *
    * @param sLanguage
    *        The language to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed language is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the passed language is contained, <code>false</code> otherwise.
    */
   public boolean containsLanguage (@Nullable final String sLanguage)
   {
@@ -270,7 +263,7 @@ public final class LanguageCache implements IHasConditionalLogger
     for (final Locale aLocale : LocaleCache.getAllDefaultLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();
-      if (StringHelper.hasText (sLanguage))
+      if (Strings.isNotEmpty (sLanguage))
       {
         // Allows for duplicates!
         addLanguage (sLanguage);

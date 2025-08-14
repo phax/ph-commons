@@ -18,6 +18,8 @@ package com.helger.commons.exception.mock;
 
 import org.junit.Test;
 
+import com.helger.base.mock.exception.MockIOException;
+
 /**
  * Test class for class {@link MockIOException}.
  *

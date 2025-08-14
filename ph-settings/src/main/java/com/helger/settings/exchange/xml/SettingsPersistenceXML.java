@@ -23,10 +23,10 @@ import java.nio.charset.Charset;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.style.OverrideOnDemand;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.lang.GenericReflection;
+import com.helger.base.state.ESuccess;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 import com.helger.settings.exchange.ISettingsPersistence;
@@ -42,8 +42,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A special {@link ISettingsPersistence} implementation that reads and writes
- * .xml files.
+ * A special {@link ISettingsPersistence} implementation that reads and writes .xml files.
  *
  * @author Philip Helger
  * @param <T>
@@ -61,7 +60,8 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
     this (aSettingsFactory, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
-  public SettingsPersistenceXML (@Nonnull final ISettingsFactory <T> aSettingsFactory, @Nonnull final IXMLWriterSettings aXWS)
+  public SettingsPersistenceXML (@Nonnull final ISettingsFactory <T> aSettingsFactory,
+                                 @Nonnull final IXMLWriterSettings aXWS)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
     m_aXWS = aXWS;
@@ -74,8 +74,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   }
 
   /**
-   * @return The settings factory as specified in the constructor. Never
-   *         <code>null</code>.
+   * @return The settings factory as specified in the constructor. Never <code>null</code>.
    */
   @Nonnull
   public final ISettingsFactory <T> getSettingsFactory ()
@@ -84,8 +83,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   }
 
   /**
-   * @return The XML writer settings as specified in the constructor. Never
-   *         <code>null</code>.
+   * @return The XML writer settings as specified in the constructor. Never <code>null</code>.
    */
   @Nonnull
   public final IXMLWriterSettings getXMLWriterSettings ()
@@ -108,8 +106,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   }
 
   /**
-   * @return The namespace URI to be used for writing XML settings. Defaults to
-   *         <code>null</code>.
+   * @return The namespace URI to be used for writing XML settings. Defaults to <code>null</code>.
    */
   @Nullable
   @OverrideOnDemand
@@ -119,8 +116,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   }
 
   /**
-   * @return The document root element local name. May neither be
-   *         <code>null</code> nor empty.
+   * @return The document root element local name. May neither be <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
@@ -145,8 +141,8 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
       final SettingsMicroDocumentConverter <T> aConverter = new SettingsMicroDocumentConverter <> (m_aSettingsFactory);
       final IMicroDocument aDoc = new MicroDocument ();
       aDoc.addChild (aConverter.convertToMicroElement (GenericReflection.uncheckedCast (aSettings),
-                                                          getWriteNamespaceURI (),
-                                                          getWriteElementName ()));
+                                                       getWriteNamespaceURI (),
+                                                       getWriteElementName ()));
 
       // auto-closes the stream
       return MicroWriter.writeToStream (aDoc, aOS, m_aXWS);

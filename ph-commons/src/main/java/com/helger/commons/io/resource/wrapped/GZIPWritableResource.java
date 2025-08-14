@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
-import com.helger.commons.io.EAppend;
+import com.helger.base.io.EAppend;
 import com.helger.commons.io.resource.IWritableResource;
 
 import jakarta.annotation.Nonnull;

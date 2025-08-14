@@ -21,7 +21,7 @@ import java.io.Writer;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
+import com.helger.base.nonblocking.NonBlockingStringWriter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -26,8 +26,8 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import com.helger.base.string.Strings;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.graph.IMutableDirectedGraphRelation;
 
 /**
@@ -42,11 +42,11 @@ public final class DirectedGraphNodeTest
   {
     final DirectedGraphNode n = new DirectedGraphNode ();
     assertNotNull (n.getID ());
-    assertTrue (StringHelper.hasText (n.getID ()));
+    assertTrue (Strings.isNotEmpty (n.getID ()));
 
     final DirectedGraphNode n1 = new DirectedGraphNode ("");
     assertNotNull (n1.getID ());
-    assertTrue (StringHelper.hasText (n1.getID ()));
+    assertTrue (Strings.isNotEmpty (n1.getID ()));
     assertEquals (0, n1.getAllFromNodes ().size ());
     assertEquals (0, n1.getIncomingRelationCount ());
     assertEquals (0, n1.getAllToNodes ().size ());
@@ -226,8 +226,10 @@ public final class DirectedGraphNodeTest
   @Test
   public void testStdMethods ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphNode ("id0"), new DirectedGraphNode ("id0"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphNode ("id0"), new DirectedGraphNode ("id1"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphNode ("id0"),
+                                                                       new DirectedGraphNode ("id0"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphNode ("id0"),
+                                                                           new DirectedGraphNode ("id1"));
     final DirectedGraphNode n1 = new DirectedGraphNode ("id0");
     n1.attrs ().putIn ("a", "b");
     final DirectedGraphNode n2 = new DirectedGraphNode ("id0");

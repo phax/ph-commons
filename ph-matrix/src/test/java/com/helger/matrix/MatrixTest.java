@@ -37,6 +37,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.string.Strings;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.string.StringHelper;
@@ -44,8 +45,7 @@ import com.helger.commons.string.StringHelper;
 import jakarta.annotation.Nonnull;
 
 /**
- * TestMatrix tests the functionality of the Jama Matrix class and associated
- * decompositions.
+ * TestMatrix tests the functionality of the Jama Matrix class and associated decompositions.
  * <P>
  * Run the test from the command line using <BLOCKQUOTE>
  *
@@ -55,12 +55,11 @@ import jakarta.annotation.Nonnull;
  * </CODE>
  * </PRE>
  *
- * </BLOCKQUOTE> Detailed output is provided indicating the functionality being
- * tested and whether the functionality is correctly implemented. Exception
- * handling is also tested.
+ * </BLOCKQUOTE> Detailed output is provided indicating the functionality being tested and whether
+ * the functionality is correctly implemented. Exception handling is also tested.
  * <P>
- * The test is designed to run to completion and give a summary of any
- * implementation errors encountered. The final output should be: <BLOCKQUOTE>
+ * The test is designed to run to completion and give a summary of any implementation errors
+ * encountered. The final output should be: <BLOCKQUOTE>
  *
  * <PRE>
  * <CODE>
@@ -70,10 +69,9 @@ import jakarta.annotation.Nonnull;
  * </CODE>
  * </PRE>
  *
- * </BLOCKQUOTE> If the test does not run to completion, this indicates that
- * there is a substantial problem within the implementation that was not
- * anticipated in the test design. The stopping point should give an indication
- * of where the problem exists.
+ * </BLOCKQUOTE> If the test does not run to completion, this indicates that there is a substantial
+ * problem within the implementation that was not anticipated in the test design. The stopping point
+ * should give an indication of where the problem exists.
  **/
 public final class MatrixTest
 {
@@ -142,17 +140,15 @@ public final class MatrixTest
     final double sumofsquares = 650;
 
     /**
-     * Constructors and constructor-like methods: double[], int double[][] int,
-     * int int, int, double int, int, double[][] constructWithCopy(double[][])
-     * random(int,int) identity(int)
+     * Constructors and constructor-like methods: double[], int double[][] int, int int, int, double
+     * int, int, double[][] constructWithCopy(double[][]) random(int,int) identity(int)
      **/
 
     _print ("\nTesting constructors and constructor-like methods...\n");
     try
     {
       /**
-       * _check that exception is thrown in packed constructor with invalid
-       * length
+       * _check that exception is thrown in packed constructor with invalid length
        **/
       new Matrix (columnwise, invalidld);
       fail ("exception not thrown for invalid input");
@@ -164,8 +160,7 @@ public final class MatrixTest
     try
     {
       /**
-       * _check that exception is thrown in default constructor if input array
-       * is 'ragged'
+       * _check that exception is thrown in default constructor if input array is 'ragged'
        **/
       final Matrix a = new Matrix (rvals);
       tmp = a.get (raggedr, raggedc);
@@ -181,8 +176,7 @@ public final class MatrixTest
     try
     {
       /**
-       * _check that exception is thrown in constructWithCopy if input array is
-       * 'ragged'
+       * _check that exception is thrown in constructWithCopy if input array is 'ragged'
        **/
       final Matrix a = Matrix.constructWithCopy (rvals);
       tmp = a.get (raggedr, raggedc);
@@ -227,10 +221,9 @@ public final class MatrixTest
     }
 
     /**
-     * Access Methods: getColumnDimension() getRowDimension() getArray()
-     * getArrayCopy() getColumnPackedCopy() getRowPackedCopy() get(int,int)
-     * getMatrix(int,int,int,int) getMatrix(int,int,int[])
-     * getMatrix(int[],int,int) getMatrix(int[],int[]) set(int,int,double)
+     * Access Methods: getColumnDimension() getRowDimension() getArray() getArrayCopy()
+     * getColumnPackedCopy() getRowPackedCopy() get(int,int) getMatrix(int,int,int,int)
+     * getMatrix(int,int,int[]) getMatrix(int[],int,int) getMatrix(int[],int[]) set(int,int,double)
      * setMatrix(int,int,int,int,Matrix) setMatrix(int,int,int[],Matrix)
      * setMatrix(int[],int,int,Matrix) setMatrix(int[],int[],Matrix)
      **/
@@ -325,8 +318,8 @@ public final class MatrixTest
     }
     try
     {
-      if (b.get (b.getRowDimension () - 1,
-                 b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
+      if (b.get (b.getRowDimension () - 1, b.getColumnDimension () - 1) !=
+          avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
       {
         fail ("Matrix entry (i,j) not successfully retreived");
       }
@@ -696,9 +689,8 @@ public final class MatrixTest
     }
 
     /**
-     * Array-like methods: minus minusEquals plus plusEquals arrayLeftDivide
-     * arrayLeftDivideEquals arrayRightDivide arrayRightDivideEquals arrayTimes
-     * arrayTimesEquals uminus
+     * Array-like methods: minus minusEquals plus plusEquals arrayLeftDivide arrayLeftDivideEquals
+     * arrayRightDivide arrayRightDivideEquals arrayTimes arrayTimesEquals uminus
      **/
 
     _print ("\nTesting array-like methods...\n");
@@ -1022,8 +1014,8 @@ public final class MatrixTest
     }
 
     /**
-     * LA methods: transpose times cond rank det trace norm1 norm2 normF normInf
-     * solve solveTranspose inverse chol eig lu qr svd
+     * LA methods: transpose times cond rank det trace norm1 norm2 normF normInf solve
+     * solveTranspose inverse chol eig lu qr svd
      **/
 
     _print ("\nTesting linear algebra methods...\n");
@@ -1181,10 +1173,6 @@ public final class MatrixTest
       _check (SQ.solve (SOL), O);
       _try_success ("solve()...", "");
     }
-    catch (final IllegalArgumentException e1)
-    {
-      fail (e1.getMessage ());
-    }
     catch (final RuntimeException e)
     {
       fail (e.getMessage ());
@@ -1323,7 +1311,7 @@ public final class MatrixTest
   private static void _try_success (final String s, final String e)
   {
     _print (">    " + s + "success\n");
-    if (StringHelper.hasText (e))
+    if (Strings.isNotEmpty (e))
       _print (">      Message: " + e + "\n");
   }
 

@@ -28,7 +28,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.commons.text.codepoint.CodepointHelper;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLVersion;

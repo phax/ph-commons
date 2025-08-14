@@ -18,8 +18,8 @@ package com.helger.security.authentication.result;
 
 import java.time.LocalDateTime;
 
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.base.state.ISuccessIndicator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.security.authentication.subject.IAuthSubject;
 
 import jakarta.annotation.Nonnull;
@@ -47,7 +47,7 @@ public interface IAuthIdentification extends ISuccessIndicator
 
   default boolean hasAuthSubject (@Nullable final IAuthSubject aSubject)
   {
-    return EqualsHelper.equals (getAuthSubject (), aSubject);
+    return EqualsHelperExt.extEquals (getAuthSubject (), aSubject);
   }
 
   /**

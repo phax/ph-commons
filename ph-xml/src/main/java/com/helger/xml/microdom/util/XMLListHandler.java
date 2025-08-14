@@ -27,14 +27,14 @@ import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.iface.IHasOutputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IHasOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -98,8 +98,8 @@ public final class XMLListHandler
    * Read a predefined XML file that contains list items.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>.
-   *        Automatically closed no matter whether reading succeeded or not.
+   *        The input stream to read from. May not be <code>null</code>. Automatically closed no
+   *        matter whether reading succeeded or not.
    * @return <code>null</code> if reading fails - all list items otherwise.
    */
   @Nullable
@@ -116,13 +116,12 @@ public final class XMLListHandler
    * Read a predefined XML file that contains list items.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>.
-   *        Automatically closed no matter whether reading succeeded or not.
+   *        The input stream to read from. May not be <code>null</code>. Automatically closed no
+   *        matter whether reading succeeded or not.
    * @param aTargetList
    *        The target collection to be filled. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if reading succeeded,
-   *         {@link ESuccess#FAILURE} if the input stream is no valid XML or any
-   *         other error occurred.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} if the input
+   *         stream is no valid XML or any other error occurred.
    */
   @Nonnull
   public static ESuccess readList (@Nonnull @WillClose final InputStream aIS,
@@ -203,16 +202,14 @@ public final class XMLListHandler
   }
 
   /**
-   * Write the passed collection to the passed output stream using the
-   * predefined XML layout.
+   * Write the passed collection to the passed output stream using the predefined XML layout.
    *
    * @param aCollection
    *        The map to be written. May not be <code>null</code>.
    * @param aOS
-   *        The output stream to write to. The stream is closed independent of
-   *        success or failure. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} when everything went well,
-   *         {@link ESuccess#FAILURE} otherwise.
+   *        The output stream to write to. The stream is closed independent of success or failure.
+   *        May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} when everything went well, {@link ESuccess#FAILURE} otherwise.
    */
   @Nonnull
   public static ESuccess writeList (@Nonnull final Collection <String> aCollection,

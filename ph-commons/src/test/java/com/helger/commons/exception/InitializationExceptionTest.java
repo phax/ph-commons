@@ -18,6 +18,8 @@ package com.helger.commons.exception;
 
 import org.junit.Test;
 
+import com.helger.base.exception.InitializationException;
+
 /**
  * Test class of class {@link InitializationException}.
  *

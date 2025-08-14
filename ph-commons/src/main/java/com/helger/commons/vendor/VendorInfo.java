@@ -21,6 +21,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.datetime.PDTFactory;
@@ -29,7 +30,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.EURLProtocol;
 import com.helger.commons.url.IURLProtocol;
 import com.helger.commons.url.URLProtocolRegistry;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

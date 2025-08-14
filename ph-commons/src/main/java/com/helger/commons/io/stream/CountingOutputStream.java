@@ -20,7 +20,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.io.stream.WrappedOutputStream;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

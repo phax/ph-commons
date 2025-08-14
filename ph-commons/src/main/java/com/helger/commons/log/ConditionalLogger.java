@@ -22,10 +22,10 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.IEnabledIndicator;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.state.IEnabledIndicator;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

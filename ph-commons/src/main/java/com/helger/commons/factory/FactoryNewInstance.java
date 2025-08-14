@@ -19,19 +19,18 @@ package com.helger.commons.factory;
 import java.util.function.Supplier;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.GenericReflection;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Implementation of {@link Supplier} that always creates a new instance via
- * reflection
+ * Implementation of {@link Supplier} that always creates a new instance via reflection
  *
  * @author Philip Helger
  * @param <DATATYPE>
@@ -46,7 +45,9 @@ public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
   {
     if (bCheckInstancable)
       ValueEnforcer.isTrue (ClassHelper.isInstancableClass (aClass),
-                            () -> "The passed class '" + aClass + "' is not instancable or doesn't have a public no-argument constructor!");
+                            () -> "The passed class '" +
+                                  aClass +
+                                  "' is not instancable or doesn't have a public no-argument constructor!");
     m_aClass = aClass;
   }
 
@@ -70,7 +71,7 @@ public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FactoryNewInstance <?> rhs = (FactoryNewInstance <?>) o;
-    return EqualsHelper.equals (m_aClass, rhs.m_aClass);
+    return EqualsHelperExt.extEquals (m_aClass, rhs.m_aClass);
   }
 
   @Override
@@ -92,7 +93,8 @@ public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
   }
 
   @Nonnull
-  public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass, final boolean bCheckInstancable)
+  public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass,
+                                                                 final boolean bCheckInstancable)
   {
     return new FactoryNewInstance <> (aClass, bCheckInstancable);
   }

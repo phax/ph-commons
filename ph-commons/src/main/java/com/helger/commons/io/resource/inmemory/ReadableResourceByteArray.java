@@ -21,12 +21,12 @@ import java.util.Arrays;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.iface.IHasByteArray;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.io.ByteArrayWrapper;
-import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -47,7 +47,9 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this (null, aBytes, DEFAULT_COPY_NEEDED);
   }
 
-  public ReadableResourceByteArray (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public ReadableResourceByteArray (@Nonnull final byte [] aBytes,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
   {
     this (null, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
@@ -78,7 +80,9 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this (sResourceID, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
-  public ReadableResourceByteArray (@Nullable final String sResourceID, @Nonnull final byte [] aBytes, final boolean bCopyNeeded)
+  public ReadableResourceByteArray (@Nullable final String sResourceID,
+                                    @Nonnull final byte [] aBytes,
+                                    final boolean bCopyNeeded)
   {
     this (sResourceID, aBytes, 0, aBytes.length, bCopyNeeded);
   }
@@ -90,7 +94,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
                                     final boolean bCopyNeeded)
   {
     // Ensure a unique resource ID
-    super (StringHelper.hasText (sResourceID) ? sResourceID : "bytes-" + nLen + "-" + Arrays.hashCode (aBytes));
+    super (Strings.isNotEmpty (sResourceID) ? sResourceID : "bytes-" + nLen + "-" + Arrays.hashCode (aBytes));
     ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLen);
     // Create a copy to avoid outside modifications
     m_aBytes = new ByteArrayWrapper (aBytes, nOfs, nLen, bCopyNeeded);

@@ -32,7 +32,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.url.URLHelper;
 
@@ -85,7 +85,7 @@ public final class URLResourceTest
     assertTrue (ur.exists ());
     assertTrue (ur.getResourceID ().endsWith ("/pom.xml"));
     assertTrue (ur.getPath ().endsWith ("/pom.xml"));
-    final byte [] aBytes = StreamHelper.getAllBytes (ur);
+    final byte [] aBytes = StreamHelperExt.getAllBytes (ur);
     assertTrue (aBytes.length > 0);
     assertNotNull (ur.getAsURL ());
     assertNotNull (ur.getAsFile ());

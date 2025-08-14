@@ -21,17 +21,16 @@ import javax.xml.namespace.QName;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.MustImplementComparable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.compare.IComparable;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.compare.IComparable;
+import com.helger.base.string.Strings;
+import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a simple qualified name. A combination of namespace URI and local
- * name.
+ * Represents a simple qualified name. A combination of namespace URI and local name.
  *
  * @author Philip Helger
  */
@@ -50,23 +49,21 @@ public interface IMicroQName extends IComparable <IMicroQName>
   /**
    * Check if a namespace URI is present.
    *
-   * @return <code>true</code> if a specified namespace URI is present,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if a specified namespace URI is present, <code>false</code> otherwise
    */
   default boolean hasNamespaceURI ()
   {
-    return StringHelper.hasText (getNamespaceURI ());
+    return Strings.isNotEmpty (getNamespaceURI ());
   }
 
   /**
    * Check if no namespace URI is present.
    *
-   * @return <code>true</code> if no namespace URI is present,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if no namespace URI is present, <code>false</code> otherwise
    */
   default boolean hasNoNamespaceURI ()
   {
-    return StringHelper.hasNoText (getNamespaceURI ());
+    return Strings.isEmpty (getNamespaceURI ());
   }
 
   /**
@@ -74,17 +71,16 @@ public interface IMicroQName extends IComparable <IMicroQName>
    *
    * @param sNamespaceURI
    *        The namespace URI to check. May not be <code>null</code>.
-   * @return <code>true</code> if the specified namespace URI matches the URI of
-   *         this name, <code>false</code> otherwise
+   * @return <code>true</code> if the specified namespace URI matches the URI of this name,
+   *         <code>false</code> otherwise
    */
   default boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
   {
-    return EqualsHelper.equals (sNamespaceURI, getNamespaceURI ());
+    return EqualsHelperExt.extEquals (sNamespaceURI, getNamespaceURI ());
   }
 
   /**
-   * @return The local name without the namespace URI or the prefix. Never
-   *         <code>null</code>.
+   * @return The local name without the namespace URI or the prefix. Never <code>null</code>.
    */
   @Nonnull
   @Nonempty
@@ -109,8 +105,8 @@ public interface IMicroQName extends IComparable <IMicroQName>
 
   /**
    * @param sPrefix
-   *        the namespace prefix to be used in the resulting object. May not be
-   *        <code>null</code> but maybe empty.
+   *        the namespace prefix to be used in the resulting object. May not be <code>null</code>
+   *        but maybe empty.
    * @return This micro QName as a regular XML QName using the provided prefix.
    */
   @Nonnull

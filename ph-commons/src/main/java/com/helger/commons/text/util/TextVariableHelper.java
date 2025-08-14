@@ -27,19 +27,18 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.VisibleForTesting;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class provides an easy way to replace variables in a string with other
- * values. The variables need to be present in the form of <code>${bla}</code>.
- * The variable helper supports masking with the backslash (<code>\</code>)
- * character so that the "$" can be represented as "\$".
+ * This class provides an easy way to replace variables in a string with other values. The variables
+ * need to be present in the form of <code>${bla}</code>. The variable helper supports masking with
+ * the backslash (<code>\</code>) character so that the "$" can be represented as "\$".
  *
  * @author Philip Helger
  * @since 10.2.0
@@ -189,23 +188,21 @@ public final class TextVariableHelper
   }
 
   /**
-   * This method is responsible for splitting a source string into the constant
-   * text fragments and the variable names.<br>
-   * By convention, the first result element is always a constant text fragment
-   * (maybe empty) and the second element is a variable name, the third element
-   * is again a constant text fragment etc. So constant text fragments and
-   * variable names are always intermixed. However it is not guaranteed, with
-   * what kind of element the result list ends.<br>
-   * Example: a variable <code>${bla}</code> ends up as <code>bla</code> in the
-   * result list. <br>
-   * Example the text <code>Hello ${x}!</code> results in a list with 3
-   * elements: <code>"Hello "</code>, <code>"x"</code> and <code>"!"</code>.
+   * This method is responsible for splitting a source string into the constant text fragments and
+   * the variable names.<br>
+   * By convention, the first result element is always a constant text fragment (maybe empty) and
+   * the second element is a variable name, the third element is again a constant text fragment etc.
+   * So constant text fragments and variable names are always intermixed. However it is not
+   * guaranteed, with what kind of element the result list ends.<br>
+   * Example: a variable <code>${bla}</code> ends up as <code>bla</code> in the result list. <br>
+   * Example the text <code>Hello ${x}!</code> results in a list with 3 elements:
+   * <code>"Hello "</code>, <code>"x"</code> and <code>"!"</code>.
    *
    * @param sText
-   *        The string to split into elements of constant text and variable
-   *        names. May neither be <code>null</code> nor empty.
-   * @return Never <code>null</code> list of elements, intermixed between
-   *         constant strings and variable names.
+   *        The string to split into elements of constant text and variable names. May neither be
+   *        <code>null</code> nor empty.
+   * @return Never <code>null</code> list of elements, intermixed between constant strings and
+   *         variable names.
    */
   @VisibleForTesting
   @Nonnull
@@ -279,27 +276,23 @@ public final class TextVariableHelper
    *
    * @param sSourceString
    *        the string to check for variables.
-   * @return <code>true</code> if at least one variable is contained,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if at least one variable is contained, <code>false</code> if not.
    */
   public static boolean containsVariables (@Nullable final String sSourceString)
   {
-    return StringHelper.hasText (sSourceString) && splitByVariables (sSourceString).size () > 1;
+    return Strings.isNotEmpty (sSourceString) && splitByVariables (sSourceString).size () > 1;
   }
 
   /**
-   * Parse the provided source string looking for variables in the form
-   * <code>${...}</code> and invoke callbacks for either text fragments or
-   * variable names.
+   * Parse the provided source string looking for variables in the form <code>${...}</code> and
+   * invoke callbacks for either text fragments or variable names.
    *
    * @param sSourceString
    *        The source string to parse and analyze. May be <code>null</code>.
    * @param aTextFragmentHandler
-   *        The callback to be invoked for each text fragment. May not be
-   *        <code>null</code>.
+   *        The callback to be invoked for each text fragment. May not be <code>null</code>.
    * @param aVariableNameHandler
-   *        The callback to be invoked for each variable name. May not be
-   *        <code>null</code>.
+   *        The callback to be invoked for each variable name. May not be <code>null</code>.
    */
   public static void forEachTextAndVariable (@Nullable final String sSourceString,
                                              @Nonnull final Consumer <String> aTextFragmentHandler,
@@ -307,7 +300,7 @@ public final class TextVariableHelper
   {
     ValueEnforcer.notNull (aTextFragmentHandler, "TextFragmentHandler");
     ValueEnforcer.notNull (aVariableNameHandler, "VariableNameHandler");
-    if (StringHelper.hasNoText (sSourceString))
+    if (Strings.isEmpty (sSourceString))
     {
       // Surely no variables
       aTextFragmentHandler.accept (sSourceString);
@@ -326,7 +319,7 @@ public final class TextVariableHelper
         boolean bText = true;
         for (final String sPiece : aPieces)
         {
-          if (StringHelper.hasText (sPiece))
+          if (Strings.isNotEmpty (sPiece))
           {
             if (bText)
               aTextFragmentHandler.accept (sPiece);
@@ -345,7 +338,7 @@ public final class TextVariableHelper
   {
     ValueEnforcer.notNull (aVariableProvider, "VariableProvider");
 
-    if (StringHelper.hasNoText (sSourceString))
+    if (Strings.isEmpty (sSourceString))
       return sSourceString;
 
     // Allocate some space

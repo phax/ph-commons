@@ -23,6 +23,11 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.base.io.stream.NonClosingOutputStream;
+import com.helger.base.io.stream.WrappedOutputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+
 /**
  * Test class for class {@link CountingOutputStream}.
  *
@@ -55,7 +60,7 @@ public final class NonClosingOutputStreamTest
   public void testClosing ()
   {
     final MockCloseCountingOutputStream aX = new MockCloseCountingOutputStream (new NonBlockingByteArrayOutputStream ());
-    StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)),
+    StreamHelperExt.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)),
                                                           aX);
     assertEquals (1, aX.getCloseCount ());
   }
@@ -64,7 +69,7 @@ public final class NonClosingOutputStreamTest
   public void testNonClosing ()
   {
     final MockCloseCountingOutputStream aX = new MockCloseCountingOutputStream (new NonBlockingByteArrayOutputStream ());
-    StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)),
+    StreamHelperExt.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)),
                                                           new NonClosingOutputStream (aX));
     assertEquals (0, aX.getCloseCount ());
   }

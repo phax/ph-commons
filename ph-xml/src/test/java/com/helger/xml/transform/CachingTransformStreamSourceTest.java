@@ -26,10 +26,10 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.mock.MockNullInputStreamProvider;
 

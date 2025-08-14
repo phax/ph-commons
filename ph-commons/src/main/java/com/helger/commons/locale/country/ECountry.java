@@ -19,6 +19,7 @@ package com.helger.commons.locale.country;
 import java.util.Locale;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.id.IHasID;
@@ -484,8 +485,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   }
 
   /**
-   * @return the ISO country code (the part before the first underscore). Always
-   *         lowercase.
+   * @return the ISO country code (the part before the first underscore). Always lowercase.
    */
   @Nonnull
   public String getISOCountryCode ()
@@ -516,19 +516,16 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   }
 
   /**
-   * Try to find the country with the passed ISO code. Country sub-codes are
-   * ignored in this method.
+   * Try to find the country with the passed ISO code. Country sub-codes are ignored in this method.
    *
    * @param sISO
-   *        The ISO code to search. Case sensitivity does not matter. May be
-   *        <code>null</code>.
-   * @return The matching country or <code>null</code> if the ISO code was not
-   *         resolved.
+   *        The ISO code to search. Case sensitivity does not matter. May be <code>null</code>.
+   * @return The matching country or <code>null</code> if the ISO code was not resolved.
    */
   @Nullable
   public static ECountry getFromISOCodeOrNull (@Nullable final String sISO)
   {
-    if (StringHelper.hasText (sISO))
+    if (Strings.isNotEmpty (sISO))
     {
       final String sRealISO = sISO.toLowerCase (Locale.US);
       for (final ECountry eCountry : values ())
@@ -540,8 +537,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   }
 
   /**
-   * @return A non-<code>null</code> set of all contained country locales in
-   *         this enumeration.
+   * @return A non-<code>null</code> set of all contained country locales in this enumeration.
    */
   @Nonnull
   @ReturnsMutableCopy

@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.CGlobal;
 
 /**
  * Test class for class {@link RFC2616Codec}
@@ -39,7 +39,7 @@ public final class RFC2616CodecTest
     final RFC2616Codec aCodec = new RFC2616Codec ();
     assertNull (aCodec.getEncodedAsString ((char []) null));
     assertNull (aCodec.getEncodedAsString ((String) null));
-    assertEquals ("\"\"", aCodec.getEncodedAsString (ArrayHelper.EMPTY_CHAR_ARRAY));
+    assertEquals ("\"\"", aCodec.getEncodedAsString (CGlobal.EMPTY_CHAR_ARRAY));
     assertEquals ("\"\"", aCodec.getEncodedAsString (""));
     assertEquals ("\"abc\"", aCodec.getEncodedAsString ("abc"));
     assertEquals ("\"\\\"abc\\\"\"", aCodec.getEncodedAsString ("\"abc\""));

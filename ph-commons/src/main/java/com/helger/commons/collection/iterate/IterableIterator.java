@@ -18,9 +18,9 @@ package com.helger.commons.collection.iterate;
 
 import java.util.Iterator;
 
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.GenericReflection;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

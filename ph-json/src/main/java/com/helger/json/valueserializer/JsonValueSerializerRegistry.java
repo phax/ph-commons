@@ -22,20 +22,19 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Registry that determines the {@link IJsonValueSerializer} object to be used
- * for certain classes.
+ * Registry that determines the {@link IJsonValueSerializer} object to be used for certain classes.
  *
  * @author Philip Helger
  */
@@ -69,7 +68,8 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
     return INSTANCE;
   }
 
-  public void registerJsonValueSerializer (@Nonnull final Class <?> aClass, @Nonnull final IJsonValueSerializer aValueSerializer)
+  public void registerJsonValueSerializer (@Nonnull final Class <?> aClass,
+                                           @Nonnull final IJsonValueSerializer aValueSerializer)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aValueSerializer, "ValueSerializer");
@@ -102,8 +102,9 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
 
     // Register all json value serializer
     for (final IJsonValueSerializerRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IJsonValueSerializerRegistrarSPI.class,
-                                                                                                     aClassLoader != null ? aClassLoader
-                                                                                                                          : ClassLoaderHelper.getDefaultClassLoader ()))
+                                                                                                     aClassLoader !=
+                                                                                                                                             null ? aClassLoader
+                                                                                                                                                  : ClassLoaderHelper.getDefaultClassLoader ()))
       aSPI.registerJsonValueSerializer (this);
 
     if (LOGGER.isDebugEnabled ())

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.supplementary.tools.collection;
 
-import com.helger.commons.lang.ClassHelper;
+import com.helger.base.lang.ClassHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -34,7 +34,7 @@ enum EPrimitiveType
   final String m_sPrimitiveClass;
   final String m_sObjClass;
 
-  private EPrimitiveType (@Nonnull final Class <?> aPrimitiveClass, @Nonnull final Class <?> aObjClass)
+  EPrimitiveType (@Nonnull final Class <?> aPrimitiveClass, @Nonnull final Class <?> aObjClass)
   {
     m_sPrimitiveClass = ClassHelper.getClassLocalName (aPrimitiveClass);
     m_sObjClass = ClassHelper.getClassLocalName (aObjClass);

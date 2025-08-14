@@ -26,8 +26,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 
 /**
  * Test class for {@link ClassPathHelper}

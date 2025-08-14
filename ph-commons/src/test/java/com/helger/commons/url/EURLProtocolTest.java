@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 /**
  * Test class for class {@link EURLProtocol}.
@@ -34,7 +34,7 @@ public final class EURLProtocolTest
   {
     for (final EURLProtocol e : EURLProtocol.values ())
     {
-      assertTrue (StringHelper.hasText (e.getProtocol ()));
+      assertTrue (Strings.isNotEmpty (e.getProtocol ()));
       assertTrue (e.isUsedInURL (e.getProtocol ()));
     }
   }

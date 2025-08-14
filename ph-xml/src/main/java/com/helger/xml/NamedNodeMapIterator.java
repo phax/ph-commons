@@ -24,8 +24,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

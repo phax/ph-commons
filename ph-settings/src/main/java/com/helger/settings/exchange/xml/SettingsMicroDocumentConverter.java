@@ -19,9 +19,9 @@ package com.helger.settings.exchange.xml;
 import java.util.Comparator;
 import java.util.Map;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.settings.ISettings;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.xml.microdom.IMicroElement;
@@ -90,7 +90,7 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
   {
     // Create new settings object
     final String sSettingsName = aElement.getAttributeValue (ATTR_NAME);
-    if (StringHelper.hasNoText (sSettingsName))
+    if (Strings.isEmpty (sSettingsName))
       throw new IllegalStateException ("Settings 'name' is missing or empty");
     final T aSettings = m_aSettingFactory.apply (sSettingsName);
 

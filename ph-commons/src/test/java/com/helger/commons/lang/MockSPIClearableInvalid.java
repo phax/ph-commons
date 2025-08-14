@@ -20,7 +20,7 @@ import com.helger.annotation.style.IsSPIImplementation;
 
 /**
  * Claims to be an SPI but does not implement the required
- * {@link com.helger.commons.state.IClearable} interface.
+ * {@link com.helger.base.state.IClearable} interface.
  *
  * @author Philip Helger
  */

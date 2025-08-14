@@ -22,7 +22,7 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.helger.commons.aggregate.IAggregator;
+import com.helger.base.aggregate.IAggregator;
 import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.mock.CommonsTestHelper;

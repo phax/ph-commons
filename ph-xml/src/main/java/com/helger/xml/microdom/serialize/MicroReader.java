@@ -32,9 +32,9 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.sax.InputSourceFactory;
@@ -68,13 +68,12 @@ public final class MicroReader
    * Read the passed input source as MicroXML.
    *
    * @param aInputSource
-   *        The input source to use. May be <code>null</code> in which case
-   *        <code>null</code> is directly returned.
+   *        The input source to use. May be <code>null</code> in which case <code>null</code> is
+   *        directly returned.
    * @param aSettings
-   *        The settings to use. If <code>null</code> the default settings will
-   *        be used.
-   * @return <code>null</code> if either the input source is <code>null</code>
-   *         or if the input was invalid XML.
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if either the input source is <code>null</code> or if the input was
+   *         invalid XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@WillClose @Nullable final InputSource aInputSource,
@@ -115,7 +114,8 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@WillClose @Nullable final InputStream aIS, @Nullable final ISAXReaderSettings aSettings)
+  public static IMicroDocument readMicroXML (@WillClose @Nullable final InputStream aIS,
+                                             @Nullable final ISAXReaderSettings aSettings)
   {
     if (aIS == null)
       return null;
@@ -167,7 +167,8 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final IReadableResource aRes, @Nullable final ISAXReaderSettings aSettings)
+  public static IMicroDocument readMicroXML (@Nullable final IReadableResource aRes,
+                                             @Nullable final ISAXReaderSettings aSettings)
   {
     if (aRes == null)
       return null;
@@ -182,7 +183,8 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final IHasInputStream aISP, @Nullable final ISAXReaderSettings aSettings)
+  public static IMicroDocument readMicroXML (@Nullable final IHasInputStream aISP,
+                                             @Nullable final ISAXReaderSettings aSettings)
   {
     if (aISP == null)
       return null;
@@ -197,7 +199,8 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@WillClose @Nullable final Reader aReader, @Nullable final ISAXReaderSettings aSettings)
+  public static IMicroDocument readMicroXML (@WillClose @Nullable final Reader aReader,
+                                             @Nullable final ISAXReaderSettings aSettings)
   {
     if (aReader == null)
       return null;
@@ -234,7 +237,8 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final CharSequence sXML, @Nullable final ISAXReaderSettings aSettings)
+  public static IMicroDocument readMicroXML (@Nullable final CharSequence sXML,
+                                             @Nullable final ISAXReaderSettings aSettings)
   {
     if (sXML == null)
       return null;
@@ -258,7 +262,9 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final byte [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static IMicroDocument readMicroXML (@Nullable final byte [] aXML,
+                                             @Nonnegative final int nOfs,
+                                             @Nonnegative final int nLen)
   {
     return readMicroXML (aXML, nOfs, nLen, (ISAXReaderSettings) null);
   }
@@ -291,7 +297,9 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final char [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static IMicroDocument readMicroXML (@Nullable final char [] aXML,
+                                             @Nonnegative final int nOfs,
+                                             @Nonnegative final int nLen)
   {
     return readMicroXML (aXML, nOfs, nLen, (ISAXReaderSettings) null);
   }
@@ -315,7 +323,8 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final ByteBuffer aXML, @Nullable final ISAXReaderSettings aSettings)
+  public static IMicroDocument readMicroXML (@Nullable final ByteBuffer aXML,
+                                             @Nullable final ISAXReaderSettings aSettings)
   {
     if (aXML == null)
       return null;

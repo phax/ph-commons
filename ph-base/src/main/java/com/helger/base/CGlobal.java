@@ -22,8 +22,8 @@ import java.math.BigInteger;
 import com.helger.annotation.concurrent.Immutable;
 
 /**
- * A class declaring system wide constants. Its main use is giving a semantic
- * meaning to constant values.
+ * A class declaring system wide constants. Its main use is giving a semantic meaning to constant
+ * values.
  *
  * @author Philip Helger
  */
@@ -126,14 +126,12 @@ public final class CGlobal
   public static final long BYTES_PER_GIGABYTE = BYTES_PER_MEGABYTE * BYTES_PER_KILOBYTE_LONG;
 
   /**
-   * Bytes per terabyte (1_099_511_627_776, 2^40). Needs to be a long and not an
-   * int!
+   * Bytes per terabyte (1_099_511_627_776, 2^40). Needs to be a long and not an int!
    */
   public static final long BYTES_PER_TERABYTE = BYTES_PER_GIGABYTE * BYTES_PER_KILOBYTE;
 
   /**
-   * Bytes per petabyte (1_125_899_906_842_624, 2^50). Needs to be a long and
-   * not an int!
+   * Bytes per petabyte (1_125_899_906_842_624, 2^50). Needs to be a long and not an int!
    */
   public static final long BYTES_PER_PETABYTE = BYTES_PER_TERABYTE * BYTES_PER_KILOBYTE;
 
@@ -242,14 +240,12 @@ public final class CGlobal
   public static final BigInteger BIGINT_MIN_INT = BigInteger.valueOf (Integer.MIN_VALUE);
 
   /**
-   * The BigInteger for the largest possible long value
-   * (9_223_372_036_854_775_807)
+   * The BigInteger for the largest possible long value (9_223_372_036_854_775_807)
    */
   public static final BigInteger BIGINT_MAX_LONG = BigInteger.valueOf (Long.MAX_VALUE);
 
   /**
-   * The BigInteger for the smallest possible long value
-   * (-9_223_372_036_854_775_808)
+   * The BigInteger for the smallest possible long value (-9_223_372_036_854_775_808)
    */
   public static final BigInteger BIGINT_MIN_LONG = BigInteger.valueOf (Long.MIN_VALUE);
 
@@ -314,14 +310,12 @@ public final class CGlobal
   public static final BigDecimal BIGDEC_MIN_INT = BigDecimal.valueOf (Integer.MIN_VALUE);
 
   /**
-   * The BigDecimal for the largest possible long value
-   * (9_223_372_036_854_775_807)
+   * The BigDecimal for the largest possible long value (9_223_372_036_854_775_807)
    */
   public static final BigDecimal BIGDEC_MAX_LONG = BigDecimal.valueOf (Long.MAX_VALUE);
 
   /**
-   * The BigDecimal for the smallest possible long value
-   * (-9_223_372_036_854_775_808)
+   * The BigDecimal for the smallest possible long value (-9_223_372_036_854_775_808)
    */
   public static final BigDecimal BIGDEC_MIN_LONG = BigDecimal.valueOf (Long.MIN_VALUE);
 
@@ -332,8 +326,7 @@ public final class CGlobal
   public static final BigDecimal BIGDEC_MIN_FLOAT = BigDecimal.valueOf (Float.MIN_VALUE);
 
   /**
-   * The BigDecimal for the largest possible double value
-   * (1.7976931348623157E308)
+   * The BigDecimal for the largest possible double value (1.7976931348623157E308)
    */
   public static final BigDecimal BIGDEC_MAX_DOUBLE = BigDecimal.valueOf (Double.MAX_VALUE);
 
@@ -417,6 +410,45 @@ public final class CGlobal
   public static final Long DEFAULT_LONG_OBJ = Long.valueOf (DEFAULT_LONG);
   /** Short value of {@link #DEFAULT_SHORT} (0) */
   public static final Short DEFAULT_SHORT_OBJ = Short.valueOf (DEFAULT_SHORT);
+
+  /** Constant empty boolean array */
+  public static final boolean [] EMPTY_BOOLEAN_ARRAY = {};
+  /** Constant empty byte array */
+  public static final byte [] EMPTY_BYTE_ARRAY = {};
+  /** Constant empty char array */
+  public static final char [] EMPTY_CHAR_ARRAY = {};
+  /** Constant empty double array */
+  public static final double [] EMPTY_DOUBLE_ARRAY = {};
+  /** Constant empty float array */
+  public static final float [] EMPTY_FLOAT_ARRAY = {};
+  /** Constant empty int array */
+  public static final int [] EMPTY_INT_ARRAY = {};
+  /** Constant empty long array */
+  public static final long [] EMPTY_LONG_ARRAY = {};
+  /** Constant empty short array */
+  public static final short [] EMPTY_SHORT_ARRAY = {};
+  /** Constant empty boolean array */
+  public static final Boolean [] EMPTY_BOOLEAN_OBJ_ARRAY = {};
+  /** Constant empty byte array */
+  public static final Byte [] EMPTY_BYTE_OBJ_ARRAY = {};
+  /** Constant empty char array */
+  public static final Character [] EMPTY_CHAR_OBJ_ARRAY = {};
+  /** Constant empty double array */
+  public static final Double [] EMPTY_DOUBLE_OBJ_ARRAY = {};
+  /** Constant empty float array */
+  public static final Float [] EMPTY_FLOAT_OBJ_ARRAY = {};
+  /** Constant empty int array */
+  public static final Integer [] EMPTY_INT_OBJ_ARRAY = {};
+  /** Constant empty long array */
+  public static final Long [] EMPTY_LONG_OBJ_ARRAY = {};
+  /** Constant empty short array */
+  public static final Short [] EMPTY_SHORT_OBJ_ARRAY = {};
+  /** Constant empty Object array */
+  public static final Object [] EMPTY_OBJECT_ARRAY = {};
+  /** Constant empty String array */
+  public static final String [] EMPTY_STRING_ARRAY = {};
+  /** Constant empty Class&lt;?&gt; array */
+  public static final Class <?> [] EMPTY_CLASS_ARRAY = {};
 
   private CGlobal ()
   {}

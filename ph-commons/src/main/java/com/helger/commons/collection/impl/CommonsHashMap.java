@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 
 import jakarta.annotation.Nonnull;

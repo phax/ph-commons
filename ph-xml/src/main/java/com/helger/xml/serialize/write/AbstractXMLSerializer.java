@@ -31,17 +31,17 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.nonblocking.NonBlockingBufferedWriter;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.io.stream.NonBlockingBufferedWriter;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.XMLHelper;
 import com.helger.xml.namespace.IIterableNamespaceContext;
 
@@ -93,7 +93,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     @Nullable
     public String getNamespaceURIOfPrefix (@Nullable final String sPrefix)
     {
-      if (StringHelper.hasNoText (sPrefix))
+      if (Strings.isEmpty (sPrefix))
         return m_sDefaultNamespaceURI;
 
       if (m_aURL2PrefixMap != null)
@@ -118,7 +118,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
                      "' instead of '" +
                      sExistingNamespaceURI +
                      "'");
-      if (StringHelper.hasNoText (sPrefix))
+      if (Strings.isEmpty (sPrefix))
       {
         if (m_sDefaultNamespaceURI != null)
           LOGGER.warn ("Overwriting default namespace '" +
@@ -239,7 +239,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       for (final NamespaceLevel aNSLevel : m_aStack)
       {
         final String sDefaultNamespaceURI = aNSLevel.getDefaultNamespaceURI ();
-        if (StringHelper.hasText (sDefaultNamespaceURI))
+        if (Strings.isNotEmpty (sDefaultNamespaceURI))
           return sDefaultNamespaceURI;
       }
       // no default namespace
@@ -343,7 +343,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
                                                   final boolean bIsRootElement,
                                                   @Nonnull final Map <QName, String> aAttrMap)
     {
-      final String sDefaultNamespaceURI = StringHelper.getNotNull (_getDefaultNamespaceURI ());
+      final String sDefaultNamespaceURI = Strings.getNotNull (_getDefaultNamespaceURI ());
       if (sNamespaceURI.equals (sDefaultNamespaceURI))
       {
         // It's the default namespace
@@ -376,7 +376,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
                                                     @Nonnull final String sValue,
                                                     @Nonnull final Map <QName, String> aAttrMap)
     {
-      final String sDefaultNamespaceURI = StringHelper.getNotNull (_getDefaultNamespaceURI ());
+      final String sDefaultNamespaceURI = Strings.getNotNull (_getDefaultNamespaceURI ());
       if (sNamespaceURI.equals (sDefaultNamespaceURI))
       {
         // It's the default namespace

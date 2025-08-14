@@ -18,10 +18,10 @@ package com.helger.datetime.expiration;
 
 import java.time.LocalDateTime;
 
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -52,7 +52,7 @@ public class Expirable implements IMutableExpirable
   @Nonnull
   public EChange setExpirationDateTime (@Nullable final LocalDateTime aExpirationDateTime)
   {
-    if (EqualsHelper.equals (aExpirationDateTime, m_aExpirationDateTime))
+    if (EqualsHelperExt.extEquals (aExpirationDateTime, m_aExpirationDateTime))
       return EChange.UNCHANGED;
     m_aExpirationDateTime = aExpirationDateTime;
     return EChange.CHANGED;
@@ -66,7 +66,7 @@ public class Expirable implements IMutableExpirable
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Expirable rhs = (Expirable) o;
-    return EqualsHelper.equals (m_aExpirationDateTime, rhs.m_aExpirationDateTime);
+    return EqualsHelperExt.extEquals (m_aExpirationDateTime, rhs.m_aExpirationDateTime);
   }
 
   @Override

@@ -23,17 +23,17 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -109,7 +109,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
 
   public boolean supportsReading (@Nullable final String sName)
   {
-    if (StringHelper.hasNoText (sName))
+    if (Strings.isEmpty (sName))
       return false;
     if (ClassPathResource.isExplicitClassPathResource (sName))
       return false;
@@ -124,7 +124,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
 
   public boolean supportsWriting (@Nullable final String sName)
   {
-    if (StringHelper.hasNoText (sName))
+    if (Strings.isEmpty (sName))
       return false;
     if (ClassPathResource.isExplicitClassPathResource (sName))
       return false;
@@ -154,7 +154,8 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemResourceProvider rhs = (FileSystemResourceProvider) o;
-    return EqualsHelper.equals (m_aBasePath, rhs.m_aBasePath) && m_bCanReadRelativePaths == rhs.m_bCanReadRelativePaths;
+    return EqualsHelperExt.extEquals (m_aBasePath, rhs.m_aBasePath) &&
+           m_bCanReadRelativePaths == rhs.m_bCanReadRelativePaths;
   }
 
   @Override

@@ -18,8 +18,8 @@ package com.helger.datetime.period;
 
 import java.time.LocalDate;
 
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.datetime.domain.IHasStartAndEnd;
 
 import jakarta.annotation.Nonnull;

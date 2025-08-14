@@ -17,9 +17,9 @@
 package com.helger.commons.mime;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.string.Strings;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -90,12 +90,10 @@ public enum EMimeContentType implements IHasID <String>
   }
 
   /**
-   * Build a new {@link MimeType} based on this MIME content type and the
-   * provided sub type.
+   * Build a new {@link MimeType} based on this MIME content type and the provided sub type.
    *
    * @param sContentSubType
-   *        The content sub type to append. May neither be <code>null</code> nor
-   *        empty.
+   *        The content sub type to append. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
   @Nonnull
@@ -109,12 +107,12 @@ public enum EMimeContentType implements IHasID <String>
    *
    * @param sMimeType
    *        The MIME type string to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed MIME type has this content type,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if the passed MIME type has this content type, <code>false</code>
+   *         otherwise
    */
   public boolean isTypeOf (@Nullable final String sMimeType)
   {
-    if (StringHelper.hasNoText (sMimeType))
+    if (Strings.isEmpty (sMimeType))
       return false;
     final int nIdx = sMimeType.indexOf (CMimeType.SEPARATOR_CONTENTTYPE_SUBTYPE);
     if (nIdx < 0)

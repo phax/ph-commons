@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsAssert;
+import com.helger.base.mock.CommonsAssert;
 
 /**
  * Tests for class {@link GlobalDebug}

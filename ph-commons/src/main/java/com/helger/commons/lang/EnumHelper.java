@@ -26,7 +26,11 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.GenericReflection;
+import com.helger.base.state.EChange;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -35,9 +39,6 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.id.IHasIntID;
 import com.helger.commons.name.IHasName;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -51,7 +52,7 @@ import jakarta.annotation.Nullable;
 public final class EnumHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (EnumHelper.class);
-  private static final Object [] NOT_CACHABLE = ArrayHelper.EMPTY_OBJECT_ARRAY;
+  private static final Object [] NOT_CACHABLE = CGlobal.EMPTY_OBJECT_ARRAY;
   private static final SimpleReadWriteLock RW_LOCK_INTCACHE = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK_INTCACHE")
   private static final ICommonsMap <String, Object []> INT_CACHE = new CommonsHashMap <> ();
@@ -202,8 +203,8 @@ public final class EnumHelper
   }
 
   /**
-   * Get the enum value with the passed string ID (case insensitive). If no such
-   * ID is present, an {@link IllegalArgumentException} is thrown.
+   * Get the enum value with the passed string ID (case insensitive). If no such ID is present, an
+   * {@link IllegalArgumentException} is thrown.
    *
    * @param <ENUMTYPE>
    *        The enum type
@@ -365,8 +366,7 @@ public final class EnumHelper
    *        The name to search
    * @param eDefault
    *        The default value to be returned, if the name was not found.
-   * @return The default parameter if no enum item with the given name is
-   *         present.
+   * @return The default parameter if no enum item with the given name is present.
    */
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
@@ -375,7 +375,7 @@ public final class EnumHelper
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    if (StringHelper.hasNoText (sName))
+    if (Strings.isEmpty (sName))
       return eDefault;
     return findFirst (aClass, x -> x.getName ().equals (sName), eDefault);
   }
@@ -433,8 +433,7 @@ public final class EnumHelper
    *        The name to search
    * @param eDefault
    *        The default value to be returned, if the name was not found.
-   * @return The default parameter if no enum item with the given name is
-   *         present.
+   * @return The default parameter if no enum item with the given name is present.
    */
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameCaseInsensitiveOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
@@ -443,14 +442,14 @@ public final class EnumHelper
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    if (StringHelper.hasNoText (sName))
+    if (Strings.isEmpty (sName))
       return eDefault;
     return findFirst (aClass, x -> x.getName ().equalsIgnoreCase (sName), eDefault);
   }
 
   /**
-   * Get the enum value with the passed name (case insensitive). If no such name
-   * is present, an {@link IllegalArgumentException} is thrown.
+   * Get the enum value with the passed name (case insensitive). If no such name is present, an
+   * {@link IllegalArgumentException} is thrown.
    *
    * @param <ENUMTYPE>
    *        The enum type
@@ -477,8 +476,8 @@ public final class EnumHelper
    *
    * @param aEnum
    *        The enum to use. May not be <code>null</code>.
-   * @return The unique ID as a combination of the class name and the enum entry
-   *         name. Never <code>null</code>.
+   * @return The unique ID as a combination of the class name and the enum entry name. Never
+   *         <code>null</code>.
    */
   @Nonnull
   public static String getEnumID (@Nonnull final Enum <?> aEnum)

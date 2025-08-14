@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 

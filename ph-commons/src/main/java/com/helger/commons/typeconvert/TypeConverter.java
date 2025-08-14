@@ -21,23 +21,22 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.GenericReflection;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Helper class for converting base types likes "boolean" to object types like
- * "Boolean".<br>
- * Uses {@link TypeConverterRegistry#getFuzzyConverter(Class, Class)} for
- * retrieving a registered converter. If no converter is found, it is checked
- * whether a mapping from a primitive type to an object type exists.
+ * Helper class for converting base types likes "boolean" to object types like "Boolean".<br>
+ * Uses {@link TypeConverterRegistry#getFuzzyConverter(Class, Class)} for retrieving a registered
+ * converter. If no converter is found, it is checked whether a mapping from a primitive type to an
+ * object type exists.
  *
  * @author Philip Helger
  */
@@ -55,8 +54,7 @@ public final class TypeConverter implements IHasConditionalLogger
   {}
 
   /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it
-   *         is enabled.
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it is enabled.
    * @since 9.4.0
    */
   public static boolean isSilentMode ()
@@ -68,8 +66,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * Enable or disable certain regular log messages.
    *
    * @param bSilentMode
-   *        <code>true</code> to disable logging, <code>false</code> to enable
-   *        logging
+   *        <code>true</code> to disable logging, <code>false</code> to enable logging
    * @return The previous value of the silent mode.
    * @since 9.4.0
    */
@@ -133,8 +130,8 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The source value. May not be <code>null</code>.
    * @return The converted value.
    * @throws TypeConverterException
-   *         if the source value is <code>null</code> or if no converter was
-   *         found or if the converter returned a <code>null</code> object.
+   *         if the source value is <code>null</code> or if no converter was found or if the
+   *         converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -153,8 +150,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param bDefault
-   *        The default value to be returned if an error occurs during type
-   *        conversion.
+   *        The default value to be returned if an error occurs during type conversion.
    * @return <code>null</code> if the source value was <code>null</code>.
    * @throws RuntimeException
    *         If the converter itself throws an exception
@@ -173,8 +169,8 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The source value. May not be <code>null</code>.
    * @return The converted value.
    * @throws TypeConverterException
-   *         if the source value is <code>null</code> or if no converter was
-   *         found or if the converter returned a <code>null</code> object.
+   *         if the source value is <code>null</code> or if no converter was found or if the
+   *         converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -193,8 +189,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param nDefault
-   *        The default value to be returned if an error occurs during type
-   *        conversion.
+   *        The default value to be returned if an error occurs during type conversion.
    * @return The converted value.
    * @throws RuntimeException
    *         If the converter itself throws an exception
@@ -213,8 +208,8 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The source value. May not be <code>null</code>.
    * @return The converted value.
    * @throws TypeConverterException
-   *         if the source value is <code>null</code> or if no converter was
-   *         found or if the converter returned a <code>null</code> object.
+   *         if the source value is <code>null</code> or if no converter was found or if the
+   *         converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -233,8 +228,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param cDefault
-   *        The default value to be returned if an error occurs during type
-   *        conversion.
+   *        The default value to be returned if an error occurs during type conversion.
    * @return The converted value.
    * @throws RuntimeException
    *         If the converter itself throws an exception
@@ -253,8 +247,8 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The source value. May not be <code>null</code>.
    * @return The converted value.
    * @throws TypeConverterException
-   *         if the source value is <code>null</code> or if no converter was
-   *         found or if the converter returned a <code>null</code> object.
+   *         if the source value is <code>null</code> or if no converter was found or if the
+   *         converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -273,8 +267,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param dDefault
-   *        The default value to be returned if an error occurs during type
-   *        conversion.
+   *        The default value to be returned if an error occurs during type conversion.
    * @return The converted value.
    * @throws RuntimeException
    *         If the converter itself throws an exception
@@ -293,8 +286,8 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The source value. May not be <code>null</code>.
    * @return The converted value.
    * @throws TypeConverterException
-   *         if the source value is <code>null</code> or if no converter was
-   *         found or if the converter returned a <code>null</code> object.
+   *         if the source value is <code>null</code> or if no converter was found or if the
+   *         converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -313,8 +306,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param fDefault
-   *        The default value to be returned if an error occurs during type
-   *        conversion.
+   *        The default value to be returned if an error occurs during type conversion.
    * @return The converted value.
    * @throws RuntimeException
    *         If the converter itself throws an exception
@@ -333,8 +325,8 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The source value. May not be <code>null</code>.
    * @return The converted value.
    * @throws TypeConverterException
-   *         if the source value is <code>null</code> or if no converter was
-   *         found or if the converter returned a <code>null</code> object.
+   *         if the source value is <code>null</code> or if no converter was found or if the
+   *         converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -353,8 +345,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param nDefault
-   *        The default value to be returned if an error occurs during type
-   *        conversion.
+   *        The default value to be returned if an error occurs during type conversion.
    * @return The converted value.
    * @throws RuntimeException
    *         If the converter itself throws an exception
@@ -373,8 +364,8 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The source value. May not be <code>null</code>.
    * @return The converted value.
    * @throws TypeConverterException
-   *         if the source value is <code>null</code> or if no converter was
-   *         found or if the converter returned a <code>null</code> object.
+   *         if the source value is <code>null</code> or if no converter was found or if the
+   *         converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -393,8 +384,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param nDefault
-   *        The default value to be returned if an error occurs during type
-   *        conversion.
+   *        The default value to be returned if an error occurs during type conversion.
    * @return The converted value.
    * @throws RuntimeException
    *         If the converter itself throws an exception
@@ -413,8 +403,8 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The source value. May not be <code>null</code>.
    * @return The converted value.
    * @throws TypeConverterException
-   *         if the source value is <code>null</code> or if no converter was
-   *         found or if the converter returned a <code>null</code> object.
+   *         if the source value is <code>null</code> or if no converter was found or if the
+   *         converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -433,8 +423,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param nDefault
-   *        The default value to be returned if an error occurs during type
-   *        conversion.
+   *        The default value to be returned if an error occurs during type conversion.
    * @return The converted value.
    * @throws RuntimeException
    *         If the converter itself throws an exception
@@ -447,8 +436,8 @@ public final class TypeConverter implements IHasConditionalLogger
   }
 
   /**
-   * Convert the passed source value to the destination class using the best
-   * match type converter provider, if a conversion is necessary.
+   * Convert the passed source value to the destination class using the best match type converter
+   * provider, if a conversion is necessary.
    *
    * @param <DSTTYPE>
    *        The destination type.
@@ -458,8 +447,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The destination class to use.
    * @return <code>null</code> if the source value was <code>null</code>.
    * @throws TypeConverterException
-   *         If no converter was found or if the converter returned a
-   *         <code>null</code> object.
+   *         If no converter was found or if the converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -471,12 +459,11 @@ public final class TypeConverter implements IHasConditionalLogger
   }
 
   /**
-   * Get the class to use. In case the passed class is a primitive type, the
-   * corresponding wrapper class is used.
+   * Get the class to use. In case the passed class is a primitive type, the corresponding wrapper
+   * class is used.
    *
    * @param aClass
-   *        The class to check. Can be <code>null</code> but should not be
-   *        <code>null</code>.
+   *        The class to check. Can be <code>null</code> but should not be <code>null</code>.
    * @return <code>null</code> if the parameter is <code>null</code>.
    */
   @Nullable
@@ -534,8 +521,7 @@ public final class TypeConverter implements IHasConditionalLogger
   }
 
   /**
-   * Convert the passed source value to the destination class, if a conversion
-   * is necessary.
+   * Convert the passed source value to the destination class, if a conversion is necessary.
    *
    * @param <DSTTYPE>
    *        The destination type.
@@ -547,8 +533,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *        The destination class to use.
    * @return <code>null</code> if the source value was <code>null</code>.
    * @throws TypeConverterException
-   *         If no converter was found or if the converter returned a
-   *         <code>null</code> object.
+   *         If no converter was found or if the converter returned a <code>null</code> object.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    */
@@ -581,8 +566,8 @@ public final class TypeConverter implements IHasConditionalLogger
   }
 
   /**
-   * Convert the passed source value to the destination class using the best
-   * match type converter provider, if a conversion is necessary.
+   * Convert the passed source value to the destination class using the best match type converter
+   * provider, if a conversion is necessary.
    *
    * @param <DSTTYPE>
    *        The destination type.
@@ -591,10 +576,9 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aDstClass
    *        The destination class to use.
    * @param aDefault
-   *        The default value to be returned, if an
-   *        {@link TypeConverterException} occurs.
-   * @return <code>null</code> if the source value was <code>null</code> or the
-   *         default value is <code>null</code>.
+   *        The default value to be returned, if an {@link TypeConverterException} occurs.
+   * @return <code>null</code> if the source value was <code>null</code> or the default value is
+   *         <code>null</code>.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
@@ -608,8 +592,7 @@ public final class TypeConverter implements IHasConditionalLogger
   }
 
   /**
-   * Convert the passed source value to the destination class, if a conversion
-   * is necessary.
+   * Convert the passed source value to the destination class, if a conversion is necessary.
    *
    * @param <DSTTYPE>
    *        The destination type.
@@ -620,10 +603,9 @@ public final class TypeConverter implements IHasConditionalLogger
    * @param aDstClass
    *        The destination class to use.
    * @param aDefault
-   *        The default value to be returned, if an
-   *        {@link TypeConverterException} occurs.
-   * @return <code>null</code> if the source value was <code>null</code> or the
-   *         default value is <code>null</code>.
+   *        The default value to be returned, if an {@link TypeConverterException} occurs.
+   * @return <code>null</code> if the source value was <code>null</code> or the default value is
+   *         <code>null</code>.
    * @throws RuntimeException
    *         If the converter itself throws an exception
    */

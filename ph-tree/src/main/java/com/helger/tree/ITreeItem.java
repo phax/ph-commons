@@ -18,7 +18,7 @@ package com.helger.tree;
 
 import java.util.Comparator;
 
-import com.helger.commons.state.EChange;
+import com.helger.base.state.EChange;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

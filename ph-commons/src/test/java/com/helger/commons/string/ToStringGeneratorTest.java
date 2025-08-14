@@ -25,9 +25,10 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
+import com.helger.base.compare.ESortOrder;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.compare.ESortOrder;
 
 import jakarta.annotation.Nullable;
 

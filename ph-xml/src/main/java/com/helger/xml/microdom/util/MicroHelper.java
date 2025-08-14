@@ -26,8 +26,8 @@ import org.w3c.dom.ProcessingInstruction;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ClassHelper;
 import com.helger.xml.XMLHelper;
 import com.helger.xml.microdom.IMicroContainer;
 import com.helger.xml.microdom.IMicroDocument;
@@ -85,7 +85,7 @@ public final class MicroHelper
               append (aSrcNode, aSubChild);
           }
           else
-            if (ArrayHelper.isArray (aChild))
+            if (ClassHelper.isArray (aChild))
             {
               // it's a nested collection
               for (final Object aSubChild : (Object []) aChild)

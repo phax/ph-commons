@@ -22,14 +22,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import com.helger.base.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.locale.LocaleFormatter;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.util.LevenshteinDistance;
 
 /**
@@ -68,21 +67,22 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
                                                                                                             throws IOException
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
-    final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),
-                                                                                                aCharset));
-    String sLine;
-    int nIdx = 0;
-    while ((sLine = aBR.readLine ()) != null)
+    try (final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),
+                                                                                                     aCharset)))
     {
-      nIdx++;
-      if ((nIdx % 3) == 0)
+      String sLine;
+      int nIdx = 0;
+      while ((sLine = aBR.readLine ()) != null)
       {
-        ret.add (sLine);
-        if (ret.size () >= 100)
-          break;
+        nIdx++;
+        if ((nIdx % 3) == 0)
+        {
+          ret.add (sLine);
+          if (ret.size () >= 100)
+            break;
+        }
       }
     }
-    StreamHelper.close (aBR);
     return ret;
   }
 
@@ -109,7 +109,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
       // 309 chars
       aStrings.add ("Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very ");
       // 1024 chars
-      aStrings.add (StringHelper.getRepeated ("a", 1024));
+      aStrings.add (Strings.getRepeated ("a", 1024));
     }
     final String [] aStringArray = aStrings.toArray (new String [0]);
     LOGGER.info ("Comparing " +

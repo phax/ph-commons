@@ -36,7 +36,11 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.functional.IThrowingConsumer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -44,10 +48,6 @@ import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.commons.io.resourceprovider.IReadableResourceProvider;
 import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -323,7 +323,7 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
 
     // Get the parameters for the key store
-    if (aKeyStoreType.isKeyStorePathRequired () && StringHelper.hasNoText (sKeyStorePath))
+    if (aKeyStoreType.isKeyStorePathRequired () && Strings.isEmpty (sKeyStorePath))
       return new LoadedKeyStore (null, EKeyStoreLoadError.KEYSTORE_NO_PATH);
 
     final KeyStore aKeyStore;
@@ -375,7 +375,7 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
     ValueEnforcer.notNull (aTargetClass, "TargetClass");
 
-    if (StringHelper.hasNoText (sKeyStoreKeyAlias))
+    if (Strings.isEmpty (sKeyStoreKeyAlias))
       return new LoadedKey <> (null, EKeyStoreLoadError.KEY_NO_ALIAS, sKeyStorePath);
 
     if (aKeyStoreKeyPassword == null)

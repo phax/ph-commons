@@ -26,8 +26,8 @@ import java.util.Locale;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 
 import jakarta.annotation.Nonnull;
 
@@ -69,15 +69,14 @@ public final class RoundHelper
    * @param dValue
    *        The value to be rounded
    * @param nScale
-   *        The precision of the decimal scale. If type is
-   *        {@link EDecimalType#FIX} the decimal scale, else the (carrying scale
-   *        - 1). Should be &ge; 0.
+   *        The precision of the decimal scale. If type is {@link EDecimalType#FIX} the decimal
+   *        scale, else the (carrying scale - 1). Should be &ge; 0.
    * @param eType
    *        The formatting type. May not be <code>null</code>.
    * @param eMode
    *        The rounding mode to be used. May not be <code>null</code>.
-   * @return the rounded value according to the specified rules. For NaN and
-   *         infinite values, the input value is returned as is.
+   * @return the rounded value according to the specified rules. For NaN and infinite values, the
+   *         input value is returned as is.
    */
   public static double getRounded (final double dValue,
                                    @Nonnegative final int nScale,
@@ -119,8 +118,8 @@ public final class RoundHelper
   }
 
   /**
-   * Round using the {@link RoundingMode#HALF_UP} mode, fix representation and a
-   * precision scale of 2.
+   * Round using the {@link RoundingMode#HALF_UP} mode, fix representation and a precision scale of
+   * 2.
    *
    * @param dValue
    *        The value to be rounded
@@ -132,8 +131,7 @@ public final class RoundHelper
   }
 
   /**
-   * Round using the {@link RoundingMode#HALF_EVEN} mode and exponential
-   * representation
+   * Round using the {@link RoundingMode#HALF_EVEN} mode and exponential representation
    *
    * @param dValue
    *        The value to be rounded
@@ -147,8 +145,8 @@ public final class RoundHelper
   }
 
   /**
-   * Round using the {@link RoundingMode#HALF_EVEN} mode, exponential
-   * representation and a precision scale of 2.
+   * Round using the {@link RoundingMode#HALF_EVEN} mode, exponential representation and a precision
+   * scale of 2.
    *
    * @param dValue
    *        The value to be rounded
@@ -165,16 +163,14 @@ public final class RoundHelper
    * @param dValue
    *        the value to be formatted
    * @param nScale
-   *        The precision of the decimal scale. If type is
-   *        {@link EDecimalType#FIX} the decimal scale, else the (carrying scale
-   *        - 1). Should be &ge; 0.
+   *        The precision of the decimal scale. If type is {@link EDecimalType#FIX} the decimal
+   *        scale, else the (carrying scale - 1). Should be &ge; 0.
    * @param eType
    *        The formatting type. May not be <code>null</code>.
    * @param aLocale
-   *        The locale to be used for the decimal symbols. May not be
-   *        <code>null</code>.
-   * @return the string representation of the double value. For NaN and infinite
-   *         values, the return of {@link Double#toString()} is returned.
+   *        The locale to be used for the decimal symbols. May not be <code>null</code>.
+   * @return the string representation of the double value. For NaN and infinite values, the return
+   *         of {@link Double#toString()} is returned.
    */
   @Nonnull
   public static String getFormatted (final double dValue,
@@ -197,10 +193,10 @@ public final class RoundHelper
 
     if (eType.isExponential ())
     {
-      String sPattern = "0E0";
+      StringBuilder sPattern = new StringBuilder ("0E0");
       if (nScale > 0)
-        sPattern += '.' + StringHelper.getRepeated ('0', nScale);
-      aDF.applyPattern (sPattern);
+        sPattern.append ('.').append (Strings.getRepeated ('0', nScale));
+      aDF.applyPattern (sPattern.toString ());
     }
     else
     {

@@ -44,6 +44,11 @@ import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
@@ -55,13 +60,10 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.commons.wrapper.IMutableWrapper;
 
 import jakarta.annotation.Nonnull;
@@ -281,23 +283,23 @@ public final class URLHelper
     // in the unit test) this code would wait forever in the static initializer
     // because XMLMapHandler internally also acquires an XML reader....
     final ICommonsOrderedMap <String, String> aCleanURLMap = new CommonsLinkedHashMap <> ();
-    StreamHelper.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"),
-                                  StandardCharsets.UTF_8,
-                                  sLine -> {
-                                    if (sLine.length () > 0 && sLine.charAt (0) == '"')
-                                    {
-                                      final String [] aParts = StringHelper.getExplodedArray ('=', sLine, 2);
-                                      String sKey = StringHelper.trimStartAndEnd (aParts[0], '"');
-                                      if (sKey.startsWith ("&#"))
-                                      {
-                                        // E.g. "&#12345;"
-                                        sKey = StringHelper.trimStartAndEnd (sKey, "&#", ";");
-                                        sKey = Character.toString ((char) StringParser.parseInt (sKey, -1));
-                                      }
-                                      final String sValue = StringHelper.trimStartAndEnd (aParts[1], '"');
-                                      aCleanURLMap.put (sKey, sValue);
-                                    }
-                                  });
+    StreamHelperExt.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"),
+                                     StandardCharsets.UTF_8,
+                                     sLine -> {
+                                       if (sLine.length () > 0 && sLine.charAt (0) == '"')
+                                       {
+                                         final String [] aParts = StringHelper.getExplodedArray ('=', sLine, 2);
+                                         String sKey = StringHelper.trimStartAndEnd (aParts[0], '"');
+                                         if (sKey.startsWith ("&#"))
+                                         {
+                                           // E.g. "&#12345;"
+                                           sKey = StringHelper.trimStartAndEnd (sKey, "&#", ";");
+                                           sKey = Character.toString ((char) StringParser.parseInt (sKey, -1));
+                                         }
+                                         final String sValue = StringHelper.trimStartAndEnd (aParts[1], '"');
+                                         aCleanURLMap.put (sKey, sValue);
+                                       }
+                                     });
     // if (XMLMapHandler.readMap (new ClassPathResource
     // ("codelists/cleanurl-data.xml"), aCleanURLMap).isFailure ())
     // throw new InitializationException ("Failed to init CleanURL data!");
@@ -330,7 +332,7 @@ public final class URLHelper
   {
     if (s_aCleanURLOld == null)
       _initCleanURL ();
-    final char [] ret = StringHelper.replaceMultiple (sURLPart, s_aCleanURLOld, s_aCleanURLNew);
+    final char [] ret = Strings.replaceMultiple (sURLPart, s_aCleanURLOld, s_aCleanURLNew);
     return new String (ret);
   }
 
@@ -396,7 +398,7 @@ public final class URLHelper
       final String sQueryString = sRemainingHref.substring (nQuestionIndex + 1).trim ();
 
       // Maybe empty, if the URL ends with a '?'
-      if (StringHelper.hasText (sQueryString))
+      if (Strings.isNotEmpty (sQueryString))
         aParams = getParsedQueryParameters (sQueryString, aParameterDecoder);
 
       sPath = sRemainingHref.substring (0, nQuestionIndex).trim ();
@@ -412,7 +414,7 @@ public final class URLHelper
                                                            @Nullable final IDecoder <String, String> aParameterDecoder)
   {
     final URLParameterList aMap = new URLParameterList ();
-    if (StringHelper.hasText (sQueryString))
+    if (Strings.isNotEmpty (sQueryString))
     {
       for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))
         if (sKeyValuePair.length () > 0)
@@ -420,7 +422,7 @@ public final class URLHelper
           final ICommonsList <String> aParts = StringHelper.getExploded (EQUALS, sKeyValuePair, 2);
           final String sKey = aParts.get (0);
           // Maybe empty when passing something like "url?=value"
-          if (StringHelper.hasText (sKey))
+          if (Strings.isNotEmpty (sKey))
           {
             final String sValue = aParts.size () == 2 ? aParts.get (1) : "";
             if (sValue == null)
@@ -462,9 +464,9 @@ public final class URLHelper
                                      @Nullable final String sQueryParams,
                                      @Nullable final String sAnchor)
   {
-    final boolean bHasPath = StringHelper.hasText (sPath);
-    final boolean bHasQueryParams = StringHelper.hasText (sQueryParams);
-    final boolean bHasAnchor = StringHelper.hasText (sAnchor);
+    final boolean bHasPath = Strings.isNotEmpty (sPath);
+    final boolean bHasQueryParams = Strings.isNotEmpty (sQueryParams);
+    final boolean bHasAnchor = Strings.isNotEmpty (sAnchor);
     if (GlobalDebug.isDebugMode ())
     {
       // Consistency checks
@@ -624,7 +626,7 @@ public final class URLHelper
   @Nullable
   public static URL getAsURL (@Nullable final String sURL, final boolean bWhine)
   {
-    if (StringHelper.hasText (sURL))
+    if (Strings.isNotEmpty (sURL))
       try
       {
         return new URL (sURL);
@@ -688,7 +690,7 @@ public final class URLHelper
   @Nullable
   public static URI getAsURI (@Nullable final String sURI)
   {
-    if (StringHelper.hasText (sURI))
+    if (Strings.isNotEmpty (sURI))
       try
       {
         return new URI (sURI);
@@ -987,7 +989,7 @@ public final class URLHelper
    */
   public static boolean isValidURN (@Nullable final String sURN)
   {
-    if (StringHelper.hasNoText (sURN))
+    if (Strings.isEmpty (sURN))
       return false;
     return RegExHelper.stringMatchesPattern (REGEX_URN, sURN);
   }

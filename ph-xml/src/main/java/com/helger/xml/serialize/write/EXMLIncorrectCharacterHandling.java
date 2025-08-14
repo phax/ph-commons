@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.string.StringHex;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
@@ -34,8 +35,7 @@ import jakarta.annotation.Nonnull;
 public enum EXMLIncorrectCharacterHandling
 {
   /**
-   * Throw an {@link IllegalArgumentException} in case of incorrect XML
-   * characters.
+   * Throw an {@link IllegalArgumentException} in case of incorrect XML characters.
    */
   THROW_EXCEPTION (true, false)
   {
@@ -51,11 +51,10 @@ public enum EXMLIncorrectCharacterHandling
   },
 
   /**
-   * Write the invalid character to the file. This will result in a file that
-   * cannot be read with the Java XML parser.<br>
-   * This is the fastest option. This is how it was handled in ph-commons &le;
-   * 3.3.6. This option will most probably result in unreadable XML files as no
-   * replacement takes place!
+   * Write the invalid character to the file. This will result in a file that cannot be read with
+   * the Java XML parser.<br>
+   * This is the fastest option. This is how it was handled in ph-commons &le; 3.3.6. This option
+   * will most probably result in unreadable XML files as no replacement takes place!
    */
   WRITE_TO_FILE_NO_LOG (false, false)
   {
@@ -68,10 +67,10 @@ public enum EXMLIncorrectCharacterHandling
   },
 
   /**
-   * Write the invalid character to the file. This will result in a file that
-   * cannot be read with the Java XML parser.<br>
-   * This is the second fastest option but will most probably result in
-   * unreadable XML files as no replacement takes place!
+   * Write the invalid character to the file. This will result in a file that cannot be read with
+   * the Java XML parser.<br>
+   * This is the second fastest option but will most probably result in unreadable XML files as no
+   * replacement takes place!
    */
   WRITE_TO_FILE_LOG_WARNING (true, false)
   {
@@ -87,8 +86,8 @@ public enum EXMLIncorrectCharacterHandling
   },
 
   /**
-   * Do not write the invalid character to XML and do not log anything. This
-   * means silently fixing the problem as the replacement is written.
+   * Do not write the invalid character to XML and do not log anything. This means silently fixing
+   * the problem as the replacement is written.
    */
   DO_NOT_WRITE_NO_LOG (false, true)
   {
@@ -101,8 +100,8 @@ public enum EXMLIncorrectCharacterHandling
   },
 
   /**
-   * Do not write the invalid character to XML but at least log a warning. Will
-   * trigger character replacement.
+   * Do not write the invalid character to XML but at least log a warning. Will trigger character
+   * replacement.
    */
   DO_NOT_WRITE_LOG_WARNING (true, true)
   {
@@ -130,11 +129,10 @@ public enum EXMLIncorrectCharacterHandling
    * Constructor
    *
    * @param bIsNotifyRequired
-   *        Should {@link #notifyOnInvalidXMLCharacter(String, Set)} be invoked
-   *        for this type?
+   *        Should {@link #notifyOnInvalidXMLCharacter(String, Set)} be invoked for this type?
    * @param bReplaceWithNothing
-   *        Should the invalid character be replaced with nothing? May only be
-   *        <code>true</code> if bIsTestRequired is <code>true</code>
+   *        Should the invalid character be replaced with nothing? May only be <code>true</code> if
+   *        bIsTestRequired is <code>true</code>
    */
   EXMLIncorrectCharacterHandling (final boolean bIsNotifyRequired, final boolean bReplaceWithNothing)
   {
@@ -143,8 +141,7 @@ public enum EXMLIncorrectCharacterHandling
   }
 
   /**
-   * @return <code>true</code> if this handling type requires a check for
-   *         invalid characters.
+   * @return <code>true</code> if this handling type requires a check for invalid characters.
    */
   public boolean isTestRequired ()
   {
@@ -152,8 +149,8 @@ public enum EXMLIncorrectCharacterHandling
   }
 
   /**
-   * @return <code>true</code> {@link #notifyOnInvalidXMLCharacter(String, Set)}
-   *         should be invoked for this type?
+   * @return <code>true</code> {@link #notifyOnInvalidXMLCharacter(String, Set)} should be invoked
+   *         for this type?
    */
   public boolean isNotifyRequired ()
   {
@@ -161,8 +158,8 @@ public enum EXMLIncorrectCharacterHandling
   }
 
   /**
-   * @return <code>true</code> if all invalid characters should be replaced with
-   *         nothing, meaning that they are simply ignored on writing.
+   * @return <code>true</code> if all invalid characters should be replaced with nothing, meaning
+   *         that they are simply ignored on writing.
    */
   public boolean isReplaceWithNothing ()
   {
@@ -176,7 +173,7 @@ public enum EXMLIncorrectCharacterHandling
       return "NONE";
     return StringHelper.imploder ()
                        .separator (", ")
-                       .source (aInvalidChars, x -> "0x" + StringHelper.getHexStringLeadingZero (x.charValue (), 2))
+                       .source (aInvalidChars, x -> "0x" + StringHex.getHexStringLeadingZero (x.charValue (), 2))
                        .build ();
   }
 

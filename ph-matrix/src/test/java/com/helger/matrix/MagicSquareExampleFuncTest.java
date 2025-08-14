@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 /** Example of use of Matrix Class, featuring magic squares. **/
 
@@ -117,14 +117,14 @@ public final class MagicSquareExampleFuncTest
     fmt.setMinimumFractionDigits (d);
     fmt.setGroupingUsed (false);
     final String s = fmt.format (x);
-    return StringHelper.getWithLeading (s, w, ' ');
+    return Strings.getWithLeading (s, w, ' ');
   }
 
   /* Format integer with Iw. **/
   public static String fixedWidthIntegertoString (final int n, final int w)
   {
     final String s = Integer.toString (n);
-    return StringHelper.getWithLeading (s, w, ' ');
+    return Strings.getWithLeading (s, w, ' ');
   }
 
   @Test
@@ -132,13 +132,12 @@ public final class MagicSquareExampleFuncTest
   {
     final StringBuilder aSB = new StringBuilder ();
     /*
-     * | Tests LU, QR, SVD and symmetric Eig decompositions. | | n = order of
-     * magic square. | trace = diagonal sum, should be the magic sum, (n^3 +
-     * n)/2. | max_eig = maximum eigenvalue of (A + A')/2, should equal trace. |
-     * rank = linear algebraic rank, | should equal n if n is odd, be less than
-     * n if n is even. | cond = L_2 condition number, ratio of singular values.
-     * | lu_res = test of LU factorization, norm1(L*U-A(p,:))/(n*eps). | qr_res
-     * = test of QR factorization, norm1(Q*R-A)/(n*eps).
+     * | Tests LU, QR, SVD and symmetric Eig decompositions. | | n = order of magic square. | trace
+     * = diagonal sum, should be the magic sum, (n^3 + n)/2. | max_eig = maximum eigenvalue of (A +
+     * A')/2, should equal trace. | rank = linear algebraic rank, | should equal n if n is odd, be
+     * less than n if n is even. | cond = L_2 condition number, ratio of singular values. | lu_res =
+     * test of LU factorization, norm1(L*U-A(p,:))/(n*eps). | qr_res = test of QR factorization,
+     * norm1(Q*R-A)/(n*eps).
      */
 
     aSB.append ("\n    Test of Matrix Class, using magic squares.\n");

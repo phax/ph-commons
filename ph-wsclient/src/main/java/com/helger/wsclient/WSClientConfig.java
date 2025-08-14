@@ -34,14 +34,14 @@ import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.http.HttpHeaderMap;
-import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.ws.HostnameVerifierVerifyAll;
 import com.helger.commons.ws.TrustManagerTrustAll;
 
@@ -341,7 +341,8 @@ public class WSClientConfig
    */
   public boolean hasUserName ()
   {
-    return StringHelper.hasText (m_sUserName);
+    final String sStr = m_sUserName;
+    return Strings.isNotEmpty (sStr);
   }
 
   /**
@@ -374,7 +375,8 @@ public class WSClientConfig
    */
   public boolean hasPassword ()
   {
-    return StringHelper.hasText (m_sPassword);
+    final String sStr = m_sPassword;
+    return Strings.isNotEmpty (sStr);
   }
 
   /**
@@ -405,7 +407,8 @@ public class WSClientConfig
    */
   public boolean hasSOAPAction ()
   {
-    return StringHelper.hasText (m_sSOAPAction);
+    final String sStr = m_sSOAPAction;
+    return Strings.isNotEmpty (sStr);
   }
 
   /**
@@ -539,7 +542,8 @@ public class WSClientConfig
     {
       aRequestContext.put ("com.sun.xml.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
     }
-    if (StringHelper.hasText (m_sUserName))
+    final String sStr = m_sUserName;
+    if (Strings.isNotEmpty (sStr))
     {
       aRequestContext.put (BindingProvider.USERNAME_PROPERTY, m_sUserName);
       aRequestContext.put (BindingProvider.PASSWORD_PROPERTY, m_sPassword);

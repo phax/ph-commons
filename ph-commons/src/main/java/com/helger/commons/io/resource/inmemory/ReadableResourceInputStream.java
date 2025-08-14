@@ -19,10 +19,10 @@ package com.helger.commons.io.resource.inmemory;
 import java.io.InputStream;
 
 import com.helger.annotation.WillNotClose;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -42,13 +42,13 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
    * @param sResourceID
    *        The unique resource ID, used as the caching key.
    * @param aIS
-   *        The InputStream to read from. May not be <code>null</code>. This
-   *        Stream is NOT closed by this class.
+   *        The InputStream to read from. May not be <code>null</code>. This Stream is NOT closed by
+   *        this class.
    */
   public ReadableResourceInputStream (@Nullable final String sResourceID, @Nonnull @WillNotClose final InputStream aIS)
   {
     // Ensure a unique resource ID
-    super (StringHelper.hasText (sResourceID) ? sResourceID : "input-stream");
+    super (Strings.isNotEmpty (sResourceID) ? sResourceID : "input-stream");
     m_aIS = ValueEnforcer.notNull (aIS, "InputStream");
   }
 

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 /**
  * Test class for class {@link EUnicodeBOM}.
@@ -73,7 +73,7 @@ public final class EUnicodeBOMTest
       assertSame (eBOM, EUnicodeBOM.valueOf (eBOM.name ()));
       assertSame (eBOM, EUnicodeBOM.getFromBytesOrNull (eBOM.getAllBytes ()));
       if (eBOM.getCharset () != null)
-        assertTrue (StringHelper.hasText (eBOM.getCharsetName ()));
+        assertTrue (Strings.isNotEmpty (eBOM.getCharsetName ()));
     }
 
     assertEquals (4, EUnicodeBOM.getMaximumByteCount ());

@@ -28,14 +28,15 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.CGlobal;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.io.stream.NonBlockingBitInputStream;
 import com.helger.commons.io.stream.NonBlockingBitOutputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -92,8 +93,8 @@ public class LZWCodec implements IByteArrayCodec
     }
 
     /**
-     * This will traverse the tree until it gets to the sub node. This will
-     * return null if the node does not exist.
+     * This will traverse the tree until it gets to the sub node. This will return null if the node
+     * does not exist.
      *
      * @param aBuffer
      *        The path to the node.
@@ -150,8 +151,8 @@ public class LZWCodec implements IByteArrayCodec
     {
       ValueEnforcer.notNull (aByteSeq, "ByteSeq");
       if (m_nFreeCode == m_aTab.length)
-        throw bForEncode ? new EncodeException ("LZW encode table overflow")
-                         : new DecodeException ("LZW decode table overflow");
+        throw bForEncode ? new EncodeException ("LZW encode table overflow") : new DecodeException (
+                                                                                                    "LZW decode table overflow");
 
       // Add this new String to the table
       m_aTab[m_nFreeCode] = aByteSeq;
@@ -280,7 +281,7 @@ public class LZWCodec implements IByteArrayCodec
     {
       // Always the same
       aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, aDict.getCodeLength ());
-      byte [] aByteSeq = ArrayHelper.EMPTY_BYTE_ARRAY;
+      byte [] aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
       for (int nIndex = 0; nIndex < nLen; ++nIndex)
       {
         // Append current byte
@@ -302,7 +303,7 @@ public class LZWCodec implements IByteArrayCodec
         {
           // No -> write down
           aBOS.writeBits (aCurNode.getTableIndex (), nCodeLength);
-          aByteSeq = ArrayHelper.EMPTY_BYTE_ARRAY;
+          aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
         }
 
         if (aDict.getNextFreeCode () == AbstractLZWDictionary.MAX_CODE - 1)
@@ -316,7 +317,7 @@ public class LZWCodec implements IByteArrayCodec
           aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, nCodeLength);
           aDict.reset ();
           nIndex -= aByteSeq.length;
-          aByteSeq = ArrayHelper.EMPTY_BYTE_ARRAY;
+          aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
         }
       }
 

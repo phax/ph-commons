@@ -20,21 +20,21 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.compare.IComparable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.compare.IComparable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class represents a single version object. It supports 4 elements: major
- * version (integer), minor version (integer), micro version (integer) and a
- * qualifier (string).
+ * This class represents a single version object. It supports 4 elements: major version (integer),
+ * minor version (integer), micro version (integer) and a qualifier (string).
  *
  * @author Philip Helger
  */
@@ -90,8 +90,7 @@ public class Version implements IComparable <Version>
   }
 
   /**
-   * Create a new version with major, minor and micro version number. The
-   * qualifier remains null.
+   * Create a new version with major, minor and micro version number. The qualifier remains null.
    *
    * @param nMajor
    *        major version
@@ -117,13 +116,12 @@ public class Version implements IComparable <Version>
    * @param nMicro
    *        micro version
    * @param sQualifier
-   *        the version qualifier - may be null. If a qualifier is supplied, it
-   *        may neither contain the "." or the "," character since they are used
-   *        to determine the fields of a version and to separate 2 versions in a
-   *        VersionRange.
+   *        the version qualifier - may be null. If a qualifier is supplied, it may neither contain
+   *        the "." or the "," character since they are used to determine the fields of a version
+   *        and to separate 2 versions in a VersionRange.
    * @throws IllegalArgumentException
-   *         if any of the numeric parameters is &lt; 0 or if the qualifier
-   *         contains a forbidden character
+   *         if any of the numeric parameters is &lt; 0 or if the qualifier contains a forbidden
+   *         character
    */
   public Version (@Nonnegative final int nMajor,
                   @Nonnegative final int nMinor,
@@ -136,7 +134,7 @@ public class Version implements IComparable <Version>
     m_nMajor = nMajor;
     m_nMinor = nMinor;
     m_nMicro = nMicro;
-    m_sQualifier = StringHelper.hasNoText (sQualifier) ? null : sQualifier;
+    m_sQualifier = Strings.isEmpty (sQualifier) ? null : sQualifier;
   }
 
   @Nonnegative
@@ -165,7 +163,7 @@ public class Version implements IComparable <Version>
 
   public final boolean hasQualifier ()
   {
-    return StringHelper.hasText (m_sQualifier);
+    return Strings.isNotEmpty (m_sQualifier);
   }
 
   /**
@@ -173,8 +171,8 @@ public class Version implements IComparable <Version>
    *
    * @param rhs
    *        the version to compare to
-   * @return &lt; 0 if this is less than rhs; &gt; 0 if this is greater than
-   *         rhs, and 0 if they are equal.
+   * @return &lt; 0 if this is less than rhs; &gt; 0 if this is greater than rhs, and 0 if they are
+   *         equal.
    * @throws IllegalArgumentException
    *         if the parameter is null
    */
@@ -238,8 +236,8 @@ public class Version implements IComparable <Version>
    * Get the string representation of the version number.
    *
    * @param bPrintZeroElements
-   *        If <code>true</code> than trailing zeroes are printed, otherwise
-   *        printed zeroes are not printed.
+   *        If <code>true</code> than trailing zeroes are printed, otherwise printed zeroes are not
+   *        printed.
    * @return Never <code>null</code>.
    */
   @Nonnull
@@ -252,11 +250,11 @@ public class Version implements IComparable <Version>
    * Get the string representation of the version number.
    *
    * @param bPrintZeroElements
-   *        If <code>true</code> than trailing zeroes are printed, otherwise
-   *        printed zeroes are not printed.
+   *        If <code>true</code> than trailing zeroes are printed, otherwise printed zeroes are not
+   *        printed.
    * @param bPrintAtLeastMajorAndMinor
-   *        <code>true</code> if major and minor part should always be printed,
-   *        independent of their value
+   *        <code>true</code> if major and minor part should always be printed, independent of their
+   *        value
    * @return Never <code>null</code>.
    */
   @Nonnull
@@ -289,8 +287,7 @@ public class Version implements IComparable <Version>
   }
 
   /**
-   * Get the string representation of the version number but only major and
-   * minor version number.
+   * Get the string representation of the version number but only major and minor version number.
    *
    * @return Never <code>null</code>.
    */
@@ -302,8 +299,8 @@ public class Version implements IComparable <Version>
   }
 
   /**
-   * Get the string representation of the version number but only major and
-   * minor and micro version number.
+   * Get the string representation of the version number but only major and minor and micro version
+   * number.
    *
    * @return Never <code>null</code>.
    */
@@ -325,7 +322,7 @@ public class Version implements IComparable <Version>
     return m_nMajor == rhs.m_nMajor &&
            m_nMinor == rhs.m_nMinor &&
            m_nMicro == rhs.m_nMicro &&
-           EqualsHelper.equals (m_sQualifier, rhs.m_sQualifier);
+           EqualsHelperExt.extEquals (m_sQualifier, rhs.m_sQualifier);
   }
 
   @Override
@@ -379,8 +376,7 @@ public class Version implements IComparable <Version>
   /**
    * Construct a version object from a string.<br>
    * EBNF:<br>
-   * version ::= major( '.' minor ( '.' micro ( ( '.' | '-' ) qualifier )? )? )?
-   * <br>
+   * version ::= major( '.' minor ( '.' micro ( ( '.' | '-' ) qualifier )? )? )? <br>
    * major ::= number<br>
    * minor ::= number<br>
    * micro ::= number<br>
@@ -409,7 +405,7 @@ public class Version implements IComparable <Version>
     // Extract major version number
     String [] aParts = _extSplit (s);
     aMajor = StringParser.parseIntObj (aParts[0]);
-    if (aMajor == null && StringHelper.hasText (aParts[0]))
+    if (aMajor == null && Strings.isNotEmpty (aParts[0]))
     {
       // Major version is not numeric, so everything is the qualifier
       sQualifier = s;
@@ -419,12 +415,13 @@ public class Version implements IComparable <Version>
       sQualifier = null;
 
     String sRest = !bDone && aParts.length > 1 ? aParts[1] : null;
-    if (StringHelper.hasText (sRest))
+    final String sStr = sRest;
+    if (Strings.isNotEmpty (sStr))
     {
       // Parse minor version number part
       aParts = _extSplit (sRest);
       aMinor = StringParser.parseIntObj (aParts[0]);
-      if (aMinor == null && StringHelper.hasText (aParts[0]))
+      if (aMinor == null && Strings.isNotEmpty (aParts[0]))
       {
         // Minor version is not numeric, so everything is the qualifier
         sQualifier = sRest;
@@ -432,12 +429,13 @@ public class Version implements IComparable <Version>
       }
 
       sRest = !bDone && aParts.length > 1 ? aParts[1] : null;
-      if (StringHelper.hasText (sRest))
+      final String sStr1 = sRest;
+      if (Strings.isNotEmpty (sStr1))
       {
         // Parse micro version number part
         aParts = _extSplit (sRest);
         aMicro = StringParser.parseIntObj (aParts[0]);
-        if (aMicro == null && StringHelper.hasText (aParts[0]))
+        if (aMicro == null && Strings.isNotEmpty (aParts[0]))
         {
           // Micro version is not numeric, so everything is the qualifier
           sQualifier = sRest;
@@ -455,7 +453,7 @@ public class Version implements IComparable <Version>
     final int nMajor = aMajor == null ? 0 : aMajor.intValue ();
     final int nMinor = aMinor == null ? 0 : aMinor.intValue ();
     final int nMicro = aMicro == null ? 0 : aMicro.intValue ();
-    sQualifier = StringHelper.hasNoText (sQualifier) ? null : sQualifier;
+    sQualifier = Strings.isEmpty (sQualifier) ? null : sQualifier;
 
     return new Version (nMajor, nMinor, nMicro, sQualifier);
   }
@@ -503,7 +501,7 @@ public class Version implements IComparable <Version>
     else
       nMicro = 0;
     if (aParts.length > 3)
-      sQualifier = StringHelper.hasNoText (aParts[3]) ? null : aParts[3];
+      sQualifier = Strings.isEmpty (aParts[3]) ? null : aParts[3];
     else
       sQualifier = null;
 

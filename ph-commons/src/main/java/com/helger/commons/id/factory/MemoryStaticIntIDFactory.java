@@ -20,8 +20,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An implementation of {@link IIntIDFactory} using a single static

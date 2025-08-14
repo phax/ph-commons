@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsAssert;
+import com.helger.base.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

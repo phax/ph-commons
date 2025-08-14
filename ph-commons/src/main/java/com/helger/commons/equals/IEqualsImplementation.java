@@ -19,8 +19,8 @@ package com.helger.commons.equals;
 import jakarta.annotation.Nonnull;
 
 /**
- * Interface to implement for checking if two objects are identical. This
- * interface is only used within the {@link EqualsImplementationRegistry}.
+ * Interface to implement for checking if two objects are identical. This interface is only used
+ * within the EqualsImplementationRegistry.
  *
  * @author Philip Helger
  * @param <T>
@@ -36,15 +36,15 @@ public interface IEqualsImplementation <T>
    *        First object. May not be <code>null</code>.
    * @param aObj2
    *        Second object. May not be <code>null</code>.
-   * @return <code>true</code> if the passed objects are equals according to the
-   *         specification of Object.class.
+   * @return <code>true</code> if the passed objects are equals according to the specification of
+   *         Object.class.
    */
   boolean areEqual (@Nonnull T aObj1, @Nonnull T aObj2);
 
   /**
-   * @return <code>true</code> if this implementation is designed to work on an
-   *         interface, but equals is called for an implementation of that
-   *         interface and provides its own equal method.
+   * @return <code>true</code> if this implementation is designed to work on an interface, but
+   *         equals is called for an implementation of that interface and provides its own equal
+   *         method.
    */
   default boolean implementationEqualsOverridesInterface ()
   {

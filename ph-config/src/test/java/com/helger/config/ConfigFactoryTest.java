@@ -27,11 +27,11 @@ import java.io.File;
 
 import org.junit.Test;
 
+import com.helger.base.math.BigHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.math.MathHelper;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
@@ -81,7 +81,7 @@ public final class ConfigFactoryTest
     assertEquals (123456, aConfig.getAsInt ("int"));
     assertEquals ("123456", aConfig.getAsString ("int"));
 
-    assertTrue (EqualsHelper.equals (MathHelper.toBigDecimal (123.45678), aConfig.getAsBigDecimal ("dbl")));
+    assertTrue (EqualsHelperExt.extEquals (BigHelper.toBigDecimal (123.45678), aConfig.getAsBigDecimal ("dbl")));
     assertEquals ("123.45678", aConfig.getAsString ("dbl"));
 
     // get all

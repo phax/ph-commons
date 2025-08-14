@@ -17,6 +17,7 @@
 package com.helger.commons.state;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.state.ITriState;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 

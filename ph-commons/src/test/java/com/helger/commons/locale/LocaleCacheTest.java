@@ -27,7 +27,7 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 /**
  * Test class for class {@link LocaleCache}.
@@ -78,7 +78,8 @@ public final class LocaleCacheTest
     assertNull (LocaleCache.getInstance ().getLocale ("gb result: chosen nickname \"stevenwhitecotton063\"; success;"));
     assertNull (LocaleCache.getInstance ().getLocale ("aa bb"));
 
-    assertNull (LocaleCache.getInstance ().getLocaleExt ("foo result: chosen nickname \"stevenwhitecotton063\"; success;", MLH_NULL));
+    assertNull (LocaleCache.getInstance ()
+                           .getLocaleExt ("foo result: chosen nickname \"stevenwhitecotton063\"; success;", MLH_NULL));
     assertNull (LocaleCache.getInstance ().getLocaleExt ("aa cc", MLH_NULL));
   }
 
@@ -96,9 +97,9 @@ public final class LocaleCacheTest
     for (final Locale aLocale : LocaleCache.getInstance ().getAllLanguages ())
     {
       assertNotNull (aLocale);
-      assertTrue (StringHelper.hasText (aLocale.getLanguage ()));
-      assertTrue (StringHelper.hasNoText (aLocale.getCountry ()));
-      assertTrue (StringHelper.hasNoText (aLocale.getVariant ()));
+      assertTrue (Strings.isNotEmpty (aLocale.getLanguage ()));
+      assertTrue (Strings.isEmpty (aLocale.getCountry ()));
+      assertTrue (Strings.isEmpty (aLocale.getVariant ()));
     }
   }
 

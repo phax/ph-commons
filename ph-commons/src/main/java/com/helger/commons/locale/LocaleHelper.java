@@ -26,16 +26,16 @@ import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.Strings;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -222,7 +222,7 @@ public final class LocaleHelper
   @Nonnull
   public static Locale getLocaleFromString (@Nullable final String sLocaleAsString)
   {
-    if (StringHelper.hasNoText (sLocaleAsString))
+    if (Strings.isEmpty (sLocaleAsString))
     {
       // not specified => getDefault
       return SystemHelper.getSystemLocale ();
@@ -357,7 +357,7 @@ public final class LocaleHelper
   @Nullable
   public static String getValidLanguageCode (@Nullable final String sCode)
   {
-    if (StringHelper.hasText (sCode) &&
+    if (Strings.isNotEmpty (sCode) &&
         (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2,8}", sCode) || isSpecialLocaleCode (sCode)))
     {
       return sCode.toLowerCase (Locale.ROOT);
@@ -377,7 +377,7 @@ public final class LocaleHelper
   public static String getValidCountryCode (@Nullable final String sCode)
   {
     // Allow for 2 or 3 letter codes ("AT" and "AUT")
-    if (StringHelper.hasText (sCode))
+    if (Strings.isNotEmpty (sCode))
     {
       // Allow for 2 letter codes ("AT")
       // Second version allows for "1A" as Kosovo code

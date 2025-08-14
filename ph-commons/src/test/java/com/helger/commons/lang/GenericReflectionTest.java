@@ -26,6 +26,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Test;
 
+import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.lang.GenericReflection;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
@@ -136,7 +138,10 @@ public final class GenericReflectionTest
   }
 
   @Test
-  public void testNewInstance () throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException
+  public void testNewInstance () throws IllegalAccessException,
+                                 NoSuchMethodException,
+                                 InvocationTargetException,
+                                 InstantiationException
   {
     final String s = GenericReflection.newInstance ("Hallo Welt");
     assertNotNull (s);

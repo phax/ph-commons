@@ -20,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.statistics.IMutableStatisticsHandlerCache;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerCache}

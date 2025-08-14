@@ -16,8 +16,8 @@
  */
 package com.helger.commons.error.level;
 
-import com.helger.commons.state.IErrorIndicator;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.base.state.IErrorIndicator;
+import com.helger.base.state.ISuccessIndicator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

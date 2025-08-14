@@ -26,10 +26,10 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -55,8 +55,8 @@ public final class ObjectNameHelper
    * Set the default JMX domain
    *
    * @param sDefaultJMXDomain
-   *        The new JMX domain. May neither be <code>null</code> nor empty nor
-   *        may it contains ":" or " "
+   *        The new JMX domain. May neither be <code>null</code> nor empty nor may it contains ":"
+   *        or " "
    */
   public static void setDefaultJMXDomain (@Nonnull @Nonempty final String sDefaultJMXDomain)
   {
@@ -68,8 +68,8 @@ public final class ObjectNameHelper
   }
 
   /**
-   * @return The default JMX domain to be used for {@link ObjectName} instances.
-   *         The default value is {@link CJMX#PH_JMX_DOMAIN}.
+   * @return The default JMX domain to be used for {@link ObjectName} instances. The default value
+   *         is {@link CJMX#PH_JMX_DOMAIN}.
    */
   @Nonnull
   @Nonempty
@@ -102,9 +102,9 @@ public final class ObjectNameHelper
   }
 
   /**
-   * Create a clean property value applicable for an {@link ObjectName} property
-   * value by replacing the special chars ":" and "," with "." and "//" with
-   * "__". If the input value contains a blank, the quotes value is returned.
+   * Create a clean property value applicable for an {@link ObjectName} property value by replacing
+   * the special chars ":" and "," with "." and "//" with "__". If the input value contains a blank,
+   * the quotes value is returned.
    *
    * @param sPropertyValue
    *        The original property value. May not be <code>null</code>.
@@ -122,16 +122,15 @@ public final class ObjectNameHelper
     // "," is the property separator
     // "//" is according to the specs reserved for future use
     String ret = sPropertyValue;
-    ret = StringHelper.replaceAll (ret, ':', '.');
-    ret = StringHelper.replaceAll (ret, ',', '.');
-    ret = StringHelper.replaceAll (ret, "//", "__");
+    ret = Strings.replaceAll (ret, ':', '.');
+    ret = Strings.replaceAll (ret, ',', '.');
+    ret = Strings.replaceAll (ret, "//", "__");
     return ret;
   }
 
   /**
-   * Create a standard {@link ObjectName} using the default domain and only the
-   * "type" property. The type property is the class local name of the specified
-   * object.
+   * Create a standard {@link ObjectName} using the default domain and only the "type" property. The
+   * type property is the class local name of the specified object.
    *
    * @param aObj
    *        The object from which the name is to be created.
@@ -148,9 +147,8 @@ public final class ObjectNameHelper
   }
 
   /**
-   * Create a standard {@link ObjectName} using the default domain and the
-   * "type" and "name" properties. The type property is the class local name of
-   * the specified object.
+   * Create a standard {@link ObjectName} using the default domain and the "type" and "name"
+   * properties. The type property is the class local name of the specified object.
    *
    * @param aObj
    *        The object from which the name is to be created.

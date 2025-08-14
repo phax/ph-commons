@@ -30,13 +30,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.URLHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.commons.wrapper.IMutableWrapper;
 
 import jakarta.annotation.Nonnull;
@@ -105,7 +105,11 @@ public class URLResource implements IReadableResource
   @Nullable
   public static InputStream getInputStream (@Nonnull final URL aURL)
   {
-    return URLHelper.getInputStream (aURL, DEFAULT_CONNECT_TIMEOUT, DEFAULT_READ_TIMEOUT, null, (IMutableWrapper <IOException>) null);
+    return URLHelper.getInputStream (aURL,
+                                     DEFAULT_CONNECT_TIMEOUT,
+                                     DEFAULT_READ_TIMEOUT,
+                                     null,
+                                     (IMutableWrapper <IOException>) null);
   }
 
   @Nullable
@@ -115,7 +119,8 @@ public class URLResource implements IReadableResource
   }
 
   @Nullable
-  public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS, @CheckForSigned final int nReadTimeoutMS)
+  public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS,
+                                     @CheckForSigned final int nReadTimeoutMS)
   {
     return getInputStream (nConnectTimeoutMS,
                            nReadTimeoutMS,
@@ -134,7 +139,10 @@ public class URLResource implements IReadableResource
                                      @CheckForSigned final int nReadTimeoutMS,
                                      @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
-    return getInputStream (nConnectTimeoutMS, nReadTimeoutMS, (Consumer <? super URLConnection>) null, aExceptionHolder);
+    return getInputStream (nConnectTimeoutMS,
+                           nReadTimeoutMS,
+                           (Consumer <? super URLConnection>) null,
+                           aExceptionHolder);
   }
 
   @Nullable
@@ -221,7 +229,7 @@ public class URLResource implements IReadableResource
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final URLResource rhs = (URLResource) o;
-    return EqualsHelper.equals (m_aURL, rhs.m_aURL);
+    return EqualsHelperExt.extEquals (m_aURL, rhs.m_aURL);
   }
 
   @Override

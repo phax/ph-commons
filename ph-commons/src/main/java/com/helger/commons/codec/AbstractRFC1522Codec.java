@@ -25,10 +25,10 @@ import java.nio.charset.StandardCharsets;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.serialize.convert.SerializationConverter;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -36,16 +36,14 @@ import jakarta.annotation.Nullable;
 /**
  * Implements methods common to all codecs defined in RFC 1522.
  * <p>
- * <a href="http://www.ietf.org/rfc/rfc1522.txt">RFC 1522</a> describes
- * techniques to allow the encoding of non-ASCII text in various portions of a
- * RFC 822 [2] message header, in a manner which is unlikely to confuse existing
- * message handling software.
+ * <a href="http://www.ietf.org/rfc/rfc1522.txt">RFC 1522</a> describes techniques to allow the
+ * encoding of non-ASCII text in various portions of a RFC 822 [2] message header, in a manner which
+ * is unlikely to confuse existing message handling software.
  * <p>
  * This class is immutable and thread-safe.
  *
- * @see <a href="http://www.ietf.org/rfc/rfc1522.txt">MIME (Multipurpose
- *      Internet Mail Extensions) Part Two: Message Header Extensions for
- *      Non-ASCII Text</a>
+ * @see <a href="http://www.ietf.org/rfc/rfc1522.txt">MIME (Multipurpose Internet Mail Extensions)
+ *      Part Two: Message Header Extensions for Non-ASCII Text</a>
  */
 public abstract class AbstractRFC1522Codec implements ICodec <String>
 {
@@ -103,27 +101,29 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
 
   @Nullable
   @ReturnsMutableCopy
-  protected abstract byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
+  protected abstract byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                                         @Nonnegative final int nOfs,
+                                         @Nonnegative final int nLen);
 
   @Nullable
   @ReturnsMutableCopy
-  protected abstract byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
+  protected abstract byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                                         @Nonnegative final int nOfs,
+                                         @Nonnegative final int nLen);
 
   /**
-   * Applies an RFC 1522 compliant encoding scheme to the given string of text
-   * with the given charset.
+   * Applies an RFC 1522 compliant encoding scheme to the given string of text with the given
+   * charset.
    * <p>
-   * This method constructs the "encoded-word" header common to all the RFC 1522
-   * codecs and then invokes #getEncoded(byte []) method of a concrete class to
-   * perform the specific encoding.
+   * This method constructs the "encoded-word" header common to all the RFC 1522 codecs and then
+   * invokes #getEncoded(byte []) method of a concrete class to perform the specific encoding.
    *
    * @param sText
    *        a string to encode
    * @return RFC 1522 compliant "encoded-word"
    * @throws EncodeException
    *         thrown if there is an error condition during the Encoding process.
-   * @see <a href=
-   *      "http://download.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">
+   * @see <a href= "http://download.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">
    *      Standard charsets</a>
    */
   @Nullable
@@ -141,7 +141,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
        .append (SEP)
        .append (getRFC1522Encoding ())
        .append (SEP)
-       .append (StringHelper.decodeBytesToChars (aEncodedData, StandardCharsets.US_ASCII))
+       .append (Strings.decodeBytesToChars (aEncodedData, StandardCharsets.US_ASCII))
        .append (POSTFIX);
     return aSB.toString ();
   }
@@ -149,9 +149,8 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
   /**
    * Applies an RFC 1522 compliant decoding scheme to the given string of text.
    * <p>
-   * This method processes the "encoded-word" header common to all the RFC 1522
-   * codecs and then invokes #getDecoded(byte []) method of a concrete class to
-   * perform the specific decoding.
+   * This method processes the "encoded-word" header common to all the RFC 1522 codecs and then
+   * invokes #getDecoded(byte []) method of a concrete class to perform the specific decoding.
    *
    * @param sEncodedText
    *        a string to decode
@@ -165,8 +164,10 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     if (sEncodedText == null)
       return null;
 
-    ValueEnforcer.isTrue (sEncodedText.startsWith (PREFIX), "RFC 1522 violation: malformed encoded content. Prefix missing.");
-    ValueEnforcer.isTrue (sEncodedText.endsWith (POSTFIX), "RFC 1522 violation: malformed encoded content. Postfix missing.");
+    ValueEnforcer.isTrue (sEncodedText.startsWith (PREFIX),
+                          "RFC 1522 violation: malformed encoded content. Prefix missing.");
+    ValueEnforcer.isTrue (sEncodedText.endsWith (POSTFIX),
+                          "RFC 1522 violation: malformed encoded content. Postfix missing.");
 
     int nFrom = PREFIX.length ();
     final int nTerminator = sEncodedText.length () - POSTFIX.length ();
@@ -176,7 +177,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     if (nTo == nTerminator)
       throw new DecodeException ("RFC 1522 violation: charset token not found");
     final String sDestCharset = sEncodedText.substring (nFrom, nTo);
-    if (StringHelper.hasNoText (sDestCharset))
+    if (Strings.isEmpty (sDestCharset))
       throw new DecodeException ("RFC 1522 violation: charset not specified");
     final Charset aDestCharset = CharsetHelper.getCharsetFromNameOrNull (sDestCharset);
     if (aDestCharset == null)

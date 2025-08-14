@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -22,10 +22,10 @@ import java.util.Iterator;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.string.Strings;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.graph.IBaseGraph;
 import com.helger.graph.IBaseGraphNode;
 import com.helger.graph.IBaseGraphRelation;
@@ -65,19 +65,18 @@ public final class GraphVizHelper
   }
 
   /**
-   * Get the graph in a simple DOT notation suitable for GraphViz
-   * (http://www.graphviz.org). The DOT specs can be found at
-   * http://www.graphviz.org/content/dot-language<br>
+   * Get the graph in a simple DOT notation suitable for GraphViz (http://www.graphviz.org). The DOT
+   * specs can be found at http://www.graphviz.org/content/dot-language<br>
    * The default file encoding for GraphViz 2.28 is UTF-8!
    *
    * @param aGraph
    *        The graph to be converted. May not be <code>null</code>.
    * @param sNodeLabelAttr
-   *        The name of the attribute to be used for node labels. May be
-   *        <code>null</code> to use the node ID as the label.
+   *        The name of the attribute to be used for node labels. May be <code>null</code> to use
+   *        the node ID as the label.
    * @param sRelationLabelAttr
-   *        The name of the attribute to be used for relation labels. May be
-   *        <code>null</code> to use no relation label.
+   *        The name of the attribute to be used for relation labels. May be <code>null</code> to
+   *        use no relation label.
    * @return The string representation to be used as input for DOT.
    * @param <N>
    *        Graph node type
@@ -97,7 +96,7 @@ public final class GraphVizHelper
     aSB.append ("node[shape=box];");
     aGraph.forEachNode (aGraphNode -> {
       aSB.append (aGraphNode.getID ());
-      if (StringHelper.hasText (sNodeLabelAttr))
+      if (Strings.isNotEmpty (sNodeLabelAttr))
       {
         final String sLabel = aGraphNode.attrs ().getAsString (sNodeLabelAttr);
         aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
@@ -108,7 +107,7 @@ public final class GraphVizHelper
     aGraph.forEachRelation (aGraphRelation -> {
       final Iterator <N> it = aGraphRelation.getAllConnectedNodes ().iterator ();
       aSB.append (it.next ().getID ()).append ("--").append (it.next ().getID ());
-      if (StringHelper.hasText (sRelationLabelAttr))
+      if (Strings.isNotEmpty (sRelationLabelAttr))
       {
         final String sLabel = aGraphRelation.attrs ().getAsString (sRelationLabelAttr);
         aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
@@ -121,19 +120,18 @@ public final class GraphVizHelper
   }
 
   /**
-   * Get the graph in a simple DOT notation suitable for GraphViz
-   * (http://www.graphviz.org). The DOT specs can be found at
-   * http://www.graphviz.org/content/dot-language<br>
+   * Get the graph in a simple DOT notation suitable for GraphViz (http://www.graphviz.org). The DOT
+   * specs can be found at http://www.graphviz.org/content/dot-language<br>
    * The default file encoding for GraphViz 2.28 is UTF-8!
    *
    * @param aGraph
    *        The graph to be converted. May not be <code>null</code>.
    * @param sNodeLabelAttr
-   *        The name of the attribute to be used for node labels. May be
-   *        <code>null</code> to use the node ID as the label.
+   *        The name of the attribute to be used for node labels. May be <code>null</code> to use
+   *        the node ID as the label.
    * @param sRelationLabelAttr
-   *        The name of the attribute to be used for relation labels. May be
-   *        <code>null</code> to use no relation label.
+   *        The name of the attribute to be used for relation labels. May be <code>null</code> to
+   *        use no relation label.
    * @return The string representation to be used as input for DOT.
    * @param <N>
    *        Graph node type
@@ -153,7 +151,7 @@ public final class GraphVizHelper
     aSB.append ("node[shape=box];");
     aGraph.forEachNode (aGraphNode -> {
       aSB.append (aGraphNode.getID ());
-      if (StringHelper.hasText (sNodeLabelAttr))
+      if (Strings.isNotEmpty (sNodeLabelAttr))
       {
         final String sLabel = aGraphNode.attrs ().getAsString (sNodeLabelAttr);
         aSB.append ("[label=<")
@@ -168,7 +166,7 @@ public final class GraphVizHelper
     aSB.append ('\n');
     aGraph.forEachRelation (aGraphRelation -> {
       aSB.append (aGraphRelation.getFromID ()).append ("->").append (aGraphRelation.getToID ());
-      if (StringHelper.hasText (sRelationLabelAttr))
+      if (Strings.isNotEmpty (sRelationLabelAttr))
       {
         final String sLabel = aGraphRelation.attrs ().getAsString (sRelationLabelAttr);
         aSB.append ("[label=<")
@@ -186,17 +184,15 @@ public final class GraphVizHelper
   }
 
   /**
-   * Invoked the external process "neato" from the GraphViz package. Attention:
-   * this spans a sub-process!
+   * Invoked the external process "neato" from the GraphViz package. Attention: this spans a
+   * sub-process!
    *
    * @param sFileType
-   *        The file type to be generated. E.g. "png" - see neato help for
-   *        details. May neither be <code>null</code> nor empty.
-   * @param sDOT
-   *        The DOT file to be converted to an image. May neither be
+   *        The file type to be generated. E.g. "png" - see neato help for details. May neither be
    *        <code>null</code> nor empty.
-   * @return The byte buffer that keeps the converted image. Never
-   *         <code>null</code>.
+   * @param sDOT
+   *        The DOT file to be converted to an image. May neither be <code>null</code> nor empty.
+   * @return The byte buffer that keeps the converted image. Never <code>null</code>.
    * @throws IOException
    *         In case some IO error occurs
    * @throws InterruptedException
@@ -217,7 +213,7 @@ public final class GraphVizHelper
     p.getOutputStream ().close ();
     // Read neato stdout
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    StreamHelper.copyInputStreamToOutputStream (p.getInputStream (), aBAOS);
+    StreamHelperExt.copyInputStreamToOutputStream (p.getInputStream (), aBAOS);
     p.waitFor ();
     return aBAOS;
   }

@@ -24,6 +24,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.base.compare.CompareHelper;
+
 /**
  * Test class for class {@link CompareHelper}.
  *
@@ -51,7 +53,7 @@ public final class CompareHelperTest
     assertEquals (0, CompareHelper.compare ((String) null, null));
 
     // Using our collator
-    assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", L_DE));
+    assertEquals (-1, CompareHelperExt.compare ("1.1 a", "1.1.1 a", L_DE));
     assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", CollatorHelper.getCollatorSpaceBeforeDot (L_DE)));
     // Using the system collator
     assertEquals (+1, CompareHelper.compare ("1.1 a", "1.1.1 a", Collator.getInstance (L_DE)));

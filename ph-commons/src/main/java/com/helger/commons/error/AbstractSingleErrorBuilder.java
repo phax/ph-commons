@@ -23,7 +23,8 @@ import javax.xml.stream.Location;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.builder.IBuilder;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -34,7 +35,6 @@ import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.traits.IGenericImplTrait;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

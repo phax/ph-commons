@@ -19,13 +19,13 @@ package com.helger.graph.iterate;
 import java.util.Iterator;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
 
@@ -62,7 +62,8 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
     m_aIter = aList.iterator ();
   }
 
-  private void _traverseDFS (@Nonnull final IMutableGraphNode aStartNode, @Nonnull final ICommonsList <IMutableGraphNode> aList)
+  private void _traverseDFS (@Nonnull final IMutableGraphNode aStartNode,
+                             @Nonnull final ICommonsList <IMutableGraphNode> aList)
   {
     m_aHandledObjects.add (aStartNode.getID ());
     aList.add (aStartNode);
@@ -70,7 +71,7 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
     {
       final boolean bNewRelation = m_aHandledObjects.add (aRelation.getID ());
       for (final IMutableGraphNode aNode : aRelation.getAllConnectedNodes ())
-        if (!EqualsHelper.identityEqual (aNode, aStartNode))
+        if (EqualsHelper.identityDifferent (aNode, aStartNode))
         {
           if (!m_aHandledObjects.contains (aNode.getID ()))
             _traverseDFS (aNode, aList);
@@ -97,8 +98,7 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
   }
 
   /**
-   * @return <code>true</code> if the iterator determined a cycle while
-   *         iterating the graph
+   * @return <code>true</code> if the iterator determined a cycle while iterating the graph
    */
   public boolean hasCycles ()
   {

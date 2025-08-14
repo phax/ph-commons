@@ -35,16 +35,16 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillCloseWhenClosed;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.iterate.CombinedIterator;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.log.IHasConditionalLogger;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
@@ -52,8 +52,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A special stream writer, that ensures that special XML characters are handled
- * correctly.<br>
+ * A special stream writer, that ensures that special XML characters are handled correctly.<br>
  * See https://github.com/javaee/jaxb-v2/issues/614<br>
  * See https://github.com/javaee/jaxb-v2/issues/960
  *
@@ -202,8 +201,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   }
 
   /**
-   * @return <code>true</code> if debug mode is enabled, <code>false</code> if
-   *         it is disabled. By default it is disabled.
+   * @return <code>true</code> if debug mode is enabled, <code>false</code> if it is disabled. By
+   *         default it is disabled.
    * @see #setDebugMode(boolean)
    */
   public final boolean isDebugMode ()
@@ -215,8 +214,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
    * Enable or disable debug mode
    *
    * @param bDebugMode
-   *        <code>true</code> to enable debug mode, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enable debug mode, <code>false</code> to disable it.
    * @return this for chaining
    * @see #isDebugMode()
    */
@@ -240,7 +238,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
         if (aState.m_nTextBasedContentCount == 0)
         {
           debug ( () -> "indent[" + nLevel + "]");
-          m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_sIndent, nLevel));
+          m_aEmitter.onContentElementWhitespace (Strings.getRepeated (m_sIndent, nLevel));
         }
       }
     }

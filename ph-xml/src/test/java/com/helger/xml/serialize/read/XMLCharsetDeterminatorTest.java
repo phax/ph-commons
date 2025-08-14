@@ -27,11 +27,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 public final class XMLCharsetDeterminatorTest
 {
@@ -186,7 +186,7 @@ public final class XMLCharsetDeterminatorTest
 
     // Bad cases
     _testUTF8Bad ("");
-    _testUTF8Bad (StringHelper.getRepeated (' ', 10_000));
+    _testUTF8Bad (Strings.getRepeated (' ', 10_000));
     _testUTF8Bad ("abc");
     _testUTF8Bad ("<");
     _testUTF8Bad ("<?");

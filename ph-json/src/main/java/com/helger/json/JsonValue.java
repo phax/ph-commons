@@ -25,13 +25,13 @@ import java.math.BigInteger;
 
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.math.BigHelper;
+import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.math.MathHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.json.serialize.JsonReader;
 import com.helger.json.valueserializer.IJsonValueSerializer;
 import com.helger.json.valueserializer.JsonValueSerializerConstant;
@@ -79,12 +79,12 @@ public class JsonValue implements IJsonValue
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter ();
     appendAsJsonString (aWriter);
-    StreamHelper.writeSafeUTF (aOOS, aWriter.getAsString ());
+    StreamHelperExt.writeSafeUTF (aOOS, aWriter.getAsString ());
   }
 
   private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
   {
-    final String sJson = StreamHelper.readSafeUTF (aOIS);
+    final String sJson = StreamHelperExt.readSafeUTF (aOIS);
     final JsonValue aJson = (JsonValue) JsonReader.readFromString (sJson);
     m_aValue = aJson.m_aValue;
   }
@@ -178,7 +178,7 @@ public class JsonValue implements IJsonValue
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final JsonValue rhs = (JsonValue) o;
-    return EqualsHelper.equals (m_aValue, rhs.m_aValue);
+    return EqualsHelperExt.extEquals (m_aValue, rhs.m_aValue);
   }
 
   @Override
@@ -261,7 +261,7 @@ public class JsonValue implements IJsonValue
     if (aValue instanceof final Short aShort)
       return create (aShort.shortValue ());
     if (aValue instanceof final Float aFloat)
-      return create (MathHelper.toBigDecimal (aFloat).doubleValue ());
+      return create (BigHelper.toBigDecimal (aFloat).doubleValue ());
 
     // New object
     return new JsonValue (aValue);

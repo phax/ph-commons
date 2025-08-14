@@ -30,15 +30,15 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.UsedViaReflection;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.statistics.IMutableStatisticsHandlerKeyedCounter;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.scope.IScope;
 import com.helger.scope.IScopeDestructionAware;
 
@@ -69,9 +69,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   private BitSet m_aStatus = new BitSet (16);
 
   /**
-   * Write the internal status variables to the passed
-   * {@link ObjectOutputStream}. This can be used to make singletons
-   * serializable.
+   * Write the internal status variables to the passed {@link ObjectOutputStream}. This can be used
+   * to make singletons serializable.
    *
    * @param aOOS
    *        The output stream to write to. May not be <code>null</code>.
@@ -85,8 +84,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
   /**
    * Set all internal status variables to the values read from the specified
-   * {@link ObjectInputStream}. This can be used to make singletons
-   * serializable.
+   * {@link ObjectInputStream}. This can be used to make singletons serializable.
    *
    * @param aOIS
    *        The input stream to read from. May not be <code>null</code>.
@@ -144,13 +142,11 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * Called after the singleton was instantiated. The constructor has finished,
-   * and calling getInstance will work! This method is present to init the
-   * object with a virtual table present.
+   * Called after the singleton was instantiated. The constructor has finished, and calling
+   * getInstance will work! This method is present to init the object with a virtual table present.
    *
    * @param aScope
-   *        The scope in which the object was instantiated. Never
-   *        <code>null</code>.
+   *        The scope in which the object was instantiated. Never <code>null</code>.
    */
   @OverrideOnDemand
   protected void onAfterInstantiation (@Nonnull final IScope aScope)
@@ -162,9 +158,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * @return <code>true</code> if this singleton is currently in the phase of
-   *         instantiation, <code>false</code> if it is instantiated or already
-   *         destroyed.
+   * @return <code>true</code> if this singleton is currently in the phase of instantiation,
+   *         <code>false</code> if it is instantiated or already destroyed.
    */
   public final boolean isInInstantiation ()
   {
@@ -177,8 +172,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * @return <code>true</code> if this singleton was already instantiated,
-   *         <code>false</code> if it is active.
+   * @return <code>true</code> if this singleton was already instantiated, <code>false</code> if it
+   *         is active.
    */
   public final boolean isInstantiated ()
   {
@@ -191,9 +186,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * @return <code>true</code> if this singleton is currently in the phase of
-   *         pre destruction, <code>false</code> if it is active or already
-   *         destroyed.
+   * @return <code>true</code> if this singleton is currently in the phase of pre destruction,
+   *         <code>false</code> if it is active or already destroyed.
    */
   public final boolean isInPreDestruction ()
   {
@@ -206,9 +200,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * @return <code>true</code> if this singleton is currently in the phase of
-   *         destruction, <code>false</code> if it is active or already
-   *         destroyed.
+   * @return <code>true</code> if this singleton is currently in the phase of destruction,
+   *         <code>false</code> if it is active or already destroyed.
    */
   public final boolean isInDestruction ()
   {
@@ -221,8 +214,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * @return <code>true</code> if this singleton was already destroyed,
-   *         <code>false</code> if it is active.
+   * @return <code>true</code> if this singleton was already destroyed, <code>false</code> if it is
+   *         active.
    */
   public final boolean isDestroyed ()
   {
@@ -230,9 +223,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * Called before this singleton is destroyed. This method is called when
-   * "inPreDestruction" is <code>true</code>, "inDestruction" is still
-   * <code>false</code> and "isDestroyed" is <code>false</code>.
+   * Called before this singleton is destroyed. This method is called when "inPreDestruction" is
+   * <code>true</code>, "inDestruction" is still <code>false</code> and "isDestroyed" is
+   * <code>false</code>.
    *
    * @param aScopeToBeDestroyed
    *        The scope that will be destroyed. Never <code>null</code>.
@@ -244,8 +237,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   {}
 
   /*
-   * Implementation of {@link IScopeDestructionAware}. Calls the protected
-   * {@link #onBeforeDestroy()} method.
+   * Implementation of {@link IScopeDestructionAware}. Calls the protected {@link
+   * #onBeforeDestroy()} method.
    */
   @Override
   public final void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
@@ -278,10 +271,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * Called when this singleton is destroyed. Perform all cleanup in this
-   * method. This method is called when "inPreDestruction" is <code>false</code>
-   * , "inDestruction" is <code>true</code> and "isDestroyed" is
-   * <code>false</code>.
+   * Called when this singleton is destroyed. Perform all cleanup in this method. This method is
+   * called when "inPreDestruction" is <code>false</code> , "inDestruction" is <code>true</code> and
+   * "isDestroyed" is <code>false</code>.
    *
    * @param aScopeInDestruction
    *        The scope in destruction. Never <code>null</code>.
@@ -293,8 +285,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   {}
 
   /*
-   * Implementation of {@link IScopeDestructionAware}. Calls the protected
-   * {@link #onDestroy()} method.
+   * Implementation of {@link IScopeDestructionAware}. Calls the protected {@link #onDestroy()}
+   * method.
    */
   @Override
   public final void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
@@ -337,8 +329,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * @return <code>true</code> if the object is instantiated and neither in
-   *         destruction nor destroyed.
+   * @return <code>true</code> if the object is instantiated and neither in destruction nor
+   *         destroyed.
    */
   public final boolean isUsableObject ()
   {
@@ -349,8 +341,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * Create the key which is used to reference the object within the scope.
    *
    * @param aClass
-   *        The class for which the key is to be created. May not be
-   *        <code>null</code>.
+   *        The class for which the key is to be created. May not be <code>null</code>.
    * @return The non-<code>null</code> key.
    */
   @Nonnull
@@ -363,18 +354,17 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * Get the singleton object if it is already instantiated inside a scope or
-   * <code>null</code> if it is not instantiated.
+   * Get the singleton object if it is already instantiated inside a scope or <code>null</code> if
+   * it is not instantiated.
    *
    * @param <T>
    *        The type to be returned
    * @param aScope
-   *        The scope to check. May be <code>null</code> to avoid constructing a
-   *        scope.
+   *        The scope to check. May be <code>null</code> to avoid constructing a scope.
    * @param aClass
    *        The class to be checked. May not be <code>null</code>.
-   * @return The singleton for the specified class is already instantiated,
-   *         <code>null</code> otherwise.
+   * @return The singleton for the specified class is already instantiated, <code>null</code>
+   *         otherwise.
    */
   @Nullable
   public static final <T extends AbstractSingleton> T getSingletonIfInstantiated (@Nullable final IScope aScope,
@@ -403,12 +393,11 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * Check if a singleton is already instantiated inside a scope
    *
    * @param aScope
-   *        The scope to check. May be <code>null</code> to avoid constructing a
-   *        scope.
+   *        The scope to check. May be <code>null</code> to avoid constructing a scope.
    * @param aClass
    *        The class to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the singleton for the specified class is
-   *         already instantiated, <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton for the specified class is already instantiated,
+   *         <code>false</code> otherwise.
    */
   public static final boolean isSingletonInstantiated (@Nullable final IScope aScope,
                                                        @Nonnull final Class <? extends AbstractSingleton> aClass)
@@ -417,16 +406,14 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * Instantiate singleton using reflection. The passed class must be a public
-   * class. First a public constructor with a single argument of type
-   * {@link IScope} is searched. If not found the public no-argument constructor
-   * is searched.
+   * Instantiate singleton using reflection. The passed class must be a public class. First a public
+   * constructor with a single argument of type {@link IScope} is searched. If not found the public
+   * no-argument constructor is searched.
    *
    * @param aClass
    *        The class to instantiate. May not be <code>null</code>.
    * @param aScope
-   *        The scope to be passed to the instantiated class. Never
-   *        <code>null</code>.,
+   *        The scope to be passed to the instantiated class. Never <code>null</code>.,
    * @return Never <code>null</code>.
    * @throws IllegalStateException
    *         If instantiation failed
@@ -482,16 +469,16 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * Get the singleton object in the passed scope, using the passed class. If
-   * the singleton is not yet instantiated, a new instance is created.
+   * Get the singleton object in the passed scope, using the passed class. If the singleton is not
+   * yet instantiated, a new instance is created.
    *
    * @param <T>
    *        The singleton type
    * @param aScope
    *        The scope to be used. May not be <code>null</code>.
    * @param aClass
-   *        The class to be used. May not be <code>null</code>. The class must
-   *        be public as needs to have a public no-argument constructor.
+   *        The class to be used. May not be <code>null</code>. The class must be public as needs to
+   *        have a public no-argument constructor.
    * @return The singleton object and never <code>null</code>.
    */
   @Nonnull
@@ -571,18 +558,16 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
-   * Get all singleton objects registered in the respective sub-class of this
-   * class.
+   * Get all singleton objects registered in the respective sub-class of this class.
    *
    * @param <T>
    *        The singleton type to be retrieved
    * @param aScope
-   *        The scope to use. May be <code>null</code> to avoid creating a new
-   *        scope.
+   *        The scope to use. May be <code>null</code> to avoid creating a new scope.
    * @param aDesiredClass
    *        The desired sub-class of this class. May not be <code>null</code>.
-   * @return A non-<code>null</code> list with all instances of the passed class
-   *         in the passed scope.
+   * @return A non-<code>null</code> list with all instances of the passed class in the passed
+   *         scope.
    */
   @Nonnull
   @ReturnsMutableCopy

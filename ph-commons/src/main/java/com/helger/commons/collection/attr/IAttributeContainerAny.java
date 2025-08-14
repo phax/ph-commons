@@ -17,7 +17,7 @@
 package com.helger.commons.collection.attr;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.state.EChange;
+import com.helger.base.state.EChange;
 
 import jakarta.annotation.Nonnull;
 

@@ -25,12 +25,12 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.iface.IHasByteArray;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.ByteArrayWrapper;
-import com.helger.commons.io.IHasByteArray;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 
@@ -173,7 +173,7 @@ public class MessageDigestValue implements IHasByteArray
                                            @Nonnull final EMessageDigestAlgorithm eAlgorithm) throws IOException
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
-    StreamHelper.readUntilEOF (aIS, (aBytes, nBytes) -> aMD.update (aBytes, 0, nBytes));
+    StreamHelperExt.readUntilEOF (aIS, (aBytes, nBytes) -> aMD.update (aBytes, 0, nBytes));
     // aMD goes out of scope anyway, so no need to copy byte[]
     return new MessageDigestValue (eAlgorithm, aMD.digest (), false);
   }

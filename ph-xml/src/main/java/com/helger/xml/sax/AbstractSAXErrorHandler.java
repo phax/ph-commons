@@ -19,12 +19,12 @@ package com.helger.xml.sax;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

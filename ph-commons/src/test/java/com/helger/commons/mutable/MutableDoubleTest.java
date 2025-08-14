@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsAssert;
+import com.helger.base.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -90,8 +90,10 @@ public final class MutableDoubleTest
     x.set (1);
     assertTrue (x.isGT0 ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1234), new MutableDouble (3.1234));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1234), new MutableDouble (3.123));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1234),
+                                                                       new MutableDouble (3.1234));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1234),
+                                                                           new MutableDouble (3.123));
     CommonsTestHelper.testGetClone (new MutableDouble (47.11));
   }
 }

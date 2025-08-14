@@ -19,8 +19,8 @@ package com.helger.xml;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

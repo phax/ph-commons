@@ -27,8 +27,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.helger.base.nonblocking.NonBlockingStringReader;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.string.StringHelper;
 
 /**

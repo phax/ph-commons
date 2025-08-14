@@ -18,7 +18,7 @@ package com.helger.commons.system;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.commons.string.StringParser;
 
 import jakarta.annotation.Nonnull;

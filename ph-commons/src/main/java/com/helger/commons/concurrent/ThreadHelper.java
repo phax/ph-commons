@@ -23,8 +23,8 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.CGlobal;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.ESuccess;
 
 import jakarta.annotation.Nonnull;
 

@@ -27,12 +27,12 @@ import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.io.stream.NonClosingOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.NonClosingOutputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.string.Strings;
 import com.helger.json.CJson;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
@@ -66,8 +66,7 @@ public class JsonWriter
   }
 
   /**
-   * @return A clone of the JSON writer settings to be used. Never
-   *         <code>null</code>.
+   * @return A clone of the JSON writer settings to be used. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -92,7 +91,7 @@ public class JsonWriter
       // Complex (array or object)
       final boolean bIsIndentEnabled = m_aSettings.isIdentEnabled () && ((IJsonCollection) aJson).isNotEmpty ();
       final String sSingleIndent = m_aSettings.getIndentString ();
-      final String sIndentString = bIsIndentEnabled ? StringHelper.getRepeated (sSingleIndent, nIndentLevel) : "";
+      final String sIndentString = bIsIndentEnabled ? Strings.getRepeated (sSingleIndent, nIndentLevel) : "";
       final String sNestedIndentString = bIsIndentEnabled ? sIndentString + sSingleIndent : "";
       final String sNewlineString = bIsIndentEnabled ? m_aSettings.getNewlineString () : "";
       final boolean bQuoteNames = m_aSettings.isQuoteNames ();
@@ -194,7 +193,8 @@ public class JsonWriter
     aWriter.flush ();
   }
 
-  public void writeToWriterAndClose (@Nonnull final IJson aJson, @Nonnull @WillClose final Writer aWriter) throws IOException
+  public void writeToWriterAndClose (@Nonnull final IJson aJson, @Nonnull @WillClose final Writer aWriter)
+                                                                                                           throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -226,8 +226,7 @@ public class JsonWriter
   }
 
   /**
-   * Write the JSON to an OutputStream using the provided Charset, and leave the
-   * OutputStream open.
+   * Write the JSON to an OutputStream using the provided Charset, and leave the OutputStream open.
    *
    * @param aJson
    *        The JSON to be written. May not be <code>null</code>.
@@ -255,8 +254,8 @@ public class JsonWriter
   }
 
   /**
-   * Write the JSON to an OutputStream using the provided Charset, and close the
-   * OutputStream afterwards.
+   * Write the JSON to an OutputStream using the provided Charset, and close the OutputStream
+   * afterwards.
    *
    * @param aJson
    *        The JSON to be written. May not be <code>null</code>.

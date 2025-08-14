@@ -24,7 +24,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHex;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -91,8 +91,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
   }
 
   /**
-   * Encodes byte into its quoted-printable representation. It will always be 3
-   * characters.
+   * Encodes byte into its quoted-printable representation. It will always be 3 characters.
    *
    * @param b
    *        byte to encode
@@ -101,10 +100,11 @@ public class QuotedPrintableCodec implements IByteArrayCodec
    * @throws IOException
    *         In case writing to the OutputStream failed
    */
-  public static final void writeEncodeQuotedPrintableByte (final int b, @Nonnull final OutputStream aOS) throws IOException
+  public static final void writeEncodeQuotedPrintableByte (final int b, @Nonnull final OutputStream aOS)
+                                                                                                         throws IOException
   {
-    final char cHigh = StringHelper.getHexCharUpperCase ((b >> 4) & 0xF);
-    final char cLow = StringHelper.getHexCharUpperCase (b & 0xF);
+    final char cHigh = StringHex.getHexCharUpperCase ((b >> 4) & 0xF);
+    final char cLow = StringHex.getHexCharUpperCase (b & 0xF);
     aOS.write (ESCAPE_CHAR);
     aOS.write (cHigh);
     aOS.write (cLow);
@@ -155,7 +155,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
           final char cHigh = (char) aEncodedBuffer[nOfs + i + 1];
           final char cLow = (char) aEncodedBuffer[nOfs + i + 2];
           i += 2;
-          final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
+          final int nDecodedValue = StringHex.getHexByte (cHigh, cLow);
           if (nDecodedValue < 0)
             throw new DecodeException ("Invalid quoted-printable encoding for " + (int) cHigh + " and " + (int) cLow);
 

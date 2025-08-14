@@ -23,9 +23,9 @@ import java.util.zip.GZIPOutputStream;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonClosingOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.base.io.stream.NonClosingOutputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -50,7 +50,7 @@ public class GZIPCodec implements IByteArrayCodec
 
     try (final GZIPInputStream aDecodeIS = new GZIPInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen)))
     {
-      if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
+      if (StreamHelperExt.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
         throw new DecodeException ("Failed to GZIP decode!");
     }
     catch (final IOException ex)
@@ -69,7 +69,7 @@ public class GZIPCodec implements IByteArrayCodec
 
     try (final GZIPOutputStream aEncodeOS = new GZIPOutputStream (new NonClosingOutputStream (aOS)))
     {
-      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen), aEncodeOS)
+      if (StreamHelperExt.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen), aEncodeOS)
                       .isFailure ())
         throw new EncodeException ("Failed to GZIP encode!");
     }

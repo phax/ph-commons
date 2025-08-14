@@ -30,10 +30,10 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.exception.mock.IMockException;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.mock.exception.IMockException;
+import com.helger.base.state.ESuccess;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -62,11 +62,9 @@ public final class ChannelHelper
    * Copy all content from the source channel to the destination channel.
    *
    * @param aSrc
-   *        Source channel. May not be <code>null</code>. Is not closed after
-   *        the operation.
+   *        Source channel. May not be <code>null</code>. Is not closed after the operation.
    * @param aDest
-   *        Destination channel. May not be <code>null</code>. Is not closed
-   *        after the operation.
+   *        Destination channel. May not be <code>null</code>. Is not closed after the operation.
    * @return The number of bytes written.
    * @throws IOException
    *         In case of IO error
@@ -89,20 +87,17 @@ public final class ChannelHelper
   }
 
   /**
-   * Channel copy method 1. This method copies data from the src channel and
-   * writes it to the dest channel until EOF on src. This implementation makes
-   * use of compact( ) on the temp buffer to pack down the data if the buffer
-   * wasn't fully drained. This may result in data copying, but minimizes system
-   * calls. It also requires a cleanup loop to make sure all the data gets sent.
+   * Channel copy method 1. This method copies data from the src channel and writes it to the dest
+   * channel until EOF on src. This implementation makes use of compact( ) on the temp buffer to
+   * pack down the data if the buffer wasn't fully drained. This may result in data copying, but
+   * minimizes system calls. It also requires a cleanup loop to make sure all the data gets sent.
    * <br>
    * Source: Java NIO, page 60
    *
    * @param aSrc
-   *        Source channel. May not be <code>null</code>. Is not closed after
-   *        the operation.
+   *        Source channel. May not be <code>null</code>. Is not closed after the operation.
    * @param aDest
-   *        Destination channel. May not be <code>null</code>. Is not closed
-   *        after the operation.
+   *        Destination channel. May not be <code>null</code>. Is not closed after the operation.
    * @return The number of bytes written.
    */
   @Nonnegative
@@ -134,18 +129,16 @@ public final class ChannelHelper
   }
 
   /**
-   * Channel copy method 2. This method performs the same copy, but assures the
-   * temporary buffer is empty before reading more data. This never requires
-   * data copying but may result in more systems calls. No post-loop cleanup is
-   * needed because the buffer will be empty when the loop is exited.<br>
+   * Channel copy method 2. This method performs the same copy, but assures the temporary buffer is
+   * empty before reading more data. This never requires data copying but may result in more systems
+   * calls. No post-loop cleanup is needed because the buffer will be empty when the loop is
+   * exited.<br>
    * Source: Java NIO, page 60
    *
    * @param aSrc
-   *        Source channel. May not be <code>null</code>. Is not closed after
-   *        the operation.
+   *        Source channel. May not be <code>null</code>. Is not closed after the operation.
    * @param aDest
-   *        Destination channel. May not be <code>null</code>. Is not closed
-   *        after the operation.
+   *        Destination channel. May not be <code>null</code>. Is not closed after the operation.
    * @return The number of bytes written.
    */
   private static long _channelCopy2 (@Nonnull @WillNotClose final ReadableByteChannel aSrc,

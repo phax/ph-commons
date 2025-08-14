@@ -25,8 +25,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.mock.CommonsAssert;
+import com.helger.base.array.ArrayHelper;
+import com.helger.commons.mock.CommonsAssertExt;
 
 /**
  * Test class for class {@link EqualsImplementationRegistry}.
@@ -50,13 +50,13 @@ public final class EqualsImplementationRegistryTest
     ((Element) aRoot2.appendChild (d2.createElement ("child"))).setAttribute ("any", "works");
 
     // Regular
-    CommonsAssert.assertEquals (d1, d2);
+    CommonsAssertExt.assertEquals (d1, d2);
 
     // 1 level array
-    CommonsAssert.assertEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2));
+    CommonsAssertExt.assertEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2));
 
     // 2 level array
-    CommonsAssert.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
+    CommonsAssertExt.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
                                 ArrayHelper.newArray (ArrayHelper.newArray (d2)));
   }
 }

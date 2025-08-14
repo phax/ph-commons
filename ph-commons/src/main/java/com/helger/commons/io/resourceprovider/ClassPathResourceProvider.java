@@ -17,13 +17,13 @@
 package com.helger.commons.io.resourceprovider;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -69,7 +69,7 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
   public boolean supportsReading (@Nullable final String sName)
   {
     // Class path resource supports all paths
-    return StringHelper.hasText (sName);
+    return Strings.isNotEmpty (sName);
   }
 
   @Nonnull
@@ -88,7 +88,7 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ClassPathResourceProvider rhs = (ClassPathResourceProvider) o;
-    return EqualsHelper.equals (m_sPrefix, rhs.m_sPrefix);
+    return EqualsHelperExt.extEquals (m_sPrefix, rhs.m_sPrefix);
   }
 
   @Override

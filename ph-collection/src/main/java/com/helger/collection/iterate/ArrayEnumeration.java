@@ -21,11 +21,11 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -116,7 +116,7 @@ public class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayEnumeration <?> rhs = (ArrayEnumeration <?>) o;
-    return EqualsHelper.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;
+    return EqualsHelperExt.extEquals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;
   }
 
   @Override

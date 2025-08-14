@@ -18,10 +18,10 @@ package com.helger.datetime.expiration;
 
 import java.time.LocalDateTime;
 
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -56,7 +56,7 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
   @Nonnull
   public EChange setExpirationDateTime (@Nullable final LocalDateTime aExpirationDateTime)
   {
-    if (EqualsHelper.equals (aExpirationDateTime, m_aExpirationDateTime))
+    if (EqualsHelperExt.extEquals (aExpirationDateTime, m_aExpirationDateTime))
       return EChange.UNCHANGED;
     m_aExpirationDateTime = aExpirationDateTime;
     return EChange.CHANGED;
@@ -71,7 +71,7 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
   @Nonnull
   public EChange setReplacement (@Nullable final DATATYPE aReplacement)
   {
-    if (EqualsHelper.equals (aReplacement, m_aReplacement))
+    if (EqualsHelperExt.extEquals (aReplacement, m_aReplacement))
       return EChange.UNCHANGED;
     m_aReplacement = aReplacement;
     return EChange.CHANGED;
@@ -85,8 +85,8 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ExpirableWithReplacement <?> rhs = (ExpirableWithReplacement <?>) o;
-    return EqualsHelper.equals (m_aExpirationDateTime, rhs.m_aExpirationDateTime) &&
-           EqualsHelper.equals (m_aReplacement, rhs.m_aReplacement);
+    return EqualsHelperExt.extEquals (m_aExpirationDateTime, rhs.m_aExpirationDateTime) &&
+           EqualsHelperExt.extEquals (m_aReplacement, rhs.m_aReplacement);
   }
 
   @Override

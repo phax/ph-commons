@@ -22,22 +22,22 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.compare.IComparable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.compare.IComparable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a single MIME type as the combination of the content type and the
- * sub-type and parameters.
+ * Represents a single MIME type as the combination of the content type and the sub-type and
+ * parameters.
  *
  * @author Philip Helger
  */
@@ -51,8 +51,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
   private final String m_sContentSubType;
 
   /**
-   * The MIME type string including content type and sub type - for performance
-   * reasons only
+   * The MIME type string including content type and sub type - for performance reasons only
    */
   private final String m_sMainTypeAsString;
 
@@ -71,9 +70,8 @@ public class MimeType implements IMimeType, IComparable <MimeType>
   }
 
   /**
-   * Constructor without parameters. To construct the MIME type "text/xml" you
-   * need to pass {@link EMimeContentType#TEXT} and the String "xml" to this
-   * constructor.
+   * Constructor without parameters. To construct the MIME type "text/xml" you need to pass
+   * {@link EMimeContentType#TEXT} and the String "xml" to this constructor.
    *
    * @param eContentType
    *        MIME content type. May not be <code>null</code>.
@@ -86,9 +84,8 @@ public class MimeType implements IMimeType, IComparable <MimeType>
   }
 
   /**
-   * Constructor without parameters. To construct the MIME type "text/xml" you
-   * need to pass {@link EMimeContentType#TEXT} and the String "xml" to this
-   * constructor.
+   * Constructor without parameters. To construct the MIME type "text/xml" you need to pass
+   * {@link EMimeContentType#TEXT} and the String "xml" to this constructor.
    *
    * @param eContentType
    *        MIME content type. May not be <code>null</code>.
@@ -174,11 +171,10 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    * Add a parameter.
    *
    * @param sAttribute
-   *        Parameter name. Must neither be <code>null</code> nor empty and must
-   *        match {@link MimeTypeParser#isToken(String)}.
+   *        Parameter name. Must neither be <code>null</code> nor empty and must match
+   *        {@link MimeTypeParser#isToken(String)}.
    * @param sValue
-   *        The value to use. May not be <code>null</code>. Must not be a valid
-   *        MIME token.
+   *        The value to use. May not be <code>null</code>. Must not be a valid MIME token.
    * @return this
    */
   @Nonnull
@@ -245,13 +241,13 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    *
    * @param sParamName
    *        The name of the parameter to remove. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the parameter was removed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the parameter was removed, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @Nonnull
   public EChange removeParameterWithName (@Nullable final String sParamName)
   {
-    if (StringHelper.hasText (sParamName))
+    if (Strings.isNotEmpty (sParamName))
     {
       final int nMax = m_aParameters.size ();
       for (int i = 0; i < nMax; ++i)
@@ -294,7 +290,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
   @Nullable
   public MimeTypeParameter getParameterWithName (@Nullable final String sParamName)
   {
-    if (StringHelper.hasText (sParamName))
+    if (Strings.isNotEmpty (sParamName))
       for (final MimeTypeParameter aParam : m_aParameters)
         if (aParam.getAttribute ().equals (sParamName))
           return aParam;
@@ -335,13 +331,16 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     final MimeType rhs = (MimeType) o;
     return m_eContentType.equals (rhs.m_eContentType) &&
            m_sContentSubType.equals (rhs.m_sContentSubType) &&
-           EqualsHelper.equals (m_aParameters, rhs.m_aParameters);
+           EqualsHelperExt.extEquals (m_aParameters, rhs.m_aParameters);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_eContentType).append (m_sContentSubType).append (m_aParameters).getHashCode ();
+    return new HashCodeGenerator (this).append (m_eContentType)
+                                       .append (m_sContentSubType)
+                                       .append (m_aParameters)
+                                       .getHashCode ();
   }
 
   @Override

@@ -28,22 +28,23 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.exception.InitializationException;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.exception.InitializationException;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.EOperatingSystem;
 import com.helger.commons.system.SystemHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * All kind of file name handling stuff. This class gives you platform
- * independent file name handling.
+ * All kind of file name handling stuff. This class gives you platform independent file name
+ * handling.
  *
  * @author Philip Helger
  */
@@ -152,22 +153,18 @@ public final class FilenameHelper
   {}
 
   /**
-   * Returns the index of the last extension separator character, which is a
-   * dot.
+   * Returns the index of the last extension separator character, which is a dot.
    * <p>
-   * This method also checks that there is no directory separator after the last
-   * dot. To do this it uses {@link #getIndexOfLastSeparator(String)} which will
-   * handle a file in either Unix or Windows format.
+   * This method also checks that there is no directory separator after the last dot. To do this it
+   * uses {@link #getIndexOfLastSeparator(String)} which will handle a file in either Unix or
+   * Windows format.
    * <p>
-   * The output will be the same irrespective of the machine that the code is
-   * running on.
+   * The output will be the same irrespective of the machine that the code is running on.
    *
    * @param sFilename
-   *        The filename to find the last path separator in. May be
-   *        <code>null</code>.
-   * @return the index of the last separator character, or
-   *         {@link CGlobal#ILLEGAL_UINT} if there is no such character or the
-   *         input parameter is <code>null</code>.
+   *        The filename to find the last path separator in. May be <code>null</code>.
+   * @return the index of the last separator character, or {@link CGlobal#ILLEGAL_UINT} if there is
+   *         no such character or the input parameter is <code>null</code>.
    * @see #getIndexOfLastSeparator(String)
    */
   public static int getIndexOfExtension (@Nullable final String sFilename)
@@ -181,14 +178,14 @@ public final class FilenameHelper
   }
 
   /**
-   * Get the name of the passed file without the extension. If the file name
-   * contains a leading absolute path, the path is returned as well.
+   * Get the name of the passed file without the extension. If the file name contains a leading
+   * absolute path, the path is returned as well.
    *
    * @param aFile
    *        The file to extract the extension from. May be <code>null</code>.
-   * @return An empty string if no extension was found, the extension without
-   *         the leading dot otherwise. If the input file is <code>null</code>
-   *         the return value is <code>null</code>.
+   * @return An empty string if no extension was found, the extension without the leading dot
+   *         otherwise. If the input file is <code>null</code> the return value is
+   *         <code>null</code>.
    * @see #getWithoutExtension(String)
    */
   @Nullable
@@ -198,15 +195,14 @@ public final class FilenameHelper
   }
 
   /**
-   * Get the passed filename without the extension. If the file name contains a
-   * leading absolute path, the path is returned as well.
+   * Get the passed filename without the extension. If the file name contains a leading absolute
+   * path, the path is returned as well.
    *
    * @param sFilename
-   *        The filename to extract the extension from. May be <code>null</code>
-   *        or empty.
-   * @return An empty string if no extension was found, the extension without
-   *         the leading dot otherwise. If the input string is <code>null</code>
-   *         the return value is <code>null</code>.
+   *        The filename to extract the extension from. May be <code>null</code> or empty.
+   * @return An empty string if no extension was found, the extension without the leading dot
+   *         otherwise. If the input string is <code>null</code> the return value is
+   *         <code>null</code>.
    * @see #getIndexOfExtension(String)
    */
   @Nullable
@@ -221,8 +217,8 @@ public final class FilenameHelper
    *
    * @param aFile
    *        The file to extract the extension from. May be <code>null</code>.
-   * @return An empty string if no extension was found, the extension without
-   *         the leading dot otherwise. Never <code>null</code>.
+   * @return An empty string if no extension was found, the extension without the leading dot
+   *         otherwise. Never <code>null</code>.
    * @see #getExtension(String)
    */
   @Nonnull
@@ -235,10 +231,9 @@ public final class FilenameHelper
    * Get the extension of the passed filename.
    *
    * @param sFilename
-   *        The filename to extract the extension from. May be <code>null</code>
-   *        or empty.
-   * @return An empty string if no extension was found, the extension without
-   *         the leading dot otherwise. Never <code>null</code>.
+   *        The filename to extract the extension from. May be <code>null</code> or empty.
+   * @return An empty string if no extension was found, the extension without the leading dot
+   *         otherwise. Never <code>null</code>.
    * @see #getIndexOfExtension(String)
    */
   @Nonnull
@@ -251,17 +246,16 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed file has one of the passed extensions. The comparison
-   * is done case insensitive even on Unix machines.
+   * Check if the passed file has one of the passed extensions. The comparison is done case
+   * insensitive even on Unix machines.
    *
    * @param aFile
-   *        The file to check the extension from. May be <code>null</code> or
-   *        empty.
+   *        The file to check the extension from. May be <code>null</code> or empty.
    * @param aExtensions
-   *        An array of extensions (without the leading dot) which are matched
-   *        case insensitive. May not be <code>null</code>.
-   * @return <code>true</code> if the file has one of the passed extensions,
-   *         else <code>false</code>.
+   *        An array of extensions (without the leading dot) which are matched case insensitive. May
+   *        not be <code>null</code>.
+   * @return <code>true</code> if the file has one of the passed extensions, else
+   *         <code>false</code>.
    * @see #getExtension(File)
    */
   public static boolean hasExtension (@Nullable final File aFile, @Nonnull final String... aExtensions)
@@ -277,17 +271,16 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed filename has one of the passed extensions. The
-   * comparison is done case insensitive even on Unix machines.
+   * Check if the passed filename has one of the passed extensions. The comparison is done case
+   * insensitive even on Unix machines.
    *
    * @param sFilename
-   *        The filename to check the extension from. May be <code>null</code>
-   *        or empty.
+   *        The filename to check the extension from. May be <code>null</code> or empty.
    * @param aExtensions
-   *        An array of extensions (without the leading dot) which are matched
-   *        case insensitive. May not be <code>null</code>.
-   * @return <code>true</code> if the filename has one of the passed extensions,
-   *         else <code>false</code>.
+   *        An array of extensions (without the leading dot) which are matched case insensitive. May
+   *        not be <code>null</code>.
+   * @return <code>true</code> if the filename has one of the passed extensions, else
+   *         <code>false</code>.
    * @see #getExtension(String)
    */
   public static boolean hasExtension (@Nullable final String sFilename, @Nonnull final String... aExtensions)
@@ -303,16 +296,15 @@ public final class FilenameHelper
   }
 
   /**
-   * Returns the index of the last directory separator character. This method
-   * will handle a file in either Unix or Windows format. The position of the
-   * last forward or backslash is returned. The output will be the same
-   * irrespective of the machine that the code is running on.
+   * Returns the index of the last directory separator character. This method will handle a file in
+   * either Unix or Windows format. The position of the last forward or backslash is returned. The
+   * output will be the same irrespective of the machine that the code is running on.
    *
    * @param sFilename
-   *        The filename to find the last path separator in, <code>null</code>
-   *        returns {@link CGlobal#ILLEGAL_UINT}.
-   * @return The index of the last separator character, or
-   *         {@link CGlobal#ILLEGAL_UINT} if there is no such character
+   *        The filename to find the last path separator in, <code>null</code> returns
+   *        {@link CGlobal#ILLEGAL_UINT}.
+   * @return The index of the last separator character, or {@link CGlobal#ILLEGAL_UINT} if there is
+   *         no such character
    */
   public static int getIndexOfLastSeparator (@Nullable final String sFilename)
   {
@@ -321,13 +313,12 @@ public final class FilenameHelper
   }
 
   /**
-   * Get the name of the passed file without any eventually leading path. Note:
-   * if the passed file is a directory, the name of the directory is returned.
+   * Get the name of the passed file without any eventually leading path. Note: if the passed file
+   * is a directory, the name of the directory is returned.
    *
    * @param aFile
    *        The file. May be <code>null</code>.
-   * @return The name only or <code>null</code> if the passed parameter is
-   *         <code>null</code>.
+   * @return The name only or <code>null</code> if the passed parameter is <code>null</code>.
    */
   @Nullable
   public static String getWithoutPath (@Nullable final File aFile)
@@ -340,19 +331,17 @@ public final class FilenameHelper
    *
    * @param sAbsoluteFilename
    *        The fully qualified file name. May be <code>null</code>.
-   * @return The name only or <code>null</code> if the passed parameter is
-   *         <code>null</code>.
+   * @return The name only or <code>null</code> if the passed parameter is <code>null</code>.
    * @see #getIndexOfLastSeparator(String)
    */
   @Nullable
   public static String getWithoutPath (@Nullable final String sAbsoluteFilename)
   {
     /**
-     * Note: do not use <code>new File (sFilename).getName ()</code> since this
-     * only invokes the underlying FileSystem implementation which handles path
-     * handling only correctly on the native platform. Problem arose when
-     * running application on a Linux server and making a file upload from a
-     * Windows machine.
+     * Note: do not use <code>new File (sFilename).getName ()</code> since this only invokes the
+     * underlying FileSystem implementation which handles path handling only correctly on the native
+     * platform. Problem arose when running application on a Linux server and making a file upload
+     * from a Windows machine.
      */
     if (sAbsoluteFilename == null)
       return null;
@@ -361,25 +350,22 @@ public final class FilenameHelper
   }
 
   /**
-   * Get the path of the passed file name without any eventually contained
-   * filename.
+   * Get the path of the passed file name without any eventually contained filename.
    *
    * @param sAbsoluteFilename
    *        The fully qualified file name. May be <code>null</code>.
-   * @return The path only including the last trailing path separator character.
-   *         Returns <code>null</code> if the passed parameter is
-   *         <code>null</code>.
+   * @return The path only including the last trailing path separator character. Returns
+   *         <code>null</code> if the passed parameter is <code>null</code>.
    * @see #getIndexOfLastSeparator(String)
    */
   @Nullable
   public static String getPath (@Nullable final String sAbsoluteFilename)
   {
     /**
-     * Note: do not use <code>new File (sFilename).getPath ()</code> since this
-     * only invokes the underlying FileSystem implementation which handles path
-     * handling only correctly on the native platform. Problem arose when
-     * running application on a Linux server and making a file upload from a
-     * Windows machine.
+     * Note: do not use <code>new File (sFilename).getPath ()</code> since this only invokes the
+     * underlying FileSystem implementation which handles path handling only correctly on the native
+     * platform. Problem arose when running application on a Linux server and making a file upload
+     * from a Windows machine.
      */
     if (sAbsoluteFilename == null)
       return null;
@@ -393,8 +379,8 @@ public final class FilenameHelper
    *
    * @param aFile
    *        The file to get the base name from. May be <code>null</code>.
-   * @return The base name of the passed parameter. May be <code>null</code> if
-   *         the parameter was <code>null</code>.
+   * @return The base name of the passed parameter. May be <code>null</code> if the parameter was
+   *         <code>null</code>.
    * @see #getWithoutExtension(String)
    */
   @Nullable
@@ -409,8 +395,8 @@ public final class FilenameHelper
    *
    * @param sAbsoluteFilename
    *        The filename to get the base name from. May be <code>null</code>.
-   * @return The base name of the passed parameter. May be <code>null</code> if
-   *         the parameter was <code>null</code>.
+   * @return The base name of the passed parameter. May be <code>null</code> if the parameter was
+   *         <code>null</code>.
    * @see #getWithoutPath(String)
    * @see #getWithoutExtension(String)
    */
@@ -421,8 +407,8 @@ public final class FilenameHelper
   }
 
   /**
-   * Ensure that the path (not the absolute path!) of the passed file is using
-   * the Unix style separator "/" instead of the Operating System dependent one.
+   * Ensure that the path (not the absolute path!) of the passed file is using the Unix style
+   * separator "/" instead of the Operating System dependent one.
    *
    * @param aFile
    *        The file to use. May be <code>null</code>
@@ -436,8 +422,8 @@ public final class FilenameHelper
   }
 
   /**
-   * Ensure that the passed path is using the Unix style separator "/" instead
-   * of the Operating System dependent one.
+   * Ensure that the passed path is using the Unix style separator "/" instead of the Operating
+   * System dependent one.
    *
    * @param sAbsoluteFilename
    *        The file name to use. May be <code>null</code>
@@ -447,15 +433,12 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingUnixSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null : StringHelper.replaceAll (sAbsoluteFilename,
-                                                                       WINDOWS_SEPARATOR,
-                                                                       UNIX_SEPARATOR);
+    return sAbsoluteFilename == null ? null : Strings.replaceAll (sAbsoluteFilename, WINDOWS_SEPARATOR, UNIX_SEPARATOR);
   }
 
   /**
-   * Ensure that the path (not the absolute path!) of the passed file is using
-   * the Windows style separator "\" instead of the Operating System dependent
-   * one.
+   * Ensure that the path (not the absolute path!) of the passed file is using the Windows style
+   * separator "\" instead of the Operating System dependent one.
    *
    * @param aFile
    *        The file to use. May be <code>null</code>
@@ -469,8 +452,8 @@ public final class FilenameHelper
   }
 
   /**
-   * Ensure that the passed path is using the Windows style separator "\"
-   * instead of the Operating System dependent one.
+   * Ensure that the passed path is using the Windows style separator "\" instead of the Operating
+   * System dependent one.
    *
    * @param sAbsoluteFilename
    *        The file name to use. May be <code>null</code>
@@ -480,14 +463,11 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingWindowsSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null : StringHelper.replaceAll (sAbsoluteFilename,
-                                                                       UNIX_SEPARATOR,
-                                                                       WINDOWS_SEPARATOR);
+    return sAbsoluteFilename == null ? null : Strings.replaceAll (sAbsoluteFilename, UNIX_SEPARATOR, WINDOWS_SEPARATOR);
   }
 
   /**
-   * Check whether the two passed file names are equal, independent of the used
-   * separators (/ or \).
+   * Check whether the two passed file names are equal, independent of the used separators (/ or \).
    *
    * @param sAbsoluteFilename1
    *        First file name. May be <code>null</code>.
@@ -499,20 +479,20 @@ public final class FilenameHelper
   public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1,
                                                     @Nullable final String sAbsoluteFilename2)
   {
-    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1),
-                                getPathUsingUnixSeparator (sAbsoluteFilename2));
+    return EqualsHelperExt.extEquals (getPathUsingUnixSeparator (sAbsoluteFilename1),
+                                      getPathUsingUnixSeparator (sAbsoluteFilename2));
   }
 
   /**
-   * Avoid 0 byte attack. E.g. file name "test.java\u0000.txt" is internally
-   * represented as "test.java" but ends with ".txt".<br>
-   * Note: the passed file name is <b>NOT</b> decoded (e.g. %20 stays %20 and
-   * will not be converted to a space).
+   * Avoid 0 byte attack. E.g. file name "test.java\u0000.txt" is internally represented as
+   * "test.java" but ends with ".txt".<br>
+   * Note: the passed file name is <b>NOT</b> decoded (e.g. %20 stays %20 and will not be converted
+   * to a space).
    *
    * @param sFilename
    *        The file name to check. May be <code>null</code>.
-   * @return <code>null</code> if the input string is <code>null</code> or
-   *         everything up to the 0-byte.
+   * @return <code>null</code> if the input string is <code>null</code> or everything up to the
+   *         0-byte.
    */
   @Nullable
   public static String getSecureFilename (@Nullable final String sFilename)
@@ -524,23 +504,21 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed file name is valid. It checks for illegal prefixes that
-   * affects compatibility to Windows, illegal characters within a filename and
-   * forbidden suffixes. This method fits only for filenames on one level. If
-   * you want to check a full path, use
+   * Check if the passed file name is valid. It checks for illegal prefixes that affects
+   * compatibility to Windows, illegal characters within a filename and forbidden suffixes. This
+   * method fits only for filenames on one level. If you want to check a full path, use
    * {@link #isValidFilenameWithPaths(String)}.
    *
    * @param sFilename
    *        The filename to check. May be <code>null</code>.
-   * @return <code>false</code> if the passed filename is <code>null</code> or
-   *         empty or invalid. <code>true</code> if the filename is not empty
-   *         and valid.
+   * @return <code>false</code> if the passed filename is <code>null</code> or empty or invalid.
+   *         <code>true</code> if the filename is not empty and valid.
    * @see #containsPathSeparatorChar(String)
    */
   public static boolean isValidFilename (@Nullable final String sFilename)
   {
     // empty not allowed
-    if (StringHelper.hasNoText (sFilename))
+    if (Strings.isEmpty (sFilename))
       return false;
 
     // path separator chars are not allowed in filenames!
@@ -573,19 +551,18 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed filename path is valid. In contrast to
-   * {@link #isValidFilename(String)} this method can also handle filenames
-   * including paths.
+   * Check if the passed filename path is valid. In contrast to {@link #isValidFilename(String)}
+   * this method can also handle filenames including paths.
    *
    * @param sFilename
    *        The filename to be checked for validity.
-   * @return <code>true</code> if all path elements of the filename are valid,
-   *         <code>false</code> if at least one element is invalid
+   * @return <code>true</code> if all path elements of the filename are valid, <code>false</code> if
+   *         at least one element is invalid
    * @see #isValidFilename(String)
    */
   public static boolean isValidFilenameWithPaths (@Nullable final String sFilename)
   {
-    if (StringHelper.hasNoText (sFilename))
+    if (Strings.isEmpty (sFilename))
       return false;
 
     // Iterate filename path by path
@@ -607,25 +584,20 @@ public final class FilenameHelper
   }
 
   /**
-   * Convert the passed filename into a valid filename by performing the
-   * following actions:
+   * Convert the passed filename into a valid filename by performing the following actions:
    * <ol>
    * <li>Remove everything after a potential \0 character</li>
    * <li>Remove all characters that are invalid at the end of a file name</li>
-   * <li>Replace all characters that are invalid inside a filename with a
-   * underscore</li>
-   * <li>If the filename is invalid on Windows platforms it is prefixed with an
-   * underscore.</li>
+   * <li>Replace all characters that are invalid inside a filename with a underscore</li>
+   * <li>If the filename is invalid on Windows platforms it is prefixed with an underscore.</li>
    * </ol>
-   * Note: this method does not handle Windows full path like
-   * "c:\autoexec.bat"<br>
+   * Note: this method does not handle Windows full path like "c:\autoexec.bat"<br>
    *
    * @param sFilename
    *        The filename to be made value. May be <code>null</code>.
-   * @return <code>null</code> if the input filename was <code>null</code> or if
-   *         it consisted only of characters invalid for a filename; the
-   *         potentially modified filename otherwise but <b>never</b> an empy
-   *         string.
+   * @return <code>null</code> if the input filename was <code>null</code> or if it consisted only
+   *         of characters invalid for a filename; the potentially modified filename otherwise but
+   *         <b>never</b> an empy string.
    * @see #getSecureFilename(String)
    */
   @Nullable
@@ -634,9 +606,10 @@ public final class FilenameHelper
   {
     // First secure it, by cutting everything behind the '\0'
     String ret = getSecureFilename (sFilename);
+    final String sStr = ret;
 
     // empty not allowed
-    if (StringHelper.hasText (ret))
+    if (Strings.isNotEmpty (sStr))
     {
       // Remove all trailing invalid suffixes
       while (ret.length () > 0 && StringHelper.endsWithAny (ret, ILLEGAL_SUFFIXES))
@@ -644,7 +617,7 @@ public final class FilenameHelper
 
       // Replace all characters that are illegal inside a filename
       for (final char cIllegal : ILLEGAL_CHARACTERS)
-        ret = StringHelper.replaceAll (ret, cIllegal, ILLEGAL_FILENAME_CHAR_REPLACEMENT);
+        ret = Strings.replaceAll (ret, cIllegal, ILLEGAL_FILENAME_CHAR_REPLACEMENT);
 
       // Check if a file matches an illegal prefix
       final String sTempRet = ret;
@@ -659,12 +632,12 @@ public final class FilenameHelper
         ret = ILLEGAL_FILENAME_CHAR_REPLACEMENT + ret;
     }
     // Avoid returning an empty string as valid file name
-    return StringHelper.hasNoText (ret) ? null : ret;
+    return Strings.isEmpty (ret) ? null : ret;
   }
 
   /**
-   * Check if the passed character is secure to be used in filenames. Therefore
-   * it must be &ge; 0x20 and &lt; 0x80.
+   * Check if the passed character is secure to be used in filenames. Therefore it must be &ge; 0x20
+   * and &lt; 0x80.
    *
    * @param c
    *        The character to check
@@ -676,15 +649,14 @@ public final class FilenameHelper
   }
 
   /**
-   * Replace all non-ASCII characters from the filename (e.g. German Umlauts)
-   * with underscores. Before replacing non-ASCII characters the filename is
-   * made valid using {@link #getAsSecureValidFilename(String)}.
+   * Replace all non-ASCII characters from the filename (e.g. German Umlauts) with underscores.
+   * Before replacing non-ASCII characters the filename is made valid using
+   * {@link #getAsSecureValidFilename(String)}.
    *
    * @param sFilename
    *        Input file name. May not be <code>null</code>.
-   * @return <code>null</code> if the input filename was <code>null</code>. The
-   *         file name containing only ASCII characters. The returned value is
-   *         never an empty String.
+   * @return <code>null</code> if the input filename was <code>null</code>. The file name containing
+   *         only ASCII characters. The returned value is never an empty String.
    * @see #getAsSecureValidASCIIFilename(String, char)
    */
   @Nullable
@@ -695,17 +667,16 @@ public final class FilenameHelper
   }
 
   /**
-   * Replace all non-ASCII characters from the filename (e.g. German Umlauts)
-   * with a replacement char. Before replacing non-ASCII characters the filename
-   * is made valid using {@link #getAsSecureValidFilename(String)}.
+   * Replace all non-ASCII characters from the filename (e.g. German Umlauts) with a replacement
+   * char. Before replacing non-ASCII characters the filename is made valid using
+   * {@link #getAsSecureValidFilename(String)}.
    *
    * @param sFilename
    *        Input file name. May not be <code>null</code>.
    * @param cReplacementChar
    *        The replacement character to be used for insecure filenames.
-   * @return <code>null</code> if the input filename was <code>null</code>. The
-   *         file name containing only ASCII characters. The returned value is
-   *         never an empty String.
+   * @return <code>null</code> if the input filename was <code>null</code>. The file name containing
+   *         only ASCII characters. The returned value is never an empty String.
    * @see #getAsSecureValidASCIIFilename(String)
    * @see #getAsSecureValidFilename(String)
    * @see #isSecureFilenameCharacter(char)
@@ -730,13 +701,13 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed character is a path separation character. This method
-   * handles both Windows- and Unix-style path separation characters.
+   * Check if the passed character is a path separation character. This method handles both Windows-
+   * and Unix-style path separation characters.
    *
    * @param c
    *        The character to check.
-   * @return <code>true</code> if the character is a path separation character,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the character is a path separation character, <code>false</code>
+   *         otherwise.
    */
   public static boolean isPathSeparatorChar (final char c)
   {
@@ -744,13 +715,12 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed character sequence starts with a path separation
-   * character.
+   * Check if the passed character sequence starts with a path separation character.
    *
    * @param s
    *        The character sequence to check. May be <code>null</code> or empty.
-   * @return <code>true</code> if the character sequences starts with a Windows-
-   *         or Unix-style path character.
+   * @return <code>true</code> if the character sequences starts with a Windows- or Unix-style path
+   *         character.
    * @see #isPathSeparatorChar(char)
    */
   public static boolean startsWithPathSeparatorChar (@Nullable final CharSequence s)
@@ -759,13 +729,12 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed character sequence ends with a path separation
-   * character.
+   * Check if the passed character sequence ends with a path separation character.
    *
    * @param s
    *        The character sequence to check. May be <code>null</code> or empty.
-   * @return <code>true</code> if the character sequences ends with a Windows-
-   *         or Unix-style path character.
+   * @return <code>true</code> if the character sequences ends with a Windows- or Unix-style path
+   *         character.
    * @see #isPathSeparatorChar(char)
    */
   public static boolean endsWithPathSeparatorChar (@Nullable final CharSequence s)
@@ -774,13 +743,13 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed String contains at least one path separator char
-   * (either Windows or Unix style).
+   * Check if the passed String contains at least one path separator char (either Windows or Unix
+   * style).
    *
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed string is not <code>null</code> and
-   *         contains at least one separator.
+   * @return <code>true</code> if the passed string is not <code>null</code> and contains at least
+   *         one separator.
    */
   public static boolean containsPathSeparatorChar (@Nullable final String s)
   {
@@ -789,15 +758,14 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed file is a system directory. A system directory is
-   * either {@value #PATH_CURRENT} or {@value #PATH_PARENT}.
+   * Check if the passed file is a system directory. A system directory is either
+   * {@value #PATH_CURRENT} or {@value #PATH_PARENT}.
    *
    * @param aFile
    *        The file to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed file name (not the path) matches
-   *         any of the special directory names, <code>false</code> of the
-   *         passed file is <code>null</code> or does not denote a special
-   *         directory.
+   * @return <code>true</code> if the passed file name (not the path) matches any of the special
+   *         directory names, <code>false</code> of the passed file is <code>null</code> or does not
+   *         denote a special directory.
    * @see #isSystemInternalDirectory(CharSequence)
    */
   public static boolean isSystemInternalDirectory (@Nullable final File aFile)
@@ -806,15 +774,14 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed file is a system directory. A system directory is
-   * either {@value #PATH_CURRENT} or {@value #PATH_PARENT}.
+   * Check if the passed file is a system directory. A system directory is either
+   * {@value #PATH_CURRENT} or {@value #PATH_PARENT}.
    *
    * @param aFile
    *        The file to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed file name (not the path) matches
-   *         any of the special directory names, <code>false</code> of the
-   *         passed file is <code>null</code> or does not denote a special
-   *         directory.
+   * @return <code>true</code> if the passed file name (not the path) matches any of the special
+   *         directory names, <code>false</code> of the passed file is <code>null</code> or does not
+   *         denote a special directory.
    * @see #isSystemInternalDirectory(CharSequence)
    */
   public static boolean isSystemInternalDirectory (@Nullable final Path aFile)
@@ -826,14 +793,14 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed string is a system directory. A system directory is
-   * either {@value #PATH_CURRENT} or {@value #PATH_PARENT}.
+   * Check if the passed string is a system directory. A system directory is either
+   * {@value #PATH_CURRENT} or {@value #PATH_PARENT}.
    *
    * @param s
    *        The value to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed string matches any of the special
-   *         directory names, <code>false</code> of the passed string is
-   *         <code>null</code> or does not denote a special directory.
+   * @return <code>true</code> if the passed string matches any of the special directory names,
+   *         <code>false</code> of the passed string is <code>null</code> or does not denote a
+   *         special directory.
    * @see #isSystemInternalDirectory(File)
    */
   public static boolean isSystemInternalDirectory (@Nullable final CharSequence s)
@@ -842,13 +809,12 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed file is an UNC path. UNC paths are identified by
-   * starting with "//" or "\\".
+   * Check if the passed file is an UNC path. UNC paths are identified by starting with "//" or
+   * "\\".
    *
    * @param aFile
    *        The file to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the file points to an UNC path,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the file points to an UNC path, <code>false</code> if not.
    * @see #isUNCPath(String)
    */
   public static boolean isUNCPath (@Nonnull final File aFile)
@@ -858,13 +824,12 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed file is an UNC path. UNC paths are identified by
-   * starting with "//" or "\\".
+   * Check if the passed file is an UNC path. UNC paths are identified by starting with "//" or
+   * "\\".
    *
    * @param sFilename
    *        The absolute filename to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the file points to an UNC path,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the file points to an UNC path, <code>false</code> if not.
    * @see #isUNCPath(File)
    */
   public static boolean isUNCPath (@Nonnull final String sFilename)
@@ -873,13 +838,12 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed file is a Windows local UNC path. This type is
-   * identified by starting with "\\?\" or "\\.\".
+   * Check if the passed file is a Windows local UNC path. This type is identified by starting with
+   * "\\?\" or "\\.\".
    *
    * @param aFile
    *        The file to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the file points to an UNC path,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the file points to an UNC path, <code>false</code> if not.
    * @see #isWindowsLocalUNCPath(String)
    */
   public static boolean isWindowsLocalUNCPath (@Nonnull final File aFile)
@@ -889,13 +853,13 @@ public final class FilenameHelper
   }
 
   /**
-   * Check if the passed file is a Windows local UNC path. This type is
-   * identified by starting with "\\?\" or "\\.\".
+   * Check if the passed file is a Windows local UNC path. This type is identified by starting with
+   * "\\?\" or "\\.\".
    *
    * @param sFilename
    *        The absolute filename to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the file points to a Windows local UNC path,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the file points to a Windows local UNC path, <code>false</code> if
+   *         not.
    * @see #isWindowsLocalUNCPath(File)
    */
   public static boolean isWindowsLocalUNCPath (@Nonnull final String sFilename)
@@ -905,10 +869,10 @@ public final class FilenameHelper
 
   /**
    * Get a clean path of the passed file resolving all "." and ".." paths.<br>
-   * Note: in case {@link FileHelper#getCanonicalPath(File)} fails,
-   * {@link #getCleanPath(String)} is used as a fallback.<br>
-   * Note 2: no cleansing operations beside "." and ".." are returned. You need
-   * to ensure yourself, that the returned file name is valid!
+   * Note: in case {@link FileHelper#getCanonicalPath(File)} fails, {@link #getCleanPath(String)} is
+   * used as a fallback.<br>
+   * Note 2: no cleansing operations beside "." and ".." are returned. You need to ensure yourself,
+   * that the returned file name is valid!
    *
    * @param aFile
    *        The file to be cleaned. May not be <code>null</code>.
@@ -947,8 +911,7 @@ public final class FilenameHelper
    *
    * @param sPath
    *        The path to be cleaned.
-   * @return The cleaned path or <code>null</code> if the input parameter was
-   *         <code>null</code>.
+   * @return The cleaned path or <code>null</code> if the input parameter was <code>null</code>.
    * @see #getSecureFilename(String)
    * @see #getPathUsingUnixSeparator(String)
    */
@@ -1062,8 +1025,8 @@ public final class FilenameHelper
   }
 
   /**
-   * Concatenate a base URL and a sub path incl. the path cleansing. More or
-   * less the same as calling <code>getCleanPath (sURL + "/" + sPath)</code>
+   * Concatenate a base URL and a sub path incl. the path cleansing. More or less the same as
+   * calling <code>getCleanPath (sURL + "/" + sPath)</code>
    *
    * @param sURL
    *        The base URL. May not be <code>null</code>.
@@ -1079,7 +1042,7 @@ public final class FilenameHelper
     ValueEnforcer.notNull (sPath, "Path");
 
     // If nothing is to be appended, just clean the base URL
-    if (StringHelper.hasNoText (sPath))
+    if (Strings.isEmpty (sPath))
       return getCleanPath (sURL);
 
     final String sRealURL = StringHelper.endsWith (sURL, UNIX_SEPARATOR) ? sURL : sURL + UNIX_SEPARATOR;
@@ -1088,14 +1051,14 @@ public final class FilenameHelper
   }
 
   /**
-   * Ensure that the passed path starts with a directory separator character. If
-   * the passed path starts with either {@value #WINDOWS_SEPARATOR} or
-   * {@value #UNIX_SEPARATOR} no changes are performed.
+   * Ensure that the passed path starts with a directory separator character. If the passed path
+   * starts with either {@value #WINDOWS_SEPARATOR} or {@value #UNIX_SEPARATOR} no changes are
+   * performed.
    *
    * @param sPath
    *        The path to be checked.
-   * @return The path that is ensured to start with the directory separator of
-   *         the current operating system.
+   * @return The path that is ensured to start with the directory separator of the current operating
+   *         system.
    * @see #startsWithPathSeparatorChar(CharSequence)
    */
   @Nullable
@@ -1108,9 +1071,8 @@ public final class FilenameHelper
   }
 
   /**
-   * Ensure that the passed path does NOT end with a directory separator
-   * character. Any number of trailing {@value #WINDOWS_SEPARATOR} or
-   * {@value #UNIX_SEPARATOR} are removed.
+   * Ensure that the passed path does NOT end with a directory separator character. Any number of
+   * trailing {@value #WINDOWS_SEPARATOR} or {@value #UNIX_SEPARATOR} are removed.
    *
    * @param sPath
    *        The path to be checked.
@@ -1131,14 +1093,13 @@ public final class FilenameHelper
   }
 
   /**
-   * Ensure that the passed path ends with a directory separator character. If
-   * the passed path ends with either {@value #WINDOWS_SEPARATOR} or
-   * {@value #UNIX_SEPARATOR} no changes are performed.
+   * Ensure that the passed path ends with a directory separator character. If the passed path ends
+   * with either {@value #WINDOWS_SEPARATOR} or {@value #UNIX_SEPARATOR} no changes are performed.
    *
    * @param sPath
    *        The path to be checked.
-   * @return The path that is ensured to end with the directory separator of the
-   *         current operating system.
+   * @return The path that is ensured to end with the directory separator of the current operating
+   *         system.
    * @see #endsWithPathSeparatorChar(CharSequence)
    */
   @Nullable
@@ -1151,20 +1112,18 @@ public final class FilenameHelper
   }
 
   /**
-   * Tries to express the passed file path relative to the passed parent
-   * directory. If the parent directory is null or not actually a parent of the
-   * passed file, the passed file name will be returned unchanged.
+   * Tries to express the passed file path relative to the passed parent directory. If the parent
+   * directory is null or not actually a parent of the passed file, the passed file name will be
+   * returned unchanged.
    *
    * @param aFile
-   *        The file which is to be described relatively. May not be
-   *        <code>null</code>.
+   *        The file which is to be described relatively. May not be <code>null</code>.
    * @param aParentDirectory
-   *        The parent directory of the file to which the relative path
-   *        expression will relate to. May be <code>null</code>.
-   * @return The relative path or the unchanged absolute file path using Unix
-   *         path separators instead of Operating System dependent separator. Or
-   *         <code>null</code> if the passed file contains a path traversal at
-   *         the beginning
+   *        The parent directory of the file to which the relative path expression will relate to.
+   *        May be <code>null</code>.
+   * @return The relative path or the unchanged absolute file path using Unix path separators
+   *         instead of Operating System dependent separator. Or <code>null</code> if the passed
+   *         file contains a path traversal at the beginning
    * @see #getCleanPath(File)
    * @see #startsWithPathSeparatorChar(CharSequence)
    */
@@ -1192,20 +1151,18 @@ public final class FilenameHelper
   }
 
   /**
-   * Get a concatenated absolute path consisting of the parent directory and the
-   * file path. It is ensured that the resulting (cleaned) filename is still the
-   * same or a child of the passed parent directory. If the file path contains
-   * some directory traversal elements (e.g. starting with "..")
-   * <code>null</code> is returned.
+   * Get a concatenated absolute path consisting of the parent directory and the file path. It is
+   * ensured that the resulting (cleaned) filename is still the same or a child of the passed parent
+   * directory. If the file path contains some directory traversal elements (e.g. starting with
+   * "..") <code>null</code> is returned.
    *
    * @param aParentDirectory
    *        The parent directory to be ensured. May not be <code>null</code>.
    * @param sFilePath
-   *        The file path to be appended to the passed parent directory. May not
-   *        be <code>null</code>.
-   * @return <code>null</code> if the parent directory would be changed with the
-   *         passed file path - the concatenated cleaned path otherwise (using
-   *         Unix separators).
+   *        The file path to be appended to the passed parent directory. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if the parent directory would be changed with the passed file path -
+   *         the concatenated cleaned path otherwise (using Unix separators).
    * @see #getRelativeToParentDirectory(File, File)
    * @see #getCleanPath(File)
    */
@@ -1252,8 +1209,7 @@ public final class FilenameHelper
    *
    * @param aFile
    *        The file to check. May be <code>null</code>.
-   * @return <code>true</code> if the file is not <code>null</code> and the name
-   *         starts with a dot.
+   * @return <code>true</code> if the file is not <code>null</code> and the name starts with a dot.
    * @see #isHiddenFilename(String)
    */
   public static boolean isHiddenFilename (@Nullable final File aFile)
@@ -1266,12 +1222,12 @@ public final class FilenameHelper
    *
    * @param sFilename
    *        The filename to check. May be <code>null</code>.
-   * @return <code>true</code> if the filename is neither <code>null</code> nor
-   *         empty and starts with a dot.
+   * @return <code>true</code> if the filename is neither <code>null</code> nor empty and starts
+   *         with a dot.
    * @see #isHiddenFilename(File)
    */
   public static boolean isHiddenFilename (@Nullable final String sFilename)
   {
-    return StringHelper.hasText (sFilename) && sFilename.charAt (0) == HIDDEN_FILE_PREFIX;
+    return Strings.isNotEmpty (sFilename) && sFilename.charAt (0) == HIDDEN_FILE_PREFIX;
   }
 }

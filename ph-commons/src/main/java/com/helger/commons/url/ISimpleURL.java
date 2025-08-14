@@ -21,8 +21,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
+import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -78,7 +78,7 @@ public interface ISimpleURL
    */
   default boolean hasAnchor ()
   {
-    return StringHelper.hasText (getAnchor ());
+    return Strings.isNotEmpty (getAnchor ());
   }
 
   /**
@@ -90,7 +90,7 @@ public interface ISimpleURL
    */
   default boolean hasAnchor (@Nullable final String sAnchor)
   {
-    return EqualsHelper.equals (sAnchor, getAnchor ());
+    return EqualsHelperExt.extEquals (sAnchor, getAnchor ());
   }
 
   /**

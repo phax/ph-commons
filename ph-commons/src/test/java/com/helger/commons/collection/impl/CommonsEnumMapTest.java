@@ -22,8 +22,8 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
+import com.helger.base.state.EChange;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.state.EChange;
 
 /**
  * Test class for class {@link CommonsEnumMap}.

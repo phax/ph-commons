@@ -34,17 +34,17 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
+import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.base.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.pool.IMutableObjectPool;
 import com.helger.commons.pool.ObjectPool;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.timing.StopWatch;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.sax.InputSourceFactory;
 
 import jakarta.annotation.Nonnull;
@@ -185,19 +185,15 @@ public final class SAXReader
   }
 
   /**
-   * Read an XML document via a SAX handler. The streams are closed after
-   * reading.
+   * Read an XML document via a SAX handler. The streams are closed after reading.
    *
    * @param aIS
-   *        The input source to read from. Automatically closed upon success or
-   *        error. May not be <code>null</code>.
-   *        {@link com.helger.xml.sax.InputSourceFactory} may be used to create
+   *        The input source to read from. Automatically closed upon success or error. May not be
+   *        <code>null</code>. {@link com.helger.xml.sax.InputSourceFactory} may be used to create
    *        {@link InputSource} objects from different input types.
    * @param aSettings
-   *        Reader settings. At least a content handler should be set. May be
-   *        <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if reading succeeded,
-   *         {@link ESuccess#FAILURE} otherwise
+   *        Reader settings. At least a content handler should be set. May be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} otherwise
    */
   @Nonnull
   public static ESuccess readXMLSAX (@WillClose @Nonnull final InputSource aIS,

@@ -17,18 +17,17 @@
 package com.helger.commons.mutable;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Object wrapper around a float so that it can be passed a final object but is
- * mutable.
+ * Object wrapper around a float so that it can be passed a final object but is mutable.
  *
  * @author Philip Helger
  */

@@ -26,17 +26,17 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.builder.IBuilder;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceprovider.DefaultResourceProvider;
 import com.helger.commons.io.resourceprovider.IReadableResourceProvider;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.SystemProperties;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
@@ -45,9 +45,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Builder class for {@link ConfigFile} objects. By default this build class
- * reads properties files, and uses a {@link DefaultResourceProvider} to resolve
- * config file paths.
+ * Builder class for {@link ConfigFile} objects. By default this build class reads properties files,
+ * and uses a {@link DefaultResourceProvider} to resolve config file paths.
  *
  * @author Philip Helger
  */
@@ -115,7 +114,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   @Nonnull
   public ConfigFileBuilder addPath (@Nullable final String sConfigPath)
   {
-    if (StringHelper.hasText (sConfigPath))
+    if (Strings.isNotEmpty (sConfigPath))
       m_aPaths.add (sConfigPath);
     return this;
   }

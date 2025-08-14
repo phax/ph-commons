@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.array.ArrayHelper;
 import com.helger.commons.collection.iterate.ArrayIterator;
 import com.helger.commons.collection.iterate.CombinedIterator;
 import com.helger.commons.collection.iterate.EmptyEnumeration;

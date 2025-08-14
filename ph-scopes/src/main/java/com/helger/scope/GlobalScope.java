@@ -21,14 +21,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.base.lang.ClassHelper;
 
 import jakarta.annotation.Nonnull;
 
 /**
  * Base implementation of the {@link IGlobalScope} interface.<br>
- * Note: for synchronization issues, this class stores the attributes in a
- * separate map.
+ * Note: for synchronization issues, this class stores the attributes in a separate map.
  *
  * @author Philip Helger
  */

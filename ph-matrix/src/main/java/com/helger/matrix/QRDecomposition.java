@@ -17,7 +17,7 @@
 package com.helger.matrix;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.math.MathHelper;
+import com.helger.base.math.MathHelper;
 
 import jakarta.annotation.Nonnull;
 

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.cache;
 
-import com.helger.commons.state.EChange;
+import com.helger.base.state.EChange;
 
 import jakarta.annotation.Nonnull;
 

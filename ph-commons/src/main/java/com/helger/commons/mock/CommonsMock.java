@@ -37,7 +37,11 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.GenericReflection;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -47,30 +51,24 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.datetime.XMLOffsetTime;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.traits.IGetterDirectTrait;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Mock objects by invoking their constructors with arbitrary objects. It
- * separates into static mocking rules and "per instance" mocking rules. Static
- * mocking rules apply to all instances of this class whereas "per instance"
- * mocking rules apply only to this instance.
+ * Mock objects by invoking their constructors with arbitrary objects. It separates into static
+ * mocking rules and "per instance" mocking rules. Static mocking rules apply to all instances of
+ * this class whereas "per instance" mocking rules apply only to this instance.
  *
  * @author Philip Helger
  */
 public final class CommonsMock
 {
   /**
-   * This class represents a parameter description for a single mockable type.
-   * It consists of a parameter name (purely informational), parameter class
-   * (required) and a generic supplier.
+   * This class represents a parameter description for a single mockable type. It consists of a
+   * parameter name (purely informational), parameter class (required) and a generic supplier.
    *
    * @author Philip Helger
    */
@@ -85,14 +83,13 @@ public final class CommonsMock
      * Constructor for a mock parameter
      *
      * @param sParamName
-     *        Name of the parameter - informational only. May neither be
-     *        <code>null</code> nor empty.
-     * @param aParamClass
-     *        The class of the parameter. May neither be <code>null</code> nor
+     *        Name of the parameter - informational only. May neither be <code>null</code> nor
      *        empty.
+     * @param aParamClass
+     *        The class of the parameter. May neither be <code>null</code> nor empty.
      * @param aDefaultValueSupplier
-     *        The default value supplier in case the caller did not provide an
-     *        argument. May not be <code>null</code>.
+     *        The default value supplier in case the caller did not provide an argument. May not be
+     *        <code>null</code>.
      * @param <T>
      *        data type of the parameter
      */
@@ -175,13 +172,12 @@ public final class CommonsMock
     }
 
     /**
-     * This method is responsible for invoking the provided
-     * factory/supplier/function with the provided parameters.
+     * This method is responsible for invoking the provided factory/supplier/function with the
+     * provided parameters.
      *
      * @param aProvidedParams
      *        The parameter array. May be <code>null</code> or empty.
-     * @return The mocked value. May be <code>null</code> but that would be a
-     *         relatively rare case.
+     * @return The mocked value. May be <code>null</code> but that would be a relatively rare case.
      */
     @Nullable
     public Object getMockedValue (@Nullable final Object [] aProvidedParams)
@@ -232,8 +228,7 @@ public final class CommonsMock
      * @param aDstClass
      *        The destination class to be mocked. May not be <code>null</code>.
      * @param aSupplier
-     *        The supplier/factory without parameters to be used. May not be
-     *        <code>null</code>.
+     *        The supplier/factory without parameters to be used. May not be <code>null</code>.
      * @return Never <code>null</code>.
      * @param <T>
      *        The type to be mocked
@@ -253,12 +248,10 @@ public final class CommonsMock
      * @param aDstClass
      *        The destination class to be mocked. May not be <code>null</code>.
      * @param aParams
-     *        The parameter declarations to be used. May not be
-     *        <code>null</code>.
+     *        The parameter declarations to be used. May not be <code>null</code>.
      * @param aSupplier
-     *        The generic function to be invoked. Must take an array of
-     *        {@link IGetterDirectTrait} and return an instance of the passed
-     *        class.
+     *        The generic function to be invoked. Must take an array of {@link IGetterDirectTrait}
+     *        and return an instance of the passed class.
      * @return Never <code>null</code>.
      * @param <T>
      *        The type to be mocked
@@ -346,12 +339,10 @@ public final class CommonsMock
   }
 
   /**
-   * Register a constant mock object. That class will always be mocked with the
-   * specified instance.
+   * Register a constant mock object. That class will always be mocked with the specified instance.
    *
    * @param aObject
-   *        The object to be used as a mock result. May not be <code>null</code>
-   *        .
+   *        The object to be used as a mock result. May not be <code>null</code> .
    * @param <T>
    *        The type to be mocked
    */
@@ -361,16 +352,15 @@ public final class CommonsMock
   }
 
   /**
-   * Register a simple supplier (=factory) to be invoked when an instance of the
-   * passed class is to be mocked. This method does not give you any possibility
-   * to provide parameters and so this works only if mock instance creation is
-   * fixed.
+   * Register a simple supplier (=factory) to be invoked when an instance of the passed class is to
+   * be mocked. This method does not give you any possibility to provide parameters and so this
+   * works only if mock instance creation is fixed.
    *
    * @param aClass
    *        The class to be mocked. May not be <code>null</code>.
    * @param aSupplier
-   *        The supplier/factory to be invoked when to mock this class. May not
-   *        be <code>null</code>.
+   *        The supplier/factory to be invoked when to mock this class. May not be
+   *        <code>null</code>.
    * @param <T>
    *        The type to be mocked
    */
@@ -387,9 +377,8 @@ public final class CommonsMock
    * @param aParams
    *        The parameter declarations to be used. May not be <code>null</code>.
    * @param aSupplier
-   *        The generic function to be invoked. Must take an array of
-   *        {@link IGetterDirectTrait} and return an instance of the passed
-   *        class.
+   *        The generic function to be invoked. Must take an array of {@link IGetterDirectTrait} and
+   *        return an instance of the passed class.
    * @param <T>
    *        The type to be mocked
    */
@@ -445,12 +434,10 @@ public final class CommonsMock
   }
 
   /**
-   * Register a constant mock object. That class will always be mocked with the
-   * specified instance.
+   * Register a constant mock object. That class will always be mocked with the specified instance.
    *
    * @param aObject
-   *        The object to be used as a mock result. May not be <code>null</code>
-   *        .
+   *        The object to be used as a mock result. May not be <code>null</code> .
    * @param <T>
    *        The type to be mocked
    */
@@ -460,16 +447,15 @@ public final class CommonsMock
   }
 
   /**
-   * Register a simple supplier (=factory) to be invoked when an instance of the
-   * passed class is to be mocked. This method does not give you any possibility
-   * to provide parameters and so this works only if mock instance creation is
-   * fixed.
+   * Register a simple supplier (=factory) to be invoked when an instance of the passed class is to
+   * be mocked. This method does not give you any possibility to provide parameters and so this
+   * works only if mock instance creation is fixed.
    *
    * @param aClass
    *        The class to be mocked. May not be <code>null</code>.
    * @param aSupplier
-   *        The supplier/factory to be invoked when to mock this class. May not
-   *        be <code>null</code>.
+   *        The supplier/factory to be invoked when to mock this class. May not be
+   *        <code>null</code>.
    * @param <T>
    *        The type to be mocked
    */
@@ -486,9 +472,8 @@ public final class CommonsMock
    * @param aParams
    *        The parameter declarations to be used. May not be <code>null</code>.
    * @param aSupplier
-   *        The generic function to be invoked. Must take an array of
-   *        {@link IGetterDirectTrait} and return an instance of the passed
-   *        class.
+   *        The generic function to be invoked. Must take an array of {@link IGetterDirectTrait} and
+   *        return an instance of the passed class.
    * @param <T>
    *        The type to be mocked
    */
@@ -512,9 +497,8 @@ public final class CommonsMock
   }
 
   @Nonnull
-  private Object _mock (@Nonnull final Class <?> aClass,
-                        @Nullable final Object [] aParams,
-                        final int nLevel) throws Exception
+  private Object _mock (@Nonnull final Class <?> aClass, @Nullable final Object [] aParams, final int nLevel)
+                                                                                                              throws Exception
   {
     // Check for static supplier
     final MockSupplier aStatic = STATIC_SUPPLIERS.get (aClass);
@@ -593,8 +577,8 @@ public final class CommonsMock
    * @param aClass
    *        The class to be mocked. May not be <code>null</code>.
    * @param aParams
-   *        An optional array of parameters to be passed to the mocking
-   *        supplier. May be <code>null</code> or empty.
+   *        An optional array of parameters to be passed to the mocking supplier. May be
+   *        <code>null</code> or empty.
    * @return The mocked object. Never <code>null</code>.
    * @throws IllegalStateException
    *         If an exception occurred during the mock instance creation.
@@ -628,8 +612,8 @@ public final class CommonsMock
    * @param aClass
    *        The class to be mocked.
    * @param aParams
-   *        An optional array of parameters to be passed to the mocking supplier
-   *        for each object to be mocked. May be <code>null</code> or empty.
+   *        An optional array of parameters to be passed to the mocking supplier for each object to
+   *        be mocked. May be <code>null</code> or empty.
    * @return The list with <code>nCount</code> entries.
    * @param <T>
    *        The type to be mocked
@@ -654,8 +638,8 @@ public final class CommonsMock
    * @param aClass
    *        The class to be mocked.
    * @param aParams
-   *        An optional array of parameters to be passed to the mocking supplier
-   *        for each object to be mocked. May be <code>null</code> or empty.
+   *        An optional array of parameters to be passed to the mocking supplier for each object to
+   *        be mocked. May be <code>null</code> or empty.
    * @return The set with <code>nCount</code> entries.
    * @param <T>
    *        The type to be mocked

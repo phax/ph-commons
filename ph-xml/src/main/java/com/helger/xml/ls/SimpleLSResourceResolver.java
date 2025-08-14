@@ -24,9 +24,9 @@ import org.w3c.dom.ls.LSInput;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.lang.IHasClassLoader;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
-import com.helger.commons.lang.IHasClassLoader;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

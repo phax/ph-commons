@@ -22,7 +22,7 @@ import java.io.OutputStream;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.CGlobal;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHex;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -59,9 +59,13 @@ public class ASCIIHexCodec implements IByteArrayStreamDecoder
         if (Character.isWhitespace (nEncByte))
           continue;
 
-        final byte nDecByte = (byte) StringHelper.getHexValue ((char) nEncByte);
+        final byte nDecByte = (byte) StringHex.getHexValue ((char) nEncByte);
         if (nDecByte == CGlobal.ILLEGAL_UINT)
-          throw new DecodeException ("Failed to convert byte '" + nEncByte + "/" + ((char) nEncByte) + "' to hex value in ASCIIHexDecode");
+          throw new DecodeException ("Failed to convert byte '" +
+                                     nEncByte +
+                                     "/" +
+                                     ((char) nEncByte) +
+                                     "' to hex value in ASCIIHexDecode");
         if (bFirstByte)
           nFirstByte = nDecByte;
         else

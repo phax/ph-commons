@@ -19,7 +19,7 @@ package com.helger.datetime.domain;
 import java.text.DateFormatSymbols;
 import java.util.Locale;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
 import com.helger.commons.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
 

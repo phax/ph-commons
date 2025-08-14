@@ -27,11 +27,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.StackTraceHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
@@ -40,8 +40,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class contains the information of a single thread at a certain point of
- * time.
+ * This class contains the information of a single thread at a certain point of time.
  *
  * @author Philip Helger
  */
@@ -64,9 +63,9 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
   private final ThreadInfo m_aThreadInfo;
 
   /**
-   * Enable the retrieval of {@link ThreadInfo} objects. Warning: this takes a
-   * lot of CPU, so enable this only when you are not running a performance
-   * critical application! The default is {@value #DEFAULT_ENABLE_THREAD_INFO}.
+   * Enable the retrieval of {@link ThreadInfo} objects. Warning: this takes a lot of CPU, so enable
+   * this only when you are not running a performance critical application! The default is
+   * {@value #DEFAULT_ENABLE_THREAD_INFO}.
    *
    * @param bEnableThreadInfo
    *        <code>true</code> to enabled, <code>false</code> to disable.
@@ -133,7 +132,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
   @Nonempty
   public String getStackTraceNotNull ()
   {
-    return StringHelper.hasText (m_sStackTrace) ? m_sStackTrace : "No stack trace available\n";
+    return Strings.isNotEmpty (m_sStackTrace) ? m_sStackTrace : "No stack trace available\n";
   }
 
   @Nonnull

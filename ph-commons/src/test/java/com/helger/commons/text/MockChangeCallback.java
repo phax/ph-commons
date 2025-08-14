@@ -18,8 +18,8 @@ package com.helger.commons.text;
 
 import static org.junit.Assert.assertNotNull;
 
+import com.helger.base.state.EContinue;
 import com.helger.commons.callback.IChangeCallback;
-import com.helger.commons.state.EContinue;
 
 import jakarta.annotation.Nonnull;
 

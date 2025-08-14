@@ -29,10 +29,10 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.io.stream.NonBlockingPushbackReader;
-import com.helger.commons.state.EEOI;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.nonblocking.NonBlockingPushbackReader;
+import com.helger.base.state.EEOI;
+import com.helger.base.string.StringHex;
 import com.helger.json.CJson;
 import com.helger.json.parser.handler.IJsonParserHandler;
 
@@ -203,9 +203,9 @@ public class JsonParser
     if (c == EOI_CHAR)
       return "<EOI>";
     if (c <= 32)
-      return "0x" + StringHelper.getHexStringLeadingZero (c, 2);
+      return "0x" + StringHex.getHexStringLeadingZero (c, 2);
     if (c >= 127)
-      return "0x" + StringHelper.getHexStringLeadingZero (c, 4);
+      return "0x" + StringHex.getHexStringLeadingZero (c, 4);
     return "'" + (char) c + "'";
   }
 
@@ -317,7 +317,7 @@ public class JsonParser
    */
   private int _getHexValue (@Nullable final IJsonParsePosition aStartPos, final int c) throws JsonParseException
   {
-    final int ret = StringHelper.getHexValue ((char) c);
+    final int ret = StringHex.getHexValue ((char) c);
     if (ret == -1)
       throw _parseEx (aStartPos, "Invalid hex character " + _getPrintableChar (c) + " provided!");
     return ret;

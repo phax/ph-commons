@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 /**
  * Test class for class {@link ERandomAccessFileMode}.
@@ -37,7 +37,7 @@ public final class ERandomAccessFileModeTest
     for (final ERandomAccessFileMode e : ERandomAccessFileMode.values ())
     {
       assertSame (e, ERandomAccessFileMode.valueOf (e.name ()));
-      assertTrue (StringHelper.hasText (e.getMode ()));
+      assertTrue (Strings.isNotEmpty (e.getMode ()));
       assertSame (e, ERandomAccessFileMode.getFromModeOrNull (e.getMode ()));
     }
     assertNull (ERandomAccessFileMode.getFromModeOrNull (null));

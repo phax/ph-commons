@@ -20,9 +20,9 @@ import java.util.Locale;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -63,7 +63,7 @@ public class ConstantHasErrorText implements IHasErrorText
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ConstantHasErrorText rhs = (ConstantHasErrorText) o;
-    return EqualsHelper.equals (m_sText, rhs.m_sText);
+    return EqualsHelperExt.extEquals (m_sText, rhs.m_sText);
   }
 
   @Override

@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.UnsupportedOperation;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.string.ToStringGenerator;
 
 /**
  * Utility implementation of the {@link ListIterator} for an empty list :)

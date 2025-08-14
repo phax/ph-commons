@@ -16,7 +16,7 @@
  */
 package com.helger.commons.text.codepoint;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHex;
 
 /**
  * @author Apache Abdera
@@ -38,6 +38,6 @@ public class InvalidCharacterException extends RuntimeException
   @Override
   public String getMessage ()
   {
-    return "Invalid Character 0x" + StringHelper.getHexStringLeadingZero (m_nInput, 2) + "(" + (char) m_nInput + ")";
+    return "Invalid Character 0x" + StringHex.getHexStringLeadingZero (m_nInput, 2) + "(" + (char) m_nInput + ")";
   }
 }

@@ -22,7 +22,7 @@ import java.nio.charset.Charset;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -24,7 +24,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.CGlobal;
+import com.helger.base.array.ArrayHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -70,7 +71,7 @@ public final class IByteArrayCodecTest
 
   private void _testCodec (@Nonnull final IByteArrayCodec c)
   {
-    _testCodec (c, ArrayHelper.EMPTY_BYTE_ARRAY);
+    _testCodec (c, CGlobal.EMPTY_BYTE_ARRAY);
     _testCodec (c, "Hallo JÜnit".getBytes (StandardCharsets.ISO_8859_1));
     _testCodec (c, "Hallo JÜnit".getBytes (StandardCharsets.UTF_8));
 

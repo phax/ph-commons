@@ -31,14 +31,14 @@ import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.math.MathHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.math.MathHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -1303,7 +1303,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
         final String s = aFormat.format (m_aData[nRow][nCol]);
         // At _least_ 1 space
         final int padding = Math.max (1, nWidth - s.length ());
-        aPW.print (StringHelper.getRepeated (' ', padding));
+        aPW.print (Strings.getRepeated (' ', padding));
         aPW.print (s);
       }
       aPW.println ();

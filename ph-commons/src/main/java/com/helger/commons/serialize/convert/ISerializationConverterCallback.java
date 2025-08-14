@@ -16,7 +16,7 @@
  */
 package com.helger.commons.serialize.convert;
 
-import com.helger.commons.state.EContinue;
+import com.helger.base.state.EContinue;
 
 import jakarta.annotation.Nonnull;
 

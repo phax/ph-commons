@@ -17,7 +17,7 @@
 package com.helger.commons.io.resource;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.commons.io.IHasOutputStreamAndWriter;
+import com.helger.base.io.iface.IHasOutputStreamAndWriter;
 
 import jakarta.annotation.Nonnull;
 

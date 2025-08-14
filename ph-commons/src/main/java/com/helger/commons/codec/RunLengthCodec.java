@@ -21,7 +21,7 @@ import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

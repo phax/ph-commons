@@ -38,7 +38,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.io.file.PathHelper;
 import com.helger.commons.system.EOperatingSystem;
 
@@ -57,9 +57,9 @@ public final class PathFuncTest
   public void testSimple () throws IOException
   {
     final Path p = Paths.get ("pom.xml");
-    assertTrue (EqualsHelper.equals (p, Paths.get ("pom.xml")));
-    assertTrue (EqualsHelper.equals (p, Paths.get ("../ph-commons/pom.xml")));
-    assertTrue (EqualsHelper.equals (p.toRealPath (), Paths.get ("../ph-commons/pom.xml").toRealPath ()));
+    assertTrue (EqualsHelperExt.extEquals (p, Paths.get ("pom.xml")));
+    assertTrue (EqualsHelperExt.extEquals (p, Paths.get ("../ph-commons/pom.xml")));
+    assertTrue (EqualsHelperExt.extEquals (p.toRealPath (), Paths.get ("../ph-commons/pom.xml").toRealPath ()));
 
     assertFalse (p.isAbsolute ());
     assertTrue (Files.exists (p));

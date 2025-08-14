@@ -22,8 +22,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import com.helger.base.math.BigHelper;
 import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.math.MathHelper;
 import com.helger.config.source.res.ConfigurationSourceJson;
 
 /**
@@ -72,8 +72,8 @@ public final class ConfigWithFallbackTest
       assertEquals ("dbl", sOld);
       assertEquals ("dbl-new", sNew);
     });
-    assertEquals (MathHelper.toBigDecimal (123.45678), aConfig.getAsBigDecimalOrFallback ("dbl", "dbl-new"));
-    assertEquals (MathHelper.toBigDecimal (123.45678), aConfig.getAsBigDecimalOrFallback ("dbl-new", "dbl"));
+    assertEquals (BigHelper.toBigDecimal (123.45678), aConfig.getAsBigDecimalOrFallback ("dbl", "dbl-new"));
+    assertEquals (BigHelper.toBigDecimal (123.45678), aConfig.getAsBigDecimalOrFallback ("dbl-new", "dbl"));
     assertNull (aConfig.getAsBigDecimalOrFallback ("foo", "bla"));
   }
 

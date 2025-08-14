@@ -18,7 +18,7 @@ package com.helger.commons.location;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.CGlobal;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -35,20 +35,18 @@ public interface ILocation
   int ILLEGAL_NUMBER = CGlobal.ILLEGAL_UINT;
 
   /**
-   * @return The ID of the resource where the error occurred. May be
-   *         <code>null</code>.
+   * @return The ID of the resource where the error occurred. May be <code>null</code>.
    */
   @Nullable
   String getResourceID ();
 
   default boolean hasResourceID ()
   {
-    return StringHelper.hasText (getResourceID ());
+    return Strings.isNotEmpty (getResourceID ());
   }
 
   /**
-   * @return The 1-based line number {@link #ILLEGAL_NUMBER} if no line number
-   *         is present.
+   * @return The 1-based line number {@link #ILLEGAL_NUMBER} if no line number is present.
    */
   int getLineNumber ();
 
@@ -58,8 +56,7 @@ public interface ILocation
   }
 
   /**
-   * @return The 1-based column number {@link #ILLEGAL_NUMBER} if no column
-   *         number is present.
+   * @return The 1-based column number {@link #ILLEGAL_NUMBER} if no column number is present.
    */
   int getColumnNumber ();
 
@@ -69,11 +66,9 @@ public interface ILocation
   }
 
   /**
-   * Simple method to check if resource ID, line number, column number or field
-   * name is present.
+   * Simple method to check if resource ID, line number, column number or field name is present.
    *
-   * @return <code>true</code> if at least one field is set, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if at least one field is set, <code>false</code> otherwise.
    */
   default boolean isAnyInformationPresent ()
   {
@@ -86,25 +81,25 @@ public interface ILocation
   @Nonnull
   default String getAsString ()
   {
-    String ret = "";
+    StringBuilder ret = new StringBuilder ();
 
     final String sResourceID = getResourceID ();
-    if (StringHelper.hasText (sResourceID))
-      ret += sResourceID;
+    if (Strings.isNotEmpty (sResourceID))
+      ret.append (sResourceID);
 
     if (hasLineNumber ())
     {
       if (hasColumnNumber ())
-        ret += "(" + getLineNumber () + ":" + getColumnNumber () + ")";
+        ret.append ("(").append (getLineNumber ()).append (":").append (getColumnNumber ()).append (")");
       else
-        ret += "(" + getLineNumber () + ":?)";
+        ret.append ("(").append (getLineNumber ()).append (":?)");
     }
     else
     {
       if (hasColumnNumber ())
-        ret += "(?:" + getColumnNumber () + ")";
+        ret.append ("(?:").append (getColumnNumber ()).append (")");
       // else: neither nor
     }
-    return ret;
+    return ret.toString ();
   }
 }

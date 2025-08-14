@@ -27,6 +27,9 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.state.EContinue;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsTreeMap;
@@ -36,20 +39,16 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.commons.wrapper.Wrapper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class contains all the default type converters for the default types
- * that are required. The {@link TypeConverter} class uses this factory for
- * converting objects.
+ * This class contains all the default type converters for the default types that are required. The
+ * {@link TypeConverter} class uses this factory for converting objects.
  *
  * @author Philip Helger
  */
@@ -110,11 +109,10 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    * Register a default type converter.
    *
    * @param aSrcClass
-   *        A non-<code>null</code> source class to convert from. Must be an
-   *        instancable class.
+   *        A non-<code>null</code> source class to convert from. Must be an instancable class.
    * @param aDstClass
-   *        A non-<code>null</code> destination class to convert to. Must be an
-   *        instancable class. May not equal the source class.
+   *        A non-<code>null</code> destination class to convert to. Must be an instancable class.
+   *        May not equal the source class.
    * @param aConverter
    *        The convert to use. May not be <code>null</code>.
    */
@@ -186,15 +184,14 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   /**
-   * Get the converter that can convert objects from aSrcClass to aDstClass.
-   * Thereby no fuzzy logic is applied.
+   * Get the converter that can convert objects from aSrcClass to aDstClass. Thereby no fuzzy logic
+   * is applied.
    *
    * @param aSrcClass
    *        Source class. May not be <code>null</code>.
    * @param aDstClass
    *        Destination class. May not be <code>null</code>.
-   * @return <code>null</code> if no such type converter exists, the converter
-   *         object otherwise.
+   * @return <code>null</code> if no such type converter exists, the converter object otherwise.
    */
   @Nullable
   ITypeConverter <?, ?> getExactConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
@@ -206,15 +203,14 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   /**
-   * Get the converter that can convert objects from aSrcClass to aDstClass
-   * using the registered rules. The first match is returned.
+   * Get the converter that can convert objects from aSrcClass to aDstClass using the registered
+   * rules. The first match is returned.
    *
    * @param aSrcClass
    *        Source class. May not be <code>null</code>.
    * @param aDstClass
    *        Destination class. May not be <code>null</code>.
-   * @return <code>null</code> if no such type converter exists, the converter
-   *         object otherwise.
+   * @return <code>null</code> if no such type converter exists, the converter object otherwise.
    */
   @Nullable
   ITypeConverter <?, ?> getRuleBasedConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
@@ -234,17 +230,16 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   /**
-   * Iterate all possible fuzzy converters from source class to destination
-   * class.
+   * Iterate all possible fuzzy converters from source class to destination class.
    *
    * @param aSrcClass
    *        Source class.
    * @param aDstClass
    *        Destination class.
    * @param aCallback
-   *        The callback to be invoked once a converter was found. Must return
-   *        either {@link EContinue#CONTINUE} to continue iteration or
-   *        {@link EContinue#BREAK} to break iteration at the current position.
+   *        The callback to be invoked once a converter was found. Must return either
+   *        {@link EContinue#CONTINUE} to continue iteration or {@link EContinue#BREAK} to break
+   *        iteration at the current position.
    */
   private void _iterateFuzzyConverters (@Nonnull final Class <?> aSrcClass,
                                         @Nonnull final Class <?> aDstClass,
@@ -274,17 +269,15 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   /**
-   * Get the converter that can convert objects from aSrcClass to aDstClass. If
-   * no exact match is found, the super-classes and interface of source and
-   * destination class are searched for matching type converters. The first
-   * match is returned.
+   * Get the converter that can convert objects from aSrcClass to aDstClass. If no exact match is
+   * found, the super-classes and interface of source and destination class are searched for
+   * matching type converters. The first match is returned.
    *
    * @param aSrcClass
    *        Source class. May not be <code>null</code>.
    * @param aDstClass
    *        Destination class. May not be <code>null</code>.
-   * @return <code>null</code> if no such type converter exists, the converter
-   *         object otherwise.
+   * @return <code>null</code> if no such type converter exists, the converter object otherwise.
    */
   @Nullable
   ITypeConverter <?, ?> getFuzzyConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)

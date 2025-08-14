@@ -31,10 +31,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLHelper;
 
@@ -42,9 +42,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Internal XML serializer that takes org.w3c.dom.Node objects, extracts the
- * information to serialize and passes the respective information to an
- * {@link XMLEmitter} object.
+ * Internal XML serializer that takes org.w3c.dom.Node objects, extracts the information to
+ * serialize and passes the respective information to an {@link XMLEmitter} object.
  *
  * @author Philip Helger
  */
@@ -214,7 +213,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       final String sElementNSPrefix;
       if (bEmitNamespaces)
       {
-        sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
+        sElementNamespaceURI = Strings.getNotNull (aElement.getNamespaceURI ());
         // Eventually adds a namespace attribute in the AttrMap
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
@@ -226,7 +225,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
 
       // Get all attributes
       XMLHelper.forAllAttributes (aElement, aAttr -> {
-        final String sAttrNamespaceURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
+        final String sAttrNamespaceURI = Strings.getNotNull (aAttr.getNamespaceURI ());
 
         // Ignore all "xmlns" attributes as they are created manually. They are
         // only available when reading via DOM
@@ -252,8 +251,9 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       });
 
       // Determine indent
-      final Element aParentElement = aParentNode != null &&
-                                     aParentNode.getNodeType () == Node.ELEMENT_NODE ? (Element) aParentNode : null;
+      final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE
+                                                                                                            ? (Element) aParentNode
+                                                                                                            : null;
       final String sParentNamespaceURI;
       final String sParentTagName;
       if (aParentElement != null)

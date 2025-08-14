@@ -20,10 +20,10 @@ import java.util.List;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -64,7 +64,7 @@ public final class StringTrieFuncTest <DATATYPE>
   @Nullable
   public DATATYPE get (@Nonnull @Nonempty final String sKey)
   {
-    if (StringHelper.hasNoText (sKey))
+    if (Strings.isEmpty (sKey))
       throw new IllegalArgumentException ("key must have length >= 1");
 
     final char [] aKey = sKey.toCharArray ();
@@ -95,7 +95,9 @@ public final class StringTrieFuncTest <DATATYPE>
 
   // return subtrie corresponding to given key
   @Nullable
-  private Node <DATATYPE> _get (@Nullable final Node <DATATYPE> aNode, @Nonnull @Nonempty final char [] aKey, @Nonnegative final int nIndex)
+  private Node <DATATYPE> _get (@Nullable final Node <DATATYPE> aNode,
+                                @Nonnull @Nonempty final char [] aKey,
+                                @Nonnegative final int nIndex)
   {
     if (aNode != null)
     {
@@ -141,7 +143,7 @@ public final class StringTrieFuncTest <DATATYPE>
 
   public void put (@Nonnull @Nonempty final String sKey, @Nullable final DATATYPE aValue)
   {
-    if (StringHelper.hasNoText (sKey))
+    if (Strings.isEmpty (sKey))
       throw new IllegalArgumentException ("key must have length >= 1");
 
     final char [] aChars = sKey.toCharArray ();
@@ -202,7 +204,7 @@ public final class StringTrieFuncTest <DATATYPE>
   @Nullable
   public String getLongestPrefixOf (@Nullable final String s)
   {
-    if (StringHelper.hasNoText (s))
+    if (Strings.isEmpty (s))
       return null;
 
     int nLength = 0;
@@ -236,7 +238,9 @@ public final class StringTrieFuncTest <DATATYPE>
   }
 
   // all keys in subtrie rooted at x with given prefix
-  private void _collect (@Nullable final Node <DATATYPE> aNode, @Nonnull final String sPrefix, @Nonnull final List <String> aList)
+  private void _collect (@Nullable final Node <DATATYPE> aNode,
+                         @Nonnull final String sPrefix,
+                         @Nonnull final List <String> aList)
   {
     if (aNode != null)
     {
@@ -253,7 +257,7 @@ public final class StringTrieFuncTest <DATATYPE>
   @Nonnull
   public ICommonsCollection <String> prefixMatch (@Nonnull @Nonempty final String sPrefix)
   {
-    if (StringHelper.hasNoText (sPrefix))
+    if (Strings.isEmpty (sPrefix))
       throw new IllegalArgumentException ("prefix must have length >= 1");
 
     final ICommonsList <String> aList = new CommonsArrayList <> ();

@@ -43,9 +43,9 @@ import java.util.List;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillCloseWhenClosed;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.collection.iterate.ArrayIterator;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -96,8 +96,7 @@ public class CSVWriter implements Closeable, Flushable
    * Constructs {@link CSVWriter} with all default settings.
    *
    * @param aWriter
-   *        the writer to an underlying CSV source. May not be <code>null</code>
-   *        .
+   *        the writer to an underlying CSV source. May not be <code>null</code> .
    */
   public CSVWriter (@Nonnull @WillCloseWhenClosed final Writer aWriter)
   {
@@ -200,8 +199,8 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * @return <code>true</code> if the file should not end with a new-line,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the file should not end with a new-line, <code>false</code>
+   *         otherwise.
    * @since 8.6.6
    */
   public boolean isAvoidFinalLineEnd ()
@@ -225,9 +224,8 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * @return <code>true</code> if all cells should always be quoted,
-   *         <code>false</code> otherwise. The default is
-   *         {@value #DEFAULT_QUOTE_ALL}.
+   * @return <code>true</code> if all cells should always be quoted, <code>false</code> otherwise.
+   *         The default is {@value #DEFAULT_QUOTE_ALL}.
    * @since 8.6.6
    */
   public boolean isApplyQuotesToAll ()
@@ -239,8 +237,8 @@ public class CSVWriter implements Closeable, Flushable
    * Set whether all cells should be quoted by default or not.
    *
    * @param bApplyQuotesToAll
-   *        <code>true</code> to quote all cells, <code>false</code> to quote
-   *        only the ones where it is necessary
+   *        <code>true</code> to quote all cells, <code>false</code> to quote only the ones where it
+   *        is necessary
    * @return this for chaining
    * @since 8.6.6
    */
@@ -255,12 +253,10 @@ public class CSVWriter implements Closeable, Flushable
    * Writes the entire list to a CSV file.
    *
    * @param aAllLines
-   *        a List of List of String, with each List of String representing a
-   *        line of the file.
+   *        a List of List of String, with each List of String representing a line of the file.
    * @param bApplyQuotesToAll
-   *        <code>true</code> if all values are to be quoted. <code>false</code>
-   *        if quotes only to be applied to values which contain the separator,
-   *        escape, quote or new line characters.
+   *        <code>true</code> if all values are to be quoted. <code>false</code> if quotes only to
+   *        be applied to values which contain the separator, escape, quote or new line characters.
    */
   public void writeAll (@Nonnull final List <? extends List <String>> aAllLines, final boolean bApplyQuotesToAll)
   {
@@ -272,8 +268,7 @@ public class CSVWriter implements Closeable, Flushable
    * Writes the entire list to a CSV file using the default quoting setting.
    *
    * @param aAllLines
-   *        a List of List of String, with each List of String representing a
-   *        line of the file.
+   *        a List of List of String, with each List of String representing a line of the file.
    * @see #isApplyQuotesToAll()
    */
   public void writeAll (@Nonnull final List <? extends List <String>> aAllLines)
@@ -287,9 +282,8 @@ public class CSVWriter implements Closeable, Flushable
    * @param aNextLine
    *        A collection of Strings where each entry represents a single cell.
    * @param bApplyQuotesToAll
-   *        <code>true</code> if all values are to be quoted. <code>false</code>
-   *        applies quotes only to values which contain the separator, escape,
-   *        quote or new line characters.
+   *        <code>true</code> if all values are to be quoted. <code>false</code> applies quotes only
+   *        to values which contain the separator, escape, quote or new line characters.
    */
   public void writeNext (@Nullable final Iterator <String> aNextLine, final boolean bApplyQuotesToAll)
   {
@@ -346,12 +340,10 @@ public class CSVWriter implements Closeable, Flushable
    * Writes the next line to the file.
    *
    * @param aNextLine
-   *        a string array with each comma-separated element as a separate
-   *        entry.
+   *        a string array with each comma-separated element as a separate entry.
    * @param bApplyQuotesToAll
-   *        <code>true</code> if all values are to be quoted. <code>false</code>
-   *        applies quotes only to values which contain the separator, escape,
-   *        quote or new line characters.
+   *        <code>true</code> if all values are to be quoted. <code>false</code> applies quotes only
+   *        to values which contain the separator, escape, quote or new line characters.
    */
   public void writeNext (@Nullable final Iterable <String> aNextLine, final boolean bApplyQuotesToAll)
   {
@@ -363,8 +355,7 @@ public class CSVWriter implements Closeable, Flushable
    * Writes the next line to the file using the default quoting settings.
    *
    * @param aNextLine
-   *        a string array with each comma-separated element as a separate
-   *        entry.
+   *        a string array with each comma-separated element as a separate entry.
    * @see #isApplyQuotesToAll()
    */
   public void writeNext (@Nullable final Iterable <String> aNextLine)
@@ -376,12 +367,10 @@ public class CSVWriter implements Closeable, Flushable
    * Writes the next line to the file.
    *
    * @param aNextLine
-   *        a string array with each comma-separated element as a separate
-   *        entry.
+   *        a string array with each comma-separated element as a separate entry.
    * @param bApplyQuotesToAll
-   *        <code>true</code> if all values are to be quoted. <code>false</code>
-   *        applies quotes only to values which contain the separator, escape,
-   *        quote or new line characters.
+   *        <code>true</code> if all values are to be quoted. <code>false</code> applies quotes only
+   *        to values which contain the separator, escape, quote or new line characters.
    */
   public void writeNext (@Nullable final String [] aNextLine, final boolean bApplyQuotesToAll)
   {
@@ -393,8 +382,7 @@ public class CSVWriter implements Closeable, Flushable
    * Writes the next line to the file using the default quoting settings.
    *
    * @param aNextLine
-   *        a string array with each comma-separated element as a separate
-   *        entry.
+   *        a string array with each comma-separated element as a separate entry.
    * @see #isApplyQuotesToAll()
    */
   public void writeNext (@Nullable final String... aNextLine)
@@ -406,16 +394,14 @@ public class CSVWriter implements Closeable, Flushable
    * Writes the next line to the file.
    *
    * @param aNextLine
-   *        a string array with each comma-separated element as a separate
-   *        entry.
+   *        a string array with each comma-separated element as a separate entry.
    * @param nOfs
    *        Array Offset. Must be &ge; 0.
    * @param nLength
    *        Array Length. Must be &ge; 0.
    * @param bApplyQuotesToAll
-   *        <code>true</code> if all values are to be quoted. <code>false</code>
-   *        applies quotes only to values which contain the separator, escape,
-   *        quote or new line characters.
+   *        <code>true</code> if all values are to be quoted. <code>false</code> applies quotes only
+   *        to values which contain the separator, escape, quote or new line characters.
    */
   public void writeNext (@Nullable final String [] aNextLine,
                          @Nonnegative final int nOfs,
@@ -430,15 +416,16 @@ public class CSVWriter implements Closeable, Flushable
    * Writes the next line to the file using the default quoting setting.
    *
    * @param aNextLine
-   *        a string array with each comma-separated element as a separate
-   *        entry.
+   *        a string array with each comma-separated element as a separate entry.
    * @param nOfs
    *        Array Offset. Must be &ge; 0.
    * @param nLength
    *        Array Length. Must be &ge; 0.
    * @see #isApplyQuotesToAll()
    */
-  public void writeNext (@Nullable final String [] aNextLine, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public void writeNext (@Nullable final String [] aNextLine,
+                         @Nonnegative final int nOfs,
+                         @Nonnegative final int nLength)
   {
     writeNext (aNextLine, nOfs, nLength, m_bApplyQuotesToAll);
   }
@@ -448,8 +435,7 @@ public class CSVWriter implements Closeable, Flushable
    *
    * @param sLine
    *        - element of data to check for special characters.
-   * @return true if the line contains the quote, escape, separator, newline or
-   *         return.
+   * @return true if the line contains the quote, escape, separator, newline or return.
    */
   protected boolean stringContainsSpecialCharacters (@Nonnull final String sLine)
   {
@@ -510,9 +496,8 @@ public class CSVWriter implements Closeable, Flushable
   /**
    * Checks to see if the there has been an error in the printstream.
    *
-   * @return <code>true</code> if the print stream has encountered an error,
-   *         either on the underlying output stream or during a format
-   *         conversion.
+   * @return <code>true</code> if the print stream has encountered an error, either on the
+   *         underlying output stream or during a format conversion.
    */
   public boolean checkError ()
   {

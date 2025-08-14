@@ -24,10 +24,11 @@ import java.util.Locale;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -113,14 +114,14 @@ public final class PDTFormatter
         String sPattern = getSourcePattern (aCacheKey);
 
         // Change "year of era" to "year"
-        sPattern = StringHelper.replaceAll (sPattern, 'y', 'u');
+        sPattern = Strings.replaceAll (sPattern, 'y', 'u');
 
         if (false)
           if (aCacheKey.m_eMode == EDTFormatterMode.PARSE && StringHelper.getCharCount (sPattern, 'u') == 1)
           {
             // In Java 9, if CLDR mode is active, switch from a single "u" to
             // "uuuu" (for parsing)
-            sPattern = StringHelper.replaceAll (sPattern, "u", "uuuu");
+            sPattern = Strings.replaceAll (sPattern, "u", "uuuu");
           }
 
         if (aCacheKey.m_eMode == EDTFormatterMode.PARSE &&
@@ -128,11 +129,11 @@ public final class PDTFormatter
             aCacheKey.m_eStyle == FormatStyle.MEDIUM)
         {
           // Change from 2 required fields to 1
-          sPattern = StringHelper.replaceAll (sPattern, "dd", "d");
-          sPattern = StringHelper.replaceAll (sPattern, "MM", "M");
-          sPattern = StringHelper.replaceAll (sPattern, "HH", "H");
-          sPattern = StringHelper.replaceAll (sPattern, "mm", "m");
-          sPattern = StringHelper.replaceAll (sPattern, "ss", "s");
+          sPattern = Strings.replaceAll (sPattern, "dd", "d");
+          sPattern = Strings.replaceAll (sPattern, "MM", "M");
+          sPattern = Strings.replaceAll (sPattern, "HH", "H");
+          sPattern = Strings.replaceAll (sPattern, "mm", "m");
+          sPattern = Strings.replaceAll (sPattern, "ss", "s");
         }
 
         // And finally create the cached DateTimeFormatter

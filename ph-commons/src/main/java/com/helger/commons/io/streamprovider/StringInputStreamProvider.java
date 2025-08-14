@@ -22,15 +22,15 @@ import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.iface.IHasInputStreamAndReader;
+import com.helger.base.io.iface.IHasReader;
+import com.helger.base.nonblocking.NonBlockingStringReader;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.IHasInputStreamAndReader;
-import com.helger.commons.io.IHasReader;
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.serialize.convert.SerializationConverter;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -70,13 +70,13 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
 
   private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
   {
-    StreamHelper.writeSafeUTF (aOOS, m_sData);
+    StreamHelperExt.writeSafeUTF (aOOS, m_sData);
     SerializationConverter.writeConvertedObject (m_aCharset, aOOS);
   }
 
   private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
   {
-    m_sData = StreamHelper.readSafeUTF (aOIS);
+    m_sData = StreamHelperExt.readSafeUTF (aOIS);
     m_aCharset = SerializationConverter.readConvertedObject (aOIS, Charset.class);
   }
 

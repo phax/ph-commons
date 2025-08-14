@@ -28,52 +28,45 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.helger.annotation.WillNotClose;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.nonblocking.NonBlockingBufferedWriter;
+import com.helger.base.string.StringHex;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.io.stream.NonBlockingBufferedWriter;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * The <code>NonBlockingProperties</code> class represents a persistent set of
- * properties. The <code>NonBlockingProperties</code> can be saved to a stream
- * or loaded from a stream. Each key and its corresponding value in the property
- * list is a string.
+ * The <code>NonBlockingProperties</code> class represents a persistent set of properties. The
+ * <code>NonBlockingProperties</code> can be saved to a stream or loaded from a stream. Each key and
+ * its corresponding value in the property list is a string.
  * <p>
- * A property list can contain another property list as its "defaults"; this
- * second property list is searched if the property key is not found in the
- * original property list.
+ * A property list can contain another property list as its "defaults"; this second property list is
+ * searched if the property key is not found in the original property list.
  * <p>
- * Because <code>NonBlockingProperties</code> inherits from
- * <code>CommonsTreeMap</code> , the <code>put</code> and <code>putAll</code>
- * methods can be applied to a <code>NonBlockingProperties</code> object. Their
- * use is strongly discouraged as they allow the caller to insert entries whose
- * keys or values are not <code>Strings</code>. The <code>setProperty</code>
- * method should be used instead. If the <code>store</code> or <code>save</code>
- * method is called on a "compromised" <code>NonBlockingProperties</code> object
- * that contains a non- <code>String</code> key or value, the call will fail.
- * Similarly, the call to the <code>propertyNames</code> or <code>list</code>
- * method will fail if it is called on a "compromised"
- * <code>NonBlockingProperties</code> object that contains a non-
- * <code>String</code> key.
+ * Because <code>NonBlockingProperties</code> inherits from <code>CommonsTreeMap</code> , the
+ * <code>put</code> and <code>putAll</code> methods can be applied to a
+ * <code>NonBlockingProperties</code> object. Their use is strongly discouraged as they allow the
+ * caller to insert entries whose keys or values are not <code>Strings</code>. The
+ * <code>setProperty</code> method should be used instead. If the <code>store</code> or
+ * <code>save</code> method is called on a "compromised" <code>NonBlockingProperties</code> object
+ * that contains a non- <code>String</code> key or value, the call will fail. Similarly, the call to
+ * the <code>propertyNames</code> or <code>list</code> method will fail if it is called on a
+ * "compromised" <code>NonBlockingProperties</code> object that contains a non- <code>String</code>
+ * key.
  * <p>
  * The {@link #load(java.io.Reader) load(Reader)} <code>/</code>
- * {@link #store(java.io.Writer, java.lang.String) store(Writer, String)}
- * methods load and store properties from and to a character based stream in a
- * simple line-oriented format specified below. The
- * {@link #load(java.io.InputStream) load(InputStream)} <code>/</code>
- * {@link #store(java.io.OutputStream, java.lang.String) store(OutputStream,
- * String)} methods work the same way as the load(Reader)/store(Writer, String)
- * pair, except the input/output stream is encoded in ISO 8859-1 character
- * encoding. Characters that cannot be directly represented in this encoding can
- * be written using <a href=
- * "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.3" >
- * Unicode escapes</a> ; only a single 'u' character is allowed in an escape
- * sequence. The native2ascii tool can be used to convert property files to and
- * from other character encodings.
+ * {@link #store(java.io.Writer, java.lang.String) store(Writer, String)} methods load and store
+ * properties from and to a character based stream in a simple line-oriented format specified below.
+ * The {@link #load(java.io.InputStream) load(InputStream)} <code>/</code>
+ * {@link #store(java.io.OutputStream, java.lang.String) store(OutputStream, String)} methods work
+ * the same way as the load(Reader)/store(Writer, String) pair, except the input/output stream is
+ * encoded in ISO 8859-1 character encoding. Characters that cannot be directly represented in this
+ * encoding can be written using
+ * <a href= "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.3" > Unicode
+ * escapes</a> ; only a single 'u' character is allowed in an escape sequence. The native2ascii tool
+ * can be used to convert property files to and from other character encodings.
  *
  * @author Arthur van Hoff
  * @author Michael McCloskey
@@ -85,8 +78,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   // No logger here!
 
   /**
-   * A property list that contains default values for any keys not found in this
-   * property list.
+   * A property list that contains default values for any keys not found in this property list.
    */
   protected NonBlockingProperties m_aDefaults;
 
@@ -110,8 +102,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * @return The default properties as passed in the constructor. May be
-   *         <code>null</code>.
+   * @return The default properties as passed in the constructor. May be <code>null</code>.
    */
   @Nullable
   public NonBlockingProperties getDefaults ()
@@ -120,17 +111,16 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Calls the <code>Hashtable</code> method <code>put</code>. Provided for
-   * parallelism with the <code>getProperty</code> method. Enforces use of
-   * strings for property keys and values. The value returned is the result of
-   * the <code>Hashtable</code> call to <code>put</code>.
+   * Calls the <code>Hashtable</code> method <code>put</code>. Provided for parallelism with the
+   * <code>getProperty</code> method. Enforces use of strings for property keys and values. The
+   * value returned is the result of the <code>Hashtable</code> call to <code>put</code>.
    *
    * @param sKey
    *        the key to be placed into this property list.
    * @param sValue
    *        the value corresponding to <code>key</code>.
-   * @return the previous value of the specified key in this property list, or
-   *         <code>null</code> if it did not have one.
+   * @return the previous value of the specified key in this property list, or <code>null</code> if
+   *         it did not have one.
    * @see #getProperty
    * @since 1.2
    */
@@ -141,73 +131,62 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Reads a property list (key and element pairs) from the input character
-   * stream in a simple line-oriented format.
+   * Reads a property list (key and element pairs) from the input character stream in a simple
+   * line-oriented format.
    * <p>
-   * Properties are processed in terms of lines. There are two kinds of line,
-   * <i>natural lines</i> and <i>logical lines</i>. A natural line is defined as
-   * a line of characters that is terminated either by a set of line terminator
-   * characters (<code>\n</code> or <code>\r</code> or <code>\r\n</code>) or by
-   * the end of the stream. A natural line may be either a blank line, a comment
-   * line, or hold all or some of a key-element pair. A logical line holds all
-   * the data of a key-element pair, which may be spread out across several
-   * adjacent natural lines by escaping the line terminator sequence with a
-   * backslash character <code>\</code>. Note that a comment line cannot be
-   * extended in this manner; every natural line that is a comment must have its
-   * own comment indicator, as described below. Lines are read from input until
-   * the end of the stream is reached.
+   * Properties are processed in terms of lines. There are two kinds of line, <i>natural lines</i>
+   * and <i>logical lines</i>. A natural line is defined as a line of characters that is terminated
+   * either by a set of line terminator characters (<code>\n</code> or <code>\r</code> or
+   * <code>\r\n</code>) or by the end of the stream. A natural line may be either a blank line, a
+   * comment line, or hold all or some of a key-element pair. A logical line holds all the data of a
+   * key-element pair, which may be spread out across several adjacent natural lines by escaping the
+   * line terminator sequence with a backslash character <code>\</code>. Note that a comment line
+   * cannot be extended in this manner; every natural line that is a comment must have its own
+   * comment indicator, as described below. Lines are read from input until the end of the stream is
+   * reached.
    * </p>
    * <p>
-   * A natural line that contains only white space characters is considered
-   * blank and is ignored. A comment line has an ASCII <code>'#'</code> or
-   * <code>'!'</code> as its first non-white space character; comment lines are
-   * also ignored and do not encode key-element information. In addition to line
-   * terminators, this format considers the characters space (<code>' '</code>,
-   * <code>'&#92;u0020'</code>), tab (<code>'\t'</code>,
-   * <code>'&#92;u0009'</code>), and form feed (<code>'\f'</code>,
-   * <code>'&#92;u000C'</code>) to be white space.
+   * A natural line that contains only white space characters is considered blank and is ignored. A
+   * comment line has an ASCII <code>'#'</code> or <code>'!'</code> as its first non-white space
+   * character; comment lines are also ignored and do not encode key-element information. In
+   * addition to line terminators, this format considers the characters space (<code>' '</code>,
+   * <code>'&#92;u0020'</code>), tab (<code>'\t'</code>, <code>'&#92;u0009'</code>), and form feed
+   * (<code>'\f'</code>, <code>'&#92;u000C'</code>) to be white space.
    * </p>
    * <p>
-   * If a logical line is spread across several natural lines, the backslash
-   * escaping the line terminator sequence, the line terminator sequence, and
-   * any white space at the start of the following line have no affect on the
-   * key or element values. The remainder of the discussion of key and element
-   * parsing (when loading) will assume all the characters constituting the key
-   * and element appear on a single natural line after line continuation
-   * characters have been removed. Note that it is <i>not</i> sufficient to only
-   * examine the character preceding a line terminator sequence to decide if the
-   * line terminator is escaped; there must be an odd number of contiguous
-   * backslashes for the line terminator to be escaped. Since the input is
-   * processed from left to right, a non-zero even number of 2<i>n</i>
-   * contiguous backslashes before a line terminator (or elsewhere) encodes
-   * <i>n</i> backslashes after escape processing.
+   * If a logical line is spread across several natural lines, the backslash escaping the line
+   * terminator sequence, the line terminator sequence, and any white space at the start of the
+   * following line have no affect on the key or element values. The remainder of the discussion of
+   * key and element parsing (when loading) will assume all the characters constituting the key and
+   * element appear on a single natural line after line continuation characters have been removed.
+   * Note that it is <i>not</i> sufficient to only examine the character preceding a line terminator
+   * sequence to decide if the line terminator is escaped; there must be an odd number of contiguous
+   * backslashes for the line terminator to be escaped. Since the input is processed from left to
+   * right, a non-zero even number of 2<i>n</i> contiguous backslashes before a line terminator (or
+   * elsewhere) encodes <i>n</i> backslashes after escape processing.
    * </p>
    * <p>
-   * The key contains all of the characters in the line starting with the first
-   * non-white space character and up to, but not including, the first unescaped
-   * <code>'='</code>, <code>':'</code>, or white space character other than a
-   * line terminator. All of these key termination characters may be included in
-   * the key by escaping them with a preceding backslash character; for example,
+   * The key contains all of the characters in the line starting with the first non-white space
+   * character and up to, but not including, the first unescaped <code>'='</code>, <code>':'</code>,
+   * or white space character other than a line terminator. All of these key termination characters
+   * may be included in the key by escaping them with a preceding backslash character; for example,
    * </p>
    * <p>
    * <code>\:\=</code>
    * </p>
    * <p>
-   * would be the two-character key <code>":="</code>. Line terminator
-   * characters can be included using <code>\r</code> and <code>\n</code> escape
-   * sequences. Any white space after the key is skipped; if the first non-white
-   * space character after the key is <code>'='</code> or <code>':'</code>, then
-   * it is ignored and any white space characters after it are also skipped. All
-   * remaining characters on the line become part of the associated element
-   * string; if there are no remaining characters, the element is the empty
-   * string <code>&quot;&quot;</code>. Once the raw character sequences
-   * constituting the key and element are identified, escape processing is
+   * would be the two-character key <code>":="</code>. Line terminator characters can be included
+   * using <code>\r</code> and <code>\n</code> escape sequences. Any white space after the key is
+   * skipped; if the first non-white space character after the key is <code>'='</code> or
+   * <code>':'</code>, then it is ignored and any white space characters after it are also skipped.
+   * All remaining characters on the line become part of the associated element string; if there are
+   * no remaining characters, the element is the empty string <code>&quot;&quot;</code>. Once the
+   * raw character sequences constituting the key and element are identified, escape processing is
    * performed as described above.
    * </p>
    * <p>
-   * As an example, each of the following three lines specifies the key
-   * <code>"Truth"</code> and the associated element value <code>"Beauty"</code>
-   * :
+   * As an example, each of the following three lines specifies the key <code>"Truth"</code> and the
+   * associated element value <code>"Beauty"</code> :
    * </p>
    *
    * <pre>
@@ -232,10 +211,10 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    * &quot;apple, banana, pear, cantaloupe, watermelon, kiwi, mango&quot;
    * </pre>
    * <p>
-   * Note that a space appears before each <code>\</code> so that a space will
-   * appear after each comma in the final result; the <code>\</code>, line
-   * terminator, and leading white space on the continuation line are merely
-   * discarded and are <i>not</i> replaced by one or more other characters.
+   * Note that a space appears before each <code>\</code> so that a space will appear after each
+   * comma in the final result; the <code>\</code>, line terminator, and leading white space on the
+   * continuation line are merely discarded and are <i>not</i> replaced by one or more other
+   * characters.
    * </p>
    * <p>
    * As a third example, the line:
@@ -245,32 +224,29 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    * cheeses
    * </pre>
    * <p>
-   * specifies that the key is <code>"cheeses"</code> and the associated element
-   * is the empty string <code>""</code>.
+   * specifies that the key is <code>"cheeses"</code> and the associated element is the empty string
+   * <code>""</code>.
    * </p>
    * <p>
-   * Characters in keys and elements can be represented in escape sequences
-   * similar to those used for character and string literals (see <a href=
-   * "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.3" >
-   * &sect;3.3</a> and <a href=
-   * "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.10.6"
-   * >&sect;3.10.6</a> of the <i>Java Language Specification</i>). The
-   * differences from the character escape sequences and Unicode escapes used
-   * for characters and strings are:
+   * Characters in keys and elements can be represented in escape sequences similar to those used
+   * for character and string literals (see
+   * <a href= "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.3" >
+   * &sect;3.3</a> and
+   * <a href= "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.10.6"
+   * >&sect;3.10.6</a> of the <i>Java Language Specification</i>). The differences from the
+   * character escape sequences and Unicode escapes used for characters and strings are:
    * </p>
    * <ul>
    * <li>Octal escapes are not recognized.
-   * <li>The character sequence <code>\b</code> does <i>not</i> represent a
-   * backspace character.
-   * <li>The method does not treat a backslash character, <code>\</code>, before
-   * a non-valid escape character as an error; the backslash is silently
-   * dropped. For example, in a Java string the sequence <code>"\z"</code> would
-   * cause a compile time error. In contrast, this method silently drops the
-   * backslash. Therefore, this method treats the two character sequence
-   * <code>"\b"</code> as equivalent to the single character <code>'b'</code>.
-   * <li>Escapes are not necessary for single and double quotes; however, by the
-   * rule above, single and double quote characters preceded by a backslash
-   * still yield single and double quote characters, respectively.
+   * <li>The character sequence <code>\b</code> does <i>not</i> represent a backspace character.
+   * <li>The method does not treat a backslash character, <code>\</code>, before a non-valid escape
+   * character as an error; the backslash is silently dropped. For example, in a Java string the
+   * sequence <code>"\z"</code> would cause a compile time error. In contrast, this method silently
+   * drops the backslash. Therefore, this method treats the two character sequence <code>"\b"</code>
+   * as equivalent to the single character <code>'b'</code>.
+   * <li>Escapes are not necessary for single and double quotes; however, by the rule above, single
+   * and double quote characters preceded by a backslash still yield single and double quote
+   * characters, respectively.
    * <li>Only a single 'u' character is allowed in a Unicode escape sequence.
    * </ul>
    * <p>
@@ -291,13 +267,11 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Reads a property list (key and element pairs) from the input byte stream.
-   * The input stream is in a simple line-oriented format as specified in
-   * {@link #load(java.io.Reader) load(Reader)} and is assumed to use the ISO
-   * 8859-1 character encoding; that is each byte is one Latin1 character.
-   * Characters not in Latin1, and certain special characters, are represented
-   * in keys and elements using <a href=
-   * "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.3" >
+   * Reads a property list (key and element pairs) from the input byte stream. The input stream is
+   * in a simple line-oriented format as specified in {@link #load(java.io.Reader) load(Reader)} and
+   * is assumed to use the ISO 8859-1 character encoding; that is each byte is one Latin1 character.
+   * Characters not in Latin1, and certain special characters, are represented in keys and elements
+   * using <a href= "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.3" >
    * Unicode escapes</a>.
    * <p>
    * The specified stream remains open after this method returns.
@@ -369,10 +343,10 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /*
-   * Read in a "logical line" from an InputStream/Reader, skip all comment and
-   * blank lines and filter out those leading whitespace characters ( , and )
-   * from the beginning of a "natural line". Method returns the char length of
-   * the "logical line" and stores the line in "lineBuf".
+   * Read in a "logical line" from an InputStream/Reader, skip all comment and blank lines and
+   * filter out those leading whitespace characters ( , and ) from the beginning of a
+   * "natural line". Method returns the char length of the "logical line" and stores the line in
+   * "lineBuf".
    */
   static class LineReader
   {
@@ -512,11 +486,14 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /*
-   * Converts encoded &#92;uxxxx to unicode chars and changes special saved
-   * chars to their original forms
+   * Converts encoded &#92;uxxxx to unicode chars and changes special saved chars to their original
+   * forms
    */
   @Nonnull
-  private static String _loadConvert (@Nonnull final char [] aIn, final int nOfs, final int nLen, @Nonnull final char [] aConvBuf)
+  private static String _loadConvert (@Nonnull final char [] aIn,
+                                      final int nOfs,
+                                      final int nLen,
+                                      @Nonnull final char [] aConvBuf)
   {
     int nCurOfs = nOfs;
     char [] aOut;
@@ -607,8 +584,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /*
-   * Converts unicodes to encoded &#92;uxxxx and escapes special characters with
-   * a preceding slash
+   * Converts unicodes to encoded &#92;uxxxx and escapes special characters with a preceding slash
    */
   @Nonnull
   private static String _saveConvert (final String sStr, final boolean bEscapeSpace, final boolean bEscapeUnicode)
@@ -665,10 +641,10 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
           {
             aSB.append ('\\')
                .append ('u')
-               .append (StringHelper.getHexChar ((aChar >> 12) & 0xF))
-               .append (StringHelper.getHexChar ((aChar >> 8) & 0xF))
-               .append (StringHelper.getHexChar ((aChar >> 4) & 0xF))
-               .append (StringHelper.getHexChar (aChar & 0xF));
+               .append (StringHex.getHexChar ((aChar >> 12) & 0xF))
+               .append (StringHex.getHexChar ((aChar >> 8) & 0xF))
+               .append (StringHex.getHexChar ((aChar >> 4) & 0xF))
+               .append (StringHex.getHexChar (aChar & 0xF));
           }
           else
           {
@@ -679,7 +655,8 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
     return aSB.toString ();
   }
 
-  private static void _writeComments (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final String sComments) throws IOException
+  private static void _writeComments (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final String sComments)
+                                                                                                                    throws IOException
   {
     aWriter.write ("#");
     final int nLen = sComments.length ();
@@ -697,10 +674,10 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
           aWriter.write (sComments.substring (nLast, nCurrent));
         if (c > '\u00ff')
         {
-          uu[2] = StringHelper.getHexChar ((c >> 12) & 0xf);
-          uu[3] = StringHelper.getHexChar ((c >> 8) & 0xf);
-          uu[4] = StringHelper.getHexChar ((c >> 4) & 0xf);
-          uu[5] = StringHelper.getHexChar (c & 0xf);
+          uu[2] = StringHex.getHexChar ((c >> 12) & 0xf);
+          uu[3] = StringHex.getHexChar ((c >> 8) & 0xf);
+          uu[4] = StringHex.getHexChar ((c >> 4) & 0xf);
+          uu[5] = StringHex.getHexChar (c & 0xf);
           aWriter.write (uu);
         }
         else
@@ -709,7 +686,8 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
           if (c == '\r' && nCurrent != nLen - 1 && sComments.charAt (nCurrent + 1) == '\n')
             nCurrent++;
 
-          if (nCurrent == nLen - 1 || (sComments.charAt (nCurrent + 1) != '#' && sComments.charAt (nCurrent + 1) != '!'))
+          if (nCurrent == nLen - 1 ||
+              (sComments.charAt (nCurrent + 1) != '#' && sComments.charAt (nCurrent + 1) != '!'))
             aWriter.write ("#");
         }
         nLast = nCurrent + 1;
@@ -722,40 +700,35 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Writes this property list (key and element pairs) in this
-   * <code>Properties</code> table to the output character stream in a format
-   * suitable for using the {@link #load(java.io.Reader) load(Reader)} method.
+   * Writes this property list (key and element pairs) in this <code>Properties</code> table to the
+   * output character stream in a format suitable for using the {@link #load(java.io.Reader)
+   * load(Reader)} method.
    * <p>
-   * Properties from the defaults table of this <code>Properties</code> table
-   * (if any) are <i>not</i> written out by this method.
+   * Properties from the defaults table of this <code>Properties</code> table (if any) are
+   * <i>not</i> written out by this method.
    * <p>
-   * If the comments argument is not null, then an ASCII <code>#</code>
-   * character, the comments string, and a line separator are first written to
-   * the output stream. Thus, the <code>comments</code> can serve as an
-   * identifying comment. Any one of a line feed ('\n'), a carriage return
-   * ('\r'), or a carriage return followed immediately by a line feed in
-   * comments is replaced by a line separator generated by the
-   * <code>Writer</code> and if the next character in comments is not character
-   * <code>#</code> or character <code>!</code> then an ASCII <code>#</code> is
-   * written out after that line separator.
+   * If the comments argument is not null, then an ASCII <code>#</code> character, the comments
+   * string, and a line separator are first written to the output stream. Thus, the
+   * <code>comments</code> can serve as an identifying comment. Any one of a line feed ('\n'), a
+   * carriage return ('\r'), or a carriage return followed immediately by a line feed in comments is
+   * replaced by a line separator generated by the <code>Writer</code> and if the next character in
+   * comments is not character <code>#</code> or character <code>!</code> then an ASCII
+   * <code>#</code> is written out after that line separator.
    * <p>
-   * Next, a comment line is always written, consisting of an ASCII
-   * <code>#</code> character, the current date and time (as if produced by the
-   * <code>toString</code> method of <code>Date</code> for the current time),
-   * and a line separator as generated by the <code>Writer</code>.
+   * Next, a comment line is always written, consisting of an ASCII <code>#</code> character, the
+   * current date and time (as if produced by the <code>toString</code> method of <code>Date</code>
+   * for the current time), and a line separator as generated by the <code>Writer</code>.
    * <p>
-   * Then every entry in this <code>Properties</code> table is written out, one
-   * per line. For each entry the key string is written, then an ASCII
-   * <code>=</code>, then the associated element string. For the key, all space
-   * characters are written with a preceding <code>\</code> character. For the
-   * element, leading space characters, but not embedded or trailing space
-   * characters, are written with a preceding <code>\</code> character. The key
-   * and element characters <code>#</code>, <code>!</code>, <code>=</code>, and
-   * <code>:</code> are written with a preceding backslash to ensure that they
-   * are properly loaded.
+   * Then every entry in this <code>Properties</code> table is written out, one per line. For each
+   * entry the key string is written, then an ASCII <code>=</code>, then the associated element
+   * string. For the key, all space characters are written with a preceding <code>\</code>
+   * character. For the element, leading space characters, but not embedded or trailing space
+   * characters, are written with a preceding <code>\</code> character. The key and element
+   * characters <code>#</code>, <code>!</code>, <code>=</code>, and <code>:</code> are written with
+   * a preceding backslash to ensure that they are properly loaded.
    * <p>
-   * After the entries have been written, the output stream is flushed. The
-   * output stream remains open after this method returns.
+   * After the entries have been written, the output stream is flushed. The output stream remains
+   * open after this method returns.
    * <p>
    *
    * @param aWriter
@@ -763,11 +736,11 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    * @param sComments
    *        a description of the property list.
    * @exception IOException
-   *            if writing this property list to the specified output stream
-   *            throws an <code>IOException</code>.
+   *            if writing this property list to the specified output stream throws an
+   *            <code>IOException</code>.
    * @exception ClassCastException
-   *            if this <code>Properties</code> object contains any keys or
-   *            values that are not <code>Strings</code>.
+   *            if this <code>Properties</code> object contains any keys or values that are not
+   *            <code>Strings</code>.
    * @exception NullPointerException
    *            if <code>writer</code> is null.
    * @since 1.6
@@ -778,30 +751,26 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Writes this property list (key and element pairs) in this
-   * <code>Properties</code> table to the output stream in a format suitable for
-   * loading into a <code>Properties</code> table using the
+   * Writes this property list (key and element pairs) in this <code>Properties</code> table to the
+   * output stream in a format suitable for loading into a <code>Properties</code> table using the
    * {@link #load(InputStream) load(InputStream)} method.
    * <p>
-   * Properties from the defaults table of this <code>Properties</code> table
-   * (if any) are <i>not</i> written out by this method.
+   * Properties from the defaults table of this <code>Properties</code> table (if any) are
+   * <i>not</i> written out by this method.
    * <p>
-   * This method outputs the comments, properties keys and values in the same
-   * format as specified in {@link #store(java.io.Writer, java.lang.String)
-   * store(Writer)}, with the following differences:
+   * This method outputs the comments, properties keys and values in the same format as specified in
+   * {@link #store(java.io.Writer, java.lang.String) store(Writer)}, with the following differences:
    * <ul>
    * <li>The stream is written using the ISO 8859-1 character encoding.
-   * <li>Characters not in Latin-1 in the comments are written as
-   * <code>&#92;u</code><i>xxxx</i> for their appropriate unicode hexadecimal
-   * value <i>xxxx</i>.
-   * <li>Characters less than <code>&#92;u0020</code> and characters greater
-   * than <code>&#92;u007E</code> in property keys or values are written as
-   * <code>&#92;u</code><i>xxxx</i> for the appropriate hexadecimal value
-   * <i>xxxx</i>.
+   * <li>Characters not in Latin-1 in the comments are written as <code>&#92;u</code><i>xxxx</i> for
+   * their appropriate unicode hexadecimal value <i>xxxx</i>.
+   * <li>Characters less than <code>&#92;u0020</code> and characters greater than
+   * <code>&#92;u007E</code> in property keys or values are written as
+   * <code>&#92;u</code><i>xxxx</i> for the appropriate hexadecimal value <i>xxxx</i>.
    * </ul>
    * <p>
-   * After the entries have been written, the output stream is flushed. The
-   * output stream remains open after this method returns.
+   * After the entries have been written, the output stream is flushed. The output stream remains
+   * open after this method returns.
    * <p>
    *
    * @param aOS
@@ -809,11 +778,11 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    * @param sComments
    *        a description of the property list.
    * @exception IOException
-   *            if writing this property list to the specified output stream
-   *            throws an <code>IOException</code>.
+   *            if writing this property list to the specified output stream throws an
+   *            <code>IOException</code>.
    * @exception ClassCastException
-   *            if this <code>Properties</code> object contains any keys or
-   *            values that are not <code>Strings</code>.
+   *            if this <code>Properties</code> object contains any keys or values that are not
+   *            <code>Strings</code>.
    * @exception NullPointerException
    *            if <code>out</code> is null.
    * @since 1.2
@@ -840,8 +809,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
 
       String sValue = aEntry.getValue ();
       /*
-       * No need to escape embedded and trailing spaces for value, hence pass
-       * false to flag.
+       * No need to escape embedded and trailing spaces for value, hence pass false to flag.
        */
       sValue = sValue == null ? "" : _saveConvert (sValue, false, bEscapeUnicode);
 
@@ -854,10 +822,9 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Searches for the property with the specified key in this property list. If
-   * the key is not found in this property list, the default property list, and
-   * its defaults, recursively, are then checked. The method returns
-   * <code>null</code> if the property is not found.
+   * Searches for the property with the specified key in this property list. If the key is not found
+   * in this property list, the default property list, and its defaults, recursively, are then
+   * checked. The method returns <code>null</code> if the property is not found.
    *
    * @param sKey
    *        the property key.
@@ -872,10 +839,9 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Searches for the property with the specified key in this property list. If
-   * the key is not found in this property list, the default property list, and
-   * its defaults, recursively, are then checked. The method returns the default
-   * value argument if the property is not found.
+   * Searches for the property with the specified key in this property list. If the key is not found
+   * in this property list, the default property list, and its defaults, recursively, are then
+   * checked. The method returns the default value argument if the property is not found.
    *
    * @param sKey
    *        the map key.
@@ -908,13 +874,11 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Create {@link NonBlockingProperties} from an existing {@link Properties}
-   * object.
+   * Create {@link NonBlockingProperties} from an existing {@link Properties} object.
    *
    * @param aProperties
    *        Source properties. May be <code>null</code>.
-   * @return The newly created {@link NonBlockingProperties}. Never
-   *         <code>null</code>.
+   * @return The newly created {@link NonBlockingProperties}. Never <code>null</code>.
    */
   @Nonnull
   public static NonBlockingProperties create (@Nullable final Map <?, ?> aProperties)

@@ -28,25 +28,24 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.UseDirectEqualsAndHashCode;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.GenericReflection;
+import com.helger.base.state.EChange;
 import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * The main registry for the different {@link IHashCodeImplementation}
- * implementations.
+ * The main registry for the different {@link IHashCodeImplementation} implementations.
  *
  * @author Philip Helger
  */

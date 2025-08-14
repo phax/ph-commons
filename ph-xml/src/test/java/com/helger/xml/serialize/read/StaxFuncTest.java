@@ -28,11 +28,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.string.Strings;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.StringHelper;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroDocumentType;
@@ -101,7 +101,7 @@ public final class StaxFuncTest
           final String sLocalName = aReader.getLocalName ();
 
           IMicroElement aElement;
-          if (StringHelper.hasText (sNamespaceURI))
+          if (Strings.isNotEmpty (sNamespaceURI))
             aElement = aParent.addElement (sNamespaceURI, sLocalName);
           else
             aElement = aParent.addElement (sLocalName);

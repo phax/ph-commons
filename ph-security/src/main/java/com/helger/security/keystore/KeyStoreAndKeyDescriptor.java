@@ -21,8 +21,8 @@ import java.security.Provider;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

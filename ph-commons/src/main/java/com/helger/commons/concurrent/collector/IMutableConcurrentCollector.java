@@ -16,7 +16,7 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import com.helger.commons.state.ESuccess;
+import com.helger.base.state.ESuccess;
 
 import jakarta.annotation.Nonnull;
 

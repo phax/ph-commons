@@ -24,8 +24,8 @@ import javax.crypto.spec.PBEKeySpec;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.StringHex;
 import com.helger.security.password.salt.IPasswordSalt;
 
 import jakarta.annotation.Nonnull;
@@ -69,8 +69,7 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
    * @param nBytes
    *        the length of the hash to compute in bytes
    * @param sPBKDF2AlgorithmName
-   *        The SecretKeyFactory parameter to use. May neither be
-   *        <code>null</code> nor empty.
+   *        The SecretKeyFactory parameter to use. May neither be <code>null</code> nor empty.
    * @return the PBDKF2 hash of the password
    */
   @Nonnull
@@ -110,6 +109,6 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
                                     m_nIterations,
                                     m_nHashBytes,
                                     m_sPBKDF2AlgorithmName);
-    return StringHelper.getHexEncoded (aDigest);
+    return StringHex.getHexEncoded (aDigest);
   }
 }

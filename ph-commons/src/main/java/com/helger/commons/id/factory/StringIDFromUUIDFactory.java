@@ -18,8 +18,8 @@ package com.helger.commons.id.factory;
 
 import java.util.UUID;
 
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

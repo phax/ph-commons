@@ -38,10 +38,10 @@ import org.xml.sax.ext.Locator2;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
+import com.helger.base.string.Strings;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.StringHelper;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroDocumentType;
@@ -158,7 +158,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     _createParentDocument ();
 
     final IMicroElement aElement;
-    if (StringHelper.hasText (sNamespaceURI))
+    if (Strings.isNotEmpty (sNamespaceURI))
       aElement = m_aParent.addElement (sNamespaceURI, sLocalName);
     else
       aElement = m_aParent.addElement (sLocalName);

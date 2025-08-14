@@ -22,23 +22,22 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.location.ILocation;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Default implementation of {@link IErrorTextProvider} with a customizable
- * layout.
+ * Default implementation of {@link IErrorTextProvider} with a customizable layout.
  *
  * @author Philip Helger
  * @since 8.5.1
@@ -111,8 +110,8 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     String getUnformattedText ();
 
     /**
-     * Return a formatted version of {@link #getUnformattedText()} by replacing
-     * all {@link #PLACEHOLDER} chars with the provided replacement.
+     * Return a formatted version of {@link #getUnformattedText()} by replacing all
+     * {@link #PLACEHOLDER} chars with the provided replacement.
      *
      * @param sReplacement
      *        The replacement string. Must not be <code>null</code>.
@@ -159,7 +158,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     @Nonnull
     public String getFormattedText (@Nonnull final String sReplacement)
     {
-      return StringHelper.replaceAll (m_sText, PLACEHOLDER_STR, sReplacement);
+      return Strings.replaceAll (m_sText, PLACEHOLDER_STR, sReplacement);
     }
 
     @Override
@@ -215,8 +214,8 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
    * @param eField
    *        The field to be used. May not be <code>null</code>.
    * @param sText
-   *        The text that should contain the placeholder ({@value #PLACEHOLDER})
-   *        that will be replaced
+   *        The text that should contain the placeholder ({@value #PLACEHOLDER}) that will be
+   *        replaced
    * @return this for chaining
    */
   @Nonnull
@@ -309,7 +308,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
         case ERROR_TEXT:
         {
           final String sErrorText = aError.getErrorText (aContentLocale);
-          if (StringHelper.hasText (sErrorText))
+          if (Strings.isNotEmpty (sErrorText))
           {
             if (aSB.length () > 0)
               aSB.append (m_sFieldSep);
@@ -333,7 +332,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
           final Throwable aLinkedEx = aError.getLinkedException ();
           if (aLinkedEx != null)
           {
-            final String sMsg = StringHelper.getNotNull (aLinkedEx.getMessage (), "");
+            final String sMsg = Strings.getNotNull (aLinkedEx.getMessage (), "");
             if (aSB.length () > 0)
               aSB.append (m_sFieldSep);
             aSB.append (aItem.getFormattedText (sMsg));
@@ -369,7 +368,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
           final Throwable aCause = aLinkedEx != null ? aLinkedEx.getCause () : null;
           if (aCause != null)
           {
-            final String sMsg = StringHelper.getNotNull (aCause.getMessage ());
+            final String sMsg = Strings.getNotNull (aCause.getMessage ());
             if (aSB.length () > 0)
               aSB.append (m_sFieldSep);
             aSB.append (aItem.getFormattedText (sMsg));

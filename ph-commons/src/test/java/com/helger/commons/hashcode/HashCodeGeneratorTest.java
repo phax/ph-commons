@@ -33,11 +33,12 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.hashcode.IHashCodeGenerator;
+import com.helger.base.state.EChange;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.state.EChange;
 import com.helger.commons.system.SystemHelper;
 
 /**

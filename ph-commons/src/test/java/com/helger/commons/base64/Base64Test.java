@@ -31,19 +31,18 @@ import java.security.SecureRandom;
 
 import org.junit.Test;
 
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.string.Strings;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 /**
  * Test class for class {@link Base64}.<br>
  * Base64 test code.<br>
- * Partly source:
- * http://iharder.sourceforge.net/current/java/base64/Base64Test.java
+ * Partly source: http://iharder.sourceforge.net/current/java/base64/Base64Test.java
  */
 public final class Base64Test
 {
@@ -63,14 +62,14 @@ public final class Base64Test
   @Test
   public void testEncodeWithBreakLines ()
   {
-    final byte [] aSource = StringHelper.getRepeated ('a', 100).getBytes (StandardCharsets.ISO_8859_1);
+    final byte [] aSource = Strings.getRepeated ('a', 100).getBytes (StandardCharsets.ISO_8859_1);
     String sEncoded = Base64.safeEncodeBytes (aSource, Base64.DO_BREAK_LINES);
     assertEquals ("YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh\n" +
                   "YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==",
                   sEncoded);
 
     // Check that it can be read again
-    byte [] aReadBytes = StreamHelper.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
+    byte [] aReadBytes = StreamHelperExt.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
     assertArrayEquals (aSource, aReadBytes);
 
     sEncoded = Base64.safeEncodeBytes (aSource, Base64.DO_BREAK_LINES | Base64.DO_NEWLINE_CRLF);
@@ -79,7 +78,7 @@ public final class Base64Test
                   sEncoded);
 
     // Check that it can be read again
-    aReadBytes = StreamHelper.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
+    aReadBytes = StreamHelperExt.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
     assertArrayEquals (aSource, aReadBytes);
   }
 
@@ -196,7 +195,9 @@ public final class Base64Test
     try
     {
       assertFalse (FileHelper.existsFile (f2));
-      SimpleFileIO.writeFile (f1, Base64.safeEncode ("Hallo Wält", StandardCharsets.UTF_8).getBytes (StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (f1,
+                              Base64.safeEncode ("Hallo Wält", StandardCharsets.UTF_8)
+                                    .getBytes (StandardCharsets.ISO_8859_1));
       Base64.decodeFileToFile (f1.getAbsolutePath (), f2.getAbsoluteFile ());
       assertTrue (FileHelper.existsFile (f2));
       final String sDecoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
@@ -234,7 +235,11 @@ public final class Base64Test
     final ByteBuffer aSrc = ByteBuffer.wrap ("Hallo Wält".getBytes (StandardCharsets.UTF_8));
     final ByteBuffer aDst = ByteBuffer.allocate (aSrc.capacity () * 2);
     Base64.encode (aSrc, aDst);
-    assertEquals ("Hallo Wält", Base64.safeDecodeAsString (aDst.array (), aDst.arrayOffset (), aDst.position (), StandardCharsets.UTF_8));
+    assertEquals ("Hallo Wält",
+                  Base64.safeDecodeAsString (aDst.array (),
+                                             aDst.arrayOffset (),
+                                             aDst.position (),
+                                             StandardCharsets.UTF_8));
   }
 
   @Test
@@ -260,9 +265,12 @@ public final class Base64Test
     final String sSource = "dgMP$";
     final String sEncoded = Base64.safeEncode (sSource, StandardCharsets.ISO_8859_1);
     assertArrayEquals (sSource.getBytes (StandardCharsets.ISO_8859_1), Base64.safeDecode (sEncoded));
-    assertArrayEquals (sSource.getBytes (StandardCharsets.ISO_8859_1), Base64.safeDecode (sEncoded.getBytes (StandardCharsets.ISO_8859_1)));
+    assertArrayEquals (sSource.getBytes (StandardCharsets.ISO_8859_1),
+                       Base64.safeDecode (sEncoded.getBytes (StandardCharsets.ISO_8859_1)));
     assertEquals (sSource, Base64.safeDecodeAsString (sEncoded, StandardCharsets.ISO_8859_1));
-    assertEquals (sSource, Base64.safeDecodeAsString (sEncoded.getBytes (StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1));
+    assertEquals (sSource,
+                  Base64.safeDecodeAsString (sEncoded.getBytes (StandardCharsets.ISO_8859_1),
+                                             StandardCharsets.ISO_8859_1));
   }
 
   @Test

@@ -18,8 +18,8 @@ package com.helger.commons.url;
 
 import java.nio.charset.Charset;
 
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.codec.IEncoder;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

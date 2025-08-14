@@ -24,6 +24,9 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+
 /**
  * Test class for class {@link CountingOutputStream}.
  *
@@ -36,7 +39,7 @@ public final class CountingOutputStreamTest
   {
     final String sTestString = "test 123 - This counts!";
     final CountingOutputStream aCOS = new CountingOutputStream (new NonBlockingByteArrayOutputStream ());
-    StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (sTestString.getBytes (StandardCharsets.ISO_8859_1)),
+    StreamHelperExt.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (sTestString.getBytes (StandardCharsets.ISO_8859_1)),
                                                 aCOS);
     assertEquals (sTestString.length (), aCOS.getBytesWritten ());
     aCOS.write (5);

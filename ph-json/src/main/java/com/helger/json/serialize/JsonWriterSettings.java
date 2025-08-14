@@ -20,10 +20,10 @@ import java.nio.charset.StandardCharsets;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.StringHex;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.system.ENewLineMode;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -144,8 +144,10 @@ public class JsonWriterSettings implements IJsonWriterSettings
   public String toString ()
   {
     return new ToStringGenerator (this).append ("IndentEnabled", m_bIndentEnabled)
-                                       .append ("IndentString", StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
-                                       .append ("NewlineString", StringHelper.getHexEncoded (m_sNewlineString, StandardCharsets.ISO_8859_1))
+                                       .append ("IndentString",
+                                                StringHex.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
+                                       .append ("NewlineString",
+                                                StringHex.getHexEncoded (m_sNewlineString, StandardCharsets.ISO_8859_1))
                                        .append ("WriteNewlineAtEnd", m_bWriteNewlineAtEnd)
                                        .append ("QuoteNames", m_bQuoteNames)
                                        .getToString ();

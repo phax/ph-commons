@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.statistics.IMutableStatisticsHandlerTimer;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerTimer}

@@ -18,9 +18,9 @@ package com.helger.commons.typeconvert.rule;
 
 import java.util.function.Function;
 
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

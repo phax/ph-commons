@@ -48,9 +48,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -275,7 +275,7 @@ public final class PDTWebDateHelper
   @Nullable
   public static ZonedDateTime getDateTimeFromRFC822 (@Nullable final String sDate)
   {
-    if (StringHelper.hasNoText (sDate))
+    if (Strings.isEmpty (sDate))
       return null;
 
     final WithZoneId aPair = extractDateTimeZone (sDate.trim ());
@@ -305,7 +305,7 @@ public final class PDTWebDateHelper
   @Nullable
   public static OffsetDateTime getDateTimeFromW3C (@Nullable final String sDate)
   {
-    if (StringHelper.hasNoText (sDate))
+    if (Strings.isEmpty (sDate))
       return null;
 
     return parseOffsetDateTimeUsingMask (W3CDATETIME_MASKS, sDate.trim ());

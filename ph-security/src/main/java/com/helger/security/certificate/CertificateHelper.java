@@ -48,13 +48,15 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.string.StringHex;
+import com.helger.base.string.Strings;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
 
@@ -132,7 +134,7 @@ public final class CertificateHelper
   @Nullable
   public static String getWithoutPEMHeader (@Nullable final String sCertificate)
   {
-    if (StringHelper.hasNoText (sCertificate))
+    if (Strings.isEmpty (sCertificate))
       return null;
 
     // Remove special begin and end stuff
@@ -193,7 +195,7 @@ public final class CertificateHelper
 
     // Remove special begin and end stuff
     String sPlainString = getWithoutPEMHeader (sCertificate);
-    if (StringHelper.hasNoText (sPlainString))
+    if (Strings.isEmpty (sPlainString))
       return null;
 
     // Start building the result
@@ -338,7 +340,7 @@ public final class CertificateHelper
   public static X509Certificate convertStringToCertficate (@Nullable final String sCertString,
                                                            final boolean bWithFallback) throws CertificateException
   {
-    if (StringHelper.hasNoText (sCertString))
+    if (Strings.isEmpty (sCertString))
     {
       // No string -> no certificate
       return null;
@@ -365,7 +367,7 @@ public final class CertificateHelper
       String sHexDecodedString;
       try
       {
-        sHexDecodedString = new String (StringHelper.getHexDecoded (sCertString), CERT_CHARSET);
+        sHexDecodedString = new String (StringHex.getHexDecoded (sCertString), CERT_CHARSET);
       }
       catch (final IllegalArgumentException ex2)
       {
@@ -413,7 +415,7 @@ public final class CertificateHelper
   {
     // Remove prefix/suffix
     final String sPlainCert = getWithoutPEMHeader (sCertificate);
-    if (StringHelper.hasNoText (sPlainCert))
+    if (Strings.isEmpty (sPlainCert))
       return null;
 
     // The remaining string is supposed to be Base64 encoded -> decode
@@ -499,7 +501,7 @@ public final class CertificateHelper
   @Nullable
   public static PrivateKey convertStringToPrivateKey (@Nullable final String sPrivateKey) throws GeneralSecurityException
   {
-    if (StringHelper.hasNoText (sPrivateKey))
+    if (Strings.isEmpty (sPrivateKey))
       return null;
 
     String sRealPrivateKey = StringHelper.trimStart (sPrivateKey, BEGIN_PRIVATE_KEY);

@@ -20,12 +20,12 @@ import java.io.File;
 import java.util.function.Predicate;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.tree.withid.folder.DefaultFolderTree;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
 

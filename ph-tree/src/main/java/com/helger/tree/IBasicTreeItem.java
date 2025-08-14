@@ -17,11 +17,11 @@
 package com.helger.tree;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.state.ESuccess;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hierarchy.IHasChildrenRecursive;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
-import com.helger.commons.state.ESuccess;
 import com.helger.commons.traits.IGenericImplTrait;
 
 import jakarta.annotation.Nonnull;

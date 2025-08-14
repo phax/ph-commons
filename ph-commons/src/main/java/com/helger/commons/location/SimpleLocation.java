@@ -24,10 +24,10 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.functional.Predicates;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
 
@@ -83,7 +83,7 @@ public class SimpleLocation implements ILocation
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SimpleLocation rhs = (SimpleLocation) o;
-    return EqualsHelper.equals (m_sResourceID, rhs.m_sResourceID) &&
+    return EqualsHelperExt.extEquals (m_sResourceID, rhs.m_sResourceID) &&
            m_nLineNumber == rhs.m_nLineNumber &&
            m_nColumnNumber == rhs.m_nColumnNumber;
   }

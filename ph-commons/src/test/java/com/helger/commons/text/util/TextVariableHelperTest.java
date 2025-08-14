@@ -23,11 +23,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link TextVariableHelper}.
@@ -153,10 +153,10 @@ public class TextVariableHelperTest
     assertEquals ("anullb", TextVariableHelper.getWithReplacedVariables ("a${noidea}b", aVars::get));
     assertEquals ("unresolved(noidea)",
                   TextVariableHelper.getWithReplacedVariables ("${noidea}",
-                                                               x -> StringHelper.getNotNull (aVars.get (x),
-                                                                                             () -> "unresolved(" +
-                                                                                                   x +
-                                                                                                   ")")));
+                                                               x -> Strings.getNotNull (aVars.get (x),
+                                                                                        () -> "unresolved(" +
+                                                                                              x +
+                                                                                              ")")));
 
     // Unexpected cases
     assertEquals ("a${open", TextVariableHelper.getWithReplacedVariables ("a${open", aVars::get));

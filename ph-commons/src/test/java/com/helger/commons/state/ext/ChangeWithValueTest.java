@@ -24,8 +24,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.base.state.EChange;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.state.EChange;
+import com.helger.commons.state.ChangeWithValue;
 
 /**
  * Test class for class {@link ChangeWithValue}.

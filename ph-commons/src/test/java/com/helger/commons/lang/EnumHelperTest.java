@@ -25,7 +25,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.compare.ESortOrder;
+import com.helger.base.compare.ESortOrder;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.id.IHasIntID;
 

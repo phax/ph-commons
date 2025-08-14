@@ -24,12 +24,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.util.TextVariableHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.value.ConfiguredValue;
@@ -217,7 +218,7 @@ public class Config implements IConfig
   {
     // Resolve value
     final ConfiguredValue ret;
-    if (StringHelper.hasNoText (sKey))
+    if (Strings.isEmpty (sKey))
       ret = null;
     else
       ret = m_aValueProvider.getConfigurationValue (sKey);
@@ -295,7 +296,8 @@ public class Config implements IConfig
         // We take the configured value
         sNestedConfiguredValue = aCV.getValue ();
       }
-      if (StringHelper.hasText (sNestedConfiguredValue))
+      final String sStr = sNestedConfiguredValue;
+      if (Strings.isNotEmpty (sStr))
       {
         // Recursive call to replace variables in the resolved configuration
         // value
@@ -319,7 +321,8 @@ public class Config implements IConfig
       return null;
 
     String sConfiguredValue = aCV.getValue ();
-    if (m_bReplaceVariables && StringHelper.hasText (sConfiguredValue))
+    final String sStr = sConfiguredValue;
+    if (m_bReplaceVariables && Strings.isNotEmpty (sStr))
     {
       if (LOGGER.isTraceEnabled ())
         LOGGER.trace ("Resolving variables in configuration value '" + sConfiguredValue + "'");

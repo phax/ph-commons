@@ -17,12 +17,12 @@
 package com.helger.collection.pair;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -71,7 +71,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
   @Nonnull
   public EChange setFirst (@Nullable final DATA1TYPE aFirst)
   {
-    if (EqualsHelper.equals (aFirst, m_aFirst))
+    if (EqualsHelperExt.extEquals (aFirst, m_aFirst))
       return EChange.UNCHANGED;
     m_aFirst = aFirst;
     return EChange.CHANGED;
@@ -86,7 +86,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
   @Nonnull
   public EChange setSecond (@Nullable final DATA2TYPE aSecond)
   {
-    if (EqualsHelper.equals (aSecond, m_aSecond))
+    if (EqualsHelperExt.extEquals (aSecond, m_aSecond))
       return EChange.UNCHANGED;
     m_aSecond = aSecond;
     return EChange.CHANGED;
@@ -106,7 +106,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Pair <?, ?> rhs = (Pair <?, ?>) o;
-    return EqualsHelper.equals (m_aFirst, rhs.m_aFirst) && EqualsHelper.equals (m_aSecond, rhs.m_aSecond);
+    return EqualsHelperExt.extEquals (m_aFirst, rhs.m_aFirst) && EqualsHelperExt.extEquals (m_aSecond, rhs.m_aSecond);
   }
 
   @Override

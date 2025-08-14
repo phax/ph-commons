@@ -17,7 +17,7 @@
 package com.helger.jaxb.adapter.config;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.equals.IEqualsImplementationRegistrarSPI;
 import com.helger.commons.equals.IEqualsImplementationRegistry;
@@ -26,8 +26,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBElement;
 
 /**
- * Implementation of {@link IEqualsImplementationRegistrarSPI} for
- * {@link JAXBElement}.
+ * Implementation of {@link IEqualsImplementationRegistrarSPI} for {@link JAXBElement}.
  *
  * @author Philip Helger
  */
@@ -38,12 +37,15 @@ public final class JAXBEqualsImplementationRegistrarSPI implements IEqualsImplem
   {
     // JAXBElement does not implement equals!
     aRegistry.registerEqualsImplementation (JAXBElement.class,
-                                            (aObj1,
-                                             aObj2) -> EqualsImplementationRegistry.areEqual (aObj1.getDeclaredType (),
-                                                                                              aObj2.getDeclaredType ()) &&
-                                                       EqualsImplementationRegistry.areEqual (aObj1.getName (), aObj2.getName ()) &&
-                                                       EqualsImplementationRegistry.areEqual (aObj1.getScope (), aObj2.getScope ()) &&
-                                                       EqualsHelper.equals (aObj1.isNil (), aObj2.isNil ()) &&
-                                                       EqualsImplementationRegistry.areEqual (aObj1.getValue (), aObj2.getValue ()));
+                                            (aObj1, aObj2) -> EqualsImplementationRegistry.areEqual (aObj1
+                                                                                                          .getDeclaredType (),
+                                                                                                     aObj2.getDeclaredType ()) &&
+                                                              EqualsImplementationRegistry.areEqual (aObj1.getName (),
+                                                                                                     aObj2.getName ()) &&
+                                                              EqualsImplementationRegistry.areEqual (aObj1.getScope (),
+                                                                                                     aObj2.getScope ()) &&
+                                                              EqualsHelper.equals (aObj1.isNil (), aObj2.isNil ()) &&
+                                                              EqualsImplementationRegistry.areEqual (aObj1.getValue (),
+                                                                                                     aObj2.getValue ()));
   }
 }

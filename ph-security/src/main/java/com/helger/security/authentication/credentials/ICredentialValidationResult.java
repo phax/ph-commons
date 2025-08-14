@@ -16,7 +16,7 @@
  */
 package com.helger.security.authentication.credentials;
 
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.base.state.ISuccessIndicator;
 import com.helger.commons.text.display.IHasDisplayText;
 
 /**

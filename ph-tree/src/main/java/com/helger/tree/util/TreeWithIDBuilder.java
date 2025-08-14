@@ -21,6 +21,7 @@ import java.util.List;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -28,7 +29,6 @@ import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.hierarchy.IParentProvider;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
 

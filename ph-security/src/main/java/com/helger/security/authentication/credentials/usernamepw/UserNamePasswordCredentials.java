@@ -17,9 +17,9 @@
 package com.helger.security.authentication.credentials.usernamepw;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
 
@@ -60,7 +60,7 @@ public class UserNamePasswordCredentials implements IUserNamePasswordCredentials
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final UserNamePasswordCredentials rhs = (UserNamePasswordCredentials) o;
-    return EqualsHelper.equals (m_sUserName, rhs.m_sUserName) && EqualsHelper.equals (m_sPassword, rhs.m_sPassword);
+    return EqualsHelperExt.extEquals (m_sUserName, rhs.m_sUserName) && EqualsHelperExt.extEquals (m_sPassword, rhs.m_sPassword);
   }
 
   @Override

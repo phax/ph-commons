@@ -21,9 +21,9 @@ import java.math.BigDecimal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.config.Config;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
@@ -109,13 +109,14 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public String getAsStringOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
   {
     String ret = getAsString (sPrimary);
-    if (StringHelper.hasNoText (ret))
+    if (Strings.isEmpty (ret))
     {
       // Try the old names
       for (final String sOld : aOldOnes)
       {
         ret = getAsString (sOld);
-        if (StringHelper.hasText (ret))
+        final String sStr = ret;
+        if (Strings.isNotEmpty (sStr))
         {
           // Notify on old name usage
           m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);

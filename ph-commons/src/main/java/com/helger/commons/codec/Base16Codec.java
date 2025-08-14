@@ -22,9 +22,9 @@ import java.io.OutputStream;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.string.StringHex;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -49,7 +49,8 @@ public class Base16Codec implements IByteArrayCodec
     return nDecodedLen * 2;
   }
 
-  public void encode (@Nonnull @WillNotClose final InputStream aDecodedIS, @Nonnull @WillNotClose final OutputStream aOS)
+  public void encode (@Nonnull @WillNotClose final InputStream aDecodedIS,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aDecodedIS, "DecodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -59,8 +60,8 @@ public class Base16Codec implements IByteArrayCodec
       int nByte;
       while ((nByte = aDecodedIS.read ()) != -1)
       {
-        aOS.write (StringHelper.getHexChar ((nByte & 0xf0) >> 4));
-        aOS.write (StringHelper.getHexChar (nByte & 0x0f));
+        aOS.write (StringHex.getHexChar ((nByte & 0xf0) >> 4));
+        aOS.write (StringHex.getHexChar (nByte & 0x0f));
       }
     }
     catch (final IOException ex)
@@ -77,7 +78,10 @@ public class Base16Codec implements IByteArrayCodec
     if (aDecodedBuffer == null || nLen == 0)
       return;
 
-    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen, false))
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aDecodedBuffer,
+                                                                                          nOfs,
+                                                                                          nLen,
+                                                                                          false))
     {
       encode (aIS, aOS);
     }
@@ -90,7 +94,8 @@ public class Base16Codec implements IByteArrayCodec
     return nEncodedLen / 2;
   }
 
-  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS, @Nonnull @WillNotClose final OutputStream aOS)
+  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -108,12 +113,14 @@ public class Base16Codec implements IByteArrayCodec
         // Read low byte
         nByte = aEncodedIS.read ();
         if (nByte < 0)
-          throw new DecodeException ("Invalid Base16 encoding. Premature end of input after " + nBytesRead + " byte(s)");
+          throw new DecodeException ("Invalid Base16 encoding. Premature end of input after " +
+                                     nBytesRead +
+                                     " byte(s)");
         nBytesRead++;
         final char cLow = (char) (nByte & 0xff);
 
         // Combine
-        final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
+        final int nDecodedValue = StringHex.getHexByte (cHigh, cLow);
         if (nDecodedValue < 0)
           throw new DecodeException ("Invalid Base16 encoding for " +
                                      (int) cHigh +
@@ -141,7 +148,10 @@ public class Base16Codec implements IByteArrayCodec
     if (aEncodedBuffer == null)
       return;
 
-    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen, false))
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                          nOfs,
+                                                                                          nLen,
+                                                                                          false))
     {
       decode (aIS, aOS);
     }

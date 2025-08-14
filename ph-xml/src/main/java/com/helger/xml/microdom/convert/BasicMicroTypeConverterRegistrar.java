@@ -39,22 +39,22 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.state.EChange;
+import com.helger.base.state.EContinue;
+import com.helger.base.state.EEOI;
+import com.helger.base.state.EEnabled;
+import com.helger.base.state.EHandled;
+import com.helger.base.state.EInterrupt;
+import com.helger.base.state.ELeftRight;
+import com.helger.base.state.EMandatory;
+import com.helger.base.state.ESuccess;
+import com.helger.base.state.ETopBottom;
+import com.helger.base.state.EValidity;
 import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.datetime.XMLOffsetTime;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.state.EEOI;
-import com.helger.commons.state.EEnabled;
-import com.helger.commons.state.EHandled;
-import com.helger.commons.state.EInterrupt;
-import com.helger.commons.state.ELeftRight;
-import com.helger.commons.state.EMandatory;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.state.ETopBottom;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.state.EValidity;
 
 import jakarta.annotation.Nonnull;
 

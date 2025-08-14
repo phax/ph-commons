@@ -18,7 +18,7 @@ package com.helger.commons.text.codepoint;
 
 import java.util.function.IntPredicate;
 
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -24,18 +24,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.CommonsTreeSet;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.collection.impl.ICommonsSortedSet;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileSystemIterator;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -132,7 +133,7 @@ public final class SPITestHelper
             while ((sLine = aReader.readLine ()) != null)
             {
               final String sImplClassName = StringHelper.trim (sLine);
-              if (StringHelper.hasText (sImplClassName))
+              if (Strings.isNotEmpty (sImplClassName))
               {
                 // Resolve class
                 if (bDoResolve)

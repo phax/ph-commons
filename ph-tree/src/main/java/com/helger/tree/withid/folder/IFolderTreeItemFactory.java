@@ -18,7 +18,7 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
-import com.helger.commons.aggregate.IAggregator;
+import com.helger.base.aggregate.IAggregator;
 import com.helger.tree.withid.unique.ITreeItemWithUniqueIDFactory;
 
 import jakarta.annotation.Nullable;

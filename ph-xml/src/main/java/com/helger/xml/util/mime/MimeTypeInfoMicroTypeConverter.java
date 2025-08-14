@@ -33,12 +33,12 @@
  */
 package com.helger.xml.util.mime;
 
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeParser;
 import com.helger.commons.mime.MimeTypeParserException;
-import com.helger.commons.string.StringHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
@@ -118,7 +118,7 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
     for (final IMicroElement eExtension : aElement.getAllChildElements (ELEMENT_EXTENSION))
     {
       // May be null if the empty extension ("") is used
-      final String sExtension = StringHelper.getNotNull (eExtension.getTextContentTrimmed ());
+      final String sExtension = Strings.getNotNull (eExtension.getTextContentTrimmed ());
       final String sSource = eExtension.getAttributeValue (ATTR_SOURCE);
       aExtensions.add (new ExtensionWithSource (sExtension, sSource));
     }

@@ -34,9 +34,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.helger.base.nonblocking.NonBlockingStringWriter;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.serialize.read.DOMReader;

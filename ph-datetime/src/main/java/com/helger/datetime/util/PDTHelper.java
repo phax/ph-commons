@@ -32,9 +32,9 @@ import java.util.Locale;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.datetime.CPDT;
 
 import jakarta.annotation.Nonnull;
@@ -141,9 +141,9 @@ public final class PDTHelper
    *        start date
    * @param aEndDate
    *        end date
-   * @return days not counting Saturdays and Sundays. If start date is after end
-   *         date, the value will be negative! If start date equals end date the
-   *         return will be 1 if it is a week day.
+   * @return days not counting Saturdays and Sundays. If start date is after end date, the value
+   *         will be negative! If start date equals end date the return will be 1 if it is a week
+   *         day.
    */
   public static int getWeekDays (@Nonnull final LocalDate aStartDate, @Nonnull final LocalDate aEndDate)
   {
@@ -169,7 +169,9 @@ public final class PDTHelper
     return x.getYear () == y.getYear () && x.getDayOfYear () == y.getDayOfYear ();
   }
 
-  public static boolean isSameYearAndWeek (@Nonnull final LocalDate x, @Nonnull final LocalDate y, @Nonnull final Locale aLocale)
+  public static boolean isSameYearAndWeek (@Nonnull final LocalDate x,
+                                           @Nonnull final LocalDate y,
+                                           @Nonnull final Locale aLocale)
   {
     return x.getYear () == y.getYear () && getWeekOfWeekBasedYear (x, aLocale) == getWeekOfWeekBasedYear (y, aLocale);
   }
@@ -242,9 +244,9 @@ public final class PDTHelper
   }
 
   /**
-   * Get the next week day based on the provided date. If the provided date is a
-   * week day day, the provided date is returned. A week day is determined by
-   * not being a weekend day (usually Saturday or Sunday).
+   * Get the next week day based on the provided date. If the provided date is a week day day, the
+   * provided date is returned. A week day is determined by not being a weekend day (usually
+   * Saturday or Sunday).
    *
    * @param aStart
    *        The date to start at. May not be <code>null</code>.
@@ -266,9 +268,8 @@ public final class PDTHelper
   }
 
   /**
-   * Get the next weekend day based on the provided date. If the provided date
-   * is a weekend day, the provided date is returned. Weekend day are Saturday
-   * or Sunday.
+   * Get the next weekend day based on the provided date. If the provided date is a weekend day, the
+   * provided date is returned. Weekend day are Saturday or Sunday.
    *
    * @param aStart
    *        The date to start at. May not be <code>null</code>.
@@ -284,9 +285,8 @@ public final class PDTHelper
   }
 
   /**
-   * Get the next weekend day based on the provided date. If the provided date
-   * is a weekend day, the provided date is returned. Weekend day are Saturday
-   * or Sunday.
+   * Get the next weekend day based on the provided date. If the provided date is a weekend day, the
+   * provided date is returned. Weekend day are Saturday or Sunday.
    *
    * @return The next matching date.
    */
@@ -297,8 +297,8 @@ public final class PDTHelper
   }
 
   /**
-   * Compare two dates by birthday. This means, the dates are only compared by
-   * day and month, and <b>not</b> by year!
+   * Compare two dates by birthday. This means, the dates are only compared by day and month, and
+   * <b>not</b> by year!
    *
    * @param aDate1
    *        First date. May be <code>null</code>.
@@ -326,8 +326,8 @@ public final class PDTHelper
   }
 
   /**
-   * Check if the two birthdays are equal. Equal birthdays are identified by
-   * equal months and equal days.
+   * Check if the two birthdays are equal. Equal birthdays are identified by equal months and equal
+   * days.
    *
    * @param aDate1
    *        First date. May be <code>null</code>.
@@ -371,7 +371,8 @@ public final class PDTHelper
   }
 
   @Nonnull
-  public static OffsetDateTime getMax (@Nonnull final OffsetDateTime aDateTime1, @Nonnull final OffsetDateTime aDateTime2)
+  public static OffsetDateTime getMax (@Nonnull final OffsetDateTime aDateTime1,
+                                       @Nonnull final OffsetDateTime aDateTime2)
   {
     return aDateTime1.isAfter (aDateTime2) ? aDateTime1 : aDateTime2;
   }
@@ -401,7 +402,8 @@ public final class PDTHelper
   }
 
   @Nonnull
-  public static OffsetDateTime getMin (@Nonnull final OffsetDateTime aDateTime1, @Nonnull final OffsetDateTime aDateTime2)
+  public static OffsetDateTime getMin (@Nonnull final OffsetDateTime aDateTime1,
+                                       @Nonnull final OffsetDateTime aDateTime2)
   {
     return aDateTime1.isBefore (aDateTime2) ? aDateTime1 : aDateTime2;
   }

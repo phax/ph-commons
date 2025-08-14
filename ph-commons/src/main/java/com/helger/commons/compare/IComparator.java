@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.function.Function;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.compare.CompareHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

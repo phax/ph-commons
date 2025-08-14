@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.string.Strings;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -39,8 +40,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A simple resource resolver that can handle URLs, JAR files and file system
- * resources.
+ * A simple resource resolver that can handle URLs, JAR files and file system resources.
  *
  * @author Philip Helger
  * @since 8.6.6
@@ -79,8 +79,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
    * @param sSystemId
    *        The resource to search. May be <code>null</code> if base URI is set.
    * @param sBaseURI
-   *        The base URI from where the search is initiated. May be
-   *        <code>null</code> if systemId is set.
+   *        The base URI from where the search is initiated. May be <code>null</code> if systemId is
+   *        set.
    * @return The non-<code>null</code> resource. May be non-existing!
    * @throws UncheckedIOException
    *         In case the file resolution (to an absolute file) fails.
@@ -104,8 +104,9 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     final File aBaseFile = new File (sBaseURIWithoutPrefix).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
-                                                                           : aBaseFile.getPath () + '/' + sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () +
+                                                                                         '/' +
+                                                                                         sSystemId);
 
     final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
     CONDLOG.info ( () -> "  [ClassPath] resolved base + system to " + ret);
@@ -113,8 +114,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
   }
 
   @Nonnull
-  private static URLResource _resolveJarFileResource (@Nonnull final String sSystemId,
-                                                      @Nonnull final String sBaseURI) throws MalformedURLException
+  private static URLResource _resolveJarFileResource (@Nonnull final String sSystemId, @Nonnull final String sBaseURI)
+                                                                                                                       throws MalformedURLException
   {
     // Base URI is inside a jar file? Skip the JAR file
     // See issue #8 - use lastIndexOf here
@@ -139,8 +140,9 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     final File aBaseFile = new File (sBasePath).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
-                                                                           : aBaseFile.getPath () + '/' + sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () +
+                                                                                         '/' +
+                                                                                         sSystemId);
 
     final String sAggregatedPath;
     if (sPrefix.endsWith ("/") && sNewPath.startsWith ("/"))
@@ -156,17 +158,16 @@ public class DefaultResourceResolver implements IHasConditionalLogger
   }
 
   @Nonnull
-  private static URLResource _resolveURLResource (final String sSystemId,
-                                                  @Nonnull final URL aBaseURL) throws MalformedURLException
+  private static URLResource _resolveURLResource (final String sSystemId, @Nonnull final URL aBaseURL)
+                                                                                                       throws MalformedURLException
   {
     // Take only the path
     String sBasePath = aBaseURL.getPath ();
 
     /*
-     * Heuristics to check if the base URI is a file is to check for the
-     * existence of a dot ('.') in the last part of the filename. This is not
-     * ideal but should do the trick In case you have a filename that has no
-     * extension (e.g. 'test') simply append a dot (e.g. 'test.') to have the
+     * Heuristics to check if the base URI is a file is to check for the existence of a dot ('.') in
+     * the last part of the filename. This is not ideal but should do the trick In case you have a
+     * filename that has no extension (e.g. 'test') simply append a dot (e.g. 'test.') to have the
      * same effect.
      */
     final String sBaseFilename = FilenameHelper.getWithoutPath (sBasePath);
@@ -204,15 +205,14 @@ public class DefaultResourceResolver implements IHasConditionalLogger
    * Do the standard resource resolving of sSystemId relative to sBaseURI
    *
    * @param sSystemId
-   *        The resource to search. May be relative to the base URI or absolute.
-   *        May be <code>null</code> if base URI is set.
+   *        The resource to search. May be relative to the base URI or absolute. May be
+   *        <code>null</code> if base URI is set.
    * @param sBaseURI
-   *        The base URI from where the search is initiated. May be
-   *        <code>null</code> if sSystemId is set.
+   *        The base URI from where the search is initiated. May be <code>null</code> if sSystemId
+   *        is set.
    * @param aClassLoader
-   *        The class loader to be used for {@link ClassPathResource} objects.
-   *        May be <code>null</code> in which case the default class loader is
-   *        used.
+   *        The class loader to be used for {@link ClassPathResource} objects. May be
+   *        <code>null</code> in which case the default class loader is used.
    * @return The non-<code>null</code> resource. May be non-existing!
    * @throws UncheckedIOException
    *         In case the file resolution (to an absolute file) fails.
@@ -222,7 +222,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
                                                        @Nullable final String sBaseURI,
                                                        @Nullable final ClassLoader aClassLoader)
   {
-    if (StringHelper.hasNoText (sSystemId) && StringHelper.hasNoText (sBaseURI))
+    if (Strings.isEmpty (sSystemId) && Strings.isEmpty (sBaseURI))
       throw new IllegalArgumentException ("Both systemID and baseURI are null!");
 
     if (LOGGER.isDebugEnabled ())
@@ -287,7 +287,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
       else
         aBaseFile = null;
 
-    if (StringHelper.hasNoText (sSystemId))
+    if (Strings.isEmpty (sSystemId))
     {
       // Nothing to resolve
       // Note: BaseFile should always be set here!

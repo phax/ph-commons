@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.state.EContinue;
+import com.helger.base.state.EContinue;
 
 /**
  * Test class for class {@link MicroTypeConverterRegistry}.

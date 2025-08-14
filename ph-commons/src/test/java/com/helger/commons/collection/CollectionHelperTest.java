@@ -40,6 +40,8 @@ import java.util.SortedSet;
 
 import org.junit.Test;
 
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -57,7 +59,6 @@ import com.helger.commons.collection.impl.ICommonsSortedSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.compare.IComparator;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.supplementary.tools.collection.MainCreateCollectionHelperCode2;
 
 import jakarta.annotation.Nonnull;
@@ -1726,16 +1727,16 @@ public final class CollectionHelperTest
   @Test
   public void testContainsOnly ()
   {
-    assertTrue (containsOnly (new CommonsArrayList <> ("a"), StringHelper::hasText));
-    assertTrue (containsOnly (new CommonsArrayList <> ("a", "b"), StringHelper::hasText));
+    assertTrue (containsOnly (new CommonsArrayList <> ("a"), Strings::isNotEmpty));
+    assertTrue (containsOnly (new CommonsArrayList <> ("a", "b"), Strings::isNotEmpty));
     assertTrue (containsOnly (new CommonsArrayList <> ("a"), null));
     assertTrue (containsOnly (new CommonsArrayList <> ("a", "b"), null));
     assertTrue (containsOnly (new CommonsArrayList <> ("a", ""), null));
 
-    assertFalse (containsOnly (new CommonsArrayList <> ("a", ""), StringHelper::hasText));
-    assertFalse (containsOnly (new CommonsArrayList <> ("", ""), StringHelper::hasText));
+    assertFalse (containsOnly (new CommonsArrayList <> ("a", ""), Strings::isNotEmpty));
+    assertFalse (containsOnly (new CommonsArrayList <> ("", ""), Strings::isNotEmpty));
     // Type required here
-    assertFalse (containsOnly (new CommonsArrayList <String> (), StringHelper::hasText));
+    assertFalse (containsOnly (new CommonsArrayList <String> (), Strings::isNotEmpty));
     assertFalse (containsOnly (new CommonsArrayList <> (), null));
   }
 

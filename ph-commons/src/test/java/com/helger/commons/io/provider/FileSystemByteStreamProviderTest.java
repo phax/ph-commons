@@ -25,9 +25,9 @@ import java.io.OutputStream;
 
 import org.junit.Test;
 
-import com.helger.commons.io.EAppend;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

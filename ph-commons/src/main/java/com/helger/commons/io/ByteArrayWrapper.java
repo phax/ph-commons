@@ -16,6 +16,7 @@
  */
 package com.helger.commons.io;
 
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
@@ -23,11 +24,12 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.iface.IHasByteArray;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -182,4 +184,15 @@ public final class ByteArrayWrapper implements IHasByteArray
   {
     return new ByteArrayWrapper (sText.getBytes (aCharset), false);
   }
+
+  @Nonnull
+  public static ByteArrayWrapper create (@Nonnull final ByteBuffer aBuffer, final boolean bCopyNeeded)
+  {
+    final byte [] aBytes = aBuffer.array ();
+    final int nOfs = aBuffer.arrayOffset ();
+    final int nLength = aBuffer.position ();
+
+    return new ByteArrayWrapper (aBytes, nOfs, nLength, bCopyNeeded);
+  }
+
 }

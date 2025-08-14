@@ -22,16 +22,16 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.UseDirectEqualsAndHashCode;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * A special ordered map, that has an upper limit of contained elements. It is
- * therefore a "Last Recently Used" map.
+ * A special ordered map, that has an upper limit of contained elements. It is therefore a "Last
+ * Recently Used" map.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -75,8 +75,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   }
 
   /**
-   * @return The maximum number of elements that can reside inside this object.
-   *         Never &lt; 0.
+   * @return The maximum number of elements that can reside inside this object. Never &lt; 0.
    */
   @Nonnegative
   public final int getMaxSize ()
@@ -93,7 +92,8 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
    *        The map entry that is removed. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
+  protected void onRemoveEldestEntry (@Nonnegative final int nSize,
+                                      @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
   {}
 
   @Override

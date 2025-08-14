@@ -18,7 +18,7 @@ package com.helger.xml.mock;
 
 import java.io.InputStream;
 
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.io.iface.IHasInputStream;
 
 import jakarta.annotation.Nullable;
 

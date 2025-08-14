@@ -35,17 +35,17 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.IHasClassLoader;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.StringHex;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.lang.IHasClassLoader;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
 import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.xml.schema.XMLSchemaCache;
@@ -659,9 +659,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
                                        .append ("NSContext", m_aNSContext)
                                        .append ("Charset", m_aCharset)
                                        .append ("IndentString",
-                                                m_sIndentString == null ? null : StringHelper.getHexEncoded (
-                                                                                                             m_sIndentString,
-                                                                                                             StandardCharsets.ISO_8859_1))
+                                                m_sIndentString == null ? null : StringHex.getHexEncoded (
+                                                                                                          m_sIndentString,
+                                                                                                          StandardCharsets.ISO_8859_1))
                                        .append ("SchemaLocation", m_sSchemaLocation)
                                        .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                                        .append ("UseContextCache", m_bUseContextCache)

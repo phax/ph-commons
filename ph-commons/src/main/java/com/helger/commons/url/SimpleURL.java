@@ -23,12 +23,12 @@ import java.util.Map;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -179,7 +179,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>, IURLParame
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SimpleURL rhs = (SimpleURL) o;
-    return m_sPath.equals (rhs.m_sPath) && m_aParams.equals (rhs.m_aParams) && EqualsHelper.equals (m_sAnchor, rhs.m_sAnchor);
+    return m_sPath.equals (rhs.m_sPath) && m_aParams.equals (rhs.m_aParams) && EqualsHelperExt.extEquals (m_sAnchor, rhs.m_sAnchor);
   }
 
   @Override

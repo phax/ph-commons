@@ -35,11 +35,11 @@ import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
-import com.helger.commons.io.EAppend;
-import com.helger.commons.io.stream.ByteBufferInputStream;
-import com.helger.commons.io.stream.ByteBufferOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.stream.ByteBufferInputStream;
+import com.helger.base.io.stream.ByteBufferOutputStream;
+import com.helger.base.io.stream.StreamHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -131,8 +131,8 @@ public final class FileChannelHelper
   }
 
   /**
-   * Get an input stream to the specified file, using memory mapping. If memory
-   * mapping fails, a regular {@link FileInputStream} is returned.
+   * Get an input stream to the specified file, using memory mapping. If memory mapping fails, a
+   * regular {@link FileInputStream} is returned.
    *
    * @param aFile
    *        The file to use. May not be <code>null</code>.

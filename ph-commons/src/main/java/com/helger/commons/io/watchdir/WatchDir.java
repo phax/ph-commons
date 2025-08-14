@@ -38,13 +38,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.lang.GenericReflection;
 import com.helger.commons.callback.CallbackList;
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.system.EOperatingSystem;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

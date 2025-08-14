@@ -16,7 +16,7 @@
  */
 package com.helger.commons.wrapper;
 
-import com.helger.commons.state.EChange;
+import com.helger.base.state.EChange;
 
 import jakarta.annotation.Nullable;
 

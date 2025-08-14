@@ -20,8 +20,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.string.Strings;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -74,7 +74,7 @@ public enum EConfigSourceResourceType
   public static EConfigSourceResourceType getFromExtensionOrDefault (@Nullable final String sExt,
                                                                      @Nullable final EConfigSourceResourceType eDefault)
   {
-    if (StringHelper.hasText (sExt))
+    if (Strings.isNotEmpty (sExt))
       for (final EConfigSourceResourceType e : values ())
         if (e.m_sExt.equalsIgnoreCase (sExt))
           return e;

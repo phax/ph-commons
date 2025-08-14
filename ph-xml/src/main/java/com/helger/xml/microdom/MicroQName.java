@@ -23,13 +23,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.hashcode.IHashCodeGenerator;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.hashcode.IHashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
 
@@ -37,8 +37,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a simple qualified name. A combination of namespace URI and local
- * name.
+ * Represents a simple qualified name. A combination of namespace URI and local name.
  *
  * @author Philip Helger
  */
@@ -61,7 +60,7 @@ public final class MicroQName implements IMicroQName
   {
     ValueEnforcer.notEmpty (sName, sName);
     // Unify empty string to null
-    m_sNamespaceURI = StringHelper.hasNoText (sNamespaceURI) ? null : sNamespaceURI;
+    m_sNamespaceURI = Strings.isEmpty (sNamespaceURI) ? null : sNamespaceURI;
 
     // Store only the local name (cut the prefix) if a namespace is present
     final int nPrefixEnd = m_sNamespaceURI != null ? sName.indexOf (CXML.XML_PREFIX_NAMESPACE_SEP) : -1;
@@ -105,7 +104,7 @@ public final class MicroQName implements IMicroQName
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroQName rhs = (MicroQName) o;
-    return EqualsHelper.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) && m_sName.equals (rhs.m_sName);
+    return EqualsHelperExt.extEquals (m_sNamespaceURI, rhs.m_sNamespaceURI) && m_sName.equals (rhs.m_sName);
   }
 
   @Override

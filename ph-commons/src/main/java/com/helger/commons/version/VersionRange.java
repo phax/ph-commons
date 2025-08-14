@@ -17,19 +17,20 @@
 package com.helger.commons.version;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.compare.IComparable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.compare.IComparable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class represents a range of versions. Each range needs at least a lower
- * bound but can as well have an upper bound. See OSGi v4 reference 3.2.5
+ * This class represents a range of versions. Each range needs at least a lower bound but can as
+ * well have an upper bound. See OSGi v4 reference 3.2.5
  *
  * @author Philip Helger
  */
@@ -146,7 +147,7 @@ public final class VersionRange implements IComparable <VersionRange>
       // get floor version
       aFloorVersion = Version.parse (sFloor);
 
-      if (StringHelper.hasNoText (sCeiling))
+      if (Strings.isEmpty (sCeiling))
         aCeilVersion = null;
       else
         aCeilVersion = Version.parse (sCeiling);
@@ -160,17 +161,16 @@ public final class VersionRange implements IComparable <VersionRange>
   }
 
   /**
-   * Create a new version range depicted by two versions, assuming that both the
-   * floor and the ceiling version should be included meaning we have an
-   * inclusive interval.
+   * Create a new version range depicted by two versions, assuming that both the floor and the
+   * ceiling version should be included meaning we have an inclusive interval.
    *
    * @param aFloorVersion
    *        the floor version of the range - may not be null
    * @param aCeilingVersion
    *        the ceiling version of the range - may be null
    * @throws IllegalArgumentException
-   *         if the floor version to be used is &gt; the ceiling version or if
-   *         the floor version is null.
+   *         if the floor version to be used is &gt; the ceiling version or if the floor version is
+   *         null.
    */
   public VersionRange (@Nonnull final Version aFloorVersion, @Nullable final Version aCeilingVersion)
   {
@@ -183,16 +183,16 @@ public final class VersionRange implements IComparable <VersionRange>
    * @param aFloorVersion
    *        the floor version of the range - may not be null
    * @param bIncludeFloorVersion
-   *        if true, a &gt;= comparison is used on the version number, else a
-   *        &gt; comparison is used
+   *        if true, a &gt;= comparison is used on the version number, else a &gt; comparison is
+   *        used
    * @param aCeilingVersion
    *        the ceiling version of the range - may be null
    * @param bIncludeCeilingVersion
-   *        if true, a &lt;= comparison is used on the version number, else a
-   *        &lt; comparison is used
+   *        if true, a &lt;= comparison is used on the version number, else a &lt; comparison is
+   *        used
    * @throws IllegalArgumentException
-   *         if the floor version to be used is &gt; the ceiling version or if
-   *         the floor version is null.
+   *         if the floor version to be used is &gt; the ceiling version or if the floor version is
+   *         null.
    */
   public VersionRange (@Nonnull final Version aFloorVersion,
                        final boolean bIncludeFloorVersion,
@@ -254,20 +254,20 @@ public final class VersionRange implements IComparable <VersionRange>
   }
 
   /**
-   * Compare this version range to another version range. Returns -1 if this is
-   * &lt; than the passed version or +1 if this is &gt; the passed version range
+   * Compare this version range to another version range. Returns -1 if this is &lt; than the passed
+   * version or +1 if this is &gt; the passed version range
    *
    * @param rhs
    *        the version range to compare to
    * @return 0 if the passed version range is equal to this version range<br>
-   *         -1 if the floor version of this is &lt; than the floor version of
-   *         the passed version range.<br>
-   *         -1 if the floor versions are equal but the ceiling version of this
-   *         has a lower upper bound than the passed version range<br>
-   *         +1 if the floor version of this is &gt; than the floor version of
-   *         the passed version range.<br>
-   *         +1 if the floor versions are equal but the ceiling version of this
-   *         has a higher upper bound than the passed version range<br>
+   *         -1 if the floor version of this is &lt; than the floor version of the passed version
+   *         range.<br>
+   *         -1 if the floor versions are equal but the ceiling version of this has a lower upper
+   *         bound than the passed version range<br>
+   *         +1 if the floor version of this is &gt; than the floor version of the passed version
+   *         range.<br>
+   *         +1 if the floor versions are equal but the ceiling version of this has a higher upper
+   *         bound than the passed version range<br>
    */
   public int compareTo (@Nonnull final VersionRange rhs)
   {
@@ -313,10 +313,9 @@ public final class VersionRange implements IComparable <VersionRange>
   }
 
   /**
-   * Converts the version range to a string. The brackets whether floor or
-   * ceiling version should be included or not is always prepended and appended.
-   * If a ceiling version is present, the ceiling version is appended with a
-   * single comma as a delimiter.<br>
+   * Converts the version range to a string. The brackets whether floor or ceiling version should be
+   * included or not is always prepended and appended. If a ceiling version is present, the ceiling
+   * version is appended with a single comma as a delimiter.<br>
    * Example return: "[1.2.3,4.5.6)"
    *
    * @return The version range in a parseable string format.
@@ -328,15 +327,14 @@ public final class VersionRange implements IComparable <VersionRange>
   }
 
   /**
-   * Converts the version range to a string. The brackets whether floor or
-   * ceiling version should be included or not is always prepended and appended.
-   * If a ceiling version is present, the ceiling version is appended with a
-   * single comma as a delimiter.<br>
+   * Converts the version range to a string. The brackets whether floor or ceiling version should be
+   * included or not is always prepended and appended. If a ceiling version is present, the ceiling
+   * version is appended with a single comma as a delimiter.<br>
    * Example return: "[1.2.3,4.5.6)"
    *
    * @param bPrintZeroElements
-   *        If <code>true</code> than trailing zeroes are printed, otherwise
-   *        printed zeroes are not printed.
+   *        If <code>true</code> than trailing zeroes are printed, otherwise printed zeroes are not
+   *        printed.
    * @return Never <code>null</code>.
    */
   @Nonnull
@@ -364,7 +362,7 @@ public final class VersionRange implements IComparable <VersionRange>
     return m_bIncludeFloor == rhs.m_bIncludeFloor &&
            m_aFloorVersion.equals (rhs.m_aFloorVersion) &&
            m_bIncludeCeil == rhs.m_bIncludeCeil &&
-           EqualsHelper.equals (m_aCeilVersion, rhs.m_aCeilVersion);
+           EqualsHelperExt.extEquals (m_aCeilVersion, rhs.m_aCeilVersion);
   }
 
   @Override

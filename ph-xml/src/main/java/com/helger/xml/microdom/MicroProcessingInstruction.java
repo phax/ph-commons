@@ -18,9 +18,9 @@ package com.helger.xml.microdom;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -91,7 +91,7 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroProcessingInstruction rhs = (MicroProcessingInstruction) o;
-    return m_sTarget.equals (rhs.m_sTarget) && EqualsHelper.equals (m_sData, rhs.m_sData);
+    return m_sTarget.equals (rhs.m_sTarget) && EqualsHelperExt.extEquals (m_sData, rhs.m_sData);
   }
 
   @Override

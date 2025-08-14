@@ -18,6 +18,7 @@ package com.helger.json.mapping;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.location.ILocation;
@@ -177,7 +178,7 @@ public final class JsonMapper
     final String sResourceID = aObj.getAsString (JSON_RESOURCE_ID);
     final int nLineNumber = aObj.getAsInt (JSON_LINE_NUM, -1);
     final int nColumnNumber = aObj.getAsInt (JSON_COLUMN_NUM, -1);
-    if (StringHelper.hasNoText (sResourceID) && nLineNumber < 0 && nColumnNumber < 0)
+    if (Strings.isEmpty (sResourceID) && nLineNumber < 0 && nColumnNumber < 0)
       return null;
 
     return new SimpleLocation (sResourceID, nLineNumber, nColumnNumber);

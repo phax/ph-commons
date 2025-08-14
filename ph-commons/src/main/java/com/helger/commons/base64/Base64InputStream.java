@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.io.stream.WrappedInputStream;
+import com.helger.base.io.stream.WrappedInputStream;
 
 import jakarta.annotation.Nonnull;
 

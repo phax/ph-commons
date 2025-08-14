@@ -25,6 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+
 /**
  * Test class for class {@link NonBlockingByteArrayInputStream}.
  *

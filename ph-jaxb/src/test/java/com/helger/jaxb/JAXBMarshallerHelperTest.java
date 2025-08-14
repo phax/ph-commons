@@ -31,8 +31,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.jaxb.mock.JAXBMarshallerMockArchive;
 import com.helger.jaxb.mock.external.MockJAXBArchive;

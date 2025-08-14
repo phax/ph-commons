@@ -28,7 +28,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 /**
  * Test class for class {@link FileRelativeIO}
@@ -75,7 +76,7 @@ public final class FileRelativeIOTest
       try (final InputStream aIS = aIO.getResource (sTestFile).getInputStream ())
       {
         assertNotNull (aIS);
-        final String sReadContent = StreamHelper.getAllBytesAsString (aIS, StandardCharsets.ISO_8859_1);
+        final String sReadContent = StreamHelperExt.getAllBytesAsString (aIS, StandardCharsets.ISO_8859_1);
         assertEquals (sTestContent, sReadContent);
       }
     }

@@ -22,9 +22,9 @@ import java.io.UncheckedIOException;
 import java.nio.file.Path;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.state.ISuccessIndicator;
 import com.helger.commons.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.state.ISuccessIndicator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

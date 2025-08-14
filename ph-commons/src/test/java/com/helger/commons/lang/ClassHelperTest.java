@@ -30,11 +30,13 @@ import java.math.BigInteger;
 import org.junit.Test;
 
 import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.base.lang.ClassHelper;
+import com.helger.base.lang.ClassLoaderHelper;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.system.EOperatingSystem;
 
 /**
- * Test class for class {@link ClassHelper}.
+ * Test class for class {@link ClassHelperExt}.
  *
  * @author Philip Helger
  */
@@ -92,7 +94,7 @@ public final class ClassHelperTest
     assertTrue (ClassHelper.isPublicClass (new String [0].getClass ()));
     assertTrue (ClassHelper.isPublicClass (new AbstractDummy [0].getClass ()));
     assertTrue (ClassHelper.isPublicClass (getClass ()));
-    assertTrue (ClassHelper.isPublicClass (ClassHelper.class));
+    assertTrue (ClassHelper.isPublicClass (ClassHelperExt.class));
     assertTrue (ClassHelper.isPublicClass (EOperatingSystem.class));
   }
 
@@ -121,7 +123,7 @@ public final class ClassHelperTest
     assertTrue (ClassHelper.isInstancableClass (getClass ()));
 
     // No default constructor present (all static)
-    assertFalse (ClassHelper.isInstancableClass (ClassHelper.class));
+    assertFalse (ClassHelper.isInstancableClass (ClassHelperExt.class));
 
     // Not valid: array
     assertFalse (ClassHelper.isInstancableClass (new String [0].getClass ()));
@@ -231,6 +233,19 @@ public final class ClassHelperTest
     assertFalse (ClassHelper.isArrayClass (DummyProtectedVisibility.class));
     assertFalse (ClassHelper.isArrayClass (DummyPrivateVisibility.class));
     assertFalse (ClassHelper.isArrayClass (AbstractDummy.class));
+  }
+
+  @Test
+  public void testIsArrayInstance ()
+  {
+    assertTrue (ClassHelper.isArray (new String [] { "Hallo" }));
+    assertTrue (ClassHelper.isArray (new String [0]));
+    assertTrue (ClassHelper.isArray (new boolean [1]));
+    assertTrue (ClassHelper.isArray (new boolean [0]));
+    assertFalse (ClassHelper.isArray ((boolean []) null));
+    assertFalse (ClassHelper.isArray ((String) null));
+    assertFalse (ClassHelper.isArray (Boolean.TRUE));
+    assertFalse (ClassHelper.isArray ("Hi there"));
   }
 
   @Test
@@ -355,8 +370,8 @@ public final class ClassHelperTest
   public void testGetClassLocalNameClassOfQ ()
   {
     assertEquals ("String", ClassHelper.getClassLocalName ((Object) ""));
-    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelper.class));
-    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelper.class.getName ()));
+    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelperExt.class));
+    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelperExt.class.getName ()));
     assertEquals ("Test", ClassHelper.getClassLocalName ("Test"));
     assertEquals ("", ClassHelper.getClassLocalName (""));
     assertNull (ClassHelper.getClassLocalName ((Object) null));

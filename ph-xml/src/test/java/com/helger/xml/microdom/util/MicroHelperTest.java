@@ -33,7 +33,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.base.CGlobal;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.array.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.xml.EXMLParserFeature;

@@ -16,8 +16,8 @@
  */
 package com.helger.commons.dimension;
 
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.equals.EqualsHelper;
 
 /**
  * Interface for objects having a width and a height.
@@ -27,8 +27,7 @@ import com.helger.commons.equals.EqualsHelper;
 public interface IHasDimensionDouble extends IHasWidthDouble, IHasHeightDouble
 {
   /**
-   * @return <code>true</code> if width &gt; height, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if width &gt; height, <code>false</code> otherwise.
    * @since 9.2.1
    */
   default boolean isLandscape ()
@@ -37,8 +36,7 @@ public interface IHasDimensionDouble extends IHasWidthDouble, IHasHeightDouble
   }
 
   /**
-   * @return <code>true</code> if height &gt; width, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if height &gt; width, <code>false</code> otherwise.
    * @since 9.2.1
    */
   default boolean isPortrait ()
@@ -47,8 +45,7 @@ public interface IHasDimensionDouble extends IHasWidthDouble, IHasHeightDouble
   }
 
   /**
-   * @return <code>true</code> if width equals height, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if width equals height, <code>false</code> otherwise.
    * @since 9.2.1
    */
   default boolean isQuadratic ()

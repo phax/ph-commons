@@ -29,7 +29,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
-import com.helger.commons.state.ESuccess;
+import com.helger.base.state.ESuccess;
 
 import jakarta.annotation.Nonnull;
 

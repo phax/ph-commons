@@ -29,11 +29,11 @@ import java.util.ServiceLoader;
 
 import org.junit.Test;
 
+import com.helger.base.state.IClearable;
+import com.helger.base.state.IStoppable;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.state.IClearable;
-import com.helger.commons.state.IStoppable;
 import com.helger.commons.system.EJavaVersion;
 import com.helger.commons.type.IHasObjectType;
 

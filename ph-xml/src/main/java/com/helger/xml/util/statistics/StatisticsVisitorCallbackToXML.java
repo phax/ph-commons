@@ -16,24 +16,23 @@
  */
 package com.helger.xml.util.statistics;
 
-import java.util.Comparator;
-
-import com.helger.commons.statistics.IStatisticsHandlerCache;
-import com.helger.commons.statistics.IStatisticsHandlerCounter;
-import com.helger.commons.statistics.IStatisticsHandlerKeyedCounter;
-import com.helger.commons.statistics.IStatisticsHandlerKeyedSize;
-import com.helger.commons.statistics.IStatisticsHandlerKeyedTimer;
-import com.helger.commons.statistics.IStatisticsHandlerSize;
-import com.helger.commons.statistics.IStatisticsHandlerTimer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.statistics.IStatisticsHandlerCache;
+import com.helger.base.statistics.IStatisticsHandlerCounter;
+import com.helger.base.statistics.IStatisticsHandlerKeyedCounter;
+import com.helger.base.statistics.IStatisticsHandlerKeyedSize;
+import com.helger.base.statistics.IStatisticsHandlerKeyedTimer;
+import com.helger.base.statistics.IStatisticsHandlerSize;
+import com.helger.base.statistics.IStatisticsHandlerTimer;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.statistics.util.IStatisticsVisitorCallback;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.xml.microdom.IMicroElement;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Special implementation of the {@link IStatisticsVisitorCallback} interface
- * that fills a micro element with all current values
+ * Special implementation of the {@link IStatisticsVisitorCallback} interface that fills a micro
+ * element with all current values
  *
  * @author Philip Helger
  */
@@ -47,8 +46,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   }
 
   /**
-   * @return The root element passed in the constructor. Never <code>null</code>
-   *         .
+   * @return The root element passed in the constructor. Never <code>null</code> .
    */
   @Nonnull
   public IMicroElement getRoot ()
@@ -87,8 +85,9 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
     {
       final IMicroElement eKeyedTimer = m_eRoot.addElement (StatisticsExporter.ELEMENT_KEYEDTIMER)
                                                .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
-      for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
+                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
+                                                              aHandler.getInvocationCount ());
+      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedTimer.addElement (StatisticsExporter.ELEMENT_KEY)
                    .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
@@ -121,8 +120,9 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
     {
       final IMicroElement eKeyedSize = m_eRoot.addElement (StatisticsExporter.ELEMENT_KEYEDSIZE)
                                               .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-                                              .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
-      for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
+                                              .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
+                                                             aHandler.getInvocationCount ());
+      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedSize.addElement (StatisticsExporter.ELEMENT_KEY)
                   .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
@@ -152,8 +152,9 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
     {
       final IMicroElement eKeyedCounter = m_eRoot.addElement (StatisticsExporter.ELEMENT_KEYEDCOUNTER)
                                                  .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-                                                 .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
-      for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
+                                                 .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
+                                                                aHandler.getInvocationCount ());
+      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedCounter.addElement (StatisticsExporter.ELEMENT_KEY)
                      .setAttribute (StatisticsExporter.ATTR_NAME, sKey)

@@ -19,10 +19,10 @@ package com.helger.commons.dimension;
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 
@@ -77,8 +77,8 @@ public class SizeFloat implements IHasDimensionFloat
    *        Maximum width. Must be &gt; 0.
    * @param dMaxHeight
    *        Maximum height. Must be &gt; 0.
-   * @return An array with 2 elements, where the first element is the width, and
-   *         the second is the height.
+   * @return An array with 2 elements, where the first element is the width, and the second is the
+   *         height.
    */
   @Nonnull
   @CheckReturnValue

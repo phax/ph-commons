@@ -29,6 +29,8 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
+import com.helger.base.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.nonblocking.NonBlockingByteArrayOutputStream;
 
 /**
  * Test class for class {@link BitOutputStream}.

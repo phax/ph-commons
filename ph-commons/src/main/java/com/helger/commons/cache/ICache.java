@@ -16,7 +16,7 @@
  */
 package com.helger.commons.cache;
 
-import com.helger.commons.lang.IHasSize;
+import com.helger.base.iface.IHasSize;
 import com.helger.commons.name.IHasName;
 
 /**

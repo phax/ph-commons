@@ -30,10 +30,10 @@ import java.io.InputStream;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.io.EAppend;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.EOperatingSystem;
 
 /**
@@ -318,12 +318,12 @@ public final class FileHelperTest
   @Test
   public void testSafeEquals ()
   {
-    assertTrue (EqualsHelper.equals (new File ("."), new File (".")));
-    assertTrue (EqualsHelper.equals (new File ("."), new File ("")));
-    assertTrue (EqualsHelper.equals (new File ("pom"), new File ("dir/../pom")));
-    assertTrue (EqualsHelper.equals (new File ("./pom"), new File (".\\dir/../pom")));
-    assertTrue (EqualsHelper.equals (null, null));
-    assertFalse (EqualsHelper.equals (new File ("."), null));
-    assertFalse (EqualsHelper.equals (null, new File (".")));
+    assertTrue (EqualsHelperExt.extEquals (new File ("."), new File (".")));
+    assertTrue (EqualsHelperExt.extEquals (new File ("."), new File ("")));
+    assertTrue (EqualsHelperExt.extEquals (new File ("pom"), new File ("dir/../pom")));
+    assertTrue (EqualsHelperExt.extEquals (new File ("./pom"), new File (".\\dir/../pom")));
+    assertTrue (EqualsHelperExt.extEquals (null, null));
+    assertFalse (EqualsHelperExt.extEquals (new File ("."), null));
+    assertFalse (EqualsHelperExt.extEquals (null, new File (".")));
   }
 }

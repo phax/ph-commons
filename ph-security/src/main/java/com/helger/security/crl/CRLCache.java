@@ -25,11 +25,11 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.cache.Cache;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.datetime.expiration.ExpiringObject;
 
 import jakarta.annotation.Nonnull;
@@ -47,9 +47,9 @@ public class CRLCache
   private static class CRLInternalCache extends Cache <String, ExpiringObject <CRL>>
   {
     public CRLInternalCache (@Nonnull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
-                    final int nMaxSize,
-                    @Nonnull @Nonempty final String sCacheName,
-                    final boolean bAllowNullValues)
+                             final int nMaxSize,
+                             @Nonnull @Nonempty final String sCacheName,
+                             final boolean bAllowNullValues)
     {
       super (aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
     }
@@ -111,7 +111,7 @@ public class CRLCache
   @Nullable
   public CRL getCRLFromURL (@Nullable final String sCRLURL)
   {
-    if (StringHelper.hasText (sCRLURL))
+    if (Strings.isNotEmpty (sCRLURL))
     {
       ExpiringObject <CRL> aObject = m_aCache.getFromCache (sCRLURL);
       if (aObject != null)

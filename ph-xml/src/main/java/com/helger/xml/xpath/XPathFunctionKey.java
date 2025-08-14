@@ -20,11 +20,11 @@ import javax.xml.namespace.QName;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.compare.IComparable;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.compare.IComparable;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

@@ -24,6 +24,7 @@ import org.w3c.dom.Node;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.SingleErrorBuilder;
@@ -31,7 +32,6 @@ import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.serialize.write.XMLWriter;
 
 import jakarta.annotation.Nonnull;

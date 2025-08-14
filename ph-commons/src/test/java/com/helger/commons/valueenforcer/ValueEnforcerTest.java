@@ -18,6 +18,7 @@ package com.helger.commons.valueenforcer;
 
 import org.junit.Test;
 
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsVector;

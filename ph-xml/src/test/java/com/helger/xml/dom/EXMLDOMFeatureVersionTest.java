@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 
 /**
  * Test class for class {@link EXMLDOMFeatureVersion}.
@@ -35,7 +35,7 @@ public final class EXMLDOMFeatureVersionTest
   {
     for (final EXMLDOMFeatureVersion e : EXMLDOMFeatureVersion.values ())
     {
-      assertTrue (StringHelper.hasText (e.getID ()));
+      assertTrue (Strings.isNotEmpty (e.getID ()));
       assertSame (e, EXMLDOMFeatureVersion.valueOf (e.name ()));
     }
   }

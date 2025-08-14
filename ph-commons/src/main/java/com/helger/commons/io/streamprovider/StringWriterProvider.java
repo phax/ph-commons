@@ -16,10 +16,10 @@
  */
 package com.helger.commons.io.streamprovider;
 
+import com.helger.base.io.iface.IHasWriter;
+import com.helger.base.nonblocking.NonBlockingStringWriter;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.IHasWriter;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

@@ -22,6 +22,7 @@ import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.CGlobal;
+import com.helger.base.statistics.IStatisticsHandlerNumeric;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 import jakarta.annotation.Nonnull;

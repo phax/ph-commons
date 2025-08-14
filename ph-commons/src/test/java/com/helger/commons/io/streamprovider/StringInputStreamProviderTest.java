@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StreamHelperExt;
 
 /**
  * Test class for class {@link StringInputStreamProvider}.
@@ -40,34 +40,34 @@ public final class StringInputStreamProviderTest
 
     // String constructor
     InputStream aIS = new StringInputStreamProvider (s, StandardCharsets.UTF_8).getInputStream ();
-    assertEquals (s, StreamHelper.getAllBytesAsString (aIS, StandardCharsets.UTF_8));
+    assertEquals (s, StreamHelperExt.getAllBytesAsString (aIS, StandardCharsets.UTF_8));
 
     // char[] constructor
     aIS = new StringInputStreamProvider (s.toCharArray (), StandardCharsets.UTF_8).getInputStream ();
-    assertEquals (s, StreamHelper.getAllBytesAsString (aIS, StandardCharsets.UTF_8));
+    assertEquals (s, StreamHelperExt.getAllBytesAsString (aIS, StandardCharsets.UTF_8));
 
     // CharSequence constructor
     aIS = new StringInputStreamProvider (new StringBuilder (s), StandardCharsets.UTF_8).getInputStream ();
-    assertEquals (s, StreamHelper.getAllBytesAsString (aIS, StandardCharsets.UTF_8));
+    assertEquals (s, StreamHelperExt.getAllBytesAsString (aIS, StandardCharsets.UTF_8));
   }
 
   @Test
   public void testBOM ()
   {
     // BOM is emitted
-    byte [] aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_16));
+    byte [] aBytes = StreamHelperExt.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_16));
     assertArrayEquals (new byte [] { (byte) 0xfe, (byte) 0xff, 0, 'a', 0, 'b', 0, 'c' }, aBytes);
 
     // No BOM is emitted!
-    aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_16BE));
+    aBytes = StreamHelperExt.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_16BE));
     assertArrayEquals (new byte [] { 0, 'a', 0, 'b', 0, 'c' }, aBytes);
 
     // No BOM is emitted!
-    aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_16LE));
+    aBytes = StreamHelperExt.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_16LE));
     assertArrayEquals (new byte [] { 'a', 0, 'b', 0, 'c', 0 }, aBytes);
 
     // No BOM is emitted!
-    aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_8));
+    aBytes = StreamHelperExt.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_8));
     assertArrayEquals (new byte [] { 'a', 'b', 'c' }, aBytes);
   }
 }

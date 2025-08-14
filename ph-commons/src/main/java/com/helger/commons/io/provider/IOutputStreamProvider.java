@@ -18,7 +18,7 @@ package com.helger.commons.io.provider;
 
 import java.io.OutputStream;
 
-import com.helger.commons.io.EAppend;
+import com.helger.base.io.EAppend;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

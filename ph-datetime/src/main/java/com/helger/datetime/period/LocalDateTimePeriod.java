@@ -19,9 +19,9 @@ package com.helger.datetime.period;
 import java.time.LocalDateTime;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
 
@@ -62,7 +62,7 @@ public class LocalDateTimePeriod implements ILocalDateTimePeriod
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final LocalDateTimePeriod rhs = (LocalDateTimePeriod) o;
-    return EqualsHelper.equals (m_aStart, rhs.m_aStart) && EqualsHelper.equals (m_aEnd, rhs.m_aEnd);
+    return EqualsHelperExt.extEquals (m_aStart, rhs.m_aStart) && EqualsHelperExt.extEquals (m_aEnd, rhs.m_aEnd);
   }
 
   @Override

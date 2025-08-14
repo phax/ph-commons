@@ -23,7 +23,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.CGlobal;
+import com.helger.base.array.ArrayHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -83,7 +84,7 @@ public final class ICharArrayCodecTest
 
   private void _testCodec (@Nonnull final ICharArrayCodec c)
   {
-    _testCodec (c, ArrayHelper.EMPTY_CHAR_ARRAY);
+    _testCodec (c, CGlobal.EMPTY_CHAR_ARRAY);
     _testCodec (c, "Hallo JÜnit".toCharArray ());
 
     // Get random bytes

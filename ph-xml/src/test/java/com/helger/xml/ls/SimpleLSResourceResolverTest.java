@@ -32,7 +32,7 @@ import org.osgi.framework.launch.Framework;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
-import com.helger.commons.io.IHasInputStream;
+import com.helger.base.io.iface.IHasInputStream;
 import com.helger.commons.io.resource.URLResource;
 
 /**

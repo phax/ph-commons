@@ -19,10 +19,10 @@ package com.helger.commons.io.streamprovider;
 import java.nio.ByteBuffer;
 
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.commons.io.IHasInputStreamAndReader;
-import com.helger.commons.io.stream.ByteBufferInputStream;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.io.iface.IHasInputStreamAndReader;
+import com.helger.base.io.stream.ByteBufferInputStream;
+import com.helger.base.string.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 

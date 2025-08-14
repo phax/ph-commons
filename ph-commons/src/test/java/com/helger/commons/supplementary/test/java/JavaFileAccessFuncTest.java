@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.nonblocking.NonBlockingBufferedReader;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
@@ -39,7 +40,6 @@ import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.LoggingFileOperationCallback;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.system.EOperatingSystem;
 import com.helger.commons.system.SystemProperties;
 

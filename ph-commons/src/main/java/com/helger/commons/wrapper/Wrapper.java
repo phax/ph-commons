@@ -18,19 +18,19 @@ package com.helger.commons.wrapper;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.lang.ICloneable;
+import com.helger.base.state.EChange;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This is a stupid wrapper around any object. Its original purpose was the
- * encapsulation of return values from within an anonymous class.
+ * This is a stupid wrapper around any object. Its original purpose was the encapsulation of return
+ * values from within an anonymous class.
  *
  * @author Philip Helger
  * @param <DATATYPE>
@@ -111,6 +111,6 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("obj", m_aObj).getToString ();
+    return new ToStringGenerator (this).append ("Obj", m_aObj).getToString ();
   }
 }

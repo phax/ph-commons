@@ -19,7 +19,7 @@ package com.helger.collection.map;
 import java.util.function.IntConsumer;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.lang.IHasSize;
+import com.helger.base.iface.IHasSize;
 
 import jakarta.annotation.Nonnull;
 

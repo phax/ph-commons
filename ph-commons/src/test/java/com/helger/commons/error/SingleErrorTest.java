@@ -27,8 +27,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.base.mock.exception.MockRuntimeException;
 import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.exception.mock.MockRuntimeException;
 import com.helger.commons.location.SimpleLocation;
 
 /**

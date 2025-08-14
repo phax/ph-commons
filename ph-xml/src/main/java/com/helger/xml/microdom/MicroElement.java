@@ -28,20 +28,20 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.functional.ITriConsumer;
+import com.helger.base.state.EChange;
+import com.helger.base.state.EContinue;
+import com.helger.base.string.Strings;
+import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.equals.EqualsHelperExt;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.valueenforcer.ValueEnforcer;
 import com.helger.commons.wrapper.Wrapper;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
@@ -193,7 +193,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
     // Avoid having a conversion issue with empty strings!
-    if (StringHelper.hasNoText (sAttrValue))
+    if (Strings.isEmpty (sAttrValue))
       return null;
     // throws TypeConverterException if nothing can be converted
     return TypeConverter.convert (sAttrValue, aDstClass);
@@ -252,7 +252,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @Nonnull
   public EChange setNamespaceURI (@Nullable final String sNamespaceURI)
   {
-    if (EqualsHelper.equals (m_sNamespaceURI, sNamespaceURI))
+    if (EqualsHelperExt.extEquals (m_sNamespaceURI, sNamespaceURI))
       return EChange.UNCHANGED;
     m_sNamespaceURI = sNamespaceURI;
     return EChange.CHANGED;
@@ -398,9 +398,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (!super.isEqualContent (o))
       return false;
     final MicroElement rhs = (MicroElement) o;
-    return EqualsHelper.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
+    return EqualsHelperExt.extEquals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
            m_sTagName.equals (rhs.m_sTagName) &&
-           EqualsHelper.equals (m_aAttrs, rhs.m_aAttrs);
+           EqualsHelperExt.extEquals (m_aAttrs, rhs.m_aAttrs);
   }
 
   @Override
