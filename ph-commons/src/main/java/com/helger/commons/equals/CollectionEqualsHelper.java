@@ -156,8 +156,7 @@ public final class CollectionEqualsHelper
   /**
    * Check if the content of the passed containers is equal. If the container itself contains nested
    * containers, this method is invoked recursively. For non-container elements, the
-   * {@link EqualsImplementationRegistry#areEqual(Object, Object)} method is invoked to test for
-   * equality!
+   * {@link EqualsHelper#equals(Object, Object)} method is invoked to test for equality!
    *
    * @param aObj1
    *        The first container. May be <code>null</code>.
@@ -237,8 +236,6 @@ public final class CollectionEqualsHelper
           return true;
         }
 
-        // No different types possible -> use EqualsImplementationRegistry
-        // directly
         return EqualsHelper.equals (aObj1, aObj2);
       }
       case ITERATOR:
