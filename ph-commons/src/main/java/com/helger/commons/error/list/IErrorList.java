@@ -26,12 +26,12 @@ import com.helger.annotation.RegEx;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
+import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -67,8 +67,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *
    * @param aSearchFieldNames
    *        The field names to search.
-   * @return <code>true</code> if no entry for any of the specified fields is
-   *         present
+   * @return <code>true</code> if no entry for any of the specified fields is present
    */
   default boolean hasNoEntryForFields (@Nullable final String... aSearchFieldNames)
   {
@@ -92,19 +91,19 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   }
 
   /**
-   * Check if any entry for the specified field and the specified error level is
-   * present
+   * Check if any entry for the specified field and the specified error level is present
    *
    * @param sSearchFieldName
    *        The field name to search.
    * @param aErrorLevel
    *        The exact form error level to search. May not be <code>null</code>
-   * @return <code>true</code> if an entry for the specified field is present
-   *         that has exactly the specified form error level
+   * @return <code>true</code> if an entry for the specified field is present that has exactly the
+   *         specified form error level
    */
   default boolean hasEntryForField (@Nullable final String sSearchFieldName, @Nullable final IErrorLevel aErrorLevel)
   {
-    return aErrorLevel != null && containsAny (x -> x.hasErrorFieldName (sSearchFieldName) && x.hasErrorLevel (aErrorLevel));
+    return aErrorLevel != null &&
+           containsAny (x -> x.hasErrorFieldName (sSearchFieldName) && x.hasErrorLevel (aErrorLevel));
   }
 
   /**
@@ -112,8 +111,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *
    * @param sSearchFieldName
    *        The field name to search.
-   * @return <code>true</code> if an error entry for the specified field is
-   *         present
+   * @return <code>true</code> if an error entry for the specified field is present
    */
   default boolean hasErrorForField (@Nullable final String sSearchFieldName)
   {
@@ -125,8 +123,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *
    * @param aSearchFieldNames
    *        The field names to search.
-   * @return <code>true</code> if an entry for at least one of the specified
-   *         fields is present
+   * @return <code>true</code> if an entry for at least one of the specified fields is present
    */
   default boolean hasEntryForFields (@Nullable final String... aSearchFieldNames)
   {
@@ -181,7 +178,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   @ReturnsMutableCopy
   default IErrorList getListOfFields (@Nullable final Collection <String> aSearchFieldNames)
   {
-    if (CollectionHelperExt.isEmpty (aSearchFieldNames))
+    if (CollectionHelper.isEmpty (aSearchFieldNames))
     {
       // Empty sublist
       return getSubList (x -> false);
@@ -190,8 +187,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   }
 
   /**
-   * Get a sub-list with all entries that have field names starting with one of
-   * the supplied names.
+   * Get a sub-list with all entries that have field names starting with one of the supplied names.
    *
    * @param aSearchFieldNames
    *        The field names to search.
@@ -211,8 +207,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   }
 
   /**
-   * Get a sub-list with all entries that have field names matching the passed
-   * regular expression.
+   * Get a sub-list with all entries that have field names matching the passed regular expression.
    *
    * @param sRegExp
    *        The regular expression to compare the entries against.
@@ -222,7 +217,8 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   @ReturnsMutableCopy
   default IErrorList getListOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegExp)
   {
-    return getSubList (x -> x.hasErrorFieldName () && RegExHelper.stringMatchesPattern (sRegExp, x.getErrorFieldName ()));
+    return getSubList (x -> x.hasErrorFieldName () &&
+                            RegExHelper.stringMatchesPattern (sRegExp, x.getErrorFieldName ()));
   }
 
   /**
@@ -238,8 +234,8 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   }
 
   /**
-   * Get a resource error group containing only the failure elements. All error
-   * levels except {@link EErrorLevel#SUCCESS} are considered to be a failure!
+   * Get a resource error group containing only the failure elements. All error levels except
+   * {@link EErrorLevel#SUCCESS} are considered to be a failure!
    *
    * @return A non-<code>null</code> error list containing only the failures.
    */
@@ -250,8 +246,8 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   }
 
   /**
-   * Get a resource error group containing only the error elements. All error
-   * levels &ge; {@link EErrorLevel#ERROR} are considered to be an error!
+   * Get a resource error group containing only the error elements. All error levels &ge;
+   * {@link EErrorLevel#ERROR} are considered to be an error!
    *
    * @return A non-<code>null</code> error list containing only the errors.
    */
@@ -265,8 +261,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    * Get a sub-list with all entries that match the provided predicate.
    *
    * @param aFilter
-   *        The filter to be used. May be <code>null</code> in which a copy is
-   *        returned.
+   *        The filter to be used. May be <code>null</code> in which a copy is returned.
    * @return Never <code>null</code>.
    */
   @Nonnull
@@ -314,8 +309,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   }
 
   /**
-   * @return A map with all items mapped from error field name to its
-   *         occurrences.
+   * @return A map with all items mapped from error field name to its occurrences.
    */
   @Nonnull
   @ReturnsMutableCopy

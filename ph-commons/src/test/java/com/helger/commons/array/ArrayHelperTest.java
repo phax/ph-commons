@@ -35,7 +35,6 @@ import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.mock.CommonsAssert;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.helper.CollectionHelperExt;
@@ -54,6 +53,19 @@ public final class ArrayHelperTest
   private static final Integer I4 = Integer.valueOf (4);
   private static final Integer I5 = Integer.valueOf (5);
   private static final Integer I6 = Integer.valueOf (6);
+
+  @Test
+  public void testIsArrayInstance ()
+  {
+    assertTrue (ArrayHelper.isArray (new String [] { "Hallo" }));
+    assertTrue (ArrayHelper.isArray (new String [0]));
+    assertTrue (ArrayHelper.isArray (new boolean [1]));
+    assertTrue (ArrayHelper.isArray (new boolean [0]));
+    assertFalse (ArrayHelper.isArray ((boolean []) null));
+    assertFalse (ArrayHelper.isArray ((String) null));
+    assertFalse (ArrayHelper.isArray (Boolean.TRUE));
+    assertFalse (ArrayHelper.isArray ("Hi there"));
+  }
 
   @Test
   public void testGetComponentClass ()
@@ -625,7 +637,7 @@ public final class ArrayHelperTest
   {
     final String [] a = newArray (String.class, 3);
     assertNotNull (a);
-    assertTrue (ClassHelper.isArray (a));
+    assertTrue (ArrayHelper.isArray (a));
     assertEquals (3, a.length);
     for (int i = 0; i < 3; ++i)
       assertNull (a[i]);

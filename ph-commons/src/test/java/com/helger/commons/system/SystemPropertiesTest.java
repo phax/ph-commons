@@ -24,14 +24,13 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Comparator;
 import java.util.Map;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.helger.collection.helper.CollectionHelperExt;
 
 /**
  * Test class for class {@link SystemProperties}
@@ -46,7 +45,9 @@ public final class SystemPropertiesTest
   @Ignore ("Too verbose")
   public void testPrintAll ()
   {
-    for (final Map.Entry <String, String> aEntry : CollectionHelperExt.getSortedByKey (SystemProperties.getAllProperties ()).entrySet ())
+    for (final Map.Entry <String, String> aEntry : SystemProperties.getAllProperties ()
+                                                                   .getSortedByKey (Comparator.naturalOrder ())
+                                                                   .entrySet ())
       LOGGER.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
   }
 

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.lang;
+package com.helger.base.lang.clazz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -32,7 +32,6 @@ import org.junit.Test;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.iface.IHasSize;
-import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.state.EChange;
 
 /**
@@ -236,19 +235,6 @@ public final class ClassHelperTest
   }
 
   @Test
-  public void testIsArrayInstance ()
-  {
-    assertTrue (ClassHelper.isArray (new String [] { "Hallo" }));
-    assertTrue (ClassHelper.isArray (new String [0]));
-    assertTrue (ClassHelper.isArray (new boolean [1]));
-    assertTrue (ClassHelper.isArray (new boolean [0]));
-    assertFalse (ClassHelper.isArray ((boolean []) null));
-    assertFalse (ClassHelper.isArray ((String) null));
-    assertFalse (ClassHelper.isArray (Boolean.TRUE));
-    assertFalse (ClassHelper.isArray ("Hi there"));
-  }
-
-  @Test
   public void testPrimitivesAndWrappers ()
   {
     assertTrue (ClassHelper.isPrimitiveType (boolean.class));
@@ -438,12 +424,4 @@ public final class ClassHelperTest
     assertNull (ClassHelper.getClassFromPath ((String) null));
   }
 
-  @Test
-  public void testGetObjectAddress ()
-  {
-    assertEquals ("0x00000000", ClassHelper.getObjectAddress (null));
-    assertNotNull (ClassHelper.getObjectAddress (""));
-    assertNotNull (ClassHelper.getObjectAddress (String.class));
-    assertNotNull (ClassHelper.getObjectAddress (Double.valueOf (4)));
-  }
 }

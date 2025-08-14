@@ -25,8 +25,6 @@ import static com.helger.collection.helper.CollectionHelperExt.*;
 import static com.helger.collection.helper.CollectionSort.getReverseInlineList;
 import static com.helger.collection.helper.CollectionSort.getReverseList;
 import static com.helger.collection.helper.CollectionSort.getSorted;
-import static com.helger.collection.helper.CollectionSort.getSortedByKey;
-import static com.helger.collection.helper.CollectionSort.getSortedByValue;
 import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveList;
 import static com.helger.collection.iterator.IteratorHelper.getEnumeration;
 import static org.junit.Assert.assertEquals;
@@ -39,9 +37,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -67,8 +63,6 @@ import com.helger.collection.commons.ICommonsSortedSet;
 import com.helger.collection.iterator.IIterableIterator;
 import com.helger.collection.iterator.IterableIterator;
 import com.helger.collection.stack.NonBlockingStack;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link CollectionHelperExt}
@@ -1129,77 +1123,10 @@ public final class CollectionHelperExtTest
     assertNotNull (getSorted ((IIterableIterator <String>) null));
 
     final ICommonsList <String> aList = newList ("d", "c", "b", "a");
-    ICommonsList <String> aSorted = getSorted (new IterableIterator <> (aList));
+    final ICommonsList <String> aSorted = getSorted (new IterableIterator <> (aList));
     assertEquals (4, aSorted.size ());
     assertEquals ("a", aSorted.get (0));
     assertEquals ("b", aSorted.get (1));
-    assertEquals ("c", aSorted.get (2));
-    assertEquals ("d", aSorted.get (3));
-
-    aSorted = getSorted (new IterableIterator <> (aList), IComparator.getComparatorCollating (Locale.US));
-    assertEquals (4, aSorted.size ());
-    assertEquals ("a", aSorted.get (0));
-    assertEquals ("b", aSorted.get (1));
-    assertEquals ("c", aSorted.get (2));
-    assertEquals ("d", aSorted.get (3));
-  }
-
-  private static final class MyStringCompi implements IComparator <String>
-  {
-    public int compare (@Nonnull final String sStr1, @Nonnull final String sStr2)
-    {
-      if (sStr1.equals ("b"))
-        return -1;
-      if (sStr2.equals ("b"))
-        return +1;
-      return sStr1.compareTo (sStr2);
-    }
-  }
-
-  @Test
-  public void testGetSortedFromIteratorWithCompi ()
-  {
-    assertNotNull (getSorted ((Iterator <String>) null, new MyStringCompi ()));
-
-    final ICommonsList <String> aList = newList ("d", "c", "b", "a");
-
-    try
-    {
-      // null comparator not allowed
-      getSorted (aList.iterator (), (Comparator <String>) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-
-    final ICommonsList <String> aSorted = getSorted (aList.iterator (), new MyStringCompi ());
-    assertEquals (4, aSorted.size ());
-    assertEquals ("b", aSorted.get (0));
-    assertEquals ("a", aSorted.get (1));
-    assertEquals ("c", aSorted.get (2));
-    assertEquals ("d", aSorted.get (3));
-  }
-
-  @Test
-  public void testGetSortedIterableWithCompi ()
-  {
-    assertNotNull (getSorted ((Iterable <String>) null, new MyStringCompi ()));
-
-    final ICommonsList <String> aList = newList ("d", "c", "b", "a");
-
-    try
-    {
-      // null comparator not allowed
-      getSorted (aList, (Comparator <String>) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-
-    final ICommonsList <String> aSorted = getSorted (aList, new MyStringCompi ());
-    assertEquals (4, aSorted.size ());
-    assertEquals ("b", aSorted.get (0));
-    assertEquals ("a", aSorted.get (1));
     assertEquals ("c", aSorted.get (2));
     assertEquals ("d", aSorted.get (3));
   }
@@ -1213,28 +1140,6 @@ public final class CollectionHelperExtTest
     assertEquals (4, aSorted.size ());
     assertEquals ("a", aSorted.get (0));
     assertEquals ("b", aSorted.get (1));
-    assertEquals ("c", aSorted.get (2));
-    assertEquals ("d", aSorted.get (3));
-  }
-
-  @Test
-  public void testGetSortedArrayWithCompi ()
-  {
-    assertNotNull (getSorted ((String []) null, new MyStringCompi ()));
-
-    try
-    {
-      // null comparator not allowed
-      getSorted (new String [0], null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-
-    final ICommonsList <String> aSorted = getSorted (new String [] { "d", "c", "b", "a" }, new MyStringCompi ());
-    assertEquals (4, aSorted.size ());
-    assertEquals ("b", aSorted.get (0));
-    assertEquals ("a", aSorted.get (1));
     assertEquals ("c", aSorted.get (2));
     assertEquals ("d", aSorted.get (3));
   }
@@ -1287,74 +1192,6 @@ public final class CollectionHelperExtTest
     assertEquals (1, aFilteredMap.size ());
     assertTrue (aFilteredMap.containsKey ("a"));
     assertEquals ("value-of-a", aFilteredMap.get ("a"));
-  }
-
-  /**
-   * Test for method getSortedByKey
-   */
-  @Test
-  public void testGetSortedByKey ()
-  {
-    assertNotNull (getSortedByKey ((Map <String, ?>) null));
-    assertNotNull (getSortedByKey (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
-
-    try
-    {
-      // null Comparator
-      getSortedByKey (newMap (), (Comparator <String>) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-
-    final Map <String, String> aMap = newMap ("K2", "ValueA", "K3", "ValueB", "K1", "ValueC");
-    assertNotNull (aMap);
-    assertEquals (3, aMap.size ());
-
-    Iterator <Map.Entry <String, String>> it = getSortedByKey (aMap).entrySet ().iterator ();
-    assertEquals ("K1", it.next ().getKey ());
-    assertEquals ("K2", it.next ().getKey ());
-    assertEquals ("K3", it.next ().getKey ());
-
-    // reverse sort
-    it = getSortedByKey (aMap, IComparator.getComparatorCollating (Locale.US).reversed ()).entrySet ().iterator ();
-    assertEquals ("K3", it.next ().getKey ());
-    assertEquals ("K2", it.next ().getKey ());
-    assertEquals ("K1", it.next ().getKey ());
-  }
-
-  /**
-   * Test for method getSortedByValue
-   */
-  @Test
-  public void testGetSortedByValue ()
-  {
-    assertNotNull (getSortedByValue ((Map <?, String>) null));
-    assertNotNull (getSortedByValue (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
-
-    try
-    {
-      // null Comparator
-      getSortedByValue (newMap (), (Comparator <String>) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-
-    final Map <String, String> aMap = newMap ("K1", "ValueB", "K2", "ValueC", "K3", "ValueA");
-    assertNotNull (aMap);
-    assertEquals (3, aMap.size ());
-
-    Iterator <Map.Entry <String, String>> it = getSortedByValue (aMap).entrySet ().iterator ();
-    assertEquals ("ValueA", it.next ().getValue ());
-    assertEquals ("ValueB", it.next ().getValue ());
-    assertEquals ("ValueC", it.next ().getValue ());
-
-    // reverse sort
-    it = getSortedByValue (aMap, IComparator.getComparatorCollating (Locale.US).reversed ()).entrySet ().iterator ();
-    assertEquals ("ValueC", it.next ().getValue ());
-    assertEquals ("ValueB", it.next ().getValue ());
-    assertEquals ("ValueA", it.next ().getValue ());
   }
 
   @Test
@@ -1683,7 +1520,7 @@ public final class CollectionHelperExtTest
   }
 
   /**
-   * Created by {@link MainCreateCollectionHelperCode2} to check if all APIs are present
+   * Check if all APIs are present
    */
   @Test
   public void testNew ()

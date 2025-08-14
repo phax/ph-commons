@@ -36,7 +36,7 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsNavigableSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.helper.CollectionSort;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
@@ -183,9 +183,9 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     try
     {
       // Get all stack traces, sorted by thread ID
-      for (final Map.Entry <Thread, StackTraceElement []> aEntry : CollectionHelperExt.getSortedByKey (Thread.getAllStackTraces (),
-                                                                                                    Comparator.comparing (Thread::getId))
-                                                                                   .entrySet ())
+      for (final Map.Entry <Thread, StackTraceElement []> aEntry : CollectionSort.getSortedByKey (Thread.getAllStackTraces (),
+                                                                                                  Comparator.comparing (Thread::getId))
+                                                                                 .entrySet ())
       {
         final StackTraceElement [] aStackTrace = aEntry.getValue ();
         final String sStackTrace = ArrayHelper.isEmpty (aStackTrace) ? "No stack trace available!\n" : StackTraceHelper

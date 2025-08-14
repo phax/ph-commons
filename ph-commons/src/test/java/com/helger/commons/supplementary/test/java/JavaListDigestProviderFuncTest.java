@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.helper.CollectionSort;
 
 public final class JavaListDigestProviderFuncTest
 {
@@ -40,7 +40,8 @@ public final class JavaListDigestProviderFuncTest
     {
       LOGGER.info ("Provider: '" + aElement + "'");
 
-      for (final Object sAlgo : CollectionHelperExt.getSortedByKey (aElement, Comparator.comparing (Object::toString)).keySet ())
+      for (final Object sAlgo : CollectionSort.getSortedByKey (aElement, Comparator.comparing (Object::toString))
+                                              .keySet ())
         LOGGER.info ("\t" + sAlgo);
     }
   }

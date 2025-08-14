@@ -26,9 +26,9 @@ import java.util.Collection;
 import org.junit.Test;
 
 import com.helger.base.aggregate.IAggregator;
+import com.helger.collection.CollectionFind;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -41,7 +41,7 @@ public final class IAggregatorTest
   @Test
   public void testUseFirst ()
   {
-    final IAggregator <String, String> a1 = CollectionHelperExt::getFirstElement;
+    final IAggregator <String, String> a1 = CollectionFind::getFirstElement;
     assertEquals (a1, a1);
     assertNotEquals (a1, null);
     assertNotEquals (a1, "any other");
@@ -58,7 +58,7 @@ public final class IAggregatorTest
   @Test
   public void testUseLast ()
   {
-    final IAggregator <String, String> a1 = CollectionHelperExt::getLastElement;
+    final IAggregator <String, String> a1 = CollectionFind::getLastElement;
     assertEquals (a1, a1);
     assertNotEquals (a1, null);
     assertNotEquals (a1, "any other");

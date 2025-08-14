@@ -33,7 +33,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.commons.collection.IteratorHelperExt;
+import com.helger.collection.iterator.IteratorHelper;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -44,8 +44,7 @@ import jakarta.annotation.Nullable;
 
 /**
  * Helper class to handle XML based properties. It is read-only.<br>
- * See <a href=
- * "http://docs.oracle.com/javase/6/docs/api/java/util/ResourceBundle.Control.html"
+ * See <a href= "http://docs.oracle.com/javase/6/docs/api/java/util/ResourceBundle.Control.html"
  * >Resource.Control</a> Javadocs
  *
  * @author Philip Helger
@@ -119,7 +118,7 @@ public final class XMLResourceBundle extends ResourceBundle
   @Override
   public Enumeration <String> getKeys ()
   {
-    return IteratorHelperExt.getEnumeration (m_aValues.keySet ());
+    return IteratorHelper.getEnumeration (m_aValues.keySet ());
   }
 
   @Nonnull
@@ -139,6 +138,9 @@ public final class XMLResourceBundle extends ResourceBundle
                                                 @Nonnull final Locale aLocale,
                                                 @Nonnull final ClassLoader aClassLoader)
   {
-    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName, aLocale, aClassLoader, new XMLResourceBundleControl ());
+    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName,
+                                                         aLocale,
+                                                         aClassLoader,
+                                                         new XMLResourceBundleControl ());
   }
 }

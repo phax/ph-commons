@@ -21,7 +21,7 @@ import java.util.Map;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.array.ArrayHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.json.IHasJson;
 import com.helger.json.IJson;
@@ -84,7 +84,7 @@ public final class JsonConverter
     if (aObject instanceof final IHasJson aHasJson)
       return aHasJson.getAsJson ();
 
-    if (ClassHelper.isArray (aObject))
+    if (ArrayHelper.isArray (aObject))
     {
       if (aObject instanceof final boolean [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);

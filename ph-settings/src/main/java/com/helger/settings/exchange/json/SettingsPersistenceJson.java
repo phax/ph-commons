@@ -31,7 +31,7 @@ import com.helger.annotation.WillClose;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
-import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.helper.CollectionSort;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.json.IJson;
 import com.helger.json.IJsonObject;
@@ -149,8 +149,8 @@ public class SettingsPersistenceJson implements ISettingsPersistence
     try
     {
       final IJsonObject aProps = new JsonObject ();
-      for (final Map.Entry <String, Object> aEntry : CollectionHelperExt.getSorted (aSettings.entrySet (),
-                                                                                 Comparator.comparing (Map.Entry::getKey)))
+      for (final Map.Entry <String, Object> aEntry : CollectionSort.getSorted (aSettings.entrySet (),
+                                                                               Comparator.comparing (Map.Entry::getKey)))
       {
         final String sName = aEntry.getKey ();
         final Object aValue = aEntry.getValue ();

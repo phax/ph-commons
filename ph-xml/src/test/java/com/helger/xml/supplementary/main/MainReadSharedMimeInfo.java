@@ -28,6 +28,7 @@ import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.helper.CollectionSort;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeParser;
@@ -44,12 +45,11 @@ import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
 import com.helger.xml.util.mime.MimeTypeInfoManager;
 
 /**
- * Utility class for reading the freedesktop shared-mime-info file and create
- * our MIME type list.<br>
+ * Utility class for reading the freedesktop shared-mime-info file and create our MIME type
+ * list.<br>
  * http://www.freedesktop.org/wiki/Software/shared-mime-info<br>
  * <br>
- * The following mappings where not taken into the list because they are too
- * unix specific:
+ * The following mappings where not taken into the list because they are too unix specific:
  *
  * <pre>
  * For list 0.71:
@@ -137,7 +137,12 @@ public final class MainReadSharedMimeInfo
       if (bHasAnyGlob)
       {
         // Append only if at least on filename pattern is present
-        aMgr.registerMimeType (new MimeTypeInfo (aLocalNames, sComment, aSubClassOf, aGlobs, aExts, "shared-mime-info"));
+        aMgr.registerMimeType (new MimeTypeInfo (aLocalNames,
+                                                 sComment,
+                                                 aSubClassOf,
+                                                 aGlobs,
+                                                 aExts,
+                                                 "shared-mime-info"));
       }
     }
 
@@ -145,24 +150,23 @@ public final class MainReadSharedMimeInfo
 
     // Maps file extension to MIME type
     LOGGER.info ("Reading shared-mime-info/fileext-mimetype-mapping-local.xml");
-    final Map <String, String> FileExtMap = new HashMap <> ();
+    final Map <String, String> aFileExtMap = new HashMap <> ();
     if (XMLMapHandler.readMap (new FileSystemResource ("src/test/resources/shared-mime-info/fileext-mimetype-mapping-local.xml"),
-                               FileExtMap)
-                     .isFailure ())
+                               aFileExtMap).isFailure ())
       throw new InitializationException ("Failed to init file extension to mimetype mapping file");
 
-    LOGGER.info ("Read " + FileExtMap.size () + " entries");
+    LOGGER.info ("Read " + aFileExtMap.size () + " entries");
 
     // Check old data
-    for (final Map.Entry <String, String> aEntry : CollectionHelperExt.getSortedByKey (FileExtMap).entrySet ())
+    for (final Map.Entry <String, String> aEntry : CollectionSort.getSortedByKey (aFileExtMap).entrySet ())
     {
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
       final MimeType aOldMimeType = MimeTypeParser.parseMimeType (sOldMimeType);
-      ICommonsList <MimeTypeInfo> aNew;
+      
 
       // First check for Mime Type, as they are unique
-      aNew = aMgr.getAllInfosOfMimeType (aOldMimeType);
+      ICommonsList <MimeTypeInfo> aNew = aMgr.getAllInfosOfMimeType (aOldMimeType);
       if (aNew != null)
       {
         // Mime type is present - check if extension is also present
@@ -230,7 +234,8 @@ public final class MainReadSharedMimeInfo
 
     LOGGER.info ("Finally having " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
 
-    if (MicroWriter.writeToFile (aMgr.getAsDocument (), new File ("src/main/resources/codelists/mime-type-info.xml")).isSuccess ())
+    if (MicroWriter.writeToFile (aMgr.getAsDocument (), new File ("src/main/resources/codelists/mime-type-info.xml"))
+                   .isSuccess ())
       LOGGER.info ("done - run mvn license:format !!");
     else
       LOGGER.error ("Error writing file");

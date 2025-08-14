@@ -30,6 +30,7 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.string.Strings;
+import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.CommonsTreeMap;
@@ -37,7 +38,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -446,7 +446,7 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (sExtension, "Extension");
 
     final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
-    return CollectionHelperExt.isNotEmpty (aInfos);
+    return CollectionHelper.isNotEmpty (aInfos);
   }
 
   /**

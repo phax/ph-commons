@@ -53,10 +53,10 @@ import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.base.wrapper.IMutableWrapper;
+import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
@@ -565,7 +565,7 @@ public final class URLHelper
   public static String getQueryParametersAsString (@Nullable final List <? extends URLParameter> aQueryParams,
                                                    @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
-    if (CollectionHelperExt.isEmpty (aQueryParams))
+    if (CollectionHelper.isEmpty (aQueryParams))
       return null;
 
     final StringBuilder aSB = new StringBuilder ();
