@@ -63,16 +63,23 @@ public final class SessionSingletonFuncTest
   public void testInstantiateManually ()
   {
     // The check is only performed when debug mode is enabled
-    assertTrue (GlobalDebug.isDebugMode ());
     try
     {
-      // Is not meant to be invoked directly!
-      new MockSessionSingleton ();
-      fail ();
+      GlobalDebug.setDebugModeDirect (true);
+      try
+      {
+        // Is not meant to be invoked directly!
+        new MockSessionSingleton ();
+        fail ();
+      }
+      catch (final IllegalStateException ex)
+      {
+        // Expected
+      }
     }
-    catch (final IllegalStateException ex)
+    finally
     {
-      // Expected
+      GlobalDebug.setDebugModeDirect (GlobalDebug.DEFAULT_DEBUG_MODE);
     }
   }
 

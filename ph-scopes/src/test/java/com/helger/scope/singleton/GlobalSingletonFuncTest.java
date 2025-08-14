@@ -78,16 +78,23 @@ public final class GlobalSingletonFuncTest
   public void testInstantiateManually ()
   {
     // The check is only performed when debug mode is enabled
-    assertTrue (GlobalDebug.isDebugMode ());
     try
     {
-      // Is not meant to be invoked directly!
-      new MockGlobalSingleton ();
-      fail ();
+      GlobalDebug.setDebugModeDirect (true);
+      try
+      {
+        // Is not meant to be invoked directly!
+        new MockGlobalSingleton ();
+        fail ();
+      }
+      catch (final IllegalStateException ex)
+      {
+        // Expected
+      }
     }
-    catch (final IllegalStateException ex)
+    finally
     {
-      // Expected
+      GlobalDebug.setDebugModeDirect (GlobalDebug.DEFAULT_DEBUG_MODE);
     }
   }
 
