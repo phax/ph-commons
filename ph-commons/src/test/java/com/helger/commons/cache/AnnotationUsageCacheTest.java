@@ -29,9 +29,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.style.UseDirectEqualsAndHashCode;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.collection.map.LRUMap;
-import com.helger.commons.collection.map.LRUSet;
-import com.helger.commons.collection.map.LoggingLRUMap;
+import com.helger.collection.map.LRUMap;
+import com.helger.collection.map.LRUSet;
+import com.helger.collection.map.LoggingLRUMap;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.commons.timing.StopWatch;
 

@@ -38,7 +38,7 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.iterator.IIterableIterator;
-import com.helger.commons.collection.map.LRUMap;
+import com.helger.collection.map.LRUMap;
 
 import jakarta.annotation.Nonnull;
 

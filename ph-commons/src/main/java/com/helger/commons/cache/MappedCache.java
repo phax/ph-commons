@@ -41,8 +41,8 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.collection.map.SoftHashMap;
-import com.helger.commons.collection.map.SoftLinkedHashMap;
+import com.helger.collection.map.SoftHashMap;
+import com.helger.collection.map.SoftLinkedHashMap;
 import com.helger.commons.statistics.StatisticsManager;
 
 import jakarta.annotation.Nonnull;
