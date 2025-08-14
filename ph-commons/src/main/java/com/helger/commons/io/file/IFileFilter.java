@@ -19,6 +19,7 @@ package com.helger.commons.io.file;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonempty;
@@ -106,6 +107,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameStartsWith (@Nonnull @Nonempty final String sPrefix)
   {
+    Objects.requireNonNull (sPrefix);
     return aFile -> {
       if (aFile != null)
       {
@@ -125,6 +127,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameEndsWith (@Nonnull @Nonempty final String sSuffix)
   {
+    Objects.requireNonNull (sSuffix);
     return aFile -> {
       if (aFile != null)
       {
@@ -144,6 +147,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameEquals (@Nonnull @Nonempty final String sFilename)
   {
+    Objects.requireNonNull (sFilename);
     return aFile -> aFile != null && sFilename.equals (FilenameHelper.getSecureFilename (aFile.getName ()));
   }
 
@@ -155,6 +159,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
   {
+    Objects.requireNonNull (sFilename);
     return aFile -> aFile != null && sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
   }
 
@@ -166,6 +171,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameNotEquals (@Nonnull @Nonempty final String sFilename)
   {
+    Objects.requireNonNull (sFilename);
     return aFile -> aFile != null && !sFilename.equals (FilenameHelper.getSecureFilename (aFile.getName ()));
   }
 
@@ -177,6 +183,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameNotEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
   {
+    Objects.requireNonNull (sFilename);
     return aFile -> aFile != null && !sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
   }
 
@@ -193,6 +200,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameMatchAnyRegEx (@Nonnull @Nonempty final String... aRegExs)
   {
+    Objects.requireNonNull (aRegExs);
     return aFile -> {
       if (aFile != null)
       {
@@ -219,6 +227,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameMatchNoRegEx (@Nonnull @Nonempty final String... aRegExs)
   {
+    Objects.requireNonNull (aRegExs);
     return aFile -> {
       if (aFile == null)
         return false;
@@ -245,6 +254,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameMatchAny (@Nonnull @Nonempty final String... aFilenames)
   {
+    Objects.requireNonNull (aFilenames);
     return aFile -> {
       if (aFile != null)
       {
@@ -271,6 +281,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   @Nonnull
   static IFileFilter filenameMatchNone (@Nonnull @Nonempty final String... aFilenames)
   {
+    Objects.requireNonNull (aFilenames);
     return aFile -> {
       if (aFile == null)
         return false;

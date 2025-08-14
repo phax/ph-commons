@@ -521,7 +521,7 @@ public final class ArrayHelper
   {
     ValueEnforcer.notNull (aClass, "class");
 
-    if (aCollection.isEmpty ())
+    if (aCollection == null || aCollection.isEmpty ())
       return newArray (aClass, 0);
 
     final ELEMENTTYPE [] ret = newArray (aClass, aCollection.size ());

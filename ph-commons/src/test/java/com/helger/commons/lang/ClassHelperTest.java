@@ -370,8 +370,8 @@ public final class ClassHelperTest
   public void testGetClassLocalNameClassOfQ ()
   {
     assertEquals ("String", ClassHelper.getClassLocalName ((Object) ""));
-    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelperExt.class));
-    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelperExt.class.getName ()));
+    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelper.class));
+    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelper.class.getName ()));
     assertEquals ("Test", ClassHelper.getClassLocalName ("Test"));
     assertEquals ("", ClassHelper.getClassLocalName (""));
     assertNull (ClassHelper.getClassLocalName ((Object) null));
