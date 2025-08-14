@@ -62,6 +62,23 @@
     </developer>
   </developers>
   
+  <!-- Enable when using a SNAPSHOT version: -->
+  <!--
+  -->
+  <repositories>
+    <repository>
+      <name>Central Portal Snapshots</name>
+      <id>central-portal-snapshots</id>
+      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  
   <properties>
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
