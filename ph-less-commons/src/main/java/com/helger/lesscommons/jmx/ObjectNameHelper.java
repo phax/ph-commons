@@ -28,7 +28,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.lang.ClassHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringReplace;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 import jakarta.annotation.Nonnull;
@@ -122,9 +122,9 @@ public final class ObjectNameHelper
     // "," is the property separator
     // "//" is according to the specs reserved for future use
     String ret = sPropertyValue;
-    ret = Strings.replaceAll (ret, ':', '.');
-    ret = Strings.replaceAll (ret, ',', '.');
-    ret = Strings.replaceAll (ret, "//", "__");
+    ret = StringReplace.replaceAll (ret, ':', '.');
+    ret = StringReplace.replaceAll (ret, ',', '.');
+    ret = StringReplace.replaceAll (ret, "//", "__");
     return ret;
   }
 

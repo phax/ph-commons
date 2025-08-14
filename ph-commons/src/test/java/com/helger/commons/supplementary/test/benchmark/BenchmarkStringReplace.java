@@ -18,7 +18,7 @@ package com.helger.commons.supplementary.test.benchmark;
 
 import java.util.regex.Pattern;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringReplace;
 
 /**
  * This code benchmarks the performance of copying an array purely in Java versus copying it with
@@ -41,7 +41,7 @@ public final class BenchmarkStringReplace extends AbstractBenchmarkTask
   private static void _run ()
   {
     final int nRuns = 1000;
-    final double javaTime = benchmarkTask (new StringReplace (nRuns));
+    final double javaTime = benchmarkTask (new MyStringReplace (nRuns));
     LOGGER.info ("Time purely in Java:        " + javaTime + " us");
 
     final double systemTime = benchmarkTask (new PatternReplace (nRuns));
@@ -56,11 +56,11 @@ public final class BenchmarkStringReplace extends AbstractBenchmarkTask
   private static final String RDST = "&lt;";
   private static final String DST = "This is &lt;&lt;a> text";
 
-  private static final class StringReplace implements Runnable
+  private static final class MyStringReplace implements Runnable
   {
     private final int m_nRuns;
 
-    public StringReplace (final int runs)
+    public MyStringReplace (final int runs)
     {
       m_nRuns = runs;
     }
@@ -108,7 +108,7 @@ public final class BenchmarkStringReplace extends AbstractBenchmarkTask
     {
       String s = "";
       for (int i = 0; i < m_nRuns; i++)
-        s = Strings.replaceAll (SRC, RSRC, RDST);
+        s = StringReplace.replaceAll (SRC, RSRC, RDST);
       if (!s.equals (DST))
         throw new IllegalStateException (s);
     }

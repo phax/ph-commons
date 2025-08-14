@@ -27,6 +27,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
@@ -605,7 +606,7 @@ public final class XMLMaskHelper
         {
           final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
           final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
-          aChars = Strings.replaceMultiple (s, aSrcMap, aDstMap);
+          aChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
         }
       }
     }
@@ -618,7 +619,7 @@ public final class XMLMaskHelper
       return aChars;
     }
     final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-    return Strings.replaceMultiple (aChars, aSrcMap, aDstMap);
+    return StringReplace.replaceMultiple (aChars, aSrcMap, aDstMap);
   }
 
   @Nonnegative
@@ -656,7 +657,7 @@ public final class XMLMaskHelper
       {
         final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
         final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
-        aChars = Strings.replaceMultiple (s, aSrcMap, aDstMap);
+        aChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
       }
     }
 
@@ -666,7 +667,7 @@ public final class XMLMaskHelper
     if (aSrcMap != null)
     {
       final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-      final int nResLen = Strings.getReplaceMultipleResultLength (aChars, aSrcMap, aDstMap);
+      final int nResLen = StringReplace.getReplaceMultipleResultLength (aChars, aSrcMap, aDstMap);
       ret = nResLen == CGlobal.ILLEGAL_UINT ? aChars.length : nResLen;
     }
     else
@@ -722,7 +723,7 @@ public final class XMLMaskHelper
           final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
           final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
 
-          aChars = Strings.replaceMultiple (s, aSrcMap, aDstMap);
+          aChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
           nRealOfs = 0;
           nRealLen = aChars.length;
           if (nRealLen == 0)
@@ -746,7 +747,7 @@ public final class XMLMaskHelper
     {
       final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
       // TODO write code points as XML entities
-      Strings.replaceMultipleTo (aChars, nRealOfs, nRealLen, aSrcMap, aDstMap, aWriter);
+      StringReplace.replaceMultipleTo (aChars, nRealOfs, nRealLen, aSrcMap, aDstMap, aWriter);
     }
   }
 }

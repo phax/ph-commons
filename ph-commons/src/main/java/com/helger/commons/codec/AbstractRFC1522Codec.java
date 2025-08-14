@@ -26,6 +26,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.string.StringEncoding;
 import com.helger.base.string.Strings;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.serialize.convert.SerializationConverter;
@@ -141,7 +142,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
        .append (SEP)
        .append (getRFC1522Encoding ())
        .append (SEP)
-       .append (Strings.decodeBytesToChars (aEncodedData, StandardCharsets.US_ASCII))
+       .append (StringEncoding.decodeBytesToChars (aEncodedData, StandardCharsets.US_ASCII))
        .append (POSTFIX);
     return aSB.toString ();
   }

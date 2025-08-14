@@ -48,6 +48,7 @@ import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.ClassHelper;
 import com.helger.base.lang.ClassLoaderHelper;
+import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
@@ -332,7 +333,7 @@ public final class URLHelper
   {
     if (s_aCleanURLOld == null)
       _initCleanURL ();
-    final char [] ret = Strings.replaceMultiple (sURLPart, s_aCleanURLOld, s_aCleanURLNew);
+    final char [] ret = StringReplace.replaceMultiple (sURLPart, s_aCleanURLOld, s_aCleanURLNew);
     return new String (ret);
   }
 

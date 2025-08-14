@@ -1,28 +1,14 @@
 package com.helger.base.string;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.CoderResult;
-import java.nio.charset.CodingErrorAction;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.function.Supplier;
 
-import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.CGlobal;
-import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
+import com.helger.base.functional.ICharConsumer;
+import com.helger.base.functional.ICharPredicate;
 import com.helger.base.math.MathHelper;
 
 import jakarta.annotation.Nonnull;
@@ -658,805 +644,191 @@ public class Strings
   }
 
   /**
-   * Encode a char array to a byte array using the provided charset. This does the same as
-   * <code>new String (aCharArray).getBytes (aCharset)</code> just without the intermediate objects.
-   *
-   * @param aCharset
-   *        Charset to be used. May not be <code>null</code>.
-   * @param aCharArray
-   *        The char array to be encoded. May not be <code>null</code>.
-   * @return The created byte array. Never <code>null</code>.
-   * @since 8.6.4
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public static byte [] encodeCharToBytes (@Nonnull final char [] aCharArray, @Nonnull final Charset aCharset)
-  {
-    return encodeCharToBytes (aCharArray, 0, aCharArray.length, aCharset);
-  }
-
-  /**
-   * Encode a char array to a byte array using the provided charset. This does the same as
-   * <code>new String (aCharArray).getBytes (aCharset)</code> just without the intermediate objects.
-   *
-   * @param aCharset
-   *        Charset to be used. May not be <code>null</code>.
-   * @param aCharArray
-   *        The char array to be encoded. May not be <code>null</code>.
-   * @param nOfs
-   *        Offset into char array. Must be &ge; 0.
-   * @param nLen
-   *        Chars to encode. Must be &ge; 0.
-   * @return The created byte array. Never <code>null</code>.
-   * @since 8.6.4
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public static byte [] encodeCharToBytes (@Nonnull final char [] aCharArray,
-                                           @Nonnegative final int nOfs,
-                                           @Nonnegative final int nLen,
-                                           @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.isArrayOfsLen (aCharArray, nOfs, nLen);
-
-    final CharsetEncoder aEncoder = aCharset.newEncoder ();
-    // We need to perform double, not float, arithmetic; otherwise
-    // we lose low order bits when nLen is larger than 2^24.
-    final int nEncodedLen = (int) (nLen * (double) aEncoder.maxBytesPerChar ());
-    final byte [] aByteArray = new byte [nEncodedLen];
-    if (nLen == 0)
-      return aByteArray;
-    aEncoder.onMalformedInput (CodingErrorAction.REPLACE).onUnmappableCharacter (CodingErrorAction.REPLACE).reset ();
-
-    final CharBuffer aSrcBuf = CharBuffer.wrap (aCharArray, nOfs, nLen);
-    final ByteBuffer aDstBuf = ByteBuffer.wrap (aByteArray);
-    try
-    {
-      CoderResult aRes = aEncoder.encode (aSrcBuf, aDstBuf, true);
-      if (!aRes.isUnderflow ())
-        aRes.throwException ();
-      aRes = aEncoder.flush (aDstBuf);
-      if (!aRes.isUnderflow ())
-        aRes.throwException ();
-    }
-    catch (final CharacterCodingException x)
-    {
-      throw new IllegalStateException (x);
-    }
-
-    final int nDstLen = aDstBuf.position ();
-    if (nDstLen == aByteArray.length)
-      return aByteArray;
-    return Arrays.copyOf (aByteArray, nDstLen);
-  }
-
-  /**
-   * Decode a byte array to a char array using the provided charset. This does the same as
-   * <code>new String (aByteArray, aCharset)</code> just without the intermediate objects.
-   *
-   * @param aByteArray
-   *        The byte array to be decoded. May not be <code>null</code>.
-   * @param aCharset
-   *        Charset to be used. May not be <code>null</code>.
-   * @return The created char array. Never <code>null</code>.
-   * @since 8.6.4
-   */
-  @Nonnull
-  public static char [] decodeBytesToChars (@Nonnull final byte [] aByteArray, @Nonnull final Charset aCharset)
-  {
-    return decodeBytesToChars (aByteArray, 0, aByteArray.length, aCharset);
-  }
-
-  /**
-   * Decode a byte array to a char array using the provided charset. This does the same as
-   * <code>new String (aByteArray, aCharset)</code> just without the intermediate objects.
-   *
-   * @param aByteArray
-   *        The byte array to be decoded. May not be <code>null</code>.
-   * @param nOfs
-   *        Offset into byte array. Must be &ge; 0.
-   * @param nLen
-   *        Bytes to encode. Must be &ge; 0.
-   * @param aCharset
-   *        Charset to be used. May not be <code>null</code>.
-   * @return The created char array. Never <code>null</code>.
-   * @since 8.6.4
-   */
-  @Nonnull
-  public static char [] decodeBytesToChars (@Nonnull final byte [] aByteArray,
-                                            @Nonnegative final int nOfs,
-                                            @Nonnegative final int nLen,
-                                            @Nonnull final Charset aCharset)
-  {
-    final CharsetDecoder aDecoder = aCharset.newDecoder ();
-    final int nDecodedLen = (int) (nLen * (double) aDecoder.maxCharsPerByte ());
-    final char [] aCharArray = new char [nDecodedLen];
-    if (nLen == 0)
-      return aCharArray;
-    aDecoder.onMalformedInput (CodingErrorAction.REPLACE).onUnmappableCharacter (CodingErrorAction.REPLACE).reset ();
-
-    final ByteBuffer aSrcBuf = ByteBuffer.wrap (aByteArray, nOfs, nLen);
-    final CharBuffer aDstBuf = CharBuffer.wrap (aCharArray);
-    try
-    {
-      CoderResult aRes = aDecoder.decode (aSrcBuf, aDstBuf, true);
-      if (!aRes.isUnderflow ())
-        aRes.throwException ();
-      aRes = aDecoder.flush (aDstBuf);
-      if (!aRes.isUnderflow ())
-        aRes.throwException ();
-    }
-    catch (final CharacterCodingException x)
-    {
-      // Substitution is always enabled,
-      // so this shouldn't happen
-      throw new IllegalStateException (x);
-    }
-
-    final int nDstLen = aDstBuf.position ();
-    if (nDstLen == aCharArray.length)
-      return aCharArray;
-    return Arrays.copyOf (aCharArray, nDstLen);
-  }
-
-  /**
-   * Same as {@link #replaceAll(String, String, CharSequence)} but allowing for a <code>null</code>
-   * new-value, which is than interpreted as an empty string instead.
+   * Iterate all characters and pass them to the provided consumer.
    *
    * @param sInputString
-   *        The input string where the text should be replace. If this parameter is
-   *        <code>null</code> or empty, no replacement is done.
-   * @param sSearchText
-   *        The string to be replaced. May neither be <code>null</code> nor empty.
-   * @param aReplacementText
-   *        The string with the replacement. May be <code>null</code> or empty.
-   * @return The input string as is, if the input string is empty or if the string to be replaced is
-   *         not contained.
+   *        Input String to use. May be <code>null</code> or empty.
+   * @param aConsumer
+   *        The consumer to be used. May not be <code>null</code>.
    */
-  public static String replaceAllSafe (@Nullable final String sInputString,
-                                       @Nonnull final String sSearchText,
-                                       @Nullable final CharSequence aReplacementText)
+  public static void iterateChars (@Nullable final String sInputString, @Nonnull final ICharConsumer aConsumer)
   {
-    return replaceAll (sInputString, sSearchText, getNotNull (aReplacementText, ""));
-  }
+    ValueEnforcer.notNull (aConsumer, "Consumer");
 
-  /**
-   * This is a fast replacement for {@link String#replace(CharSequence, CharSequence)}. The problem
-   * with the mentioned {@link String} method is, that is uses internally regular expressions which
-   * use a synchronized block to compile the patterns. This method is inherently thread safe since
-   * {@link String} is immutable and we're operating on different temporary {@link StringBuilder}
-   * objects.
-   *
-   * @param sInputString
-   *        The input string where the text should be replace. If this parameter is
-   *        <code>null</code> or empty, no replacement is done.
-   * @param sSearchText
-   *        The string to be replaced. May neither be <code>null</code> nor empty.
-   * @param aReplacementText
-   *        The string with the replacement. May not be <code>null</code> but may be empty.
-   * @return The input string as is, if the input string is empty or if the search pattern and the
-   *         replacement are equal or if the string to be replaced is not contained.
-   */
-  @Nullable
-  public static String replaceAll (@Nullable final String sInputString,
-                                   @Nonnull final String sSearchText,
-                                   @Nonnull final CharSequence aReplacementText)
-  {
-    ValueEnforcer.notEmpty (sSearchText, "SearchText");
-    ValueEnforcer.notNull (aReplacementText, "ReplacementText");
-
-    // Is input string empty?
-    if (hasNoText (sInputString))
-      return sInputString;
-
-    // Replace old with the same new?
-    final int nOldLength = sSearchText.length ();
-    final int nNewLength = aReplacementText.length ();
-    if (nOldLength == nNewLength)
+    if (sInputString != null)
     {
-      // Any change?
-      if (sSearchText.equals (aReplacementText))
-        return sInputString;
-
-      if (nOldLength == 1)
-      {
-        // Use char version which is more efficient
-        return replaceAll (sInputString, sSearchText.charAt (0), aReplacementText.charAt (0));
-      }
+      final char [] aInput = sInputString.toCharArray ();
+      for (final char cInput : aInput)
+        aConsumer.accept (cInput);
     }
-
-    // Does the old text occur anywhere?
-    int nIndex = sInputString.indexOf (sSearchText, 0);
-    if (nIndex == STRING_NOT_FOUND)
-      return sInputString;
-
-    // build output buffer
-    final StringBuilder ret = new StringBuilder (nOldLength >= nNewLength ? sInputString.length () : sInputString
-                                                                                                                 .length () *
-                                                                                                     2);
-    int nOldIndex = 0;
-    do
-    {
-      ret.append (sInputString, nOldIndex, nIndex).append (aReplacementText);
-      nIndex += nOldLength;
-      nOldIndex = nIndex;
-      nIndex = sInputString.indexOf (sSearchText, nIndex);
-    } while (nIndex != STRING_NOT_FOUND);
-    ret.append (sInputString, nOldIndex, sInputString.length ());
-    return ret.toString ();
   }
 
   /**
-   * This is a fast replacement for {@link String#replace(char, char)} for characters. The problem
-   * with the mentioned String method is, that is uses internally regular expressions which use a
-   * synchronized block to compile the patterns. This method is inherently thread safe since
-   * {@link String} is immutable and we're operating on different temporary {@link StringBuilder}
-   * objects.
+   * Check if the passed {@link CharSequence} contains any character matching the provided filter.
    *
-   * @param sInputString
-   *        The input string where the text should be replace. If this parameter is
-   *        <code>null</code> or empty, no replacement is done.
-   * @param cSearchChar
-   *        The character to be replaced.
-   * @param cReplacementChar
-   *        The character with the replacement.
-   * @return The input string as is, if the input string is empty or if the search pattern and the
-   *         replacement are equal or if the string to be replaced is not contained.
+   * @param aCS
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is not empty.
+   *         <code>true</code> if the filter is not <code>null</code> and at least one character of
+   *         the string matches the filter. <code>false</code> otherwise.
+   * @since 9.1.7
    */
-  @Nullable
-  public static String replaceAll (@Nullable final String sInputString,
-                                   final char cSearchChar,
-                                   final char cReplacementChar)
+  public static boolean containsAny (@Nullable final CharSequence aCS, @Nullable final ICharPredicate aFilter)
   {
-    // Is input string empty?
-    if (hasNoText (sInputString))
-      return sInputString;
+    final int nLen = getLength (aCS);
+    if (aFilter == null)
+      return nLen > 0;
 
-    // Replace old with the same new?
-    if (cSearchChar == cReplacementChar)
-      return sInputString;
-
-    // Does the old text occur anywhere?
-    int nIndex = sInputString.indexOf (cSearchChar, 0);
-    if (nIndex == STRING_NOT_FOUND)
-      return sInputString;
-
-    // build output buffer
-    final StringBuilder ret = new StringBuilder (sInputString.length ());
-    int nOldIndex = 0;
-    do
-    {
-      ret.append (sInputString, nOldIndex, nIndex).append (cReplacementChar);
-      nIndex++;
-      nOldIndex = nIndex;
-      nIndex = sInputString.indexOf (cSearchChar, nIndex);
-    } while (nIndex != STRING_NOT_FOUND);
-    ret.append (sInputString, nOldIndex, sInputString.length ());
-    return ret.toString ();
+    if (nLen > 0)
+      for (int i = 0; i < nLen; ++i)
+        if (aFilter.test (aCS.charAt (i)))
+          return true;
+    return false;
   }
 
   /**
-   * Just calls <code>replaceAll</code> as long as there are still replacements found
+   * Check if the passed {@link String} contains any character matching the provided filter.
    *
-   * @param sInputString
-   *        The input string where the text should be replace. If this parameter is
-   *        <code>null</code> or empty, no replacement is done.
-   * @param sSearchText
-   *        The string to be replaced. May neither be <code>null</code> nor empty.
-   * @param sReplacementText
-   *        The string with the replacement. May not be <code>null</code> but may be empty.
-   * @return The input string as is, if the input string is empty or if the string to be replaced is
-   *         not contained.
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is not empty.
+   *         <code>true</code> if the filter is not <code>null</code> and at least one character of
+   *         the string matches the filter. <code>false</code> otherwise.
+   * @since 9.1.7
    */
-  @Nullable
-  public static String replaceAllRepeatedly (@Nullable final String sInputString,
-                                             @Nonnull final String sSearchText,
-                                             @Nonnull final String sReplacementText)
+  public static boolean containsAny (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
   {
-    ValueEnforcer.notEmpty (sSearchText, "SearchText");
-    ValueEnforcer.notNull (sReplacementText, "ReplacementText");
-    ValueEnforcer.isFalse (sReplacementText.contains (sSearchText),
-                           "Loop detection: replacementText must not contain searchText");
+    final int nLen = getLength (sStr);
+    if (aFilter == null)
+      return nLen > 0;
 
-    // Is input string empty?
-    if (hasNoText (sInputString))
-      return sInputString;
-
-    String sRet = sInputString;
-    String sLastLiteral;
-    do
-    {
-      sLastLiteral = sRet;
-      sRet = replaceAll (sRet, sSearchText, sReplacementText);
-    } while (!sLastLiteral.equals (sRet));
-    return sRet;
+    if (nLen > 0)
+      for (final char c : sStr.toCharArray ())
+        if (aFilter.test (c))
+          return true;
+    return false;
   }
 
   /**
-   * Get the result length (in characters) when replacing all patterns with the replacements on the
-   * passed input array.
+   * Check if the passed {@link CharSequence} contains no character matching the provided filter.
    *
-   * @param aInputString
-   *        Input char array. May not be <code>null</code>.
-   * @param aSearchChars
-   *        The one-character search patterns. May not be <code>null</code>.
-   * @param aReplacementStrings
-   *        The replacements to be performed. May not be <code>null</code>. The first dimension of
-   *        this array must have exactly the same amount of elements as the patterns parameter
-   *        array.
-   * @return {@link CGlobal#ILLEGAL_UINT} if no replacement was needed, and therefore the length of
-   *         the input array could be used.
+   * @param aCS
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is empty.
+   *         <code>true</code> if the filter is not <code>null</code> and no character of the string
+   *         matches the filter. <code>false</code> otherwise.
+   * @since 9.1.7
    */
-  public static int getReplaceMultipleResultLength (@Nonnull final char [] aInputString,
-                                                    @Nonnull @Nonempty final char [] aSearchChars,
-                                                    @Nonnull @Nonempty final char [] [] aReplacementStrings)
+  public static boolean containsNone (@Nullable final CharSequence aCS, @Nullable final ICharPredicate aFilter)
   {
-    int nResultLen = 0;
-    boolean bAnyReplacement = false;
-    for (final char cInput : aInputString)
-    {
-      // In case no replacement is found use a single char
-      int nReplacementLength = 1;
-      for (int nIndex = 0; nIndex < aSearchChars.length; nIndex++)
-        if (cInput == aSearchChars[nIndex])
-        {
-          nReplacementLength = aReplacementStrings[nIndex].length;
-          bAnyReplacement = true;
-          break;
-        }
-      nResultLen += nReplacementLength;
-    }
-    return bAnyReplacement ? nResultLen : CGlobal.ILLEGAL_UINT;
-  }
+    final int nLen = getLength (aCS);
+    if (aFilter == null)
+      return nLen == 0;
 
-  /**
-   * Optimized replace method that replaces a set of characters with a set of strings. This method
-   * was created for efficient XML special character replacements!
-   *
-   * @param sInputString
-   *        The input string.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param aReplacementStrings
-   *        The new strings to be inserted instead. Must have the same array length as aPatterns.
-   * @return The replaced version of the string or an empty char array if the input string was
-   *         <code>null</code>.
-   */
-  @Nonnull
-  public static char [] replaceMultiple (@Nullable final String sInputString,
-                                         @Nonnull final char [] aSearchChars,
-                                         @Nonnull final char [] [] aReplacementStrings)
-  {
-    // Any input text?
-    if (hasNoText (sInputString))
-      return CGlobal.EMPTY_CHAR_ARRAY;
-
-    return replaceMultiple (sInputString.toCharArray (), aSearchChars, aReplacementStrings);
-  }
-
-  /**
-   * Optimized replace method that replaces a set of characters with a set of strings. This method
-   * was created for efficient XML special character replacements!
-   *
-   * @param aInput
-   *        The input string.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param aReplacementStrings
-   *        The new strings to be inserted instead. Must have the same array length as aPatterns.
-   * @return The replaced version of the string or an empty char array if the input string was
-   *         <code>null</code>.
-   */
-  @Nonnull
-  public static char [] replaceMultiple (@Nullable final char [] aInput,
-                                         @Nonnull final char [] aSearchChars,
-                                         @Nonnull final char [] [] aReplacementStrings)
-  {
-    ValueEnforcer.notNull (aSearchChars, "SearchChars");
-    ValueEnforcer.notNull (aReplacementStrings, "ReplacementStrings");
-    ValueEnforcer.isEqual (aSearchChars.length, aReplacementStrings.length, "array length mismatch");
-
-    // Any input text?
-    if (aInput == null || aInput.length == 0)
-      return CGlobal.EMPTY_CHAR_ARRAY;
-
-    // Any replacement patterns?
-    if (aSearchChars.length == 0)
-      return aInput;
-
-    // get result length
-    final int nResultLen = getReplaceMultipleResultLength (aInput, aSearchChars, aReplacementStrings);
-
-    // nothing to replace in here?
-    if (nResultLen == CGlobal.ILLEGAL_UINT)
-      return aInput;
-
-    // build result
-    final char [] aOutput = new char [nResultLen];
-    int nOutputIndex = 0;
-
-    // For all input chars
-    for (final char cInput : aInput)
-    {
-      boolean bFoundReplacement = false;
-      for (int nPatternIndex = 0; nPatternIndex < aSearchChars.length; nPatternIndex++)
-      {
-        if (cInput == aSearchChars[nPatternIndex])
-        {
-          final char [] aReplacement = aReplacementStrings[nPatternIndex];
-          final int nReplacementLength = aReplacement.length;
-          System.arraycopy (aReplacement, 0, aOutput, nOutputIndex, nReplacementLength);
-          nOutputIndex += nReplacementLength;
-          bFoundReplacement = true;
-          break;
-        }
-      }
-      if (!bFoundReplacement)
-      {
-        // copy char as is
-        aOutput[nOutputIndex++] = cInput;
-      }
-    }
-
-    return aOutput;
-  }
-
-  /**
-   * Specialized version of {@link #replaceMultiple(String, char[], char[][])} where the object
-   * where the output should be appended is passed in as a parameter. This has the advantage, that
-   * not length calculation needs to take place!
-   *
-   * @param sInputString
-   *        The input string.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param aReplacementStrings
-   *        The new strings to be inserted instead. Must have the same array length as aPatterns.
-   * @param aTarget
-   *        Where the replaced objects should be written to. May not be <code>null</code>.
-   * @return The number of replacements performed. Always &ge; 0.
-   * @throws IOException
-   *         In case writing to the Writer fails
-   */
-  @Nonnegative
-  public static int replaceMultipleTo (@Nullable final String sInputString,
-                                       @Nonnull final char [] aSearchChars,
-                                       @Nonnull final char [] [] aReplacementStrings,
-                                       @Nonnull final Writer aTarget) throws IOException
-  {
-    if (hasNoText (sInputString))
-      return 0;
-
-    return replaceMultipleTo (sInputString.toCharArray (), aSearchChars, aReplacementStrings, aTarget);
-  }
-
-  /**
-   * Specialized version of {@link #replaceMultiple(String, char[], char[][])} where the object
-   * where the output should be appended is passed in as a parameter. This has the advantage, that
-   * not length calculation needs to take place!
-   *
-   * @param aInput
-   *        The input char array. May not be <code>null</code>.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param aReplacementStrings
-   *        The new strings to be inserted instead. Must have the same array length as aPatterns.
-   * @param aTarget
-   *        Where the replaced objects should be written to. May not be <code>null</code>.
-   * @return The number of replacements performed. Always &ge; 0.
-   * @throws IOException
-   *         In case writing to the Writer fails
-   */
-  @Nonnegative
-  public static int replaceMultipleTo (@Nullable final char [] aInput,
-                                       @Nonnull final char [] aSearchChars,
-                                       @Nonnull final char [] [] aReplacementStrings,
-                                       @Nonnull final Writer aTarget) throws IOException
-  {
-    return aInput == null ? 0 : replaceMultipleTo (aInput,
-                                                   0,
-                                                   aInput.length,
-                                                   aSearchChars,
-                                                   aReplacementStrings,
-                                                   aTarget);
-  }
-
-  /**
-   * Specialized version of {@link #replaceMultiple(String, char[], char[][])} where the object
-   * where the output should be appended is passed in as a parameter. This has the advantage, that
-   * not length calculation needs to take place!
-   *
-   * @param aInput
-   *        The input char array. May be <code>null</code>.
-   * @param nOfs
-   *        Offset into input array. Must be &ge; 0.
-   * @param nLen
-   *        Number of characters from input array. Must be &ge; 0.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param aReplacementStrings
-   *        The new strings to be inserted instead. Must have the same array length as aPatterns.
-   * @param aTarget
-   *        Where the replaced objects should be written to. May not be <code>null</code>.
-   * @return The number of replacements performed. Always &ge; 0.
-   * @throws IOException
-   *         In case writing to the Writer fails
-   */
-  @Nonnegative
-  public static int replaceMultipleTo (@Nullable final char [] aInput,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen,
-                                       @Nonnull final char [] aSearchChars,
-                                       @Nonnull final char [] [] aReplacementStrings,
-                                       @Nonnull final Writer aTarget) throws IOException
-  {
-    if (aInput != null)
-      ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
-    ValueEnforcer.notNull (aSearchChars, "SearchChars");
-    ValueEnforcer.notNull (aReplacementStrings, "ReplacementStrings");
-    ValueEnforcer.isEqual (aSearchChars.length, aReplacementStrings.length, "array length mismatch");
-    ValueEnforcer.notNull (aTarget, "Target");
-
-    if (aInput == null || aInput.length == 0 || nLen == 0)
-      return 0;
-
-    if (aSearchChars.length == 0)
-    {
-      // No modifications required
-      aTarget.write (aInput, nOfs, nLen);
-      return 0;
-    }
-
-    // for all input string characters
-    int nFirstNonReplace = nOfs;
-    int nInputIndex = nOfs;
-    int nTotalReplacements = 0;
-    final int nMaxSearchChars = aSearchChars.length;
     for (int i = 0; i < nLen; ++i)
-    {
-      final char cInput = aInput[nOfs + i];
-      for (int nPatternIndex = 0; nPatternIndex < nMaxSearchChars; nPatternIndex++)
-      {
-        if (cInput == aSearchChars[nPatternIndex])
-        {
-          if (nFirstNonReplace < nInputIndex)
-            aTarget.write (aInput, nFirstNonReplace, nInputIndex - nFirstNonReplace);
-          nFirstNonReplace = nInputIndex + 1;
-          aTarget.write (aReplacementStrings[nPatternIndex]);
-          ++nTotalReplacements;
-          break;
-        }
-      }
-      nInputIndex++;
-    }
-    if (nFirstNonReplace < nInputIndex)
-      aTarget.write (aInput, nFirstNonReplace, nInputIndex - nFirstNonReplace);
-    return nTotalReplacements;
+      if (aFilter.test (aCS.charAt (i)))
+        return false;
+    return true;
   }
 
   /**
-   * Optimized replace method that replaces a set of characters with another character. This method
-   * was created for efficient unsafe character replacements!
+   * Check if the passed {@link String} contains no character matching the provided filter.
    *
-   * @param sInputString
-   *        The input string.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param cReplacementChar
-   *        The new char to be used instead of the search chars.
-   * @return The replaced version of the string or an empty char array if the input string was
-   *         <code>null</code>.
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is empty.
+   *         <code>true</code> if the filter is not <code>null</code> and no character of the string
+   *         matches the filter. <code>false</code> otherwise.
+   * @since 9.1.7
    */
-  @Nonnull
-  public static char [] replaceMultiple (@Nullable final String sInputString,
-                                         @Nonnull final char [] aSearchChars,
-                                         final char cReplacementChar)
+  public static boolean containsNone (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
   {
-    ValueEnforcer.notNull (aSearchChars, "SearchChars");
+    final int nLen = getLength (sStr);
+    if (aFilter == null)
+      return nLen == 0;
 
-    // Any input text?
-    if (hasNoText (sInputString))
-      return CGlobal.EMPTY_CHAR_ARRAY;
-
-    // Get char array
-    final char [] aInput = sInputString.toCharArray ();
-
-    // Any replacement patterns?
-    if (aSearchChars.length == 0)
-      return aInput;
-
-    // build result
-    final char [] aOutput = new char [aInput.length];
-    int nOutputIndex = 0;
-    for (final char c : aInput)
-    {
-      if (ArrayHelper.contains (aSearchChars, c))
-        aOutput[nOutputIndex] = cReplacementChar;
-      else
-        aOutput[nOutputIndex] = c;
-      nOutputIndex++;
-    }
-    return aOutput;
+    if (nLen > 0)
+      for (final char c : sStr.toCharArray ())
+        if (aFilter.test (c))
+          return false;
+    return true;
   }
 
   /**
-   * Optimized replace method that replaces a set of characters with another character. This method
-   * was created for efficient unsafe character replacements!
+   * Check if the passed {@link CharSequence} contains only characters matching the provided filter.
    *
-   * @param sInputString
-   *        The input string.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param cReplacementChar
-   *        The new char to be used instead of the search chars.
-   * @param aTarget
-   *        The target StringBuilder to write the result to. May not be <code>null</code>.
+   * @param aCS
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is not empty.
+   *         <code>true</code> if the filter is not <code>null</code> and the string has at least
+   *         one character and all characters of the string match the filter. <code>false</code>
+   *         otherwise.
+   * @since 9.1.7
    */
-  public static void replaceMultipleTo (@Nullable final String sInputString,
-                                        @Nonnull final char [] aSearchChars,
-                                        final char cReplacementChar,
-                                        @Nonnull final StringBuilder aTarget)
+  public static boolean containsOnly (@Nullable final CharSequence aCS, @Nullable final ICharPredicate aFilter)
   {
-    ValueEnforcer.notNull (aSearchChars, "SearchChars");
-    ValueEnforcer.notNull (aTarget, "Target");
+    final int nLen = getLength (aCS);
+    if (nLen == 0)
+      return false;
 
-    // Any input text?
-    if (isNotEmpty (sInputString))
-    {
-      // Any search chars?
-      if (aSearchChars.length == 0)
-      {
-        aTarget.append (sInputString);
-      }
-      else
-      {
-        // Perform the replacement
-        for (final char c : sInputString.toCharArray ())
-        {
-          if (ArrayHelper.contains (aSearchChars, c))
-            aTarget.append (cReplacementChar);
-          else
-            aTarget.append (c);
-        }
-      }
-    }
+    if (aFilter == null)
+      return true;
+
+    for (int i = 0; i < nLen; ++i)
+      if (!aFilter.test (aCS.charAt (i)))
+        return false;
+    return true;
   }
 
   /**
-   * Optimized replace method that replaces a set of characters with another character. This method
-   * was created for efficient unsafe character replacements!
+   * Check if the passed {@link String} contains only characters matching the provided filter.
    *
-   * @param sInputString
-   *        The input string.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param cReplacementChar
-   *        The new char to be used instead of the search chars.
-   * @param aTarget
-   *        The target writer to write the result to. May not be <code>null</code>.
-   * @throws IOException
-   *         in case writing to the Writer fails
-   * @since 8.6.3
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is not empty.
+   *         <code>true</code> if the filter is not <code>null</code> and the string has at least
+   *         one character and all characters of the string match the filter. <code>false</code>
+   *         otherwise.
+   * @since 9.1.7
    */
-  public static void replaceMultipleTo (@Nullable final String sInputString,
-                                        @Nonnull final char [] aSearchChars,
-                                        final char cReplacementChar,
-                                        @Nonnull final Writer aTarget) throws IOException
+  public static boolean containsOnly (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
   {
-    ValueEnforcer.notNull (aSearchChars, "SearchChars");
-    ValueEnforcer.notNull (aTarget, "Target");
+    final int nLen = getLength (sStr);
+    if (nLen == 0)
+      return false;
 
-    // Any input text?
-    if (isNotEmpty (sInputString))
-    {
-      // Any search chars?
-      if (aSearchChars.length == 0)
-      {
-        aTarget.write (sInputString);
-      }
-      else
-      {
-        // Perform the replacement
-        for (final char c : sInputString.toCharArray ())
-        {
-          if (ArrayHelper.contains (aSearchChars, c))
-            aTarget.write (cReplacementChar);
-          else
-            aTarget.write (c);
-        }
-      }
-    }
+    if (aFilter == null)
+      return true;
+
+    for (final char c : sStr.toCharArray ())
+      if (!aFilter.test (c))
+        return false;
+    return true;
   }
 
   /**
-   * Optimized replace method that replaces a set of characters with another character. This method
-   * was created for efficient unsafe character replacements!
+   * Check if the passed character sequence is only whitespace or not.
    *
-   * @param sInputString
-   *        The input string.
-   * @param aSearchChars
-   *        The characters to replace.
-   * @param cReplacementChar
-   *        The new char to be used instead of the search chars.
-   * @return The replaced version of the string or an empty char array if the input string was
-   *         <code>null</code>.
-   * @since 8.6.3
+   * @param s
+   *        The character sequence to be checked. May be <code>null</code>.
+   * @return <code>true</code> if the passed sequence is empty or if only whitespace characters are
+   *         contained.
+   * @see Character#isWhitespace(char)
    */
-  @Nonnull
-  public static String replaceMultipleAsString (@Nullable final String sInputString,
-                                                @Nonnull final char [] aSearchChars,
-                                                final char cReplacementChar)
+  public static boolean isAllWhitespace (@Nullable final CharSequence s)
   {
-    ValueEnforcer.notNull (aSearchChars, "SearchChars");
-
-    if (hasNoText (sInputString))
-      return "";
-
-    final StringBuilder aSB = new StringBuilder (sInputString.length ());
-    replaceMultipleTo (sInputString, aSearchChars, cReplacementChar, aSB);
-    return aSB.toString ();
-  }
-
-  /**
-   * Perform all string replacements on the input string as defined by the passed map. All
-   * replacements are done using {@link #replaceAll(String,String,CharSequence)} which is ok.
-   *
-   * @param sInputString
-   *        The input string where the text should be replaced. May be <code>null</code>.
-   * @param aTransTable
-   *        The map with the replacements to execute. If <code>null</code> is passed, the input
-   *        string is not altered.
-   * @return <code>null</code> if the input string was <code>null</code>.
-   */
-  @Nullable
-  public static String replaceMultiple (@Nullable final String sInputString,
-                                        @Nullable final Map <String, String> aTransTable)
-  {
-    if (hasNoText (sInputString) || aTransTable == null || aTransTable.isEmpty ())
-      return sInputString;
-
-    String sOutput = sInputString;
-    for (final Entry <String, String> aEntry : aTransTable.entrySet ())
-      sOutput = replaceAll (sOutput, aEntry.getKey (), aEntry.getValue ());
-    return sOutput;
-  }
-
-  /**
-   * Perform all string replacements on the input string as defined by the passed map. All
-   * replacements are done using {@link #replaceAll(String,String,CharSequence)} which is ok.
-   *
-   * @param sInputString
-   *        The input string where the text should be replaced. May be <code>null</code>.
-   * @param aSearchTexts
-   *        The texts to be searched. If <code>null</code> is passed, the input string is not
-   *        altered.
-   * @param aReplacementTexts
-   *        The texts to be used as the replacements. This array must have exactly the same number
-   *        of elements than the searched texts! If <code>null</code> is passed, the input string is
-   *        not altered.
-   * @return <code>null</code> if the input string was <code>null</code>. The unmodified input
-   *         string if no search/replace patterns where provided.
-   */
-  @Nullable
-  public static String replaceMultiple (@Nullable final String sInputString,
-                                        @Nullable final String [] aSearchTexts,
-                                        @Nullable final String [] aReplacementTexts)
-  {
-    if (hasNoText (sInputString))
-      return sInputString;
-
-    final int nSearchTextLength = aSearchTexts == null ? 0 : aSearchTexts.length;
-    final int nReplacementTextLength = aReplacementTexts == null ? 0 : aReplacementTexts.length;
-    if (nSearchTextLength != nReplacementTextLength)
-      throw new IllegalArgumentException ("Array length mismatch!");
-
-    // Nothing to replace?
-    if (nSearchTextLength == 0)
-      return sInputString;
-
-    String sOutput = sInputString;
-    for (int nIndex = 0; nIndex < nSearchTextLength; ++nIndex)
-      sOutput = replaceAll (sOutput, aSearchTexts[nIndex], aReplacementTexts[nIndex]);
-    return sOutput;
+    return containsOnly (s, Character::isWhitespace);
   }
 }

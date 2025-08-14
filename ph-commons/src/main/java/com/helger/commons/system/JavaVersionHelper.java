@@ -27,17 +27,17 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
+import com.helger.base.string.StringRemove;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTFromString;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Helper class that holds the current class version. Must be a separate class
- * to maintain the correct initialization order.
+ * Helper class that holds the current class version. Must be a separate class to maintain the
+ * correct initialization order.
  *
  * @author Philip Helger
  */
@@ -147,8 +147,8 @@ public final class JavaVersionHelper
             {
               // Use data as "minor"
               String sData = sJavaRuntimeVersion.substring (sOriginalJavaVersion.length ());
-              sData = StringHelper.removeAll (sData, '_');
-              sData = StringHelper.removeAll (sData, '-');
+              sData = StringRemove.removeAll (sData, '_');
+              sData = StringRemove.removeAll (sData, '-');
               final int nB = sData.indexOf ('b');
               if (nB >= 0)
                 sData = sData.substring (0, nB);

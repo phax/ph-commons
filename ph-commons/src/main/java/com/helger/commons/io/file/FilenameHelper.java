@@ -31,6 +31,7 @@ import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
+import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -433,7 +434,9 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingUnixSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null : Strings.replaceAll (sAbsoluteFilename, WINDOWS_SEPARATOR, UNIX_SEPARATOR);
+    return sAbsoluteFilename == null ? null : StringReplace.replaceAll (sAbsoluteFilename,
+                                                                        WINDOWS_SEPARATOR,
+                                                                        UNIX_SEPARATOR);
   }
 
   /**
@@ -463,7 +466,9 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingWindowsSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null : Strings.replaceAll (sAbsoluteFilename, UNIX_SEPARATOR, WINDOWS_SEPARATOR);
+    return sAbsoluteFilename == null ? null : StringReplace.replaceAll (sAbsoluteFilename,
+                                                                        UNIX_SEPARATOR,
+                                                                        WINDOWS_SEPARATOR);
   }
 
   /**
@@ -617,7 +622,7 @@ public final class FilenameHelper
 
       // Replace all characters that are illegal inside a filename
       for (final char cIllegal : ILLEGAL_CHARACTERS)
-        ret = Strings.replaceAll (ret, cIllegal, ILLEGAL_FILENAME_CHAR_REPLACEMENT);
+        ret = StringReplace.replaceAll (ret, cIllegal, ILLEGAL_FILENAME_CHAR_REPLACEMENT);
 
       // Check if a file matches an illegal prefix
       final String sTempRet = ret;

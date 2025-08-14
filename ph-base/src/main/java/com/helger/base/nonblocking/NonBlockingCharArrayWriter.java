@@ -25,7 +25,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringEncoding;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -297,7 +297,7 @@ public class NonBlockingCharArrayWriter extends Writer
   @ReturnsMutableCopy
   public byte [] toByteArray (@Nonnull final Charset aCharset)
   {
-    return Strings.encodeCharToBytes (m_aBuf, 0, m_nCount, aCharset);
+    return StringEncoding.encodeCharToBytes (m_aBuf, 0, m_nCount, aCharset);
   }
 
   /**

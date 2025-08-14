@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.traits;
+package com.helger.base.traits;
 
 import java.util.function.Function;
 import java.util.function.Predicate;

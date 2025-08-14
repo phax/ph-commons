@@ -14,16 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.traits;
+package com.helger.base.traits;
+
+import com.helger.base.lang.GenericReflection;
+
+import jakarta.annotation.Nonnull;
 
 /**
- * Empty marker interface that must be implemented by elements types that want
- * to use {@link IGenericAdderTrait}.
+ * A trait to convert this to a generic implementation.
  *
  * @author Philip Helger
- * @since 9.4.8
+ * @param <IMPLTYPE>
+ *        The real implementation type.
  */
-public interface IAddableByTrait
+public interface IGenericImplTrait <IMPLTYPE extends IGenericImplTrait <IMPLTYPE>>
 {
-  /* empty by purpose */
+  /**
+   * @return <code>this</code> casted to <code>IMPLTYPE</code>. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  default IMPLTYPE thisAsT ()
+  {
+    return GenericReflection.uncheckedCast (this);
+  }
 }

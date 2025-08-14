@@ -15,7 +15,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.string.StringHex;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringReplace;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -477,7 +477,7 @@ public class ClassHelper
   @Nullable
   public static String getPathFromClass (@Nullable final String sClassName)
   {
-    return sClassName == null ? null : Strings.replaceAll (sClassName, '.', '/');
+    return sClassName == null ? null : StringReplace.replaceAll (sClassName, '.', '/');
   }
 
   /**
@@ -492,7 +492,7 @@ public class ClassHelper
   @Nullable
   public static String getClassFromPath (@Nullable final String sPath)
   {
-    return sPath == null ? null : Strings.replaceMultipleAsString (sPath, new char [] { '\\', '/' }, '.');
+    return sPath == null ? null : StringReplace.replaceMultipleAsString (sPath, new char [] { '\\', '/' }, '.');
   }
 
   /**

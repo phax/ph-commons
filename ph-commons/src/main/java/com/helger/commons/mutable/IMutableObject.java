@@ -18,7 +18,7 @@ package com.helger.commons.mutable;
 
 import com.helger.base.compare.IComparable;
 import com.helger.base.lang.ICloneable;
-import com.helger.commons.traits.IGenericImplTrait;
+import com.helger.base.traits.IGenericImplTrait;
 
 /**
  * Base interface for all mutable objects

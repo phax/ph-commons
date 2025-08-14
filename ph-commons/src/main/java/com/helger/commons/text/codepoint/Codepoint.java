@@ -26,7 +26,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparable;
 import com.helger.base.enforcer.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringEncoding;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
@@ -53,7 +53,7 @@ public class Codepoint implements IComparable <Codepoint>
    */
   public Codepoint (@Nonnull final byte [] aBytes, @Nonnull final Charset aEncoding)
   {
-    this (Strings.decodeBytesToChars (aBytes, aEncoding));
+    this (StringEncoding.decodeBytesToChars (aBytes, aEncoding));
   }
 
   private static int _getValueFromCharSequence (@Nonnull final CharSequence s)

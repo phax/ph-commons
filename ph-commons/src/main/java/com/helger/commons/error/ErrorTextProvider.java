@@ -24,6 +24,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.lang.ICloneable;
+import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -158,7 +159,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     @Nonnull
     public String getFormattedText (@Nonnull final String sReplacement)
     {
-      return Strings.replaceAll (m_sText, PLACEHOLDER_STR, sReplacement);
+      return StringReplace.replaceAll (m_sText, PLACEHOLDER_STR, sReplacement);
     }
 
     @Override

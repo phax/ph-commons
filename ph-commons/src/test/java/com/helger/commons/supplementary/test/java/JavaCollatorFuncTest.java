@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringReplace;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.compare.IComparator;
@@ -80,7 +80,7 @@ public final class JavaCollatorFuncTest
     final RuleBasedCollator defaultCollator = (RuleBasedCollator) Collator.getInstance (aLocale);
     final String rules = defaultCollator.getRules ();
     // add rule for space before '_'
-    final String sNewRules = Strings.replaceAll (rules, "<'.'<", "<' '<'.'<");
+    final String sNewRules = StringReplace.replaceAll (rules, "<'.'<", "<' '<'.'<");
     final RuleBasedCollator collator2 = new RuleBasedCollator (sNewRules);
     collator2.setStrength (Collator.TERTIARY);
     collator2.setDecomposition (Collator.FULL_DECOMPOSITION);
