@@ -32,10 +32,10 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.base.EmptyIterator;
+import com.helger.collection.base.EmptyListIterator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.iterator.EmptyIterator;
-import com.helger.collection.iterator.EmptyListIterator;
 import com.helger.collection.iterator.SingleElementIterator;
 import com.helger.collection.iterator.SingleElementListIterator;
 

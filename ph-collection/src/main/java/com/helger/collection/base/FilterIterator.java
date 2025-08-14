@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -27,8 +27,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A simple filter iterator that takes a base iterator and an additional filter
- * and returns only the items that match the filter.
+ * A simple filter iterator that takes a base iterator and an additional filter and returns only the
+ * items that match the filter.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
@@ -62,30 +62,29 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
   /**
    * Constructor.
    *
-   * @param aBaseIter
-   *        The base iterator to use. May not be <code>null</code>.
-   * @param aFilter
-   *        The filter to be applied. May not be <code>null</code>.
-   */
-  public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter, @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
-  {
-    m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
-    m_aFilter = ValueEnforcer.notNull (aFilter, "Filter");
-    _gotoNextCurrent ();
-  }
-
-  /**
-   * Constructor.
-   *
    * @param aBaseCont
    *        The collection to iterate. May not be <code>null</code>.
    * @param aFilter
    *        The filter to be applied. May not be <code>null</code>.
    */
-  public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont, @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont,
+                         @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    ValueEnforcer.notNull (aBaseCont, "BaseContainer");
-    m_aBaseIter = aBaseCont.iterator ();
+    this (aBaseCont.iterator (), aFilter);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param aBaseIter
+   *        The base iterator to use. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May not be <code>null</code>.
+   */
+  public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter,
+                         @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
     m_aFilter = ValueEnforcer.notNull (aFilter, "Filter");
     _gotoNextCurrent ();
   }
@@ -142,6 +141,6 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("baseIter", m_aBaseIter).append ("filter", m_aFilter).getToString ();
+    return new ToStringGenerator (this).append ("BaseIter", m_aBaseIter).append ("Filter", m_aFilter).getToString ();
   }
 }

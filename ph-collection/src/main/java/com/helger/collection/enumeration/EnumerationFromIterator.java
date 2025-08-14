@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.enumeration;
 
 import java.util.Enumeration;
 import java.util.Iterator;

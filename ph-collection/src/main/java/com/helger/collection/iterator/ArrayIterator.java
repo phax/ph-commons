@@ -25,6 +25,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.base.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -57,7 +58,9 @@ public final class ArrayIterator <ELEMENTTYPE> implements IIterableIterator <ELE
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIterator (@Nonnull final ELEMENTTYPE [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIterator (@Nonnull final ELEMENTTYPE [] aArray,
+                        @Nonnegative final int nOfs,
+                        @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
 
@@ -97,6 +100,8 @@ public final class ArrayIterator <ELEMENTTYPE> implements IIterableIterator <ELE
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray)).append ("index", m_nIndex).getToString ();
+    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
+                                       .append ("index", m_nIndex)
+                                       .getToString ();
   }
 }

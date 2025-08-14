@@ -19,7 +19,7 @@ package com.helger.commons.io.file;
 import java.io.File;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.collection.iterator.IterableIterator;
+import com.helger.collection.commons.CommonsIterableIterator;
 
 import jakarta.annotation.Nonnull;
 
@@ -30,7 +30,7 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FileSystemIterator extends IterableIterator <File>
+public final class FileSystemIterator extends CommonsIterableIterator <File>
 {
   /**
    * Constructor.

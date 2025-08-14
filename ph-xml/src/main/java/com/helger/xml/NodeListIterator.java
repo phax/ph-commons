@@ -24,7 +24,7 @@ import org.w3c.dom.NodeList;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.collection.iterator.IIterableIterator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -35,7 +35,7 @@ import jakarta.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public class NodeListIterator implements IIterableIterator <Node>
+public class NodeListIterator implements ICommonsIterableIterator <Node>
 {
   private final NodeList m_aNL;
   private int m_nIndex = 0;

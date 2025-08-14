@@ -29,8 +29,8 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.collection.CollectionTestHelper;
+import com.helger.collection.base.EmptyEnumeration;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.iterator.EmptyEnumeration;
 
 /**
  * Test class for class {@link ArrayEnumeration}.

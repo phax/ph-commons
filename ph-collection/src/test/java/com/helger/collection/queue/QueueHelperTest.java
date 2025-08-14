@@ -23,10 +23,10 @@ import java.util.Objects;
 import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.collection.helper.CollectionEqualsHelper;
-import com.helger.collection.iterator.IterableIterator;
-import com.helger.collection.iterator.IteratorHelper;
 
 /**
  * Test class for class {@link QueueHelper}
@@ -42,7 +42,7 @@ public final class QueueHelperTest
     QueueHelper.newQueue ("a");
     QueueHelper.newQueue ("a");
     QueueHelper.newQueue (new CommonsArrayList <> ("a"));
-    QueueHelper.newQueue (new IterableIterator <> (new CommonsArrayList <> ("a")));
+    QueueHelper.newQueue (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
     QueueHelper.newQueue ((Iterable <String>) new CommonsArrayList <> ("a"));
     QueueHelper.newQueue (new CommonsArrayList <> ("a").iterator ());
     QueueHelper.newQueue (new CommonsArrayList <> ("a"), Objects::nonNull);
@@ -58,8 +58,8 @@ public final class QueueHelperTest
     assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
     assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
 
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                         IteratorHelper.getEnumeration (QueueHelper.newQueue (aCont))));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                         EnumerationHelper.getEnumeration (QueueHelper.newQueue (aCont))));
     assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
     assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
   }

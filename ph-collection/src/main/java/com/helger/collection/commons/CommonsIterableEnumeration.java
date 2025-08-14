@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.commons;
 
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
@@ -30,11 +30,11 @@ import jakarta.annotation.Nullable;
  * @param <ELEMENTTYPE>
  *        The element type to be enumerated.
  */
-public class IterableIteratorFromEnumeration <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
+public class CommonsIterableEnumeration <ELEMENTTYPE> implements ICommonsIterableIterator <ELEMENTTYPE>
 {
   private final Enumeration <? extends ELEMENTTYPE> m_aEnum;
 
-  public IterableIteratorFromEnumeration (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public CommonsIterableEnumeration (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     m_aEnum = aEnum;
   }

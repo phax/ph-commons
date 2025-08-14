@@ -17,7 +17,6 @@
 package com.helger.collection.iterator;
 
 import static com.helger.collection.helper.CollectionHelperExt.newList;
-import static com.helger.collection.iterator.IteratorHelper.getEnumeration;
 import static com.helger.collection.iterator.IteratorHelper.getIterator;
 import static com.helger.collection.iterator.IteratorHelper.getReverseIterator;
 import static com.helger.collection.iterator.IteratorHelper.getSize;
@@ -37,7 +36,11 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
+import com.helger.collection.base.EmptyIterator;
+import com.helger.collection.base.IIterableIterator;
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsIterableIterator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 
 /**
  * Test class for class {@link IteratorHelper}.
@@ -46,15 +49,6 @@ import com.helger.collection.commons.CommonsArrayList;
  */
 public final class IteratorHelperTest
 {
-  @Test
-  public void testIsEmpty_Enumeration ()
-  {
-    assertTrue (isEmpty ((Enumeration <?>) null));
-    assertTrue (isEmpty (getEnumeration (new CommonsArrayList <> ())));
-    assertTrue (isEmpty (new EmptyEnumeration <> ()));
-    assertFalse (isEmpty (getEnumeration (newList ("any"))));
-  }
-
   @Test
   public void testIsEmpty_Iterator ()
   {
@@ -68,18 +62,18 @@ public final class IteratorHelperTest
   @Test
   public void testIsEmpty_IIterableIterator ()
   {
-    assertTrue (isEmpty ((IIterableIterator <?>) null));
-    assertTrue (isEmpty (new IterableIterator <> (new CommonsArrayList <> ())));
-    assertTrue (isEmpty (IterableIterator.<String> createEmpty ()));
-    assertFalse (isEmpty (new IterableIterator <> (newList ("any"))));
+    assertTrue (isEmpty ((ICommonsIterableIterator <?>) null));
+    assertTrue (isEmpty (new CommonsIterableIterator <> (new CommonsArrayList <> ())));
+    assertTrue (isEmpty (CommonsIterableIterator.<String> createEmpty ()));
+    assertFalse (isEmpty (new CommonsIterableIterator <> (newList ("any"))));
   }
 
   @Test
   public void testGetSize_IterableIterator ()
   {
-    assertEquals (0, getSize ((IIterableIterator <?>) null));
-    assertEquals (0, getSize (IterableIterator.createEmpty ()));
-    assertEquals (1, getSize (new IterableIterator <> (newList ("any"))));
+    assertEquals (0, getSize ((ICommonsIterableIterator <?>) null));
+    assertEquals (0, getSize (CommonsIterableIterator.createEmpty ()));
+    assertEquals (1, getSize (new CommonsIterableIterator <> (newList ("any"))));
   }
 
   @Test
@@ -88,26 +82,6 @@ public final class IteratorHelperTest
     assertEquals (0, getSize ((Iterator <?>) null));
     assertEquals (0, getSize (new CommonsArrayList <String> ().iterator ()));
     assertEquals (1, getSize (newList ("any").iterator ()));
-  }
-
-  @Test
-  public void testGetEnumeratorFromIterator ()
-  {
-    final List <String> aList = newList ("d", "c", "b", "a");
-    Enumeration <String> aEnum = getEnumeration (aList.iterator ());
-    assertTrue (aEnum.hasMoreElements ());
-    assertEquals ("d", aEnum.nextElement ());
-    assertTrue (aEnum.hasMoreElements ());
-    assertEquals ("c", aEnum.nextElement ());
-    assertTrue (aEnum.hasMoreElements ());
-    assertEquals ("b", aEnum.nextElement ());
-    assertTrue (aEnum.hasMoreElements ());
-    assertEquals ("a", aEnum.nextElement ());
-    assertFalse (aEnum.hasMoreElements ());
-    assertFalse (aEnum.hasMoreElements ());
-
-    aEnum = getEnumeration ((Iterator <String>) null);
-    assertFalse (aEnum.hasMoreElements ());
   }
 
   @Test
@@ -182,7 +156,7 @@ public final class IteratorHelperTest
   public void testGetIteratorFromEnumeration ()
   {
     final Enumeration <String> aSourceEnum = Collections.enumeration (newList ("a", "b", "c", "d"));
-    IIterableIterator <String> it = getIterator (aSourceEnum);
+    IIterableIterator <String> it = IteratorHelper.getIterator (aSourceEnum);
     assertNotNull (it);
     assertSame (it, it.iterator ());
     assertTrue (it.hasNext ());
@@ -211,7 +185,7 @@ public final class IteratorHelperTest
     catch (final UnsupportedOperationException ex)
     {}
 
-    it = getIterator ((Enumeration <String>) null);
+    it = IteratorHelper.getIterator ((Enumeration <String>) null);
     assertNotNull (it);
     assertFalse (it.hasNext ());
   }

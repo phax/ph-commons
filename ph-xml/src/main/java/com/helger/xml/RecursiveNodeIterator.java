@@ -24,8 +24,8 @@ import org.w3c.dom.NodeList;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 
@@ -35,7 +35,7 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  * @since 10.1.7
  */
-public class RecursiveNodeIterator implements IIterableIterator <Node>
+public class RecursiveNodeIterator implements ICommonsIterableIterator <Node>
 {
   private final ICommonsList <Node> m_aOpen = new CommonsArrayList <> ();
 

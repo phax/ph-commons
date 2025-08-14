@@ -14,42 +14,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.commons;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.base.EmptyIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class is used for simpler iteration over an Iterator via the new "for"
- * syntax.
+ * This class is used for simpler iteration over an Iterator via the new "for" syntax.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type of elements to iterate.
  */
-public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
+public class CommonsIterableIterator <ELEMENTTYPE> implements ICommonsIterableIterator <ELEMENTTYPE>
 {
-  private static final IterableIterator <Object> EMPTY = new IterableIterator <> (new EmptyIterator <> ());
+  private static final CommonsIterableIterator <Object> EMPTY_ITERATOR = new CommonsIterableIterator <> (new EmptyIterator <> ());
 
   private final Iterator <ELEMENTTYPE> m_aIter;
 
-  public IterableIterator (@Nonnull final ELEMENTTYPE [] aCont)
+  public CommonsIterableIterator (@Nonnull final ELEMENTTYPE [] aCont)
   {
-    this (new ArrayIterator <> (aCont).iterator ());
+    this (Arrays.asList (aCont));
   }
 
-  public IterableIterator (@Nonnull final Iterable <ELEMENTTYPE> aCont)
+  public CommonsIterableIterator (@Nonnull final Iterable <ELEMENTTYPE> aCont)
   {
     this (aCont.iterator ());
   }
 
-  public IterableIterator (@Nonnull final Iterator <ELEMENTTYPE> aIter)
+  public CommonsIterableIterator (@Nonnull final Iterator <ELEMENTTYPE> aIter)
   {
     m_aIter = ValueEnforcer.notNull (aIter, "Iterator");
   }
@@ -81,12 +82,12 @@ public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMEN
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter", m_aIter).getToString ();
+    return new ToStringGenerator (this).append ("Iter", m_aIter).getToString ();
   }
 
   @Nonnull
-  public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> createEmpty ()
+  public static <ELEMENTTYPE> ICommonsIterableIterator <ELEMENTTYPE> createEmpty ()
   {
-    return GenericReflection.uncheckedCast (EMPTY);
+    return GenericReflection.uncheckedCast (EMPTY_ITERATOR);
   }
 }

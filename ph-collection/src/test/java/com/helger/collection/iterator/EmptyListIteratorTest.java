@@ -24,6 +24,8 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
+import com.helger.collection.base.EmptyListIterator;
+
 /**
  * Test class for class {@link EmptyListIterator}
  *

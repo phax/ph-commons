@@ -14,33 +14,71 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
-import java.util.Enumeration;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Represents a fixed {@link Enumeration} implementation that contains no
- * elements.
+ * Utility implementation of the {@link ListIterator} for an empty list :)
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
- *        The type to be contained in the operation.
+ *        The type of the list iterator
  */
 @Immutable
-public class EmptyEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
+public class EmptyListIterator <ELEMENTTYPE> implements ListIterator <ELEMENTTYPE>
 {
-  public boolean hasMoreElements ()
+  @UnsupportedOperation
+  public void add (final ELEMENTTYPE o)
+  {
+    throw new UnsupportedOperationException ();
+  }
+
+  public boolean hasPrevious ()
   {
     return false;
   }
 
-  public ELEMENTTYPE nextElement ()
+  public ELEMENTTYPE previous ()
   {
     throw new NoSuchElementException ();
+  }
+
+  public int previousIndex ()
+  {
+    return -1;
+  }
+
+  public boolean hasNext ()
+  {
+    return false;
+  }
+
+  public ELEMENTTYPE next ()
+  {
+    throw new NoSuchElementException ();
+  }
+
+  public int nextIndex ()
+  {
+    return 0;
+  }
+
+  @UnsupportedOperation
+  public void remove ()
+  {
+    throw new UnsupportedOperationException ();
+  }
+
+  @UnsupportedOperation
+  public void set (final ELEMENTTYPE o)
+  {
+    throw new UnsupportedOperationException ();
   }
 
   @Override

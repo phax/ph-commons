@@ -30,7 +30,7 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsVector;
-import com.helger.collection.iterator.IIterableIterator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -173,7 +173,7 @@ public final class VectorHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newVector (0);

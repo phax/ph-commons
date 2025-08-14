@@ -30,7 +30,7 @@ import org.junit.Test;
 import com.helger.base.mock.CommonsAssert;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.iterator.IteratorHelper;
+import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.collection.stack.StackHelper;
 import com.helger.commons.string.StringParser;
 
@@ -236,8 +236,8 @@ public final class EqualsHelperExtTest
     CommonsAssert.assertEquals (StackHelper.newStack ("a", "b", "c"), StackHelper.newStack ("a", "b", "c"));
     assertTrue (EqualsHelperExt.extEquals (new CommonsArrayList <> ("a", "b", "c").iterator (),
                                            new CommonsArrayList <> ("a", "b", "c").iterator ()));
-    assertTrue (EqualsHelperExt.extEquals (IteratorHelper.getEnumeration ("a", "b", "c"),
-                                           IteratorHelper.getEnumeration ("a", "b", "c")));
+    assertTrue (EqualsHelperExt.extEquals (EnumerationHelper.getEnumeration ("a", "b", "c"),
+                                           EnumerationHelper.getEnumeration ("a", "b", "c")));
     assertFalse (EqualsHelperExt.extEquals (CollectionHelper.makeUnmodifiable (new CommonsArrayList <> ("a", "b", "c")),
                                             new CommonsArrayList <> ("a", "b", "c")));
   }

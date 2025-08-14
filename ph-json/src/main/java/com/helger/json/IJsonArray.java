@@ -24,11 +24,11 @@ import com.helger.base.state.EChange;
 import com.helger.base.string.Strings;
 import com.helger.base.traits.IGenericAdderTrait;
 import com.helger.base.traits.IPrimitiveConverterTo;
+import com.helger.collection.base.FilterIterator;
+import com.helger.collection.base.IIterableIterator;
+import com.helger.collection.base.MapperIterator;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.iterator.FilterIterator;
-import com.helger.collection.iterator.IIterableIterator;
-import com.helger.collection.iterator.MapperIterator;
 import com.helger.commons.traits.IGetterByIndexTrait;
 
 import jakarta.annotation.Nonnull;

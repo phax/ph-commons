@@ -27,6 +27,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
+import com.helger.collection.base.MapperIterator;
 import com.helger.collection.helper.CollectionHelperExt;
 
 /**

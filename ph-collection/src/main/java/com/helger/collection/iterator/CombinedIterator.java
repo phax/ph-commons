@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.base.EmptyIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

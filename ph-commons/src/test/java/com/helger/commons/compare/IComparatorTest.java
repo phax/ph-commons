@@ -36,8 +36,8 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.CommonsIterableIterator;
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.collection.iterator.IterableIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import jakarta.annotation.Nonnull;
@@ -149,7 +149,7 @@ public final class IComparatorTest
   public void testGetSortedIIterableIteratorWithLocale ()
   {
     final ICommonsList <String> aList = newList ("d", "c", "b", "a");
-    final ICommonsList <String> aSorted = getSorted (new IterableIterator <> (aList),
+    final ICommonsList <String> aSorted = getSorted (new CommonsIterableIterator <> (aList),
                                                      IComparator.getComparatorCollating (Locale.US));
     assertEquals (4, aSorted.size ());
     assertEquals ("a", aSorted.get (0));

@@ -38,6 +38,7 @@ import com.helger.base.state.EChange;
 import com.helger.base.state.ESuccess;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.collection.iterator.IteratorHelper;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.system.SystemHelper;
@@ -77,7 +78,7 @@ public final class HashCodeGeneratorTest
     if (false)
       aHC.append (IteratorHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
     if (false)
-      aHC.append (IteratorHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
+      aHC.append (EnumerationHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
 
     // Multi values containing null
     aHC.append (new CommonsHashSet <> ("Hallo", null, null, "unit", "test"));

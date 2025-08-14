@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.collection.iterator.IIterableIterator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -57,7 +57,7 @@ public final class FileSystemRecursiveIteratorTest
     {}
 
     // create in current directory - don't know what that is -> expect nothing
-    IIterableIterator <File> it = new FileSystemRecursiveIterator (new File ("."));
+    ICommonsIterableIterator <File> it = new FileSystemRecursiveIterator (new File ("."));
     assertNotNull (it);
     assertEquals (0, ((FileSystemRecursiveIterator) it).getLevel ());
     assertNotNull (it.iterator ());

@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.collection.iterator.IIterableIterator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -31,10 +31,10 @@ import jakarta.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public class ChildElementIterator implements IIterableIterator <Element>
+public class ChildElementIterator implements ICommonsIterableIterator <Element>
 {
   /** The nodes to iterate. */
-  private final IIterableIterator <Element> m_aIter;
+  private final ICommonsIterableIterator <Element> m_aIter;
 
   public ChildElementIterator (@Nullable final Node aStartNode)
   {

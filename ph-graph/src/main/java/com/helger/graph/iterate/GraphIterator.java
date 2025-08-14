@@ -23,9 +23,9 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.iterator.IIterableIterator;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
 
@@ -38,7 +38,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class GraphIterator implements IIterableIterator <IMutableGraphNode>
+public final class GraphIterator implements ICommonsIterableIterator <IMutableGraphNode>
 {
   /**
    * Maps node IDs to node states

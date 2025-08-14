@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -26,8 +26,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A simple iterator that changes the object type from a source type to a
- * destination type.
+ * A simple iterator that changes the object type from a source type to a destination type.
  *
  * @author Philip Helger
  * @param <SRCTYPE>
@@ -118,6 +117,8 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("BaseIter", m_aBaseIter).append ("Converter", m_aConverter).getToString ();
+    return new ToStringGenerator (this).append ("BaseIter", m_aBaseIter)
+                                       .append ("Converter", m_aConverter)
+                                       .getToString ();
   }
 }

@@ -21,8 +21,8 @@ import java.util.NoSuchElementException;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.iterator.IIterableIterator;
 import com.helger.xml.microdom.IMicroNode;
 
 import jakarta.annotation.Nonnull;
@@ -33,7 +33,7 @@ import jakarta.annotation.Nonnull;
  *
  * @author Philip Helger
  */
-public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
+public class MicroRecursiveIterator implements ICommonsIterableIterator <IMicroNode>
 {
   private final ICommonsList <IMicroNode> m_aOpen = new CommonsArrayList <> ();
 

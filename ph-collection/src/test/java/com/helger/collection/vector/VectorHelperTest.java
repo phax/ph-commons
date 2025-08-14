@@ -21,7 +21,7 @@ import java.util.Objects;
 import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.iterator.IterableIterator;
+import com.helger.collection.commons.CommonsIterableIterator;
 
 /**
  * Test class for class {@link VectorHelper}
@@ -37,7 +37,7 @@ public final class VectorHelperTest
     VectorHelper.newVector ("a");
     VectorHelper.newVector ("a");
     VectorHelper.newVector (new CommonsArrayList <> ("a"));
-    VectorHelper.newVector (new IterableIterator <> (new CommonsArrayList <> ("a")));
+    VectorHelper.newVector (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
     VectorHelper.newVector ((Iterable <String>) new CommonsArrayList <> ("a"));
     VectorHelper.newVector (new CommonsArrayList <> ("a").iterator ());
     VectorHelper.newVector (new CommonsArrayList <> ("a"), Objects::nonNull);

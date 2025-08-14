@@ -30,7 +30,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionFind;
 import com.helger.collection.CollectionHelper;
-import com.helger.collection.iterator.IIterableIterator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -171,7 +171,7 @@ public final class QueueHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newQueue (0);

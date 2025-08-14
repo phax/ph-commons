@@ -47,9 +47,9 @@ import com.helger.base.string.Strings;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -438,7 +438,7 @@ public final class XMLHelper
    * @return a non-null Iterator
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode)
+  public static ICommonsIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode)
   {
     return new ChildElementIterator (aStartNode);
   }
@@ -451,7 +451,7 @@ public final class XMLHelper
    * @return a non-null Iterator
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode)
+  public static ICommonsIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithoutNamespace ());
   }
@@ -468,7 +468,7 @@ public final class XMLHelper
    *         if the passed tag name is null or empty
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode,
+  public static ICommonsIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode,
                                                                          @Nonnull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagNameNoNS (sTagName));
@@ -487,21 +487,21 @@ public final class XMLHelper
    *         if the passed tag name is null or empty
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode,
+  public static ICommonsIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode,
                                                                      @Nonnull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagName (sTagName));
   }
 
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
+  public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespace (sNamespaceURI));
   }
 
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
+  public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI,
                                                                        @Nonnull @Nonempty final String sLocalName)
   {

@@ -45,9 +45,9 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.CommonsTreeMap;
 import com.helger.collection.commons.CommonsTreeSet;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -786,7 +786,7 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newSet (0);
@@ -920,7 +920,7 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newSortedSet ();
@@ -1037,7 +1037,7 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newOrderedSet (0);
@@ -1204,7 +1204,7 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newList (0);

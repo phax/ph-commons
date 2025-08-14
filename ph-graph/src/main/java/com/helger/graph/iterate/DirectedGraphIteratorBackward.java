@@ -23,8 +23,8 @@ import java.util.function.Predicate;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.iterator.IIterableIterator;
 import com.helger.collection.stack.NonBlockingStack;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
@@ -39,7 +39,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class DirectedGraphIteratorBackward implements IIterableIterator <IMutableDirectedGraphNode>
+public final class DirectedGraphIteratorBackward implements ICommonsIterableIterator <IMutableDirectedGraphNode>
 {
   /**
    * This class represents a node in the current iteration process. It is

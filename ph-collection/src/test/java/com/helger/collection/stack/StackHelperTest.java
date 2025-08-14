@@ -26,7 +26,7 @@ import java.util.Objects;
 import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.iterator.IterableIterator;
+import com.helger.collection.commons.CommonsIterableIterator;
 
 /**
  * Test class for class {@link StackHelper}
@@ -60,7 +60,7 @@ public final class StackHelperTest
     StackHelper.newStack ("a");
     StackHelper.newStack ("a");
     StackHelper.newStack (new CommonsArrayList <> ("a"));
-    StackHelper.newStack (new IterableIterator <> (new CommonsArrayList <> ("a")));
+    StackHelper.newStack (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
     StackHelper.newStack ((Iterable <String>) new CommonsArrayList <> ("a"));
     StackHelper.newStack (new CommonsArrayList <> ("a").iterator ());
     StackHelper.newStack (new CommonsArrayList <> ("a"), Objects::nonNull);

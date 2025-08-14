@@ -33,7 +33,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.collection.iterator.IteratorHelper;
+import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -118,7 +118,7 @@ public final class XMLResourceBundle extends ResourceBundle
   @Override
   public Enumeration <String> getKeys ()
   {
-    return IteratorHelper.getEnumeration (m_aValues.keySet ());
+    return EnumerationHelper.getEnumeration (m_aValues.keySet ());
   }
 
   @Nonnull

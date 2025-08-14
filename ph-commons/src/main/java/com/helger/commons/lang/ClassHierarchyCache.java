@@ -33,11 +33,11 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.iterator.IIterableIterator;
 import com.helger.collection.map.LRUMap;
 
 import jakarta.annotation.Nonnull;
@@ -113,7 +113,7 @@ public final class ClassHierarchyCache
     }
 
     @Nonnull
-    public IIterableIterator <WeakReference <Class <?>>> iterator ()
+    public ICommonsIterableIterator <WeakReference <Class <?>>> iterator ()
     {
       return m_aList.iterator2 ();
     }

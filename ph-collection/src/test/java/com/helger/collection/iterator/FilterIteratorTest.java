@@ -33,8 +33,10 @@ import org.junit.Test;
 
 import com.helger.base.functional.Predicates;
 import com.helger.collection.CollectionTestHelper;
+import com.helger.collection.base.FilterIterator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.CommonsIterableIterator;
 import com.helger.collection.helper.CollectionHelperExt;
 
 /**
@@ -123,7 +125,7 @@ public final class FilterIteratorTest
   public void testIteration1 ()
   {
     final List <String> aList = CollectionHelperExt.newList ("s1", "s2", null, "s3");
-    new FilterIterator <> (new IterableIterator <> (aList), Objects::nonNull);
+    new FilterIterator <> (new CommonsIterableIterator <> (aList), Objects::nonNull);
     final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
     assertSame (it, it.iterator ());

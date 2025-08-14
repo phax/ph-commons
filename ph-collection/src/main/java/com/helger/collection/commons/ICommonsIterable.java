@@ -26,7 +26,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.base.functional.IThrowingConsumer;
 import com.helger.base.state.EContinue;
 import com.helger.collection.CollectionFind;
-import com.helger.collection.iterator.IteratorHelper;
+import com.helger.collection.CollectionHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -330,7 +330,8 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
   @Nonnegative
   default int getCount ()
   {
-    return IteratorHelper.getSize (iterator ());
+    // Keep package dependencies clean
+    return CollectionHelper.getSizeIterator (iterator ());
   }
 
   /**

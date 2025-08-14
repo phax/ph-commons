@@ -34,8 +34,8 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.collection.commons.CollectionCommonsHelper;
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -162,7 +162,7 @@ public class CollectionSort
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     return getSortedInline (newList (aIter));
   }
@@ -181,7 +181,7 @@ public class CollectionSort
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter,
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter,
                                                                                                                  @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (newList (aIter), aComparator);

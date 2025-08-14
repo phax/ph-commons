@@ -26,6 +26,8 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
+import com.helger.collection.base.EmptyIterator;
+
 /**
  * Test class for class {@link CombinedIterator}.
  *

@@ -26,8 +26,8 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringCount;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -41,7 +41,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FileSystemRecursiveIterator implements IIterableIterator <File>
+public class FileSystemRecursiveIterator implements ICommonsIterableIterator <File>
 {
   private final int m_nStartLevel;
   private int m_nLevel = 0;

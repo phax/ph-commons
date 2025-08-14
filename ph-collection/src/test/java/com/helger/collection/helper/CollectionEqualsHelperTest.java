@@ -39,7 +39,7 @@ import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.iterator.IteratorHelper;
+import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.collection.stack.NonBlockingStack;
 
 import jakarta.annotation.Nonnull;
@@ -342,60 +342,60 @@ public final class CollectionEqualsHelperTest
   public void testEnumeration ()
   {
     final ICommonsList <String> aCont = new CommonsArrayList <> ("a", "b", "c");
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                         IteratorHelper.getEnumeration (aCont)));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                         IteratorHelper.getEnumeration (CollectionHelper.makeUnmodifiable (aCont))));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                         IteratorHelper.getEnumeration (Collections.synchronizedList (aCont))));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                         IteratorHelper.getEnumeration (new CommonsArrayList <> (aCont))));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                         IteratorHelper.getEnumeration (new CommonsLinkedList <> (aCont))));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                         IteratorHelper.getEnumeration (new CommonsVector <> (aCont))));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                         IteratorHelper.getEnumeration (new NonBlockingStack <> (aCont))));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (new CommonsArrayList <> ()),
-                                                         IteratorHelper.getEnumeration (new CommonsLinkedList <> ())));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (new NonBlockingStack <> ()),
-                                                         IteratorHelper.getEnumeration (new CommonsVector <> ())));
-    assertTrue (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (new NonBlockingStack <> ()),
-                                                         IteratorHelper.getEnumeration (new Stack <> ())));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                         EnumerationHelper.getEnumeration (aCont)));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                         EnumerationHelper.getEnumeration (CollectionHelper.makeUnmodifiable (aCont))));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                         EnumerationHelper.getEnumeration (Collections.synchronizedList (aCont))));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                         EnumerationHelper.getEnumeration (new CommonsArrayList <> (aCont))));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                         EnumerationHelper.getEnumeration (new CommonsLinkedList <> (aCont))));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                         EnumerationHelper.getEnumeration (new CommonsVector <> (aCont))));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                         EnumerationHelper.getEnumeration (new NonBlockingStack <> (aCont))));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (new CommonsArrayList <> ()),
+                                                         EnumerationHelper.getEnumeration (new CommonsLinkedList <> ())));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (new NonBlockingStack <> ()),
+                                                         EnumerationHelper.getEnumeration (new CommonsVector <> ())));
+    assertTrue (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (new NonBlockingStack <> ()),
+                                                         EnumerationHelper.getEnumeration (new Stack <> ())));
 
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                          IteratorHelper.getEnumeration (new CommonsLinkedList <> ())));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (new CommonsLinkedList <> ()),
-                                                          IteratorHelper.getEnumeration (aCont)));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                          IteratorHelper.getEnumeration (new CommonsArrayList <> ())));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                          IteratorHelper.getEnumeration (new CommonsArrayList <> ("a",
-                                                                                                                  "b"))));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                          IteratorHelper.getEnumeration (new CommonsArrayList <> ("A",
-                                                                                                                  "b",
-                                                                                                                  "c"))));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                          IteratorHelper.getEnumeration (new CommonsArrayList <> ("a",
-                                                                                                                  "B",
-                                                                                                                  "c"))));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                          IteratorHelper.getEnumeration (new CommonsArrayList <> ("a",
-                                                                                                                  "b",
-                                                                                                                  "C"))));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                          IteratorHelper.getEnumeration (new CommonsArrayList <> ("a",
-                                                                                                                  "b",
-                                                                                                                  "c",
-                                                                                                                  "d"))));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                          IteratorHelper.getEnumeration (new StringMap ("a", "b").add (
-                                                                                                                       "c",
-                                                                                                                       "d"))));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                          EnumerationHelper.getEnumeration (new CommonsLinkedList <> ())));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (new CommonsLinkedList <> ()),
+                                                          EnumerationHelper.getEnumeration (aCont)));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                          EnumerationHelper.getEnumeration (new CommonsArrayList <> ())));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                          EnumerationHelper.getEnumeration (new CommonsArrayList <> ("a",
+                                                                                                                     "b"))));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                          EnumerationHelper.getEnumeration (new CommonsArrayList <> ("A",
+                                                                                                                     "b",
+                                                                                                                     "c"))));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                          EnumerationHelper.getEnumeration (new CommonsArrayList <> ("a",
+                                                                                                                     "B",
+                                                                                                                     "c"))));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                          EnumerationHelper.getEnumeration (new CommonsArrayList <> ("a",
+                                                                                                                     "b",
+                                                                                                                     "C"))));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                          EnumerationHelper.getEnumeration (new CommonsArrayList <> ("a",
+                                                                                                                     "b",
+                                                                                                                     "c",
+                                                                                                                     "d"))));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
+                                                          EnumerationHelper.getEnumeration (new StringMap ("a", "b")
+                                                                                                                    .add ("c",
+                                                                                                                          "d"))));
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
                                                           new CommonsHashSet <> ("a", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
+    assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
                                                           ArrayHelper.newArray ("a", "b", "c")));
   }
 
@@ -408,7 +408,7 @@ public final class CollectionEqualsHelperTest
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
                                                      new CommonsArrayList <> ("a", "b").iterator ()));
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
-                                                     IteratorHelper.getEnumeration ("a", "b")));
+                                                     EnumerationHelper.getEnumeration ("a", "b")));
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
                                                      CollectionHelperExt.newOrderedSet ("a", "b")));
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"), new MockIterable ("a", "b")));

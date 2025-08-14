@@ -31,8 +31,6 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.state.EChange;
 import com.helger.collection.CollectionHelper;
-import com.helger.collection.iterator.IIterableIterator;
-import com.helger.collection.iterator.IterableIterator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -820,11 +818,11 @@ public interface ICommonsCollection <ELEMENTTYPE> extends
    * @return An iterable iterator on this collection. This is similar to {@link #iterator()} but the
    *         returned type is more flexible. Never <code>null</code>.
    * @see #iterator()
-   * @see IterableIterator
+   * @see CommonsIterableIterator
    */
   @Nonnull
-  default IIterableIterator <ELEMENTTYPE> iterator2 ()
+  default ICommonsIterableIterator <ELEMENTTYPE> iterator2 ()
   {
-    return new IterableIterator <> (this);
+    return new CommonsIterableIterator <> (this);
   }
 }

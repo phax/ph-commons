@@ -14,46 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
-import java.util.ListIterator;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Utility implementation of the {@link ListIterator} for an empty list :)
+ * Implementation of an empty enumerator.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
- *        The type of the list iterator
+ *        The pseudo element type to iterate
  */
 @Immutable
-public class EmptyListIterator <ELEMENTTYPE> implements ListIterator <ELEMENTTYPE>
+public class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 {
-  @UnsupportedOperation
-  public void add (final ELEMENTTYPE o)
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  public boolean hasPrevious ()
-  {
-    return false;
-  }
-
-  public ELEMENTTYPE previous ()
-  {
-    throw new NoSuchElementException ();
-  }
-
-  public int previousIndex ()
-  {
-    return -1;
-  }
-
   public boolean hasNext ()
   {
     return false;
@@ -62,23 +40,6 @@ public class EmptyListIterator <ELEMENTTYPE> implements ListIterator <ELEMENTTYP
   public ELEMENTTYPE next ()
   {
     throw new NoSuchElementException ();
-  }
-
-  public int nextIndex ()
-  {
-    return 0;
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @UnsupportedOperation
-  public void set (final ELEMENTTYPE o)
-  {
-    throw new UnsupportedOperationException ();
   }
 
   @Override

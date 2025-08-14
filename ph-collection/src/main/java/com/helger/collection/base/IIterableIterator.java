@@ -14,41 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
 import java.util.Iterator;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
-import com.helger.collection.commons.ICommonsIterable;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * This is a merged interface of {@link Iterator} and {@link Iterable} for
- * simpler usage of iterators in the new Java 1.5 "for" constructs.
+ * This is a merged interface of {@link Iterator} and {@link Iterable} for simpler usage of
+ * iterators in the new Java 1.5 "for" constructs.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type of object to iterate
  */
-public interface IIterableIterator <ELEMENTTYPE> extends ICommonsIterable <ELEMENTTYPE>, Iterator <ELEMENTTYPE>
+public interface IIterableIterator <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, Iterator <ELEMENTTYPE>
 {
   @Nonnull
   default Iterator <ELEMENTTYPE> iterator ()
   {
     return this;
-  }
-
-  @Nonnull
-  default IIterableIterator <ELEMENTTYPE> withFilter (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
-  {
-    return new FilterIterator <> (this, aFilter);
-  }
-
-  @Nonnull
-  default <DSTTYPE> IIterableIterator <DSTTYPE> withMapper (@Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
-  {
-    return new MapperIterator <> (this, aMapper);
   }
 }

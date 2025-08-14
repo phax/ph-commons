@@ -14,30 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
-import java.util.Iterator;
+import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Implementation of an empty enumerator.
+ * Represents a fixed {@link Enumeration} implementation that contains no
+ * elements.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
- *        The pseudo element type to iterate
+ *        The type to be contained in the operation.
  */
 @Immutable
-public class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
+public class EmptyEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
 {
-  public boolean hasNext ()
+  public boolean hasMoreElements ()
   {
     return false;
   }
 
-  public ELEMENTTYPE next ()
+  public ELEMENTTYPE nextElement ()
   {
     throw new NoSuchElementException ();
   }

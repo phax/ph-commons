@@ -27,8 +27,8 @@ import com.helger.base.CGlobal;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.iterator.IIterableIterator;
 
 import jakarta.annotation.Nonnull;
 
@@ -44,7 +44,7 @@ import jakarta.annotation.Nonnull;
  * @param <DATATYPE>
  *        Element type to be combined
  */
-public class CombinationGenerator <DATATYPE> implements IIterableIterator <ICommonsList <DATATYPE>>
+public class CombinationGenerator <DATATYPE> implements ICommonsIterableIterator <ICommonsList <DATATYPE>>
 {
   private final DATATYPE [] m_aElements;
   private final int [] m_aIndexResult;

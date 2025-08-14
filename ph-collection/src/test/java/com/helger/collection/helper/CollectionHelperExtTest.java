@@ -21,12 +21,12 @@ import static com.helger.collection.CollectionHelper.getSize;
 import static com.helger.collection.CollectionHelper.isEmpty;
 import static com.helger.collection.CollectionHelper.makeUnmodifiable;
 import static com.helger.collection.CollectionHelper.makeUnmodifiableNotNull;
+import static com.helger.collection.enumeration.EnumerationHelper.getEnumeration;
 import static com.helger.collection.helper.CollectionHelperExt.*;
 import static com.helger.collection.helper.CollectionSort.getReverseInlineList;
 import static com.helger.collection.helper.CollectionSort.getReverseList;
 import static com.helger.collection.helper.CollectionSort.getSorted;
 import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveList;
-import static com.helger.collection.iterator.IteratorHelper.getEnumeration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -50,18 +50,18 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.CommonsIterableIterator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.CommonsTreeMap;
 import com.helger.collection.commons.CommonsTreeSet;
 import com.helger.collection.commons.CommonsVector;
 import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.commons.ICommonsSortedMap;
 import com.helger.collection.commons.ICommonsSortedSet;
-import com.helger.collection.iterator.IIterableIterator;
-import com.helger.collection.iterator.IterableIterator;
 import com.helger.collection.stack.NonBlockingStack;
 
 /**
@@ -695,13 +695,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSetIIterableIterator ()
   {
-    Set <String> aSet = newSet (new IterableIterator <> (newList ("Hallo", "Welt")));
+    Set <String> aSet = newSet (new CommonsIterableIterator <> (newList ("Hallo", "Welt")));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (new IterableIterator <> (new CommonsArrayList <> ()));
+    aSet = newSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -800,7 +800,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedSetIIterableIterator ()
   {
-    SortedSet <String> aSet = newSortedSet (new IterableIterator <> (newList ("Hallo", "Welt", null)));
+    SortedSet <String> aSet = newSortedSet (new CommonsIterableIterator <> (newList ("Hallo", "Welt", null)));
     assertNotNull (aSet);
     assertEquals (3, aSet.size ());
     assertNull (aSet.first ());
@@ -808,7 +808,7 @@ public final class CollectionHelperExtTest
     assertTrue (aSet.contains ("Welt"));
     assertTrue (aSet.contains (null));
 
-    aSet = newSortedSet (new IterableIterator <> (new CommonsArrayList <> ()));
+    aSet = newSortedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -907,13 +907,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedSetIIterableIterator ()
   {
-    Set <String> aOrderedSet = newOrderedSet (new IterableIterator <> (newList ("Hallo", "Welt")));
+    Set <String> aOrderedSet = newOrderedSet (new CommonsIterableIterator <> (newList ("Hallo", "Welt")));
     assertNotNull (aOrderedSet);
     assertEquals (2, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (new IterableIterator <> (new CommonsArrayList <> ()));
+    aOrderedSet = newOrderedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -1074,7 +1074,7 @@ public final class CollectionHelperExtTest
   {
     final ICommonsList <String> aSource = newList ("Hallo", "Welt", "from", "Vienna");
 
-    ICommonsList <String> aList = newList (new IterableIterator <> (aSource));
+    ICommonsList <String> aList = newList (new CommonsIterableIterator <> (aSource));
     assertNotNull (aList);
     assertEquals (4, aList.size ());
     assertTrue (aList.contains ("Hallo"));
@@ -1082,10 +1082,10 @@ public final class CollectionHelperExtTest
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (new IterableIterator <> (new CommonsArrayList <> ()));
+    aList = newList (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
     assertNotNull (aList);
 
-    aList = newList ((IIterableIterator <String>) null);
+    aList = newList ((ICommonsIterableIterator <String>) null);
     assertNotNull (aList);
   }
 
@@ -1120,10 +1120,10 @@ public final class CollectionHelperExtTest
   @Test
   public void testGetSortedIIterableIterator ()
   {
-    assertNotNull (getSorted ((IIterableIterator <String>) null));
+    assertNotNull (getSorted ((ICommonsIterableIterator <String>) null));
 
     final ICommonsList <String> aList = newList ("d", "c", "b", "a");
-    final ICommonsList <String> aSorted = getSorted (new IterableIterator <> (aList));
+    final ICommonsList <String> aSorted = getSorted (new CommonsIterableIterator <> (aList));
     assertEquals (4, aSorted.size ());
     assertEquals ("a", aSorted.get (0));
     assertEquals ("b", aSorted.get (1));
@@ -1529,7 +1529,7 @@ public final class CollectionHelperExtTest
     newList ("a");
     newList ("a");
     newList (new CommonsArrayList <> ("a"));
-    newList (new IterableIterator <> (new CommonsArrayList <> ("a")));
+    newList (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
     newList ((Iterable <String>) new CommonsArrayList <> ("a"));
     newList (new CommonsArrayList <> ("a").iterator ());
     newList (new CommonsArrayList <> ("a"), Objects::nonNull);
@@ -1539,7 +1539,7 @@ public final class CollectionHelperExtTest
     newSet ("a");
     newSet ("a");
     newSet (new CommonsArrayList <> ("a"));
-    newSet (new IterableIterator <> (new CommonsArrayList <> ("a")));
+    newSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
     newSet ((Iterable <String>) new CommonsArrayList <> ("a"));
     newSet (new CommonsArrayList <> ("a").iterator ());
     newSet (new CommonsArrayList <> ("a"), Objects::nonNull);
@@ -1549,7 +1549,7 @@ public final class CollectionHelperExtTest
     newOrderedSet ("a");
     newOrderedSet ("a");
     newOrderedSet (new CommonsArrayList <> ("a"));
-    newOrderedSet (new IterableIterator <> (new CommonsArrayList <> ("a")));
+    newOrderedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
     newOrderedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
     newOrderedSet (new CommonsArrayList <> ("a").iterator ());
     newOrderedSet (new CommonsArrayList <> ("a"), Objects::nonNull);
@@ -1559,7 +1559,7 @@ public final class CollectionHelperExtTest
     newSortedSet ("a");
     newSortedSet ("a");
     newSortedSet (new CommonsArrayList <> ("a"));
-    newSortedSet (new IterableIterator <> (new CommonsArrayList <> ("a")));
+    newSortedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
     newSortedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
     newSortedSet (new CommonsArrayList <> ("a").iterator ());
     newSortedSet (new CommonsArrayList <> ("a"), Objects::nonNull);

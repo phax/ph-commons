@@ -25,7 +25,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.collection.iterator.IIterableIterator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -57,7 +57,7 @@ public final class FileSystemIteratorTest
     {}
 
     // create in current directory - don't know what that is -> expect nothing
-    IIterableIterator <File> it = new FileSystemIterator (new File ("."));
+    ICommonsIterableIterator <File> it = new FileSystemIterator (new File ("."));
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())
