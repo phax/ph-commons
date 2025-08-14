@@ -63,6 +63,10 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-collection</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-typeconvert</artifactId>
+    </dependency>
     
     <dependency>
       <groupId>junit</groupId>
@@ -82,7 +86,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.commons</Automatic-Module-Name>
             <Export-Package>com.helger.commons.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.equals.IEqualsImplementationRegistrarSPI)"; cardinality:=multiple; resolution:=optional,

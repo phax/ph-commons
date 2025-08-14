@@ -29,7 +29,6 @@ import org.junit.Test;
 
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.numeric.BigHelper;
-import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -40,6 +39,7 @@ import com.helger.config.source.res.ConfigurationSourceProperties;
 import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 import com.helger.config.value.IConfigurationValueProvider;
+import com.helger.typeconvert.TypeConverterException;
 
 import jakarta.annotation.Nonnull;
 

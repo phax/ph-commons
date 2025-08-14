@@ -31,9 +31,9 @@ import java.time.temporal.ChronoField;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
-import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.typeconvert.TypeConverterException;
 
 /**
  * Test class for class {@link XMLOffsetTime}

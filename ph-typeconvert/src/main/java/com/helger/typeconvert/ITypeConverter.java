@@ -14,29 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.typeconvert;
+package com.helger.typeconvert;
+
+import java.util.function.Function;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Find the correct type converter provider from a source class to a destination
- * class.
+ * Special interface that is used to convert between values of different types.
  *
  * @author Philip Helger
+ * @param <SRC>
+ *        source type
+ * @param <DST>
+ *        destination type
  */
 @FunctionalInterface
-public interface ITypeConverterProvider
+public interface ITypeConverter <SRC, DST> extends Function <SRC, DST>
 {
   /**
-   * Find a type converter from the source class to the destination class.
+   * Convert the passed source object to the destination type.
    *
-   * @param aSrcClass
-   *        The source class. May not be <code>null</code>.
-   * @param aDstClass
-   *        The destination class. May not be <code>null</code>.
-   * @return <code>null</code> if no such type converter was found
+   * @param aSource
+   *        The source object to be converted. Cannot be <code>null</code>
+   *        because the type converter already filters <code>null</code> values!
+   * @return The converted value. May be <code>null</code>.
    */
   @Nullable
-  ITypeConverter <Object, Object> getTypeConverter (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass);
+  DST apply (@Nonnull SRC aSource);
 }

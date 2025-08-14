@@ -58,8 +58,6 @@ import com.helger.base.state.EMandatory;
 import com.helger.base.state.ESuccess;
 import com.helger.base.state.ETopBottom;
 import com.helger.base.state.EValidity;
-import com.helger.base.typeconvert.TypeConverterException;
-import com.helger.base.typeconvert.TypeConverterException.EReason;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.CommonsLinkedHashSet;
@@ -69,6 +67,8 @@ import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.MultilingualText;
+import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.TypeConverterException.EReason;
 
 import jakarta.annotation.Nonnull;
 

@@ -14,21 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.typeconvert;
-
-import com.helger.base.state.EContinue;
+package com.helger.typeconvert;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * A callback interface that is used in several places of the type conversion
- * engine.
+ * Find the correct type converter provider from a source class to a destination
+ * class.
  *
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface ITypeConverterCallback
+public interface ITypeConverterProvider
 {
-  @Nonnull
-  EContinue call (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass, @Nonnull ITypeConverter <?, ?> aConverter);
+  /**
+   * Find a type converter from the source class to the destination class.
+   *
+   * @param aSrcClass
+   *        The source class. May not be <code>null</code>.
+   * @param aDstClass
+   *        The destination class. May not be <code>null</code>.
+   * @return <code>null</code> if no such type converter was found
+   */
+  @Nullable
+  ITypeConverter <Object, Object> getTypeConverter (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass);
 }

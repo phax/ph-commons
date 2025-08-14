@@ -27,10 +27,10 @@ import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.reflection.GenericReflection;
-import com.helger.base.typeconvert.ITypeConverter;
-import com.helger.base.typeconvert.ITypeConverterProvider;
-import com.helger.base.typeconvert.TypeConverterException;
-import com.helger.base.typeconvert.TypeConverterException.EReason;
+import com.helger.typeconvert.ITypeConverter;
+import com.helger.typeconvert.ITypeConverterProvider;
+import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.TypeConverterException.EReason;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

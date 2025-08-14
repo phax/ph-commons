@@ -21,8 +21,8 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
-import com.helger.base.typeconvert.TypeConverterException;
-import com.helger.base.typeconvert.TypeConverterException.EReason;
+import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.TypeConverterException.EReason;
 import com.helger.xml.microdom.IMicroElement;
 
 import jakarta.annotation.Nonnull;

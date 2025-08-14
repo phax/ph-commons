@@ -25,12 +25,12 @@ import java.net.URL;
 
 import org.junit.Test;
 
-import com.helger.base.typeconvert.TypeConverterException;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
+import com.helger.typeconvert.TypeConverterException;
 
 /**
  * Test class for class {@link IOTypeConverterRegistrar}.

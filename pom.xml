@@ -154,17 +154,22 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-collection</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-typeconvert</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-wsclient</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-collection</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -286,8 +291,9 @@
   <modules>
     <module>ph-annotations</module>
     <module>ph-base</module>
-    <module>ph-commons</module>
     <module>ph-collection</module>
+    <module>ph-typeconvert</module>
+    <module>ph-commons</module>
     <module>ph-scopes</module>
     <module>ph-cli</module>
     <module>ph-bc</module>

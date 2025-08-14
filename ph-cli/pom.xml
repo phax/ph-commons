@@ -66,7 +66,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.cli</Automatic-Module-Name>
             <Export-Package>com.helger.cli.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

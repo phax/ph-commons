@@ -77,7 +77,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.scopes</Automatic-Module-Name>
             <Export-Package>com.helger.scope.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IGlobalScopeSPI)"; cardinality:=multiple; resolution:=optional,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IRequestScopeSPI)"; cardinality:=multiple; resolution:=optional,

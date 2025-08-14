@@ -18,7 +18,7 @@ package com.helger.commons.typeconvert.rule;
 
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.base.typeconvert.ITypeConverterRule;
+import com.helger.typeconvert.ITypeConverterRule;
 
 import jakarta.annotation.Nonnull;
 
