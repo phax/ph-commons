@@ -186,13 +186,17 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   @OverridingMethodsMustInvokeSuper
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aTexts).getHashCode ();
+    // work around for a comparison issue in Java 24
+    final HashCodeGenerator aHCG = new HashCodeGenerator (this);
+    for (final var aEntry : m_aTexts.entrySet ())
+      aHCG.append (aEntry.getKey ().toString ()).append (aEntry.getValue ());
+    return aHCG.getHashCode ();
   }
 
   @Override
   @OverridingMethodsMustInvokeSuper
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("texts", m_aTexts).getToString ();
+    return new ToStringGenerator (this).append ("Texts", m_aTexts).getToString ();
   }
 }

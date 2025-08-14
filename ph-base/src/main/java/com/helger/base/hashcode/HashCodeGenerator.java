@@ -16,10 +16,6 @@
  */
 package com.helger.base.hashcode;
 
-import java.util.Map;
-
-import org.w3c.dom.Node;
-
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforcer.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -260,21 +256,6 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * Object hash code generation.
-   *
-   * @param x
-   *        Array to add
-   * @return this
-   */
-  @Nonnull
-  public HashCodeGenerator append (@Nullable final Enum <?> x)
-  {
-    _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x);
-    return this;
-  }
-
-  /**
    * Array hash code generation.
    *
    * @param x
@@ -403,90 +384,6 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    */
   @Nonnull
   public HashCodeGenerator append (@Nullable final Object [] x)
-  {
-    _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x);
-    return this;
-  }
-
-  /**
-   * Array hash code generation.
-   *
-   * @param x
-   *        Array to add
-   * @return this
-   */
-  @Nonnull
-  public HashCodeGenerator append (@Nullable final Enum <?> [] x)
-  {
-    _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x);
-    return this;
-  }
-
-  /**
-   * Type specific hash code generation because parameter class has no overloaded equals method.
-   *
-   * @param x
-   *        object to add
-   * @return this
-   */
-  @Nonnull
-  public HashCodeGenerator append (@Nullable final StringBuffer x)
-  {
-    _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x == null ? null : x.toString ());
-    return this;
-  }
-
-  /**
-   * Type specific hash code generation because parameter class has no overloaded equals method.
-   *
-   * @param x
-   *        object to add
-   * @return this
-   */
-  @Nonnull
-  public HashCodeGenerator append (@Nullable final StringBuilder x)
-  {
-    _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x == null ? null : x.toString ());
-    return this;
-  }
-
-  /**
-   * @param x
-   *        to be included in the hash code generation.
-   * @return this
-   */
-  @Nonnull
-  public HashCodeGenerator append (@Nullable final Iterable <?> x)
-  {
-    _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x);
-    return this;
-  }
-
-  /**
-   * @param x
-   *        to be included in the hash code generation.
-   * @return this
-   */
-  @Nonnull
-  public HashCodeGenerator append (@Nullable final Map <?, ?> x)
-  {
-    _checkClosed ();
-    m_nHC = HashCodeCalculator.append (m_nHC, x);
-    return this;
-  }
-
-  /**
-   * @param x
-   *        to be included in the hash code generation.
-   * @return this
-   */
-  @Nonnull
-  public HashCodeGenerator append (@Nullable final Node x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);

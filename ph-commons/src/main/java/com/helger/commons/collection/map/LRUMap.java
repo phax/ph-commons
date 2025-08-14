@@ -128,7 +128,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   {
     // Special case because base implementation is a bit bogus
     final HashCodeGenerator aHCG = new HashCodeGenerator (this).append (m_nMaxSize);
-    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
+    for (final var aEntry : entrySet ())
       aHCG.append (aEntry.getKey ()).append (aEntry.getValue ());
     return aHCG.getHashCode ();
   }
@@ -136,6 +136,6 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("maxSize", m_nMaxSize).append ("map", super.toString ()).getToString ();
+    return new ToStringGenerator (this).append ("MaxSize", m_nMaxSize).append ("Map", super.toString ()).getToString ();
   }
 }

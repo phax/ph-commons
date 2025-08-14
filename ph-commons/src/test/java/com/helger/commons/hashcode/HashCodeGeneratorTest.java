@@ -69,8 +69,10 @@ public final class HashCodeGeneratorTest
     // Object with value
     aHC.append (EChange.CHANGED);
     aHC.append (BigDecimal.ZERO);
-    aHC.append (new StringBuffer ("Hallo"));
-    aHC.append (new StringBuilder ("Hallo Welt"));
+    if (false)
+      aHC.append (new StringBuffer ("Hallo"));
+    if (false)
+      aHC.append (new StringBuilder ("Hallo Welt"));
     aHC.append (new CommonsHashSet <> ("Hallo", "Welt", "from", "unit", "test"));
     if (false)
       aHC.append (IteratorHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
@@ -113,7 +115,7 @@ public final class HashCodeGeneratorTest
       aHC.append ((Object) new short [] { 4701, -32767 });
       aHC.append ((Object) EChange.values ());
       aHC.append ((Object) new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
-      aHC.append ((Object) new CommonsArrayList <> (EChange.CHANGED, BigDecimal.ONE, "out"));
+      aHC.append (new CommonsArrayList <> (EChange.CHANGED, BigDecimal.ONE, "out"));
     }
 
     // Array objects filled and containing nulls

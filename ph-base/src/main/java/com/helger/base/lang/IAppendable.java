@@ -16,10 +16,6 @@
  */
 package com.helger.base.lang;
 
-import java.util.Map;
-
-import org.w3c.dom.Node;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -110,14 +106,6 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @Nonnull
-  IMPLTYPE append (@Nullable Enum <?> x);
-
-  /**
-   * @param x
-   *        value to be appended
-   * @return this
-   */
-  @Nonnull
   IMPLTYPE append (@Nullable boolean [] x);
 
   /**
@@ -183,36 +171,4 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    */
   @Nonnull
   IMPLTYPE append (@Nullable Object [] x);
-
-  /**
-   * @param x
-   *        value to be appended
-   * @return this
-   */
-  @Nonnull
-  IMPLTYPE append (@Nullable Enum <?> [] x);
-
-  /**
-   * @param x
-   *        value to be appended
-   * @return this
-   */
-  @Nonnull
-  IMPLTYPE append (@Nullable Iterable <?> x);
-
-  /**
-   * @param x
-   *        value to be appended
-   * @return this
-   */
-  @Nonnull
-  IMPLTYPE append (@Nullable Map <?, ?> x);
-
-  /**
-   * @param x
-   *        value to be appended
-   * @return this
-   */
-  @Nonnull
-  IMPLTYPE append (@Nullable Node x);
 }
