@@ -30,7 +30,7 @@ import jakarta.annotation.Nullable;
 /**
  * A generic pair class. It wraps two objects of arbitrary type. If you just
  * want to wrap a single object, look at class
- * {@link com.helger.commons.wrapper.Wrapper}.
+ * {@link com.helger.base.wrapper.Wrapper}.
  *
  * @author Philip Helger
  * @param <DATA1TYPE>

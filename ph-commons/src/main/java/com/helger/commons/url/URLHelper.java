@@ -52,6 +52,7 @@ import com.helger.base.lang.ClassHelper;
 import com.helger.base.lang.ClassLoaderHelper;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
+import com.helger.base.wrapper.IMutableWrapper;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
@@ -66,7 +67,6 @@ import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.wrapper.IMutableWrapper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

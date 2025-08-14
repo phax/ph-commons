@@ -14,28 +14,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.wrapper;
+package com.helger.base.wrapper;
 
-import com.helger.base.state.EChange;
+import java.util.function.Supplier;
 
 import jakarta.annotation.Nullable;
 
 /**
- * Base interface for mutable wrapping an object within another object.
+ * Base interface for wrapping an object within another object.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the wrapped object.
  */
-public interface IMutableWrapper <DATATYPE> extends IWrapper <DATATYPE>
+@FunctionalInterface
+public interface IWrapper <DATATYPE> extends Supplier <DATATYPE>
 {
   /**
-   * Change the wrapped object.
-   *
-   * @param aObj
-   *        The new object to be wrapped. May be <code>null</code>.
-   * @return {@link EChange}
+   * @return The currently wrapped object. May be <code>null</code>.
    */
   @Nullable
-  EChange set (@Nullable DATATYPE aObj);
+  DATATYPE get ();
+
+  /**
+   * @return <code>true</code> if the contained value is not <code>null</code>,
+   *         <code>false</code> if it is <code>null</code>.
+   */
+  default boolean isSet ()
+  {
+    return get () != null;
+  }
+
+  /**
+   * @return <code>true</code> if the contained value is <code>null</code>,
+   *         <code>false</code> if it is not <code>null</code>.
+   */
+  default boolean isNotSet ()
+  {
+    return get () == null;
+  }
 }

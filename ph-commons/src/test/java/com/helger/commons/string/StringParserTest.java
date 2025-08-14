@@ -28,7 +28,7 @@ import java.math.BigInteger;
 import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
-import com.helger.commons.wrapper.Wrapper;
+import com.helger.base.wrapper.Wrapper;
 
 /**
  * Test class for class {@link StringParser}.

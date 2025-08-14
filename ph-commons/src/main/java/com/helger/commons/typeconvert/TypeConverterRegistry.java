@@ -34,6 +34,7 @@ import com.helger.base.state.EContinue;
 import com.helger.base.typeconvert.ITypeConverter;
 import com.helger.base.typeconvert.ITypeConverterCallback;
 import com.helger.base.typeconvert.ITypeConverterRule;
+import com.helger.base.wrapper.Wrapper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsTreeMap;
@@ -44,7 +45,6 @@ import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.commons.wrapper.Wrapper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

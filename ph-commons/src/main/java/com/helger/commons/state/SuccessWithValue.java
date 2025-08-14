@@ -23,7 +23,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.ESuccess;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.base.string.ToStringGenerator;
-import com.helger.commons.wrapper.IWrapper;
+import com.helger.base.wrapper.IWrapper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

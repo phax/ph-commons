@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.wrapper.Wrapper;
+import com.helger.base.wrapper.Wrapper;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;

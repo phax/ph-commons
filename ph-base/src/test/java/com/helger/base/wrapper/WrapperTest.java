@@ -14,17 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.wrapper;
+package com.helger.base.wrapper;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link Wrapper}.
@@ -69,7 +68,7 @@ public final class WrapperTest
     catch (final NullPointerException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Wrapper <> ("any"), new Wrapper <> ("any"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Wrapper <> ("any"), new Wrapper <> ("other"));
+    assertEquals (new Wrapper <> ("any"), new Wrapper <> ("any"));
+    assertNotEquals (new Wrapper <> ("any"), new Wrapper <> ("other"));
   }
 }

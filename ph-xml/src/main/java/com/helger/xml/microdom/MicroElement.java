@@ -36,13 +36,13 @@ import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.string.Strings;
 import com.helger.base.string.ToStringGenerator;
+import com.helger.base.wrapper.Wrapper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.wrapper.Wrapper;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
 
