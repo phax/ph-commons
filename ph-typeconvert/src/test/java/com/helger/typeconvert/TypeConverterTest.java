@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -29,7 +29,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -62,15 +61,12 @@ import com.helger.base.string.StringFind;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.CommonsLinkedHashSet;
-import com.helger.commons.locale.ELocaleName;
-import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.locale.LocaleHelper;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.text.MultilingualText;
-import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.TypeConverterException.EReason;
 import com.helger.typeconvert.impl.TypeConverter;
 import com.helger.typeconvert.impl.TypeConverterProviderRuleBased;
+import com.helger.typeconvert.mock.IMockInterface;
+import com.helger.typeconvert.mock.MockImplementation;
+import com.helger.typeconvert.mock.MockSubImplementation;
 
 import jakarta.annotation.Nonnull;
 
@@ -217,7 +213,6 @@ public final class TypeConverterTest
                                      EMandatory.MANDATORY,
                                      ESuccess.FAILURE,
                                      ETopBottom.BOTTOM,
-                                     ETriState.UNDEFINED,
                                      EValidity.VALID,
                                      "Jägalä".getBytes (StandardCharsets.ISO_8859_1) };
     for (final Object aSrcValue : aDefinedObjs)
@@ -225,16 +220,6 @@ public final class TypeConverterTest
       final String sValue = TypeConverter.convert (aSrcValue, String.class);
       final Object aObj2 = TypeConverter.convert (sValue, aSrcValue.getClass ());
       assertTrue (EqualsHelper.equals (aSrcValue, aObj2));
-    }
-
-    // Test conversion if no explicit converter available for source class, but
-    // for super class
-    final Object [] aUpCastObjs = { ELocaleName.ID_LANGUAGE_ALL };
-    for (final Object aSrcValue : aUpCastObjs)
-    {
-      final String sValue = TypeConverter.convert (aSrcValue, String.class);
-      final Object aObj2 = TypeConverter.convert (sValue, aSrcValue.getClass ());
-      assertEquals (aSrcValue, aObj2);
     }
 
     // Check if conversion works for special objects not overwriting
@@ -254,19 +239,6 @@ public final class TypeConverterTest
       sValue = TypeConverter.convert (TypeConverterProviderRuleBased.getInstance (), aSrcValue, String.class);
       aObj2 = TypeConverter.convert (TypeConverterProviderRuleBased.getInstance (), sValue, aSrcValue.getClass ());
       assertEquals (aSrcValue.toString (), aObj2.toString ());
-    }
-  }
-
-  @Test
-  public void testLocale ()
-  {
-    // Check if conversion works for all locales
-    for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
-    {
-      final String sLocale = TypeConverter.convert (aLocale, String.class);
-      assertNotNull (aLocale.toString (), sLocale);
-      final Locale aLocale2 = TypeConverter.convert (sLocale, Locale.class);
-      assertTrue (LocaleHelper.equalLocales (aLocale, aLocale2));
     }
   }
 
@@ -320,19 +292,6 @@ public final class TypeConverterTest
     final MockSubImplementation aSubImpl = new MockSubImplementation ();
     assertSame (aSubImpl, TypeConverter.convert (aSubImpl, IMockInterface.class));
     assertSame (aSubImpl, TypeConverter.convert (aSubImpl, MockImplementation.class));
-  }
-
-  @Test
-  public void testNoConverterNoConversion ()
-  {
-    try
-    {
-      final MultilingualText m = TypeConverter.convert ("1234", MultilingualText.class);
-      assertNotNull (m);
-      fail ();
-    }
-    catch (final TypeConverterException ex)
-    {}
   }
 
   @Test

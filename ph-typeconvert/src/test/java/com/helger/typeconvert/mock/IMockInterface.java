@@ -14,24 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.mock;
 
-public class MockImplementation implements IMockInterface
+public interface IMockInterface
 {
-  private final String m_s;
-
-  public MockImplementation ()
-  {
-    this ("any");
-  }
-
-  public MockImplementation (final String s)
-  {
-    m_s = s;
-  }
-
-  public String getAny ()
-  {
-    return m_s;
-  }
+  String getAny ();
 }

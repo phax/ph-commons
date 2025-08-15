@@ -14,9 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.typeconvert;
+package com.helger.typeconvert.mock;
 
-public interface IMockInterface
+public class MockSubImplementation extends MockImplementation
 {
-  String getAny ();
+  private final String m_t;
+
+  public MockSubImplementation ()
+  {
+    this ("any", "thing");
+  }
+
+  public MockSubImplementation (final String s, final String t)
+  {
+    super (s);
+    m_t = t;
+  }
+
+  public String getSecond ()
+  {
+    return m_t;
+  }
 }

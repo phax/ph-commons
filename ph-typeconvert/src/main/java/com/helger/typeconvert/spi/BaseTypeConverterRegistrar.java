@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.base.state.EChange;
 import com.helger.base.string.StringParser;
 import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
@@ -272,6 +274,40 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
       if (x.length > 1)
         LOGGER.warn ("An array with " + x.length + " items is present; using the first value: " + Arrays.toString (x));
       return x[0];
+    });
+
+    // Enum
+    /*
+     * We need to append the Enum class name, otherwise we cannot resolve it! Use the colon as it is
+     * not allowed in class names.
+     */
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Enum.class,
+                                                                         String.class,
+                                                                         aSource -> aSource.getClass ().getName () +
+                                                                                    ':' +
+                                                                                    aSource.name ());
+
+    aRegistry.registerTypeConverterRuleFixedSourceAssignableDestination (String.class, Enum.class, x -> {
+      /*
+       * Split class name and enum value name
+       */
+      final String [] aParts = x.split (":", 2);
+      try
+      {
+        /*
+         * Resolve any enum class. Note: The explicit EChange is just here, because an explicit enum
+         * type is needed. It must of course not only be EChange :)
+         */
+        final Class <EChange> aClass = GenericReflection.getClassFromName (aParts[0]);
+        /*
+         * And look up the element by name
+         */
+        return Enum.valueOf (aClass, aParts[1]);
+      }
+      catch (final ClassNotFoundException ex)
+      {
+        return null;
+      }
     });
   }
 }
