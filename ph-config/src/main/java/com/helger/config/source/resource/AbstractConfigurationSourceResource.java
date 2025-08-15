@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.config.source.res;
+package com.helger.config.source.resource;
 
 import java.io.File;
 
@@ -43,7 +43,7 @@ import jakarta.annotation.Nonnull;
 public abstract class AbstractConfigurationSourceResource extends AbstractConfigurationSource implements
                                                           IConfigurationSourceResource
 {
-  public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.RESOURCE;
+  public static final EConfigSourceType CONFIG_SOURCE_TYPE = EConfigSourceType.RESOURCE;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractConfigurationSourceResource.class);
 
@@ -51,7 +51,7 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
 
   protected AbstractConfigurationSourceResource (final int nPriority, @Nonnull final IReadableResource aRes)
   {
-    super (SOURCE_TYPE, nPriority);
+    super (CONFIG_SOURCE_TYPE, nPriority);
     ValueEnforcer.notNull (aRes, "Resource");
     m_aRes = aRes;
 

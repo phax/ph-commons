@@ -169,6 +169,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-cli</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-statistics</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -179,12 +184,22 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-datetime</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-io</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-unittest-support-ext</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-config</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -200,11 +215,6 @@
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-scopes</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-cli</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -239,6 +249,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-config-json</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-tree</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -254,17 +269,7 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-datetime</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
         <artifactId>ph-settings</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-config</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -319,14 +324,15 @@
     <module>ph-unittest-support</module>
     <module>ph-collection</module>
     <module>ph-typeconvert</module>
+    <module>ph-cli</module>
     <module>ph-statistics</module>
     <module>ph-cache</module>
     <module>ph-datetime</module>
     <module>ph-io</module>
     <module>ph-unittest-support-ext</module>
+    <module>ph-config</module>
     <module>ph-commons</module>
     <module>ph-scopes</module>
-    <module>ph-cli</module>
     <module>ph-bc</module>
     <module>ph-security</module>
     <module>ph-xml</module>
@@ -334,11 +340,11 @@
     <module>ph-jaxb-adapter</module>
     <module>ph-jaxb</module>
     <module>ph-json</module>
+    <module>ph-config-json</module>
     <module>ph-tree</module>
     <module>ph-matrix</module>
     <module>ph-graph</module>
     <module>ph-settings</module>
-    <module>ph-config</module>
     <module>ph-less-commons</module>
     <module>ph-dao</module>
   </modules>

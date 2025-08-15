@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.config.source.res;
+package com.helger.config.source.resource.properties;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -33,6 +33,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.config.source.IConfigurationSource;
+import com.helger.config.source.resource.AbstractConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.rt.PropertiesLoader;
@@ -48,6 +49,7 @@ import jakarta.annotation.Nullable;
 @ThreadSafe
 public class ConfigurationSourceProperties extends AbstractConfigurationSourceResource
 {
+  public static final String FILE_EXT = "properties";
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceProperties.class);
 
   private final Charset m_aCharset;
@@ -71,7 +73,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    */
   public ConfigurationSourceProperties (@Nonnull final IReadableResource aRes)
   {
-    this (SOURCE_TYPE.getDefaultPriority (), aRes, (Charset) null);
+    this (CONFIG_SOURCE_TYPE.getDefaultPriority (), aRes, null);
   }
 
   /**
@@ -84,7 +86,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    */
   public ConfigurationSourceProperties (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
-    this (SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
+    this (CONFIG_SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
   }
 
   /**
@@ -97,7 +99,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    */
   public ConfigurationSourceProperties (final int nPriority, @Nonnull final IReadableResource aRes)
   {
-    this (nPriority, aRes, (Charset) null);
+    this (nPriority, aRes, null);
   }
 
   /**
@@ -131,7 +133,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    * @return The charset used to load the properties. May be <code>null</code>.
    */
   @Nullable
-  public final Charset getCharset ()
+  public Charset getCharset ()
   {
     return m_aCharset;
   }

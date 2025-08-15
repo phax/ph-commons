@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.config.source.res;
+package com.helger.config.json.source;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -32,6 +32,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.config.source.IConfigurationSource;
+import com.helger.config.source.resource.AbstractConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.io.resource.IReadableResource;
 import com.helger.json.IJson;
@@ -52,6 +53,7 @@ import jakarta.annotation.Nullable;
 @ThreadSafe
 public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
 {
+  public static final String FILE_EXT = "json";
   public static final char LEVEL_SEPARATOR = '.';
   public static final String ARRAY_SUFFIX_COUNT = "$count";
 
@@ -119,7 +121,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    */
   public ConfigurationSourceJson (@Nonnull final IReadableResource aRes)
   {
-    this (SOURCE_TYPE.getDefaultPriority (), aRes, (Charset) null);
+    this (CONFIG_SOURCE_TYPE.getDefaultPriority (), aRes, (Charset) null);
   }
 
   /**
@@ -132,7 +134,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    */
   public ConfigurationSourceJson (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
-    this (SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
+    this (CONFIG_SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
   }
 
   /**

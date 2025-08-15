@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.config.source.res;
+package com.helger.config.source.resource;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.ESuccess;

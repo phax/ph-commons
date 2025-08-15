@@ -28,9 +28,8 @@ import com.helger.base.string.StringHelper;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
-import com.helger.config.source.res.ConfigurationSourceJson;
-import com.helger.config.source.res.ConfigurationSourceProperties;
-import com.helger.config.source.res.EConfigSourceResourceType;
+import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
+import com.helger.config.source.resource.type.ConfigurationSourceResourceTypeRegistry;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 import com.helger.io.file.FilenameHelper;
 import com.helger.io.resource.ClassPathResource;
@@ -51,15 +50,9 @@ import jakarta.annotation.Nonnull;
 @Immutable
 public final class ConfigFactory
 {
-  public static final String PRIVATE_APPLICATION_JSON_NAME = "private-application.json";
-  public static final int PRIVATE_APPLICATION_JSON_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 5;
-
   public static final String PRIVATE_APPLICATION_PROPERTIES_NAME = "private-application.properties";
   public static final int PRIVATE_APPLICATION_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () -
                                                                     10;
-
-  public static final String APPLICATION_JSON_NAME = "application.json";
-  public static final int APPLICATION_JSON_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 15;
 
   public static final String APPLICATION_PROPERTIES_NAME = "application.properties";
   public static final int APPLICATION_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 20;
@@ -68,7 +61,7 @@ public final class ConfigFactory
   public static final int REFERENCE_PROPERTIES_PRIORITY = 1;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFactory.class);
-  private static final EConfigSourceResourceType FALLBACK_SOURCE_TYPE = EConfigSourceResourceType.PROPERTIES;
+  private static final String FALLBACK_SOURCE_TYPE = ConfigurationSourceProperties.FILE_EXT;
 
   /**
    * Use this configuration internally to resolve the properties used for the default instance. The
@@ -181,14 +174,15 @@ public final class ConfigFactory
       final String sConfigResource = SYSTEM_ONLY.getAsString ("config.resource");
       if (StringHelper.isNotEmpty (sConfigResource))
       {
-        final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigResource),
-                                                                                                        FALLBACK_SOURCE_TYPE);
+        final var aFactory = ConfigurationSourceResourceTypeRegistry.getInstance ()
+                                                                    .getFactoryOfFileExtensionOrFallback (FilenameHelper.getExtension (sConfigResource),
+                                                                                                          FALLBACK_SOURCE_TYPE);
         final ClassPathResource aRes = new ClassPathResource (sConfigResource);
         if (aRes.exists ())
         {
           // Take priority from system property
           final int nPriority = SYSTEM_ONLY.getAsInt ("config.resource.priority", nResourceDefaultPrio);
-          aMCSVP.addConfigurationSource (eResType.createConfigurationSource (aRes), nPriority);
+          aMCSVP.addConfigurationSource (aFactory.apply (aRes), nPriority);
         }
       }
     }
@@ -200,12 +194,13 @@ public final class ConfigFactory
       {
         // Take priority from system property
         final int nPriority = SYSTEM_ONLY.getAsInt ("config.resources.priority", nResourceDefaultPrio);
-        final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigResources),
-                                                                                                        FALLBACK_SOURCE_TYPE);
+        final var aFactory = ConfigurationSourceResourceTypeRegistry.getInstance ()
+                                                                    .getFactoryOfFileExtensionOrFallback (FilenameHelper.getExtension (sConfigResources),
+                                                                                                          FALLBACK_SOURCE_TYPE);
         // Classpath only
         aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (aCL,
                                                                                            sConfigResources,
-                                                                                           aURL -> eResType.createConfigurationSource (new URLResource (aURL))),
+                                                                                           aURL -> aFactory.apply (new URLResource (aURL))),
                                        nPriority);
       }
     }
@@ -214,14 +209,15 @@ public final class ConfigFactory
       final String sConfigFile = SYSTEM_ONLY.getAsString ("config.file");
       if (StringHelper.isNotEmpty (sConfigFile))
       {
-        final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigFile),
-                                                                                                        FALLBACK_SOURCE_TYPE);
+        final var aFactory = ConfigurationSourceResourceTypeRegistry.getInstance ()
+                                                                    .getFactoryOfFileExtensionOrFallback (FilenameHelper.getExtension (sConfigFile),
+                                                                                                          FALLBACK_SOURCE_TYPE);
         final FileSystemResource aRes = new FileSystemResource (sConfigFile);
         if (aRes.exists ())
         {
           // Take priority from system property
           final int nPriority = SYSTEM_ONLY.getAsInt ("config.file.priority", nResourceDefaultPrio);
-          aMCSVP.addConfigurationSource (eResType.createConfigurationSource (aRes), nPriority);
+          aMCSVP.addConfigurationSource (aFactory.apply (aRes), nPriority);
         }
       }
     }
@@ -230,8 +226,9 @@ public final class ConfigFactory
       final String sConfigURL = SYSTEM_ONLY.getAsString ("config.url");
       if (StringHelper.isNotEmpty (sConfigURL))
       {
-        final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigURL),
-                                                                                                        FALLBACK_SOURCE_TYPE);
+        final var aFactory = ConfigurationSourceResourceTypeRegistry.getInstance ()
+                                                                    .getFactoryOfFileExtensionOrFallback (FilenameHelper.getExtension (sConfigURL),
+                                                                                                          FALLBACK_SOURCE_TYPE);
         final URL aURL = URLHelper.getAsURL (sConfigURL);
         if (aURL != null)
         {
@@ -240,20 +237,11 @@ public final class ConfigFactory
           {
             // Take priority from system property
             final int nPriority = SYSTEM_ONLY.getAsInt ("config.url.priority", nResourceDefaultPrio);
-            aMCSVP.addConfigurationSource (eResType.createConfigurationSource (aRes), nPriority);
+            aMCSVP.addConfigurationSource (aFactory.apply (aRes), nPriority);
           }
         }
       }
     }
-
-    // Prio 195, incl. files
-    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
-                                                                                            PRIVATE_APPLICATION_JSON_NAME,
-                                                                                            aURL -> new ConfigurationSourceJson (PRIVATE_APPLICATION_JSON_PRIORITY,
-                                                                                                                                 new URLResource (aURL),
-                                                                                                                                 StandardCharsets.UTF_8),
-                                                                                            true),
-                                   PRIVATE_APPLICATION_JSON_PRIORITY);
 
     // Prio 190, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
@@ -263,15 +251,6 @@ public final class ConfigFactory
                                                                                                                                        StandardCharsets.UTF_8),
                                                                                             true),
                                    PRIVATE_APPLICATION_PROPERTIES_PRIORITY);
-
-    // Prio 185, incl. files
-    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
-                                                                                            APPLICATION_JSON_NAME,
-                                                                                            aURL -> new ConfigurationSourceJson (APPLICATION_JSON_PRIORITY,
-                                                                                                                                 new URLResource (aURL),
-                                                                                                                                 StandardCharsets.UTF_8),
-                                                                                            true),
-                                   APPLICATION_JSON_PRIORITY);
 
     // Prio 180, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
