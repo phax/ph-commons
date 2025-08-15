@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.timing;
+package com.helger.base.timing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,8 +22,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
-import com.helger.commons.concurrent.ThreadHelper;
 
 /**
  * Test class for class {@link StopWatch}.
@@ -33,7 +31,7 @@ import com.helger.commons.concurrent.ThreadHelper;
 public final class StopWatchTest
 {
   @Test
-  public void testAll ()
+  public void testAll () throws InterruptedException
   {
     StopWatch sw = StopWatch.createdStopped ();
     assertFalse (sw.isStarted ());
@@ -47,13 +45,13 @@ public final class StopWatchTest
 
     assertTrue (sw.start ().isChanged ());
     assertTrue (sw.isStarted ());
-    ThreadHelper.sleep (1000);
+    Thread.sleep (1000);
     assertTrue (sw.stopAndGetMillis () > 0);
     assertFalse (sw.isStarted ());
 
     assertTrue (sw.start ().isChanged ());
     assertTrue (sw.isStarted ());
-    ThreadHelper.sleep (10);
+    Thread.sleep (10);
     assertTrue (sw.stopAndGetMillis () > 0);
     assertFalse (sw.isStarted ());
     assertTrue (sw.getNanos () > 0);
@@ -68,13 +66,13 @@ public final class StopWatchTest
   }
 
   @Test
-  public void testGetLapTime ()
+  public void testGetLapTime () throws InterruptedException
   {
     final StopWatch sw = StopWatch.createdStarted ();
-    ThreadHelper.sleep (100);
+    Thread.sleep (100);
     long n = sw.getLapDuration ().toMillis ();
     assertTrue ("Duration of " + n + " was too short", n >= 100);
-    ThreadHelper.sleep (100);
+    Thread.sleep (100);
     n = sw.stopAndGetDuration ().toMillis ();
     assertTrue (n >= 200);
   }

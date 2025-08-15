@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.function.IntConsumer;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.CheckReturnValue;
@@ -1494,32 +1493,5 @@ public final class StringHelper extends Strings
       return sStr;
     final int nIndex = getLastIndexOf (sStr, sSearch);
     return nIndex == CGlobal.STRING_NOT_FOUND ? sStr : sStr.substring (nIndex + getLength (sSearch));
-  }
-
-  /**
-   * Iterate all code points and pass them to the provided consumer. This implementation is
-   * approximately 20% quicker than <code>CharSequence.codePoints().forEachOrdered(c)</code>
-   *
-   * @param sInputString
-   *        Input String to use. May be <code>null</code> or empty.
-   * @param aConsumer
-   *        The consumer to be used. May not be <code>null</code>.
-   */
-  public static void iterateCodePoints (@Nullable final String sInputString, @Nonnull final IntConsumer aConsumer)
-  {
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-
-    if (sInputString != null)
-    {
-      final int nStringLength = sInputString.length ();
-      int nOfs = 0;
-      while (nOfs < nStringLength)
-      {
-        final int nCodePoint = sInputString.codePointAt (nOfs);
-        nOfs += Character.charCount (nCodePoint);
-
-        aConsumer.accept (nCodePoint);
-      }
-    }
   }
 }

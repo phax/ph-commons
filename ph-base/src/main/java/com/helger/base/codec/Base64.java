@@ -83,8 +83,8 @@ import jakarta.annotation.Nullable;
  * <li>v2.3.6 - Fixed bug when breaking lines and the final byte of the encoded string ended in the
  * last column; the buffer was not properly shrunk and contained an extra (null) byte that made it
  * into the string.</li>
- * <li>v2.3.5 - Fixed bug in {@link #encodeFromFile} where estimated buffer size was wrong for files
- * of size 31, 34, and 37 bytes.</li>
+ * <li>v2.3.5 - Fixed bug in encodeFromFile where estimated buffer size was wrong for files of size
+ * 31, 34, and 37 bytes.</li>
  * <li>v2.3.4 - Fixed bug when working with gzipped streams whereby flushing the Base64.OutputStream
  * closed the Base64 encoding (by padding with equals signs) too soon. Also added an option to
  * suppress the automatic decoding of gzipped streams. Also added experimental support for
@@ -153,8 +153,8 @@ import jakarta.annotation.Nullable;
  * <code>decode( String s, boolean gzipCompressed )</code>. Added the ability to "suspend" encoding
  * in the Output Stream so you can turn on and off the encoding if you need to embed base64 data in
  * an otherwise "normal" stream (like an XML file).</li>
- * <li>v1.5 - Output stream pases on flush() command but doesn't do anything itself. This helps when
- * using GZIP streams. Added the ability to GZip-compress objects before encoding them.</li>
+ * <li>v1.5 - Output stream passes on flush() command but doesn't do anything itself. This helps
+ * when using GZIP streams. Added the ability to GZip-compress objects before encoding them.</li>
  * <li>v1.4 - Added helper methods to read/write files.</li>
  * <li>v1.3.6 - Fixed OutputStream.flush() so that 'position' is reset.</li>
  * <li>v1.3.5 - Added flag to turn on and off line breaks. Fixed bug in input stream where last

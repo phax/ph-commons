@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparable;
@@ -38,7 +38,7 @@ import jakarta.annotation.Nonnull;
  * @author Apache Abdera
  * @author Philip Helger
  */
-@NotThreadSafe
+@Immutable
 public class Codepoint implements IComparable <Codepoint>
 {
   private final int m_nValue;
@@ -63,7 +63,7 @@ public class Codepoint implements IComparable <Codepoint>
     if (nLength == 1)
       return s.charAt (0);
     if (nLength > 2)
-      throw new IllegalArgumentException ("Too many chars: " + s);
+      throw new IllegalArgumentException ("Char sequence too long (" + nLength + ") '" + s + "'");
     return Character.toCodePoint (s.charAt (0), s.charAt (1));
   }
 
@@ -96,7 +96,7 @@ public class Codepoint implements IComparable <Codepoint>
     if (nLength == 1)
       return aChars[0];
     if (nLength > 2)
-      throw new IllegalArgumentException ("Too many chars: " + Arrays.toString (aChars));
+      throw new IllegalArgumentException ("Array too long (" + nLength + "): " + Arrays.toString (aChars));
     return Character.toCodePoint (aChars[0], aChars[1]);
   }
 
@@ -344,6 +344,6 @@ public class Codepoint implements IComparable <Codepoint>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("value", m_nValue).getToString ();
+    return new ToStringGenerator (null).append ("Value", m_nValue).getToString ();
   }
 }

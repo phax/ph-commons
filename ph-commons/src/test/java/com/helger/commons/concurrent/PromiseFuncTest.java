@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.numeric.mutable.MutableInt;
-import com.helger.commons.timing.StopWatch;
+import com.helger.base.timing.StopWatch;
 
 import jakarta.annotation.Nonnull;
 

@@ -22,8 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.timing.StopWatch;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.timing.StopWatch;
 import com.helger.commons.url.EURLProtocol;
 import com.helger.commons.url.IURLDownloader;
 

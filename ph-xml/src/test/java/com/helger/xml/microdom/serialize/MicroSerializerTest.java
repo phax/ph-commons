@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
-import com.helger.commons.timing.StopWatch;
+import com.helger.base.timing.StopWatch;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;

@@ -24,10 +24,10 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.timing.StopWatch;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.misc.SizeHelper;
 import com.helger.commons.io.stream.CountingReader;
-import com.helger.commons.timing.StopWatch;
 import com.helger.json.parser.JsonParseException;
 import com.helger.json.parser.JsonParser;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
