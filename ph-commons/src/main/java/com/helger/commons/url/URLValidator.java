@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
-import com.helger.commons.regex.RegExCache;
+import com.helger.cache.regex.RegExCache;
 
 import jakarta.annotation.Nullable;
 

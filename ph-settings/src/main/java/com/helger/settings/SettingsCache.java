@@ -18,7 +18,7 @@ package com.helger.settings;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.cache.Cache;
+import com.helger.cache.impl.Cache;
 import com.helger.settings.factory.ISettingsFactory;
 
 import jakarta.annotation.Nonnull;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.state;
+package com.helger.base.state;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
 
 /**

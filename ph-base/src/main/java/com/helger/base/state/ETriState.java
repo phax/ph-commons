@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.state;
+package com.helger.base.state;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-import com.helger.base.state.ITriState;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

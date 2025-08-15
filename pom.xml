@@ -169,6 +169,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-cache</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-io</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -304,6 +309,7 @@
     <module>ph-collection</module>
     <module>ph-typeconvert</module>
     <module>ph-statistics</module>
+    <module>ph-cache</module>
     <module>ph-io</module>
     <module>ph-commons</module>
     <module>ph-scopes</module>

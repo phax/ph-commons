@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache;
+package com.helger.cache.clazz;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,13 +27,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.style.UseDirectEqualsAndHashCode;
+import com.helger.base.concurrent.ExecutorServiceHelper;
 import com.helger.base.timing.StopWatch;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.map.LRUMap;
 import com.helger.collection.map.LRUSet;
 import com.helger.collection.map.LoggingLRUMap;
-import com.helger.commons.concurrent.ExecutorServiceHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -23,7 +23,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
-import com.helger.commons.cache.Cache;
+import com.helger.cache.impl.Cache;
 
 import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBContext;

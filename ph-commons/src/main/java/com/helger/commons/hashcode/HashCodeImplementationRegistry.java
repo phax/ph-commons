@@ -36,10 +36,10 @@ import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.state.EChange;
+import com.helger.cache.clazz.AnnotationUsageCache;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.typeconvert.util.ClassHierarchyCache;
 
 import jakarta.annotation.Nonnull;

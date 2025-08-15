@@ -23,7 +23,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.regex.RegExHelper;
+import com.helger.cache.regex.RegExHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

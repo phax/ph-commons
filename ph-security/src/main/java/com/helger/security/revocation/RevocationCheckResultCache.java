@@ -27,7 +27,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.cache.MappedCache;
+import com.helger.cache.impl.MappedCache;
 import com.helger.datetime.expiration.ExpiringObject;
 
 import jakarta.annotation.Nonnull;

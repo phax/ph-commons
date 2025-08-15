@@ -39,8 +39,8 @@ import org.bouncycastle.operator.DigestCalculatorProvider;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 
+import com.helger.base.state.ETriState;
 import com.helger.bc.PBCProvider;
-import com.helger.commons.state.ETriState;
 import com.helger.security.oscp.EOCSPResponseStatus;
 
 import jakarta.annotation.Nonnull;

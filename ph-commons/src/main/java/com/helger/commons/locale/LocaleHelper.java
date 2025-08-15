@@ -31,12 +31,12 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.base.system.SystemHelper;
+import com.helger.cache.impl.Cache;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.cache.Cache;
-import com.helger.commons.regex.RegExHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

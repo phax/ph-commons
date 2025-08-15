@@ -14,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache;
+package com.helger.cache.impl;
 
 import java.util.function.Function;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.cache.api.ICache;
+import com.helger.cache.api.IMutableCache;
 
 import jakarta.annotation.Nonnull;
 

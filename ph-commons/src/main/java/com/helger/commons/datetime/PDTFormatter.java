@@ -28,7 +28,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringCount;
 import com.helger.base.string.StringReplace;
-import com.helger.commons.cache.Cache;
+import com.helger.cache.impl.Cache;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

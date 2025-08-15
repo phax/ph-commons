@@ -26,6 +26,8 @@ import java.util.regex.PatternSyntaxException;
 
 import org.junit.Test;
 
+import com.helger.cache.regex.RegExCache;
+
 /**
  * Test class for {@link RegExCache}.
  *

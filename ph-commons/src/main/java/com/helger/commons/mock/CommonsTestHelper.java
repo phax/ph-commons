@@ -23,6 +23,7 @@ import java.util.concurrent.Executors;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.concurrent.ExecutorServiceHelper;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.iface.IThrowingRunnable;
@@ -32,7 +33,6 @@ import com.helger.base.mock.CommonsAssert;
 import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsVector;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.serialize.SerializationHelper;
 

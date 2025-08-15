@@ -31,10 +31,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
+import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.commons.state.ETriState;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLHelper;
 

@@ -22,7 +22,7 @@ import java.time.format.ResolverStyle;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
-import com.helger.commons.cache.Cache;
+import com.helger.cache.impl.Cache;
 
 import jakarta.annotation.Nonnull;
 

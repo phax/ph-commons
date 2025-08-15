@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.regex.RegExCache;
+import com.helger.cache.regex.RegExCache;
 
 import jakarta.annotation.Nullable;
 

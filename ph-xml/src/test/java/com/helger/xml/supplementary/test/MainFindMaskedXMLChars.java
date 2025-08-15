@@ -25,9 +25,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.regex.RegExHelper;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.serialize.write.EXMLSerializeVersion;

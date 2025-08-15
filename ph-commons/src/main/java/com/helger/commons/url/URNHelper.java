@@ -2,7 +2,7 @@ package com.helger.commons.url;
 
 import com.helger.annotation.RegEx;
 import com.helger.base.string.StringHelper;
-import com.helger.commons.regex.RegExHelper;
+import com.helger.cache.regex.RegExHelper;
 
 import jakarta.annotation.Nullable;
 

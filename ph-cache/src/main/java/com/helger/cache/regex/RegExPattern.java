@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.regex;
+package com.helger.cache.regex;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;

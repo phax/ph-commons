@@ -29,7 +29,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.cache.Cache;
+import com.helger.cache.impl.Cache;
 import com.helger.datetime.expiration.ExpiringObject;
 
 import jakarta.annotation.Nonnull;

@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadFactory;
 
 import com.helger.base.builder.IResettableBuilder;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.state.ETriState;
+import com.helger.base.state.ETriState;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

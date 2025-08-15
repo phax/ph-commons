@@ -31,6 +31,7 @@ import java.util.regex.Pattern;
 import org.junit.Test;
 
 import com.helger.base.string.StringHelper;
+import com.helger.cache.regex.RegExHelper;
 
 /**
  * Test class for {@link RegExHelper}.

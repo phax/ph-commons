@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache;
+package com.helger.cache.api;
 
-import com.helger.base.state.EChange;
-
-import jakarta.annotation.Nonnull;
+import com.helger.base.iface.IHasSize;
+import com.helger.base.name.IHasName;
 
 /**
- * Interface for a very simple Map-like cache.
+ * Read-only interface for a very simple Map-like cache.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -29,25 +28,16 @@ import jakarta.annotation.Nonnull;
  * @param <VALUETYPE>
  *        Cache value type.
  */
-public interface IMutableCache <KEYTYPE, VALUETYPE> extends ICache <KEYTYPE, VALUETYPE>
+public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
 {
   /**
-   * Remove the given key from the cache.
+   * Get the cached value associated with the passed key. If the value is not in
+   * the cache, it might be automatically retrieved from a respective provider.
    *
    * @param aKey
-   *        The key to be removed. May be <code>null</code>able or not - depends
-   *        upon the implementation.
-   * @return {@link EChange#CHANGED} upon success, {@link EChange#UNCHANGED} if
-   *         the key was not within the cache,
+   *        The key to be looked up. May be <code>null</code>able or not -
+   *        depends upon the implementation.
+   * @return <code>null</code> if no such value is in the cache.
    */
-  @Nonnull
-  EChange removeFromCache (KEYTYPE aKey);
-
-  /**
-   * Remove all cached elements.
-   *
-   * @return {@link EChange}.
-   */
-  @Nonnull
-  EChange clearCache ();
+  VALUETYPE getFromCache (KEYTYPE aKey);
 }

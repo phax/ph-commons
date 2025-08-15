@@ -31,12 +31,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.UsedViaReflection;
+import com.helger.base.concurrent.ExecutorServiceHelper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.concurrent.BasicThreadFactory;
-import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
 

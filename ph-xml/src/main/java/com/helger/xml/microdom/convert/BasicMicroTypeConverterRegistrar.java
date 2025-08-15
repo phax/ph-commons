@@ -49,12 +49,12 @@ import com.helger.base.state.ELeftRight;
 import com.helger.base.state.EMandatory;
 import com.helger.base.state.ESuccess;
 import com.helger.base.state.ETopBottom;
+import com.helger.base.state.ETriState;
 import com.helger.base.state.EValidity;
 import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.datetime.XMLOffsetTime;
-import com.helger.commons.state.ETriState;
 
 import jakarta.annotation.Nonnull;
 

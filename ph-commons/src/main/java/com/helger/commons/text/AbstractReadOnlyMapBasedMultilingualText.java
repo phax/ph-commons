@@ -31,11 +31,11 @@ import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.commons.debug.GlobalDebugExt;
 import com.helger.commons.locale.LocaleHelper;
-import com.helger.commons.regex.RegExHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

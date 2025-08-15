@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.regex;
+package com.helger.cache.regex;
 
 import java.util.regex.Pattern;
 
@@ -23,7 +23,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
-import com.helger.commons.cache.Cache;
+import com.helger.cache.impl.Cache;
 
 import jakarta.annotation.Nonnull;
 

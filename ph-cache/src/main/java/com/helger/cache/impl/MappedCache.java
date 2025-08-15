@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache;
+package com.helger.cache.impl;
 
 import java.util.function.Function;
 
@@ -37,6 +37,8 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
+import com.helger.cache.api.ICache;
+import com.helger.cache.api.IMutableCache;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.map.SoftHashMap;

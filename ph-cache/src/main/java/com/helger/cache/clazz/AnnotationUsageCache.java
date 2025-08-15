@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache;
+package com.helger.cache.clazz;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
@@ -22,17 +22,17 @@ import java.lang.annotation.RetentionPolicy;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.state.ETriState;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.state.ETriState;
 
 import jakarta.annotation.Nonnull;
 
 /**
  * A simple cache for the usage of a certain annotation class at other classes.
  * <br>
- * Note: cannot use {@link com.helger.commons.cache.Cache} because it would need
+ * Note: cannot use {@link com.helger.cache.impl.Cache} because it would need
  * a <code>Class&lt;?&gt;</code> as a key and this would be a hard wired
  * reference.<br>
  * Since 10.1.3 the class is no longer read-write-locked, as the performance

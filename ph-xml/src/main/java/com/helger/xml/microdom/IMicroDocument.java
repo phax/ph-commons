@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.commons.state.ETriState;
+import com.helger.base.state.ETriState;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

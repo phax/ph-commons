@@ -26,6 +26,7 @@ import com.helger.annotation.RegEx;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
@@ -36,7 +37,6 @@ import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.level.IHasErrorLevels;
-import com.helger.commons.regex.RegExHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

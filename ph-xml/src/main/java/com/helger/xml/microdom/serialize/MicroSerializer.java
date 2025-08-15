@@ -21,11 +21,11 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.commons.state.ETriState;
 import com.helger.xml.microdom.IMicroAttribute;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroComment;

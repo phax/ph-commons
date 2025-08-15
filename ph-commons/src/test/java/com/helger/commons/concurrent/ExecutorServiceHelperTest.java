@@ -24,6 +24,8 @@ import java.util.concurrent.Executors;
 
 import org.junit.Test;
 
+import com.helger.base.concurrent.ExecutorServiceHelper;
+
 /**
  * Test class for class {@link ExecutorServiceHelper}
  *
