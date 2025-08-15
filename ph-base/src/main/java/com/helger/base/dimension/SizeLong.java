@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.dimension;
+package com.helger.base.dimension;
 
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
@@ -32,30 +32,35 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  */
 @Immutable
-public class SizeInt implements IHasDimensionInt
+public class SizeLong implements IHasDimensionLong
 {
-  private final int m_nWidth;
-  private final int m_nHeight;
+  private final long m_nWidth;
+  private final long m_nHeight;
 
-  public SizeInt (@Nonnull final IHasDimensionInt aObj)
+  public SizeLong (@Nonnull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeInt (@Nonnegative final int nWidth, @Nonnegative final int nHeight)
+  public SizeLong (@Nonnull final IHasDimensionLong aObj)
+  {
+    this (aObj.getWidth (), aObj.getHeight ());
+  }
+
+  public SizeLong (@Nonnegative final long nWidth, @Nonnegative final long nHeight)
   {
     m_nWidth = ValueEnforcer.isGE0 (nWidth, "Width");
     m_nHeight = ValueEnforcer.isGE0 (nHeight, "Height");
   }
 
   @Nonnegative
-  public int getWidth ()
+  public long getWidth ()
   {
     return m_nWidth;
   }
 
   @Nonnegative
-  public int getHeight ()
+  public long getHeight ()
   {
     return m_nHeight;
   }
@@ -72,7 +77,7 @@ public class SizeInt implements IHasDimensionInt
    */
   @Nonnull
   @CheckReturnValue
-  public SizeInt getBestMatchingSize (@Nonnegative final int nMaxWidth, @Nonnegative final int nMaxHeight)
+  public SizeLong getBestMatchingSize (@Nonnegative final long nMaxWidth, @Nonnegative final long nMaxHeight)
   {
     ValueEnforcer.isGT0 (nMaxWidth, "MaxWidth");
     ValueEnforcer.isGT0 (nMaxHeight, "MaxHeight");
@@ -82,56 +87,56 @@ public class SizeInt implements IHasDimensionInt
     if (dRelWidth > dRelHeight)
     {
       if (m_nWidth > nMaxWidth)
-        return new SizeInt (nMaxWidth, (int) (m_nHeight / dRelWidth));
+        return new SizeLong (nMaxWidth, (long) (m_nHeight / dRelWidth));
     }
     else
     {
       if (m_nHeight > nMaxHeight)
-        return new SizeInt ((int) (m_nWidth / dRelHeight), nMaxHeight);
+        return new SizeLong ((long) (m_nWidth / dRelHeight), nMaxHeight);
     }
     return this;
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeInt getScaledToWidth (@Nonnegative final int nNewWidth)
+  public SizeLong getScaledToWidth (@Nonnegative final long nNewWidth)
   {
     ValueEnforcer.isGT0 (nNewWidth, "NewWidth");
 
     if (m_nWidth == nNewWidth)
       return this;
     final double dMultFactory = MathHelper.getDividedDouble (nNewWidth, m_nWidth);
-    return new SizeInt (nNewWidth, (int) (m_nHeight * dMultFactory));
+    return new SizeLong (nNewWidth, (long) (m_nHeight * dMultFactory));
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeInt getScaledToHeight (@Nonnegative final int nNewHeight)
+  public SizeLong getScaledToHeight (@Nonnegative final long nNewHeight)
   {
     ValueEnforcer.isGT0 (nNewHeight, "NewHeight");
 
     if (m_nHeight == nNewHeight)
       return this;
     final double dMultFactory = MathHelper.getDividedDouble (nNewHeight, m_nHeight);
-    return new SizeInt ((int) (m_nWidth * dMultFactory), nNewHeight);
+    return new SizeLong ((long) (m_nWidth * dMultFactory), nNewHeight);
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeInt getAdded (@Nonnull final IHasDimensionInt aToAdd)
+  public SizeLong getAdded (@Nonnull final IHasDimensionLong aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
-    return new SizeInt (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
+    return new SizeLong (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeInt getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
+  public SizeLong getSubtracted (@Nonnull final IHasDimensionLong aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
-    return new SizeInt (m_nWidth - aToSubtract.getWidth (), m_nHeight - aToSubtract.getHeight ());
+    return new SizeLong (m_nWidth - aToSubtract.getWidth (), m_nHeight - aToSubtract.getHeight ());
   }
 
   @Override
@@ -141,7 +146,7 @@ public class SizeInt implements IHasDimensionInt
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final SizeInt rhs = (SizeInt) o;
+    final SizeLong rhs = (SizeLong) o;
     return m_nWidth == rhs.m_nWidth && m_nHeight == rhs.m_nHeight;
   }
 

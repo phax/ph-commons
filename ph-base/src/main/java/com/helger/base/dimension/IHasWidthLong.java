@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.dimension;
+package com.helger.base.dimension;
 
 import com.helger.annotation.Nonnegative;
 
@@ -23,11 +23,11 @@ import com.helger.annotation.Nonnegative;
  *
  * @author Philip Helger
  */
-public interface IHasWidthInt
+public interface IHasWidthLong
 {
   /**
    * @return The width of an object
    */
   @Nonnegative
-  int getWidth ();
+  long getWidth ();
 }

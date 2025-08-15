@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.dimension;
+package com.helger.base.dimension;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -23,8 +23,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.base.BaseTestHelper;
 import com.helger.base.mock.CommonsAssert;
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link SizeDouble}.
@@ -55,12 +55,12 @@ public final class SizeDoubleTest
     catch (final IllegalArgumentException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240),
-                                                                       new SizeDouble (320, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240),
-                                                                           new SizeDouble (321, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240),
-                                                                           new SizeDouble (320, 241));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240),
+                                                                    new SizeDouble (320, 240));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240),
+                                                                        new SizeDouble (321, 240));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240),
+                                                                        new SizeDouble (320, 241));
   }
 
   @Test

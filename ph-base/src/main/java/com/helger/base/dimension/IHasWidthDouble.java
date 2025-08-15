@@ -14,20 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.dimension;
+package com.helger.base.dimension;
 
 import com.helger.annotation.Nonnegative;
 
 /**
- * Interface for objects having a height.
+ * Interface for objects having a width.
  *
  * @author Philip Helger
  */
-public interface IHasHeightLong
+public interface IHasWidthDouble
 {
   /**
-   * @return The height of an object
+   * @return The width of an object
    */
   @Nonnegative
-  long getHeight ();
+  double getWidth ();
 }

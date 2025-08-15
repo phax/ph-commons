@@ -32,6 +32,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.dimension.SizeInt;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.state.EChange;
 import com.helger.base.statistics.IMutableStatisticsHandlerCache;
@@ -39,7 +40,6 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.map.LRUMap;
-import com.helger.commons.dimension.SizeInt;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.statistics.StatisticsManager;
 

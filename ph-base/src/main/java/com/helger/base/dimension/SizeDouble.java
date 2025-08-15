@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.dimension;
+package com.helger.base.dimension;
 
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
@@ -32,40 +32,45 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  */
 @Immutable
-public class SizeFloat implements IHasDimensionFloat
+public class SizeDouble implements IHasDimensionDouble
 {
-  private final float m_dWidth;
-  private final float m_dHeight;
+  private final double m_dWidth;
+  private final double m_dHeight;
 
-  public SizeFloat (@Nonnull final IHasDimensionInt aObj)
+  public SizeDouble (@Nonnull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeFloat (@Nonnull final IHasDimensionLong aObj)
+  public SizeDouble (@Nonnull final IHasDimensionLong aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeFloat (@Nonnull final IHasDimensionFloat aObj)
+  public SizeDouble (@Nonnull final IHasDimensionFloat aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeFloat (@Nonnegative final float dWidth, @Nonnegative final float dHeight)
+  public SizeDouble (@Nonnull final IHasDimensionDouble aObj)
+  {
+    this (aObj.getWidth (), aObj.getHeight ());
+  }
+
+  public SizeDouble (@Nonnegative final double dWidth, @Nonnegative final double dHeight)
   {
     m_dWidth = ValueEnforcer.isGE0 (dWidth, "Width");
     m_dHeight = ValueEnforcer.isGE0 (dHeight, "Height");
   }
 
   @Nonnegative
-  public float getWidth ()
+  public double getWidth ()
   {
     return m_dWidth;
   }
 
   @Nonnegative
-  public float getHeight ()
+  public double getHeight ()
   {
     return m_dHeight;
   }
@@ -82,84 +87,102 @@ public class SizeFloat implements IHasDimensionFloat
    */
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getBestMatchingSize (@Nonnegative final float dMaxWidth, @Nonnegative final float dMaxHeight)
+  public SizeDouble getBestMatchingSize (@Nonnegative final double dMaxWidth, @Nonnegative final double dMaxHeight)
   {
     ValueEnforcer.isGT0 (dMaxWidth, "MaxWidth");
     ValueEnforcer.isGT0 (dMaxHeight, "MaxHeight");
 
-    final float dRelWidth = m_dWidth / dMaxWidth;
-    final float dRelHeight = m_dHeight / dMaxHeight;
+    final double dRelWidth = m_dWidth / dMaxWidth;
+    final double dRelHeight = m_dHeight / dMaxHeight;
     if (dRelWidth > dRelHeight)
     {
       if (m_dWidth > dMaxWidth)
-        return new SizeFloat (dMaxWidth, m_dHeight / dRelWidth);
+        return new SizeDouble (dMaxWidth, m_dHeight / dRelWidth);
     }
     else
     {
       if (m_dHeight > dMaxHeight)
-        return new SizeFloat (m_dWidth / dRelHeight, dMaxHeight);
+        return new SizeDouble (m_dWidth / dRelHeight, dMaxHeight);
     }
     return this;
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getScaledToWidth (@Nonnegative final float dNewWidth)
+  public SizeDouble getScaledToWidth (@Nonnegative final double dNewWidth)
   {
     ValueEnforcer.isGT0 (dNewWidth, "NewWidth");
 
     if (m_dWidth == dNewWidth)
       return this;
-    final float dMultFactory = dNewWidth / m_dWidth;
-    return new SizeFloat (dNewWidth, m_dHeight * dMultFactory);
+    final double dMultFactory = dNewWidth / m_dWidth;
+    return new SizeDouble (dNewWidth, m_dHeight * dMultFactory);
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getScaledToHeight (@Nonnegative final float dNewHeight)
+  public SizeDouble getScaledToHeight (@Nonnegative final double dNewHeight)
   {
     ValueEnforcer.isGT0 (dNewHeight, "NewHeight");
 
     if (m_dHeight == dNewHeight)
       return this;
-    final float dMultFactory = dNewHeight / m_dHeight;
-    return new SizeFloat (m_dWidth * dMultFactory, dNewHeight);
+    final double dMultFactory = dNewHeight / m_dHeight;
+    return new SizeDouble (m_dWidth * dMultFactory, dNewHeight);
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getAdded (@Nonnull final IHasDimensionInt aToAdd)
+  public SizeDouble getAdded (@Nonnull final IHasDimensionInt aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
-    return new SizeFloat (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
+    return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getAdded (@Nonnull final IHasDimensionFloat aToAdd)
+  public SizeDouble getAdded (@Nonnull final IHasDimensionFloat aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
-    return new SizeFloat (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
+    return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
+  public SizeDouble getAdded (@Nonnull final IHasDimensionDouble aToAdd)
   {
-    ValueEnforcer.notNull (aToSubtract, "ToSubtract");
+    ValueEnforcer.notNull (aToAdd, "ToAdd");
 
-    return new SizeFloat (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
+    return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getSubtracted (@Nonnull final IHasDimensionFloat aToSubtract)
+  public SizeDouble getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
-    return new SizeFloat (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
+    return new SizeDouble (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
+  }
+
+  @Nonnull
+  @CheckReturnValue
+  public SizeDouble getSubtracted (@Nonnull final IHasDimensionFloat aToSubtract)
+  {
+    ValueEnforcer.notNull (aToSubtract, "ToSubtract");
+
+    return new SizeDouble (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
+  }
+
+  @Nonnull
+  @CheckReturnValue
+  public SizeDouble getSubtracted (@Nonnull final IHasDimensionDouble aToSubtract)
+  {
+    ValueEnforcer.notNull (aToSubtract, "ToSubtract");
+
+    return new SizeDouble (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
   }
 
   @Override
@@ -169,7 +192,7 @@ public class SizeFloat implements IHasDimensionFloat
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final SizeFloat rhs = (SizeFloat) o;
+    final SizeDouble rhs = (SizeDouble) o;
     return EqualsHelper.equals (m_dWidth, rhs.m_dWidth) && EqualsHelper.equals (m_dHeight, rhs.m_dHeight);
   }
 

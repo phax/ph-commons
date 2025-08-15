@@ -14,42 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.dimension;
-
-import com.helger.base.compare.CompareHelper;
-import com.helger.base.equals.EqualsHelper;
+package com.helger.base.dimension;
 
 /**
  * Interface for objects having a width and a height.
  *
  * @author Philip Helger
  */
-public interface IHasDimensionFloat extends IHasWidthFloat, IHasHeightFloat
+public interface IHasDimensionInt extends IHasWidthInt, IHasHeightInt
 {
   /**
-   * @return <code>true</code> if width &gt; height, <code>false</code> otherwise.
+   * @return <code>true</code> if width &gt; height, <code>false</code>
+   *         otherwise.
    * @since 9.2.1
    */
   default boolean isLandscape ()
   {
-    return CompareHelper.compare (getWidth (), getHeight ()) > 0;
+    return getWidth () > getHeight ();
   }
 
   /**
-   * @return <code>true</code> if height &gt; width, <code>false</code> otherwise.
+   * @return <code>true</code> if height &gt; width, <code>false</code>
+   *         otherwise.
    * @since 9.2.1
    */
   default boolean isPortrait ()
   {
-    return CompareHelper.compare (getHeight (), getWidth ()) > 0;
+    return getHeight () > getWidth ();
   }
 
   /**
-   * @return <code>true</code> if width equals height, <code>false</code> otherwise.
+   * @return <code>true</code> if width equals height, <code>false</code>
+   *         otherwise.
    * @since 9.2.1
    */
   default boolean isQuadratic ()
   {
-    return EqualsHelper.equals (getWidth (), getHeight ());
+    return getWidth () == getHeight ();
   }
 }

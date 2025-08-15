@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.dimension;
+package com.helger.base.dimension;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link SizeInt}.
@@ -54,11 +54,9 @@ public final class SizeIntTest
     catch (final IllegalArgumentException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
-                                                                           new SizeInt (321, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
-                                                                           new SizeInt (320, 241));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320, 240));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (321, 240));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (320, 241));
   }
 
   @Test
