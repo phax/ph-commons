@@ -16,7 +16,7 @@
  */
 package com.helger.commons.text;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nullable;
 
@@ -39,6 +39,6 @@ public interface IHasDescription
    */
   default boolean hasDescription ()
   {
-    return Strings.isNotEmpty (getDescription ());
+    return StringHelper.isNotEmpty (getDescription ());
   }
 }

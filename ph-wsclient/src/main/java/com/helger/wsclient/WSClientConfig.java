@@ -36,7 +36,7 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.http.CHttpHeader;
@@ -342,7 +342,7 @@ public class WSClientConfig
   public boolean hasUserName ()
   {
     final String sStr = m_sUserName;
-    return Strings.isNotEmpty (sStr);
+    return StringHelper.isNotEmpty (sStr);
   }
 
   /**
@@ -376,7 +376,7 @@ public class WSClientConfig
   public boolean hasPassword ()
   {
     final String sStr = m_sPassword;
-    return Strings.isNotEmpty (sStr);
+    return StringHelper.isNotEmpty (sStr);
   }
 
   /**
@@ -408,7 +408,7 @@ public class WSClientConfig
   public boolean hasSOAPAction ()
   {
     final String sStr = m_sSOAPAction;
-    return Strings.isNotEmpty (sStr);
+    return StringHelper.isNotEmpty (sStr);
   }
 
   /**
@@ -543,7 +543,7 @@ public class WSClientConfig
       aRequestContext.put ("com.sun.xml.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
     }
     final String sStr = m_sUserName;
-    if (Strings.isNotEmpty (sStr))
+    if (StringHelper.isNotEmpty (sStr))
     {
       aRequestContext.put (BindingProvider.USERNAME_PROPERTY, m_sUserName);
       aRequestContext.put (BindingProvider.PASSWORD_PROPERTY, m_sPassword);

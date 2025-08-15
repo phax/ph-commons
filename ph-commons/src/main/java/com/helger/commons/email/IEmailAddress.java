@@ -17,7 +17,7 @@
 package com.helger.commons.email;
 
 import com.helger.base.name.IHasDisplayName;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -46,7 +46,7 @@ public interface IEmailAddress extends IHasDisplayName
    */
   default boolean hasPersonal ()
   {
-    return Strings.isNotEmpty (getPersonal ());
+    return StringHelper.isNotEmpty (getPersonal ());
   }
 
   @Nonnull

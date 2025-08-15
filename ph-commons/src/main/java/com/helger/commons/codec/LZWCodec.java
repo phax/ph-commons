@@ -35,8 +35,8 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.stream.NonBlockingBitInputStream;
-import com.helger.commons.io.stream.NonBlockingBitOutputStream;
+import com.helger.io.stream.NonBlockingBitInputStream;
+import com.helger.io.stream.NonBlockingBitOutputStream;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

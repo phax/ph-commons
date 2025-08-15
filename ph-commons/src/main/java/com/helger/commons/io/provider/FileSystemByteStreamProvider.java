@@ -25,7 +25,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.EAppend;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.file.FileHelper;
+import com.helger.io.file.FileHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -195,7 +195,7 @@ public class StringHex
   @Nonnull
   public static String getHexStringLeadingZero (final byte nValue, final int nDigits)
   {
-    return Strings.getLeadingZero (getHexString (nValue), nDigits);
+    return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
   @Nonnull
@@ -215,8 +215,8 @@ public class StringHex
   public static String getHexStringLeadingZero (final int nValue, final int nDigits)
   {
     if (nValue < 0)
-      return "-" + Strings.getLeadingZero (getHexString (-nValue), nDigits - 1);
-    return Strings.getLeadingZero (getHexString (nValue), nDigits);
+      return "-" + StringHelper.getLeadingZero (getHexString (-nValue), nDigits - 1);
+    return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
   @Nonnull
@@ -229,8 +229,8 @@ public class StringHex
   public static String getHexStringLeadingZero (final long nValue, final int nDigits)
   {
     if (nValue < 0)
-      return "-" + Strings.getLeadingZero (getHexString (-nValue), nDigits - 1);
-    return Strings.getLeadingZero (getHexString (nValue), nDigits);
+      return "-" + StringHelper.getLeadingZero (getHexString (-nValue), nDigits - 1);
+    return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
   @Nonnull
@@ -243,7 +243,7 @@ public class StringHex
   public static String getHexStringLeadingZero (final short nValue, final int nDigits)
   {
     // Short are always handled unsigned
-    return Strings.getLeadingZero (getHexString (nValue), nDigits);
+    return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
 }

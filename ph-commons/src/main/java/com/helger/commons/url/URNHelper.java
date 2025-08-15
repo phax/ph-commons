@@ -1,7 +1,7 @@
 package com.helger.commons.url;
 
 import com.helger.annotation.RegEx;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.regex.RegExHelper;
 
 import jakarta.annotation.Nullable;
@@ -35,7 +35,7 @@ public final class URNHelper
    */
   public static boolean isValidURN (@Nullable final String sURN)
   {
-    if (Strings.isEmpty (sURN))
+    if (StringHelper.isEmpty (sURN))
       return false;
     return RegExHelper.stringMatchesPattern (REGEX_URN, sURN);
   }

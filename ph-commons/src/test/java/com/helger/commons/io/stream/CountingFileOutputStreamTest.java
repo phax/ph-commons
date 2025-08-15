@@ -27,7 +27,9 @@ import org.junit.Test;
 
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.io.file.FileOperations;
+import com.helger.io.file.FileOperations;
+import com.helger.io.stream.CountingFileOutputStream;
+import com.helger.io.stream.StringInputStream;
 
 /**
  * Test class for class {@link CountingFileOutputStream}.

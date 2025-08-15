@@ -49,7 +49,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
@@ -275,7 +275,7 @@ public final class PDTWebDateHelper
   @Nullable
   public static ZonedDateTime getDateTimeFromRFC822 (@Nullable final String sDate)
   {
-    if (Strings.isEmpty (sDate))
+    if (StringHelper.isEmpty (sDate))
       return null;
 
     final WithZoneId aPair = extractDateTimeZone (sDate.trim ());
@@ -305,7 +305,7 @@ public final class PDTWebDateHelper
   @Nullable
   public static OffsetDateTime getDateTimeFromW3C (@Nullable final String sDate)
   {
-    if (Strings.isEmpty (sDate))
+    if (StringHelper.isEmpty (sDate))
       return null;
 
     return parseOffsetDateTimeUsingMask (W3CDATETIME_MASKS, sDate.trim ());

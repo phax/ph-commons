@@ -24,7 +24,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -110,7 +110,7 @@ public enum EMacAlgorithm
   @Nullable
   public static EMacAlgorithm getFromStringIgnoreCase (@Nullable final String sAlgorithm)
   {
-    if (Strings.isEmpty (sAlgorithm))
+    if (StringHelper.isEmpty (sAlgorithm))
       return null;
     return EnumHelper.findFirst (EMacAlgorithm.class, x -> x.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
   }

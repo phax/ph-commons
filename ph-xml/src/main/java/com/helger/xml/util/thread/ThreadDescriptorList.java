@@ -28,8 +28,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringImplode;
-import com.helger.base.string.Strings;
 import com.helger.base.timing.StopWatch;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsEnumMap;
@@ -114,7 +114,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     final String sStr = m_sError;
 
     // Error always shown first!
-    if (Strings.isNotEmpty (sStr))
+    if (StringHelper.isNotEmpty (sStr))
       aSB.append ("ERROR retrieving all thread stack traces: ").append (m_sError).append ("\n\n");
 
     // Total thread count
@@ -142,7 +142,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   {
     final IMicroElement eRet = new MicroElement ("threadlist");
     final String sStr = m_sError;
-    if (Strings.isNotEmpty (sStr))
+    if (StringHelper.isNotEmpty (sStr))
       eRet.addElement ("error").addText (m_sError);
 
     // Overall thread count

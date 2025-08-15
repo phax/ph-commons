@@ -22,7 +22,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.map.IntObjectMap;
@@ -145,7 +145,7 @@ public class Homoglyph
       m_sText = sText;
 
       final IntBuffer aBuf = IntBuffer.allocate (sText.length ());
-      Strings.iterateCodePoints (sText, aBuf::put);
+      StringHelper.iterateCodePoints (sText, aBuf::put);
       aBuf.flip ();
       m_aCodepoints = new int [aBuf.limit ()];
       aBuf.get (m_aCodepoints);

@@ -27,8 +27,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringReplace;
-import com.helger.base.string.Strings;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.xml.EXMLVersion;
@@ -588,7 +588,7 @@ public final class XMLMaskHelper
                                           @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                           @Nullable final String s)
   {
-    if (Strings.isEmpty (s))
+    if (StringHelper.isEmpty (s))
       return CGlobal.EMPTY_CHAR_ARRAY;
 
     char [] aChars = s.toCharArray ();
@@ -640,7 +640,7 @@ public final class XMLMaskHelper
                                             @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                             @Nullable final String s)
   {
-    if (Strings.isEmpty (s))
+    if (StringHelper.isEmpty (s))
       return 0;
 
     char [] aChars = s.toCharArray ();
@@ -685,7 +685,7 @@ public final class XMLMaskHelper
                                     @Nullable final String s,
                                     @Nonnull final Writer aWriter) throws IOException
   {
-    if (Strings.isNotEmpty (s))
+    if (StringHelper.isNotEmpty (s))
       maskXMLTextTo (eXMLVersion, eXMLCharMode, eIncorrectCharHandling, s.toCharArray (), 0, s.length (), aWriter);
   }
 

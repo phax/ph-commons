@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.ArrayHelper;
-import com.helger.commons.callback.CallbackList;
+import com.helger.base.callback.CallbackList;
 
 import jakarta.annotation.Nonnull;
 

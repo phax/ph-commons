@@ -30,14 +30,13 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsTreeMap;
 import com.helger.collection.commons.CommonsTreeSet;
 import com.helger.collection.commons.ICommonsSortedMap;
 import com.helger.collection.commons.ICommonsSortedSet;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FileSystemIterator;
-import com.helger.commons.string.StringHelper;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FileSystemIterator;
 
 import jakarta.annotation.Nonnull;
 
@@ -134,7 +133,7 @@ public final class SPITestHelper
             while ((sLine = aReader.readLine ()) != null)
             {
               final String sImplClassName = StringHelper.trim (sLine);
-              if (Strings.isNotEmpty (sImplClassName))
+              if (StringHelper.isNotEmpty (sImplClassName))
               {
                 // Resolve class
                 if (bDoResolve)

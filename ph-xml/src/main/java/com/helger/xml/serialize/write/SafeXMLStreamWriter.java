@@ -39,7 +39,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.iterator.CombinedIterator;
 import com.helger.collection.stack.NonBlockingStack;
@@ -238,7 +238,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
         if (aState.m_nTextBasedContentCount == 0)
         {
           debug ( () -> "indent[" + nLevel + "]");
-          m_aEmitter.onContentElementWhitespace (Strings.getRepeated (m_sIndent, nLevel));
+          m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_sIndent, nLevel));
         }
       }
     }

@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.regex.RegExCache;
 
 import jakarta.annotation.Nullable;
@@ -81,7 +81,7 @@ public final class URLValidator
    */
   public static boolean isValid (@Nullable final String sURL)
   {
-    if (Strings.isEmpty (sURL))
+    if (StringHelper.isEmpty (sURL))
       return false;
 
     final String sUnifiedURL = getUnifiedURL (sURL);

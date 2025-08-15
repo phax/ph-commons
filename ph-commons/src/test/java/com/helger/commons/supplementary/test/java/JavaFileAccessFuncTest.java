@@ -37,11 +37,11 @@ import com.helger.base.system.EOperatingSystem;
 import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FileOperationManager;
-import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.file.LoggingFileOperationCallback;
-import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FileOperationManager;
+import com.helger.io.file.FileOperations;
+import com.helger.io.file.LoggingFileOperationCallback;
+import com.helger.io.file.SimpleFileIO;
 
 import jakarta.annotation.Nonnull;
 

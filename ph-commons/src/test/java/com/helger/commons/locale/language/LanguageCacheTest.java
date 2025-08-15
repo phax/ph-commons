@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.locale.LocaleCache;
@@ -197,9 +197,9 @@ public final class LanguageCacheTest
     for (final Locale aLanguage : aLanguages)
     {
       assertNotNull (aLanguage);
-      assertTrue (Strings.isNotEmpty (aLanguage.getLanguage ()));
-      assertTrue (Strings.isEmpty (aLanguage.getCountry ()));
-      assertTrue (Strings.isEmpty (aLanguage.getVariant ()));
+      assertTrue (StringHelper.isNotEmpty (aLanguage.getLanguage ()));
+      assertTrue (StringHelper.isEmpty (aLanguage.getCountry ()));
+      assertTrue (StringHelper.isEmpty (aLanguage.getVariant ()));
     }
   }
 
@@ -213,9 +213,9 @@ public final class LanguageCacheTest
     for (final Locale aLanguage : aLanguages)
     {
       assertNotNull (aLanguage);
-      assertTrue (Strings.isNotEmpty (aLanguage.getLanguage ()));
-      assertTrue (Strings.isEmpty (aLanguage.getCountry ()));
-      assertTrue (Strings.isEmpty (aLanguage.getVariant ()));
+      assertTrue (StringHelper.isNotEmpty (aLanguage.getLanguage ()));
+      assertTrue (StringHelper.isEmpty (aLanguage.getCountry ()));
+      assertTrue (StringHelper.isEmpty (aLanguage.getVariant ()));
     }
   }
 }

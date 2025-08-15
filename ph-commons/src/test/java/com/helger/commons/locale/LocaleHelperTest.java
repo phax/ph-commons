@@ -31,10 +31,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
+import com.helger.base.system.SystemHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.junit.DebugModeTestRule;
-import com.helger.commons.system.SystemHelper;
 
 /**
  * Test class for class {@link LocaleHelper}.

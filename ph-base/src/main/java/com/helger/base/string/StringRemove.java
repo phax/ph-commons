@@ -45,7 +45,7 @@ public final class StringRemove
   public static String removeAll (@Nullable final String sInputString, final char cRemoveChar)
   {
     // Is input string empty?
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return sInputString;
 
     // Does the char occur anywhere?
@@ -86,10 +86,10 @@ public final class StringRemove
   public static String removeAll (@Nullable final String sInputString, @Nullable final String sRemoveString)
   {
     // Is input string empty?
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return sInputString;
 
-    final int nRemoveLength = Strings.getLength (sRemoveString);
+    final int nRemoveLength = StringHelper.getLength (sRemoveString);
     if (nRemoveLength == 0)
     {
       // Nothing to be removed
@@ -136,7 +136,7 @@ public final class StringRemove
     ValueEnforcer.notNull (aRemoveChars, "RemoveChars");
 
     // Any input text?
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return "";
 
     // Anything to remove?
@@ -144,7 +144,7 @@ public final class StringRemove
       return sInputString;
 
     final StringBuilder aSB = new StringBuilder (sInputString.length ());
-    Strings.iterateChars (sInputString, cInput -> {
+    StringHelper.iterateChars (sInputString, cInput -> {
       if (!ArrayHelper.contains (aRemoveChars, cInput))
         aSB.append (cInput);
     });

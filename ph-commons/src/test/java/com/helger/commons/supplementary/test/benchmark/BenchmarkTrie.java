@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsTreeMap;
@@ -85,7 +85,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
       // 309 chars
       aStrings.add ("Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very ");
       // 1024 chars
-      aStrings.add (Strings.getRepeated ("a", 1024));
+      aStrings.add (StringHelper.getRepeated ("a", 1024));
     }
     final String [] aStringArray = aStrings.toArray (new String [aStrings.size ()]);
     LOGGER.info ("Comparing " +

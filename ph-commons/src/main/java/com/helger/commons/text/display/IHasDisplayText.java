@@ -19,7 +19,7 @@ package com.helger.commons.text.display;
 import java.util.Comparator;
 import java.util.Locale;
 
-import com.helger.commons.compare.IComparator;
+import com.helger.commons.compare.ComparatorHelper;
 import com.helger.commons.text.IHasText;
 
 import jakarta.annotation.Nonnull;
@@ -36,9 +36,8 @@ public interface IHasDisplayText
   /**
    * @param aContentLocale
    *        The locale to be used for resolving. May not be <code>null</code>.
-   * @return The display text of the object in the given locale. May be
-   *         <code>null</code> if the text could not be resolved in the passed
-   *         locale.
+   * @return The display text of the object in the given locale. May be <code>null</code> if the
+   *         text could not be resolved in the passed locale.
    */
   @Nullable
   String getDisplayText (@Nonnull Locale aContentLocale);
@@ -54,8 +53,9 @@ public interface IHasDisplayText
   }
 
   @Nonnull
-  static Comparator <IHasDisplayText> getComparatorCollating (@Nonnull final Locale aContentLocale, @Nullable final Locale aSortLocale)
+  static Comparator <IHasDisplayText> getComparatorCollating (@Nonnull final Locale aContentLocale,
+                                                              @Nullable final Locale aSortLocale)
   {
-    return IComparator.getComparatorCollating (x -> x.getDisplayText (aContentLocale), aSortLocale);
+    return ComparatorHelper.getComparatorCollating (x -> x.getDisplayText (aContentLocale), aSortLocale);
   }
 }

@@ -26,8 +26,8 @@ import org.junit.Test;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.IFileFilter;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.IFileFilter;
 import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
 

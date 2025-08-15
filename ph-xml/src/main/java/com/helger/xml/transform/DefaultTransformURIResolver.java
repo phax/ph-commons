@@ -20,7 +20,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
@@ -80,7 +80,7 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
   protected Source internalResolve (final String sHref, final String sBase) throws TransformerException
   {
     final String sRealBase;
-    if (Strings.isNotEmpty (sBase))
+    if (StringHelper.isNotEmpty (sBase))
     {
       // A base was provided - use it
       sRealBase = sBase;
@@ -88,7 +88,7 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
     else
     {
       final String sStr = m_sDefaultBase;
-      if (Strings.isNotEmpty (sStr))
+      if (StringHelper.isNotEmpty (sStr))
       {
         // No base provided but a default base present - use default base
         sRealBase = m_sDefaultBase;

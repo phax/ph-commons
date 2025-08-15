@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.Config;
 import com.helger.config.value.ConfiguredValue;
@@ -109,14 +109,14 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public String getAsStringOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
   {
     String ret = getAsString (sPrimary);
-    if (Strings.isEmpty (ret))
+    if (StringHelper.isEmpty (ret))
     {
       // Try the old names
       for (final String sOld : aOldOnes)
       {
         ret = getAsString (sOld);
         final String sStr = ret;
-        if (Strings.isNotEmpty (sStr))
+        if (StringHelper.isNotEmpty (sStr))
         {
           // Notify on old name usage
           m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);

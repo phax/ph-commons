@@ -36,12 +36,12 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.state.ESuccess;
+import com.helger.base.system.SystemHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.collection.iterator.IteratorHelper;
-import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.system.SystemHelper;
+import com.helger.io.file.SimpleFileIO;
 
 /**
  * Test class for class {@link HashCodeGenerator}.

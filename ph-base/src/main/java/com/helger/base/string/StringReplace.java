@@ -55,7 +55,7 @@ public final class StringReplace
                                        @Nonnull final String sSearchText,
                                        @Nullable final CharSequence aReplacementText)
   {
-    return replaceAll (sInputString, sSearchText, Strings.getNotNull (aReplacementText, ""));
+    return replaceAll (sInputString, sSearchText, StringHelper.getNotNull (aReplacementText, ""));
   }
 
   /**
@@ -84,7 +84,7 @@ public final class StringReplace
     ValueEnforcer.notNull (aReplacementText, "ReplacementText");
 
     // Is input string empty?
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return sInputString;
 
     // Replace old with the same new?
@@ -147,7 +147,7 @@ public final class StringReplace
                                    final char cReplacementChar)
   {
     // Is input string empty?
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return sInputString;
 
     // Replace old with the same new?
@@ -197,7 +197,7 @@ public final class StringReplace
                            "Loop detection: replacementText must not contain searchText");
 
     // Is input string empty?
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return sInputString;
 
     String sRet = sInputString;
@@ -266,7 +266,7 @@ public final class StringReplace
                                          @Nonnull final char [] [] aReplacementStrings)
   {
     // Any input text?
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return CGlobal.EMPTY_CHAR_ARRAY;
 
     return replaceMultiple (sInputString.toCharArray (), aSearchChars, aReplacementStrings);
@@ -362,7 +362,7 @@ public final class StringReplace
                                        @Nonnull final char [] [] aReplacementStrings,
                                        @Nonnull final Writer aTarget) throws IOException
   {
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return 0;
 
     return replaceMultipleTo (sInputString.toCharArray (), aSearchChars, aReplacementStrings, aTarget);
@@ -493,7 +493,7 @@ public final class StringReplace
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
 
     // Any input text?
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return CGlobal.EMPTY_CHAR_ARRAY;
 
     // Get char array
@@ -539,7 +539,7 @@ public final class StringReplace
     ValueEnforcer.notNull (aTarget, "Target");
 
     // Any input text?
-    if (Strings.isNotEmpty (sInputString))
+    if (StringHelper.isNotEmpty (sInputString))
     {
       // Any search chars?
       if (aSearchChars.length == 0)
@@ -585,7 +585,7 @@ public final class StringReplace
     ValueEnforcer.notNull (aTarget, "Target");
 
     // Any input text?
-    if (Strings.isNotEmpty (sInputString))
+    if (StringHelper.isNotEmpty (sInputString))
     {
       // Any search chars?
       if (aSearchChars.length == 0)
@@ -627,7 +627,7 @@ public final class StringReplace
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
 
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return "";
 
     final StringBuilder aSB = new StringBuilder (sInputString.length ());
@@ -650,7 +650,7 @@ public final class StringReplace
   public static String replaceMultiple (@Nullable final String sInputString,
                                         @Nullable final Map <String, String> aTransTable)
   {
-    if (Strings.isEmpty (sInputString) || aTransTable == null || aTransTable.isEmpty ())
+    if (StringHelper.isEmpty (sInputString) || aTransTable == null || aTransTable.isEmpty ())
       return sInputString;
 
     String sOutput = sInputString;
@@ -680,7 +680,7 @@ public final class StringReplace
                                         @Nullable final String [] aSearchTexts,
                                         @Nullable final String [] aReplacementTexts)
   {
-    if (Strings.isEmpty (sInputString))
+    if (StringHelper.isEmpty (sInputString))
       return sInputString;
 
     final int nSearchTextLength = aSearchTexts == null ? 0 : aSearchTexts.length;

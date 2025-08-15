@@ -41,7 +41,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.functional.IThrowingConsumer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
@@ -323,7 +323,7 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
 
     // Get the parameters for the key store
-    if (aKeyStoreType.isKeyStorePathRequired () && Strings.isEmpty (sKeyStorePath))
+    if (aKeyStoreType.isKeyStorePathRequired () && StringHelper.isEmpty (sKeyStorePath))
       return new LoadedKeyStore (null, EKeyStoreLoadError.KEYSTORE_NO_PATH);
 
     final KeyStore aKeyStore;
@@ -375,7 +375,7 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
     ValueEnforcer.notNull (aTargetClass, "TargetClass");
 
-    if (Strings.isEmpty (sKeyStoreKeyAlias))
+    if (StringHelper.isEmpty (sKeyStoreKeyAlias))
       return new LoadedKey <> (null, EKeyStoreLoadError.KEY_NO_ALIAS, sKeyStorePath);
 
     if (aKeyStoreKeyPassword == null)

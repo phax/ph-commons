@@ -19,7 +19,7 @@ package com.helger.security.keystore;
 import java.security.Provider;
 
 import com.helger.base.builder.IBuilder;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -109,12 +109,12 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
   {
     if (m_aType == null)
       throw new IllegalStateException ("Type is missing");
-    if (Strings.isEmpty (m_sPath))
+    if (StringHelper.isEmpty (m_sPath))
       throw new IllegalStateException ("Path is empty");
     if (m_aPassword == null)
       throw new IllegalStateException ("Password is missing");
     // Provider may be null
-    if (Strings.isEmpty (m_sKeyAlias))
+    if (StringHelper.isEmpty (m_sKeyAlias))
       throw new IllegalStateException ("KeyAlias is empty");
     if (m_aKeyPassword == null)
       throw new IllegalStateException ("KeyPassword is missing");

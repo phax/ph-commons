@@ -23,8 +23,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import com.helger.base.system.SystemHelper;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
-import com.helger.commons.system.SystemHelper;
 
 /**
  * Check if there is any difference between the different locking methods.

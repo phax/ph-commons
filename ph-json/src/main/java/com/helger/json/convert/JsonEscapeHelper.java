@@ -26,7 +26,7 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
 import com.helger.base.string.StringHex;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -78,7 +78,7 @@ public final class JsonEscapeHelper
   @Nullable
   public static String jsonEscape (@Nullable final String sInput)
   {
-    if (Strings.isEmpty (sInput))
+    if (StringHelper.isEmpty (sInput))
       return sInput;
 
     return jsonEscape (sInput.toCharArray ());
@@ -90,7 +90,7 @@ public final class JsonEscapeHelper
     if (aInput == null)
       return null;
 
-    if (!Strings.containsAny (aInput, CHARS_TO_MASK))
+    if (!StringHelper.containsAny (aInput, CHARS_TO_MASK))
       return new String (aInput);
 
     final StringBuilder aSB = new StringBuilder (aInput.length * 2);
@@ -102,10 +102,10 @@ public final class JsonEscapeHelper
   {
     ValueEnforcer.notNull (aSB, "StringBuilder");
 
-    if (Strings.isNotEmpty (sInput))
+    if (StringHelper.isNotEmpty (sInput))
     {
       final char [] aInput = sInput.toCharArray ();
-      if (!Strings.containsAny (aInput, CHARS_TO_MASK))
+      if (!StringHelper.containsAny (aInput, CHARS_TO_MASK))
         aSB.append (sInput);
       else
         jsonEscapeToStringBuilder (aInput, aSB);
@@ -133,10 +133,10 @@ public final class JsonEscapeHelper
   {
     ValueEnforcer.notNull (aWriter, "Writer");
 
-    if (Strings.isNotEmpty (sInput))
+    if (StringHelper.isNotEmpty (sInput))
     {
       final char [] aInput = sInput.toCharArray ();
-      if (!Strings.containsAny (aInput, CHARS_TO_MASK))
+      if (!StringHelper.containsAny (aInput, CHARS_TO_MASK))
         aWriter.write (aInput, 0, aInput.length);
       else
         jsonEscapeToWriter (aInput, aWriter);

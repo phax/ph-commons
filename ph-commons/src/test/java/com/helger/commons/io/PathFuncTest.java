@@ -39,7 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.system.EOperatingSystem;
-import com.helger.commons.io.file.PathHelper;
+import com.helger.io.file.PathHelper;
 
 /**
  * Playground for {@link Path} testing

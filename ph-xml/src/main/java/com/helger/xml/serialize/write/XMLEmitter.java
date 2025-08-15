@@ -19,6 +19,7 @@ package com.helger.xml.serialize.write;
 import java.io.Flushable;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.XMLConstants;
@@ -28,13 +29,11 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsTreeMap;
-import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSortedMap;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
 import com.helger.xml.CXML;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.microdom.IMicroDocumentType;
@@ -240,10 +239,10 @@ public class XMLEmitter implements AutoCloseable, Flushable
 
     // May be null for HTML
     final String sVersionString = m_eXMLVersion.getXMLVersionString ();
-    if (Strings.isNotEmpty (sVersionString))
+    if (StringHelper.isNotEmpty (sVersionString))
       _append (" version=")._appendAttrValue (sVersionString);
 
-    if (Strings.isNotEmpty (sEncoding))
+    if (StringHelper.isNotEmpty (sEncoding))
       _append (" encoding=")._appendAttrValue (sEncoding);
 
     if (eStandalone.isDefined ())
@@ -381,7 +380,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   public void onProcessingInstruction (@Nonnull final String sTarget, @Nullable final String sData)
   {
     _append (PI_START)._append (sTarget);
-    if (Strings.isNotEmpty (sData))
+    if (StringHelper.isNotEmpty (sData))
       _append (' ')._append (sData);
     _append (PI_END);
     newLine ();
@@ -406,7 +405,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onContentElementWhitespace (@Nullable final CharSequence aWhitespaces)
   {
-    if (Strings.isNotEmpty (aWhitespaces))
+    if (StringHelper.isNotEmpty (aWhitespaces))
       _append (aWhitespaces.toString ());
   }
 
@@ -418,7 +417,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onComment (@Nullable final String sComment)
   {
-    if (Strings.isNotEmpty (sComment))
+    if (StringHelper.isNotEmpty (sComment))
     {
       if (isThrowExceptionOnNestedComments ())
         if (sComment.contains (COMMENT_START) || sComment.contains (COMMENT_END))
@@ -505,12 +504,12 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onCDATA (@Nullable final String sText)
   {
-    if (Strings.isNotEmpty (sText))
+    if (StringHelper.isNotEmpty (sText))
     {
       if (sText.indexOf (CDATA_END) >= 0)
       {
         // Split CDATA sections if they contain the illegal "]]>" marker
-        final ICommonsList <String> aParts = StringHelper.getExploded (CDATA_END, sText);
+        final List <String> aParts = StringHelper.getExploded (CDATA_END, sText);
         final int nParts = aParts.size ();
         for (int i = 0; i < nParts; ++i)
         {
@@ -534,7 +533,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   public void elementStartOpen (@Nullable final String sNamespacePrefix, @Nonnull final String sTagName)
   {
     _append ('<');
-    if (Strings.isNotEmpty (sNamespacePrefix))
+    if (StringHelper.isNotEmpty (sNamespacePrefix))
     {
       // We have an element namespace prefix
       _appendMasked (EXMLCharMode.ELEMENT_NAME, sNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
@@ -547,7 +546,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
                            @Nonnull final String sAttrValue)
   {
     _append (' ');
-    if (Strings.isNotEmpty (sAttrNamespacePrefix))
+    if (StringHelper.isNotEmpty (sAttrNamespacePrefix))
     {
       // We have an attribute namespace prefix
       _append (sAttrNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
@@ -650,7 +649,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     if (eBracketMode.isOpenClose ())
     {
       _append ("</");
-      if (Strings.isNotEmpty (sNamespacePrefix))
+      if (StringHelper.isNotEmpty (sNamespacePrefix))
         _appendMasked (EXMLCharMode.ELEMENT_NAME, sNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
       _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName)._append ('>');
     }

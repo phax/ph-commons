@@ -25,7 +25,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EMimeContentType}
@@ -39,8 +39,8 @@ public final class EMimeContentTypeTest
   {
     for (final EMimeContentType e : EMimeContentType.values ())
     {
-      assertTrue (Strings.isNotEmpty (e.getID ()));
-      assertTrue (Strings.isNotEmpty (e.getText ()));
+      assertTrue (StringHelper.isNotEmpty (e.getID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getText ()));
       assertNotNull (e.buildMimeType ("x-junit-test"));
       assertTrue (e.isTypeOf (e.getText () + "/x-junit-test"));
       assertTrue (e.isTypeOf (e.getText ().toLowerCase (Locale.US) + "/x-junit-test"));

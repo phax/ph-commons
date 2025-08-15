@@ -23,7 +23,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.datetime.PDTFactory;
 
@@ -52,7 +52,7 @@ public final class AuthToken implements IAuthToken
 
     // create new ID
     m_sID = AuthTokenIDGenerator.generateNewTokenID ();
-    if (Strings.isEmpty (m_sID))
+    if (StringHelper.isEmpty (m_sID))
       throw new IllegalStateException ("Failed to create token ID");
 
     m_aIdentification = aIdentification;

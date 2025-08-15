@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.state.ETriState;
@@ -45,7 +45,7 @@ public final class JsonMapperTest
     for (final ETriState e : ETriState.values ())
     {
       final String sJson = JsonMapper.getJsonTriState (e);
-      assertTrue (Strings.isNotEmpty (sJson));
+      assertTrue (StringHelper.isNotEmpty (sJson));
       assertSame (e, JsonMapper.getAsTriState (sJson));
     }
 

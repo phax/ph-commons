@@ -26,7 +26,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
@@ -383,7 +383,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   static Predicate <? super IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
                                                                       @Nullable final String sTagOrLocalName)
   {
-    if (Strings.isEmpty (sNamespaceURI))
+    if (StringHelper.isEmpty (sNamespaceURI))
       return filterName (sTagOrLocalName);
 
     return x -> x.hasNamespaceURI (sNamespaceURI) && x.hasLocalName (sTagOrLocalName);

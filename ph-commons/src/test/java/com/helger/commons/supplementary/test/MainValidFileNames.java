@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.io.file.FileHelper;
+import com.helger.io.file.FileHelper;
 
 public final class MainValidFileNames
 {

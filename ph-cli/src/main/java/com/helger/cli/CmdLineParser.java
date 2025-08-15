@@ -24,15 +24,14 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringImplode;
-import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -160,7 +159,7 @@ public class CmdLineParser
       for (int nArgIndex = 0; nArgIndex < aArgs.length; ++nArgIndex)
       {
         final String sArg = StringHelper.trim (aArgs[nArgIndex]);
-        if (Strings.isNotEmpty (sArg))
+        if (StringHelper.isNotEmpty (sArg))
         {
           final MatchedOption aMatchedOption = _findMatchingOption (aStrToOptionMap, sArg);
           if (aMatchedOption != null)
@@ -198,14 +197,14 @@ public class CmdLineParser
             final boolean bUnlimitedArgs = aOption.hasInfiniteArgs ();
             final ICommonsList <String> aValues = new CommonsArrayList <> ();
 
-            if (Strings.isNotEmpty (sValueInArg))
+            if (StringHelper.isNotEmpty (sValueInArg))
             {
               // As e.g. in "-Dtest=value"
               if (aOption.hasValueSeparator ())
-                Strings.explode (aOption.getValueSeparator (),
-                                 sValueInArg,
-                                 bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
-                                 aValues::add);
+                StringHelper.explode (aOption.getValueSeparator (),
+                                      sValueInArg,
+                                      bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
+                                      aValues::add);
               else
                 aValues.add (sValueInArg);
             }
@@ -232,15 +231,15 @@ public class CmdLineParser
               // Lets consume this argument
               nArgIndex++;
 
-              if (Strings.isNotEmpty (sNextArg))
+              if (StringHelper.isNotEmpty (sNextArg))
               {
                 // As e.g. in "-Dtest=value"
                 if (aOption.hasValueSeparator ())
                 {
-                  Strings.explode (aOption.getValueSeparator (),
-                                   sNextArg,
-                                   bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
-                                   aValues::add);
+                  StringHelper.explode (aOption.getValueSeparator (),
+                                        sNextArg,
+                                        bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
+                                        aValues::add);
                 }
                 else
                   aValues.add (sNextArg);

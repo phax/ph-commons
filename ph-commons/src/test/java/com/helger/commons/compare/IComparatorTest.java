@@ -35,8 +35,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.collection.commons.ICommonsList;
+import com.helger.base.compare.IComparator;
 import com.helger.collection.commons.CommonsIterableIterator;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -56,18 +57,19 @@ public final class IComparatorTest
   public void testCollating ()
   {
     final List <String> l = CollectionHelperExt.newList ("a", null, "c");
-    assertEquals (3, getSorted (l, IComparator.getComparatorCollating (Locale.US)).size ());
-    assertEquals (3, getSorted (l, IComparator.getComparatorCollating (Locale.US).reversed ()).size ());
-    assertEquals (3, getSorted (l, IComparator.getComparatorCollating (L_EN)).size ());
-    assertEquals (3, getSorted (l, IComparator.getComparatorCollating (L_FR).reversed ()).size ());
-    assertEquals (3, getSorted (l, IComparator.getComparatorCollating (Collator.getInstance (L_FR))).size ());
+    assertEquals (3, getSorted (l, ComparatorHelper.getComparatorCollating (Locale.US)).size ());
+    assertEquals (3, getSorted (l, ComparatorHelper.getComparatorCollating (Locale.US).reversed ()).size ());
+    assertEquals (3, getSorted (l, ComparatorHelper.getComparatorCollating (L_EN)).size ());
+    assertEquals (3, getSorted (l, ComparatorHelper.getComparatorCollating (L_FR).reversed ()).size ());
+    assertEquals (3, getSorted (l, ComparatorHelper.getComparatorCollating (Collator.getInstance (L_FR))).size ());
     assertEquals (3,
-                  getSorted (l, IComparator.getComparatorCollating (Collator.getInstance (L_FR)).reversed ()).size ());
-    CommonsTestHelper.testToStringImplementation (IComparator.getComparatorCollating (Locale.US));
+                  getSorted (l, ComparatorHelper.getComparatorCollating (Collator.getInstance (L_FR)).reversed ())
+                                                                                                                  .size ());
+    CommonsTestHelper.testToStringImplementation (ComparatorHelper.getComparatorCollating (Locale.US));
 
     try
     {
-      IComparator.getComparatorCollating ((Collator) null);
+      ComparatorHelper.getComparatorCollating ((Collator) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -83,11 +85,11 @@ public final class IComparatorTest
     final String [] x = { S1, S2, S3 };
 
     // Explicitly sort ascending
-    List <String> l = getSorted (x, IComparator.getComparatorCollating (Locale.US));
+    List <String> l = getSorted (x, ComparatorHelper.getComparatorCollating (Locale.US));
     assertArrayEquals (new String [] { S3, S1, S2 }, l.toArray ());
 
     // Explicitly sort descending
-    l = getSorted (x, IComparator.getComparatorCollating (Locale.US).reversed ());
+    l = getSorted (x, ComparatorHelper.getComparatorCollating (Locale.US).reversed ());
     assertArrayEquals (new String [] { S2, S1, S3 }, l.toArray ());
   }
 
@@ -103,19 +105,19 @@ public final class IComparatorTest
     final String [] x = { S1, S2, S3 };
 
     // default: sort ascending
-    ICommonsList <String> l = getSorted (x, IComparator.getComparatorCollating (Locale.GERMAN));
+    ICommonsList <String> l = getSorted (x, ComparatorHelper.getComparatorCollating (Locale.GERMAN));
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort ascending manually
-    l = getSorted (x, IComparator.getComparatorCollating (Locale.GERMAN));
+    l = getSorted (x, ComparatorHelper.getComparatorCollating (Locale.GERMAN));
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort descending manually
-    l = getSorted (x, IComparator.getComparatorCollating (Locale.GERMAN).reversed ());
+    l = getSorted (x, ComparatorHelper.getComparatorCollating (Locale.GERMAN).reversed ());
     assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
 
     // null locale allowed
-    IComparator.getComparatorCollating ((Locale) null);
+    ComparatorHelper.getComparatorCollating ((Locale) null);
     assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
   }
 
@@ -129,19 +131,19 @@ public final class IComparatorTest
     final String [] x = { S1, S2, S3, S4 };
 
     // Null values first
-    ICommonsList <String> l = getSorted (x, IComparator.getComparatorStringLongestFirst ());
+    ICommonsList <String> l = getSorted (x, ComparatorHelper.getComparatorStringLongestFirst ());
     assertArrayEquals (new String [] { S4, S1, S3, S2 }, l.toArray ());
 
     // Null values last
-    l = getSorted (x, IComparator.getComparatorStringLongestFirst (false));
+    l = getSorted (x, ComparatorHelper.getComparatorStringLongestFirst (false));
     assertArrayEquals (new String [] { S1, S3, S2, S4 }, l.toArray ());
 
     // Null values first
-    l = getSorted (x, IComparator.getComparatorStringShortestFirst ());
+    l = getSorted (x, ComparatorHelper.getComparatorStringShortestFirst ());
     assertArrayEquals (new String [] { S4, S3, S2, S1 }, l.toArray ());
 
     // Null values last
-    l = getSorted (x, IComparator.getComparatorStringShortestFirst (false));
+    l = getSorted (x, ComparatorHelper.getComparatorStringShortestFirst (false));
     assertArrayEquals (new String [] { S3, S2, S1, S4 }, l.toArray ());
   }
 
@@ -150,7 +152,7 @@ public final class IComparatorTest
   {
     final ICommonsList <String> aList = newList ("d", "c", "b", "a");
     final ICommonsList <String> aSorted = getSorted (new CommonsIterableIterator <> (aList),
-                                                     IComparator.getComparatorCollating (Locale.US));
+                                                     ComparatorHelper.getComparatorCollating (Locale.US));
     assertEquals (4, aSorted.size ());
     assertEquals ("a", aSorted.get (0));
     assertEquals ("b", aSorted.get (1));
@@ -247,7 +249,7 @@ public final class IComparatorTest
   public void testGetSortedByKey ()
   {
     assertNotNull (getSortedByKey ((Map <String, ?>) null));
-    assertNotNull (getSortedByKey (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
+    assertNotNull (getSortedByKey (null, ComparatorHelper.getComparatorCollating (Locale.US).reversed ()));
 
     try
     {
@@ -268,7 +270,7 @@ public final class IComparatorTest
     assertEquals ("K3", it.next ().getKey ());
 
     // reverse sort
-    it = getSortedByKey (aMap, IComparator.getComparatorCollating (Locale.US).reversed ()).entrySet ().iterator ();
+    it = getSortedByKey (aMap, ComparatorHelper.getComparatorCollating (Locale.US).reversed ()).entrySet ().iterator ();
     assertEquals ("K3", it.next ().getKey ());
     assertEquals ("K2", it.next ().getKey ());
     assertEquals ("K1", it.next ().getKey ());
@@ -281,7 +283,7 @@ public final class IComparatorTest
   public void testGetSortedByValue ()
   {
     assertNotNull (getSortedByValue ((Map <?, String>) null));
-    assertNotNull (getSortedByValue (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
+    assertNotNull (getSortedByValue (null, ComparatorHelper.getComparatorCollating (Locale.US).reversed ()));
 
     try
     {
@@ -302,7 +304,8 @@ public final class IComparatorTest
     assertEquals ("ValueC", it.next ().getValue ());
 
     // reverse sort
-    it = getSortedByValue (aMap, IComparator.getComparatorCollating (Locale.US).reversed ()).entrySet ().iterator ();
+    it = getSortedByValue (aMap, ComparatorHelper.getComparatorCollating (Locale.US).reversed ()).entrySet ()
+                                                                                                 .iterator ();
     assertEquals ("ValueC", it.next ().getValue ());
     assertEquals ("ValueB", it.next ().getValue ());
     assertEquals ("ValueA", it.next ().getValue ());

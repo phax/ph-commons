@@ -30,7 +30,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.iface.IHasByteArray;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 

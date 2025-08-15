@@ -16,15 +16,15 @@
  */
 package com.helger.json.mapping;
 
+import java.util.List;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.string.Strings;
-import com.helger.collection.commons.ICommonsList;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 
@@ -146,8 +146,8 @@ public final class JsonMapper
 
     final String sClassName = aObj.getAsString (JsonMapper.JSON_CLASS);
     final String sMessage = aObj.getAsString (JsonMapper.JSON_MESSAGE);
-    final ICommonsList <String> aStackTraceLines = StringHelper.getExploded (StackTraceHelper.DEFAULT_LINE_SEPARATOR,
-                                                                             aObj.getAsString (JsonMapper.JSON_STACK_TRACE));
+    final List <String> aStackTraceLines = StringHelper.getExploded (StackTraceHelper.DEFAULT_LINE_SEPARATOR,
+                                                                aObj.getAsString (JsonMapper.JSON_STACK_TRACE));
     if (sClassName == null)
       return null;
 
@@ -178,7 +178,7 @@ public final class JsonMapper
     final String sResourceID = aObj.getAsString (JSON_RESOURCE_ID);
     final int nLineNumber = aObj.getAsInt (JSON_LINE_NUM, -1);
     final int nColumnNumber = aObj.getAsInt (JSON_COLUMN_NUM, -1);
-    if (Strings.isEmpty (sResourceID) && nLineNumber < 0 && nColumnNumber < 0)
+    if (StringHelper.isEmpty (sResourceID) && nLineNumber < 0 && nColumnNumber < 0)
       return null;
 
     return new SimpleLocation (sResourceID, nLineNumber, nColumnNumber);

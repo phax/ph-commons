@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
@@ -123,7 +123,7 @@ public interface IJsonObject extends
   @Nonnull
   default IJsonObject addIfNotEmpty (@Nonnull final String sName, @Nullable final String sValue)
   {
-    if (Strings.isNotEmpty (sValue))
+    if (StringHelper.isNotEmpty (sValue))
       add (sName, sValue);
     return this;
   }

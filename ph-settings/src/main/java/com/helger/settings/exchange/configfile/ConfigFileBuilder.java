@@ -28,7 +28,7 @@ import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.system.SystemProperties;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
@@ -114,7 +114,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   @Nonnull
   public ConfigFileBuilder addPath (@Nullable final String sConfigPath)
   {
-    if (Strings.isNotEmpty (sConfigPath))
+    if (StringHelper.isNotEmpty (sConfigPath))
       m_aPaths.add (sConfigPath);
     return this;
   }

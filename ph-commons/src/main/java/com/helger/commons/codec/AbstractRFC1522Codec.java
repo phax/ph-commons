@@ -27,7 +27,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringEncoding;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.serialize.convert.SerializationConverter;
 
@@ -178,7 +178,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     if (nTo == nTerminator)
       throw new DecodeException ("RFC 1522 violation: charset token not found");
     final String sDestCharset = sEncodedText.substring (nFrom, nTo);
-    if (Strings.isEmpty (sDestCharset))
+    if (StringHelper.isEmpty (sDestCharset))
       throw new DecodeException ("RFC 1522 violation: charset not specified");
     final Charset aDestCharset = CharsetHelper.getCharsetFromNameOrNull (sDestCharset);
     if (aDestCharset == null)

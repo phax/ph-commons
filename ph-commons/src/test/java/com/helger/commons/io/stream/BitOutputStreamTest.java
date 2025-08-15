@@ -31,6 +31,8 @@ import org.junit.Test;
 import com.helger.base.CGlobal;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.io.stream.BitInputStream;
+import com.helger.io.stream.BitOutputStream;
 
 /**
  * Test class for class {@link BitOutputStream}.

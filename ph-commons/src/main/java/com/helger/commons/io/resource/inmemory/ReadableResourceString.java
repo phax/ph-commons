@@ -19,7 +19,7 @@ package com.helger.commons.io.resource.inmemory;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;
@@ -43,7 +43,7 @@ public class ReadableResourceString extends ReadableResourceByteArray
                                  @Nonnull final Charset aCharset)
   {
     // No copy needed
-    super (Strings.isNotEmpty (sResourceID) ? sResourceID : "string-" + sString.length () + "-" + sString.hashCode (),
+    super (StringHelper.isNotEmpty (sResourceID) ? sResourceID : "string-" + sString.length () + "-" + sString.hashCode (),
            sString.getBytes (aCharset),
            false);
   }

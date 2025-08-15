@@ -24,8 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.system.EOperatingSystem;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FilenameHelper;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FilenameHelper;
 
 import jakarta.annotation.Nonnull;
 

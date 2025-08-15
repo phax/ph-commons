@@ -44,8 +44,8 @@ import com.helger.base.iface.IHasSize;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IClearable;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringImplode;
-import com.helger.base.string.Strings;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
@@ -139,7 +139,7 @@ public class HttpHeaderMap implements
   {
     final char [] aOneLiner;
     int nLineLength = 0;
-    if (Strings.isNotEmpty (sValue))
+    if (StringHelper.isNotEmpty (sValue))
     {
       // First replace special characters with space
       // Make sure to merge all consecutive chars to a single space
@@ -215,7 +215,7 @@ public class HttpHeaderMap implements
   @ReturnsMutableObject
   private Map.Entry <String, ICommonsList <String>> _getHeaderEntryCaseInsensitive (@Nullable final String sName)
   {
-    if (Strings.isNotEmpty (sName))
+    if (StringHelper.isNotEmpty (sName))
       for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
         if (aEntry.getKey ().equalsIgnoreCase (sName))
           return aEntry;
@@ -534,7 +534,7 @@ public class HttpHeaderMap implements
   @ReturnsMutableCopy
   public ICommonsList <String> getAllHeaderValues (@Nullable final String sName)
   {
-    if (Strings.isNotEmpty (sName))
+    if (StringHelper.isNotEmpty (sName))
     {
       final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
@@ -554,7 +554,7 @@ public class HttpHeaderMap implements
   @Nullable
   public String getFirstHeaderValue (@Nullable final String sName)
   {
-    if (Strings.isNotEmpty (sName))
+    if (StringHelper.isNotEmpty (sName))
     {
       final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
@@ -576,7 +576,7 @@ public class HttpHeaderMap implements
   @Nullable
   public String getHeaderCombined (@Nullable final String sName, @Nonnull final String sDelimiter)
   {
-    if (Strings.isNotEmpty (sName))
+    if (StringHelper.isNotEmpty (sName))
     {
       final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
@@ -587,7 +587,7 @@ public class HttpHeaderMap implements
 
   public boolean containsHeaders (@Nullable final String sName)
   {
-    if (Strings.isEmpty (sName))
+    if (StringHelper.isEmpty (sName))
       return false;
     return _getHeaderListCaseInsensitive (sName) != null;
   }
@@ -615,7 +615,7 @@ public class HttpHeaderMap implements
   @Nonnull
   public EChange removeHeaders (@Nullable final String sName)
   {
-    if (Strings.isEmpty (sName))
+    if (StringHelper.isEmpty (sName))
       return EChange.UNCHANGED;
 
     final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntryCaseInsensitive (sName);

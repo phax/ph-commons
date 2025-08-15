@@ -24,11 +24,11 @@ import java.nio.charset.Charset;
 import com.helger.annotation.Nonempty;
 import com.helger.base.io.EAppend;
 import com.helger.base.state.ESuccess;
-import com.helger.commons.io.file.FileIOError;
-import com.helger.commons.io.file.FileOperationManager;
-import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.io.file.FileIOError;
+import com.helger.io.file.FileOperationManager;
+import com.helger.io.file.FilenameHelper;
+import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

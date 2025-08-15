@@ -20,7 +20,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.lang.ICloneable;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -43,7 +43,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
 
   public MicroDataAware (@Nullable final CharSequence aText)
   {
-    if (Strings.isEmpty (aText))
+    if (StringHelper.isEmpty (aText))
       m_aSB = new StringBuilder ();
     else
       m_aSB = new StringBuilder (aText);

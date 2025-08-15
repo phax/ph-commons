@@ -24,7 +24,7 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.bytes.ByteArrayWrapper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IHasByteArray;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 
@@ -94,7 +94,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
                                     final boolean bCopyNeeded)
   {
     // Ensure a unique resource ID
-    super (Strings.isNotEmpty (sResourceID) ? sResourceID : "bytes-" + nLen + "-" + Arrays.hashCode (aBytes));
+    super (StringHelper.isNotEmpty (sResourceID) ? sResourceID : "bytes-" + nLen + "-" + Arrays.hashCode (aBytes));
     ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLen);
     // Create a copy to avoid outside modifications
     m_aBytes = new ByteArrayWrapper (aBytes, nOfs, nLen, bCopyNeeded);

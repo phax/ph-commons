@@ -21,7 +21,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
@@ -250,7 +250,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       String sElementNSPrefix = null;
       if (bEmitNamespaces)
       {
-        sElementNamespaceURI = Strings.getNotNull (aElement.getNamespaceURI ());
+        sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
         // Eventually adds a namespace attribute in the AttrMap
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
@@ -260,7 +260,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         for (final IMicroAttribute aAttr : aElement.getAttributeObjs ())
         {
           final IMicroQName aAttrName = aAttr.getAttributeQName ();
-          final String sAttrNamespaceURI = Strings.getNotNull (aAttrName.getNamespaceURI ());
+          final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
           final String sAttrName = aAttrName.getName ();
           final String sAttrValue = aAttr.getAttributeValue ();
           String sAttrNSPrefix = null;

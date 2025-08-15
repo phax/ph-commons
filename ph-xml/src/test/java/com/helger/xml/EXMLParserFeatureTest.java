@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EXMLParserFeature}.
@@ -35,7 +35,7 @@ public final class EXMLParserFeatureTest
   {
     for (final EXMLParserFeature e : EXMLParserFeature.values ())
     {
-      assertTrue (Strings.isNotEmpty (e.getName ()));
+      assertTrue (StringHelper.isNotEmpty (e.getName ()));
       assertSame (e, EXMLParserFeature.valueOf (e.name ()));
     }
   }

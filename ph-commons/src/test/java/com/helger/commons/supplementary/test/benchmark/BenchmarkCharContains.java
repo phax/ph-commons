@@ -19,7 +19,7 @@ package com.helger.commons.supplementary.test.benchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.timing.StopWatch;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
@@ -59,7 +59,7 @@ public final class BenchmarkCharContains
         aStrs.add (sc);
         aStrs.add (sc + "/" + sc);
         aStrs.add (sc + "\\" + sc);
-        sc = Strings.getRepeated (c, 100);
+        sc = StringHelper.getRepeated (c, 100);
         aStrs.add (sc);
         aStrs.add (sc + "/" + sc);
         aStrs.add (sc + "\\" + sc);

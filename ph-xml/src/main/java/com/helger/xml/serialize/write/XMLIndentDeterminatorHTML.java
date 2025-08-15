@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -51,7 +51,7 @@ public class XMLIndentDeterminatorHTML implements IXMLIndentDeterminator
                                              final boolean bHasChildren,
                                              @Nonnull final EXMLSerializeIndent eDefaultIndent)
   {
-    if (Strings.isNotEmpty (sParentTagName) && _isPreOrCode (sParentTagName))
+    if (StringHelper.isNotEmpty (sParentTagName) && _isPreOrCode (sParentTagName))
     {
       // Don't indent or align
       return EXMLSerializeIndent.NONE;

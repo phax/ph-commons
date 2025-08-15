@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link ETriState}.
@@ -69,7 +69,7 @@ public final class ETriStateTest
 
     for (final ETriState eTriState : ETriState.values ())
     {
-      assertTrue (Strings.isNotEmpty (eTriState.getID ()));
+      assertTrue (StringHelper.isNotEmpty (eTriState.getID ()));
       assertSame (eTriState, ETriState.getFromIDOrNull (eTriState.getID ()));
       assertSame (eTriState, ETriState.getFromIDOrDefault (eTriState.getID (), null));
       assertSame (eTriState, ETriState.getFromIDOrUndefined (eTriState.getID ()));

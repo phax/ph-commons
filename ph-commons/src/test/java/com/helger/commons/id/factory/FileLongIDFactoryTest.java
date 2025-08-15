@@ -23,8 +23,8 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.io.file.FileOperations;
 
 /**
  * Test class for class {@link FileLongIDFactory}.

@@ -20,7 +20,7 @@ import java.util.List;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsList;
@@ -64,7 +64,7 @@ public final class StringTrieFuncTest <DATATYPE>
   @Nullable
   public DATATYPE get (@Nonnull @Nonempty final String sKey)
   {
-    if (Strings.isEmpty (sKey))
+    if (StringHelper.isEmpty (sKey))
       throw new IllegalArgumentException ("key must have length >= 1");
 
     final char [] aKey = sKey.toCharArray ();
@@ -143,7 +143,7 @@ public final class StringTrieFuncTest <DATATYPE>
 
   public void put (@Nonnull @Nonempty final String sKey, @Nullable final DATATYPE aValue)
   {
-    if (Strings.isEmpty (sKey))
+    if (StringHelper.isEmpty (sKey))
       throw new IllegalArgumentException ("key must have length >= 1");
 
     final char [] aChars = sKey.toCharArray ();
@@ -204,7 +204,7 @@ public final class StringTrieFuncTest <DATATYPE>
   @Nullable
   public String getLongestPrefixOf (@Nullable final String s)
   {
-    if (Strings.isEmpty (s))
+    if (StringHelper.isEmpty (s))
       return null;
 
     int nLength = 0;
@@ -257,7 +257,7 @@ public final class StringTrieFuncTest <DATATYPE>
   @Nonnull
   public ICommonsCollection <String> prefixMatch (@Nonnull @Nonempty final String sPrefix)
   {
-    if (Strings.isEmpty (sPrefix))
+    if (StringHelper.isEmpty (sPrefix))
       throw new IllegalArgumentException ("prefix must have length >= 1");
 
     final ICommonsList <String> aList = new CommonsArrayList <> ();

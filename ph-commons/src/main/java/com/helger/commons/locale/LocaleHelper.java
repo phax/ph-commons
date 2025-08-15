@@ -29,14 +29,14 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
+import com.helger.base.system.SystemHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.system.SystemHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -228,7 +228,7 @@ public final class LocaleHelper
   @Nonnull
   public static Locale getLocaleFromString (@Nullable final String sLocaleAsString)
   {
-    if (Strings.isEmpty (sLocaleAsString))
+    if (StringHelper.isEmpty (sLocaleAsString))
     {
       // not specified => getDefault
       return SystemHelper.getSystemLocale ();
@@ -363,7 +363,7 @@ public final class LocaleHelper
   @Nullable
   public static String getValidLanguageCode (@Nullable final String sCode)
   {
-    if (Strings.isNotEmpty (sCode) &&
+    if (StringHelper.isNotEmpty (sCode) &&
         (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2,8}", sCode) || isSpecialLocaleCode (sCode)))
     {
       return sCode.toLowerCase (Locale.ROOT);
@@ -383,7 +383,7 @@ public final class LocaleHelper
   public static String getValidCountryCode (@Nullable final String sCode)
   {
     // Allow for 2 or 3 letter codes ("AT" and "AUT")
-    if (Strings.isNotEmpty (sCode))
+    if (StringHelper.isNotEmpty (sCode))
     {
       // Allow for 2 letter codes ("AT")
       // Second version allows for "1A" as Kosovo code

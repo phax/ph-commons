@@ -26,8 +26,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.functional.ITriConsumer;
 import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
-import com.helger.base.string.Strings;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
@@ -86,7 +86,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    */
   default boolean hasAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
-    if (Strings.isEmpty (sAttrName))
+    if (StringHelper.isEmpty (sAttrName))
       return false;
     return hasAttribute (new MicroQName (sNamespaceURI, sAttrName));
   }
@@ -125,7 +125,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   @Nullable
   default IMicroAttribute getAttributeObj (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
-    if (Strings.isEmpty (sAttrName))
+    if (StringHelper.isEmpty (sAttrName))
       return null;
     return getAttributeObj (new MicroQName (sNamespaceURI, sAttrName));
   }
@@ -916,7 +916,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   @Nonnull
   default EChange removeAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
-    if (Strings.isEmpty (sAttrName))
+    if (StringHelper.isEmpty (sAttrName))
       return EChange.UNCHANGED;
     return removeAttribute (new MicroQName (sNamespaceURI, sAttrName));
   }

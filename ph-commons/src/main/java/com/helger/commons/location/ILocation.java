@@ -18,7 +18,7 @@ package com.helger.commons.location;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.CGlobal;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -42,7 +42,7 @@ public interface ILocation
 
   default boolean hasResourceID ()
   {
-    return Strings.isNotEmpty (getResourceID ());
+    return StringHelper.isNotEmpty (getResourceID ());
   }
 
   /**
@@ -84,7 +84,7 @@ public interface ILocation
     StringBuilder ret = new StringBuilder ();
 
     final String sResourceID = getResourceID ();
-    if (Strings.isNotEmpty (sResourceID))
+    if (StringHelper.isNotEmpty (sResourceID))
       ret.append (sResourceID);
 
     if (hasLineNumber ())

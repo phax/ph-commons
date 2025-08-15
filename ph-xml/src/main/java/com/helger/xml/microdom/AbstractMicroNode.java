@@ -23,6 +23,7 @@ import java.util.function.Predicate;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.callback.CallbackList;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
@@ -31,7 +32,6 @@ import com.helger.collection.commons.CommonsEnumMap;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.callback.CallbackList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

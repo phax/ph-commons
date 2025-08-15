@@ -26,7 +26,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mime.IMimeType;
 
@@ -128,7 +128,7 @@ public final class MimeTypeInfoManagerTest
     for (final IMimeType aMimeType : aMgr.getAllMimeTypes ())
       assertNotNull (aMimeType);
     for (final String sMimeType : aMgr.getAllMimeTypeStrings ())
-      assertTrue (Strings.isNotEmpty (sMimeType));
+      assertTrue (StringHelper.isNotEmpty (sMimeType));
   }
 
   @Test

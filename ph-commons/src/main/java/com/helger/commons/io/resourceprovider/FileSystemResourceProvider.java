@@ -27,7 +27,7 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -109,7 +109,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
 
   public boolean supportsReading (@Nullable final String sName)
   {
-    if (Strings.isEmpty (sName))
+    if (StringHelper.isEmpty (sName))
       return false;
     if (ClassPathResource.isExplicitClassPathResource (sName))
       return false;
@@ -124,7 +124,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
 
   public boolean supportsWriting (@Nullable final String sName)
   {
-    if (Strings.isEmpty (sName))
+    if (StringHelper.isEmpty (sName))
       return false;
     if (ClassPathResource.isExplicitClassPathResource (sName))
       return false;

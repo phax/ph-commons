@@ -27,7 +27,7 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterable;
@@ -312,7 +312,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
           {
             // Recursive call
             final String sTextContent = aChildWithChildren.getTextContent ();
-            if (Strings.isNotEmpty (sTextContent))
+            if (StringHelper.isNotEmpty (sTextContent))
               aSB.append (sTextContent);
           }
     }
@@ -326,7 +326,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     final String sTextContent = getTextContent ();
 
     // Avoid having a conversion issue with empty strings!
-    if (Strings.isEmpty (sTextContent))
+    if (StringHelper.isEmpty (sTextContent))
       return null;
 
     return TypeConverter.convert (sTextContent, aDstClass);

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link ESortOrder}.
@@ -39,7 +39,7 @@ public final class ESortOrderTest
     for (final ESortOrder e : ESortOrder.values ())
     {
       assertTrue (e.getValue () >= 0);
-      assertTrue (Strings.isNotEmpty (e.getValueAsString ()));
+      assertTrue (StringHelper.isNotEmpty (e.getValueAsString ()));
       assertSame (e, ESortOrder.getFromValue (e.getValue (), null));
       assertSame (e, ESortOrder.getFromValueOrDefault (e.getValue ()));
       assertSame (e, ESortOrder.valueOf (e.name ()));

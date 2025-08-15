@@ -31,7 +31,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.locale.LocaleCache;
@@ -183,7 +183,7 @@ public final class LanguageCache implements IHasConditionalLogger
   @Nullable
   public Locale getLanguageExt (@Nullable final String sLanguage, @Nullable final IMissingLocaleHandler aMissingHandler)
   {
-    if (Strings.isEmpty (sLanguage))
+    if (StringHelper.isEmpty (sLanguage))
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
@@ -262,7 +262,7 @@ public final class LanguageCache implements IHasConditionalLogger
     for (final Locale aLocale : LocaleCache.getAllDefaultLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();
-      if (Strings.isNotEmpty (sLanguage))
+      if (StringHelper.isNotEmpty (sLanguage))
       {
         // Allows for duplicates!
         addLanguage (sLanguage);

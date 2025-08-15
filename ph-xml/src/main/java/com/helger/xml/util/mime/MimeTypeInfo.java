@@ -25,7 +25,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsLinkedHashSet;
@@ -252,7 +252,7 @@ public final class MimeTypeInfo
 
   public boolean containsMimeType (@Nullable final String sMimeType)
   {
-    if (Strings.isNotEmpty (sMimeType))
+    if (StringHelper.isNotEmpty (sMimeType))
       for (final MimeTypeWithSource aItem : m_aMimeTypes)
         if (aItem.getMimeTypeAsString ().equals (sMimeType))
           return true;
@@ -285,7 +285,7 @@ public final class MimeTypeInfo
 
   public boolean hasComment ()
   {
-    return Strings.isNotEmpty (m_sComment);
+    return StringHelper.isNotEmpty (m_sComment);
   }
 
   @Nonnull
@@ -354,7 +354,7 @@ public final class MimeTypeInfo
 
   public boolean containsExtension (@Nullable final String sExtension)
   {
-    if (Strings.isNotEmpty (sExtension))
+    if (StringHelper.isNotEmpty (sExtension))
       for (final ExtensionWithSource aExtension : m_aExtensions)
         if (aExtension.matches (sExtension))
           return true;
@@ -383,7 +383,7 @@ public final class MimeTypeInfo
 
   public boolean hasSource ()
   {
-    return Strings.isNotEmpty (m_sSource);
+    return StringHelper.isNotEmpty (m_sSource);
   }
 
   @Override

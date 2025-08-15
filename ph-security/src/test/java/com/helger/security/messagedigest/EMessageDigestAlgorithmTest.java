@@ -34,7 +34,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.codec.Base32Codec;
 
 /**
@@ -52,7 +52,7 @@ public final class EMessageDigestAlgorithmTest
   {
     for (final EMessageDigestAlgorithm eAlgo : EMessageDigestAlgorithm.values ())
     {
-      assertTrue (Strings.isNotEmpty (eAlgo.getAlgorithm ()));
+      assertTrue (StringHelper.isNotEmpty (eAlgo.getAlgorithm ()));
       assertNotNull (eAlgo.createMessageDigest ());
       assertSame (eAlgo, EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ()));
       assertSame (eAlgo,

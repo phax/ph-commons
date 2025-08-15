@@ -29,8 +29,8 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringReplace;
+import com.helger.base.system.SystemHelper;
 import com.helger.commons.cache.Cache;
-import com.helger.commons.system.SystemHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

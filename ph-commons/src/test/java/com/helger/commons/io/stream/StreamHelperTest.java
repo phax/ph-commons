@@ -51,6 +51,7 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
+import com.helger.io.stream.StreamHelperExt;
 
 /**
  * Test class for class {@link StreamHelperExt}.

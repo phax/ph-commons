@@ -20,7 +20,7 @@ import java.util.function.Function;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.builder.IBuilder;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -79,7 +79,7 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
   {
     if (m_aValueProvider == null)
       throw new IllegalStateException ("The mandatory Cache Value Provider is missing");
-    if (Strings.isEmpty (m_sName))
+    if (StringHelper.isEmpty (m_sName))
       throw new IllegalStateException ("The mandatory Cache Name is missing");
 
     return new Cache <> (m_aValueProvider, m_nMaxSize, m_sName, m_bAllowNullValues);

@@ -30,7 +30,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;
@@ -132,7 +132,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
   @Nonempty
   public String getStackTraceNotNull ()
   {
-    return Strings.isNotEmpty (m_sStackTrace) ? m_sStackTrace : "No stack trace available\n";
+    return StringHelper.isNotEmpty (m_sStackTrace) ? m_sStackTrace : "No stack trace available\n";
   }
 
   @Nonnull

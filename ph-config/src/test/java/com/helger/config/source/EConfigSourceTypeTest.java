@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EConfigSourceType}.
@@ -37,7 +37,7 @@ public final class EConfigSourceTypeTest
     for (final EConfigSourceType e : EConfigSourceType.values ())
     {
       assertNotNull (e.getID ());
-      assertTrue (Strings.isNotEmpty (e.getID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getID ()));
       assertTrue (e.getDefaultPriority () > 0);
       assertSame (e, EConfigSourceType.getFromIDOrNull (e.getID ()));
     }

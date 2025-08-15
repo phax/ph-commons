@@ -31,7 +31,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.locale.LocaleCache;
@@ -185,7 +185,7 @@ public class CountryCache implements IHasConditionalLogger
   @Nullable
   public Locale getCountryExt (@Nullable final String sCountry, @Nullable final IMissingLocaleHandler aMissingHandler)
   {
-    if (Strings.isEmpty (sCountry))
+    if (StringHelper.isEmpty (sCountry))
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
@@ -267,7 +267,7 @@ public class CountryCache implements IHasConditionalLogger
     for (final Locale aLocale : LocaleCache.getAllDefaultLocales ())
     {
       final String sCountry = aLocale.getCountry ();
-      if (Strings.isNotEmpty (sCountry))
+      if (StringHelper.isNotEmpty (sCountry))
         addCountry (sCountry);
     }
     CONDLOG.debug ( () -> "Reinitialized " + getClass ().getName ());

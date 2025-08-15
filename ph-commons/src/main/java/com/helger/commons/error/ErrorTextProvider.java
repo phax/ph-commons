@@ -26,8 +26,8 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.lang.ICloneable;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringReplace;
-import com.helger.base.string.Strings;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
@@ -309,7 +309,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
         case ERROR_TEXT:
         {
           final String sErrorText = aError.getErrorText (aContentLocale);
-          if (Strings.isNotEmpty (sErrorText))
+          if (StringHelper.isNotEmpty (sErrorText))
           {
             if (aSB.length () > 0)
               aSB.append (m_sFieldSep);
@@ -333,7 +333,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
           final Throwable aLinkedEx = aError.getLinkedException ();
           if (aLinkedEx != null)
           {
-            final String sMsg = Strings.getNotNull (aLinkedEx.getMessage (), "");
+            final String sMsg = StringHelper.getNotNull (aLinkedEx.getMessage (), "");
             if (aSB.length () > 0)
               aSB.append (m_sFieldSep);
             aSB.append (aItem.getFormattedText (sMsg));
@@ -369,7 +369,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
           final Throwable aCause = aLinkedEx != null ? aLinkedEx.getCause () : null;
           if (aCause != null)
           {
-            final String sMsg = Strings.getNotNull (aCause.getMessage ());
+            final String sMsg = StringHelper.getNotNull (aCause.getMessage ());
             if (aSB.length () > 0)
               aSB.append (m_sFieldSep);
             aSB.append (aItem.getFormattedText (sMsg));

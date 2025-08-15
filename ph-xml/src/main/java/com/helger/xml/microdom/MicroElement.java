@@ -34,7 +34,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.functional.ITriConsumer;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.commons.CommonsArrayList;
@@ -193,7 +193,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
     // Avoid having a conversion issue with empty strings!
-    if (Strings.isEmpty (sAttrValue))
+    if (StringHelper.isEmpty (sAttrValue))
       return null;
     // throws TypeConverterException if nothing can be converted
     return TypeConverter.convert (sAttrValue, aDstClass);

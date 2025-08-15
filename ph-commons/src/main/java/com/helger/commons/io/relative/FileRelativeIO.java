@@ -29,8 +29,8 @@ import com.helger.base.exception.InitializationException;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.timing.StopWatch;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.file.FileOperationManager;
-import com.helger.commons.io.file.FileSystemRecursiveIterator;
+import com.helger.io.file.FileOperationManager;
+import com.helger.io.file.FileSystemRecursiveIterator;
 
 import jakarta.annotation.Nonnull;
 

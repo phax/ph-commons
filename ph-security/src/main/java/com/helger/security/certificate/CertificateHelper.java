@@ -52,11 +52,10 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.codec.Base64;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringHex;
-import com.helger.base.string.Strings;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.io.stream.StringInputStream;
-import com.helger.commons.string.StringHelper;
+import com.helger.io.stream.StringInputStream;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
 
@@ -134,7 +133,7 @@ public final class CertificateHelper
   @Nullable
   public static String getWithoutPEMHeader (@Nullable final String sCertificate)
   {
-    if (Strings.isEmpty (sCertificate))
+    if (StringHelper.isEmpty (sCertificate))
       return null;
 
     // Remove special begin and end stuff
@@ -195,7 +194,7 @@ public final class CertificateHelper
 
     // Remove special begin and end stuff
     String sPlainString = getWithoutPEMHeader (sCertificate);
-    if (Strings.isEmpty (sPlainString))
+    if (StringHelper.isEmpty (sPlainString))
       return null;
 
     // Start building the result
@@ -340,7 +339,7 @@ public final class CertificateHelper
   public static X509Certificate convertStringToCertficate (@Nullable final String sCertString,
                                                            final boolean bWithFallback) throws CertificateException
   {
-    if (Strings.isEmpty (sCertString))
+    if (StringHelper.isEmpty (sCertString))
     {
       // No string -> no certificate
       return null;
@@ -415,7 +414,7 @@ public final class CertificateHelper
   {
     // Remove prefix/suffix
     final String sPlainCert = getWithoutPEMHeader (sCertificate);
-    if (Strings.isEmpty (sPlainCert))
+    if (StringHelper.isEmpty (sPlainCert))
       return null;
 
     // The remaining string is supposed to be Base64 encoded -> decode
@@ -501,7 +500,7 @@ public final class CertificateHelper
   @Nullable
   public static PrivateKey convertStringToPrivateKey (@Nullable final String sPrivateKey) throws GeneralSecurityException
   {
-    if (Strings.isEmpty (sPrivateKey))
+    if (StringHelper.isEmpty (sPrivateKey))
       return null;
 
     String sRealPrivateKey = StringHelper.trimStart (sPrivateKey, BEGIN_PRIVATE_KEY);

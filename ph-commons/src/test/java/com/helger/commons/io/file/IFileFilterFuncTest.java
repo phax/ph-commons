@@ -27,6 +27,8 @@ import java.io.FilenameFilter;
 
 import org.junit.Test;
 
+import com.helger.io.file.IFileFilter;
+
 /**
  * Test class for class {@link IFileFilter}.
  *

@@ -22,7 +22,7 @@ import java.security.Provider;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -97,7 +97,7 @@ public enum EMessageDigestAlgorithm
   @Nullable
   public static EMessageDigestAlgorithm getFromStringIgnoreCase (@Nullable final String sAlgorithm)
   {
-    if (Strings.isEmpty (sAlgorithm))
+    if (StringHelper.isEmpty (sAlgorithm))
       return null;
     return EnumHelper.findFirst (EMessageDigestAlgorithm.class, x -> x.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
   }

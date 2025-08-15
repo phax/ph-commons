@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.WrappedReader;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -40,7 +40,7 @@ public final class WrappedReaderTest
   @Test
   public void testAll () throws IOException
   {
-    final NonBlockingStringReader baos = new NonBlockingStringReader (Strings.getRepeated ('a', 100));
+    final NonBlockingStringReader baos = new NonBlockingStringReader (StringHelper.getRepeated ('a', 100));
     try (final WrappedReader ws = new WrappedReader (baos))
     {
       assertTrue (ws.markSupported ());

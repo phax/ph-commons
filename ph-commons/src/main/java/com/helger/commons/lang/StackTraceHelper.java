@@ -20,7 +20,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
@@ -149,7 +149,7 @@ public final class StackTraceHelper
 
     // avoid having a separator at the end -> remove if present
     if (sLineSeparator.length () > 0)
-      if (Strings.endsWith (aSB, sLineSeparator))
+      if (StringHelper.endsWith (aSB, sLineSeparator))
         aSB.delete (aSB.length () - sLineSeparator.length (), aSB.length ());
 
     return aSB.toString ();
@@ -286,7 +286,7 @@ public final class StackTraceHelper
 
     // avoid having a separator at the end -> remove if present
     if (sLineSeparator.length () > 0)
-      if (Strings.endsWith (aCallStack, sLineSeparator))
+      if (StringHelper.endsWith (aCallStack, sLineSeparator))
         aCallStack.delete (aCallStack.length () - sLineSeparator.length (), aCallStack.length ());
 
     // no changes

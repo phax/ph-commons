@@ -23,7 +23,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
@@ -71,7 +71,7 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
   @Nullable
   private ICommonsList <String> _find (@Nullable final String sOption)
   {
-    if (Strings.isEmpty (sOption))
+    if (StringHelper.isEmpty (sOption))
       return null;
 
     for (final Map.Entry <IOptionBase, ICommonsList <String>> aEntry : m_aParams.entrySet ())

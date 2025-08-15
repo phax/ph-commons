@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -109,7 +109,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
       // 309 chars
       aStrings.add ("Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very long string!! Very ");
       // 1024 chars
-      aStrings.add (Strings.getRepeated ("a", 1024));
+      aStrings.add (StringHelper.getRepeated ("a", 1024));
     }
     final String [] aStringArray = aStrings.toArray (new String [0]);
     LOGGER.info ("Comparing " +

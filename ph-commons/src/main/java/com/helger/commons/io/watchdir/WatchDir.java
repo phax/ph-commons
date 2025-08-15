@@ -39,12 +39,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.callback.CallbackList;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.system.EOperatingSystem;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.callback.CallbackList;
 
 import jakarta.annotation.Nonnull;
 

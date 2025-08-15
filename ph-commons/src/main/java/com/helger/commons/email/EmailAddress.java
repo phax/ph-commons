@@ -20,7 +20,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -54,7 +54,7 @@ public class EmailAddress implements IEmailAddress
     ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress),
                           () -> "The passed email address '" + sAddress + "' is illegal!");
     m_sAddress = EmailAddressHelper.getUnifiedEmailAddress (sAddress);
-    m_sPersonal = Strings.isEmpty (sPersonal) ? null : sPersonal;
+    m_sPersonal = StringHelper.isEmpty (sPersonal) ? null : sPersonal;
   }
 
   @Nonnull
@@ -97,12 +97,12 @@ public class EmailAddress implements IEmailAddress
   @Nullable
   public static EmailAddress createOnDemand (@Nullable final String sAddress)
   {
-    return Strings.isEmpty (sAddress) ? null : new EmailAddress (sAddress);
+    return StringHelper.isEmpty (sAddress) ? null : new EmailAddress (sAddress);
   }
 
   @Nullable
   public static EmailAddress createOnDemand (@Nullable final String sAddress, @Nullable final String sPersonal)
   {
-    return Strings.isEmpty (sAddress) ? null : new EmailAddress (sAddress, sPersonal);
+    return StringHelper.isEmpty (sAddress) ? null : new EmailAddress (sAddress, sPersonal);
   }
 }

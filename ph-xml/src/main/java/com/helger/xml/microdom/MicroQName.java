@@ -28,7 +28,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
@@ -60,7 +60,7 @@ public final class MicroQName implements IMicroQName
   {
     ValueEnforcer.notEmpty (sName, sName);
     // Unify empty string to null
-    m_sNamespaceURI = Strings.isEmpty (sNamespaceURI) ? null : sNamespaceURI;
+    m_sNamespaceURI = StringHelper.isEmpty (sNamespaceURI) ? null : sNamespaceURI;
 
     // Store only the local name (cut the prefix) if a namespace is present
     final int nPrefixEnd = m_sNamespaceURI != null ? sName.indexOf (CXML.XML_PREFIX_NAMESPACE_SEP) : -1;

@@ -21,7 +21,7 @@ import java.util.function.ObjIntConsumer;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.traits.IGenericAdderTrait;
 import com.helger.base.traits.IPrimitiveConverterTo;
 import com.helger.collection.base.FilterIterator;
@@ -54,7 +54,7 @@ public interface IJsonArray extends
   @Nonnull
   default IJsonArray addIfNotEmpty (@Nullable final String sValue)
   {
-    if (Strings.isNotEmpty (sValue))
+    if (StringHelper.isNotEmpty (sValue))
       add (sValue);
     return thisAsT ();
   }

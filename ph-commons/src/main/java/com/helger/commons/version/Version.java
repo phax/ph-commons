@@ -24,10 +24,9 @@ import com.helger.base.compare.IComparable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
-import com.helger.base.string.Strings;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -134,7 +133,7 @@ public class Version implements IComparable <Version>
     m_nMajor = nMajor;
     m_nMinor = nMinor;
     m_nMicro = nMicro;
-    m_sQualifier = Strings.isEmpty (sQualifier) ? null : sQualifier;
+    m_sQualifier = StringHelper.isEmpty (sQualifier) ? null : sQualifier;
   }
 
   @Nonnegative
@@ -163,7 +162,7 @@ public class Version implements IComparable <Version>
 
   public final boolean hasQualifier ()
   {
-    return Strings.isNotEmpty (m_sQualifier);
+    return StringHelper.isNotEmpty (m_sQualifier);
   }
 
   /**
@@ -405,7 +404,7 @@ public class Version implements IComparable <Version>
     // Extract major version number
     String [] aParts = _extSplit (s);
     aMajor = StringParser.parseIntObj (aParts[0]);
-    if (aMajor == null && Strings.isNotEmpty (aParts[0]))
+    if (aMajor == null && StringHelper.isNotEmpty (aParts[0]))
     {
       // Major version is not numeric, so everything is the qualifier
       sQualifier = s;
@@ -416,12 +415,12 @@ public class Version implements IComparable <Version>
 
     String sRest = !bDone && aParts.length > 1 ? aParts[1] : null;
     final String sStr = sRest;
-    if (Strings.isNotEmpty (sStr))
+    if (StringHelper.isNotEmpty (sStr))
     {
       // Parse minor version number part
       aParts = _extSplit (sRest);
       aMinor = StringParser.parseIntObj (aParts[0]);
-      if (aMinor == null && Strings.isNotEmpty (aParts[0]))
+      if (aMinor == null && StringHelper.isNotEmpty (aParts[0]))
       {
         // Minor version is not numeric, so everything is the qualifier
         sQualifier = sRest;
@@ -430,12 +429,12 @@ public class Version implements IComparable <Version>
 
       sRest = !bDone && aParts.length > 1 ? aParts[1] : null;
       final String sStr1 = sRest;
-      if (Strings.isNotEmpty (sStr1))
+      if (StringHelper.isNotEmpty (sStr1))
       {
         // Parse micro version number part
         aParts = _extSplit (sRest);
         aMicro = StringParser.parseIntObj (aParts[0]);
-        if (aMicro == null && Strings.isNotEmpty (aParts[0]))
+        if (aMicro == null && StringHelper.isNotEmpty (aParts[0]))
         {
           // Micro version is not numeric, so everything is the qualifier
           sQualifier = sRest;
@@ -453,7 +452,7 @@ public class Version implements IComparable <Version>
     final int nMajor = aMajor == null ? 0 : aMajor.intValue ();
     final int nMinor = aMinor == null ? 0 : aMinor.intValue ();
     final int nMicro = aMicro == null ? 0 : aMicro.intValue ();
-    sQualifier = Strings.isEmpty (sQualifier) ? null : sQualifier;
+    sQualifier = StringHelper.isEmpty (sQualifier) ? null : sQualifier;
 
     return new Version (nMajor, nMinor, nMicro, sQualifier);
   }
@@ -501,7 +500,7 @@ public class Version implements IComparable <Version>
     else
       nMicro = 0;
     if (aParts.length > 3)
-      sQualifier = Strings.isEmpty (aParts[3]) ? null : aParts[3];
+      sQualifier = StringHelper.isEmpty (aParts[3]) ? null : aParts[3];
     else
       sQualifier = null;
 

@@ -29,7 +29,7 @@ import com.helger.annotation.style.VisibleForTesting;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashSet;
@@ -38,10 +38,10 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mime.IMimeType;
+import com.helger.io.file.FilenameHelper;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -253,7 +253,7 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeInfo> getAllInfosOfFilename (@Nullable final String sFilename)
   {
-    if (Strings.isEmpty (sFilename))
+    if (StringHelper.isEmpty (sFilename))
       return null;
 
     final String sExtension = FilenameHelper.getExtension (sFilename);

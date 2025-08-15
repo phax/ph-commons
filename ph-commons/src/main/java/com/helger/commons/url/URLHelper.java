@@ -49,22 +49,20 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.base.string.StringReplace;
-import com.helger.base.string.Strings;
 import com.helger.base.wrapper.IMutableWrapper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
-import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.codec.URLCodec;
-import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.stream.StreamHelperExt;
-import com.helger.commons.string.StringHelper;
+import com.helger.io.file.FilenameHelper;
+import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -415,7 +413,7 @@ public final class URLHelper
       final String sQueryString = sRemainingHref.substring (nQuestionIndex + 1).trim ();
 
       // Maybe empty, if the URL ends with a '?'
-      if (Strings.isNotEmpty (sQueryString))
+      if (StringHelper.isNotEmpty (sQueryString))
         aParams = getParsedQueryParameters (sQueryString, aParameterDecoder);
 
       sPath = sRemainingHref.substring (0, nQuestionIndex).trim ();
@@ -431,15 +429,15 @@ public final class URLHelper
                                                            @Nullable final IDecoder <String, String> aParameterDecoder)
   {
     final URLParameterList aMap = new URLParameterList ();
-    if (Strings.isNotEmpty (sQueryString))
+    if (StringHelper.isNotEmpty (sQueryString))
     {
       for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))
         if (sKeyValuePair.length () > 0)
         {
-          final ICommonsList <String> aParts = StringHelper.getExploded (EQUALS, sKeyValuePair, 2);
+          final List <String> aParts = StringHelper.getExploded (EQUALS, sKeyValuePair, 2);
           final String sKey = aParts.get (0);
           // Maybe empty when passing something like "url?=value"
-          if (Strings.isNotEmpty (sKey))
+          if (StringHelper.isNotEmpty (sKey))
           {
             final String sValue = aParts.size () == 2 ? aParts.get (1) : "";
             if (sValue == null)
@@ -481,9 +479,9 @@ public final class URLHelper
                                      @Nullable final String sQueryParams,
                                      @Nullable final String sAnchor)
   {
-    final boolean bHasPath = Strings.isNotEmpty (sPath);
-    final boolean bHasQueryParams = Strings.isNotEmpty (sQueryParams);
-    final boolean bHasAnchor = Strings.isNotEmpty (sAnchor);
+    final boolean bHasPath = StringHelper.isNotEmpty (sPath);
+    final boolean bHasQueryParams = StringHelper.isNotEmpty (sQueryParams);
+    final boolean bHasAnchor = StringHelper.isNotEmpty (sAnchor);
     if (GlobalDebug.isDebugMode ())
     {
       // Consistency checks
@@ -523,7 +521,7 @@ public final class URLHelper
       {
         // Only if the "?" is not the last char otherwise the base href already
         // contains a parameter!
-        final char cLast = Strings.getLastChar (aSB);
+        final char cLast = StringHelper.getLastChar (aSB);
         if (cLast != QUESTIONMARK && cLast != AMPERSAND)
           aSB.append (AMPERSAND);
       }
@@ -538,7 +536,7 @@ public final class URLHelper
     // Append anchor
     if (bHasAnchor)
     {
-      if (Strings.getLastChar (aSB) != HASH)
+      if (StringHelper.getLastChar (aSB) != HASH)
         aSB.append (HASH);
       aSB.append (sAnchor);
     }
@@ -643,7 +641,7 @@ public final class URLHelper
   @Nullable
   public static URL getAsURL (@Nullable final String sURL, final boolean bWhine)
   {
-    if (Strings.isNotEmpty (sURL))
+    if (StringHelper.isNotEmpty (sURL))
       try
       {
         return new URL (sURL);
@@ -707,7 +705,7 @@ public final class URLHelper
   @Nullable
   public static URI getAsURI (@Nullable final String sURI)
   {
-    if (Strings.isNotEmpty (sURI))
+    if (StringHelper.isNotEmpty (sURI))
       try
       {
         return new URI (sURI);

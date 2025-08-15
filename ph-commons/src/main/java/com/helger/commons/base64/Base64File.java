@@ -29,7 +29,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedInputStream;
 import com.helger.base.io.nonblocking.NonBlockingBufferedOutputStream;
 import com.helger.base.state.ESuccess;
-import com.helger.commons.io.file.FileHelper;
+import com.helger.io.file.FileHelper;
 
 import jakarta.annotation.Nonnull;
 

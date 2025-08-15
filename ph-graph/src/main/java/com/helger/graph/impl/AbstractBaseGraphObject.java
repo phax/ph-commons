@@ -20,7 +20,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.collection.attr.AttributeContainerAny;
 import com.helger.graph.IMutableBaseGraphObject;
@@ -47,7 +47,7 @@ public abstract class AbstractBaseGraphObject implements IMutableBaseGraphObject
    */
   protected AbstractBaseGraphObject (@Nullable final String sID)
   {
-    if (Strings.isEmpty (sID))
+    if (StringHelper.isEmpty (sID))
       m_sID = GraphObjectIDFactory.createNewGraphObjectID ();
     else
       m_sID = sID;

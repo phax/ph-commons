@@ -26,7 +26,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -192,7 +192,7 @@ public class Option implements IOptionBase
 
   public boolean hasShortOpt ()
   {
-    return Strings.isNotEmpty (m_sShortOpt);
+    return StringHelper.isNotEmpty (m_sShortOpt);
   }
 
   public boolean hasShortOpt (@Nullable final String sShortOpt)
@@ -249,7 +249,7 @@ public class Option implements IOptionBase
    */
   public boolean hasDescription ()
   {
-    return Strings.isNotEmpty (m_sDescription);
+    return StringHelper.isNotEmpty (m_sDescription);
   }
 
   /**
@@ -328,7 +328,7 @@ public class Option implements IOptionBase
    */
   public boolean hasArgName ()
   {
-    return Strings.isNotEmpty (m_sArgName);
+    return StringHelper.isNotEmpty (m_sArgName);
   }
 
   /**

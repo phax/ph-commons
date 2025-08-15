@@ -37,10 +37,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.base.string.Strings;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FileOperations;
 
 import jakarta.annotation.Nonnull;
 
@@ -1153,7 +1152,7 @@ public final class MatrixIntTest
   private static void _try_success (final String s, final String e)
   {
     _print (">    " + s + "success\n");
-    if (Strings.isNotEmpty (e))
+    if (StringHelper.isNotEmpty (e))
       _print (">      Message: " + e + "\n");
   }
 

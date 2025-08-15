@@ -16,9 +16,12 @@
  */
 package com.helger.json.mapping;
 
+import java.util.List;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringImplode;
+import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.json.IJsonObject;
@@ -42,13 +45,13 @@ public class JsonUnmappedException extends Exception
 
   public JsonUnmappedException (@Nonnull final String sClassName,
                                 @Nullable final String sMessage,
-                                @Nonnull final ICommonsList <String> aStackTraceLines)
+                                @Nonnull final List <String> aStackTraceLines)
   {
     ValueEnforcer.notNull (sClassName, "ClassName");
     ValueEnforcer.notNull (aStackTraceLines, "StackTraceLines");
     m_sClassName = sClassName;
     m_sMessage = sMessage;
-    m_aStackTraceLines = aStackTraceLines.getClone ();
+    m_aStackTraceLines = new CommonsArrayList <> (aStackTraceLines);
   }
 
   /**

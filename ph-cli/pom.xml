@@ -53,7 +53,16 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
+      <artifactId>ph-collection</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-typeconvert</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
       <artifactId>ph-commons</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>

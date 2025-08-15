@@ -22,7 +22,7 @@ import java.nio.charset.Charset;
 
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -78,7 +78,7 @@ public interface ISimpleURL
    */
   default boolean hasAnchor ()
   {
-    return Strings.isNotEmpty (getAnchor ());
+    return StringHelper.isNotEmpty (getAnchor ());
   }
 
   /**

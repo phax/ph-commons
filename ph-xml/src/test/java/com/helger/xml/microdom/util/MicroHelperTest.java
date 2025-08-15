@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.io.stream.StringInputStream;
+import com.helger.io.stream.StringInputStream;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;

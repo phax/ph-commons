@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for {@link RegExHelper}.
@@ -355,7 +355,7 @@ public final class RegExHelperTest
     {
       final int nLenExpected = c == '\\' ? 5 : Character.isJavaIdentifierStart (c) ? 3 : 4;
       assertEquals ((int) c + " <" + c + "> " + nLenExpected,
-                    Strings.getRepeated (c, nLenExpected),
+                    StringHelper.getRepeated (c, nLenExpected),
                     RegExHelper.getAsIdentifier (";;;", c));
     }
 

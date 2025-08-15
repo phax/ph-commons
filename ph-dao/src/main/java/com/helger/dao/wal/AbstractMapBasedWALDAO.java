@@ -35,12 +35,13 @@ import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.CallbackList;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.functional.Predicates;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.CollectionFind;
@@ -51,7 +52,6 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.callback.CallbackList;
 import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.dao.DAOException;
 import com.helger.dao.EDAOActionType;
@@ -410,7 +410,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Nullable
   protected final IMPLTYPE internalDeleteItem (@Nullable final String sID, final boolean bInvokeCallbacks)
   {
-    if (Strings.isEmpty (sID))
+    if (StringHelper.isEmpty (sID))
       return null;
 
     final IMPLTYPE aDeletedItem = m_aMap.remove (sID);
@@ -703,7 +703,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.READ)
   protected final IMPLTYPE internalGetOfID (@Nullable final String sID)
   {
-    if (Strings.isEmpty (sID))
+    if (StringHelper.isEmpty (sID))
       return null;
 
     return m_aMap.get (sID);
@@ -720,7 +720,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   protected final IMPLTYPE getOfID (@Nullable final String sID)
   {
-    if (Strings.isEmpty (sID))
+    if (StringHelper.isEmpty (sID))
       return null;
 
     return m_aRWLock.readLockedGet ( () -> m_aMap.get (sID));
@@ -744,7 +744,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.READ)
   protected final boolean internalContainsWithID (@Nullable final String sID)
   {
-    if (Strings.isEmpty (sID))
+    if (StringHelper.isEmpty (sID))
       return false;
 
     return m_aMap.containsKey (sID);
@@ -753,7 +753,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean containsWithID (@Nullable final String sID)
   {
-    if (Strings.isEmpty (sID))
+    if (StringHelper.isEmpty (sID))
       return false;
 
     return m_aRWLock.readLockedBoolean ( () -> m_aMap.containsKey (sID));

@@ -21,11 +21,11 @@ import java.util.Map;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.CallbackList;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.helper.CollectionEqualsHelper;
-import com.helger.commons.callback.CallbackList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

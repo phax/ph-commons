@@ -20,7 +20,7 @@ import java.io.InputStream;
 
 import com.helger.annotation.WillNotClose;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 
@@ -48,7 +48,7 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
   public ReadableResourceInputStream (@Nullable final String sResourceID, @Nonnull @WillNotClose final InputStream aIS)
   {
     // Ensure a unique resource ID
-    super (Strings.isNotEmpty (sResourceID) ? sResourceID : "input-stream");
+    super (StringHelper.isNotEmpty (sResourceID) ? sResourceID : "input-stream");
     m_aIS = ValueEnforcer.notNull (aIS, "InputStream");
   }
 

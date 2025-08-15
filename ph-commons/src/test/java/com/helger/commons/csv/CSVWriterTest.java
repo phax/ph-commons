@@ -47,14 +47,15 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.List;
 
 import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.NonClosingWriter;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -223,7 +224,7 @@ public final class CSVWriterTest
   @Test
   public void testWriteAll () throws IOException
   {
-    final ICommonsList <ICommonsList <String>> allElements = new CommonsArrayList <> ();
+    final ICommonsList <List <String>> allElements = new CommonsArrayList <> ();
     allElements.add (StringHelper.getExploded ('#', "Name#Phone#Email"));
     allElements.add (StringHelper.getExploded ('#', "Glen#1234#glen@abcd.com"));
     allElements.add (StringHelper.getExploded ('#', "John#5678#john@efgh.com"));
@@ -249,7 +250,7 @@ public final class CSVWriterTest
   @Test
   public void testWriteAllObjects () throws IOException
   {
-    final ICommonsList <ICommonsList <String>> allElements = new CommonsArrayList <> ();
+    final ICommonsList <List <String>> allElements = new CommonsArrayList <> ();
     allElements.add (StringHelper.getExploded ('#', "Name#Phone#Email"));
     allElements.add (StringHelper.getExploded ('#', "Glen#1234#glen@abcd.com"));
     allElements.add (StringHelper.getExploded ('#', "John#5678#john@efgh.com"));
@@ -312,8 +313,8 @@ public final class CSVWriterTest
   }
 
   /**
-   * Tests the ability for the writer to apply quotes only where strings contain
-   * the separator, escape, quote or new line characters.
+   * Tests the ability for the writer to apply quotes only where strings contain the separator,
+   * escape, quote or new line characters.
    *
    * @throws IOException
    *         On IO error

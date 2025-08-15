@@ -151,8 +151,8 @@ public final class StringCount
   public static int getOccurrenceCount (@Nullable final String sText, @Nullable final String sSearch)
   {
     int ret = 0;
-    final int nTextLength = Strings.getLength (sText);
-    final int nSearchLength = Strings.getLength (sSearch);
+    final int nTextLength = StringHelper.getLength (sText);
+    final int nSearchLength = StringHelper.getLength (sSearch);
     if (nSearchLength > 0 && nTextLength >= nSearchLength)
     {
       int nLastIndex = 0;
@@ -160,7 +160,7 @@ public final class StringCount
       do
       {
         // Start searching from the last result
-        nIndex = Strings.getIndexOf (sText, nLastIndex, sSearch);
+        nIndex = StringHelper.getIndexOf (sText, nLastIndex, sSearch);
         if (nIndex != CGlobal.STRING_NOT_FOUND)
         {
           // Match found
@@ -209,7 +209,7 @@ public final class StringCount
   public static int getOccurrenceCount (@Nullable final String sText, final char cSearch)
   {
     int ret = 0;
-    final int nTextLength = Strings.getLength (sText);
+    final int nTextLength = StringHelper.getLength (sText);
     if (nTextLength >= 1)
     {
       int nLastIndex = 0;
@@ -217,7 +217,7 @@ public final class StringCount
       do
       {
         // Start searching from the last result
-        nIndex = Strings.getIndexOf (sText, nLastIndex, cSearch);
+        nIndex = StringHelper.getIndexOf (sText, nLastIndex, cSearch);
         if (nIndex != CGlobal.STRING_NOT_FOUND)
         {
           // Match found

@@ -28,7 +28,7 @@ import com.helger.annotation.style.UsedViaReflection;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
@@ -104,7 +104,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @Nullable
   public ISessionScope getSessionScopeOfID (@Nullable final String sScopeID)
   {
-    if (Strings.isEmpty (sScopeID))
+    if (StringHelper.isEmpty (sScopeID))
       return null;
 
     return m_aRWLock.readLockedGet ( () -> m_aSessionScopes.get (sScopeID));

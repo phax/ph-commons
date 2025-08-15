@@ -28,6 +28,13 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.io.file.EFileIOErrorCode;
+import com.helger.io.file.EFileIOOperation;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FileIOError;
+import com.helger.io.file.FileOperationManager;
+import com.helger.io.file.IFileOperationManager;
+import com.helger.io.file.SimpleFileIO;
 
 /**
  * Test class for class {@link FileOperationManager}.

@@ -34,11 +34,11 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.lang.ClassLoaderHelperExt;
 import com.helger.commons.url.URLHelper;
+import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -115,7 +115,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     m_sPath = getWithoutClassPathPrefix (sPath);
 
     // In case something was cut...
-    if (Strings.isEmpty (m_sPath))
+    if (StringHelper.isEmpty (m_sPath))
       throw new IllegalArgumentException ("No path specified after prefix: " + sPath);
 
     // Ensure the ClassLoader can be garbage collected if necessary
@@ -147,9 +147,9 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   @Nullable
   public static String getWithoutClassPathPrefix (@Nullable final String sPath)
   {
-    if (Strings.startsWith (sPath, CLASSPATH_PREFIX_LONG))
+    if (StringHelper.startsWith (sPath, CLASSPATH_PREFIX_LONG))
       return sPath.substring (CLASSPATH_PREFIX_LONG.length ());
-    if (Strings.startsWith (sPath, CLASSPATH_PREFIX_SHORT))
+    if (StringHelper.startsWith (sPath, CLASSPATH_PREFIX_SHORT))
       return sPath.substring (CLASSPATH_PREFIX_SHORT.length ());
     return sPath;
   }
@@ -165,7 +165,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
    */
   public static boolean isExplicitClassPathResource (@Nullable final String sName)
   {
-    return Strings.startsWith (sName, CLASSPATH_PREFIX_LONG) || Strings.startsWith (sName, CLASSPATH_PREFIX_SHORT);
+    return StringHelper.startsWith (sName, CLASSPATH_PREFIX_LONG) || StringHelper.startsWith (sName, CLASSPATH_PREFIX_SHORT);
   }
 
   @Nullable

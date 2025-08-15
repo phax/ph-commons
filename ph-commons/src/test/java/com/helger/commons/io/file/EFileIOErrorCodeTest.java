@@ -25,6 +25,9 @@ import java.io.File;
 
 import org.junit.Test;
 
+import com.helger.io.file.EFileIOErrorCode;
+import com.helger.io.file.EFileIOOperation;
+
 /**
  * Test class for class {@link EFileIOErrorCode}.
  *

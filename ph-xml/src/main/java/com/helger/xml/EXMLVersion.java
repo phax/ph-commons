@@ -17,7 +17,7 @@
 package com.helger.xml;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -80,7 +80,7 @@ public enum EXMLVersion
   public static EXMLVersion getFromVersionOrDefault (@Nullable final String sVersion,
                                                      @Nullable final EXMLVersion eDefault)
   {
-    if (Strings.isNotEmpty (sVersion))
+    if (StringHelper.isNotEmpty (sVersion))
       for (final EXMLVersion eVersion : values ())
         if (eVersion.getVersion ().equals (sVersion))
           return eVersion;

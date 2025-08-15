@@ -27,13 +27,13 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
-import com.helger.base.string.Strings;
-import com.helger.commons.io.file.FilenameHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.url.URLHelper;
+import com.helger.io.file.FilenameHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -67,9 +67,9 @@ public class DefaultResourceResolver implements IHasConditionalLogger
   {
     // jar:file - regular JDK
     // wsjar:file - Websphere
-    return Strings.startsWith (sName, "jar:file:") ||
-           Strings.startsWith (sName, "wsjar:file:") ||
-           Strings.startsWith (sName, "zip:file:");
+    return StringHelper.startsWith (sName, "jar:file:") ||
+           StringHelper.startsWith (sName, "wsjar:file:") ||
+           StringHelper.startsWith (sName, "zip:file:");
   }
 
   /**
@@ -221,7 +221,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
                                                        @Nullable final String sBaseURI,
                                                        @Nullable final ClassLoader aClassLoader)
   {
-    if (Strings.isEmpty (sSystemId) && Strings.isEmpty (sBaseURI))
+    if (StringHelper.isEmpty (sSystemId) && StringHelper.isEmpty (sBaseURI))
       throw new IllegalArgumentException ("Both systemID and baseURI are null!");
 
     if (LOGGER.isDebugEnabled ())
@@ -286,7 +286,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
       else
         aBaseFile = null;
 
-    if (Strings.isEmpty (sSystemId))
+    if (StringHelper.isEmpty (sSystemId))
     {
       // Nothing to resolve
       // Note: BaseFile should always be set here!

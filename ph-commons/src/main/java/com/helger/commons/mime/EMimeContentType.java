@@ -19,7 +19,7 @@ package com.helger.commons.mime;
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -112,7 +112,7 @@ public enum EMimeContentType implements IHasID <String>
    */
   public boolean isTypeOf (@Nullable final String sMimeType)
   {
-    if (Strings.isEmpty (sMimeType))
+    if (StringHelper.isEmpty (sMimeType))
       return false;
     final int nIdx = sMimeType.indexOf (CMimeType.SEPARATOR_CONTENTTYPE_SUBTYPE);
     if (nIdx < 0)

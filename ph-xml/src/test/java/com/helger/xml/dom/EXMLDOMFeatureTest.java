@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EXMLDOMFeature}.
@@ -35,8 +35,8 @@ public final class EXMLDOMFeatureTest
   {
     for (final EXMLDOMFeature e : EXMLDOMFeature.values ())
     {
-      assertTrue (Strings.isNotEmpty (e.getID ()));
-      assertTrue (Strings.isNotEmpty (e.getPlusFeature ()));
+      assertTrue (StringHelper.isNotEmpty (e.getID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getPlusFeature ()));
       assertSame (e, EXMLDOMFeature.valueOf (e.name ()));
     }
   }

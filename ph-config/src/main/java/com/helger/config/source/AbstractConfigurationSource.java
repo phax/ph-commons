@@ -24,7 +24,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
@@ -44,7 +44,7 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
 
   protected static final boolean hasTrailingWhitespace (@Nullable final String s)
   {
-    return Strings.isNotEmpty (s) && Character.isWhitespace (s.charAt (s.length () - 1));
+    return StringHelper.isNotEmpty (s) && Character.isWhitespace (s.charAt (s.length () - 1));
   }
 
   /**

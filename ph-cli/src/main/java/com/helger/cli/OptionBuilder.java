@@ -21,7 +21,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.cli.Option.EOptionMultiplicity;
 
 import jakarta.annotation.Nonnull;
@@ -282,7 +282,7 @@ public class OptionBuilder implements IBuilder <Option>
   @ReturnsMutableCopy
   public Option build ()
   {
-    if (Strings.isEmpty (m_sShortOpt) && Strings.isEmpty (m_sLongOpt))
+    if (StringHelper.isEmpty (m_sShortOpt) && StringHelper.isEmpty (m_sLongOpt))
       throw new IllegalStateException ("Either opt or longOpt must be specified");
     if (m_nMaxArgs != Option.INFINITE_VALUES && m_nMaxArgs < m_nMinArgs)
       throw new IllegalStateException ("MinArgs (" + m_nMinArgs + ") must be <= MaxArgs (" + m_nMaxArgs + ")");

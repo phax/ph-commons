@@ -21,7 +21,7 @@ import java.io.File;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistry;
-import com.helger.commons.io.file.FilenameHelper;
+import com.helger.io.file.FilenameHelper;
 
 import jakarta.annotation.Nonnull;
 

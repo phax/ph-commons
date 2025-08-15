@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link ENewLineMode}.
@@ -36,7 +36,7 @@ public final class ENewLineModeTest
   {
     for (final ENewLineMode e : ENewLineMode.values ())
     {
-      assertTrue (Strings.isNotEmpty (e.getText ()));
+      assertTrue (StringHelper.isNotEmpty (e.getText ()));
       assertSame (e, ENewLineMode.valueOf (e.name ()));
       assertSame (e, ENewLineMode.getFromTextOrNull (e.getText ()));
     }

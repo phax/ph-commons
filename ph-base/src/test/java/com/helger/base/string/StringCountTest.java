@@ -135,7 +135,7 @@ public final class StringCountTest
     assertEquals (0, StringCount.getCharCount ((char []) null, 'x'));
     assertEquals (0, StringCount.getCharCount ("", 'x'));
     for (int i = 0; i < 1000; ++i)
-      assertEquals (i, StringCount.getCharCount (Strings.getRepeated ('x', i), 'x'));
+      assertEquals (i, StringCount.getCharCount (StringHelper.getRepeated ('x', i), 'x'));
   }
 
   @Test

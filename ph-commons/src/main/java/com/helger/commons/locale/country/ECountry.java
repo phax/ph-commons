@@ -21,10 +21,9 @@ import java.util.Locale;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.display.IHasDisplayText;
 
 import jakarta.annotation.Nonnull;
@@ -525,7 +524,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   @Nullable
   public static ECountry getFromISOCodeOrNull (@Nullable final String sISO)
   {
-    if (Strings.isNotEmpty (sISO))
+    if (StringHelper.isNotEmpty (sISO))
     {
       final String sRealISO = sISO.toLowerCase (Locale.US);
       for (final ECountry eCountry : values ())

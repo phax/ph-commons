@@ -20,7 +20,7 @@ import java.util.Comparator;
 import java.util.Map;
 
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.settings.ISettings;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.typeconvert.impl.TypeConverter;
@@ -90,7 +90,7 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
   {
     // Create new settings object
     final String sSettingsName = aElement.getAttributeValue (ATTR_NAME);
-    if (Strings.isEmpty (sSettingsName))
+    if (StringHelper.isEmpty (sSettingsName))
       throw new IllegalStateException ("Settings 'name' is missing or empty");
     final T aSettings = m_aSettingFactory.apply (sSettingsName);
 

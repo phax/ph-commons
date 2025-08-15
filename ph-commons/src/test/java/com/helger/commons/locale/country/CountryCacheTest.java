@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.locale.LocaleCache;
@@ -203,9 +203,9 @@ public final class CountryCacheTest
     for (final Locale aCountry : aCountries)
     {
       assertNotNull (aCountry);
-      assertTrue (Strings.isEmpty (aCountry.getLanguage ()));
-      assertTrue (Strings.isNotEmpty (aCountry.getCountry ()));
-      assertTrue (Strings.isEmpty (aCountry.getVariant ()));
+      assertTrue (StringHelper.isEmpty (aCountry.getLanguage ()));
+      assertTrue (StringHelper.isNotEmpty (aCountry.getCountry ()));
+      assertTrue (StringHelper.isEmpty (aCountry.getVariant ()));
     }
   }
 
@@ -219,9 +219,9 @@ public final class CountryCacheTest
     for (final Locale aCountry : aCountries)
     {
       assertNotNull (aCountry);
-      assertTrue (Strings.isEmpty (aCountry.getLanguage ()));
-      assertTrue (Strings.isNotEmpty (aCountry.getCountry ()));
-      assertTrue (Strings.isEmpty (aCountry.getVariant ()));
+      assertTrue (StringHelper.isEmpty (aCountry.getLanguage ()));
+      assertTrue (StringHelper.isNotEmpty (aCountry.getCountry ()));
+      assertTrue (StringHelper.isEmpty (aCountry.getVariant ()));
     }
   }
 

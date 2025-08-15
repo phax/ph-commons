@@ -30,7 +30,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.VisibleForTesting;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -281,7 +281,7 @@ public final class TextVariableHelper
    */
   public static boolean containsVariables (@Nullable final String sSourceString)
   {
-    return Strings.isNotEmpty (sSourceString) && splitByVariables (sSourceString).size () > 1;
+    return StringHelper.isNotEmpty (sSourceString) && splitByVariables (sSourceString).size () > 1;
   }
 
   /**
@@ -301,7 +301,7 @@ public final class TextVariableHelper
   {
     ValueEnforcer.notNull (aTextFragmentHandler, "TextFragmentHandler");
     ValueEnforcer.notNull (aVariableNameHandler, "VariableNameHandler");
-    if (Strings.isEmpty (sSourceString))
+    if (StringHelper.isEmpty (sSourceString))
     {
       // Surely no variables
       aTextFragmentHandler.accept (sSourceString);
@@ -320,7 +320,7 @@ public final class TextVariableHelper
         boolean bText = true;
         for (final String sPiece : aPieces)
         {
-          if (Strings.isNotEmpty (sPiece))
+          if (StringHelper.isNotEmpty (sPiece))
           {
             if (bText)
               aTextFragmentHandler.accept (sPiece);
@@ -339,7 +339,7 @@ public final class TextVariableHelper
   {
     ValueEnforcer.notNull (aVariableProvider, "VariableProvider");
 
-    if (Strings.isEmpty (sSourceString))
+    if (StringHelper.isEmpty (sSourceString))
       return sSourceString;
 
     // Allocate some space

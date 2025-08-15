@@ -19,16 +19,15 @@ package com.helger.commons.text;
 import java.util.Comparator;
 import java.util.Locale;
 
-import com.helger.commons.compare.IComparator;
+import com.helger.commons.compare.ComparatorHelper;
 import com.helger.commons.text.display.IHasDisplayText;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Basic interface for object providing multilingual texts without arguments.
- * See also {@link IHasTextWithArgs} for a derived interface with argument
- * handling.
+ * Basic interface for object providing multilingual texts without arguments. See also
+ * {@link IHasTextWithArgs} for a derived interface with argument handling.
  *
  * @author Philip Helger
  */
@@ -36,9 +35,8 @@ import jakarta.annotation.Nullable;
 public interface IHasText
 {
   /**
-   * Get the text specific for the passed locale. The implementation class MAY
-   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
-   * <i>default</i>).
+   * Get the text specific for the passed locale. The implementation class MAY add
+   * locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt; <i>default</i>).
    *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
@@ -58,8 +56,9 @@ public interface IHasText
   }
 
   @Nonnull
-  static Comparator <IHasText> getComparatorCollating (@Nonnull final Locale aContentLocale, @Nullable final Locale aSortLocale)
+  static Comparator <IHasText> getComparatorCollating (@Nonnull final Locale aContentLocale,
+                                                       @Nullable final Locale aSortLocale)
   {
-    return IComparator.getComparatorCollating (x -> x.getText (aContentLocale), aSortLocale);
+    return ComparatorHelper.getComparatorCollating (x -> x.getText (aContentLocale), aSortLocale);
   }
 }

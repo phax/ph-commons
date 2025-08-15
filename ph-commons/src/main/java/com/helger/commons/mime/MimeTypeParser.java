@@ -25,10 +25,9 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.RFC2616Codec;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -114,7 +113,7 @@ public final class MimeTypeParser
   public static boolean isToken (@Nullable final String sToken)
   {
     // Check length
-    if (Strings.isEmpty (sToken))
+    if (StringHelper.isEmpty (sToken))
       return false;
 
     // Check that all chars are token chars
@@ -322,7 +321,7 @@ public final class MimeTypeParser
     final String sRealMimeType = StringHelper.trim (sMimeType);
 
     // No content -> no mime type
-    if (Strings.isEmpty (sRealMimeType))
+    if (StringHelper.isEmpty (sRealMimeType))
       return null;
 
     // Special case use sometimes from within browsers
@@ -362,7 +361,7 @@ public final class MimeTypeParser
       sContentSubType = sRest.trim ();
       sParameters = null;
     }
-    if (Strings.isEmpty (sContentSubType))
+    if (StringHelper.isEmpty (sContentSubType))
       throw new MimeTypeParserException ("MimeType '" +
                                          sRealMimeType +
                                          "' uses an empty content sub type '" +
@@ -370,7 +369,7 @@ public final class MimeTypeParser
                                          "'");
 
     final MimeType ret = new MimeType (eContentType, sContentSubType);
-    if (Strings.isNotEmpty (sParameters))
+    if (StringHelper.isNotEmpty (sParameters))
     {
       // We have parameters to extract
       _parseAndAddParameters (ret, sParameters, eQuotingAlgorithm);

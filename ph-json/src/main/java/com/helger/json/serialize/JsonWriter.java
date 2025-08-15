@@ -32,7 +32,7 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.NonClosingOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.json.CJson;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
@@ -91,7 +91,7 @@ public class JsonWriter
       // Complex (array or object)
       final boolean bIsIndentEnabled = m_aSettings.isIdentEnabled () && ((IJsonCollection) aJson).isNotEmpty ();
       final String sSingleIndent = m_aSettings.getIndentString ();
-      final String sIndentString = bIsIndentEnabled ? Strings.getRepeated (sSingleIndent, nIndentLevel) : "";
+      final String sIndentString = bIsIndentEnabled ? StringHelper.getRepeated (sSingleIndent, nIndentLevel) : "";
       final String sNestedIndentString = bIsIndentEnabled ? sIndentString + sSingleIndent : "";
       final String sNewlineString = bIsIndentEnabled ? m_aSettings.getNewlineString () : "";
       final boolean bQuoteNames = m_aSettings.isQuoteNames ();

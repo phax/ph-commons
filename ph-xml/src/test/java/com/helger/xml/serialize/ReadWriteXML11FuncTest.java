@@ -24,7 +24,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.system.SystemProperties;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
@@ -54,7 +54,7 @@ public final class ReadWriteXML11FuncTest
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eMain = aDoc.addElement ("main_tag");
     for (int i = 0; i < nElementCount; ++i)
-      eMain.addElement ("test").addText (Strings.getLeadingZero (i, 4));
+      eMain.addElement ("test").addText (StringHelper.getLeadingZero (i, 4));
 
     assertTrue (MicroWriter.writeToFile (aDoc, new File (sFilename), XWS_11).isSuccess ());
   }

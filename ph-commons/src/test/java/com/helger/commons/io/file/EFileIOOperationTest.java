@@ -21,6 +21,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.io.file.EFileIOOperation;
+
 /**
  * Test class for class {@link EFileIOOperation}.
  *

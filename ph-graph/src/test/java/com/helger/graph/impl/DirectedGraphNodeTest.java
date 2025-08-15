@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.IMutableDirectedGraphRelation;
 
@@ -42,11 +42,11 @@ public final class DirectedGraphNodeTest
   {
     final DirectedGraphNode n = new DirectedGraphNode ();
     assertNotNull (n.getID ());
-    assertTrue (Strings.isNotEmpty (n.getID ()));
+    assertTrue (StringHelper.isNotEmpty (n.getID ()));
 
     final DirectedGraphNode n1 = new DirectedGraphNode ("");
     assertNotNull (n1.getID ());
-    assertTrue (Strings.isNotEmpty (n1.getID ()));
+    assertTrue (StringHelper.isNotEmpty (n1.getID ()));
     assertEquals (0, n1.getAllFromNodes ().size ());
     assertEquals (0, n1.getIncomingRelationCount ());
     assertEquals (0, n1.getAllToNodes ().size ());

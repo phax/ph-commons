@@ -43,7 +43,7 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
@@ -141,7 +141,7 @@ public final class XMLHelper
 
   public static boolean hasNoNamespaceURI (@Nonnull final Node aNode)
   {
-    return Strings.isEmpty (aNode.getNamespaceURI ());
+    return StringHelper.isEmpty (aNode.getNamespaceURI ());
   }
 
   public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)
@@ -183,7 +183,7 @@ public final class XMLHelper
   @Nonnull
   public static Predicate <? super Element> filterElementWithNamespace ()
   {
-    return x -> x != null && Strings.isNotEmpty (x.getNamespaceURI ());
+    return x -> x != null && StringHelper.isNotEmpty (x.getNamespaceURI ());
   }
 
   @Nonnull
@@ -513,13 +513,13 @@ public final class XMLHelper
   {
     final String sFirstNS = aFirst.getNamespaceURI ();
     final String sSecondNS = aSecond.getNamespaceURI ();
-    if (Strings.isNotEmpty (sFirstNS))
+    if (StringHelper.isNotEmpty (sFirstNS))
     {
       // NS + local name
       return sFirstNS.equals (sSecondNS) && aFirst.getLocalName ().equals (aSecond.getLocalName ());
     }
     // No NS + tag name
-    return Strings.isEmpty (sSecondNS) && aFirst.getTagName ().equals (aSecond.getTagName ());
+    return StringHelper.isEmpty (sSecondNS) && aFirst.getTagName ().equals (aSecond.getTagName ());
   }
 
   @Nonnull
@@ -537,10 +537,10 @@ public final class XMLHelper
 
     final Function <String, String> funGetNSPrefix = aNamespaceCtx == null ? ns -> "" : ns -> {
       final String sStr = ns;
-      if (Strings.isNotEmpty (sStr))
+      if (StringHelper.isNotEmpty (sStr))
       {
         final String sPrefix = aNamespaceCtx.getPrefix (ns);
-        if (Strings.isNotEmpty (sPrefix))
+        if (StringHelper.isNotEmpty (sPrefix))
           return sPrefix + ":";
       }
       return "";
@@ -566,7 +566,7 @@ public final class XMLHelper
       final StringBuilder aName = new StringBuilder ();
       if (nNodeType == Node.ATTRIBUTE_NODE)
         aName.append ('@');
-      if (Strings.isNotEmpty (sNamespaceURI))
+      if (StringHelper.isNotEmpty (sNamespaceURI))
       {
         aName.append (funGetNSPrefix.apply (sNamespaceURI));
         aName.append (aCurNode.getLocalName ());

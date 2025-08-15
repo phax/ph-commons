@@ -25,7 +25,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.graph.IBaseGraph;
 import com.helger.graph.IBaseGraphNode;
 import com.helger.graph.IBaseGraphRelation;
@@ -96,7 +96,7 @@ public final class GraphVizHelper
     aSB.append ("node[shape=box];");
     aGraph.forEachNode (aGraphNode -> {
       aSB.append (aGraphNode.getID ());
-      if (Strings.isNotEmpty (sNodeLabelAttr))
+      if (StringHelper.isNotEmpty (sNodeLabelAttr))
       {
         final String sLabel = aGraphNode.attrs ().getAsString (sNodeLabelAttr);
         aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
@@ -107,7 +107,7 @@ public final class GraphVizHelper
     aGraph.forEachRelation (aGraphRelation -> {
       final Iterator <N> it = aGraphRelation.getAllConnectedNodes ().iterator ();
       aSB.append (it.next ().getID ()).append ("--").append (it.next ().getID ());
-      if (Strings.isNotEmpty (sRelationLabelAttr))
+      if (StringHelper.isNotEmpty (sRelationLabelAttr))
       {
         final String sLabel = aGraphRelation.attrs ().getAsString (sRelationLabelAttr);
         aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
@@ -151,7 +151,7 @@ public final class GraphVizHelper
     aSB.append ("node[shape=box];");
     aGraph.forEachNode (aGraphNode -> {
       aSB.append (aGraphNode.getID ());
-      if (Strings.isNotEmpty (sNodeLabelAttr))
+      if (StringHelper.isNotEmpty (sNodeLabelAttr))
       {
         final String sLabel = aGraphNode.attrs ().getAsString (sNodeLabelAttr);
         aSB.append ("[label=<")
@@ -166,7 +166,7 @@ public final class GraphVizHelper
     aSB.append ('\n');
     aGraph.forEachRelation (aGraphRelation -> {
       aSB.append (aGraphRelation.getFromID ()).append ("->").append (aGraphRelation.getToID ());
-      if (Strings.isNotEmpty (sRelationLabelAttr))
+      if (StringHelper.isNotEmpty (sRelationLabelAttr))
       {
         final String sLabel = aGraphRelation.attrs ().getAsString (sRelationLabelAttr);
         aSB.append ("[label=<")

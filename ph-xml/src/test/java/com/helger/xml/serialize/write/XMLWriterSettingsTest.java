@@ -28,7 +28,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.system.ENewLineMode;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -153,7 +153,7 @@ public final class XMLWriterSettingsTest
                       {
                         aXWS.setNewLineMode (eNewlineMode);
                         assertEquals (eNewlineMode, aXWS.getNewLineMode ());
-                        assertTrue (Strings.isNotEmpty (aXWS.getNewLineString ()));
+                        assertTrue (StringHelper.isNotEmpty (aXWS.getNewLineString ()));
                         for (final String sIndentation : new String [] { "\t", "  " })
                         {
                           aXWS.setIndentationString (sIndentation);

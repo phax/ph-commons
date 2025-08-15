@@ -27,8 +27,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
-import com.helger.commons.io.file.FileOperations;
+import com.helger.base.string.StringHelper;
+import com.helger.io.file.FileOperations;
 
 /**
  * Test class for class {@link GlobalIDFactory}.
@@ -228,7 +228,7 @@ public final class GlobalIDFactoryTest
   @Test
   public void testTooLongStringID ()
   {
-    final String sTooLongPrefix = Strings.getRepeated ('a', GlobalIDFactory.STRING_ID_MAX_LENGTH);
+    final String sTooLongPrefix = StringHelper.getRepeated ('a', GlobalIDFactory.STRING_ID_MAX_LENGTH);
 
     // It works in the beginning
     GlobalIDFactory.getNewStringID ();

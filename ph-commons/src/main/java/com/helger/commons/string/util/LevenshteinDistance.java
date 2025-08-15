@@ -20,7 +20,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -207,8 +207,8 @@ public final class LevenshteinDistance
    */
   public static int getDistance (@Nullable final String sStr1, @Nullable final String sStr2)
   {
-    final int nLen1 = Strings.getLength (sStr1);
-    final int nLen2 = Strings.getLength (sStr2);
+    final int nLen1 = StringHelper.getLength (sStr1);
+    final int nLen2 = StringHelper.getLength (sStr2);
 
     if (nLen1 == 0)
       return nLen2;
@@ -228,8 +228,8 @@ public final class LevenshteinDistance
     ValueEnforcer.isGE0 (nCostDelete, "DeletionCost");
     ValueEnforcer.isGE0 (nCostSubstitution, "SubstitutionCost");
 
-    final int nLen1 = Strings.getLength (sStr1);
-    final int nLen2 = Strings.getLength (sStr2);
+    final int nLen1 = StringHelper.getLength (sStr1);
+    final int nLen2 = StringHelper.getLength (sStr2);
 
     if (nLen1 == 0)
       return nLen2 * nCostInsert;

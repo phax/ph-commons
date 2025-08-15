@@ -161,7 +161,7 @@ public final class StringImplode
     @Nonnull
     public ImploderBuilder filterNonEmpty ()
     {
-      return filter (Strings::isNotEmpty);
+      return filter (StringHelper::isNotEmpty);
     }
 
     @Nonnull
@@ -1054,7 +1054,7 @@ public final class StringImplode
     @Nonnull
     public ImploderBuilderMap filterKeyNonEmpty ()
     {
-      return filterKey (Strings::isNotEmpty);
+      return filterKey (StringHelper::isNotEmpty);
     }
 
     @Nonnull
@@ -1067,7 +1067,7 @@ public final class StringImplode
     @Nonnull
     public ImploderBuilderMap filterValueNonEmpty ()
     {
-      return filterValue (Strings::isNotEmpty);
+      return filterValue (StringHelper::isNotEmpty);
     }
 
     @Nonnull

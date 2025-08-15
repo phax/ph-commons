@@ -25,16 +25,16 @@ import java.util.Iterator;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
+import com.helger.base.compare.IComparator;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.system.ENewLineMode;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.compare.IComparator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -1077,7 +1077,7 @@ public class HelpFormatter
   @Nonnull
   protected static String createPadding (@Nonnegative final int nLen)
   {
-    return Strings.getRepeated (' ', nLen);
+    return StringHelper.getRepeated (' ', nLen);
   }
 
   /**
@@ -1090,7 +1090,7 @@ public class HelpFormatter
   @Nullable
   protected static String rtrim (@Nullable final String sStr)
   {
-    if (Strings.isEmpty (sStr))
+    if (StringHelper.isEmpty (sStr))
       return sStr;
 
     int pos = sStr.length ();

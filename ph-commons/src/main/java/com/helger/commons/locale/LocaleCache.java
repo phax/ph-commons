@@ -28,7 +28,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.CommonsLinkedHashSet;
@@ -36,7 +36,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -98,7 +97,7 @@ public class LocaleCache implements IHasConditionalLogger
 
   private final IMissingLocaleHandler m_aMissingLocaleHandlerInsert = (sLocaleKey, l, c, v) -> {
     // Insert in write lock
-    if (Strings.isEmpty (sLocaleKey))
+    if (StringHelper.isEmpty (sLocaleKey))
       return null;
     return m_aRWLock.writeLockedGet ( () -> m_aLocales.computeIfAbsent (sLocaleKey, k -> new Locale (l, c, v)));
   };
@@ -280,9 +279,9 @@ public class LocaleCache implements IHasConditionalLogger
                            @Nullable final String sVariant,
                            @Nullable final IMissingLocaleHandler aMissingHandler)
   {
-    final String sRealLanguage = Strings.getNotNull (LocaleHelper.getValidLanguageCode (sLanguage));
-    final String sRealCountry = Strings.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
-    final String sRealVariant = Strings.getNotNull (sVariant);
+    final String sRealLanguage = StringHelper.getNotNull (LocaleHelper.getValidLanguageCode (sLanguage));
+    final String sRealCountry = StringHelper.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
+    final String sRealVariant = StringHelper.getNotNull (sVariant);
     final String sLocaleKey = _buildLocaleString (sRealLanguage, sRealCountry, sRealVariant);
 
     Locale aLocale = null;
@@ -326,7 +325,7 @@ public class LocaleCache implements IHasConditionalLogger
     for (final Locale aLocale : getAllLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();
-      if (Strings.isNotEmpty (sLanguage))
+      if (StringHelper.isNotEmpty (sLanguage))
         ret.add (getLocale (sLanguage, null, null));
     }
     return ret;
@@ -373,9 +372,9 @@ public class LocaleCache implements IHasConditionalLogger
                                           @Nullable final String sCountry,
                                           @Nullable final String sVariant)
   {
-    final String sRealLanguage = Strings.getNotNull (LocaleHelper.getValidLanguageCode (sLanguage));
-    final String sRealCountry = Strings.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
-    final String sRealVariant = Strings.getNotNull (sVariant);
+    final String sRealLanguage = StringHelper.getNotNull (LocaleHelper.getValidLanguageCode (sLanguage));
+    final String sRealCountry = StringHelper.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
+    final String sRealVariant = StringHelper.getNotNull (sVariant);
     return _buildLocaleString (sRealLanguage, sRealCountry, sRealVariant);
   }
 
@@ -419,7 +418,7 @@ public class LocaleCache implements IHasConditionalLogger
       ret.add (aLocale);
       final String sCountry = aLocale.getCountry ();
       final String sLanguage = aLocale.getLanguage ();
-      if (Strings.isNotEmpty (sCountry) && Strings.isNotEmpty (sLanguage))
+      if (StringHelper.isNotEmpty (sCountry) && StringHelper.isNotEmpty (sLanguage))
       {
         // Add as country-only and as language-only locales as well
         ret.add (new Locale ("", sCountry));

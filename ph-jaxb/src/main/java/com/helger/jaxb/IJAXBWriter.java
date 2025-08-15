@@ -40,10 +40,10 @@ import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.ByteBufferOutputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.system.ENewLineMode;
-import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.IWritableResource;
+import com.helger.io.file.FileHelper;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
@@ -111,7 +111,7 @@ public interface IJAXBWriter <JAXBTYPE>
 
   default boolean hasIndentString ()
   {
-    return Strings.isNotEmpty (getIndentString ());
+    return StringHelper.isNotEmpty (getIndentString ());
   }
 
   /**
@@ -130,7 +130,7 @@ public interface IJAXBWriter <JAXBTYPE>
 
   default boolean hasSchemaLocation ()
   {
-    return Strings.isNotEmpty (getSchemaLocation ());
+    return StringHelper.isNotEmpty (getSchemaLocation ());
   }
 
   /**
@@ -142,7 +142,7 @@ public interface IJAXBWriter <JAXBTYPE>
 
   default boolean hasNoNamespaceSchemaLocation ()
   {
-    return Strings.isNotEmpty (getNoNamespaceSchemaLocation ());
+    return StringHelper.isNotEmpty (getNoNamespaceSchemaLocation ());
   }
 
   /**

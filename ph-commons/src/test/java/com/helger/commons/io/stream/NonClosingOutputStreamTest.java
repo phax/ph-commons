@@ -28,6 +28,7 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.NonClosingOutputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.io.stream.WrappedOutputStream;
+import com.helger.io.stream.CountingOutputStream;
 
 /**
  * Test class for class {@link CountingOutputStream}.

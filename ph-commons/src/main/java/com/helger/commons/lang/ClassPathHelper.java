@@ -23,7 +23,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.system.ENewLineMode;
 import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.CommonsArrayList;
@@ -66,7 +66,7 @@ public final class ClassPathHelper
   public static void forAllClassPathEntries (@Nonnull final Consumer <? super String> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
-    Strings.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), aConsumer);
+    StringHelper.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), aConsumer);
   }
 
   /**

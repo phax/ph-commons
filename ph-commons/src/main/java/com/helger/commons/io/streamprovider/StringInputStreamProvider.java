@@ -28,9 +28,9 @@ import com.helger.base.io.iface.IHasInputStreamAndReader;
 import com.helger.base.io.iface.IHasReader;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.stream.StreamHelperExt;
-import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.serialize.convert.SerializationConverter;
+import com.helger.io.stream.StreamHelperExt;
+import com.helger.io.stream.StringInputStream;
 
 import jakarta.annotation.Nonnull;
 

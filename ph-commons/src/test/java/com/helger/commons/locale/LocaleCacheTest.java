@@ -27,7 +27,7 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link LocaleCache}.
@@ -97,9 +97,9 @@ public final class LocaleCacheTest
     for (final Locale aLocale : LocaleCache.getInstance ().getAllLanguages ())
     {
       assertNotNull (aLocale);
-      assertTrue (Strings.isNotEmpty (aLocale.getLanguage ()));
-      assertTrue (Strings.isEmpty (aLocale.getCountry ()));
-      assertTrue (Strings.isEmpty (aLocale.getVariant ()));
+      assertTrue (StringHelper.isNotEmpty (aLocale.getLanguage ()));
+      assertTrue (StringHelper.isEmpty (aLocale.getCountry ()));
+      assertTrue (StringHelper.isEmpty (aLocale.getVariant ()));
     }
   }
 

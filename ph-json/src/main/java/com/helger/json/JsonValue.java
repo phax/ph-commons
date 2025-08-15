@@ -31,7 +31,7 @@ import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.numeric.BigHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.io.stream.StreamHelperExt;
 import com.helger.json.serialize.JsonReader;
 import com.helger.json.valueserializer.IJsonValueSerializer;
 import com.helger.json.valueserializer.JsonValueSerializerConstant;

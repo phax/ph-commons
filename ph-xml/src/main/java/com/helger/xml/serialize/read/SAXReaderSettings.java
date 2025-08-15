@@ -34,13 +34,13 @@ import org.xml.sax.ext.LexicalHandler;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.CallbackList;
 import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsEnumMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.callback.CallbackList;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
 

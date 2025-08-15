@@ -23,8 +23,8 @@ import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.equals.IEqualsImplementation;
 import com.helger.commons.equals.IEqualsImplementationRegistrarSPI;
 import com.helger.commons.equals.IEqualsImplementationRegistry;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.PathHelper;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.PathHelper;
 
 import jakarta.annotation.Nonnull;
 

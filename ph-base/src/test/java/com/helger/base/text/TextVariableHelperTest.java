@@ -28,7 +28,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link TextVariableHelper}.
@@ -154,7 +154,7 @@ public class TextVariableHelperTest
     assertEquals ("anullb", TextVariableHelper.getWithReplacedVariables ("a${noidea}b", aVars::get));
     assertEquals ("unresolved(noidea)",
                   TextVariableHelper.getWithReplacedVariables ("${noidea}",
-                                                               x -> Strings.getNotNull (aVars.get (x),
+                                                               x -> StringHelper.getNotNull (aVars.get (x),
                                                                                         () -> "unresolved(" +
                                                                                               x +
                                                                                               ")")));

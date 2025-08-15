@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

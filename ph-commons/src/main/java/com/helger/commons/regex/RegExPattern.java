@@ -24,6 +24,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
@@ -32,15 +33,14 @@ import com.helger.base.tostring.ToStringGenerator;
 import jakarta.annotation.Nonnull;
 
 /**
- * This class encapsulates a String and a set of options to be used in Pattern
- * compilation
+ * This class encapsulates a String and a set of options to be used in Pattern compilation
  *
  * @author Philip Helger
  */
 @NotThreadSafe
 public final class RegExPattern
 {
-  private static final AtomicBoolean CHECK_CONSISTENCY_ENABLED = new AtomicBoolean (false);
+  private static final AtomicBoolean CHECK_CONSISTENCY_ENABLED = new AtomicBoolean (GlobalDebug.DEFAULT_DEBUG_MODE);
 
   private final String m_sRegEx;
   private final int m_nOptions;
@@ -117,8 +117,7 @@ public final class RegExPattern
   }
 
   /**
-   * @return The source regular expression string. Neither <code>null</code> nor
-   *         empty.
+   * @return The source regular expression string. Neither <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
@@ -188,6 +187,6 @@ public final class RegExPattern
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("regex", m_sRegEx).append ("options", m_nOptions).getToString ();
+    return new ToStringGenerator (this).append ("RegEx", m_sRegEx).append ("Options", m_nOptions).getToString ();
   }
 }

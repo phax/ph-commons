@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link MappedCache}.
@@ -69,8 +69,8 @@ public final class MappedCacheTest
   @Test
   public void testSameStoreKey ()
   {
-    final MappedCache <String, String, String> c = new MappedCache <> (Strings::getNotNull,
-                                                                       Strings::getNotNull,
+    final MappedCache <String, String, String> c = new MappedCache <> (StringHelper::getNotNull,
+                                                                       StringHelper::getNotNull,
                                                                        MappedCache.NO_MAX_SIZE,
                                                                        "Mock",
                                                                        false);
@@ -90,7 +90,7 @@ public final class MappedCacheTest
   public void testNullStoreKey ()
   {
     final MappedCache <String, String, String> c = new MappedCache <> (x -> x,
-                                                                       Strings::getNotNull,
+                                                                       StringHelper::getNotNull,
                                                                        MappedCache.NO_MAX_SIZE,
                                                                        "Mock",
                                                                        false);
@@ -149,7 +149,7 @@ public final class MappedCacheTest
   public void testPrefilledCache ()
   {
     final MappedCache <String, String, String> c = new MappedCache <> (x -> x,
-                                                                       Strings::getNotNull,
+                                                                       StringHelper::getNotNull,
                                                                        MappedCache.NO_MAX_SIZE,
                                                                        "Mock",
                                                                        false)

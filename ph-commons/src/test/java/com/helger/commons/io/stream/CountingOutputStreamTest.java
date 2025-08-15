@@ -27,6 +27,7 @@ import org.junit.Test;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
+import com.helger.io.stream.CountingOutputStream;
 
 /**
  * Test class for class {@link CountingOutputStream}.

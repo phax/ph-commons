@@ -23,7 +23,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.ESuccess;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
@@ -81,7 +81,7 @@ public final class AuthTokenRegistry
   @Nullable
   private static AuthToken _getValidNotExpiredToken (@Nullable final String sTokenID)
   {
-    if (Strings.isEmpty (sTokenID))
+    if (StringHelper.isEmpty (sTokenID))
       return null;
 
     final AuthToken aToken = RW_LOCK.readLockedGet ( () -> MAP.get (sTokenID));

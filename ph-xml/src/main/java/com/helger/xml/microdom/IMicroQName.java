@@ -24,7 +24,7 @@ import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparable;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -53,7 +53,7 @@ public interface IMicroQName extends IComparable <IMicroQName>
    */
   default boolean hasNamespaceURI ()
   {
-    return Strings.isNotEmpty (getNamespaceURI ());
+    return StringHelper.isNotEmpty (getNamespaceURI ());
   }
 
   /**
@@ -63,7 +63,7 @@ public interface IMicroQName extends IComparable <IMicroQName>
    */
   default boolean hasNoNamespaceURI ()
   {
-    return Strings.isEmpty (getNamespaceURI ());
+    return StringHelper.isEmpty (getNamespaceURI ());
   }
 
   /**

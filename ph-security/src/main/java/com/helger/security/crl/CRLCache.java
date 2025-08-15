@@ -27,7 +27,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.cache.Cache;
 import com.helger.datetime.expiration.ExpiringObject;
@@ -111,7 +111,7 @@ public class CRLCache
   @Nullable
   public CRL getCRLFromURL (@Nullable final String sCRLURL)
   {
-    if (Strings.isNotEmpty (sCRLURL))
+    if (StringHelper.isNotEmpty (sCRLURL))
     {
       ExpiringObject <CRL> aObject = m_aCache.getFromCache (sCRLURL);
       if (aObject != null)

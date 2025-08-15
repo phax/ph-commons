@@ -19,7 +19,7 @@ package com.helger.settings.exchange.configfile;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.state.EChange;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.settings.Settings;
 
 import jakarta.annotation.Nonnull;

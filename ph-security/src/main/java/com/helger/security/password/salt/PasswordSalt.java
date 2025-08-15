@@ -25,8 +25,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringHex;
-import com.helger.base.string.Strings;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.random.VerySecureRandom;
 
@@ -146,7 +146,7 @@ public final class PasswordSalt implements IPasswordSalt
   @Nullable
   public static PasswordSalt createFromStringMaybe (@Nullable final String sSalt)
   {
-    if (Strings.isEmpty (sSalt))
+    if (StringHelper.isEmpty (sSalt))
       return null;
 
     // Decode String to bytes

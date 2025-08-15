@@ -24,7 +24,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.base.system.EOperatingSystem;
-import com.helger.commons.io.file.FilenameHelper;
+import com.helger.io.file.FilenameHelper;
 
 public final class JavaFileUNCFuncTest
 {

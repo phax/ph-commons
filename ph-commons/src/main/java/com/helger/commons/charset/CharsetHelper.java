@@ -40,7 +40,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingPushbackInputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 
@@ -130,7 +130,7 @@ public final class CharsetHelper
   public static Charset getCharsetFromNameOrDefault (@Nullable final String sCharsetName,
                                                      @Nullable final Charset aDefault)
   {
-    if (Strings.isNotEmpty (sCharsetName))
+    if (StringHelper.isNotEmpty (sCharsetName))
       try
       {
         return getCharsetFromName (sCharsetName);

@@ -19,7 +19,7 @@ package com.helger.commons.error;
 import java.util.Comparator;
 
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -43,7 +43,7 @@ public interface IHasErrorID
    */
   default boolean hasErrorID ()
   {
-    return Strings.isNotEmpty (getErrorID ());
+    return StringHelper.isNotEmpty (getErrorID ());
   }
 
   /**
@@ -52,7 +52,7 @@ public interface IHasErrorID
    */
   default boolean hasNoErrorID ()
   {
-    return Strings.isEmpty (getErrorID ());
+    return StringHelper.isEmpty (getErrorID ());
   }
 
   /**

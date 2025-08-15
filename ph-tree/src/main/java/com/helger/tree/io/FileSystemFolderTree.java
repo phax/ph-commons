@@ -24,8 +24,8 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FilenameHelper;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FilenameHelper;
 import com.helger.tree.withid.folder.DefaultFolderTree;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
 

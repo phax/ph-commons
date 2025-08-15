@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.collection.helper.CollectionSort;
-import com.helger.commons.compare.IComparator;
+import com.helger.commons.compare.ComparatorHelper;
 
 public final class JavaListAllLocalesFuncTest
 {
@@ -36,8 +36,8 @@ public final class JavaListAllLocalesFuncTest
   public void testListAllCountries ()
   {
     for (final Locale aLocale : CollectionSort.getSorted (Locale.getAvailableLocales (),
-                                                          IComparator.getComparatorCollating (Locale::getCountry,
-                                                                                              Locale.US)))
+                                                          ComparatorHelper.getComparatorCollating (Locale::getCountry,
+                                                                                                   Locale.US)))
       if (aLocale.getCountry ().length () > 0)
         LOGGER.info (aLocale.getCountry () +
                      " " +

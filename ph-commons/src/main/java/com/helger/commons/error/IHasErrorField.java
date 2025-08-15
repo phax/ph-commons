@@ -19,7 +19,7 @@ package com.helger.commons.error;
 import java.util.Comparator;
 
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -44,7 +44,7 @@ public interface IHasErrorField
    */
   default boolean hasErrorFieldName ()
   {
-    return Strings.isNotEmpty (getErrorFieldName ());
+    return StringHelper.isNotEmpty (getErrorFieldName ());
   }
 
   /**
@@ -53,7 +53,7 @@ public interface IHasErrorField
    */
   default boolean hasNoErrorFieldName ()
   {
-    return Strings.isEmpty (getErrorFieldName ());
+    return StringHelper.isEmpty (getErrorFieldName ());
   }
 
   /**

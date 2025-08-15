@@ -34,7 +34,7 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.io.stream.StreamHelperExt;
 import com.helger.json.serialize.JsonReader;
 
 import jakarta.annotation.Nonnull;

@@ -27,7 +27,7 @@ import javax.imageio.ImageIO;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.io.stream.StreamHelperExt;
+import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 

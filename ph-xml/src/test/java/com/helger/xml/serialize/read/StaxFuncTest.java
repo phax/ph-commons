@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
@@ -101,7 +101,7 @@ public final class StaxFuncTest
           final String sLocalName = aReader.getLocalName ();
 
           IMicroElement aElement;
-          if (Strings.isNotEmpty (sNamespaceURI))
+          if (StringHelper.isNotEmpty (sNamespaceURI))
             aElement = aParent.addElement (sNamespaceURI, sLocalName);
           else
             aElement = aParent.addElement (sLocalName);

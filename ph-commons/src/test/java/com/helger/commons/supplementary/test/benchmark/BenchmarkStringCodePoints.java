@@ -19,7 +19,7 @@ package com.helger.commons.supplementary.test.benchmark;
 import java.math.BigDecimal;
 import java.util.Random;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * This code benchmarks the performance of copying an array purely in Java versus copying it with
@@ -75,7 +75,7 @@ public final class BenchmarkStringCodePoints extends AbstractBenchmarkTask
     public void run ()
     {
       for (int i = 0; i < m_nRuns; i++)
-        Strings.iterateCodePoints (s_sText, c -> {});
+        StringHelper.iterateCodePoints (s_sText, c -> {});
     }
   }
 

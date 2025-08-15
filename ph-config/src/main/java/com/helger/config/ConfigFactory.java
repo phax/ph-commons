@@ -24,8 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.classloader.ClassLoaderHelper;
-import com.helger.base.string.Strings;
-import com.helger.commons.io.file.FilenameHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.URLResource;
@@ -40,6 +39,7 @@ import com.helger.config.source.res.ConfigurationSourceJson;
 import com.helger.config.source.res.ConfigurationSourceProperties;
 import com.helger.config.source.res.EConfigSourceResourceType;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
+import com.helger.io.file.FilenameHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -179,7 +179,7 @@ public final class ConfigFactory
     {
       // Load one only
       final String sConfigResource = SYSTEM_ONLY.getAsString ("config.resource");
-      if (Strings.isNotEmpty (sConfigResource))
+      if (StringHelper.isNotEmpty (sConfigResource))
       {
         final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigResource),
                                                                                                         FALLBACK_SOURCE_TYPE);
@@ -196,7 +196,7 @@ public final class ConfigFactory
     {
       // Load all
       final String sConfigResources = SYSTEM_ONLY.getAsString ("config.resources");
-      if (Strings.isNotEmpty (sConfigResources))
+      if (StringHelper.isNotEmpty (sConfigResources))
       {
         // Take priority from system property
         final int nPriority = SYSTEM_ONLY.getAsInt ("config.resources.priority", nResourceDefaultPrio);
@@ -212,7 +212,7 @@ public final class ConfigFactory
 
     {
       final String sConfigFile = SYSTEM_ONLY.getAsString ("config.file");
-      if (Strings.isNotEmpty (sConfigFile))
+      if (StringHelper.isNotEmpty (sConfigFile))
       {
         final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigFile),
                                                                                                         FALLBACK_SOURCE_TYPE);
@@ -228,7 +228,7 @@ public final class ConfigFactory
 
     {
       final String sConfigURL = SYSTEM_ONLY.getAsString ("config.url");
-      if (Strings.isNotEmpty (sConfigURL))
+      if (StringHelper.isNotEmpty (sConfigURL))
       {
         final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigURL),
                                                                                                         FALLBACK_SOURCE_TYPE);

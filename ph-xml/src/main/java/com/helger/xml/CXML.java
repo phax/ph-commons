@@ -22,7 +22,7 @@ import javax.xml.namespace.QName;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.compare.CompareHelper;
-import com.helger.commons.compare.IComparator;
+import com.helger.base.compare.IComparator;
 
 import jakarta.annotation.Nonnull;
 

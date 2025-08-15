@@ -31,7 +31,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.commons.state.ETriState;
@@ -213,7 +213,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       final String sElementNSPrefix;
       if (bEmitNamespaces)
       {
-        sElementNamespaceURI = Strings.getNotNull (aElement.getNamespaceURI ());
+        sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
         // Eventually adds a namespace attribute in the AttrMap
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
@@ -225,7 +225,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
 
       // Get all attributes
       XMLHelper.forAllAttributes (aElement, aAttr -> {
-        final String sAttrNamespaceURI = Strings.getNotNull (aAttr.getNamespaceURI ());
+        final String sAttrNamespaceURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
 
         // Ignore all "xmlns" attributes as they are created manually. They are
         // only available when reading via DOM

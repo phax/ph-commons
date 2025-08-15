@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.IMutableGraphRelation;
 
@@ -40,11 +40,11 @@ public final class GraphNodeTest
   {
     final GraphNode n = new GraphNode ();
     assertNotNull (n.getID ());
-    assertTrue (Strings.isNotEmpty (n.getID ()));
+    assertTrue (StringHelper.isNotEmpty (n.getID ()));
 
     final GraphNode n1 = new GraphNode ("");
     assertNotNull (n1.getID ());
-    assertTrue (Strings.isNotEmpty (n1.getID ()));
+    assertTrue (StringHelper.isNotEmpty (n1.getID ()));
     assertFalse (n1.hasRelations ());
 
     final GraphNode n3 = new GraphNode ("id1");

@@ -32,9 +32,9 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.url.URLHelper;
+import com.helger.io.file.FileHelper;
 
 /**
  * Test class for class {@link URLResource}.

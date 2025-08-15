@@ -32,7 +32,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.CommonsLinkedHashSet;
@@ -56,16 +56,16 @@ public final class CollectionFindTest
   @Test
   public void testContainsOnly ()
   {
-    assertTrue (containsOnly (new CommonsArrayList <> ("a"), Strings::isNotEmpty));
-    assertTrue (containsOnly (new CommonsArrayList <> ("a", "b"), Strings::isNotEmpty));
+    assertTrue (containsOnly (new CommonsArrayList <> ("a"), StringHelper::isNotEmpty));
+    assertTrue (containsOnly (new CommonsArrayList <> ("a", "b"), StringHelper::isNotEmpty));
     assertTrue (containsOnly (new CommonsArrayList <> ("a"), null));
     assertTrue (containsOnly (new CommonsArrayList <> ("a", "b"), null));
     assertTrue (containsOnly (new CommonsArrayList <> ("a", ""), null));
 
-    assertFalse (containsOnly (new CommonsArrayList <> ("a", ""), Strings::isNotEmpty));
-    assertFalse (containsOnly (new CommonsArrayList <> ("", ""), Strings::isNotEmpty));
+    assertFalse (containsOnly (new CommonsArrayList <> ("a", ""), StringHelper::isNotEmpty));
+    assertFalse (containsOnly (new CommonsArrayList <> ("", ""), StringHelper::isNotEmpty));
     // Type required here
-    assertFalse (containsOnly (new CommonsArrayList <String> (), Strings::isNotEmpty));
+    assertFalse (containsOnly (new CommonsArrayList <String> (), StringHelper::isNotEmpty));
     assertFalse (containsOnly (new CommonsArrayList <> (), null));
   }
 

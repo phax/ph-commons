@@ -39,7 +39,7 @@ import com.helger.base.id.IHasIntID;
 import com.helger.base.name.IHasName;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -383,7 +383,7 @@ public final class EnumHelper
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    if (Strings.isEmpty (sName))
+    if (StringHelper.isEmpty (sName))
       return eDefault;
     return findFirst (aClass, x -> x.getName ().equals (sName), eDefault);
   }
@@ -450,7 +450,7 @@ public final class EnumHelper
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    if (Strings.isEmpty (sName))
+    if (StringHelper.isEmpty (sName))
       return eDefault;
     return findFirst (aClass, x -> x.getName ().equalsIgnoreCase (sName), eDefault);
   }

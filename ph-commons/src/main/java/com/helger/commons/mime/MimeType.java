@@ -27,7 +27,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
@@ -247,7 +247,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
   @Nonnull
   public EChange removeParameterWithName (@Nullable final String sParamName)
   {
-    if (Strings.isNotEmpty (sParamName))
+    if (StringHelper.isNotEmpty (sParamName))
     {
       final int nMax = m_aParameters.size ();
       for (int i = 0; i < nMax; ++i)
@@ -290,7 +290,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
   @Nullable
   public MimeTypeParameter getParameterWithName (@Nullable final String sParamName)
   {
-    if (Strings.isNotEmpty (sParamName))
+    if (StringHelper.isNotEmpty (sParamName))
       for (final MimeTypeParameter aParam : m_aParameters)
         if (aParam.getAttribute ().equals (sParamName))
           return aParam;

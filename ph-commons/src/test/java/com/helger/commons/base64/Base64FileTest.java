@@ -27,9 +27,9 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.codec.Base64;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FileOperations;
+import com.helger.io.file.SimpleFileIO;
 
 /**
  * Test class for class {@link Base64File}.<br>

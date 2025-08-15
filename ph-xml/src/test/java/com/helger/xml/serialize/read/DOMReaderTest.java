@@ -42,16 +42,16 @@ import com.helger.base.iface.IThrowingRunnable;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.system.EJavaVersion;
 import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.io.file.FileHelper;
+import com.helger.io.stream.StringInputStream;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLSystemProperties;
 import com.helger.xml.sax.CachingSAXInputSource;
@@ -414,14 +414,14 @@ public final class DOMReaderTest
     // Read successful - entity expansion!
     Document aDoc = DOMReader.readXMLDOM (sXMLEntities + "<root>&e4;</root>", aDRS);
     assertNotNull (aDoc);
-    assertEquals (Strings.getRepeated ("value", (int) Math.pow (10, 3)), aDoc.getDocumentElement ().getTextContent ());
+    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 3)), aDoc.getDocumentElement ().getTextContent ());
 
     if (!bIsJava24Plus)
     {
       // Read successful - entity expansion!
       aDoc = DOMReader.readXMLDOM (sXMLEntities + "<root>&e5;</root>", aDRS);
       assertNotNull (aDoc);
-      assertEquals (Strings.getRepeated ("value", (int) Math.pow (10, 4)),
+      assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 4)),
                     aDoc.getDocumentElement ().getTextContent ());
     }
 
@@ -449,7 +449,7 @@ public final class DOMReaderTest
       assertNotNull (aDoc);
       final int nCount = (int) Math.pow (10, 5);
       assertEquals ("value".length () * nCount, aDoc.getDocumentElement ().getTextContent ().length ());
-      assertEquals (Strings.getRepeated ("value", nCount), aDoc.getDocumentElement ().getTextContent ());
+      assertEquals (StringHelper.getRepeated ("value", nCount), aDoc.getDocumentElement ().getTextContent ());
 
       // Less logging from here on
       aDRS.setErrorHandler (new DoNothingSAXErrorHandler ()).exceptionCallbacks ().removeAll ();

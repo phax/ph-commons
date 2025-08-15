@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /** Example of use of Matrix Class, featuring magic squares. **/
 
@@ -117,14 +117,14 @@ public final class MagicSquareExampleFuncTest
     fmt.setMinimumFractionDigits (d);
     fmt.setGroupingUsed (false);
     final String s = fmt.format (x);
-    return Strings.getWithLeading (s, w, ' ');
+    return StringHelper.getWithLeading (s, w, ' ');
   }
 
   /* Format integer with Iw. **/
   public static String fixedWidthIntegertoString (final int n, final int w)
   {
     final String s = Integer.toString (n);
-    return Strings.getWithLeading (s, w, ' ');
+    return StringHelper.getWithLeading (s, w, ' ');
   }
 
   @Test

@@ -19,7 +19,7 @@ package com.helger.commons.format;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nullable;
@@ -59,7 +59,7 @@ public final class FormatterMinLengthAddTrailing extends AbstractFormatterString
     final String s = getValueAsString (aValue);
     if (s.length () >= m_nMinLength)
       return s;
-    return s + Strings.getRepeated (m_cFill, m_nMinLength - s.length ());
+    return s + StringHelper.getRepeated (m_cFill, m_nMinLength - s.length ());
   }
 
   @Override

@@ -21,9 +21,8 @@ import com.helger.base.compare.IComparable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -116,13 +115,13 @@ public final class VersionRange implements IComparable <VersionRange>
 
     // check last token
     int j = 0;
-    if (Strings.endsWith (s, ']'))
+    if (StringHelper.endsWith (s, ']'))
     {
       bIncludeCeil = true;
       j++;
     }
     else
-      if (Strings.endsWith (s, ')'))
+      if (StringHelper.endsWith (s, ')'))
       {
         bIncludeCeil = false;
         j++;
@@ -147,7 +146,7 @@ public final class VersionRange implements IComparable <VersionRange>
       // get floor version
       aFloorVersion = Version.parse (sFloor);
 
-      if (Strings.isEmpty (sCeiling))
+      if (StringHelper.isEmpty (sCeiling))
         aCeilVersion = null;
       else
         aCeilVersion = Version.parse (sCeiling);

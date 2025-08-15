@@ -36,7 +36,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.numeric.MathHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
@@ -1303,7 +1303,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
         final String s = aFormat.format (m_aData[nRow][nCol]);
         // At _least_ 1 space
         final int padding = Math.max (1, nWidth - s.length ());
-        aPW.print (Strings.getRepeated (' ', padding));
+        aPW.print (StringHelper.getRepeated (' ', padding));
         aPW.print (s);
       }
       aPW.println ();

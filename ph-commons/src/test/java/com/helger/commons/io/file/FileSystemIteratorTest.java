@@ -27,6 +27,8 @@ import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.io.file.FileSystemIterator;
+import com.helger.io.file.IFileFilter;
 
 /**
  * Test class for class {@link FileSystemIterator}.

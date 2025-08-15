@@ -28,7 +28,7 @@ import java.util.stream.StreamSupport;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -324,7 +324,7 @@ public class NonBlockingBufferedReader extends Reader
       {
         /* EOF */
         final CharSequence aCS = aSB;
-        if (Strings.isNotEmpty (aCS))
+        if (StringHelper.isNotEmpty (aCS))
           return aSB.toString ();
         return null;
       }

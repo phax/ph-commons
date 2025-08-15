@@ -26,10 +26,9 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -222,7 +221,7 @@ public final class RegExHelper
                                              @Nullable final String sReplacement)
   {
     // Avoid NPE on invalid replacement parameter
-    return getMatcher (sRegEx, sValue).replaceAll (Strings.getNotNull (sReplacement));
+    return getMatcher (sRegEx, sValue).replaceAll (StringHelper.getNotNull (sReplacement));
   }
 
   @Nonnull
@@ -232,7 +231,7 @@ public final class RegExHelper
                                              @Nullable final String sReplacement)
   {
     // Avoid NPE on invalid replacement parameter
-    return getMatcher (sRegEx, nOptions, sValue).replaceAll (Strings.getNotNull (sReplacement));
+    return getMatcher (sRegEx, nOptions, sValue).replaceAll (StringHelper.getNotNull (sReplacement));
   }
 
   /**
@@ -262,7 +261,7 @@ public final class RegExHelper
   @Nullable
   public static String getAsIdentifier (@Nullable final String s, final char cReplacement)
   {
-    if (Strings.isEmpty (s))
+    if (StringHelper.isEmpty (s))
       return s;
 
     String sReplacement;
@@ -303,7 +302,7 @@ public final class RegExHelper
   {
     ValueEnforcer.notNull (sReplacement, "Replacement");
 
-    if (Strings.isEmpty (s))
+    if (StringHelper.isEmpty (s))
       return s;
 
     // replace all non-word characters with the replacement character

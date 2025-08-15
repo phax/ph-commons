@@ -31,7 +31,7 @@ import org.junit.Test;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link Base64}.<br>
@@ -56,7 +56,7 @@ public final class Base64Test
   @Test
   public void testEncodeWithBreakLines ()
   {
-    final byte [] aSource = Strings.getRepeated ('a', 100).getBytes (StandardCharsets.ISO_8859_1);
+    final byte [] aSource = StringHelper.getRepeated ('a', 100).getBytes (StandardCharsets.ISO_8859_1);
     String sEncoded = Base64.safeEncodeBytes (aSource, Base64.DO_BREAK_LINES);
     assertEquals ("YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh\n" +
                   "YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==",

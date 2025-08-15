@@ -20,7 +20,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.hierarchy.IChildrenProvider;
@@ -60,7 +60,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
       return false;
 
     // Namespace URI defined?
-    if (Strings.isNotEmpty (m_sNamespaceURI))
+    if (StringHelper.isNotEmpty (m_sNamespaceURI))
       return aCurrent.hasChildElements (m_sNamespaceURI, m_sTagName);
     return aCurrent.hasChildElements (m_sTagName);
   }
@@ -82,7 +82,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
       return new CommonsArrayList <> ();
 
     // Namespace URI defined?
-    if (Strings.isNotEmpty (m_sNamespaceURI))
+    if (StringHelper.isNotEmpty (m_sNamespaceURI))
       return aCurrent.getAllChildElements (m_sNamespaceURI, m_sTagName);
 
     return aCurrent.getAllChildElements (m_sTagName);

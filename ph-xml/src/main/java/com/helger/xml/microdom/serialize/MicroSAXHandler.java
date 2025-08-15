@@ -38,7 +38,7 @@ import org.xml.sax.ext.Locator2;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.base.string.Strings;
+import com.helger.base.string.StringHelper;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.SimpleLocation;
@@ -158,7 +158,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     _createParentDocument ();
 
     final IMicroElement aElement;
-    if (Strings.isNotEmpty (sNamespaceURI))
+    if (StringHelper.isNotEmpty (sNamespaceURI))
       aElement = m_aParent.addElement (sNamespaceURI, sLocalName);
     else
       aElement = m_aParent.addElement (sLocalName);
