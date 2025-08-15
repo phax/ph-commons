@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.lang;
+package com.helger.base.rt;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +24,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -32,7 +33,6 @@ import com.helger.base.io.nonblocking.NonBlockingBufferedWriter;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHex;
 import com.helger.base.system.ENewLineMode;
-import com.helger.collection.commons.CommonsLinkedHashMap;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -73,7 +73,7 @@ import jakarta.annotation.Nullable;
  * @author Xueming Shen
  * @author Philip Helger
  */
-public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
+public class NonBlockingProperties extends LinkedHashMap <String, String>
 {
   // No logger here!
 

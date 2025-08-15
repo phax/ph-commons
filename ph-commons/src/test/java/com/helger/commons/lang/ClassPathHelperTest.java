@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.lang.ClassPathHelper;
 
 /**
  * Test class for {@link ClassPathHelper}

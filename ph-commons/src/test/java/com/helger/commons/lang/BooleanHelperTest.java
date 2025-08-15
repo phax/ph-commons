@@ -21,6 +21,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.base.lang.BooleanHelper;
+
 /**
  * Test class for class {@link BooleanHelper}.
  *

@@ -14,9 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.lang;
+package com.helger.base.lang;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import com.helger.annotation.concurrent.Immutable;
@@ -26,8 +28,6 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.system.ENewLineMode;
 import com.helger.base.system.SystemProperties;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.ICommonsList;
 
 import jakarta.annotation.Nonnull;
 
@@ -50,9 +50,9 @@ public final class ClassPathHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <String> getAllClassPathEntries ()
+  public static List <String> getAllClassPathEntries ()
   {
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final List <String> ret = new ArrayList <> ();
     forAllClassPathEntries (ret::add);
     return ret;
   }

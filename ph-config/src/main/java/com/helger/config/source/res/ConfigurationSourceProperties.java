@@ -27,15 +27,15 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.rt.NonBlockingProperties;
 import com.helger.base.state.ESuccess;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.commons.lang.NonBlockingProperties;
-import com.helger.commons.lang.PropertiesHelper;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.io.resource.IReadableResource;
+import com.helger.io.rt.PropertiesLoader;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -59,8 +59,8 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   private static NonBlockingProperties _load (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     if (aCharset == null)
-      return PropertiesHelper.loadProperties (aRes);
-    return PropertiesHelper.loadProperties (aRes, aCharset);
+      return PropertiesLoader.loadProperties (aRes);
+    return PropertiesLoader.loadProperties (aRes, aCharset);
   }
 
   /**

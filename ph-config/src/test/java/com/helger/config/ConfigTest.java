@@ -24,10 +24,10 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.numeric.mutable.MutableInt;
+import com.helger.base.rt.NonBlockingProperties;
+import com.helger.base.rt.PropertiesHelper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.lang.NonBlockingProperties;
-import com.helger.commons.lang.PropertiesHelper;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.appl.ConfigurationSourceFunction;
 import com.helger.config.source.res.ConfigurationSourceJson;

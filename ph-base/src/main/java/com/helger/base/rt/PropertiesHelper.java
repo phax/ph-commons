@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.lang;
+package com.helger.base.rt;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.net.MalformedURLException;
-import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.UnaryOperator;
@@ -32,12 +31,6 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.system.SystemProperties;
-import com.helger.collection.commons.CommonsHashMap;
-import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.url.ISimpleURL;
-import com.helger.io.resource.FileSystemResource;
-import com.helger.io.resource.IReadableResource;
-import com.helger.io.resource.URLResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -57,69 +50,14 @@ public final class PropertiesHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsMap <String, String> getAsStringMap (@Nonnull final Properties aProps)
+  public static Map <String, String> getAsStringMap (@Nonnull final Properties aProps)
   {
     ValueEnforcer.notNull (aProps, "Props");
 
-    final ICommonsMap <String, String> ret = new CommonsHashMap <> ();
+    final Map <String, String> ret = new HashMap <> ();
     for (final Map.Entry <Object, Object> aEntry : aProps.entrySet ())
       ret.put ((String) aEntry.getKey (), (String) aEntry.getValue ());
     return ret;
-  }
-
-  @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final ISimpleURL aURL)
-  {
-    ValueEnforcer.notNull (aURL, "URL");
-
-    try
-    {
-      return loadProperties (new URLResource (aURL.getAsStringWithEncodedParameters ()));
-    }
-    catch (final MalformedURLException ex)
-    {
-      return null;
-    }
-  }
-
-  @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final File aFile)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-
-    return loadProperties (new FileSystemResource (aFile));
-  }
-
-  @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final File aFile, @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-
-    return loadProperties (new FileSystemResource (aFile), aCharset);
-  }
-
-  @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes)
-  {
-    ValueEnforcer.notNull (aRes, "Resource");
-
-    final InputStream aIS = aRes.getInputStream ();
-    if (aIS == null)
-      return null;
-    return loadProperties (aIS);
-  }
-
-  @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes,
-                                                      @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (aRes, "Resource");
-    ValueEnforcer.notNull (aCharset, "Charset");
-
-    final Reader aReader = aRes.getReader (aCharset);
-    if (aReader == null)
-      return null;
-    return loadProperties (aReader);
   }
 
   @Nullable
