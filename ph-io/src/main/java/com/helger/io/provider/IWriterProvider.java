@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.provider;
+package com.helger.io.provider;
 
-import java.io.OutputStream;
+import java.io.Writer;
 
 import com.helger.base.io.EAppend;
 
@@ -24,16 +24,15 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A callback interface to retrieve {@link OutputStream} objects from a given
- * name.
+ * A callback interface to retrieve {@link Writer} objects from a given name.
  *
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IOutputStreamProvider
+public interface IWriterProvider
 {
   /**
-   * Get the output stream from the given name.
+   * Get the writer from the given name.
    *
    * @param sName
    *        The name to be resolved. May not be <code>null</code>.
@@ -42,5 +41,5 @@ public interface IOutputStreamProvider
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  OutputStream getOutputStream (@Nonnull String sName, @Nonnull EAppend eAppend);
+  Writer getWriter (@Nonnull String sName, @Nonnull EAppend eAppend);
 }

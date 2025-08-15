@@ -27,7 +27,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

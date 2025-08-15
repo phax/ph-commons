@@ -17,7 +17,7 @@
 package com.helger.dao;
 
 import com.helger.base.callback.ICallback;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;
 

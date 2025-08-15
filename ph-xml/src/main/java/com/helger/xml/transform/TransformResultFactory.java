@@ -29,7 +29,7 @@ import org.w3c.dom.Node;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.io.resource.IWritableResource;
+import com.helger.io.resource.IWritableResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

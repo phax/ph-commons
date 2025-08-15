@@ -32,6 +32,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.io.stream.StreamHelper;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.unittest.support.TestHelper;
 
 /**

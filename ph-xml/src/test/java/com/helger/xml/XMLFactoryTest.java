@@ -30,7 +30,7 @@ import javax.xml.validation.Schema;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.schema.XMLSchemaCache;
 
 /**

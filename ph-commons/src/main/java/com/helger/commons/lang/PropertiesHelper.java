@@ -34,10 +34,10 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.url.ISimpleURL;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resource.URLResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -74,7 +74,7 @@ public final class PropertiesHelper
 
     try
     {
-      return loadProperties (new URLResource (aURL));
+      return loadProperties (new URLResource (aURL.getAsStringWithEncodedParameters ()));
     }
     catch (final MalformedURLException ex)
     {

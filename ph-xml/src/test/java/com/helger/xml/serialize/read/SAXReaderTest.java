@@ -27,7 +27,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.helger.base.iface.IThrowingRunnable;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.sax.CachingSAXInputSource;
 

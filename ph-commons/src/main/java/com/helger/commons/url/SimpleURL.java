@@ -34,8 +34,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Abstraction of the string parts of a URL but much simpler (and faster) than
- * {@link java.net.URL}.
+ * Abstraction of the string parts of a URL but much simpler (and faster) than {@link java.net.URL}.
  *
  * @author Philip Helger
  */
@@ -53,7 +52,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>, IURLParame
 
   public SimpleURL (@Nonnull final URL aURL)
   {
-    this (aURL, URLHelper.CHARSET_URL_OBJ);
+    this (aURL, URLCoder.CHARSET_URL_OBJ);
   }
 
   public SimpleURL (@Nonnull final URL aURL, @Nonnull final Charset aCharset)
@@ -63,7 +62,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>, IURLParame
 
   public SimpleURL (@Nonnull final URI aURI)
   {
-    this (aURI, URLHelper.CHARSET_URL_OBJ);
+    this (aURI, URLCoder.CHARSET_URL_OBJ);
   }
 
   public SimpleURL (@Nonnull final URI aURI, @Nonnull final Charset aCharset)
@@ -73,12 +72,12 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>, IURLParame
 
   public SimpleURL (@Nonnull final String sHref)
   {
-    this (sHref, URLHelper.CHARSET_URL_OBJ);
+    this (sHref, URLCoder.CHARSET_URL_OBJ);
   }
 
   public SimpleURL (@Nonnull final String sHref, @Nonnull final Charset aCharset)
   {
-    this (URLHelper.getAsURLData (sHref, new URLParameterDecoder (aCharset)));
+    this (SimpleURLHelper.getAsURLData (sHref, new URLParameterDecoder (aCharset)));
   }
 
   public SimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams)
@@ -87,9 +86,11 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>, IURLParame
     m_aParams.addAll (aParams);
   }
 
-  public SimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams, @Nullable final String sAnchor)
+  public SimpleURL (@Nonnull final String sHref,
+                    @Nullable final Map <String, String> aParams,
+                    @Nullable final String sAnchor)
   {
-    this (sHref, URLHelper.CHARSET_URL_OBJ, aParams, sAnchor);
+    this (sHref, URLCoder.CHARSET_URL_OBJ, aParams, sAnchor);
   }
 
   public SimpleURL (@Nonnull final String sHref,
@@ -102,9 +103,11 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>, IURLParame
     m_sAnchor = sAnchor;
   }
 
-  public SimpleURL (@Nonnull final String sHref, @Nullable final Iterable <? extends URLParameter> aParams, @Nullable final String sAnchor)
+  public SimpleURL (@Nonnull final String sHref,
+                    @Nullable final Iterable <? extends URLParameter> aParams,
+                    @Nullable final String sAnchor)
   {
-    this (sHref, URLHelper.CHARSET_URL_OBJ, aParams, sAnchor);
+    this (sHref, URLCoder.CHARSET_URL_OBJ, aParams, sAnchor);
   }
 
   public SimpleURL (@Nonnull final String sHref,
@@ -180,7 +183,9 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>, IURLParame
       return false;
     final SimpleURL rhs = (SimpleURL) o;
     final Object aObj1 = m_sAnchor;
-    return m_sPath.equals (rhs.m_sPath) && m_aParams.equals (rhs.m_aParams) && EqualsHelper.equals (aObj1, rhs.m_sAnchor);
+    return m_sPath.equals (rhs.m_sPath) &&
+           m_aParams.equals (rhs.m_aParams) &&
+           EqualsHelper.equals (aObj1, rhs.m_sAnchor);
   }
 
   @Override

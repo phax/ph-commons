@@ -25,11 +25,11 @@ import java.net.URL;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resource.URLResource;
 import com.helger.io.file.FileHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resource.URLResource;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.impl.TypeConverter;
 

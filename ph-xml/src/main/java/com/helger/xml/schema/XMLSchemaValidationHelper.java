@@ -28,7 +28,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
 import com.helger.xml.transform.TransformSourceFactory;

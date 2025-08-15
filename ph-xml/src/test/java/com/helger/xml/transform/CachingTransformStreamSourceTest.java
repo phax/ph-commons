@@ -28,8 +28,8 @@ import org.junit.Test;
 
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.MockNullInputStreamProvider;
 

@@ -23,8 +23,8 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import com.helger.base.numeric.BigHelper;
-import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.config.source.res.ConfigurationSourceJson;
+import com.helger.io.resource.FileSystemResource;
 
 /**
  * Test class for class {@link ConfigWithFallback}

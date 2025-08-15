@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.resource.inmemory;
 
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 
 /**
  * Marker interface for readable resources that are "in-memory" only.

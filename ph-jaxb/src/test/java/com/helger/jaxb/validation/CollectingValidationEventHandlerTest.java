@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.io.resource.FileSystemResource;
 import com.helger.jaxb.JAXBContextCache;
 import com.helger.jaxb.JAXBContextCacheKey;
 import com.helger.jaxb.mock.external.MockJAXBArchive;

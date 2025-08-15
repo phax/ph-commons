@@ -37,10 +37,10 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
+import com.helger.io.resource.FileSystemResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

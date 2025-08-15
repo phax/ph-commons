@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.resource;
+package com.helger.io.resource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,8 +40,8 @@ import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the
- * {@link com.helger.commons.io.resource.IReadableResource} and
- * {@link com.helger.commons.io.resource.IWritableResource} interfaces for file
+ * {@link com.helger.io.resource.IReadableResource} and
+ * {@link com.helger.io.resource.IWritableResource} interfaces for file
  * system objects.
  *
  * @author Philip Helger

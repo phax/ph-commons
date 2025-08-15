@@ -14,29 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.provider;
+package com.helger.io.resource;
 
-import java.io.InputStream;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
- * A callback interface to retrieve {@link InputStream} objects from a given
- * name.
+ * Base interface for an abstract resource that is both readable and writable.
  *
  * @author Philip Helger
  */
-@FunctionalInterface
-public interface IInputStreamProvider
+@MustImplementEqualsAndHashcode
+public interface IReadWriteResource extends IReadableResource, IWritableResource
 {
-  /**
-   * Get the input stream from the given name.
-   *
-   * @param sName
-   *        The name to be resolved. May not be <code>null</code>.
-   * @return <code>null</code> if resolving failed.
-   */
-  @Nullable
-  InputStream getInputStream (@Nonnull String sName);
+  /* empty */
 }

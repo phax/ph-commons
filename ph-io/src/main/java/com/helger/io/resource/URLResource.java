@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.resource;
+package com.helger.io.resource;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,9 +35,9 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.url.CURL;
 import com.helger.base.wrapper.IMutableWrapper;
-import com.helger.commons.url.ISimpleURL;
-import com.helger.commons.url.URLHelper;
+import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -57,11 +57,6 @@ public class URLResource implements IReadableResource
   private static final Logger LOGGER = LoggerFactory.getLogger (URLResource.class);
 
   private final URL m_aURL;
-
-  public URLResource (@Nonnull final ISimpleURL aURL) throws MalformedURLException
-  {
-    this (aURL.getAsStringWithEncodedParameters ());
-  }
 
   public URLResource (@Nonnull final String sURL) throws MalformedURLException
   {
@@ -162,7 +157,7 @@ public class URLResource implements IReadableResource
   public boolean exists ()
   {
     // 1. as file
-    if (URLHelper.PROTOCOL_FILE.equals (m_aURL.getProtocol ()))
+    if (CURL.PROTOCOL_FILE.equals (m_aURL.getProtocol ()))
       return getAsFile ().exists ();
 
     // Not a file URL

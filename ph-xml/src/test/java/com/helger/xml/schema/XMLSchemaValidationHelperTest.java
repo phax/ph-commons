@@ -28,8 +28,8 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.commons.error.list.IErrorList;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**

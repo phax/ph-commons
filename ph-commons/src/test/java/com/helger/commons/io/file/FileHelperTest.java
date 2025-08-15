@@ -33,11 +33,11 @@ import com.helger.base.CGlobal;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.system.EOperatingSystem;
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.io.file.EFileIOErrorCode;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileIOError;
 import com.helger.io.file.FileOperations;
+import com.helger.io.resource.ClassPathResource;
 
 /**
  * Test class for class {@link FileHelper}.

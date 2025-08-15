@@ -21,7 +21,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.InputStream;
@@ -34,7 +33,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.url.URLHelper;
 
 /**
  * Test class for class {@link URLHelper}.
@@ -59,64 +59,9 @@ public final class URLHelperTest
   }
 
   @Test
-  public void testUrlEncodeDecode ()
-  {
-    String sDec = "hallo welt";
-    String sEnc = URLHelper.urlEncode (sDec);
-    assertEquals ("hallo+welt", sEnc);
-    assertEquals (sDec, URLHelper.urlDecode (sEnc));
-
-    // default: UTF-8
-    sDec = "äöü";
-    sEnc = URLHelper.urlEncode (sDec);
-    assertEquals ("%C3%A4%C3%B6%C3%BC", sEnc);
-    assertEquals (sDec, URLHelper.urlDecode (sEnc));
-
-    sDec = "äöü";
-    sEnc = URLHelper.urlEncode (sDec, StandardCharsets.ISO_8859_1);
-    assertEquals ("%E4%F6%FC", sEnc);
-    assertEquals (sDec, URLHelper.urlDecode (sEnc, StandardCharsets.ISO_8859_1));
-
-    // Crappy
-    try
-    {
-      URLHelper.urlDecode (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      URLHelper.urlDecode ("a%%%b");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      URLHelper.urlDecode ("a%%%b", StandardCharsets.UTF_8);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    assertNull (URLHelper.urlDecodeOrNull (null));
-    assertNull (URLHelper.urlDecodeOrNull ("a%%%b"));
-    assertNull (URLHelper.urlDecodeOrNull ("a%%%b", StandardCharsets.UTF_8));
-    assertEquals ("Storedsearch_clip_2021-10-27_09-22-59+0200--2021-10-27_09-27-59+0200_1_2.jpg",
-                  URLHelper.urlDecodeOrNull ("Storedsearch_clip_2021-10-27_09-22-59%2B0200--2021-10-27_09-27-59%2B0200_1_2.jpg"));
-
-    final URL aURL = URLHelper.getAsURL ("http://www.helger.com/iso6523%3A%3A0088%3A01234");
-    assertNotNull (aURL);
-    assertEquals ("http://www.helger.com/iso6523%3A%3A0088%3A01234", aURL.toExternalForm ());
-
-    final SimpleURL aSimpleURL = new SimpleURL ("http://www.helger.com/iso6523%3A%3A0088%3A01234");
-    assertEquals ("http://www.helger.com/iso6523%3A%3A0088%3A01234", aSimpleURL.getAsStringWithEncodedParameters ());
-  }
-
-  @Test
   public void testGetURLData ()
   {
-    ISimpleURL aData = URLHelper.getAsURLData ("http://www.helger.com/folder?x=y&a=b#c");
+    ISimpleURL aData = SimpleURLHelper.getAsURLData ("http://www.helger.com/folder?x=y&a=b#c");
     assertNotNull (aData);
     assertEquals (EURLProtocol.HTTP, aData.getProtocol ());
     assertEquals ("http://www.helger.com/folder", aData.getPath ());
@@ -125,7 +70,7 @@ public final class URLHelperTest
     assertEquals ("b", aData.params ().getFirstParamValue ("a"));
     assertEquals ("c", aData.getAnchor ());
 
-    aData = URLHelper.getAsURLData ("?x=y&a=b#c");
+    aData = SimpleURLHelper.getAsURLData ("?x=y&a=b#c");
     assertNotNull (aData);
     assertNull (aData.getProtocol ());
     assertEquals ("", aData.getPath ());
@@ -134,7 +79,7 @@ public final class URLHelperTest
     assertEquals ("b", aData.params ().getFirstParamValue ("a"));
     assertEquals ("c", aData.getAnchor ());
 
-    aData = URLHelper.getAsURLData ("?x=y&=b#c");
+    aData = SimpleURLHelper.getAsURLData ("?x=y&=b#c");
     assertNotNull (aData);
     assertNull (aData.getProtocol ());
     assertEquals ("", aData.getPath ());
@@ -164,21 +109,24 @@ public final class URLHelperTest
   public void testGetApplicationFormEncoded ()
   {
     final URLParameterEncoder enc = new URLParameterEncoder (StandardCharsets.UTF_8);
-    assertNull (URLHelper.getQueryParametersAsString ((URLParameterList) null, enc));
-    assertNull (URLHelper.getQueryParametersAsString (new URLParameterList (), enc));
-    assertEquals ("a=b", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b"), enc));
+    assertNull (SimpleURLHelper.getQueryParametersAsString ((URLParameterList) null, enc));
+    assertNull (SimpleURLHelper.getQueryParametersAsString (new URLParameterList (), enc));
+    assertEquals ("a=b", SimpleURLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b"), enc));
     assertEquals ("a=b&c=d",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d"), enc));
+                  SimpleURLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d"),
+                                                              enc));
     assertEquals ("a=b&c=d&e=f+g",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b")
-                                                                               .add ("c", "d")
-                                                                               .add ("e", "f g"), enc));
+                  SimpleURLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b")
+                                                                                     .add ("c", "d")
+                                                                                     .add ("e", "f g"), enc));
     assertEquals ("a=b&c=d%26e",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), enc));
+                  SimpleURLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"),
+                                                              enc));
 
     // Using identity encoder
     assertEquals ("a=b&c=d&e",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), null));
+                  SimpleURLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"),
+                                                              null));
   }
 
   @Test

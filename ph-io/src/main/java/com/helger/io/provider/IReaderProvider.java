@@ -14,30 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.resource;
+package com.helger.io.provider;
 
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.base.io.iface.IHasOutputStreamAndWriter;
+import java.io.Reader;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Base interface for an abstract writable resource.
+ * A callback interface to retrieve {@link Reader} objects from a given name.
  *
  * @author Philip Helger
  */
-@MustImplementEqualsAndHashcode
-public interface IWritableResource extends IHasOutputStreamAndWriter, IResourceBase
+@FunctionalInterface
+public interface IReaderProvider
 {
   /**
-   * Get a new resource of the same implementation type as this object but for a
-   * different path.
+   * Get the reader from the given name.
    *
-   * @param sPath
-   *        The new path to use. May not be <code>null</code>.
-   * @return The resource of the same implementation but a different path. May
-   *         not be <code>null</code>.
+   * @param sName
+   *        The name to be resolved. May not be <code>null</code>.
+   * @return <code>null</code> if resolving failed.
    */
-  @Nonnull
-  IWritableResource getWritableCloneForPath (@Nonnull String sPath);
+  @Nullable
+  Reader getReader (@Nonnull String sName);
 }

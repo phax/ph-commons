@@ -37,7 +37,7 @@ import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.numeric.BigHelper;
 import com.helger.commons.locale.LocaleHelper;
-import com.helger.commons.url.URLHelper;
+import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 

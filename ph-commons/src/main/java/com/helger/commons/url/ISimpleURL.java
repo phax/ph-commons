@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
+import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -99,7 +100,7 @@ public interface ISimpleURL
   @Nonnull
   default String getAsStringWithoutEncodedParameters ()
   {
-    return URLHelper.getURLString (this, (Charset) null);
+    return SimpleURLHelper.getURLString (this, (Charset) null);
   }
 
   /**
@@ -109,7 +110,7 @@ public interface ISimpleURL
   @Nonnull
   default String getAsStringWithEncodedParameters ()
   {
-    return URLHelper.getURLString (this, URLHelper.CHARSET_URL_OBJ);
+    return SimpleURLHelper.getURLString (this, URLCoder.CHARSET_URL_OBJ);
   }
 
   /**
@@ -120,7 +121,7 @@ public interface ISimpleURL
   @Nonnull
   default String getAsStringWithEncodedParameters (@Nonnull final Charset aCharset)
   {
-    return URLHelper.getURLString (this, aCharset);
+    return SimpleURLHelper.getURLString (this, aCharset);
   }
 
   @Nullable

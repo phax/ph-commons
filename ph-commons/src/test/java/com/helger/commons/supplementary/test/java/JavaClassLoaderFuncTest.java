@@ -29,9 +29,9 @@ import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.system.EJavaVersion;
-import com.helger.commons.lang.ClassHelperExt;
-import com.helger.commons.lang.ClassLoaderHelperExt;
 import com.helger.commons.system.JavaVersionHelper;
+import com.helger.io.clazz.ClassHelperExt;
+import com.helger.io.clazz.ClassLoaderHelperExt;
 
 /**
  * Test the difference between loading from a ClassLoader and a Class. The results are:

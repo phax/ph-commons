@@ -28,12 +28,13 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.string.StringHelper;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.url.URLHelper;
+import com.helger.base.url.CURL;
 import com.helger.io.file.FilenameHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resource.URLResource;
+import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -241,7 +242,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     {
       // File URL are handled separately, as they might be relative (as in
       // 'file:../dir/include.xml')!
-      if (!aSystemURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
+      if (!aSystemURL.getProtocol ().equals (CURL.PROTOCOL_FILE))
       {
         final URLResource ret = new URLResource (aSystemURL);
         CONDLOG.info ( () -> "  resolved system URL to " + ret);
@@ -266,7 +267,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     final URL aBaseURL = URLHelper.getAsURL (sBaseURI);
 
     // Handle "file" protocol separately
-    if (aBaseURL != null && !aBaseURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
+    if (aBaseURL != null && !aBaseURL.getProtocol ().equals (CURL.PROTOCOL_FILE))
       try
       {
         return _resolveURLResource (sSystemId, aBaseURL);

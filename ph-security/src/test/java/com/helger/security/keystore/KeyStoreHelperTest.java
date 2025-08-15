@@ -52,9 +52,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.CGlobal;
 import com.helger.bc.PBCProvider;
 import com.helger.collection.CollectionHelper;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.io.file.FileHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;
 

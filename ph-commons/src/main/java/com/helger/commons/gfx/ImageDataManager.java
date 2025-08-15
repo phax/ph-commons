@@ -39,7 +39,7 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.map.LRUMap;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.statistics.api.IMutableStatisticsHandlerCache;
 import com.helger.statistics.impl.StatisticsManager;
 

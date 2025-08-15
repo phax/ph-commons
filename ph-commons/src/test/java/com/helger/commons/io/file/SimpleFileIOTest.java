@@ -29,9 +29,9 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.io.file.FileOperations;
 import com.helger.io.file.SimpleFileIO;
+import com.helger.io.resource.ClassPathResource;
 
 /**
  * Test class for class {@link SimpleFileIO}.

@@ -51,6 +51,6 @@ public class URLParameterEncoder implements IEncoder <String, String>
   @Nullable
   public String getEncoded (@Nullable final String sInput)
   {
-    return sInput == null ? null : URLHelper.urlEncode (sInput, m_aCharset);
+    return sInput == null ? null : URLCoder.urlEncode (sInput, m_aCharset);
   }
 }

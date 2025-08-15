@@ -28,6 +28,7 @@ import org.junit.Test;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.io.file.FileOperations;
+import com.helger.io.provider.FileSystemByteStreamProvider;
 import com.helger.unittest.support.TestHelper;
 
 /**

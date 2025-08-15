@@ -31,11 +31,11 @@ import com.helger.base.state.ESuccess;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
+import com.helger.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -36,7 +36,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
 import com.helger.base.string.StringImplode;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.xml.XMLFactory;
 
 import jakarta.annotation.Nonnull;

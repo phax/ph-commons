@@ -33,7 +33,7 @@ import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import com.helger.base.io.iface.IHasInputStream;
-import com.helger.commons.io.resource.URLResource;
+import com.helger.io.resource.URLResource;
 
 /**
  * Test class for class {@link SimpleLSResourceResolver}.

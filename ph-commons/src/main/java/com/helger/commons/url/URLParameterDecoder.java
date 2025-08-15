@@ -51,6 +51,6 @@ public class URLParameterDecoder implements IDecoder <String, String>
   @Nullable
   public String getDecoded (@Nullable final String sInput)
   {
-    return URLHelper.urlDecodeOrNull (sInput, m_aCharset);
+    return URLCoder.urlDecodeOrNull (sInput, m_aCharset);
   }
 }

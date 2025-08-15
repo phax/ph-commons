@@ -48,9 +48,9 @@ import com.helger.base.io.stream.WrappedReader;
 import com.helger.base.mock.exception.MockIOException;
 import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.io.stream.StreamHelperExt;
 
 /**

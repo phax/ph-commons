@@ -28,7 +28,7 @@ import com.helger.base.io.EAppend;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.io.resource.IWritableResource;
+import com.helger.io.resource.IWritableResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

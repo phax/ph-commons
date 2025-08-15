@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.url;
+package com.helger.io.url;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,10 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLDecoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
@@ -42,7 +39,6 @@ import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.EqualsHelper;
@@ -52,16 +48,12 @@ import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.base.string.StringReplace;
+import com.helger.base.url.CURL;
 import com.helger.base.wrapper.IMutableWrapper;
-import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.commons.codec.DecodeException;
-import com.helger.commons.codec.IDecoder;
-import com.helger.commons.codec.IEncoder;
-import com.helger.commons.codec.URLCodec;
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.io.file.FilenameHelper;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
@@ -75,36 +67,12 @@ import jakarta.annotation.Nullable;
 @ThreadSafe
 public final class URLHelper
 {
-  /** Default URL charset is UTF-8 */
-  public static final Charset CHARSET_URL_OBJ = StandardCharsets.UTF_8;
-
-  /** Separator before first param: ? */
-  public static final char QUESTIONMARK = '?';
-  public static final String QUESTIONMARK_STR = Character.toString (QUESTIONMARK);
-
-  /** Separator between params: &amp; */
-  public static final char AMPERSAND = '&';
-  public static final String AMPERSAND_STR = Character.toString (AMPERSAND);
-
-  /** Separator between param name and param value: = */
-  public static final char EQUALS = '=';
-  public static final String EQUALS_STR = Character.toString (EQUALS);
-
-  /** Separator between URL path and anchor name: # */
-  public static final char HASH = '#';
-  public static final String HASH_STR = Character.toString (HASH);
-
-  /** The protocol for file resources */
-  public static final String PROTOCOL_FILE = "file";
-
   private static final Logger LOGGER = LoggerFactory.getLogger (URLHelper.class);
 
   private static char [] s_aCleanURLOld;
   private static char [] [] s_aCleanURLNew;
 
   private static final boolean DEBUG_GET_IS = false;
-
-  private static final URLCodec URL_CODEC = new URLCodec ();
 
   @PresentForCodeCoverage
   private static final URLHelper INSTANCE = new URLHelper ();
@@ -127,164 +95,6 @@ public final class URLHelper
   public static boolean equalURLs (@Nonnull final URL aObj1, @Nonnull final URL aObj2)
   {
     return EqualsHelper.equalsCustom (aObj1, aObj2, (x, y) -> x.toExternalForm ().equals (y.toExternalForm ()));
-  }
-
-  /**
-   * URL-decode the passed value automatically handling charset issues. The used char set is
-   * determined by {@link #CHARSET_URL_OBJ}.
-   *
-   * @param sValue
-   *        The value to be decoded. May not be <code>null</code>.
-   * @return The decoded value.
-   * @throws IllegalArgumentException
-   *         if something goes wrong
-   * @see #urlDecode(String, Charset)
-   */
-  @Nonnull
-  public static String urlDecode (@Nonnull final String sValue)
-  {
-    return urlDecode (sValue, CHARSET_URL_OBJ);
-  }
-
-  /**
-   * URL-decode the passed value automatically handling charset issues. The implementation uses
-   * {@link URLCodec} to do the hard work.
-   *
-   * @param sValue
-   *        The value to be decoded. May not be <code>null</code>.
-   * @param aCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @return The decoded value.
-   * @throws IllegalArgumentException
-   *         if something goes wrong
-   * @see URLDecoder#decode(String, String)
-   */
-  @Nonnull
-  public static String urlDecode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (sValue, "Value");
-    try
-    {
-      return URL_CODEC.getDecodedAsString (sValue, aCharset);
-    }
-    catch (final DecodeException ex)
-    {
-      throw new IllegalArgumentException (ex);
-    }
-  }
-
-  /**
-   * URL-decode the passed value automatically handling charset issues. The used char set is
-   * determined by {@link #CHARSET_URL_OBJ}.
-   *
-   * @param sValue
-   *        The value to be decoded. May not be <code>null</code>.
-   * @return The decoded value.
-   * @see #urlDecode(String, Charset)
-   * @since 9.4.1
-   */
-  @Nullable
-  public static String urlDecodeOrNull (@Nonnull final String sValue)
-  {
-    return urlDecodeOrNull (sValue, CHARSET_URL_OBJ);
-  }
-
-  /**
-   * URL-decode the passed value automatically handling charset issues. The implementation uses
-   * {@link URLCodec} to do the hard work.
-   *
-   * @param sValue
-   *        The value to be decoded. May be <code>null</code>.
-   * @param aCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @return The decoded value or <code>null</code>.
-   * @see URLDecoder#decode(String, String)
-   * @since 9.4.1
-   */
-  @Nullable
-  public static String urlDecodeOrNull (@Nullable final String sValue, @Nonnull final Charset aCharset)
-  {
-    return urlDecodeOrDefault (sValue, aCharset, null);
-  }
-
-  /**
-   * URL-decode the passed value automatically handling charset issues. The used char set is
-   * determined by {@link #CHARSET_URL_OBJ}.
-   *
-   * @param sValue
-   *        The value to be decoded. May not be <code>null</code>.
-   * @param sDefault
-   *        The default value to be returned if decoding fails.
-   * @return The decoded value or the default.
-   * @see #urlDecode(String, Charset)
-   * @since 9.4.1
-   */
-  @Nullable
-  public static String urlDecodeOrDefault (@Nonnull final String sValue, @Nullable final String sDefault)
-  {
-    return urlDecodeOrDefault (sValue, CHARSET_URL_OBJ, sDefault);
-  }
-
-  /**
-   * URL-decode the passed value automatically handling charset issues. The implementation uses
-   * {@link URLCodec} to do the hard work.
-   *
-   * @param sValue
-   *        The value to be decoded. May be <code>null</code>.
-   * @param aCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @param sDefault
-   *        The default value to be returned if decoding fails.
-   * @return The decoded value or the default.
-   * @see URLDecoder#decode(String, String)
-   * @since 9.4.1
-   */
-  @Nullable
-  public static String urlDecodeOrDefault (@Nullable final String sValue,
-                                           @Nonnull final Charset aCharset,
-                                           @Nullable final String sDefault)
-  {
-    if (sValue != null)
-      try
-      {
-        return URL_CODEC.getDecodedAsString (sValue, aCharset);
-      }
-      catch (final DecodeException ex)
-      {
-        // Fall through
-      }
-    return sDefault;
-  }
-
-  /**
-   * URL-encode the passed value automatically handling charset issues. The used char set is
-   * determined by {@link #CHARSET_URL_OBJ}.
-   *
-   * @param sValue
-   *        The value to be encoded. May not be <code>null</code>.
-   * @return The encoded value.
-   */
-  @Nonnull
-  public static String urlEncode (@Nonnull final String sValue)
-  {
-    return urlEncode (sValue, CHARSET_URL_OBJ);
-  }
-
-  /**
-   * URL-encode the passed value automatically handling charset issues. This is a ripped, optimized
-   * version of URLEncoder.encode but without the UnsupportedEncodingException.
-   *
-   * @param sValue
-   *        The value to be encoded. May not be <code>null</code>.
-   * @param aCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @return The encoded value.
-   */
-  @Nonnull
-  public static String urlEncode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (sValue, "Value");
-    return URL_CODEC.getEncodedAsString (sValue, aCharset);
   }
 
   private static void _initCleanURL ()
@@ -351,117 +161,6 @@ public final class URLHelper
     return new String (ret);
   }
 
-  @Nonnull
-  public static ISimpleURL getAsURLData (@Nonnull final String sHref)
-  {
-    return getAsURLData (sHref, null);
-  }
-
-  /**
-   * Parses the passed URL into a structured form
-   *
-   * @param sHref
-   *        The URL to be parsed
-   * @param aParameterDecoder
-   *        The parameter decoder to use. May be <code>null</code>.
-   * @return the corresponding {@link ISimpleURL} representation of the passed URL
-   */
-  @Nonnull
-  public static ISimpleURL getAsURLData (@Nonnull final String sHref,
-                                         @Nullable final IDecoder <String, String> aParameterDecoder)
-  {
-    ValueEnforcer.notNull (sHref, "Href");
-
-    final String sRealHref = sHref.trim ();
-
-    // Is it a protocol that does not allow for query parameters?
-    final IURLProtocol eProtocol = URLProtocolRegistry.getInstance ().getProtocol (sRealHref);
-    if (eProtocol != null && !eProtocol.allowsForQueryParameters ())
-      return new URLData (sRealHref, null, null);
-
-    if (GlobalDebug.isDebugMode ())
-      if (eProtocol != null)
-        try
-        {
-          new URL (sRealHref);
-        }
-        catch (final MalformedURLException ex)
-        {
-          LOGGER.warn ("java.net.URL claims URL '" + sRealHref + "' to be invalid: " + ex.getMessage ());
-        }
-
-    String sPath;
-    URLParameterList aParams = null;
-    String sAnchor;
-
-    // First get the anchor out
-    String sRemainingHref = sRealHref;
-    final int nIndexAnchor = sRemainingHref.indexOf (HASH);
-    if (nIndexAnchor >= 0)
-    {
-      // Extract anchor
-      sAnchor = sRemainingHref.substring (nIndexAnchor + 1).trim ();
-      sRemainingHref = sRemainingHref.substring (0, nIndexAnchor).trim ();
-    }
-    else
-      sAnchor = null;
-    // Find parameters
-    final int nQuestionIndex = sRemainingHref.indexOf (QUESTIONMARK);
-    if (nQuestionIndex >= 0)
-    {
-      // Use everything after the '?'
-      final String sQueryString = sRemainingHref.substring (nQuestionIndex + 1).trim ();
-
-      // Maybe empty, if the URL ends with a '?'
-      if (StringHelper.isNotEmpty (sQueryString))
-        aParams = getParsedQueryParameters (sQueryString, aParameterDecoder);
-
-      sPath = sRemainingHref.substring (0, nQuestionIndex).trim ();
-    }
-    else
-      sPath = sRemainingHref;
-    return new URLData (sPath, aParams, sAnchor);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static URLParameterList getParsedQueryParameters (@Nullable final String sQueryString,
-                                                           @Nullable final IDecoder <String, String> aParameterDecoder)
-  {
-    final URLParameterList aMap = new URLParameterList ();
-    if (StringHelper.isNotEmpty (sQueryString))
-    {
-      for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))
-        if (sKeyValuePair.length () > 0)
-        {
-          final List <String> aParts = StringHelper.getExploded (EQUALS, sKeyValuePair, 2);
-          final String sKey = aParts.get (0);
-          // Maybe empty when passing something like "url?=value"
-          if (StringHelper.isNotEmpty (sKey))
-          {
-            final String sValue = aParts.size () == 2 ? aParts.get (1) : "";
-            if (sValue == null)
-              throw new IllegalArgumentException ("parameter value may not be null");
-            if (aParameterDecoder != null)
-            {
-              // Now decode the name and the value
-              aMap.add (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
-            }
-            else
-              aMap.add (sKey, sValue);
-          }
-        }
-    }
-    return aMap;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static URLParameterList getParsedQueryParameters (@Nullable final String sQueryString)
-  {
-    return getParsedQueryParameters (sQueryString, null);
-  }
-
   /**
    * Get the final representation of the URL using the specified elements.
    *
@@ -482,53 +181,56 @@ public final class URLHelper
     final boolean bHasPath = StringHelper.isNotEmpty (sPath);
     final boolean bHasQueryParams = StringHelper.isNotEmpty (sQueryParams);
     final boolean bHasAnchor = StringHelper.isNotEmpty (sAnchor);
+
     if (GlobalDebug.isDebugMode ())
     {
       // Consistency checks
       if (bHasPath)
       {
-        if (sPath.contains (QUESTIONMARK_STR))
+        if (sPath.contains (CURL.QUESTIONMARK_STR))
           LOGGER.warn ("Path contains the question mark ('?') character: '" + sPath + "'");
-        if (sPath.contains (AMPERSAND_STR))
+        if (sPath.contains (CURL.AMPERSAND_STR))
           LOGGER.warn ("Path contains the ampersand ('&') character: '" + sPath + "'");
-        if (sPath.contains (HASH_STR))
+        if (sPath.contains (CURL.HASH_STR))
           LOGGER.warn ("Path contains the hash ('#') character: '" + sPath + "'");
       }
       if (bHasQueryParams)
       {
-        if (sQueryParams.contains (QUESTIONMARK_STR))
+        if (sQueryParams.contains (CURL.QUESTIONMARK_STR))
           LOGGER.warn ("Query parameters contain the question mark ('?') character: '" + sQueryParams + "'");
       }
       if (bHasAnchor)
       {
-        if (sAnchor.contains (HASH_STR))
+        if (sAnchor.contains (CURL.HASH_STR))
           LOGGER.warn ("Anchor contains the hash ('#') character: '" + sAnchor + "'");
       }
     }
+
     // return URL as is?
     if (!bHasQueryParams && !bHasAnchor)
     {
       // Return URL as is (may be null)
       return sPath;
     }
+
     final StringBuilder aSB = new StringBuilder ();
     if (bHasPath)
       aSB.append (sPath);
     if (bHasQueryParams)
     {
-      final boolean bHasQuestionMark = aSB.indexOf (QUESTIONMARK_STR) >= 0;
+      final boolean bHasQuestionMark = aSB.indexOf (CURL.QUESTIONMARK_STR) >= 0;
       if (bHasQuestionMark)
       {
         // Only if the "?" is not the last char otherwise the base href already
         // contains a parameter!
         final char cLast = StringHelper.getLastChar (aSB);
-        if (cLast != QUESTIONMARK && cLast != AMPERSAND)
-          aSB.append (AMPERSAND);
+        if (cLast != CURL.QUESTIONMARK && cLast != CURL.AMPERSAND)
+          aSB.append (CURL.AMPERSAND);
       }
       else
       {
         // First parameter
-        aSB.append (QUESTIONMARK);
+        aSB.append (CURL.QUESTIONMARK);
       }
       // add all parameters
       aSB.append (sQueryParams);
@@ -536,96 +238,15 @@ public final class URLHelper
     // Append anchor
     if (bHasAnchor)
     {
-      if (StringHelper.getLastChar (aSB) != HASH)
-        aSB.append (HASH);
+      if (StringHelper.getLastChar (aSB) != CURL.HASH)
+        aSB.append (CURL.HASH);
       aSB.append (sAnchor);
     }
     // Avoid empty URLs
     if (aSB.length () == 0)
-      return QUESTIONMARK_STR;
+      return CURL.QUESTIONMARK_STR;
 
     return aSB.toString ();
-  }
-
-  /**
-   * Create a parameter string. This is also suitable for POST body (e.g. for web form submission).
-   *
-   * @param aQueryParams
-   *        Parameter map. May be <code>null</code> or empty.
-   * @param aQueryParameterEncoder
-   *        The encoder to be used to encode parameter names and parameter values. May be
-   *        <code>null</code>. This may be e.g. a {@link URLParameterEncoder}.
-   * @return <code>null</code> if no parameter is present.
-   */
-  @Nullable
-  public static String getQueryParametersAsString (@Nullable final List <? extends URLParameter> aQueryParams,
-                                                   @Nullable final IEncoder <String, String> aQueryParameterEncoder)
-  {
-    if (CollectionHelper.isEmpty (aQueryParams))
-      return null;
-
-    final StringBuilder aSB = new StringBuilder ();
-    // add all values
-    for (final URLParameter aParam : aQueryParams)
-    {
-      // Separator
-      if (aSB.length () > 0)
-        aSB.append (AMPERSAND);
-      aParam.appendTo (aSB, aQueryParameterEncoder);
-    }
-    return aSB.toString ();
-  }
-
-  @Nonnull
-  public static String getURLString (@Nonnull final ISimpleURL aURL, @Nullable final Charset aParameterCharset)
-  {
-    return getURLString (aURL.getPath (), aURL.params (), aURL.getAnchor (), aParameterCharset);
-  }
-
-  /**
-   * Get the final representation of the URL using the specified elements.
-   *
-   * @param sPath
-   *        The main path. May be <code>null</code>.
-   * @param aQueryParams
-   *        The list of query parameters to be appended. May be <code>null</code> .
-   * @param sAnchor
-   *        An optional anchor to be added. May be <code>null</code>.
-   * @param aQueryParameterEncoder
-   *        The parameters encoding to be used. May be <code>null</code>.
-   * @return May be <code>null</code> if path, anchor and parameters are <code>null</code>.
-   */
-  @Nullable
-  public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final List <? extends URLParameter> aQueryParams,
-                                     @Nullable final String sAnchor,
-                                     @Nullable final IEncoder <String, String> aQueryParameterEncoder)
-  {
-    return getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
-  }
-
-  /**
-   * Get the final representation of the URL using the specified elements.
-   *
-   * @param sPath
-   *        The main path. May be <code>null</code>.
-   * @param aQueryParams
-   *        The list of parameters to be appended. May be <code>null</code>.
-   * @param sAnchor
-   *        An optional anchor to be added. May be <code>null</code>.
-   * @param aParameterCharset
-   *        If not <code>null</code> the parameters are encoded using this charset.
-   * @return May be <code>null</code> if all parameters are <code>null</code>.
-   */
-  @Nullable
-  public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final List <? extends URLParameter> aQueryParams,
-                                     @Nullable final String sAnchor,
-                                     @Nullable final Charset aParameterCharset)
-  {
-    final IEncoder <String, String> aQueryParameterEncoder = aParameterCharset == null ? null
-                                                                                       : new URLParameterEncoder (aParameterCharset);
-    return getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
   }
 
   /**
@@ -902,7 +523,7 @@ public final class URLHelper
   public static File getAsFile (@Nonnull final URL aURL)
   {
     ValueEnforcer.notNull (aURL, "URL");
-    ValueEnforcer.isEqual (PROTOCOL_FILE, aURL.getProtocol (), () -> "Not a file URL: " + aURL.toExternalForm ());
+    ValueEnforcer.isEqual (CURL.PROTOCOL_FILE, aURL.getProtocol (), () -> "Not a file URL: " + aURL.toExternalForm ());
 
     String sPath;
     File aFile;

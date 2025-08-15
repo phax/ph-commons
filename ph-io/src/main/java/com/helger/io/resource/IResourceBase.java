@@ -14,12 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.resource;
+package com.helger.io.resource;
+
+import java.io.File;
+import java.net.URL;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.base.io.iface.IHasInputStreamAndReader;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for an abstract readable resource.
@@ -27,17 +30,38 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IReadableResource extends IHasInputStreamAndReader, IResourceBase
+public interface IResourceBase
 {
   /**
-   * Get a new resource of the same implementation type as this object but for a
-   * different path.
-   *
-   * @param sPath
-   *        The new path to use. May not be <code>null</code>.
-   * @return The resource of the same implementation but a different path. May
-   *         not be <code>null</code>.
+   * @return A non-<code>null</code> resource ID used e.g. for system IDs in XML
+   *         resolving.
    */
   @Nonnull
-  IReadableResource getReadableCloneForPath (@Nonnull String sPath);
+  String getResourceID ();
+
+  /**
+   * @return The requested path. Never <code>null</code>
+   */
+  @Nonnull
+  String getPath ();
+
+  /**
+   * @return <code>true</code> if the resource exists, <code>false</code>
+   *         otherwise.
+   */
+  boolean exists ();
+
+  /**
+   * @return the URL representation of this resource. May be <code>null</code>
+   *         if this resource cannot be represented as an URL.
+   */
+  @Nullable
+  URL getAsURL ();
+
+  /**
+   * @return the File representation of this resource. May be <code>null</code>
+   *         if this resource cannot be represented as a file.
+   */
+  @Nullable
+  File getAsFile ();
 }

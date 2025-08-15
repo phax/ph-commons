@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.resource;
+package com.helger.io.resource;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,9 +36,9 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.lang.ClassLoaderHelperExt;
-import com.helger.commons.url.URLHelper;
+import com.helger.io.clazz.ClassLoaderHelperExt;
 import com.helger.io.stream.StreamHelperExt;
+import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -165,7 +165,8 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
    */
   public static boolean isExplicitClassPathResource (@Nullable final String sName)
   {
-    return StringHelper.startsWith (sName, CLASSPATH_PREFIX_LONG) || StringHelper.startsWith (sName, CLASSPATH_PREFIX_SHORT);
+    return StringHelper.startsWith (sName, CLASSPATH_PREFIX_LONG) ||
+           StringHelper.startsWith (sName, CLASSPATH_PREFIX_SHORT);
   }
 
   @Nullable

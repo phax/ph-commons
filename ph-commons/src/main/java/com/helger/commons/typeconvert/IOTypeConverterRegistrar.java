@@ -33,11 +33,11 @@ import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.iface.IHasOutputStream;
 import com.helger.base.io.iface.IHasReader;
 import com.helger.base.io.iface.IHasWriter;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IResourceBase;
-import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.url.URLHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.resource.IResourceBase;
+import com.helger.io.resource.URLResource;
+import com.helger.io.url.URLHelper;
 import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
 

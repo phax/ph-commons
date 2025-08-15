@@ -32,7 +32,7 @@ import javax.xml.transform.dom.DOMResult;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.XMLFactory;
 

@@ -14,28 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.provider;
+package com.helger.io.provider;
 
-import java.io.Reader;
+import java.io.InputStream;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A callback interface to retrieve {@link Reader} objects from a given name.
+ * A callback interface to retrieve {@link InputStream} objects from a given
+ * name.
  *
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IReaderProvider
+public interface IInputStreamProvider
 {
   /**
-   * Get the reader from the given name.
+   * Get the input stream from the given name.
    *
    * @param sName
    *        The name to be resolved. May not be <code>null</code>.
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  Reader getReader (@Nonnull String sName);
+  InputStream getInputStream (@Nonnull String sName);
 }

@@ -24,7 +24,7 @@ import javax.xml.transform.TransformerFactory;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.unittest.support.TestHelper;
 
 /**

@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.transform.TransformSourceFactory;
 
 import jakarta.xml.bind.JAXBContext;

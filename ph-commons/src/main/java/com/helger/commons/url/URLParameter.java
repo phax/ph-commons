@@ -22,14 +22,15 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.url.CURL;
 import com.helger.commons.codec.IEncoder;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class represents a single URL parameter. It consists of a mandatory name
- * and an optional value.
+ * This class represents a single URL parameter. It consists of a mandatory name and an optional
+ * value.
  *
  * @author Philip Helger
  */
@@ -76,8 +77,7 @@ public class URLParameter
   }
 
   /**
-   * @return The value of the URL parameter. Never <code>null</code> but maybe
-   *         empty.
+   * @return The value of the URL parameter. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   public String getValue ()
@@ -86,8 +86,7 @@ public class URLParameter
   }
 
   /**
-   * @return <code>true</code> if this parameter has a value, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this parameter has a value, <code>false</code> otherwise.
    */
   public boolean hasValue ()
   {
@@ -106,7 +105,8 @@ public class URLParameter
     return m_sValue.equals (sValue);
   }
 
-  public void appendTo (@Nonnull final StringBuilder aSB, @Nullable final IEncoder <String, String> aQueryParameterEncoder)
+  public void appendTo (@Nonnull final StringBuilder aSB,
+                        @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
     // Name
     if (aQueryParameterEncoder != null)
@@ -117,7 +117,7 @@ public class URLParameter
     // Value
     if (hasValue ())
     {
-      aSB.append (URLHelper.EQUALS);
+      aSB.append (CURL.EQUALS);
       if (aQueryParameterEncoder != null)
         aSB.append (aQueryParameterEncoder.getEncoded (m_sValue));
       else

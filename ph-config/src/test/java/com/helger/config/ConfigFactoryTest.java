@@ -32,13 +32,13 @@ import com.helger.base.numeric.BigHelper;
 import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
 import com.helger.config.source.res.ConfigurationSourceJson;
 import com.helger.config.source.res.ConfigurationSourceProperties;
 import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 import com.helger.config.value.IConfigurationValueProvider;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.typeconvert.TypeConverterException;
 
 import jakarta.annotation.Nonnull;

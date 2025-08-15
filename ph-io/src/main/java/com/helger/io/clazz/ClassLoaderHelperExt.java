@@ -14,57 +14,57 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.lang;
+package com.helger.io.clazz;
 
 import java.io.InputStream;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * {@link Class} helper methods.
+ * {@link ClassLoader} utility methods.
  *
  * @author Philip Helger
  */
 @Immutable
-public final class ClassHelperExt extends ClassHelper
+public final class ClassLoaderHelperExt extends ClassLoaderHelper
 {
-
   @PresentForCodeCoverage
-  private static final ClassHelperExt INSTANCE = new ClassHelperExt ();
+  private static final ClassLoaderHelperExt INSTANCE = new ClassLoaderHelperExt ();
 
-  private ClassHelperExt ()
+  private ClassLoaderHelperExt ()
   {}
 
   /**
-   * Get the input stream of the passed resource using the class loader of the specified class only.
-   * This is a sanity wrapper around <code>class.getResourceAsStream (sPath)</code>.
+   * Get the input stream of the passed resource using the specified class loader only. This is a
+   * sanity wrapper around <code>classLoader.getResourceAsStream (sPath)</code>.
    *
-   * @param aClass
-   *        The class to be used. May not be <code>null</code>.
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
    * @param sPath
    *        The path to be resolved. May neither be <code>null</code> nor empty. Internally it is
-   *        ensured that the provided path does start with a slash.
+   *        ensured that the provided path does NOT start with a slash.
    * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
-  public static InputStream getResourceAsStream (@Nonnull final Class <?> aClass, @Nonnull @Nonempty final String sPath)
+  public static InputStream getResourceAsStream (@Nonnull final ClassLoader aClassLoader,
+                                                 @Nonnull @Nonempty final String sPath)
   {
-    ValueEnforcer.notNull (aClass, "Class");
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     ValueEnforcer.notEmpty (sPath, "Path");
 
-    // Ensure the path does start with a "/"
-    final String sPathWithSlash = internalGetPathWithLeadingSlash (sPath);
+    // Ensure the path does NOT starts with a "/"
+    final String sPathWithoutSlash = internalGetPathWithoutLeadingSlash (sPath);
 
     // returns null if not found
-    final InputStream aIS = aClass.getResourceAsStream (sPathWithSlash);
+    final InputStream aIS = aClassLoader.getResourceAsStream (sPathWithoutSlash);
     return StreamHelperExt.checkForInvalidFilterInputStream (aIS);
   }
 }

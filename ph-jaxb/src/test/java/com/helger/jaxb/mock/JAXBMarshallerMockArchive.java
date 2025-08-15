@@ -19,7 +19,7 @@ package com.helger.jaxb.mock;
 import javax.xml.namespace.QName;
 
 import com.helger.collection.commons.CommonsArrayList;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 

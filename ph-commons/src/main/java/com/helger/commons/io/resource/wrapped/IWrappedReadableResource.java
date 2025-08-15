@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.resource.wrapped;
 
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;
 

@@ -22,7 +22,7 @@ import java.net.URL;
 
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.resource.IWritableResource;
+import com.helger.io.resource.IWritableResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

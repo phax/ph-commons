@@ -35,7 +35,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.impl.Cache;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.xml.transform.TransformSourceFactory;
 
 import jakarta.annotation.Nonnull;

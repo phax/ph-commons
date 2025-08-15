@@ -40,7 +40,7 @@ import com.helger.base.io.stream.ByteBufferInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
 import com.helger.xml.serialize.read.SAXReaderSettings;

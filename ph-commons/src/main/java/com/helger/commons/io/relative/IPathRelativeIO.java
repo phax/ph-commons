@@ -21,7 +21,7 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -25,7 +25,7 @@ import com.helger.base.system.SystemProperties;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.settings.ISettings;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
 

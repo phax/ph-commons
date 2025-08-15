@@ -30,7 +30,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.io.resource.URLResource;
+import com.helger.io.resource.URLResource;
 
 import jakarta.annotation.Nonnull;
 
