@@ -17,15 +17,15 @@
 package com.helger.xml.util.statistics;
 
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.statistics.IStatisticsHandlerCache;
-import com.helger.base.statistics.IStatisticsHandlerCounter;
-import com.helger.base.statistics.IStatisticsHandlerKeyedCounter;
-import com.helger.base.statistics.IStatisticsHandlerKeyedSize;
-import com.helger.base.statistics.IStatisticsHandlerKeyedTimer;
-import com.helger.base.statistics.IStatisticsHandlerSize;
-import com.helger.base.statistics.IStatisticsHandlerTimer;
 import com.helger.collection.helper.CollectionSort;
-import com.helger.commons.statistics.util.IStatisticsVisitorCallback;
+import com.helger.statistics.api.IStatisticsHandlerCache;
+import com.helger.statistics.api.IStatisticsHandlerCounter;
+import com.helger.statistics.api.IStatisticsHandlerKeyedCounter;
+import com.helger.statistics.api.IStatisticsHandlerKeyedSize;
+import com.helger.statistics.api.IStatisticsHandlerKeyedTimer;
+import com.helger.statistics.api.IStatisticsHandlerSize;
+import com.helger.statistics.api.IStatisticsHandlerTimer;
+import com.helger.statistics.visit.IStatisticsVisitorCallback;
 import com.helger.xml.microdom.IMicroElement;
 
 import jakarta.annotation.Nonnull;

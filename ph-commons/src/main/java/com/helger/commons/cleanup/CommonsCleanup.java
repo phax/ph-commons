@@ -18,8 +18,7 @@ package com.helger.commons.cleanup;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.lang.EnumHelper;
-import com.helger.base.system.SystemProperties;
+import com.helger.base.cleanup.BaseCleanup;
 import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
@@ -31,7 +30,6 @@ import com.helger.commons.locale.language.LanguageCache;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.regex.RegExCache;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
-import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
@@ -60,6 +58,8 @@ public final class CommonsCleanup
   @SuppressWarnings ("removal")
   public static void cleanup ()
   {
+    BaseCleanup.cleanup ();
+
     // Reinitialize singletons to the default values
     if (LocaleCache.isInstantiated ())
       LocaleCache.getInstance ().reinitialize ();
@@ -85,14 +85,11 @@ public final class CommonsCleanup
     // Clear caches
     if (DefaultTextResolver.isInstantiated ())
       DefaultTextResolver.getInstance ().clearCache ();
-    EnumHelper.clearCache ();
     ResourceBundleHelper.clearCache ();
     if (RegExCache.isInstantiated ())
       RegExCache.getInstance ().clearCache ();
     CollatorHelper.clearCache ();
     LocaleHelper.clearCache ();
-    StatisticsManager.clearCache ();
-    SystemProperties.clearWarnedPropertyNames ();
     if (ImageDataManager.isInstantiated ())
       ImageDataManager.getInstance ().clearCache ();
 

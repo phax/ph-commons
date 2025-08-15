@@ -67,6 +67,10 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-typeconvert</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-statistics</artifactId>
+    </dependency>
     
     <dependency>
       <groupId>junit</groupId>

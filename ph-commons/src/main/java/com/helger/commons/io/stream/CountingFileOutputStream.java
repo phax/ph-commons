@@ -23,10 +23,10 @@ import java.io.IOException;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.io.EAppend;
-import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.base.statistics.IMutableStatisticsHandlerSize;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.statistics.StatisticsManager;
+import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
+import com.helger.statistics.api.IMutableStatisticsHandlerSize;
+import com.helger.statistics.impl.StatisticsManager;
 
 import jakarta.annotation.Nonnull;
 

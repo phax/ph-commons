@@ -34,13 +34,13 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
-import com.helger.base.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.statistics.StatisticsManager;
 import com.helger.scope.IScope;
 import com.helger.scope.IScopeDestructionAware;
+import com.helger.statistics.api.IMutableStatisticsHandlerKeyedCounter;
+import com.helger.statistics.impl.StatisticsManager;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -35,15 +35,15 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.state.EChange;
-import com.helger.base.statistics.IMutableStatisticsHandlerCache;
-import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.map.SoftHashMap;
 import com.helger.collection.map.SoftLinkedHashMap;
-import com.helger.commons.statistics.StatisticsManager;
+import com.helger.statistics.api.IMutableStatisticsHandlerCache;
+import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
+import com.helger.statistics.impl.StatisticsManager;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

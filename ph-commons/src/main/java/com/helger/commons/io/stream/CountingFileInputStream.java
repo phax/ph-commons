@@ -21,9 +21,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.base.statistics.IMutableStatisticsHandlerSize;
-import com.helger.commons.statistics.StatisticsManager;
+import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
+import com.helger.statistics.api.IMutableStatisticsHandlerSize;
+import com.helger.statistics.impl.StatisticsManager;
 
 import jakarta.annotation.Nonnull;
 

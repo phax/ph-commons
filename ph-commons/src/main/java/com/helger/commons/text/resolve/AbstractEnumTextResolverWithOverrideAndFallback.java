@@ -20,10 +20,10 @@ import java.util.Locale;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.lang.EnumHelper;
-import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.base.statistics.IMutableStatisticsHandlerKeyedCounter;
-import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.text.IHasText;
+import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
+import com.helger.statistics.api.IMutableStatisticsHandlerKeyedCounter;
+import com.helger.statistics.impl.StatisticsManager;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

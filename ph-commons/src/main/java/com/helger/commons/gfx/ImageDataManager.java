@@ -35,13 +35,13 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.dimension.SizeInt;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.state.EChange;
-import com.helger.base.statistics.IMutableStatisticsHandlerCache;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.map.LRUMap;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.statistics.StatisticsManager;
+import com.helger.statistics.api.IMutableStatisticsHandlerCache;
+import com.helger.statistics.impl.StatisticsManager;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

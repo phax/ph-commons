@@ -38,13 +38,13 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
-import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.base.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.base.timing.StopWatch;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.pool.IMutableObjectPool;
 import com.helger.commons.pool.ObjectPool;
-import com.helger.commons.statistics.StatisticsManager;
+import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
+import com.helger.statistics.api.IMutableStatisticsHandlerTimer;
+import com.helger.statistics.impl.StatisticsManager;
 import com.helger.xml.sax.InputSourceFactory;
 
 import jakarta.annotation.Nonnull;

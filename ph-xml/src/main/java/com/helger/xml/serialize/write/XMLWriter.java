@@ -34,8 +34,8 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
-import com.helger.base.statistics.IMutableStatisticsHandlerSize;
-import com.helger.commons.statistics.StatisticsManager;
+import com.helger.statistics.api.IMutableStatisticsHandlerSize;
+import com.helger.statistics.impl.StatisticsManager;
 import com.helger.xml.EXMLVersion;
 
 import jakarta.annotation.Nonnull;
