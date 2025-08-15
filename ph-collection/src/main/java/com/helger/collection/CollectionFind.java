@@ -82,7 +82,7 @@ public final class CollectionFind
   /**
    * Check if the passed collection contains only elements matching the predicate. An empty
    * collection does not fulfill this requirement! If no filter is provided the return value is
-   * identical to {@link #isNotEmpty(Iterable)}
+   * identical to {@link CollectionHelper#isNotEmpty(Iterable)}
    *
    * @param aCollection
    *        The collection to check. May be <code>null</code>.

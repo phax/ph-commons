@@ -32,11 +32,11 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.reflection.GenericReflection;
+import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -91,7 +91,7 @@ public class JAXBContextCacheKey
     m_aClassLoader = new WeakReference <> (aClassLoader);
     m_aClasses = null;
     m_aProperties = null;
-    m_sEqualsHashCodeKey = StringHelper.imploder ().source (aPackages, Package::getName).separator (':').build ();
+    m_sEqualsHashCodeKey = StringImplode.imploder ().source (aPackages, Package::getName).separator (':').build ();
 
     // When using "-npa" on JAXB no package-info class is created!
     for (final Package aPackage : aPackages)
@@ -121,7 +121,7 @@ public class JAXBContextCacheKey
     m_aClassLoader = null;
     m_aClasses = new CommonsArrayList <> (aClasses, WeakReference::new);
     m_aProperties = new CommonsHashMap <> (aProperties);
-    m_sEqualsHashCodeKey = StringHelper.imploder ().source (aClasses, Class::getName).separator (':').build ();
+    m_sEqualsHashCodeKey = StringImplode.imploder ().source (aClasses, Class::getName).separator (':').build ();
   }
 
   /**
@@ -164,10 +164,10 @@ public class JAXBContextCacheKey
     final ClassLoader aClassLoader = _getClassLoader ();
 
     aCondLog.info ( () -> "Creating JAXB context for packages " +
-                          StringHelper.imploder ()
-                                      .source (m_aPackages, x -> '\'' + x.getName () + '\'')
-                                      .separator (", ")
-                                      .build () +
+                          StringImplode.imploder ()
+                                       .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                                       .separator (", ")
+                                       .build () +
                           " using ClassLoader " +
                           aClassLoader.toString ());
 
@@ -179,10 +179,10 @@ public class JAXBContextCacheKey
     catch (final JAXBException ex)
     {
       final String sMsg = "Failed to create JAXB context for packages " +
-                          StringHelper.imploder ()
-                                      .source (m_aPackages, x -> '\'' + x.getName () + '\'')
-                                      .separator (", ")
-                                      .build () +
+                          StringImplode.imploder ()
+                                       .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                                       .separator (", ")
+                                       .build () +
                           " using ClassLoader " +
                           aClassLoader;
       LOGGER.error (sMsg + ": " + ex.getMessage ());
@@ -197,10 +197,10 @@ public class JAXBContextCacheKey
 
     // E.g. an internal class - try anyway!
     aCondLog.info ( () -> "Creating JAXB context for classes " +
-                          StringHelper.imploder ()
-                                      .source (aClasses, x -> '\'' + x.getName () + '\'')
-                                      .separator (", ")
-                                      .build () +
+                          StringImplode.imploder ()
+                                       .source (aClasses, x -> '\'' + x.getName () + '\'')
+                                       .separator (", ")
+                                       .build () +
                           (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
 
     try
@@ -213,10 +213,10 @@ public class JAXBContextCacheKey
     catch (final JAXBException ex)
     {
       final String sMsg = "Failed to create JAXB context for classes " +
-                          StringHelper.imploder ()
-                                      .source (aClasses, x -> '\'' + x.getName () + '\'')
-                                      .separator (", ")
-                                      .build () +
+                          StringImplode.imploder ()
+                                       .source (aClasses, x -> '\'' + x.getName () + '\'')
+                                       .separator (", ")
+                                       .build () +
                           (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ());
       LOGGER.error (sMsg + ": " + ex.getMessage ());
       throw new IllegalArgumentException (sMsg, ex);

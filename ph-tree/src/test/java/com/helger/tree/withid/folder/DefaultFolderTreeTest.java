@@ -23,10 +23,10 @@ import static org.junit.Assert.assertSame;
 import org.junit.Test;
 
 import com.helger.base.aggregate.IAggregator;
+import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.helper.PrimitiveCollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link DefaultFolderTree}.
@@ -38,7 +38,7 @@ public final class DefaultFolderTreeTest
   @Test
   public void testBasic ()
   {
-    final IAggregator <String, String> aCombinator = x -> StringHelper.getImploded ('/', x);
+    final IAggregator <String, String> aCombinator = x -> StringImplode.getImploded ('/', x);
     final DefaultFolderTree <String, Integer, ICommonsSet <Integer>> ft = DefaultFolderTree.createForSet (aCombinator);
     assertNotNull (ft.getRootItem ());
 

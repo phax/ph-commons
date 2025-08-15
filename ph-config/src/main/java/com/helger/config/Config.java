@@ -25,12 +25,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.StringImplode;
 import com.helger.base.string.Strings;
 import com.helger.base.text.TextVariableHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.commons.string.StringHelper;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.value.ConfiguredValue;
@@ -263,10 +263,10 @@ public class Config implements IConfig
       {
         // Variable is used more then once
         throw new IllegalStateException ("Found a variable cyclic dependency: " +
-                                         StringHelper.imploder ()
-                                                     .source (aUsedVarContainer, y -> '"' + y + '"')
-                                                     .separator (" -> ")
-                                                     .build () +
+                                         StringImplode.imploder ()
+                                                      .source (aUsedVarContainer, y -> '"' + y + '"')
+                                                      .separator (" -> ")
+                                                      .build () +
                                          " -> \"" +
                                          sVarName +
                                          '"');

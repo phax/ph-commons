@@ -35,8 +35,8 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
+import com.helger.base.string.StringImplode;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.StringHelper;
 import com.helger.xml.XMLFactory;
 
 import jakarta.annotation.Nonnull;
@@ -87,14 +87,12 @@ public final class XMLTransformerFactory
 
   /**
    * Set the secure processing feature to a {@link TransformerFactory}. See
-   * https://docs.oracle.com/javase/tutorial/jaxp/properties/properties.html for
-   * details.
+   * https://docs.oracle.com/javase/tutorial/jaxp/properties/properties.html for details.
    *
    * @param aFactory
    *        The factory to secure. May not be <code>null</code>.
    * @param aAllowedExternalSchemes
-   *        Optional external URL schemes that are allowed to be accessed (as in
-   *        "file" or "http")
+   *        Optional external URL schemes that are allowed to be accessed (as in "file" or "http")
    * @since 9.1.2
    */
   public static void makeTransformerFactorySecure (@Nonnull final TransformerFactory aFactory,
@@ -106,7 +104,7 @@ public final class XMLTransformerFactory
     {
       aFactory.setFeature (XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
-      final String sCombinedSchemes = StringHelper.getImplodedNonEmpty (',', aAllowedExternalSchemes);
+      final String sCombinedSchemes = StringImplode.getImplodedNonEmpty (',', aAllowedExternalSchemes);
       if (sCombinedSchemes.length () > 0)
       {
         aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_DTD, sCombinedSchemes);
@@ -130,8 +128,8 @@ public final class XMLTransformerFactory
   }
 
   /**
-   * Create a new XSLT transformer for no specific resource. This uses the
-   * central <b>not thread safe</b> transformer factory.
+   * Create a new XSLT transformer for no specific resource. This uses the central <b>not thread
+   * safe</b> transformer factory.
    *
    * @return <code>null</code> if something goes wrong
    */
@@ -165,8 +163,8 @@ public final class XMLTransformerFactory
   }
 
   /**
-   * Create a new XSLT transformer for the passed resource. This uses the
-   * central <b>not thread safe</b> transformer factory.
+   * Create a new XSLT transformer for the passed resource. This uses the central <b>not thread
+   * safe</b> transformer factory.
    *
    * @param aResource
    *        The resource to be transformed. May not be <code>null</code>.
@@ -197,8 +195,8 @@ public final class XMLTransformerFactory
   }
 
   /**
-   * Create a new XSLT transformer for the passed resource. This uses the
-   * central <b>not thread safe</b> transformer factory.
+   * Create a new XSLT transformer for the passed resource. This uses the central <b>not thread
+   * safe</b> transformer factory.
    *
    * @param aSource
    *        The resource to be transformed. May not be <code>null</code>.
@@ -238,8 +236,8 @@ public final class XMLTransformerFactory
   }
 
   /**
-   * Create a new XSLT Template for the passed resource. This uses the central
-   * <b>not thread safe</b> transformer factory.
+   * Create a new XSLT Template for the passed resource. This uses the central <b>not thread
+   * safe</b> transformer factory.
    *
    * @param aResource
    *        The resource to be templated. May not be <code>null</code>.
@@ -252,8 +250,8 @@ public final class XMLTransformerFactory
   }
 
   /**
-   * Create a new XSLT Template for the passed resource. This uses the central
-   * <b>not thread safe</b> transformer factory.
+   * Create a new XSLT Template for the passed resource. This uses the central <b>not thread
+   * safe</b> transformer factory.
    *
    * @param aSource
    *        The resource to be templated. May not be <code>null</code>.

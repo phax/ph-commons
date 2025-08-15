@@ -25,9 +25,9 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsTreeSet;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
 import com.helger.graph.simple.ISimpleGraph;
@@ -96,7 +96,7 @@ public final class Kruskal
                                         @Nonnull @Nonempty final String sRelationCostAttr)
   {
     return "{" +
-           StringHelper.getImploded (',', new CommonsTreeSet <> (aRel.getAllConnectedNodeIDs ())) +
+           StringImplode.getImploded (',', new CommonsTreeSet <> (aRel.getAllConnectedNodeIDs ())) +
            ":" +
            aRel.attrs ().getAsInt (sRelationCostAttr) +
            "}";
@@ -113,7 +113,7 @@ public final class Kruskal
     {
       LOGGER.info ("Starting Kruskal on " + aSortedRelations.size () + " relations");
       LOGGER.info ("Sorted relations: " +
-                   StringHelper.getImplodedMapped (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
+                   StringImplode.getImplodedMapped (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
     }
 
     final SimpleGraph ret = new SimpleGraph (new SimpleGraphObjectFastFactory ());

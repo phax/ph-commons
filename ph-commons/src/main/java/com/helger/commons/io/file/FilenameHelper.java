@@ -33,6 +33,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
 import com.helger.base.string.StringFind;
+import com.helger.base.string.StringImplode;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsArrayList;
@@ -1027,7 +1028,7 @@ public final class FilenameHelper
       for (int i = 0; i < nParentFolders; i++)
         aElements.add (0, PATH_PARENT);
     }
-    return sPrefix + StringHelper.getImploded (bForceWindowsSeparator ? WINDOWS_SEPARATOR : UNIX_SEPARATOR, aElements);
+    return sPrefix + StringImplode.getImploded (bForceWindowsSeparator ? WINDOWS_SEPARATOR : UNIX_SEPARATOR, aElements);
   }
 
   /**

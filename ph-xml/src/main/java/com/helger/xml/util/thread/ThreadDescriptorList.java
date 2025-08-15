@@ -28,6 +28,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.StringImplode;
 import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsEnumMap;
@@ -38,7 +39,6 @@ import com.helger.collection.commons.ICommonsNavigableSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.helper.CollectionSort;
 import com.helger.commons.lang.StackTraceHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;
@@ -159,7 +159,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
       eThreadState.setAttribute ("id", eState.toString ());
       eThreadState.setAttribute ("threadcount", nSize);
       if (nSize > 0)
-        eThreadState.addText (StringHelper.getImploded (',', aThreadIDs));
+        eThreadState.addText (StringImplode.getImploded (',', aThreadIDs));
     }
     // Append all stack traces at the end
     for (final ThreadDescriptor aDescriptor : m_aList)

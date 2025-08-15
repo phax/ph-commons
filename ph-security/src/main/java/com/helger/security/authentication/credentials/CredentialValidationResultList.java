@@ -21,10 +21,10 @@ import java.util.Locale;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -44,8 +44,7 @@ public class CredentialValidationResultList implements ICredentialValidationResu
    * Constructor with multiple results
    *
    * @param aResults
-   *        The collection of results. May neither be <code>null</code> nor
-   *        empty.
+   *        The collection of results. May neither be <code>null</code> nor empty.
    */
   public CredentialValidationResultList (@Nonnull @Nonempty final Iterable <? extends ICredentialValidationResult> aResults)
   {
@@ -75,7 +74,7 @@ public class CredentialValidationResultList implements ICredentialValidationResu
   @Nullable
   public String getDisplayText (@Nonnull final Locale aDisplayLocale)
   {
-    return StringHelper.getImplodedMapped ('\n', m_aResults, x -> x.getDisplayText (aDisplayLocale));
+    return StringImplode.getImplodedMapped ('\n', m_aResults, x -> x.getDisplayText (aDisplayLocale));
   }
 
   @Override

@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.StringImplode;
 import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
@@ -132,7 +133,7 @@ public class CmdLineParser
   @Nonnull
   private static String _getDisplayName (@Nonnull final OptionGroup aOptionGroup)
   {
-    return "[" + StringHelper.getImplodedMapped (" | ", aOptionGroup, CmdLineParser::_getDisplayName) + "]";
+    return "[" + StringImplode.getImplodedMapped (" | ", aOptionGroup, CmdLineParser::_getDisplayName) + "]";
   }
 
   @Nonnull

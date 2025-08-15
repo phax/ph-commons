@@ -28,8 +28,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.base.string.StringImplode;
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link CSVIterator}.
@@ -45,7 +45,7 @@ public final class CSVIteratorTest
   @Before
   public void setUp ()
   {
-    m_aMockReader = new CSVReader (new NonBlockingStringReader (StringHelper.getImploded (',', STRINGS)));
+    m_aMockReader = new CSVReader (new NonBlockingStringReader (StringImplode.getImploded (',', STRINGS)));
   }
 
   @Test (expected = UnsupportedOperationException.class)

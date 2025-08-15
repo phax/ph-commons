@@ -29,12 +29,12 @@ import com.helger.base.iface.IThrowingRunnable;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.lang.IExplicitlyCloneable;
 import com.helger.base.mock.CommonsAssert;
+import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsVector;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.serialize.SerializationHelper;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -312,6 +312,6 @@ public final class CommonsTestHelper
 
     // No errors should have occurred
     if (!aErrors.isEmpty ())
-      _fail (StringHelper.getImploded (aErrors));
+      _fail (StringImplode.getImploded (aErrors));
   }
 }

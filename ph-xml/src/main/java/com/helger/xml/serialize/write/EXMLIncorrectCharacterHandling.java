@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.string.StringHex;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringImplode;
 
 import jakarta.annotation.Nonnull;
 
@@ -171,10 +171,10 @@ public enum EXMLIncorrectCharacterHandling
   {
     if (aInvalidChars.isEmpty ())
       return "NONE";
-    return StringHelper.imploder ()
-                       .separator (", ")
-                       .source (aInvalidChars, x -> "0x" + StringHex.getHexStringLeadingZero (x.charValue (), 2))
-                       .build ();
+    return StringImplode.imploder ()
+                        .separator (", ")
+                        .source (aInvalidChars, x -> "0x" + StringHex.getHexStringLeadingZero (x.charValue (), 2))
+                        .build ();
   }
 
   /**

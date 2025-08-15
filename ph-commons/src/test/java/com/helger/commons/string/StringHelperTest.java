@@ -25,7 +25,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.function.Function;
 
 import org.junit.Test;
@@ -35,10 +34,8 @@ import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.helper.CollectionHelperExt;
 
 /**
  * Test class for class {@link StringHelper}.
@@ -47,107 +44,6 @@ import com.helger.collection.helper.CollectionHelperExt;
  */
 public final class StringHelperTest
 {
-  @Test
-  public void testImplodeIterable ()
-  {
-    final ICommonsList <String> aList = new CommonsArrayList <> ("a", "b", "c");
-    assertEquals ("", StringHelper.getImploded (".", (String []) null));
-    assertEquals ("", StringHelper.getImploded (".", (List <String>) null));
-    assertEquals ("a.b.c", StringHelper.getImploded (".", aList));
-    assertEquals ("abc", StringHelper.getImploded ("", aList));
-    assertEquals ("abc", StringHelper.getImploded (aList));
-    assertEquals ("a.b.c", StringHelper.getImploded (".", aList.toArray (new String [3])));
-    assertEquals ("abc", StringHelper.getImploded ("", aList.toArray (new String [3])));
-    assertEquals ("abc", StringHelper.getImploded (aList.toArray (new String [3])));
-
-    assertEquals ("abc", StringHelper.getImploded (null, aList));
-  }
-
-  @Test
-  public void testImplodeArray ()
-  {
-    final String [] aArray = { "a", "b", "c" };
-    assertEquals ("a.b", StringHelper.getImploded (".", aArray, 0, 2));
-    assertEquals ("ab", StringHelper.getImploded (aArray, 0, 2));
-    assertEquals ("b.c", StringHelper.getImploded (".", aArray, 1, 2));
-    assertEquals ("bc", StringHelper.getImploded (aArray, 1, 2));
-    assertEquals ("", StringHelper.getImploded (".", aArray, 0, 0));
-    assertEquals ("", StringHelper.getImploded (aArray, 0, 0));
-    assertEquals ("", StringHelper.getImploded (".", aArray, 2, 0));
-    assertEquals ("", StringHelper.getImploded (aArray, 2, 0));
-    assertEquals ("", StringHelper.getImploded (".", null, 2, 0));
-    assertEquals ("", StringHelper.getImploded (null, 2, 0));
-
-    // null separator
-    assertEquals ("abc", StringHelper.getImploded (null, aArray));
-    // null separator
-    assertEquals ("c", StringHelper.getImploded (null, aArray, 2, 2));
-    assertEquals ("a.b", StringHelper.getImploded (".", aArray, -1, 2));
-    assertEquals ("ab", StringHelper.getImploded (aArray, -1, 2));
-    assertEquals ("a.b.c", StringHelper.getImploded (".", aArray, 0, -1));
-    assertEquals ("abc", StringHelper.getImploded (aArray, 0, -1));
-    // too long
-    assertEquals ("c", StringHelper.getImploded (".", aArray, 2, 2));
-    // too long
-    assertEquals ("c", StringHelper.getImploded (aArray, 2, 2));
-    // too long
-    assertEquals ("a.b.c", StringHelper.getImploded (".", aArray, 0, 4));
-    // too long
-    assertEquals ("abc", StringHelper.getImploded (aArray, 0, 4));
-  }
-
-  @Test
-  public void testImplodeMap ()
-  {
-    final ICommonsOrderedMap <String, String> aMap = CollectionHelperExt.newOrderedMap ("a",
-                                                                                        "true",
-                                                                                        "b",
-                                                                                        "true",
-                                                                                        "c",
-                                                                                        "false");
-    assertEquals ("atruebtruecfalse", StringHelper.getImploded ("", "", aMap));
-    assertEquals ("atrue,btrue,cfalse", StringHelper.getImploded (",", "", aMap));
-    assertEquals ("a,trueb,truec,false", StringHelper.getImploded ("", ",", aMap));
-    assertEquals ("a,true,b,true,c,false", StringHelper.getImploded (",", ",", aMap));
-    assertEquals ("a:true,b:true,c:false", StringHelper.getImploded (",", ":", aMap));
-
-    assertEquals ("a:trueb:truec:false", StringHelper.getImploded (null, ":", aMap));
-    assertEquals ("atrue,btrue,cfalse", StringHelper.getImploded (",", null, aMap));
-  }
-
-  @Test
-  public void testGetImplodedNonEmptyIterable ()
-  {
-    final ICommonsList <String> aList = new CommonsArrayList <> (null, "a", "", "b", null, "c", "");
-    assertEquals ("", StringHelper.getImplodedNonEmpty (".", (String []) null));
-    assertEquals ("", StringHelper.getImplodedNonEmpty (".", (List <String>) null));
-    assertEquals ("a.b.c", StringHelper.getImplodedNonEmpty (".", aList));
-    assertEquals ("abc", StringHelper.getImplodedNonEmpty ("", aList));
-    assertEquals ("a.b.c", StringHelper.getImplodedNonEmpty (".", aList.toArray (new String [3])));
-    assertEquals ("abc", StringHelper.getImplodedNonEmpty ("", aList.toArray (new String [3])));
-
-    StringHelper.getImplodedNonEmpty (null, aList);
-  }
-
-  @Test
-  public void testGetImplodedNonEmptyArray ()
-  {
-    final String [] aArray = { null, "a", "", "b", null, "c", "" };
-    assertEquals ("a.b", StringHelper.getImplodedNonEmpty (".", aArray, 0, 4));
-    assertEquals ("b.c", StringHelper.getImplodedNonEmpty (".", aArray, 2, 4));
-    assertEquals ("", StringHelper.getImplodedNonEmpty (".", aArray, 0, 0));
-    assertEquals ("", StringHelper.getImplodedNonEmpty (".", aArray, 4, 0));
-    assertEquals ("", StringHelper.getImplodedNonEmpty (".", null, 4, 0));
-
-    StringHelper.getImplodedNonEmpty (null, aArray, 2, 2);
-    StringHelper.getImplodedNonEmpty (".", aArray, -1, 2);
-    StringHelper.getImplodedNonEmpty (".", aArray, 0, -1);
-    // too long
-    StringHelper.getImplodedNonEmpty (".", aArray, 6, 2);
-    // too long
-    StringHelper.getImplodedNonEmpty (".", aArray, 0, 8);
-    StringHelper.getImplodedNonEmpty (null, aArray);
-  }
 
   @Test
   public void testGetExplodedToList ()

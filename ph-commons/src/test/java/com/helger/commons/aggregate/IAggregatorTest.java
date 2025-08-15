@@ -26,10 +26,10 @@ import java.util.Collection;
 import org.junit.Test;
 
 import com.helger.base.aggregate.IAggregator;
+import com.helger.base.string.StringImplode;
 import com.helger.collection.CollectionFind;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link IAggregator}.
@@ -75,7 +75,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinator ()
   {
-    final IAggregator <String, String> c = StringHelper::getImploded;
+    final IAggregator <String, String> c = StringImplode::getImploded;
     assertEquals ("ab", c.apply ("a", "b"));
     assertEquals ("anull", c.apply ("a", null));
     assertEquals ("nullb", c.apply (null, "b"));
@@ -86,7 +86,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinatorWithSeparatorChar ()
   {
-    final IAggregator <String, String> c = x -> StringHelper.getImploded (',', x);
+    final IAggregator <String, String> c = x -> StringImplode.getImploded (',', x);
     assertEquals ("a,b", c.apply ("a", "b"));
     assertEquals ("a,null", c.apply ("a", null));
     assertEquals ("null,b", c.apply (null, "b"));
@@ -97,7 +97,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinatorWithSeparatorString ()
   {
-    final IAggregator <String, String> c = x -> StringHelper.getImploded (";", x);
+    final IAggregator <String, String> c = x -> StringImplode.getImploded (";", x);
     assertEquals ("a;b", c.apply ("a", "b"));
     assertEquals ("a;null", c.apply ("a", null));
     assertEquals ("null;b", c.apply (null, "b"));
@@ -108,7 +108,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinatorIgnoreNull ()
   {
-    final IAggregator <String, String> c = StringHelper::getImplodedNonEmpty;
+    final IAggregator <String, String> c = StringImplode::getImplodedNonEmpty;
     assertEquals ("ab", c.apply ("a", "b"));
     assertEquals ("a", c.apply ("a", null));
     assertEquals ("b", c.apply (null, "b"));
@@ -120,7 +120,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinatorWithSeparatorIgnoreEmptyChar ()
   {
-    final IAggregator <String, String> c = x -> StringHelper.getImplodedNonEmpty (',', x);
+    final IAggregator <String, String> c = x -> StringImplode.getImplodedNonEmpty (',', x);
     assertEquals ("a,b", c.apply ("a", "b"));
     assertEquals ("a", c.apply ("a", null));
     assertEquals ("b", c.apply (null, "b"));
@@ -131,7 +131,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinatorWithSeparatorIgnoreEmptyString ()
   {
-    final IAggregator <String, String> c = x -> StringHelper.getImplodedNonEmpty (";", x);
+    final IAggregator <String, String> c = x -> StringImplode.getImplodedNonEmpty (";", x);
     assertEquals ("a;b", c.apply ("a", "b"));
     assertEquals ("a", c.apply ("a", null));
     assertEquals ("b", c.apply (null, "b"));

@@ -44,6 +44,7 @@ import com.helger.base.iface.IHasSize;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IClearable;
+import com.helger.base.string.StringImplode;
 import com.helger.base.string.Strings;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
@@ -55,7 +56,6 @@ import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.commons.codec.RFC2616Codec;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -580,7 +580,7 @@ public class HttpHeaderMap implements
     {
       final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
-        return StringHelper.getImploded (sDelimiter, aValues);
+        return StringImplode.getImploded (sDelimiter, aValues);
     }
     return null;
   }
