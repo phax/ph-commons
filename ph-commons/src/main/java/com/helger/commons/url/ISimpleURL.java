@@ -105,7 +105,7 @@ public interface ISimpleURL
 
   /**
    * @return The final string representation of this URL with encoded URL parameter keys and values.
-   *         Using the default URL charset as determined by {@link URLHelper#CHARSET_URL_OBJ}.
+   *         Using the default URL charset as determined by {@link URLCoder#CHARSET_URL_OBJ}.
    */
   @Nonnull
   default String getAsStringWithEncodedParameters ()
