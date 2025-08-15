@@ -184,6 +184,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-unittest-support-ext</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -318,6 +323,7 @@
     <module>ph-cache</module>
     <module>ph-datetime</module>
     <module>ph-io</module>
+    <module>ph-unittest-support-ext</module>
     <module>ph-commons</module>
     <module>ph-scopes</module>
     <module>ph-cli</module>

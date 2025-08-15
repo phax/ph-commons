@@ -85,6 +85,11 @@
       <artifactId>bcpg-jdk18on</artifactId>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   
   <build>

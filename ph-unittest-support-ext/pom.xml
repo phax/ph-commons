@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+    Copyright (C) 2015-2025 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,13 +24,13 @@
     <artifactId>ph-commons-parent-pom</artifactId>
     <version>12.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>ph-settings</artifactId>
+  <artifactId>ph-unittest-support-ext</artifactId>
   <packaging>bundle</packaging>
-  <name>ph-settings</name>
-  <description>Configuration, settings and preferences library</description>
-  <url>https://github.com/phax/ph-commons/ph-settings</url>
-  <inceptionYear>2014</inceptionYear>
-
+  <name>ph-unittest-support-ext</name>
+  <description>Special Java 17+ Library with extended unit test functionality</description>
+  <url>https://github.com/phax/ph-commons/ph-unittest-support-ext</url>
+  <inceptionYear>2025</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
+  
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
-
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -52,27 +52,24 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-
+  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-unittest-support</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-xml</artifactId>
+      <artifactId>ph-datetime</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-json</artifactId>
-      <optional>true</optional>
+      <artifactId>ph-io</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>com.helger.commons</groupId>
-      <artifactId>ph-unittest-support-ext</artifactId>
-      <scope>test</scope>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   
@@ -84,11 +81,9 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Automatic-Module-Name>com.helger.settings</Automatic-Module-Name>
-            <Export-Package>com.helger.settings.*</Export-Package>
+            <Automatic-Module-Name>com.helger.unittestext</Automatic-Module-Name>
+            <Export-Package>com.helger.unitestext.*</Export-Package>
             <Import-Package>!jakarta.annotation.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

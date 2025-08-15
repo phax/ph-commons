@@ -62,7 +62,7 @@
     
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-unittest-support-ext</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
