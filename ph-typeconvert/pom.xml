@@ -26,7 +26,7 @@
   </parent>
   <artifactId>ph-typeconvert</artifactId>
   <packaging>bundle</packaging>
-  <name>ph-collection</name>
+  <name>ph-typeconvert</name>
   <description>Special Java 17+ Library with type conversion functionality</description>
   <url>https://github.com/phax/ph-commons/ph-typeconvert</url>
   <inceptionYear>2025</inceptionYear>
