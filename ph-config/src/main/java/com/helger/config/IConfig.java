@@ -20,10 +20,10 @@ import com.helger.annotation.Nonnegative;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.ESuccess;
 import com.helger.base.wrapper.Wrapper;
-import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
+import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

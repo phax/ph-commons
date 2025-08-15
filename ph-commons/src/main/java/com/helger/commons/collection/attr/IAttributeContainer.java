@@ -27,7 +27,7 @@ import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.callback.CallbackList;
-import com.helger.commons.traits.IGetterByKeyTrait;
+import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

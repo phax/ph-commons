@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.traits;
+package com.helger.typeconvert.trait;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -513,5 +513,75 @@ public interface IGetterDirectTrait
   default Short getAsShortObj ()
   {
     return getConvertedValue (null, Short.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (null, Blob.class)</code>
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default java.sql.Blob getAsSqlBlob ()
+  {
+    return getConvertedValue (null, java.sql.Blob.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (null, Clob.class)</code>
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default java.sql.Clob getAsSqlClob ()
+  {
+    return getConvertedValue (null, java.sql.Clob.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (null, Date.class)</code>
+   * @see #getConvertedValue(Object, Class)
+   */
+  @Nullable
+  default java.sql.Date getAsSqlDate ()
+  {
+    return getConvertedValue (null, java.sql.Date.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (null, NClob.class)</code>
+   * @see #getConvertedValue(Object, Class)
+   */
+  @Nullable
+  default java.sql.NClob getAsSqlNClob ()
+  {
+    return getConvertedValue (null, java.sql.NClob.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (null, RowId.class)</code>
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default java.sql.RowId getAsSqlRowId ()
+  {
+    return getConvertedValue (null, java.sql.RowId.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (null, Time.class)</code>
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default java.sql.Time getAsSqlTime ()
+  {
+    return getConvertedValue (null, java.sql.Time.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (null, Timestamp.class)</code>
+   * @see #getConvertedValue(Object, Class)
+   */
+  @Nullable
+  default java.sql.Timestamp getAsSqlTimestamp ()
+  {
+    return getConvertedValue (null, java.sql.Timestamp.class);
   }
 }

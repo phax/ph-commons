@@ -21,8 +21,8 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import com.helger.commons.traits.IGetterDirectTrait;
 import com.helger.json.valueserializer.IJsonValueSerializer;
+import com.helger.typeconvert.trait.IGetterDirectTrait;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

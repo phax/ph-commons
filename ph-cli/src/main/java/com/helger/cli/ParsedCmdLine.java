@@ -29,7 +29,7 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.commons.traits.IGetterByKeyTrait;
+import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

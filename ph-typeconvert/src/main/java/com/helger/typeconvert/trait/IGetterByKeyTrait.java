@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.traits;
+package com.helger.typeconvert.trait;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -23,6 +23,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.impl.TypeConverter;
 
@@ -697,5 +701,175 @@ public interface IGetterByKeyTrait <KEYTYPE>
   default Short getAsShortObj (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, null, Short.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,null,Blob.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default java.sql.Blob getAsSqlBlob (@Nullable final KEYTYPE aKey)
+  {
+    return getConvertedValue (aKey, null, java.sql.Blob.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,null,Clob.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default java.sql.Clob getAsSqlClob (@Nullable final KEYTYPE aKey)
+  {
+    return getConvertedValue (aKey, null, java.sql.Clob.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,null,Date.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default java.sql.Date getAsSqlDate (@Nullable final KEYTYPE aKey)
+  {
+    return getConvertedValue (aKey, null, java.sql.Date.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,null,NClob.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default java.sql.NClob getAsSqlNClob (@Nullable final KEYTYPE aKey)
+  {
+    return getConvertedValue (aKey, null, java.sql.NClob.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,null,RowId.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default java.sql.RowId getAsSqlRowId (@Nullable final KEYTYPE aKey)
+  {
+    return getConvertedValue (aKey, null, java.sql.RowId.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,null,Time.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default java.sql.Time getAsSqlTime (@Nullable final KEYTYPE aKey)
+  {
+    return getConvertedValue (aKey, null, java.sql.Time.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,null,Timestamp.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default java.sql.Timestamp getAsSqlTimestamp (@Nullable final KEYTYPE aKey)
+  {
+    return getConvertedValue (aKey, null, java.sql.Timestamp.class);
+  }
+
+  /**
+   * Get a list of all attribute values with the same name.
+   *
+   * @param aKey
+   *        The key to check. May be <code>null</code>.
+   * @return <code>null</code> if no such attribute value exists
+   */
+  @Nullable
+  default ICommonsList <String> getAsStringList (@Nullable final KEYTYPE aKey)
+  {
+    return getAsStringList (aKey, null);
+  }
+
+  /**
+   * Get a list of all attribute values with the same name.
+   *
+   * @param aKey
+   *        The key to check. May be <code>null</code>.
+   * @param aDefault
+   *        The default value to be returned, if no such attribute is present.
+   * @return <code>aDefault</code> if no such attribute value exists
+   */
+  @Nullable
+  default ICommonsList <String> getAsStringList (@Nullable final KEYTYPE aKey,
+                                                 @Nullable final ICommonsList <String> aDefault)
+  {
+    final Object aValue = getValue (aKey);
+    if (aValue != null)
+    {
+      if (aValue instanceof final String [] aArray)
+      {
+        // multiple values passed in the request
+        return new CommonsArrayList <> (aArray);
+      }
+      if (aValue instanceof final String sValue)
+      {
+        // single value passed in the request
+        return new CommonsArrayList <> (sValue);
+      }
+    }
+    return aDefault;
+  }
+
+  /**
+   * Get a set of all attribute values with the same name.
+   *
+   * @param aKey
+   *        The key to check. May be <code>null</code>.
+   * @return <code>null</code> if no such attribute value exists
+   */
+  @Nullable
+  default ICommonsOrderedSet <String> getAsStringSet (@Nullable final KEYTYPE aKey)
+  {
+    return getAsStringSet (aKey, null);
+  }
+
+  /**
+   * Get a set of all attribute values with the same name.
+   *
+   * @param aKey
+   *        The key to check. May be <code>null</code>.
+   * @param aDefault
+   *        The default value to be returned, if no such attribute is present.
+   * @return <code>aDefault</code> if no such attribute value exists
+   */
+  @Nullable
+  default ICommonsOrderedSet <String> getAsStringSet (@Nullable final KEYTYPE aKey,
+                                                      @Nullable final ICommonsOrderedSet <String> aDefault)
+  {
+    final Object aValue = getValue (aKey);
+    if (aValue != null)
+    {
+      if (aValue instanceof final String [] aArray)
+      {
+        // multiple values passed in the request
+        return new CommonsLinkedHashSet <> (aArray);
+      }
+      if (aValue instanceof final String sValue)
+      {
+        // single value passed in the request
+        return new CommonsLinkedHashSet <> (sValue);
+      }
+    }
+    return aDefault;
   }
 }

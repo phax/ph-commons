@@ -30,8 +30,8 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.json.convert.JsonConverter;
+import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

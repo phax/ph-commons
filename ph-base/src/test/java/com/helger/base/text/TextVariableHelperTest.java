@@ -14,20 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.util;
+package com.helger.base.text;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 
 import com.helger.base.string.Strings;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.CommonsHashMap;
-import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.commons.ICommonsMap;
 
 /**
  * Test class for class {@link TextVariableHelper}.
@@ -39,101 +40,101 @@ public class TextVariableHelperTest
   @Test
   public void testSplitByVariables ()
   {
-    ICommonsList <String> aList = TextVariableHelper.splitByVariables ("a");
-    assertEquals (new CommonsArrayList <> ("a"), aList);
+    List <String> aList = TextVariableHelper.splitByVariables ("a");
+    assertEquals (Arrays.asList ("a"), aList);
 
     aList = TextVariableHelper.splitByVariables ("a${b}c");
-    assertEquals (new CommonsArrayList <> ("a", "b", "c"), aList);
+    assertEquals (Arrays.asList ("a", "b", "c"), aList);
 
     aList = TextVariableHelper.splitByVariables ("a${b}");
-    assertEquals (new CommonsArrayList <> ("a", "b"), aList);
+    assertEquals (Arrays.asList ("a", "b"), aList);
 
     aList = TextVariableHelper.splitByVariables ("${b}");
-    assertEquals (new CommonsArrayList <> ("", "b"), aList);
+    assertEquals (Arrays.asList ("", "b"), aList);
 
     aList = TextVariableHelper.splitByVariables ("${b}${c}");
-    assertEquals (new CommonsArrayList <> ("", "b", "", "c"), aList);
+    assertEquals (Arrays.asList ("", "b", "", "c"), aList);
 
     aList = TextVariableHelper.splitByVariables ("${}${}");
-    assertEquals (new CommonsArrayList <> ("", "", "", ""), aList);
+    assertEquals (Arrays.asList ("", "", "", ""), aList);
 
     aList = TextVariableHelper.splitByVariables ("${}${}a");
-    assertEquals (new CommonsArrayList <> ("", "", "", "", "a"), aList);
+    assertEquals (Arrays.asList ("", "", "", "", "a"), aList);
 
     aList = TextVariableHelper.splitByVariables ("This ${is} a more ${real world} example");
-    assertEquals (new CommonsArrayList <> ("This ", "is", " a more ", "real world", " example"), aList);
+    assertEquals (Arrays.asList ("This ", "is", " a more ", "real world", " example"), aList);
 
     // Masking tests
     aList = TextVariableHelper.splitByVariables ("\\a");
-    assertEquals (new CommonsArrayList <> ("a"), aList);
+    assertEquals (Arrays.asList ("a"), aList);
 
     aList = TextVariableHelper.splitByVariables ("\\\\");
-    assertEquals (new CommonsArrayList <> ("\\"), aList);
+    assertEquals (Arrays.asList ("\\"), aList);
 
     aList = TextVariableHelper.splitByVariables ("$");
-    assertEquals (new CommonsArrayList <> ("$"), aList);
+    assertEquals (Arrays.asList ("$"), aList);
 
     aList = TextVariableHelper.splitByVariables ("\\$");
-    assertEquals (new CommonsArrayList <> ("$"), aList);
+    assertEquals (Arrays.asList ("$"), aList);
 
     aList = TextVariableHelper.splitByVariables ("\\\\a");
-    assertEquals (new CommonsArrayList <> ("\\a"), aList);
+    assertEquals (Arrays.asList ("\\a"), aList);
 
     aList = TextVariableHelper.splitByVariables ("\\\\a\\\\\\\\");
-    assertEquals (new CommonsArrayList <> ("\\a\\\\"), aList);
+    assertEquals (Arrays.asList ("\\a\\\\"), aList);
 
     aList = TextVariableHelper.splitByVariables ("${\\}}");
-    assertEquals (new CommonsArrayList <> ("", "}"), aList);
+    assertEquals (Arrays.asList ("", "}"), aList);
 
     aList = TextVariableHelper.splitByVariables ("${\\\\}");
-    assertEquals (new CommonsArrayList <> ("", "\\"), aList);
+    assertEquals (Arrays.asList ("", "\\"), aList);
 
     aList = TextVariableHelper.splitByVariables ("${{{ so what \\}\\}}");
-    assertEquals (new CommonsArrayList <> ("", "{{ so what }}"), aList);
+    assertEquals (Arrays.asList ("", "{{ so what }}"), aList);
 
     aList = TextVariableHelper.splitByVariables ("Thi\\$ ${is\\}} a more ${$$}");
-    assertEquals (new CommonsArrayList <> ("Thi$ ", "is}", " a more ", "$$"), aList);
+    assertEquals (Arrays.asList ("Thi$ ", "is}", " a more ", "$$"), aList);
 
     aList = TextVariableHelper.splitByVariables ("\\T\\h\\i\\$\\ ${\\i\\s\\}}\\ \\a\\ \\m\\o\\r\\e\\ ${\\$\\$}");
-    assertEquals (new CommonsArrayList <> ("Thi$ ", "is}", " a more ", "$$"), aList);
+    assertEquals (Arrays.asList ("Thi$ ", "is}", " a more ", "$$"), aList);
 
     // Test broken things
 
     aList = TextVariableHelper.splitByVariables ("${");
-    assertEquals (new CommonsArrayList <> ("${"), aList);
+    assertEquals (Arrays.asList ("${"), aList);
 
     aList = TextVariableHelper.splitByVariables ("bla ${foo");
-    assertEquals (new CommonsArrayList <> ("bla ${foo"), aList);
+    assertEquals (Arrays.asList ("bla ${foo"), aList);
 
     aList = TextVariableHelper.splitByVariables ("bla $foo");
-    assertEquals (new CommonsArrayList <> ("bla $foo"), aList);
+    assertEquals (Arrays.asList ("bla $foo"), aList);
 
     aList = TextVariableHelper.splitByVariables ("bla $$foo");
-    assertEquals (new CommonsArrayList <> ("bla $$foo"), aList);
+    assertEquals (Arrays.asList ("bla $$foo"), aList);
 
     aList = TextVariableHelper.splitByVariables ("$");
-    assertEquals (new CommonsArrayList <> ("$"), aList);
+    assertEquals (Arrays.asList ("$"), aList);
 
     aList = TextVariableHelper.splitByVariables ("$$");
-    assertEquals (new CommonsArrayList <> ("$$"), aList);
+    assertEquals (Arrays.asList ("$$"), aList);
 
     aList = TextVariableHelper.splitByVariables ("$${var}");
-    assertEquals (new CommonsArrayList <> ("$", "var"), aList);
+    assertEquals (Arrays.asList ("$", "var"), aList);
 
     aList = TextVariableHelper.splitByVariables ("${var}$");
-    assertEquals (new CommonsArrayList <> ("", "var", "$"), aList);
+    assertEquals (Arrays.asList ("", "var", "$"), aList);
 
     aList = TextVariableHelper.splitByVariables ("bla ${foo\\}");
-    assertEquals (new CommonsArrayList <> ("bla ${foo\\}"), aList);
+    assertEquals (Arrays.asList ("bla ${foo\\}"), aList);
 
     aList = TextVariableHelper.splitByVariables ("bla ${good}${foo");
-    assertEquals (new CommonsArrayList <> ("bla ", "good", "${foo"), aList);
+    assertEquals (Arrays.asList ("bla ", "good", "${foo"), aList);
   }
 
   @Test
   public void testGetWithReplacedVariables ()
   {
-    final ICommonsMap <String, String> aVars = new CommonsHashMap <> ();
+    final Map <String, String> aVars = new HashMap <> ();
     aVars.put ("name", "PH");
     aVars.put ("bla", "foo");
 

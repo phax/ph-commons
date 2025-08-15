@@ -29,7 +29,7 @@ import com.helger.collection.base.IIterableIterator;
 import com.helger.collection.base.MapperIterator;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.traits.IGetterByIndexTrait;
+import com.helger.typeconvert.trait.IGetterByIndexTrait;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

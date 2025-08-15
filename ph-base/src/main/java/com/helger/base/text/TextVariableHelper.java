@@ -14,8 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.util;
+package com.helger.base.text;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
@@ -29,8 +31,6 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.VisibleForTesting;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.Strings;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.ICommonsList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -206,14 +206,14 @@ public final class TextVariableHelper
    */
   @VisibleForTesting
   @Nonnull
-  static ICommonsList <String> splitByVariables (@Nonnull @Nonempty final String sText)
+  static List <String> splitByVariables (@Nonnull @Nonempty final String sText)
   {
     ValueEnforcer.notEmpty (sText, "Text");
 
     final char [] aTextChars = sText.toCharArray ();
     final int nTextLen = aTextChars.length;
 
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final List <String> ret = new ArrayList <> ();
     int nStart = 0;
 
     // Contains the unmasked content for every element
@@ -246,7 +246,8 @@ public final class TextVariableHelper
         if ((ret.size () % 2) == 1)
         {
           // Append to last text block
-          ret.setLast (ret.getLastOrNull () + sRestToAdd);
+          final int nIdx = ret.size () - 1;
+          ret.set (nIdx, ret.get (nIdx) + sRestToAdd);
         }
         else
         {
@@ -307,7 +308,7 @@ public final class TextVariableHelper
     }
     else
     {
-      final ICommonsList <String> aPieces = splitByVariables (sSourceString);
+      final List <String> aPieces = splitByVariables (sSourceString);
       if (aPieces.size () <= 1)
       {
         // Syntax error or no variables

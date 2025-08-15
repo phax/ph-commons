@@ -56,7 +56,11 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-base</artifactId>
+      <artifactId>ph-typeconvert</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-commons</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>

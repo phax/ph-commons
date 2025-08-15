@@ -26,8 +26,8 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.system.SystemProperties;
-import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.settings.ISettings;
+import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
