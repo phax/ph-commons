@@ -14,15 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.lang;
+package com.helger.base.lang;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringHelper;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.ICommonsList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -39,8 +40,8 @@ public final class StackTraceHelper
   public static final String DEFAULT_LINE_SEPARATOR = "\n";
 
   /** elements to omit in stack traces */
-  private static final ICommonsList <String> STACKTRACE_OMIT_UNITTEST = new CommonsArrayList <> ();
-  private static final ICommonsList <String> STACKTRACE_OMIT_APPSRV = new CommonsArrayList <> ();
+  private static final List <String> STACKTRACE_OMIT_UNITTEST = new ArrayList <> ();
+  private static final List <String> STACKTRACE_OMIT_APPSRV = new ArrayList <> ();
 
   static
   {
@@ -61,10 +62,25 @@ public final class StackTraceHelper
   private StackTraceHelper ()
   {}
 
-  private static boolean _stopStackTraceListing (@Nonnull final String sStackTraceLine)
+  private static boolean _isUnitTestLine (@Nonnull final String sStackTraceLine)
   {
-    return STACKTRACE_OMIT_UNITTEST.containsAny (sStackTraceLine::startsWith) ||
-           STACKTRACE_OMIT_APPSRV.containsAny (sStackTraceLine::startsWith);
+    for (final String s : STACKTRACE_OMIT_UNITTEST)
+      if (sStackTraceLine.startsWith (s))
+        return true;
+    return false;
+  }
+
+  private static boolean _isAppSrvLine (@Nonnull final String sStackTraceLine)
+  {
+    for (final String s : STACKTRACE_OMIT_APPSRV)
+      if (sStackTraceLine.startsWith (s))
+        return true;
+    return false;
+  }
+
+  private static boolean _isStopStackTraceListing (@Nonnull final String sStackTraceLine)
+  {
+    return _isUnitTestLine (sStackTraceLine) || _isAppSrvLine (sStackTraceLine);
   }
 
   private static boolean _matchesParentStackTrace (@Nonnull final StackTraceElement aElement,
@@ -93,7 +109,7 @@ public final class StackTraceHelper
       // -> would lead to very long stack traces
       // -> also try to filter stack trace elements that are already contained
       // in a parent stack trace
-      if ((bOmitCommonStackTraceElements && _stopStackTraceListing (sStackTraceElement)) ||
+      if ((bOmitCommonStackTraceElements && _isStopStackTraceListing (sStackTraceElement)) ||
           _matchesParentStackTrace (aStackTraceElement, aParentStackTraceElements))
       {
         // write number of omitted elements
@@ -323,7 +339,7 @@ public final class StackTraceHelper
       for (final StackTraceElement aStackTraceElement : aStackTrace)
       {
         final String sStackTraceLine = aStackTraceElement.toString ();
-        if (STACKTRACE_OMIT_UNITTEST.containsAny (sStackTraceLine::startsWith))
+        if (_isUnitTestLine (sStackTraceLine))
           return true;
       }
     return false;

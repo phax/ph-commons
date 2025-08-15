@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroEntityReference}.
@@ -52,7 +52,7 @@ public final class MicroEntityReferenceTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.ENTITY_REFERENCE, e.getType ());
-    CommonsTestHelper.testToStringImplementation (e);
+    TestHelper.testToStringImplementation (e);
 
     assertTrue (e.isEqualContent (e));
     assertFalse (e.isEqualContent (null));

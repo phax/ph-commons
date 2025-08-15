@@ -31,7 +31,7 @@ import org.junit.Test;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ResourceLSInput}.
@@ -81,7 +81,7 @@ public final class ResourceLSInputTest
     lsi.setStringData ("str");
     assertEquals ("str", lsi.getStringData ());
 
-    CommonsTestHelper.testToStringImplementation (lsi);
+    TestHelper.testToStringImplementation (lsi);
   }
 
   @Test

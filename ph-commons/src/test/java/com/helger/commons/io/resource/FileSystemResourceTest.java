@@ -33,9 +33,9 @@ import org.junit.Test;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.system.EOperatingSystem;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.io.file.FileOperations;
 import com.helger.io.file.FilenameHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link FileSystemResource}.
@@ -98,10 +98,10 @@ public final class FileSystemResourceTest
     assertNotNull (fr.getAsURL ());
     assertNotNull (fr.getAsFile ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (fr, new FileSystemResource ("pom.xml"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (fr, fr.getReadableCloneForPath ("pom.xml"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (fr, fr.getWritableCloneForPath ("pom.xml"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (fr, new FileSystemResource ("pom.xml2"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (fr, new FileSystemResource ("pom.xml"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (fr, fr.getReadableCloneForPath ("pom.xml"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (fr, fr.getWritableCloneForPath ("pom.xml"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (fr, new FileSystemResource ("pom.xml2"));
 
     fr = new FileSystemResource ("this file does not exist");
     assertFalse (fr.exists ());

@@ -29,7 +29,7 @@ import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.MockNullInputStreamProvider;
 
 /**
@@ -64,7 +64,7 @@ public final class CachingSAXInputSourceTest
     assertEquals ("sysid", is.getSystemId ());
     assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
-    CommonsTestHelper.testToStringImplementation (is);
+    TestHelper.testToStringImplementation (is);
   }
 
   @Test

@@ -31,10 +31,9 @@ import java.time.ZonedDateTime;
 
 import org.junit.Test;
 
-import com.helger.datetime.helper.PDTConfig;
 import com.helger.datetime.helper.PDTFactory;
-import com.helger.datetime.web.PDTWebDateHelper;
 import com.helger.datetime.xml.XMLOffsetTime;
+import com.helger.datetime.zone.PDTConfig;
 
 import jakarta.annotation.Nonnull;
 

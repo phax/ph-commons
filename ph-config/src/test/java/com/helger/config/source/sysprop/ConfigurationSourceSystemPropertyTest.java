@@ -25,8 +25,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.base.system.CSystemProperties;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.config.source.EConfigSourceType;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ConfigurationSourceSystemProperty}.
@@ -45,9 +45,8 @@ public final class ConfigurationSourceSystemPropertyTest
     assertNotNull (c.getConfigurationValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_HOME));
     assertNull (c.getConfigurationValue ("I really don't know that system property!"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceSystemProperty ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceSystemProperty (1234));
+    TestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceSystemProperty ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceSystemProperty (1234));
   }
 
   @Test

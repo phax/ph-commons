@@ -25,7 +25,7 @@ import java.time.LocalTime;
 
 import org.junit.Test;
 
-import com.helger.datetime.helper.PDTFromString;
+import com.helger.datetime.format.PDTFromString;
 
 /**
  * Test class for class {@link PDTIOHelper}.

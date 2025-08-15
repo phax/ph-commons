@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroDocument}.
@@ -107,7 +107,7 @@ public final class MicroDocumentTest
   public void testToString ()
   {
     final IMicroDocument d = new MicroDocument ();
-    CommonsTestHelper.testToStringImplementation (d);
+    TestHelper.testToStringImplementation (d);
   }
 
   @Test

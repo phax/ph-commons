@@ -23,7 +23,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ResourceBundleKey}.
@@ -53,12 +53,12 @@ public final class ResourceBundleKeyTest
     {}
 
     final String sBundle = "external/properties/test-iso8859";
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey (sBundle, "key1"),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey (sBundle, "key1"),
                                                                        new ResourceBundleKey (sBundle, "key1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey (sBundle, "key1"),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey (sBundle, "key1"),
                                                                            new ResourceBundleKey ("external/properties/test-iso8859-1",
                                                                                                   "key1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey (sBundle, "key1"),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey (sBundle, "key1"),
                                                                            new ResourceBundleKey (sBundle, "key2"));
 
     ResourceBundleHelper.clearCache ();

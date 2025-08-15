@@ -27,8 +27,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.collection.CollectionHelper;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.tree.withid.DefaultTreeItemWithID;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultTreeWithGlobalUniqueID}.
@@ -118,9 +118,9 @@ public final class DefaultTreeWithGlobalUniqueIDTest
     x12.createChildItem ("x3", "b");
     x12.createChildItem ("x4", "c");
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aTestTree, aTestTree2);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aTestTree, aTestTree2);
     x12.createChildItem ("x5", "d");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aTestTree, aTestTree2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aTestTree, aTestTree2);
 
     // test remove
     assertTrue (x12.removeChild ("x5").isChanged ());

@@ -29,8 +29,8 @@ import org.junit.Test;
 
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.config.source.EConfigSourceType;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ConfigurationSourceProperties}.
@@ -56,12 +56,10 @@ public final class ConfigurationSourcePropertiesTest
     assertEquals ("mixed # EOL", c.getConfigurationValue ("element_ws").getValue ());
     assertEquals ("multiline", c.getConfigurationValue ("element_ml").getValue ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceProperties (RES));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceProperties (1234,
-                                                                                                              RES));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceProperties (new FileSystemResource (new File ("bla"))));
+    TestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceProperties (RES));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceProperties (1234, RES));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c,
+                                                                    new ConfigurationSourceProperties (new FileSystemResource (new File ("bla"))));
   }
 
   @Test

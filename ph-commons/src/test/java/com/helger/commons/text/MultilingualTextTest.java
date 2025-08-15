@@ -28,8 +28,8 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.util.TextHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MultilingualText}.
@@ -150,7 +150,7 @@ public final class MultilingualTextTest
   public void testEquals ()
   {
     final IMutableMultilingualText aMLT = new MultilingualText ();
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT, new MultilingualText ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (aMLT, new MultilingualText ());
   }
 
   @Test

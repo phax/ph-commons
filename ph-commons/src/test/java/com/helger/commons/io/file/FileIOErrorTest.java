@@ -28,10 +28,10 @@ import org.junit.Test;
 
 import com.helger.base.mock.exception.MockException;
 import com.helger.base.mock.exception.MockIOException;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.io.file.EFileIOErrorCode;
 import com.helger.io.file.EFileIOOperation;
 import com.helger.io.file.FileIOError;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link FileIOError}.
@@ -180,58 +180,58 @@ public final class FileIOErrorTest
   {
     // ctor 1
     final FileIOError e1 = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (e1,
+    TestHelper.testDefaultImplementationWithEqualContentObject (e1,
                                                                        new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                         EFileIOErrorCode.SOURCE_DOES_NOT_EXIST));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e1,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e1,
                                                                            new FileIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                                             EFileIOErrorCode.SOURCE_DOES_NOT_EXIST));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e1,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e1,
                                                                            new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                             EFileIOErrorCode.SOURCE_EQUALS_TARGET));
 
     // ctor 2
     final FileIOError e2 = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST, FILE1);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (e2,
+    TestHelper.testDefaultImplementationWithEqualContentObject (e2,
                                                                        new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                         EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                         FILE1));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e2,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e2,
                                                                            new FileIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                                             EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                             FILE1));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e2,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e2,
                                                                            new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                             EFileIOErrorCode.SOURCE_EQUALS_TARGET,
                                                                                             FILE1));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e2,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e2,
                                                                            new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                             EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                             FILE2));
 
     // ctor 3
     final FileIOError e3 = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST, FILE1, FILE2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (e3,
+    TestHelper.testDefaultImplementationWithEqualContentObject (e3,
                                                                        new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                         EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                         FILE1,
                                                                                         FILE2));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e3,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e3,
                                                                            new FileIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                                             EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                             FILE1,
                                                                                             FILE2));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e3,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e3,
                                                                            new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                             EFileIOErrorCode.SOURCE_EQUALS_TARGET,
                                                                                             FILE1,
                                                                                             FILE2));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e3,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e3,
                                                                            new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                             EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                             FILE2,
                                                                                             FILE2));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e3,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e3,
                                                                            new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                             EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                             FILE1,
@@ -240,19 +240,19 @@ public final class FileIOErrorTest
     // ctor 4
     final Exception e = new MockException ();
     final FileIOError e4 = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST, e);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (e4,
+    TestHelper.testDefaultImplementationWithEqualContentObject (e4,
                                                                        new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                         EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                         e));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e4,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e4,
                                                                            new FileIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                                             EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                             e));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e4,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e4,
                                                                            new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                             EFileIOErrorCode.SOURCE_EQUALS_TARGET,
                                                                                             e));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (e4,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (e4,
                                                                            new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                             EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                             new MockIOException ()));

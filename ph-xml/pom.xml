@@ -69,6 +69,12 @@
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
+
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support</artifactId>
+      <optional>true</optional>
+    </dependency>
     
     <dependency>
       <groupId>org.dom4j</groupId>

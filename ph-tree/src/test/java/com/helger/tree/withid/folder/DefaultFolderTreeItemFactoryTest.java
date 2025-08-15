@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.base.aggregate.IAggregator;
 import com.helger.base.string.StringImplode;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultFolderTreeItemFactory}.
@@ -54,10 +54,10 @@ public final class DefaultFolderTreeItemFactoryTest
   {
     final IAggregator <String, String> aAggregator = x -> StringImplode.getImploded ('/', x);
     final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (aAggregator);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ftif,
+    TestHelper.testDefaultImplementationWithEqualContentObject (ftif,
                                                                        new DefaultFolderTreeItemFactory <> (aAggregator));
     // New aggregator - different object!
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ftif,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (ftif,
                                                                            new DefaultFolderTreeItemFactory <> (x -> StringImplode.getImploded ('/',
                                                                                                                                                 x)));
   }

@@ -25,7 +25,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collection.attr.StringMap;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link SimpleURL}.
@@ -221,7 +221,7 @@ public final class SimpleURLTest
     final ISimpleURL aURL2 = new SimpleURL (aURL);
     assertEquals (aURL, aURL2);
 
-    CommonsTestHelper.testGetClone (aURL);
+    TestHelper.testGetClone (aURL);
   }
 
   @Test

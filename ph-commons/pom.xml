@@ -87,7 +87,7 @@
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-unittest-support</artifactId>
-      <optional>true</optional>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

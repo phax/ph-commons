@@ -25,8 +25,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.base.state.ESuccess;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.state.SuccessWithValue;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link SuccessWithValue}.
@@ -47,9 +47,9 @@ public final class SuccessWithValueTest
     assertEquals ("other", x.getIfFailure ("other"));
     assertNull (x.getIfFailureOrNull ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, SuccessWithValue.createSuccess ("bla"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createFailure ("bla"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createSuccess ("Other"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (x, SuccessWithValue.createSuccess ("bla"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createFailure ("bla"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createSuccess ("Other"));
 
     x = new SuccessWithValue <> (ESuccess.SUCCESS, null);
     assertNull (x.get ());

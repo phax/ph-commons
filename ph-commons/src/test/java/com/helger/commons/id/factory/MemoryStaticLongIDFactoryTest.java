@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MemoryStaticLongIDFactory}.
@@ -34,6 +34,6 @@ public final class MemoryStaticLongIDFactoryTest
   {
     final MemoryStaticLongIDFactory x = new MemoryStaticLongIDFactory ();
     assertTrue (x.getNewID () >= MemoryStaticLongIDFactory.INITIAL_ID);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new MemoryStaticLongIDFactory ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (x, new MemoryStaticLongIDFactory ());
   }
 }

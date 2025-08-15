@@ -29,7 +29,7 @@ import org.junit.Test;
 import com.helger.base.CGlobal;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link JsonArray}.
@@ -209,7 +209,7 @@ public final class JsonArrayTest
     assertEquals (BigDecimal.class, aArray.getValueAtIndex (33).getValueClass ());
 
     assertEquals (34, aArray.getClonedValues ().size ());
-    CommonsTestHelper.testGetClone (aArray);
+    TestHelper.testGetClone (aArray);
   }
 
   @Test
@@ -331,7 +331,7 @@ public final class JsonArrayTest
     assertEquals (String.class, aArray.getValueAtIndex (0).getValueClass ());
 
     assertEquals (34, aArray.getClonedValues ().size ());
-    CommonsTestHelper.testGetClone (aArray);
+    TestHelper.testGetClone (aArray);
   }
 
   @Test

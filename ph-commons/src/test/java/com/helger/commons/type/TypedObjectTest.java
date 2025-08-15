@@ -21,7 +21,7 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link TypedObject}.
@@ -38,9 +38,9 @@ public final class TypedObjectTest
     final TypedObject <String> t1 = TypedObject.create (ot1, "id1");
     assertSame (ot1, t1.getObjectType ());
     assertEquals ("id1", t1.getID ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (ot1, "id1"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (t1));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot1, "id2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot2, "id1"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (ot1, "id1"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (t1));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot1, "id2"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot2, "id1"));
   }
 }

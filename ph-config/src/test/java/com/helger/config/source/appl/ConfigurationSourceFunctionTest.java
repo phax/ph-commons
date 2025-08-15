@@ -25,8 +25,8 @@ import org.junit.Test;
 
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.config.source.EConfigSourceType;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ConfigurationSourceFunction}.
@@ -52,8 +52,9 @@ public final class ConfigurationSourceFunctionTest
     assertEquals ("value1", c.getConfigurationValue ("key1").getValue ());
     assertNull (c.getConfigurationValue ("I really don't know that key!"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceFunction (MAP::get));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceFunction (9797, MAP::get));
+    TestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceFunction (MAP::get));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c,
+                                                                    new ConfigurationSourceFunction (9797, MAP::get));
   }
 
   @Test

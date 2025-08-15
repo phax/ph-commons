@@ -316,6 +316,7 @@
     <module>ph-typeconvert</module>
     <module>ph-statistics</module>
     <module>ph-cache</module>
+    <module>ph-datetime</module>
     <module>ph-io</module>
     <module>ph-commons</module>
     <module>ph-scopes</module>
@@ -330,7 +331,6 @@
     <module>ph-tree</module>
     <module>ph-matrix</module>
     <module>ph-graph</module>
-    <module>ph-datetime</module>
     <module>ph-settings</module>
     <module>ph-config</module>
     <module>ph-less-commons</module>

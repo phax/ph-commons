@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link SimpleLocation}.
@@ -50,11 +50,11 @@ public final class SimpleLocationTest
     assertEquals (7, re.getColumnNumber ());
     assertEquals ("xx(5:7)", re.getAsString ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SimpleLocation ("xx"), new SimpleLocation ("xx"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx"), new SimpleLocation ("xx2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new SimpleLocation ("xx"), new SimpleLocation ("xx"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx"), new SimpleLocation ("xx2"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
                                                                            new SimpleLocation ("xx", 1, 1));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
                                                                            new SimpleLocation ("xx", 0, 0));
   }
 }

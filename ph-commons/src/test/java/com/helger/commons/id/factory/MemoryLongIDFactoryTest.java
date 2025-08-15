@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MemoryLongIDFactory}.
@@ -35,8 +35,8 @@ public final class MemoryLongIDFactoryTest
   {
     final MemoryLongIDFactory x = new MemoryLongIDFactory (9);
     assertEquals (9, x.getNewID ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new MemoryLongIDFactory (10));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new MemoryLongIDFactory (11));
+    TestHelper.testDefaultImplementationWithEqualContentObject (x, new MemoryLongIDFactory (10));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (x, new MemoryLongIDFactory (11));
 
     try
     {

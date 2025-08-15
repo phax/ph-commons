@@ -25,8 +25,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.base.system.EOperatingSystem;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.config.source.EConfigSourceType;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ConfigurationSourceEnvVar}.
@@ -47,8 +47,8 @@ public final class ConfigurationSourceEnvVarTest
       assertNotNull (c.getConfigurationValue ("OS"));
     assertNull (c.getConfigurationValue ("I really don't know that env var!"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceEnvVar ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceEnvVar (1234));
+    TestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceEnvVar ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceEnvVar (1234));
   }
 
   @Test

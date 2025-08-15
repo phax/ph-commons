@@ -32,9 +32,9 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.url.URLHelper;
 import com.helger.io.file.FileHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link URLResource}.
@@ -92,11 +92,11 @@ public final class URLResourceTest
     ur.getReader (StandardCharsets.ISO_8859_1).close ();
 
     final URL aNoNExistingURL = FileHelper.getAsURL (new File ("pom2.xml"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur,
+    TestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
+    TestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
+    TestHelper.testDefaultImplementationWithEqualContentObject (ur,
                                                                        ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
     assertNotNull (URLHelper.getAsFile (aFileURL));
     assertNotNull (URLHelper.getAsFile (aNoNExistingURL));

@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link StringIDFromGlobalPersistentLongIDFactory}.
@@ -35,8 +35,8 @@ public final class StringIDFromGlobalPersistentLongIDFactoryTest
   {
     GlobalIDFactory.setPersistentLongIDFactory (new MemoryStaticLongIDFactory ());
     final StringIDFromGlobalPersistentLongIDFactory x = new StringIDFromGlobalPersistentLongIDFactory ("idd");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalPersistentLongIDFactory ("idd"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new StringIDFromGlobalPersistentLongIDFactory ("prefix"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalPersistentLongIDFactory ("idd"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (x, new StringIDFromGlobalPersistentLongIDFactory ("prefix"));
     assertTrue (x.getNewID ().startsWith ("idd"));
 
     try

@@ -27,7 +27,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.io.file.EFileIOErrorCode;
 import com.helger.io.file.EFileIOOperation;
 import com.helger.io.file.FileHelper;
@@ -35,6 +34,7 @@ import com.helger.io.file.FileIOError;
 import com.helger.io.file.FileOperationManager;
 import com.helger.io.file.IFileOperationManager;
 import com.helger.io.file.SimpleFileIO;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link FileOperationManager}.
@@ -59,7 +59,7 @@ public final class FileOperationManagerTest
     final IFileOperationManager aFOM = new FileOperationManager ();
     assertNull (aFOM.getLastError ());
     assertNull (aFOM.getLastOperation ());
-    CommonsTestHelper.testToStringImplementation (aFOM);
+    TestHelper.testToStringImplementation (aFOM);
   }
 
   @Test

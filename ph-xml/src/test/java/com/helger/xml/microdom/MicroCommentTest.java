@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroComment}.
@@ -55,7 +55,7 @@ public final class MicroCommentTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.COMMENT, e.getType ());
-    CommonsTestHelper.testToStringImplementation (e);
+    TestHelper.testToStringImplementation (e);
 
     e.setData ("allo");
     assertEquals ("allo", e.getData ().toString ());

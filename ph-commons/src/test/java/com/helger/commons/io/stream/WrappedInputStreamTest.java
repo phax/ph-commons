@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.WrappedInputStream;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link WrappedInputStream}.
@@ -52,7 +52,7 @@ public final class WrappedInputStreamTest
     ws.reset ();
     assertEquals (100, ws.available ());
     ws.close ();
-    CommonsTestHelper.testToStringImplementation (ws);
+    TestHelper.testToStringImplementation (ws);
 
     try
     {

@@ -27,8 +27,8 @@ import org.junit.Test;
 
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.io.file.FileOperations;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link FileSystemByteStreamProvider}.
@@ -50,11 +50,11 @@ public final class FileSystemByteStreamProviderTest
     StreamHelper.close (aOS);
     assertTrue (FileOperations.deleteFile (new File ("$deleteme.txt")).isSuccess ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamProvider (new File (".")),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamProvider (new File (".")),
                                                                        new FileSystemByteStreamProvider (new File (".")));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamProvider (new File (".")),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamProvider (new File (".")),
                                                                        new FileSystemByteStreamProvider ("."));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamProvider (new File (".")),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamProvider (new File (".")),
                                                                            new FileSystemByteStreamProvider (new File ("..")));
   }
 }

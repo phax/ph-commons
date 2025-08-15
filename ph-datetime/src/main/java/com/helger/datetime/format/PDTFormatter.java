@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.datetime.helper;
+package com.helger.datetime.format;
 
 import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +29,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringCount;
 import com.helger.base.string.StringReplace;
 import com.helger.cache.impl.Cache;
+import com.helger.datetime.EDTType;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

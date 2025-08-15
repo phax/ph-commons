@@ -26,7 +26,7 @@ import com.helger.base.aggregate.IAggregator;
 import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.helper.PrimitiveCollectionHelper;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultFolderTree}.
@@ -64,6 +64,6 @@ public final class DefaultFolderTreeTest
     assertNotNull (i3);
     assertNotSame (i1, i3);
 
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (i1, i3);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (i1, i3);
   }
 }

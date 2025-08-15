@@ -20,10 +20,10 @@ import java.util.List;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.lang.StackTraceHelper;
 import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.lang.StackTraceHelper;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 

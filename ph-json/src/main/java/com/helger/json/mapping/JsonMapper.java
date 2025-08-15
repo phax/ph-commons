@@ -20,9 +20,9 @@ import java.util.List;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.lang.StackTraceHelper;
 import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
-import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
 import com.helger.json.IJsonObject;

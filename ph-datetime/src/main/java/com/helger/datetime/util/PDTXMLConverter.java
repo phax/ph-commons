@@ -40,8 +40,8 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.base.exception.InitializationException;
-import com.helger.datetime.helper.PDTConfig;
 import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.zone.PDTConfig;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

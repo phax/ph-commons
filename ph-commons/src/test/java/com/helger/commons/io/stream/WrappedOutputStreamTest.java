@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.WrappedOutputStream;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link WrappedOutputStream}.
@@ -46,7 +46,7 @@ public final class WrappedOutputStreamTest
       ws.write ("cde".getBytes (StandardCharsets.ISO_8859_1), 1, 1);
       ws.flush ();
       assertEquals ("abcd", baos.getAsString (StandardCharsets.ISO_8859_1));
-      CommonsTestHelper.testToStringImplementation (ws);
+      TestHelper.testToStringImplementation (ws);
     }
 
     try

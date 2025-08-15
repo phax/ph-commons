@@ -23,7 +23,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ConstantHasText}.
@@ -59,8 +59,8 @@ public final class ConstantHasTextTest
   @Test
   public void testStandard ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText ("any"), new ConstantHasText ("any"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText (""), new ConstantHasText (""));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantHasText ("any"), new ConstantHasText ("anyy"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText ("any"), new ConstantHasText ("any"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText (""), new ConstantHasText (""));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantHasText ("any"), new ConstantHasText ("anyy"));
   }
 }

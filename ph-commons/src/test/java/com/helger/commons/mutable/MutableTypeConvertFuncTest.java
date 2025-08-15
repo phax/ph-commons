@@ -22,8 +22,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.base.numeric.mutable.MutableBoolean;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.typeconvert.impl.TypeConverter;
+import com.helger.unittest.support.TestHelper;
 
 public class MutableTypeConvertFuncTest
 {
@@ -36,7 +36,7 @@ public class MutableTypeConvertFuncTest
     assertNotNull (b);
     assertTrue (b.booleanValue ());
     assertTrue (TypeConverter.convertToBoolean (x));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x,
+    TestHelper.testDefaultImplementationWithEqualContentObject (x,
                                                                        TypeConverter.convert (true,
                                                                                               MutableBoolean.class));
   }

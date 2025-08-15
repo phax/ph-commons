@@ -39,7 +39,7 @@ import com.helger.base.compare.IComparator;
 import com.helger.collection.commons.CommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -65,7 +65,7 @@ public final class IComparatorTest
     assertEquals (3,
                   getSorted (l, ComparatorHelper.getComparatorCollating (Collator.getInstance (L_FR)).reversed ())
                                                                                                                   .size ());
-    CommonsTestHelper.testToStringImplementation (ComparatorHelper.getComparatorCollating (Locale.US));
+    TestHelper.testToStringImplementation (ComparatorHelper.getComparatorCollating (Locale.US));
 
     try
     {

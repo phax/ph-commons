@@ -14,22 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.jaxb.adapter;
-
-import org.junit.Test;
-
-import com.helger.commons.mock.SPITestHelper;
+package com.helger.datetime;
 
 /**
- * Test SPI definitions
+ * This enum defines the potential date and/or time data types available.
  *
  * @author Philip Helger
  */
-public final class SPITest
+public enum EDTType
 {
-  @Test
-  public void testBasic () throws Exception
-  {
-    SPITestHelper.testIfAllSPIImplementationsAreValid ();
-  }
+  LOCAL_TIME,
+  OFFSET_TIME,
+  LOCAL_DATE,
+  OFFSET_DATE,
+  LOCAL_DATE_TIME,
+  OFFSET_DATE_TIME,
+  ZONED_DATE_TIME;
 }

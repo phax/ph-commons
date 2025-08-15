@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.base.lang.clazz.FactoryNewInstance;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link FactoryNewInstance}.
@@ -116,9 +116,9 @@ public final class FactoryNewInstanceTest
   @Test
   public void testEqualsAndHashCode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (FactoryNewInstance.create (String.class),
+    TestHelper.testDefaultImplementationWithEqualContentObject (FactoryNewInstance.create (String.class),
                                                                        FactoryNewInstance.create (String.class));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (FactoryNewInstance.create (String.class),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (FactoryNewInstance.create (String.class),
                                                                            FactoryNewInstance.create (StringBuilder.class));
   }
 }

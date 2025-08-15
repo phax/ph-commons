@@ -28,7 +28,7 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 public final class SettingsTest
 {
@@ -148,19 +148,19 @@ public final class SettingsTest
     {
       final Settings t = new Settings ("s1");
       assertTrue (t.putIn (FIELD1, "My value").isChanged ());
-      CommonsTestHelper.testDefaultImplementationWithEqualContentObject (s, t);
+      TestHelper.testDefaultImplementationWithEqualContentObject (s, t);
     }
 
     {
       final Settings t = new Settings ("s1");
       t.putIn (FIELD1, "My other value");
-      CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (s, t);
+      TestHelper.testDefaultImplementationWithDifferentContentObject (s, t);
     }
 
     {
       final Settings t = new Settings ("other name");
       t.putIn (FIELD1, "My value");
-      CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (s, t);
+      TestHelper.testDefaultImplementationWithDifferentContentObject (s, t);
     }
   }
 

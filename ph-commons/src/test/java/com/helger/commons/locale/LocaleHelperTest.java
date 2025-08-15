@@ -34,7 +34,7 @@ import org.junit.rules.TestRule;
 import com.helger.base.system.SystemHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.junit.DebugModeTestRule;
+import com.helger.unittest.junit4.DebugModeTestRule;
 
 /**
  * Test class for class {@link LocaleHelper}.

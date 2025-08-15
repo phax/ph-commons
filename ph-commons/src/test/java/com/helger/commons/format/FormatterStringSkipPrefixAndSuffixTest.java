@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link FormatterStringSkipPrefixAndSuffix}.
@@ -37,7 +37,7 @@ public final class FormatterStringSkipPrefixAndSuffixTest
     assertEquals ("bc", fp.apply ("abc"));
     assertEquals ("bc", fp.apply ("bco"));
     assertEquals ("bc", fp.apply ("bc"));
-    CommonsTestHelper.testToStringImplementation (fp);
+    TestHelper.testToStringImplementation (fp);
   }
 
   @Test
@@ -48,7 +48,7 @@ public final class FormatterStringSkipPrefixAndSuffixTest
     assertEquals ("bc", fp.apply ("abc"));
     assertEquals ("bco", fp.apply ("bco"));
     assertEquals ("bc", fp.apply ("bc"));
-    CommonsTestHelper.testToStringImplementation (fp);
+    TestHelper.testToStringImplementation (fp);
   }
 
   @Test
@@ -59,6 +59,6 @@ public final class FormatterStringSkipPrefixAndSuffixTest
     assertEquals ("abc", fp.apply ("abc"));
     assertEquals ("bc", fp.apply ("bco"));
     assertEquals ("bc", fp.apply ("bc"));
-    CommonsTestHelper.testToStringImplementation (fp);
+    TestHelper.testToStringImplementation (fp);
   }
 }

@@ -27,9 +27,9 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.CommonsTreeMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.json.convert.JsonConverter;
 import com.helger.json.serialize.JsonReader;
+import com.helger.unittest.support.TestHelper;
 
 import jakarta.annotation.Nullable;
 
@@ -48,7 +48,7 @@ public final class EqualsHashcodeFuncTest
     assertNotNull (sJson);
     final IJson aJsonRead = JsonReader.builder ().source (sJson).read ();
     assertNotNull ("Failed to read: " + sJson, aJsonRead);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aJson, aJsonRead);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aJson, aJsonRead);
   }
 
   @Test
@@ -74,7 +74,9 @@ public final class EqualsHashcodeFuncTest
     _testEqualsHashcode (new long [] { 1, 2, 3 });
     _testEqualsHashcode (new short [] { 1, 2, 3 });
     _testEqualsHashcode (new String [] { "foo", "bar", "bla" });
-    _testEqualsHashcode (new CommonsArrayList <> (Double.valueOf (3.1234), Double.valueOf (4.1415), Double.valueOf (5.1415)));
+    _testEqualsHashcode (new CommonsArrayList <> (Double.valueOf (3.1234),
+                                                  Double.valueOf (4.1415),
+                                                  Double.valueOf (5.1415)));
   }
 
   @Test

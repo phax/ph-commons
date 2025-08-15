@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.helger.base.io.EAppend;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.microdom.MicroDocumentType;
 
 /**
@@ -45,7 +45,7 @@ public final class XMLEmitterTest
                   XMLEmitter.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_11,
                                                            EXMLIncorrectCharacterHandling.DEFAULT,
                                                            new MicroDocumentType ("qname", "pubid", "sysid")));
-    CommonsTestHelper.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (StandardCharsets.ISO_8859_1,
+    TestHelper.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (StandardCharsets.ISO_8859_1,
                                                                                                                   EAppend.DEFAULT),
                                                                   XMLWriterSettings.DEFAULT_XML_SETTINGS));
   }

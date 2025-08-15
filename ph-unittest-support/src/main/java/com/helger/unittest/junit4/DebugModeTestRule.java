@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.junit;
+package com.helger.unittest.junit4;
 
 import org.junit.rules.ExternalResource;
 

@@ -49,9 +49,9 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.io.file.FileHelper;
 import com.helger.io.stream.StringInputStream;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLSystemProperties;
 import com.helger.xml.sax.CachingSAXInputSource;
@@ -336,7 +336,7 @@ public final class DOMReaderTest
   @Test
   public void testMultithreadedDOM ()
   {
-    CommonsTestHelper.testInParallel (100,
+    TestHelper.testInParallel (100,
                                       (IThrowingRunnable <SAXException>) () -> assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"))));
   }
 

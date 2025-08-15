@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.datetime.helper;
+package com.helger.datetime.format;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,6 +25,8 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.base.system.EJavaVersion;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.zone.PDTConfig;
 
 /**
  * Test class for class {@link PDTToString}.

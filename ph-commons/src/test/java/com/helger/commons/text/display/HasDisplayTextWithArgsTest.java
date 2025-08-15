@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link HasDisplayTextWithArgs}.
@@ -43,7 +43,7 @@ public final class HasDisplayTextWithArgsTest
     final HasDisplayTextWithArgs x = new HasDisplayTextWithArgs (t, "Welt");
     assertEquals ("Hallo Welt", x.getDisplayText (L_DE));
     assertNull (x.getDisplayText (L_FR));
-    CommonsTestHelper.testToStringImplementation (x);
+    TestHelper.testToStringImplementation (x);
 
     try
     {

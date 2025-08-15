@@ -28,7 +28,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MimeType}
@@ -46,13 +46,13 @@ public final class MimeTypeTest
     assertEquals ("text/junit", mt.getAsString ());
     assertEquals ("text/junit", mt.getAsStringWithoutParameters ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION, "junit"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
-    CommonsTestHelper.testGetClone (mt);
+    TestHelper.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION, "junit"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
+    TestHelper.testGetClone (mt);
 
     mt.addParameter ("charset", StandardCharsets.UTF_8.name ());
-    CommonsTestHelper.testGetClone (mt);
+    TestHelper.testGetClone (mt);
 
     try
     {

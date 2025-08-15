@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroEvent}.
@@ -43,13 +43,13 @@ public final class MicroEventTest
     assertEquals (EMicroEvent.NODE_INSERTED, e.getEventType ());
     assertSame (e1, e.getSourceNode ());
     assertSame (e2, e.getTargetNode ());
-    CommonsTestHelper.testToStringImplementation (e);
+    TestHelper.testToStringImplementation (e);
 
     e = new MicroEvent (EMicroEvent.NODE_INSERTED, null, null);
     assertEquals (EMicroEvent.NODE_INSERTED, e.getEventType ());
     assertNull (e.getSourceNode ());
     assertNull (e.getTargetNode ());
-    CommonsTestHelper.testToStringImplementation (e);
+    TestHelper.testToStringImplementation (e);
   }
 
   @Test

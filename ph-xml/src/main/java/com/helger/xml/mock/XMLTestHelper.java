@@ -16,11 +16,12 @@
  */
 package com.helger.xml.mock;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.reflection.GenericReflection;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroWriter;
@@ -39,10 +40,9 @@ public final class XMLTestHelper
   {}
 
   /**
-   * Test if the {@link MicroTypeConverter} is OK. It converts it to XML and
-   * back and than uses
-   * {@link CommonsTestHelper#testDefaultImplementationWithEqualContentObject(Object, Object)}
-   * to check for equality.
+   * Test if the {@link MicroTypeConverter} is OK. It converts it to XML and back and than uses
+   * {@link TestHelper#testDefaultImplementationWithEqualContentObject(Object, Object)} to check for
+   * equality.
    *
    * @param <T>
    *        The data type to be used and returned
@@ -69,10 +69,10 @@ public final class XMLTestHelper
     // Ensure XML representation is identical
     final String sXML1 = MicroWriter.getNodeAsString (e);
     final String sXML2 = MicroWriter.getNodeAsString (e2);
-    CommonsTestHelper._assertEquals ("XML representation must be identical", sXML1, sXML2);
+    assertEquals ("XML representation must be identical", sXML1, sXML2);
 
     // Ensure they are equals
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aObj, aObj2);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aObj, aObj2);
 
     return GenericReflection.uncheckedCast (aObj2);
   }

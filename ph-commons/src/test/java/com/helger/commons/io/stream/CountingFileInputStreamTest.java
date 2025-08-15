@@ -25,8 +25,8 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.io.stream.CountingFileInputStream;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CountingFileInputStream}.
@@ -44,7 +44,7 @@ public final class CountingFileInputStreamTest
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
       StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
-      CommonsTestHelper.testToStringImplementation (aCIS);
+      TestHelper.testToStringImplementation (aCIS);
     }
     finally
     {
@@ -57,7 +57,7 @@ public final class CountingFileInputStreamTest
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
       StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
-      CommonsTestHelper.testToStringImplementation (aCIS);
+      TestHelper.testToStringImplementation (aCIS);
     }
     finally
     {

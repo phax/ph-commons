@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultTreeWithID}.
@@ -36,10 +36,10 @@ public final class DefaultTreeWithIDTest
     final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
     assertNotNull (t.getRootItem ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <> ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <> ());
     final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <> ();
     t2.getRootItem ().createChildItem ("dataid", "data");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, t2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (t, t2);
   }
 
   @Test

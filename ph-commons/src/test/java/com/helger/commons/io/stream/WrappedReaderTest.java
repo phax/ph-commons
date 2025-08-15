@@ -28,7 +28,7 @@ import org.junit.Test;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.WrappedReader;
 import com.helger.base.string.StringHelper;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link WrappedReader}.
@@ -54,7 +54,7 @@ public final class WrappedReaderTest
       assertEquals (89, ws.skip (100));
       ws.reset ();
       assertEquals (100, ws.skip (100));
-      CommonsTestHelper.testToStringImplementation (ws);
+      TestHelper.testToStringImplementation (ws);
     }
 
     try (WrappedReader aReader = new WrappedReader (null))

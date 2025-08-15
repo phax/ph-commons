@@ -34,8 +34,8 @@ import com.helger.base.state.IStoppable;
 import com.helger.base.system.EJavaVersion;
 import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.hierarchy.MockChildrenProvider;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.type.IHasObjectType;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ServiceLoader}.
@@ -67,7 +67,7 @@ public final class ServiceLoaderFuncTest
     }
     catch (final UnsupportedOperationException ex)
     {}
-    CommonsTestHelper.testToStringImplementation (aSL);
+    TestHelper.testToStringImplementation (aSL);
   }
 
   @Test

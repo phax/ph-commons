@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ClassPathResourceProvider}.
@@ -70,10 +70,10 @@ public final class ClassPathResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider (), new ClassPathResourceProvider ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ClassPathResourceProvider (),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider (), new ClassPathResourceProvider ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new ClassPathResourceProvider (),
                                                                            new ClassPathResourceProvider ("folder"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider ("folder"),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider ("folder"),
                                                                        new ClassPathResourceProvider ("folder"));
   }
 }

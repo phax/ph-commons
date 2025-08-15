@@ -23,7 +23,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ResourceBundleTextProvider}.
@@ -47,12 +47,12 @@ public final class ResourceBundleTextProviderTest
     assertEquals ("äöü", aRBT.getText (L_DE));
     assertEquals ("äöü", aRBT.getTextWithArgs (L_DE, "egal"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                        new ResourceBundleTextProvider (key));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                        new ResourceBundleTextProvider (sBundle,
                                                                                                        "key1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
                                                                            new ResourceBundleTextProvider (sBundle,
                                                                                                            "key2"));
 

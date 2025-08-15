@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.system.ENewLineMode;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLFactory;
@@ -271,7 +271,7 @@ public final class XMLWriterTest
     final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
     final String sTAGNAME = "notext";
 
-    CommonsTestHelper.testInParallel (1000, () -> {
+    TestHelper.testInParallel (1000, () -> {
       // Java 1.6 JAXP handles things differently
       final String sSerTagName = "<" + sTAGNAME + "></" + sTAGNAME + ">";
 

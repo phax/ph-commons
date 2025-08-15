@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ObjectType}.
@@ -36,12 +36,12 @@ public final class ObjectTypeTest
     final ObjectType x = new ObjectType ("any");
     assertEquals ("any", x.getName ());
     assertEquals (0, x.compareTo (x));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
 
     final ObjectType y = new ObjectType ("any2");
     assertEquals (-1, x.compareTo (y));
     assertEquals (+1, y.compareTo (x));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, y);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (x, y);
 
     try
     {

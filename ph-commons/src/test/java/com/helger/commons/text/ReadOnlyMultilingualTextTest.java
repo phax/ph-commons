@@ -28,7 +28,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ReadOnlyMultilingualText}.
@@ -82,13 +82,13 @@ public final class ReadOnlyMultilingualTextTest
     assertFalse (aMLT.containsLocaleWithFallback (L_FR_FR));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
+    TestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
                                                                        new ReadOnlyMultilingualText (CollectionHelperExt.newMap (new Locale [] { L_DE,
                                                                                                                                               L_EN },
                                                                                                                               new String [] { "de",
                                                                                                                                               "en" })));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (), new ReadOnlyMultilingualText ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadOnlyMultilingualText ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (), new ReadOnlyMultilingualText ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadOnlyMultilingualText ());
 
     try
     {

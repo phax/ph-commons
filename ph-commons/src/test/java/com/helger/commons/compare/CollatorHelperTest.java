@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.base.compare.CompareHelper;
 import com.helger.collection.commons.CommonsVector;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CollatorHelper}.
@@ -48,25 +48,25 @@ public final class CollatorHelperTest
     final Collator c2 = CollatorHelper.getCollatorSpaceBeforeDot (L_DE);
     assertNotNull (c2);
     assertNotSame (c, c2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, c2);
+    TestHelper.testDefaultImplementationWithEqualContentObject (c, c2);
 
     // Unknown locale
     assertNotNull (CollatorHelper.getCollatorSpaceBeforeDot (new Locale ("xy", "87")));
 
     final List <Collator> res = new CommonsVector <> ();
     final int nMax = 100;
-    CommonsTestHelper.testInParallel (nMax, () -> res.add (CollatorHelper.getCollatorSpaceBeforeDot (L_EN)));
+    TestHelper.testInParallel (nMax, () -> res.add (CollatorHelper.getCollatorSpaceBeforeDot (L_EN)));
 
     assertEquals (nMax, res.size ());
     for (int i = 1; i < nMax; ++i)
-      CommonsTestHelper.testDefaultImplementationWithEqualContentObject (res.get (0), res.get (i));
+      TestHelper.testDefaultImplementationWithEqualContentObject (res.get (0), res.get (i));
   }
 
   @Test
   public void testSort ()
   {
     final int nMax = 10000;
-    CommonsTestHelper.testInParallel (nMax, () -> {
+    TestHelper.testInParallel (nMax, () -> {
       Collator c = CollatorHelper.getCollatorSpaceBeforeDot (L_DE);
       assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));
       c = CollatorHelper.getCollatorSpaceBeforeDot (L_EN);

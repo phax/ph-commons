@@ -25,7 +25,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultResourceProvider}.
@@ -79,7 +79,7 @@ public final class DefaultResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
                                                                        new DefaultResourceProvider ());
   }
 }

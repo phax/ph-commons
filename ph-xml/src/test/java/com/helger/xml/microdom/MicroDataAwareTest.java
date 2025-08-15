@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroDataAware}.
@@ -35,8 +35,8 @@ public final class MicroDataAwareTest
   {
     final MicroDataAware md = new MicroDataAware (null);
     assertEquals ("", md.getData ().toString ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (md, new MicroDataAware (null));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (md, new MicroDataAware ("foo"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (md, new MicroDataAware (null));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (md, new MicroDataAware ("foo"));
     md.appendData ("fo");
     assertEquals ("fo", md.getData ().toString ());
     md.appendData ("obar");

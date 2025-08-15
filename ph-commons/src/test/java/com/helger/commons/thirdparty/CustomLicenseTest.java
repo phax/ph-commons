@@ -22,8 +22,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.version.Version;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CustomLicense}.
@@ -47,42 +47,42 @@ public final class CustomLicenseTest
     assertNull (cl2.getVersion ());
     assertNull (cl2.getURL ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl2,
+    TestHelper.testDefaultImplementationWithEqualContentObject (cl2,
                                                                        new CustomLicense ("cl1",
                                                                                           "License",
                                                                                           null,
                                                                                           null));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl,
+    TestHelper.testDefaultImplementationWithEqualContentObject (cl,
                                                                        new CustomLicense ("cl1",
                                                                                           "License",
                                                                                           Version.parse ("1.2"),
                                                                                           "url"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl12",
                                                                                               "License",
                                                                                               Version.parse ("1.2"),
                                                                                               "url"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License2",
                                                                                               Version.parse ("1.2"),
                                                                                               "url"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",
                                                                                               Version.parse ("1.1"),
                                                                                               "url"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",
                                                                                               null,
                                                                                               "url"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",
                                                                                               Version.parse ("1.2"),
                                                                                               "url2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
+    TestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",
                                                                                               Version.parse ("1.2"),

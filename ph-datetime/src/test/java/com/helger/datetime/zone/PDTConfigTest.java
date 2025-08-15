@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.datetime.helper;
+package com.helger.datetime.zone;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,6 +28,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 
 import org.junit.Test;
+
+import com.helger.datetime.helper.PDTFactory;
 
 /**
  * Test class for class {@link PDTConfig}.

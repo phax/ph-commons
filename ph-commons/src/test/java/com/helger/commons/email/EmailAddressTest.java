@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link EmailAddress}.
@@ -54,9 +54,9 @@ public final class EmailAddressTest
     assertEquals ("ph@example.org", aMA.getAddress ());
     assertNull (aMA.getPersonal ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMA, new EmailAddress ("ph@example.org"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example2.org"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example.org", "My name"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aMA, new EmailAddress ("ph@example.org"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example2.org"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example.org", "My name"));
 
     aMA = new EmailAddress ("ph@example.org", "Philip");
     assertEquals ("ph@example.org", aMA.getAddress ());

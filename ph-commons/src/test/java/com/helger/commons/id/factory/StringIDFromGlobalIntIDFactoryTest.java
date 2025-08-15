@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link StringIDFromGlobalIntIDFactory}.
@@ -34,8 +34,8 @@ public final class StringIDFromGlobalIntIDFactoryTest
   public void testAll ()
   {
     final StringIDFromGlobalIntIDFactory x = new StringIDFromGlobalIntIDFactory ("idd");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalIntIDFactory ("idd"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new StringIDFromGlobalIntIDFactory ("prefix"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalIntIDFactory ("idd"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (x, new StringIDFromGlobalIntIDFactory ("prefix"));
     assertTrue (x.getNewID ().startsWith ("idd"));
 
     try

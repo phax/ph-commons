@@ -31,10 +31,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.junit.DebugModeTestRule;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.MultilingualText;
 import com.helger.typeconvert.TypeConverterException;
+import com.helger.unittest.junit4.DebugModeTestRule;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroElement}.
@@ -60,7 +60,7 @@ public final class MicroElementTest
     assertNotNull (e.getAllChildElements ());
     assertTrue (e.getAllChildElements ().isEmpty ());
     assertSame (EMicroNodeType.ELEMENT, e.getType ());
-    CommonsTestHelper.testToStringImplementation (e);
+    TestHelper.testToStringImplementation (e);
 
     e = new MicroElement ("myns", "xyz");
     assertNull (e.getAttributeValue ("attr"));
@@ -158,14 +158,14 @@ public final class MicroElementTest
     assertNotNull (eRoot.getAllChildElements ());
     assertTrue (eRoot.getAllChildElements ().isEmpty ());
     assertFalse (eRoot.hasChildElements ());
-    CommonsTestHelper.testToStringImplementation (eRoot);
+    TestHelper.testToStringImplementation (eRoot);
 
     final IMicroElement e1 = eRoot.addElement ("level1");
     e1.addElement ("e11");
     eRoot.addText ("My text node");
     eRoot.addComment ("Comment");
     eRoot.addElement ("xyz");
-    CommonsTestHelper.testToStringImplementation (eRoot);
+    TestHelper.testToStringImplementation (eRoot);
 
     assertNotNull (eRoot.getAllChildElements ());
     assertEquals (2, eRoot.getAllChildElements ().size ());

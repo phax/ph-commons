@@ -26,9 +26,9 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsIterableIterator;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.io.file.FileSystemIterator;
 import com.helger.io.file.IFileFilter;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link FileSystemIterator}.
@@ -65,7 +65,7 @@ public final class FileSystemIteratorTest
     while (it.hasNext ())
       it.next ();
 
-    CommonsTestHelper.testToStringImplementation (it);
+    TestHelper.testToStringImplementation (it);
 
     // Non-existing directory
     it = new FileSystemIterator (new File ("anydir"));

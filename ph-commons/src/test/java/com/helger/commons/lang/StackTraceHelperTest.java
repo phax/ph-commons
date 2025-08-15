@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.lang.StackTraceHelper;
 
 /**
  * Test class for class {@link StackTraceHelper}.

@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link URLResourceProvider}.
@@ -56,6 +56,6 @@ public final class URLResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new URLResourceProvider (), new URLResourceProvider ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (new URLResourceProvider (), new URLResourceProvider ());
   }
 }

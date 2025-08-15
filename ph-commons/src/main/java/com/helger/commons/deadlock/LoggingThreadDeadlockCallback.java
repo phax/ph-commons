@@ -19,7 +19,7 @@ package com.helger.commons.deadlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.lang.StackTraceHelper;
+import com.helger.base.lang.StackTraceHelper;
 
 import jakarta.annotation.Nonnull;
 

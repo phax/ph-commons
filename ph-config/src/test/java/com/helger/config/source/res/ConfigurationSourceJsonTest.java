@@ -29,8 +29,8 @@ import org.junit.Test;
 
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.config.source.EConfigSourceType;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ConfigurationSourceJson}.
@@ -69,10 +69,10 @@ public final class ConfigurationSourceJsonTest
     // Check additional
     assertEquals ("value", c.getConfigurationValue ("element7.sub.key").getValue ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceJson (RES));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceJson (1234, RES));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceJson (new FileSystemResource (new File ("bla"))));
+    TestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceJson (RES));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceJson (1234, RES));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c,
+                                                                    new ConfigurationSourceJson (new FileSystemResource (new File ("bla"))));
   }
 
   @Test

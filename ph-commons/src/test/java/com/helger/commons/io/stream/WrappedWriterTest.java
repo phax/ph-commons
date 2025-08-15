@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.WrappedWriter;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link WrappedWriter}.
@@ -49,7 +49,7 @@ public final class WrappedWriterTest
       ws.append ('0').append ("12").append ("234", 1, 2);
       assertEquals ("abcdefg0123", aSW.getAsString ());
       ws.flush ();
-      CommonsTestHelper.testToStringImplementation (ws);
+      TestHelper.testToStringImplementation (ws);
     }
 
     try (final WrappedWriter ws = new WrappedWriter (null))

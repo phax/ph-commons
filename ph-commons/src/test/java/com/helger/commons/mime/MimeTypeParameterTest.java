@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MimeTypeParameter}
@@ -39,9 +39,9 @@ public final class MimeTypeParameterTest
     assertEquals ("iso-8859-1", p.getValue ());
     assertFalse (p.isValueRequiringQuoting ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname", "iso-8859-1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname", "iso-8859-1"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
 
     p = new MimeTypeParameter ("charset", "foo bar");
     assertEquals ("charset", p.getAttribute ());
@@ -57,8 +57,8 @@ public final class MimeTypeParameterTest
     assertEquals ("", p.getValue ());
     assertTrue (p.isValueRequiringQuoting ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", ""));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname", "iso-8859-1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", ""));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname", "iso-8859-1"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
   }
 }

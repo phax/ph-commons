@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * JUnit test for class {@link VersionRange}.
@@ -395,26 +395,26 @@ public final class VersionRangeTest
     assertEquals (vr1, vr1);
     assertNotEquals (vr1, null);
     assertNotEquals (vr1, "Not a VersionRange");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (vr1, VersionRange.parse ("(1.2,2.0]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.0)"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0)"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(,2.0]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.3,2.0]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.1]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
+    TestHelper.testDefaultImplementationWithEqualContentObject (vr1, VersionRange.parse ("(1.2,2.0]"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0]"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.0)"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0)"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,]"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(,2.0]"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.3,2.0]"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.1]"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
                                                                            VersionRange.parse ("(,2.1]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
                                                                            VersionRange.parse ("(1.3]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2,]"),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2,]"),
                                                                            VersionRange.parse ("(,2.0]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
                                                                            VersionRange.parse ("(1.2,]"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (VersionRange.parse ("(1.2]"),
+    TestHelper.testDefaultImplementationWithEqualContentObject (VersionRange.parse ("(1.2]"),
                                                                        VersionRange.parse ("(1.2]"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
                                                                            VersionRange.parse ("(1.2)"));
   }
 }

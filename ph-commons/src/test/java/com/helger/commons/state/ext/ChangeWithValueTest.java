@@ -25,8 +25,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.base.state.EChange;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.state.ChangeWithValue;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ChangeWithValue}.
@@ -47,9 +47,9 @@ public final class ChangeWithValueTest
     assertEquals ("other", x.getIfUnchanged ("other"));
     assertNull (x.getIfUnchangedOrNull ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
 
     x = new ChangeWithValue <> (EChange.CHANGED, null);
     assertNull (x.get ());

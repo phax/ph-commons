@@ -27,9 +27,9 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsIterableIterator;
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.io.file.FileSystemRecursiveIterator;
 import com.helger.io.file.IFileFilter;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link FileSystemRecursiveIterator}.
@@ -81,7 +81,7 @@ public final class FileSystemRecursiveIteratorTest
     catch (final UnsupportedOperationException ex)
     {}
 
-    CommonsTestHelper.testToStringImplementation (it);
+    TestHelper.testToStringImplementation (it);
 
     // With one filter
     it = new FileSystemRecursiveIterator (new File (".")).withFilter (IFileFilter.fileOnly ());
