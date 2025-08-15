@@ -19,7 +19,6 @@ package com.helger.commons.string;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.CheckReturnValue;
@@ -163,73 +162,6 @@ public final class StringHelper extends Strings
   }
 
   /**
-   * Split the provided string by the provided separator and invoke the consumer for each matched
-   * element. The number of returned items is unlimited.
-   *
-   * @param cSep
-   *        The separator to use.
-   * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
-   * @param aConsumer
-   *        The non-<code>null</code> consumer that is invoked for each exploded element
-   */
-  public static void explode (final char cSep,
-                              @Nullable final String sElements,
-                              @Nonnull final Consumer <? super String> aConsumer)
-  {
-    explode (cSep, sElements, -1, aConsumer);
-  }
-
-  /**
-   * Split the provided string by the provided separator and invoke the consumer for each matched
-   * element. The maximum number of elements can be specified.
-   *
-   * @param cSep
-   *        The separator to use.
-   * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
-   * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0 all items are
-   *        used. If max items is 1, than the result string is returned as is. If max items is
-   *        larger than the number of elements found, it has no effect.
-   * @param aConsumer
-   *        The non-<code>null</code> consumer that is invoked for each exploded element
-   */
-  public static void explode (final char cSep,
-                              @Nullable final String sElements,
-                              final int nMaxItems,
-                              @Nonnull final Consumer <? super String> aConsumer)
-  {
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-
-    if (nMaxItems == 1)
-      aConsumer.accept (sElements);
-    else
-      if (isNotEmpty (sElements))
-      {
-        // Do not use RegExPool.stringReplacePattern because of package
-        // dependencies
-        // Do not use String.split because it trims empty tokens from the end
-        int nStartIndex = 0;
-        int nMatchIndex;
-        int nItemsAdded = 0;
-        while ((nMatchIndex = sElements.indexOf (cSep, nStartIndex)) >= 0)
-        {
-          aConsumer.accept (sElements.substring (nStartIndex, nMatchIndex));
-          // 1 == length of separator char
-          nStartIndex = nMatchIndex + 1;
-          ++nItemsAdded;
-          if (nMaxItems > 0 && nItemsAdded == nMaxItems - 1)
-          {
-            // We have exactly one item the left: the rest of the string
-            break;
-          }
-        }
-        aConsumer.accept (sElements.substring (nStartIndex));
-      }
-  }
-
-  /**
    * Take a concatenated String and return a {@link ICommonsList} of all elements in the passed
    * string, using specified separator string.
    *
@@ -302,88 +234,6 @@ public final class StringHelper extends Strings
   {
     explode (sSep, sElements, nMaxItems, aCollection::add);
     return aCollection;
-  }
-
-  /**
-   * Split the provided string by the provided separator and invoke the consumer for each matched
-   * element.
-   *
-   * @param sSep
-   *        The separator to use. May not be <code>null</code>.
-   * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
-   * @param aConsumer
-   *        The non-<code>null</code> consumer that is invoked for each exploded element
-   */
-  public static void explode (@Nonnull final String sSep,
-                              @Nullable final String sElements,
-                              @Nonnull final Consumer <? super String> aConsumer)
-  {
-    explode (sSep, sElements, -1, aConsumer);
-  }
-
-  /**
-   * Split the provided string by the provided separator and invoke the consumer for each matched
-   * element. The maximum number of elements can be specified.
-   *
-   * @param sSep
-   *        The separator to use. May not be <code>null</code>.
-   * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
-   * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0 all items are
-   *        used. If max items is 1, than the result string is returned as is. If max items is
-   *        larger than the number of elements found, it has no effect.
-   * @param aConsumer
-   *        The non-<code>null</code> consumer that is invoked for each exploded element
-   */
-  public static void explode (@Nonnull final String sSep,
-                              @Nullable final String sElements,
-                              final int nMaxItems,
-                              @Nonnull final Consumer <? super String> aConsumer)
-  {
-    ValueEnforcer.notNull (sSep, "Separator");
-    ValueEnforcer.notNull (aConsumer, "Collection");
-
-    if (sSep.length () == 1)
-    {
-      // If the separator consists only of a single character, use the
-      // char-optimized version for better performance
-      // Note: do it before the "hasText (sElements)" check, because the same
-      // check is performed in the char version as well
-      explode (sSep.charAt (0), sElements, nMaxItems, aConsumer);
-    }
-    else
-    {
-      if (nMaxItems == 1)
-        aConsumer.accept (sElements);
-      else
-      {
-        if (isNotEmpty (sElements))
-        {
-          // Do not use RegExPool.stringReplacePattern because of package
-          // dependencies
-          // Do not use String.split because it trims empty tokens from the end
-          int nStartIndex = 0;
-          int nItemsAdded = 0;
-          while (true)
-          {
-            final int nMatchIndex = sElements.indexOf (sSep, nStartIndex);
-            if (nMatchIndex < 0)
-              break;
-            aConsumer.accept (sElements.substring (nStartIndex, nMatchIndex));
-            nStartIndex = nMatchIndex + sSep.length ();
-            ++nItemsAdded;
-            if (nMaxItems > 0 && nItemsAdded == nMaxItems - 1)
-            {
-              // We have exactly one item the left: the rest of the string
-              break;
-            }
-          }
-          aConsumer.accept (sElements.substring (nStartIndex));
-        }
-      }
-    }
   }
 
   /**

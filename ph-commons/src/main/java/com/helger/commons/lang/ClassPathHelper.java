@@ -23,11 +23,11 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.base.system.ENewLineMode;
 import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -46,8 +46,7 @@ public final class ClassPathHelper
   {}
 
   /**
-   * @return A non-<code>null</code> list of all directories and files currently
-   *         in the class path.
+   * @return A non-<code>null</code> list of all directories and files currently in the class path.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -62,18 +61,16 @@ public final class ClassPathHelper
    * Iterate all class path entries and invoke the provided consumer.
    *
    * @param aConsumer
-   *        The target consumer invoked for all entries. May not be
-   *        <code>null</code>.
+   *        The target consumer invoked for all entries. May not be <code>null</code>.
    */
   public static void forAllClassPathEntries (@Nonnull final Consumer <? super String> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
-    StringHelper.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), aConsumer);
+    Strings.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), aConsumer);
   }
 
   /**
-   * Print all class path entries on the passed print stream, using the system
-   * line separator
+   * Print all class path entries on the passed print stream, using the system line separator
    *
    * @param aPS
    *        The print stream to print to. May not be <code>null</code>.
@@ -84,8 +81,7 @@ public final class ClassPathHelper
   }
 
   /**
-   * Print all class path entries on the passed print stream, using the passed
-   * separator
+   * Print all class path entries on the passed print stream, using the passed separator
    *
    * @param aPS
    *        The print stream to print to. May not be <code>null</code>.

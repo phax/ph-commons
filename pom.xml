@@ -345,17 +345,18 @@
             <exclude>**/PropertiesHelper.class</exclude>
             <exclude>**/PBCProvider.class</exclude>
             <exclude>**/KeyStoreHelper.class</exclude>
+            <exclude>**/SystemProperties.class</exclude>
             <!-- java.security.provider extends java.util.properties -->
             <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
             <exclude>**/EMacAlgorithm.class</exclude>
             <exclude>**/EMessageDigestAlgorithm.class</exclude>
             <exclude>**/IKeyStoreType.class</exclude>
-            <exclude>**/IKeyStoreDescriptor*.class</exclude>
-            <exclude>**/IKeyStoreAndKeyDescriptor*.class</exclude>
-            <exclude>**/ITrustStoreDescriptor*.class</exclude>
-            <exclude>**/KeyStoreDescriptor*.class</exclude>
-            <exclude>**/KeyStoreAndKeyDescriptor*.class</exclude>
-            <exclude>**/TrustStoreDescriptor*.class</exclude>
+            <exclude>**/IKeyStoreDescriptor.class</exclude>
+            <exclude>**/IKeyStoreAndKeyDescriptor.class</exclude>
+            <exclude>**/ITrustStoreDescriptor.class</exclude>
+            <exclude>**/KeyStoreDescriptor.class</exclude>
+            <exclude>**/KeyStoreAndKeyDescriptor.class</exclude>
+            <exclude>**/TrustStoreDescriptor.class</exclude>
             <!-- CLI module printing to System.out -->
             <exclude>**/HelpFormatter.class</exclude>
             <exclude>**/BugsTest.class</exclude>

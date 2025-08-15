@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -65,7 +64,6 @@ import com.helger.commons.codec.URLCodec;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelperExt;
-import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
@@ -989,27 +987,4 @@ public final class URLHelper
     return ClassLoaderHelper.getResource (aClassLoader, sPath) != null;
   }
 
-  @RegEx
-  public static final String REGEX_URN = "^\\Qurn:\\E" +
-                                         "[a-zA-Z0-9][a-zA-Z0-9-]{0,31}" +
-                                         "\\Q:\\E" +
-                                         "[a-zA-Z0-9()+,\\-.:=@;$_!*'%/?#]+" +
-                                         "$";
-
-  /**
-   * Check if the provided string is valid according to RFC 2141. Leading and trailing spaces of the
-   * value to check will result in a negative result.
-   *
-   * @param sURN
-   *        the URN to be validated. May be <code>null</code>.
-   * @return <code>true</code> if the provided URN is not empty and matches the regular expression
-   *         {@link #REGEX_URN}.
-   * @since 10.0.0
-   */
-  public static boolean isValidURN (@Nullable final String sURN)
-  {
-    if (Strings.isEmpty (sURN))
-      return false;
-    return RegExHelper.stringMatchesPattern (REGEX_URN, sURN);
-  }
 }

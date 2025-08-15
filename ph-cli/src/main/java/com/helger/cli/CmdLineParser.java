@@ -202,10 +202,10 @@ public class CmdLineParser
             {
               // As e.g. in "-Dtest=value"
               if (aOption.hasValueSeparator ())
-                StringHelper.explode (aOption.getValueSeparator (),
-                                      sValueInArg,
-                                      bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
-                                      aValues::add);
+                Strings.explode (aOption.getValueSeparator (),
+                                 sValueInArg,
+                                 bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
+                                 aValues::add);
               else
                 aValues.add (sValueInArg);
             }
@@ -237,10 +237,10 @@ public class CmdLineParser
                 // As e.g. in "-Dtest=value"
                 if (aOption.hasValueSeparator ())
                 {
-                  StringHelper.explode (aOption.getValueSeparator (),
-                                        sNextArg,
-                                        bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
-                                        aValues::add);
+                  Strings.explode (aOption.getValueSeparator (),
+                                   sNextArg,
+                                   bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
+                                   aValues::add);
                 }
                 else
                   aValues.add (sNextArg);
