@@ -19,7 +19,7 @@ package com.helger.datetime.expiration;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.helper.PDTFactory;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

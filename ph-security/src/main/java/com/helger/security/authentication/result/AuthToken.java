@@ -25,7 +25,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.helper.PDTFactory;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

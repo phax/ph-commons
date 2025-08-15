@@ -26,8 +26,8 @@ import java.time.Month;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link LocalDateTimePeriod}.
@@ -93,24 +93,25 @@ public final class LocalDateTimePeriodTest
     assertFalse (p.isInPeriodExcl (d2));
     assertFalse (p.isInPeriodExcl (aNow));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new LocalDateTimePeriod (null, null),
-                                                                       new LocalDateTimePeriod (null, null));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new LocalDateTimePeriod (d1, null),
-                                                                       new LocalDateTimePeriod (d1, null));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new LocalDateTimePeriod (null, d2),
-                                                                       new LocalDateTimePeriod (null, d2));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new LocalDateTimePeriod (d1, d2), new LocalDateTimePeriod (d1, d2));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new LocalDateTimePeriod (null, null),
+                                                                new LocalDateTimePeriod (null, null));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new LocalDateTimePeriod (d1, null),
+                                                                new LocalDateTimePeriod (d1, null));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new LocalDateTimePeriod (null, d2),
+                                                                new LocalDateTimePeriod (null, d2));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new LocalDateTimePeriod (d1, d2),
+                                                                new LocalDateTimePeriod (d1, d2));
 
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
-                                                                           new LocalDateTimePeriod (d1, aNow));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
-                                                                           new LocalDateTimePeriod (d2, d2));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
-                                                                           new LocalDateTimePeriod (d1, null));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
-                                                                           new LocalDateTimePeriod (null, d2));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
-                                                                           new LocalDateTimePeriod (null, null));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
+                                                                    new LocalDateTimePeriod (d1, aNow));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
+                                                                    new LocalDateTimePeriod (d2, d2));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
+                                                                    new LocalDateTimePeriod (d1, null));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
+                                                                    new LocalDateTimePeriod (null, d2));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new LocalDateTimePeriod (d1, d2),
+                                                                    new LocalDateTimePeriod (null, null));
   }
 
   @Test

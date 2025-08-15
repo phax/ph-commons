@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MapEntry}.
@@ -48,11 +48,11 @@ public final class MapEntryTest
     assertEquals (e.hashCode (), new MapEntry <String, Object> ("Key", "new").hashCode ());
     assertNotNull (e.toString ());
 
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (new MapEntry <> ("Key", "value"),
-                                                                          new MapEntry <> ("Key", "value"));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <> ("Key", "value"),
-                                                                              new MapEntry <> ("Key", "value2"));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <> ("Key", "value"),
-                                                                              new MapEntry <> ("Key2", "value"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new MapEntry <> ("Key", "value"),
+                                                                new MapEntry <> ("Key", "value"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <> ("Key", "value"),
+                                                                    new MapEntry <> ("Key", "value2"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <> ("Key", "value"),
+                                                                    new MapEntry <> ("Key2", "value"));
   }
 }

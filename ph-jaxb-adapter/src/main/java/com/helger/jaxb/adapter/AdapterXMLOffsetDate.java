@@ -19,8 +19,8 @@ package com.helger.jaxb.adapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.datetime.PDTWebDateHelper;
-import com.helger.commons.datetime.XMLOffsetDate;
+import com.helger.datetime.web.PDTWebDateHelper;
+import com.helger.datetime.xml.XMLOffsetDate;
 
 import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;

@@ -26,8 +26,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link SingleElementList}.
@@ -313,12 +313,12 @@ public final class SingleElementListTest
   @Test
   public void testStdMethods ()
   {
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementList <> ("init"),
-                                                                       new SingleElementList <> ("init"));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementList <> ("init"),
-                                                                           new SingleElementList <> ("init2"));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementList <> ("init"),
-                                                                           new SingleElementList <> (Boolean.TRUE));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementList <> ("init"),
+                                                                new SingleElementList <> ("init"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementList <> ("init"),
+                                                                    new SingleElementList <> ("init2"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementList <> ("init"),
+                                                                    new SingleElementList <> (Boolean.TRUE));
     assertArrayEquals (new SingleElementList <> ("init").toArray (), new SingleElementList <> ("init").toArray ());
     assertArrayEquals (new SingleElementList <> ("init").toArray (new String [0]),
                        new SingleElementList <> ("init").toArray (new String [0]));

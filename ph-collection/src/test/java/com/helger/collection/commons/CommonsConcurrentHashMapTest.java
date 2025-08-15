@@ -24,8 +24,8 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CommonsConcurrentHashMap}.
@@ -47,7 +47,7 @@ public final class CommonsConcurrentHashMapTest
     assertEquals ("bbb", aSortedKeys.getAtIndex (1));
     assertEquals ("ccc", aSortedKeys.getAtIndex (2));
 
-    CollectionTestHelper.testGetClone (aTest);
+    TestHelper.testGetClone (aTest);
   }
 
   @Test

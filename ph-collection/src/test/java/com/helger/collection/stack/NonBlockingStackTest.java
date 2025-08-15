@@ -25,9 +25,9 @@ import java.util.EmptyStackException;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link NonBlockingStack}
@@ -139,18 +139,17 @@ public final class NonBlockingStackTest
     assertEquals ("h", aStack.pop ());
     assertEquals ("g", aStack.pop ());
 
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> (),
-                                                                          new NonBlockingStack <> ());
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> ("a", "b"),
-                                                                          new NonBlockingStack <> ("a", "b"));
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a",
-                                                                                                                            "b")),
-                                                                          new NonBlockingStack <> (new CommonsArrayList <> ("a",
-                                                                                                                            "b")));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a",
-                                                                                                                                "b")),
-                                                                              new NonBlockingStack <> (new CommonsArrayList <> ("a")));
-    CollectionTestHelper.testGetClone (new NonBlockingStack <> ("a", "b"));
-    CollectionTestHelper.testGetClone (new NonBlockingStack <> ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> (), new NonBlockingStack <> ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> ("a", "b"),
+                                                                new NonBlockingStack <> ("a", "b"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a",
+                                                                                                                  "b")),
+                                                                new NonBlockingStack <> (new CommonsArrayList <> ("a",
+                                                                                                                  "b")));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a",
+                                                                                                                      "b")),
+                                                                    new NonBlockingStack <> (new CommonsArrayList <> ("a")));
+    TestHelper.testGetClone (new NonBlockingStack <> ("a", "b"));
+    TestHelper.testGetClone (new NonBlockingStack <> ());
   }
 }

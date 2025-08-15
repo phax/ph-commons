@@ -24,8 +24,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.helper.PrimitiveCollectionHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test for class {@link LRUSet}
@@ -87,9 +87,9 @@ public final class LRUSetTest
     assertEquals (0, aCache.size ());
 
     final LRUSet <String> ret = new LRUSet <> (4);
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <> (4));
+    TestHelper.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <> (4));
     ret.add ("a");
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <> (4));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet <> (3), new LRUSet <> (4));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <> (4));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet <> (3), new LRUSet <> (4));
   }
 }

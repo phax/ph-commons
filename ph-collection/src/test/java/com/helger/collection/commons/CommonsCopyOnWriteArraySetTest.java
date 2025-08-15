@@ -22,7 +22,7 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CommonsCopyOnWriteArraySet}.
@@ -44,7 +44,7 @@ public final class CommonsCopyOnWriteArraySetTest
     assertEquals ("bbb", aSortedKeys.getAtIndex (1));
     assertEquals ("ccc", aSortedKeys.getAtIndex (2));
 
-    CollectionTestHelper.testGetClone (aTest);
+    TestHelper.testGetClone (aTest);
   }
 
   @Test

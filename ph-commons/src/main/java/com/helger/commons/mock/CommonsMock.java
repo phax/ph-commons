@@ -46,11 +46,11 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.datetime.OffsetDate;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.XMLOffsetDate;
-import com.helger.commons.datetime.XMLOffsetDateTime;
-import com.helger.commons.datetime.XMLOffsetTime;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.rt.OffsetDate;
+import com.helger.datetime.xml.XMLOffsetDate;
+import com.helger.datetime.xml.XMLOffsetDateTime;
+import com.helger.datetime.xml.XMLOffsetTime;
 import com.helger.typeconvert.trait.IGetterDirectTrait;
 import com.helger.typeconvert.util.ClassHierarchyCache;
 

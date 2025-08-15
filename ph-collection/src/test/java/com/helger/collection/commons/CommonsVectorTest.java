@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CommonsVector}.
@@ -39,7 +39,7 @@ public final class CommonsVectorTest
     aTest.add ("bbb");
     aTest.add ("ccc");
 
-    CollectionTestHelper.testGetClone (aTest);
+    TestHelper.testGetClone (aTest);
   }
 
   @Test

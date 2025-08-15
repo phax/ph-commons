@@ -23,10 +23,10 @@ import java.util.Map;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.clone.ICloneable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.lang.ICloneable;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsList;
 

@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.CGlobal;
 import com.helger.base.system.SystemHelper;
 import com.helger.base.system.SystemProperties;
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.helper.PDTFactory;
 
 /**
  * Abstract benchmarking class.

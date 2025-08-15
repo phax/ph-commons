@@ -22,7 +22,7 @@ import java.time.OffsetTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.datetime.PDTWebDateHelper;
+import com.helger.datetime.web.PDTWebDateHelper;
 
 import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;

@@ -25,8 +25,8 @@ import java.time.ZoneOffset;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.XMLOffsetDate;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.xml.XMLOffsetDate;
 
 /**
  * Test class for class {@link AdapterXMLOffsetDate}.

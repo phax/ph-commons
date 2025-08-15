@@ -28,9 +28,9 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.base.EmptyEnumeration;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ArrayEnumeration}.
@@ -109,21 +109,18 @@ public final class ArrayEnumerationTest
 
     // equals...
     ae = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (ae,
-                                                                          new ArrayEnumeration <> ("Hallo",
-                                                                                                   "Welt",
-                                                                                                   "from",
-                                                                                                   "Copenhagen"));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                              new ArrayEnumeration <> ("Hallo",
-                                                                                                       "Welt",
-                                                                                                       "from"));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                              new ArrayEnumeration <> (Integer.valueOf (5)));
+    TestHelper.testDefaultImplementationWithEqualContentObject (ae,
+                                                                new ArrayEnumeration <> ("Hallo",
+                                                                                         "Welt",
+                                                                                         "from",
+                                                                                         "Copenhagen"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (ae,
+                                                                    new ArrayEnumeration <> ("Hallo", "Welt", "from"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <> (Integer.valueOf (5)));
     // Different index
     final ArrayEnumeration <String> ae2 = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (ae, ae2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (ae, ae2);
   }
 
   @Test

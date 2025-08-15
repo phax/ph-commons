@@ -22,8 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.clone.ICloneable;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.lang.ICloneable;
 
 import jakarta.annotation.Nonnull;
 

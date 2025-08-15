@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.EContinue;
-import com.helger.collection.CollectionTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CommonsArrayList}.
@@ -45,7 +45,7 @@ public final class CommonsArrayListTest
     aTest.add ("bbb");
     aTest.add ("ccc");
 
-    CollectionTestHelper.testGetClone (aTest);
+    TestHelper.testGetClone (aTest);
   }
 
   @Test

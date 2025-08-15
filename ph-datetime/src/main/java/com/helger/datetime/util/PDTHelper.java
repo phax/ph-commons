@@ -34,8 +34,8 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.datetime.PDTFactory;
 import com.helger.datetime.CPDT;
+import com.helger.datetime.helper.PDTFactory;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

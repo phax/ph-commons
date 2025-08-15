@@ -27,8 +27,8 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import com.helger.base.array.ArrayHelper;
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CommonsIterableIterator}.
@@ -68,7 +68,7 @@ public final class CommonsIterableIteratorTest
                                                                                                             "c")
                                                                                                   .iterator ()))
                                      .size ());
-    CollectionTestHelper.testToStringImplementation (iit);
+    TestHelper.testToStringImplementation (iit);
 
     try
     {

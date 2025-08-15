@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.base.lang.clazz.FactoryNewInstance;
-import com.helger.collection.CollectionTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link SafeVector}.
@@ -91,8 +91,8 @@ public final class SafeVectorTest
     final SafeVector <String> sl2 = new SafeVector <> ();
     sl2.set (10, "any");
 
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (sl, sl2);
+    TestHelper.testDefaultImplementationWithEqualContentObject (sl, sl2);
     sl2.set (9, "x");
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (sl, sl2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (sl, sl2);
   }
 }

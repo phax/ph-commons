@@ -154,6 +154,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-unittest-support</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-collection</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -306,6 +311,7 @@
   <modules>
     <module>ph-annotations</module>
     <module>ph-base</module>
+    <module>ph-unittest-support</module>
     <module>ph-collection</module>
     <module>ph-typeconvert</module>
     <module>ph-statistics</module>

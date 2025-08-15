@@ -17,7 +17,7 @@
 package com.helger.json;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.base.lang.ICloneable;
+import com.helger.base.clone.ICloneable;
 import com.helger.base.traits.IAddableByTrait;
 import com.helger.json.serialize.IJsonWriterSettings;
 import com.helger.json.serialize.JsonWriter;

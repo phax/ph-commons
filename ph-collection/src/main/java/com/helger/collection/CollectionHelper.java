@@ -33,8 +33,13 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.CloneHelper;
+import com.helger.base.clone.ICloneable;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.state.EChange;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -606,5 +611,45 @@ public class CollectionHelper
   {
     final int nSize = getSize (aList);
     return nSize == 0 ? null : aList.remove (nSize - 1);
+  }
+
+  /**
+   * Get a list where each contained item is also cloned. Like a deep copy.
+   *
+   * @param aList
+   *        Source list. May be <code>null</code>.
+   * @return The cloned list. Never <code>null</code> but maybe empty if the source list is empty.
+   * @param <DATATYPE>
+   *        The list element type to be cloned
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <DATATYPE> ICommonsList <DATATYPE> getGenericClonedList (@Nullable final Iterable <DATATYPE> aList)
+  {
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
+    if (aList != null)
+      for (final DATATYPE aItem : aList)
+        ret.add (CloneHelper.getClonedValue (aItem));
+    return ret;
+  }
+
+  /**
+   * Get a list where each contained item is also cloned. Like a deep copy.
+   *
+   * @param aList
+   *        Source list. May be <code>null</code>.
+   * @return The cloned list. Never <code>null</code> but maybe empty if the source list is empty.
+   * @param <DATATYPE>
+   *        The set element type to be cloned
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <DATATYPE extends ICloneable <DATATYPE>> ICommonsList <DATATYPE> getClonedList (@Nullable final Iterable <DATATYPE> aList)
+  {
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
+    if (aList != null)
+      for (final DATATYPE aItem : aList)
+        ret.add (CloneHelper.getCloneIfNotNull (aItem));
+    return ret;
   }
 }

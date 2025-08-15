@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link LoggingLRUMap}.
@@ -38,12 +38,12 @@ public final class LoggingLRUMapTest
     assertNull (c.getMapName ());
     c.setMapName ("name");
     assertEquals ("name", c.getMapName ());
-    CollectionTestHelper.testDefaultImplementationWithEqualContentObject (c,
-                                                                          new LoggingLRUMap <String, String> (5).setMapName ("name"));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                              new LoggingLRUMap <String, String> (5).setMapName ("name2"));
-    CollectionTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                              new LoggingLRUMap <String, String> (6).setMapName ("name"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (c,
+                                                                new LoggingLRUMap <String, String> (5).setMapName ("name"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c,
+                                                                    new LoggingLRUMap <String, String> (5).setMapName ("name2"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c,
+                                                                    new LoggingLRUMap <String, String> (6).setMapName ("name"));
 
     // Check overflow
     for (int i = 0; i < c.getMaxSize () + 1; ++i)

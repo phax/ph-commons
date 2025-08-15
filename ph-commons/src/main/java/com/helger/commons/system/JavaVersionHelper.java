@@ -29,8 +29,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.string.StringParser;
 import com.helger.base.string.StringRemove;
 import com.helger.base.system.SystemProperties;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.PDTFromString;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.helper.PDTFromString;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

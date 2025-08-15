@@ -23,7 +23,7 @@ import java.util.Comparator;
 import org.junit.Test;
 
 import com.helger.base.state.EChange;
-import com.helger.collection.CollectionTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CommonsEnumMap}.
@@ -43,7 +43,7 @@ public final class CommonsEnumMapTest
     assertEquals (EChange.CHANGED, aSortedKeys.getAtIndex (0));
     assertEquals (EChange.UNCHANGED, aSortedKeys.getAtIndex (1));
 
-    CollectionTestHelper.testGetClone (aTest);
+    TestHelper.testGetClone (aTest);
   }
 
   @Test

@@ -30,9 +30,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.MapEntry;
+import com.helger.unittest.support.TestHelper;
 
 public final class SoftHashMapTest
 {
@@ -82,6 +82,6 @@ public final class SoftHashMapTest
     assertEquals (1, aMap.entrySet ().toArray (new Map.Entry [5]).length);
     assertEquals (5, aMap.entrySet ().toArray (new MapEntry [5]).length);
 
-    CollectionTestHelper.testGetClone (aMap);
+    TestHelper.testGetClone (aMap);
   }
 }

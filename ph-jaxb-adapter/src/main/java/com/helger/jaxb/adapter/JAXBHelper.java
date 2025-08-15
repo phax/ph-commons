@@ -17,9 +17,9 @@
 package com.helger.jaxb.adapter;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.clone.CloneHelper;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.CloneHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

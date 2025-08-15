@@ -77,13 +77,16 @@
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
+      <artifactId>ph-datetime</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
       <artifactId>ph-io</artifactId>
     </dependency>
     
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>compile</scope>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support</artifactId>
       <optional>true</optional>
     </dependency>
   </dependencies>

@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.lang.ICloneable;
+import com.helger.base.clone.ICloneable;
 import com.helger.base.state.EChange;
 import com.helger.collection.CollectionFind;
 

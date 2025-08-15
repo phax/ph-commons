@@ -31,9 +31,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.numeric.mutable.MutableBoolean;
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.MapEntry;
+import com.helger.unittest.support.TestHelper;
 
 import jakarta.annotation.Nonnull;
 
@@ -105,6 +105,6 @@ public final class SoftLinkedHashMapTest
     assertEquals (1, aMap.entrySet ().toArray (new Map.Entry [5]).length);
     assertEquals (5, aMap.entrySet ().toArray (new MapEntry [5]).length);
 
-    CollectionTestHelper.testGetClone (aMap);
+    TestHelper.testGetClone (aMap);
   }
 }

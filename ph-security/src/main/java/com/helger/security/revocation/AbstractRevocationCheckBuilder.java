@@ -56,7 +56,7 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.security.crl.CRLCache;
 import com.helger.security.crl.CRLHelper;
 import com.helger.security.keystore.KeyStoreHelper;

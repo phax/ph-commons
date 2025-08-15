@@ -17,10 +17,10 @@
 package com.helger.commons.pair;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.clone.ICloneable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.lang.ICloneable;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 

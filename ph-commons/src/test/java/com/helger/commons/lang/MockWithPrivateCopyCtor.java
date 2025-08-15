@@ -16,6 +16,8 @@
  */
 package com.helger.commons.lang;
 
+import com.helger.base.clone.CloneHelper;
+
 /**
  * This class needs to be in the same package as {@link CloneHelper} so that the test works!<br>
  * Should fail because the copy constructor is private

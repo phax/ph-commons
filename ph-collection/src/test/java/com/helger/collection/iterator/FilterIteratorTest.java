@@ -32,12 +32,12 @@ import java.util.function.Predicate;
 import org.junit.Test;
 
 import com.helger.base.functional.Predicates;
-import com.helger.collection.CollectionTestHelper;
 import com.helger.collection.base.FilterIterator;
 import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.CommonsIterableIterator;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for {@link FilterIterator}
@@ -235,7 +235,7 @@ public final class FilterIteratorTest
     assertEquals ("s2", it.next ());
     assertEquals ("s3", it.next ());
 
-    CollectionTestHelper.testToStringImplementation (it);
+    TestHelper.testToStringImplementation (it);
 
     try
     {

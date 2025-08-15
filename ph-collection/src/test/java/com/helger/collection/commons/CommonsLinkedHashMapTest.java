@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
-import com.helger.collection.CollectionTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CommonsLinkedHashMap}.
@@ -45,7 +45,7 @@ public final class CommonsLinkedHashMapTest
     assertEquals ("bbb", aSortedKeys.getAtIndex (1));
     assertEquals ("ccc", aSortedKeys.getAtIndex (2));
 
-    CollectionTestHelper.testGetClone (aTest);
+    TestHelper.testGetClone (aTest);
   }
 
   @Test

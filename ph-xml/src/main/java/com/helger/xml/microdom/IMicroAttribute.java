@@ -18,7 +18,7 @@ package com.helger.xml.microdom;
 
 import javax.xml.namespace.QName;
 
-import com.helger.base.lang.ICloneable;
+import com.helger.base.clone.ICloneable;
 import com.helger.base.state.EChange;
 
 import jakarta.annotation.Nonnull;

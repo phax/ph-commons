@@ -28,7 +28,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.helger.base.id.IHasID;
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.xml.microdom.MicroElement;
 

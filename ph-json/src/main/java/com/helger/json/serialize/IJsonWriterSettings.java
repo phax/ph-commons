@@ -17,7 +17,7 @@
 package com.helger.json.serialize;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.lang.ICloneable;
+import com.helger.base.clone.ICloneable;
 
 import jakarta.annotation.Nonnull;
 
