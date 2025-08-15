@@ -56,11 +56,15 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-collection</artifactId>
+      <artifactId>ph-annotations</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-statistics</artifactId>
+      <artifactId>ph-base</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-collection</artifactId>
     </dependency>
   </dependencies>
   

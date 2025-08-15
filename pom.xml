@@ -367,8 +367,11 @@
             <exclude>**/IKeyStoreAndKeyDescriptor.class</exclude>
             <exclude>**/ITrustStoreDescriptor.class</exclude>
             <exclude>**/KeyStoreDescriptor.class</exclude>
+            <exclude>**/KeyStoreDescriptorBuilder.class</exclude>
             <exclude>**/KeyStoreAndKeyDescriptor.class</exclude>
+            <exclude>**/KeyStoreAndKeyDescriptorBuilder.class</exclude>
             <exclude>**/TrustStoreDescriptor.class</exclude>
+            <exclude>**/TrustStoreDescriptorBuilder.class</exclude>
             <!-- CLI module printing to System.out -->
             <exclude>**/HelpFormatter.class</exclude>
             <exclude>**/BugsTest.class</exclude>
