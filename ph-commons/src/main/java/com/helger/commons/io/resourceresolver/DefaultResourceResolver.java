@@ -33,7 +33,6 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
@@ -68,9 +67,9 @@ public class DefaultResourceResolver implements IHasConditionalLogger
   {
     // jar:file - regular JDK
     // wsjar:file - Websphere
-    return StringHelper.startsWith (sName, "jar:file:") ||
-           StringHelper.startsWith (sName, "wsjar:file:") ||
-           StringHelper.startsWith (sName, "zip:file:");
+    return Strings.startsWith (sName, "jar:file:") ||
+           Strings.startsWith (sName, "wsjar:file:") ||
+           Strings.startsWith (sName, "zip:file:");
   }
 
   /**

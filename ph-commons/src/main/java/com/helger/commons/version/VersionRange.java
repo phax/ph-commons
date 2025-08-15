@@ -116,13 +116,13 @@ public final class VersionRange implements IComparable <VersionRange>
 
     // check last token
     int j = 0;
-    if (StringHelper.endsWith (s, ']'))
+    if (Strings.endsWith (s, ']'))
     {
       bIncludeCeil = true;
       j++;
     }
     else
-      if (StringHelper.endsWith (s, ')'))
+      if (Strings.endsWith (s, ')'))
       {
         bIncludeCeil = false;
         j++;

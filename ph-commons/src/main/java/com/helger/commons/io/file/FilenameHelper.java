@@ -32,7 +32,6 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
-import com.helger.base.string.StringFind;
 import com.helger.base.string.StringImplode;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
@@ -533,7 +532,7 @@ public final class FilenameHelper
       return false;
 
     // check for illegal last characters
-    if (StringHelper.endsWithAny (sFilename, ILLEGAL_SUFFIXES))
+    if (Strings.endsWithAny (sFilename, ILLEGAL_SUFFIXES))
       return false;
 
     // Check if file name contains any of the illegal characters
@@ -619,7 +618,7 @@ public final class FilenameHelper
     if (Strings.isNotEmpty (sStr))
     {
       // Remove all trailing invalid suffixes
-      while (ret.length () > 0 && StringHelper.endsWithAny (ret, ILLEGAL_SUFFIXES))
+      while (ret.length () > 0 && Strings.endsWithAny (ret, ILLEGAL_SUFFIXES))
         ret = ret.substring (0, ret.length () - 1);
 
       // Replace all characters that are illegal inside a filename
@@ -732,7 +731,7 @@ public final class FilenameHelper
    */
   public static boolean startsWithPathSeparatorChar (@Nullable final CharSequence s)
   {
-    return isPathSeparatorChar (StringFind.getFirstChar (s));
+    return isPathSeparatorChar (Strings.getFirstChar (s));
   }
 
   /**
@@ -746,7 +745,7 @@ public final class FilenameHelper
    */
   public static boolean endsWithPathSeparatorChar (@Nullable final CharSequence s)
   {
-    return isPathSeparatorChar (StringFind.getLastChar (s));
+    return isPathSeparatorChar (Strings.getLastChar (s));
   }
 
   /**
@@ -982,7 +981,7 @@ public final class FilenameHelper
     sPathToUse = getPathUsingUnixSeparator (sPathToUse);
 
     // Is it an absolute Path?
-    if (StringHelper.startsWith (sPathToUse, UNIX_SEPARATOR))
+    if (Strings.startsWith (sPathToUse, UNIX_SEPARATOR))
     {
       // If no other prefix is present yet, this seems to be an absolute path!
       if (sPrefix.length () == 0)
@@ -1052,8 +1051,8 @@ public final class FilenameHelper
     if (Strings.isEmpty (sPath))
       return getCleanPath (sURL);
 
-    final String sRealURL = StringHelper.endsWith (sURL, UNIX_SEPARATOR) ? sURL : sURL + UNIX_SEPARATOR;
-    final String sRealPath = StringHelper.startsWith (sPath, UNIX_SEPARATOR) ? sPath.substring (1) : sPath;
+    final String sRealURL = Strings.endsWith (sURL, UNIX_SEPARATOR) ? sURL : sURL + UNIX_SEPARATOR;
+    final String sRealPath = Strings.startsWith (sPath, UNIX_SEPARATOR) ? sPath.substring (1) : sPath;
     return getCleanPath (sRealURL + sRealPath);
   }
 

@@ -16,6 +16,7 @@
  */
 package com.helger.base.string;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
@@ -23,6 +24,7 @@ import com.helger.base.equals.ValueEnforcer;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
+@Immutable
 public final class StringRemove
 {
   private StringRemove ()
@@ -142,7 +144,7 @@ public final class StringRemove
       return sInputString;
 
     final StringBuilder aSB = new StringBuilder (sInputString.length ());
-    StringFind.iterateChars (sInputString, cInput -> {
+    Strings.iterateChars (sInputString, cInput -> {
       if (!ArrayHelper.contains (aRemoveChars, cInput))
         aSB.append (cInput);
     });

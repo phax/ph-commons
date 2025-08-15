@@ -20,9 +20,9 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.string.StringHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -149,7 +149,7 @@ public final class StackTraceHelper
 
     // avoid having a separator at the end -> remove if present
     if (sLineSeparator.length () > 0)
-      if (StringHelper.endsWith (aSB, sLineSeparator))
+      if (Strings.endsWith (aSB, sLineSeparator))
         aSB.delete (aSB.length () - sLineSeparator.length (), aSB.length ());
 
     return aSB.toString ();
@@ -226,8 +226,8 @@ public final class StackTraceHelper
    *
    * @param t
    *        The throwable to be converted. May be <code>null</code>.
-   * @return the stack trace as newline separated string. If the passed
-   *         Throwable is <code>null</code> an empty string is returned.
+   * @return the stack trace as newline separated string. If the passed Throwable is
+   *         <code>null</code> an empty string is returned.
    */
   @Nonnull
   public static String getStackAsString (@Nullable final Throwable t)
@@ -241,11 +241,10 @@ public final class StackTraceHelper
    * @param t
    *        The throwable to be converted. May be <code>null</code>.
    * @param bOmitCommonStackTraceElements
-   *        If <code>true</code> the stack trace is cut after certain class
-   *        names occurring. If <code>false</code> the complete stack trace is
-   *        returned.
-   * @return the stack trace as newline separated string. If the passed
-   *         Throwable is <code>null</code> an empty string is returned.
+   *        If <code>true</code> the stack trace is cut after certain class names occurring. If
+   *        <code>false</code> the complete stack trace is returned.
+   * @return the stack trace as newline separated string. If the passed Throwable is
+   *         <code>null</code> an empty string is returned.
    */
   @Nonnull
   public static String getStackAsString (@Nullable final Throwable t, final boolean bOmitCommonStackTraceElements)
@@ -259,13 +258,12 @@ public final class StackTraceHelper
    * @param t
    *        The throwable to be converted. May be <code>null</code>.
    * @param bOmitCommonStackTraceElements
-   *        If <code>true</code> the stack trace is cut after certain class
-   *        names occurring. If <code>false</code> the complete stack trace is
-   *        returned.
+   *        If <code>true</code> the stack trace is cut after certain class names occurring. If
+   *        <code>false</code> the complete stack trace is returned.
    * @param sLineSeparator
    *        The line separator to use. May not be <code>null</code>.
-   * @return the stack trace as newline separated string. If the passed
-   *         Throwable is <code>null</code> an empty string is returned.
+   * @return the stack trace as newline separated string. If the passed Throwable is
+   *         <code>null</code> an empty string is returned.
    * @since 9.3.6
    */
   @Nonnull
@@ -288,7 +286,7 @@ public final class StackTraceHelper
 
     // avoid having a separator at the end -> remove if present
     if (sLineSeparator.length () > 0)
-      if (StringHelper.endsWith (aCallStack, sLineSeparator))
+      if (Strings.endsWith (aCallStack, sLineSeparator))
         aCallStack.delete (aCallStack.length () - sLineSeparator.length (), aCallStack.length ());
 
     // no changes
@@ -296,14 +294,14 @@ public final class StackTraceHelper
   }
 
   /**
-   * Check if the passed stack trace array contains a unit test element. Known
-   * unit test frameworks are JUnit and TestNG.
+   * Check if the passed stack trace array contains a unit test element. Known unit test frameworks
+   * are JUnit and TestNG.
    *
    * @param t
-   *        The {@link Throwable} whose stack trace should be scanned for unit
-   *        test classes. May be <code>null</code>.
-   * @return <code>true</code> if at least one stack trace element is from a
-   *         known unit test framework.
+   *        The {@link Throwable} whose stack trace should be scanned for unit test classes. May be
+   *        <code>null</code>.
+   * @return <code>true</code> if at least one stack trace element is from a known unit test
+   *         framework.
    */
   public static boolean containsUnitTestElement (@Nullable final Throwable t)
   {
@@ -311,13 +309,13 @@ public final class StackTraceHelper
   }
 
   /**
-   * Check if the passed stack trace array contains a unit test element. Known
-   * unit test frameworks are JUnit and TestNG.
+   * Check if the passed stack trace array contains a unit test element. Known unit test frameworks
+   * are JUnit and TestNG.
    *
    * @param aStackTrace
    *        The stack trace array to be scanned. May be <code>null</code>.
-   * @return <code>true</code> if at least one stack trace element is from a
-   *         known unit test framework.
+   * @return <code>true</code> if at least one stack trace element is from a known unit test
+   *         framework.
    */
   public static boolean containsUnitTestElement (@Nullable final StackTraceElement [] aStackTrace)
   {

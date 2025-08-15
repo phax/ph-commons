@@ -57,7 +57,7 @@ import com.helger.base.state.EMandatory;
 import com.helger.base.state.ESuccess;
 import com.helger.base.state.ETopBottom;
 import com.helger.base.state.EValidity;
-import com.helger.base.string.StringFind;
+import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.CommonsLinkedHashSet;
@@ -115,7 +115,7 @@ public final class TypeConverterTest
     if (aClass == Boolean.class)
       return Boolean.valueOf ((aClass.getName ().hashCode () % 3) == 1);
     if (aClass == Character.class)
-      return Character.valueOf (StringFind.getLastChar (aClass.getName ()));
+      return Character.valueOf (Strings.getLastChar (aClass.getName ()));
     if (aClass == MutableBoolean.class)
       return new MutableBoolean ((aClass.getName ().hashCode () % 3) == 2);
     if (aClass == MutableByte.class)

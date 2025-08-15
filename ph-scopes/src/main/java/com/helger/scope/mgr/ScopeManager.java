@@ -28,7 +28,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.Strings;
 import com.helger.scope.GlobalScope;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.IRequestScope;
@@ -42,8 +42,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This is the manager class for non-web scope handling. The following scopes
- * are supported:
+ * This is the manager class for non-web scope handling. The following scopes are supported:
  * <ul>
  * <li>global</li>
  * <li>application</li>
@@ -58,8 +57,7 @@ import jakarta.annotation.Nullable;
 public final class ScopeManager
 {
   /**
-   * The prefix to be used for attribute names in any scope to indicate system
-   * internal attributes
+   * The prefix to be used for attribute names in any scope to indicate system internal attributes
    */
   public static final String SCOPE_ATTRIBUTE_PREFIX_INTERNAL = "$ph-";
 
@@ -166,8 +164,8 @@ public final class ScopeManager
   public static void onGlobalEnd ()
   {
     /**
-     * Global scope variable may be null if onGlobalBegin() was never called or
-     * if "onGlobalEnd" was called a second time
+     * Global scope variable may be null if onGlobalBegin() was never called or if "onGlobalEnd" was
+     * called a second time
      */
     final IGlobalScope aGlobalScope = RW_LOCK.writeLockedGet ( () -> {
       // Do only the minimum in writeLock
@@ -202,8 +200,8 @@ public final class ScopeManager
    *
    * @return Never <code>null</code>.
    * @throws IllegalStateException
-   *         If no request scope is present or if the underlying request scope
-   *         does not have a session ID.
+   *         If no request scope is present or if the underlying request scope does not have a
+   *         session ID.
    */
   @Nonnull
   public static ISessionScope getSessionScope ()
@@ -215,16 +213,13 @@ public final class ScopeManager
    * Get the current session scope, based on the current request scope.
    *
    * @param bCreateIfNotExisting
-   *        <code>true</code> to create a new scope, if none is present yet,
-   *        <code>false</code> to return <code>null</code> if either no request
-   *        scope or no session scope is present.
-   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code> and
-   *         either no request scope or no session scope is present, the
-   *         {@link ISessionScope} otherwise.
+   *        <code>true</code> to create a new scope, if none is present yet, <code>false</code> to
+   *        return <code>null</code> if either no request scope or no session scope is present.
+   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code> and either no request
+   *         scope or no session scope is present, the {@link ISessionScope} otherwise.
    * @throws IllegalStateException
-   *         if bCreateIfNotExisting is <code>true</code> but no request scope
-   *         is present. This exception is also thrown if the underlying request
-   *         scope does not have a session ID.
+   *         if bCreateIfNotExisting is <code>true</code> but no request scope is present. This
+   *         exception is also thrown if the underlying request scope does not have a session ID.
    */
   @Nullable
   public static ISessionScope getSessionScope (final boolean bCreateIfNotExisting)
@@ -337,8 +332,7 @@ public final class ScopeManager
   }
 
   /**
-   * @return The current request scope or <code>null</code> if no request scope
-   *         is present.
+   * @return The current request scope or <code>null</code> if no request scope is present.
    */
   @Nullable
   public static IRequestScope getRequestScopeOrNull ()
@@ -347,8 +341,7 @@ public final class ScopeManager
   }
 
   /**
-   * @return <code>true</code> if a request scope is present, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if a request scope is present, <code>false</code> otherwise
    */
   public static boolean isRequestScopePresent ()
   {
@@ -421,12 +414,11 @@ public final class ScopeManager
    *
    * @param sAttributeName
    *        The name of the attribute to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed attribute name is not
-   *         <code>null</code> and starts with the
-   *         {@link #SCOPE_ATTRIBUTE_PREFIX_INTERNAL} prefix.
+   * @return <code>true</code> if the passed attribute name is not <code>null</code> and starts with
+   *         the {@link #SCOPE_ATTRIBUTE_PREFIX_INTERNAL} prefix.
    */
   public static boolean isInternalAttribute (@Nullable final String sAttributeName)
   {
-    return StringHelper.startsWith (sAttributeName, SCOPE_ATTRIBUTE_PREFIX_INTERNAL);
+    return Strings.startsWith (sAttributeName, SCOPE_ATTRIBUTE_PREFIX_INTERNAL);
   }
 }

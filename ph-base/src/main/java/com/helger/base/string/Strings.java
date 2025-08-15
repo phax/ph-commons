@@ -17,12 +17,17 @@
 package com.helger.base.string;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.function.Supplier;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.CGlobal;
+import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.functional.ICharConsumer;
+import com.helger.base.functional.ICharPredicate;
 import com.helger.base.numeric.MathHelper;
 
 import jakarta.annotation.Nonnull;
@@ -672,5 +677,816 @@ public class Strings
       nDst++;
     }
     return new String (ret);
+  }
+
+  /**
+   * Get the first character of the passed character sequence
+   *
+   * @param aCS
+   *        The source character sequence
+   * @return {@link CGlobal#ILLEGAL_CHAR} if the passed sequence was empty
+   */
+  public static char getFirstChar (@Nullable final CharSequence aCS)
+  {
+    return isNotEmpty (aCS) ? aCS.charAt (0) : CGlobal.ILLEGAL_CHAR;
+  }
+
+  /**
+   * Get the first character of the passed array
+   *
+   * @param aChars
+   *        The character array
+   * @return {@link CGlobal#ILLEGAL_CHAR} if the passed array was empty
+   */
+  public static char getFirstChar (@Nullable final char [] aChars)
+  {
+    return ArrayHelper.getFirst (aChars, CGlobal.ILLEGAL_CHAR);
+  }
+
+  /**
+   * Get the last character of the passed character sequence
+   *
+   * @param aCS
+   *        The source character sequence
+   * @return {@link CGlobal#ILLEGAL_CHAR} if the passed sequence was empty
+   */
+  public static char getLastChar (@Nullable final CharSequence aCS)
+  {
+    final int nLength = getLength (aCS);
+    return nLength > 0 ? aCS.charAt (nLength - 1) : CGlobal.ILLEGAL_CHAR;
+  }
+
+  /**
+   * Get the last character of the passed array
+   *
+   * @param aChars
+   *        The character array
+   * @return {@link CGlobal#ILLEGAL_CHAR} if the passed array was empty
+   */
+  public static char getLastChar (@Nullable final char [] aChars)
+  {
+    return ArrayHelper.getLast (aChars, CGlobal.ILLEGAL_CHAR);
+  }
+
+  /**
+   * Get the first index of sSearch within sText.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @return The first index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#indexOf(String)
+   */
+  public static int getIndexOf (@Nullable final String sText, @Nullable final String sSearch)
+  {
+    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.indexOf (sSearch)
+                                                                                    : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the first index of sSearch within sText starting at index nFromIndex.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param nFromIndex
+   *        The index to start searching in the source string
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @return The first index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#indexOf(String,int)
+   */
+  public static int getIndexOf (@Nullable final String sText,
+                                @Nonnegative final int nFromIndex,
+                                @Nullable final String sSearch)
+  {
+    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.indexOf (
+                                                                                                                    sSearch,
+                                                                                                                    nFromIndex)
+                                                                                                   : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the last index of sSearch within sText.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @return The last index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#lastIndexOf(String)
+   */
+  public static int getLastIndexOf (@Nullable final String sText, @Nullable final String sSearch)
+  {
+    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.lastIndexOf (sSearch)
+                                                                                    : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the last index of sSearch within sText starting at index nFromIndex.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param nFromIndex
+   *        The index to start searching in the source string
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @return The last index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#lastIndexOf(String,int)
+   */
+  public static int getLastIndexOf (@Nullable final String sText,
+                                    @Nonnegative final int nFromIndex,
+                                    @Nullable final String sSearch)
+  {
+    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.lastIndexOf (
+                                                                                                                        sSearch,
+                                                                                                                        nFromIndex)
+                                                                                                   : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the first index of cSearch within sText.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param cSearch
+   *        The character to search for. May be <code>null</code>.
+   * @return The first index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if cSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#indexOf(int)
+   */
+  public static int getIndexOf (@Nullable final String sText, final char cSearch)
+  {
+    return sText != null && sText.length () >= 1 ? sText.indexOf (cSearch) : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the first index of cSearch within sText starting at index nFromIndex.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param nFromIndex
+   *        The index to start searching in the source string
+   * @param cSearch
+   *        The character to search for. May be <code>null</code>.
+   * @return The first index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if cSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#indexOf(int,int)
+   */
+  public static int getIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, final char cSearch)
+  {
+    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.indexOf (cSearch, nFromIndex)
+                                                                : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the last index of cSearch within sText.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param cSearch
+   *        The character to search for. May be <code>null</code>.
+   * @return The last index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if cSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#lastIndexOf(int)
+   */
+  public static int getLastIndexOf (@Nullable final String sText, final char cSearch)
+  {
+    return sText != null && sText.length () >= 1 ? sText.lastIndexOf (cSearch) : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the last index of cSearch within sText starting at index nFromIndex.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param nFromIndex
+   *        The index to start searching in the source string
+   * @param cSearch
+   *        The character to search for. May be <code>null</code>.
+   * @return The last index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if cSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#lastIndexOf(int,int)
+   */
+  public static int getLastIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, final char cSearch)
+  {
+    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.lastIndexOf (cSearch, nFromIndex)
+                                                                : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the first index of sSearch within sText ignoring case.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return The first index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#indexOf(String)
+   */
+  public static int getIndexOfIgnoreCase (@Nullable final String sText,
+                                          @Nullable final String sSearch,
+                                          @Nonnull final Locale aSortLocale)
+  {
+    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale)
+                                                                                           .indexOf (sSearch.toLowerCase (aSortLocale))
+                                                                                    : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the first index of sSearch within sText ignoring case starting at index nFromIndex.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param nFromIndex
+   *        The index to start searching in the source string
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return The first index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#indexOf(String)
+   */
+  public static int getIndexOfIgnoreCase (@Nullable final String sText,
+                                          @Nonnegative final int nFromIndex,
+                                          @Nullable final String sSearch,
+                                          @Nonnull final Locale aSortLocale)
+  {
+    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.toLowerCase (
+                                                                                                                        aSortLocale)
+                                                                                                          .indexOf (sSearch.toLowerCase (aSortLocale),
+                                                                                                                    nFromIndex)
+                                                                                                   : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the last index of sSearch within sText ignoring case.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return The last index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#lastIndexOf(String)
+   */
+  public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
+                                              @Nullable final String sSearch,
+                                              @Nonnull final Locale aSortLocale)
+  {
+    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale)
+                                                                                           .lastIndexOf (sSearch.toLowerCase (aSortLocale))
+                                                                                    : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the last index of sSearch within sText ignoring case starting at index nFromIndex.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param nFromIndex
+   *        The index to start searching in the source string
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return The last index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#lastIndexOf(String)
+   */
+  public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
+                                              @Nonnegative final int nFromIndex,
+                                              @Nullable final String sSearch,
+                                              @Nonnull final Locale aSortLocale)
+  {
+    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.toLowerCase (
+                                                                                                                        aSortLocale)
+                                                                                                          .lastIndexOf (sSearch.toLowerCase (aSortLocale),
+                                                                                                                        nFromIndex)
+                                                                                                   : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the first index of cSearch within sText ignoring case.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param cSearch
+   *        The char to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return The first index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#indexOf(int)
+   */
+  public static int getIndexOfIgnoreCase (@Nullable final String sText,
+                                          final char cSearch,
+                                          @Nonnull final Locale aSortLocale)
+  {
+    return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale)
+                                                        .indexOf (Character.toLowerCase (cSearch))
+                                                 : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the first index of cSearch within sText ignoring case starting at index nFromIndex.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param nFromIndex
+   *        The index to start searching in the source string
+   * @param cSearch
+   *        The char to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return The first index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#indexOf(int)
+   */
+  public static int getIndexOfIgnoreCase (@Nullable final String sText,
+                                          @Nonnegative final int nFromIndex,
+                                          final char cSearch,
+                                          @Nonnull final Locale aSortLocale)
+  {
+    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.toLowerCase (aSortLocale)
+                                                                       .indexOf (Character.toLowerCase (cSearch),
+                                                                                 nFromIndex) : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the last index of cSearch within sText ignoring case.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param cSearch
+   *        The char to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return The last index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#lastIndexOf(int)
+   */
+  public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
+                                              final char cSearch,
+                                              @Nonnull final Locale aSortLocale)
+  {
+    return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale)
+                                                        .lastIndexOf (Character.toLowerCase (cSearch))
+                                                 : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Get the last index of cSearch within sText ignoring case starting at index nFromIndex.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param nFromIndex
+   *        The index to start searching in the source string
+   * @param cSearch
+   *        The char to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return The last index of sSearch within sText or {@value CGlobal#STRING_NOT_FOUND} if sSearch
+   *         was not found or if any parameter was <code>null</code>.
+   * @see String#lastIndexOf(int)
+   */
+  public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
+                                              @Nonnegative final int nFromIndex,
+                                              final char cSearch,
+                                              @Nonnull final Locale aSortLocale)
+  {
+    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.toLowerCase (aSortLocale)
+                                                                       .lastIndexOf (Character.toLowerCase (cSearch),
+                                                                                     nFromIndex)
+                                                                : CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Check if sSearch is contained within sText.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @return <code>true</code> if sSearch is contained in sText, <code>false</code> otherwise.
+   * @see String#contains(CharSequence)
+   */
+  public static boolean contains (@Nullable final String sText, @Nullable final String sSearch)
+  {
+    return getIndexOf (sText, sSearch) != CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Check if cSearch is contained within sText.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param cSearch
+   *        The character to search for. May be <code>null</code>.
+   * @return <code>true</code> if cSearch is contained in sText, <code>false</code> otherwise.
+   * @see String#contains(CharSequence)
+   */
+  public static boolean contains (@Nullable final String sText, final char cSearch)
+  {
+    return getIndexOf (sText, cSearch) != CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Check if sSearch is contained within sText ignoring case.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param sSearch
+   *        The text to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return <code>true</code> if sSearch is contained in sText, <code>false</code> otherwise.
+   * @see String#contains(CharSequence)
+   */
+  public static boolean containsIgnoreCase (@Nullable final String sText,
+                                            @Nullable final String sSearch,
+                                            @Nonnull final Locale aSortLocale)
+  {
+    return getIndexOfIgnoreCase (sText, sSearch, aSortLocale) != CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Check if cSearch is contained within sText ignoring case.
+   *
+   * @param sText
+   *        The text to search in. May be <code>null</code>.
+   * @param cSearch
+   *        The char to search for. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to be used for case unifying.
+   * @return <code>true</code> if sSearch is contained in sText, <code>false</code> otherwise.
+   * @see String#indexOf(int)
+   */
+  public static boolean containsIgnoreCase (@Nullable final String sText,
+                                            final char cSearch,
+                                            @Nonnull final Locale aSortLocale)
+  {
+    return getIndexOfIgnoreCase (sText, cSearch, aSortLocale) != CGlobal.STRING_NOT_FOUND;
+  }
+
+  /**
+   * Check if any of the passed searched characters is contained in the input char array.
+   *
+   * @param aInput
+   *        The input char array. May be <code>null</code>.
+   * @param aSearchChars
+   *        The char array to search. May not be <code>null</code>.
+   * @return <code>true</code> if at least any of the search char is contained in the input char
+   *         array, <code>false</code> otherwise.
+   */
+  public static boolean containsAny (@Nullable final char [] aInput, @Nonnull final char [] aSearchChars)
+  {
+    ValueEnforcer.notNull (aSearchChars, "SearchChars");
+
+    if (aInput != null)
+      for (final char cIn : aInput)
+        if (ArrayHelper.contains (aSearchChars, cIn))
+          return true;
+    return false;
+  }
+
+  /**
+   * Check if any of the passed searched characters in contained in the input string.
+   *
+   * @param sInput
+   *        The input string. May be <code>null</code>.
+   * @param aSearchChars
+   *        The char array to search. May not be <code>null</code>.
+   * @return <code>true</code> if at least any of the search char is contained in the input char
+   *         array, <code>false</code> otherwise.
+   */
+  public static boolean containsAny (@Nullable final String sInput, @Nonnull final char [] aSearchChars)
+  {
+    return sInput != null && containsAny (sInput.toCharArray (), aSearchChars);
+  }
+
+  /**
+   * Iterate all characters and pass them to the provided consumer.
+   *
+   * @param sInputString
+   *        Input String to use. May be <code>null</code> or empty.
+   * @param aConsumer
+   *        The consumer to be used. May not be <code>null</code>.
+   */
+  public static void iterateChars (@Nullable final String sInputString, @Nonnull final ICharConsumer aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    if (sInputString != null)
+    {
+      final char [] aInput = sInputString.toCharArray ();
+      for (final char cInput : aInput)
+        aConsumer.accept (cInput);
+    }
+  }
+
+  /**
+   * Check if the passed {@link CharSequence} contains any character matching the provided filter.
+   *
+   * @param aCS
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is not empty.
+   *         <code>true</code> if the filter is not <code>null</code> and at least one character of
+   *         the string matches the filter. <code>false</code> otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsAny (@Nullable final CharSequence aCS, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (aCS);
+    if (aFilter == null)
+      return nLen > 0;
+
+    if (nLen > 0)
+      for (int i = 0; i < nLen; ++i)
+        if (aFilter.test (aCS.charAt (i)))
+          return true;
+    return false;
+  }
+
+  /**
+   * Check if the passed {@link String} contains any character matching the provided filter.
+   *
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is not empty.
+   *         <code>true</code> if the filter is not <code>null</code> and at least one character of
+   *         the string matches the filter. <code>false</code> otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsAny (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (sStr);
+    if (aFilter == null)
+      return nLen > 0;
+
+    if (nLen > 0)
+      for (final char c : sStr.toCharArray ())
+        if (aFilter.test (c))
+          return true;
+    return false;
+  }
+
+  /**
+   * Check if the passed {@link CharSequence} contains no character matching the provided filter.
+   *
+   * @param aCS
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is empty.
+   *         <code>true</code> if the filter is not <code>null</code> and no character of the string
+   *         matches the filter. <code>false</code> otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsNone (@Nullable final CharSequence aCS, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (aCS);
+    if (aFilter == null)
+      return nLen == 0;
+
+    for (int i = 0; i < nLen; ++i)
+      if (aFilter.test (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
+   * Check if the passed {@link String} contains no character matching the provided filter.
+   *
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is empty.
+   *         <code>true</code> if the filter is not <code>null</code> and no character of the string
+   *         matches the filter. <code>false</code> otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsNone (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (sStr);
+    if (aFilter == null)
+      return nLen == 0;
+
+    if (nLen > 0)
+      for (final char c : sStr.toCharArray ())
+        if (aFilter.test (c))
+          return false;
+    return true;
+  }
+
+  /**
+   * Check if the passed {@link CharSequence} contains only characters matching the provided filter.
+   *
+   * @param aCS
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is not empty.
+   *         <code>true</code> if the filter is not <code>null</code> and the string has at least
+   *         one character and all characters of the string match the filter. <code>false</code>
+   *         otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsOnly (@Nullable final CharSequence aCS, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (aCS);
+    if (nLen == 0)
+      return false;
+
+    if (aFilter == null)
+      return true;
+
+    for (int i = 0; i < nLen; ++i)
+      if (!aFilter.test (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
+   * Check if the passed {@link String} contains only characters matching the provided filter.
+   *
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string is not empty.
+   *         <code>true</code> if the filter is not <code>null</code> and the string has at least
+   *         one character and all characters of the string match the filter. <code>false</code>
+   *         otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsOnly (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (sStr);
+    if (nLen == 0)
+      return false;
+
+    if (aFilter == null)
+      return true;
+
+    for (final char c : sStr.toCharArray ())
+      if (!aFilter.test (c))
+        return false;
+    return true;
+  }
+
+  /**
+   * Check if the passed character sequence is only whitespace or not.
+   *
+   * @param s
+   *        The character sequence to be checked. May be <code>null</code>.
+   * @return <code>true</code> if the passed sequence is empty or if only whitespace characters are
+   *         contained.
+   * @see Character#isWhitespace(char)
+   */
+  public static boolean isAllWhitespace (@Nullable final CharSequence s)
+  {
+    return containsOnly (s, Character::isWhitespace);
+  }
+
+  public static boolean startsWith (@Nullable final CharSequence aCS, final char c)
+  {
+    return isNotEmpty (aCS) && aCS.charAt (0) == c;
+  }
+
+  public static boolean startsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
+  {
+    if (isNotEmpty (aCS) && aChars != null)
+      if (ArrayHelper.contains (aChars, aCS.charAt (0)))
+        return true;
+    return false;
+  }
+
+  public static boolean startsWithIgnoreCase (@Nullable final CharSequence aCS, final char c)
+  {
+    return isNotEmpty (aCS) && Character.toLowerCase (aCS.charAt (0)) == Character.toLowerCase (c);
+  }
+
+  public static boolean startsWith (@Nullable final CharSequence aCS, @Nullable final CharSequence aSearch)
+  {
+    if (aCS == null || aSearch == null)
+      return false;
+    final int nSearchLength = aSearch.length ();
+    if (nSearchLength == 0)
+      return true;
+    final int nCSLength = aCS.length ();
+    if (nCSLength < nSearchLength)
+      return false;
+    return aCS.subSequence (0, nSearchLength).equals (aSearch);
+  }
+
+  public static boolean startsWith (@Nullable final String sStr, @Nullable final String sSearch)
+  {
+    if (sStr == null || sSearch == null)
+      return false;
+    final int nSearchLength = sSearch.length ();
+    if (nSearchLength == 0)
+      return true;
+    final int nStrLength = sStr.length ();
+    if (nStrLength < nSearchLength)
+      return false;
+
+    if (nSearchLength == 1)
+      return sStr.charAt (0) == sSearch.charAt (0);
+
+    return sStr.subSequence (0, nSearchLength).equals (sSearch);
+  }
+
+  public static boolean startsWithIgnoreCase (@Nullable final String sStr, @Nullable final String sSearch)
+  {
+    if (sStr == null || sSearch == null)
+      return false;
+    final int nSearchLength = sSearch.length ();
+    if (nSearchLength == 0)
+      return true;
+    final int nStrLength = sStr.length ();
+    if (nStrLength < nSearchLength)
+      return false;
+    return sStr.substring (0, nSearchLength).equalsIgnoreCase (sSearch);
+  }
+
+  public static boolean endsWith (@Nullable final CharSequence aCS, final char c)
+  {
+    return isNotEmpty (aCS) && Strings.getLastChar (aCS) == c;
+  }
+
+  public static boolean endsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
+  {
+    if (isNotEmpty (aCS) && aChars != null)
+      if (ArrayHelper.contains (aChars, Strings.getLastChar (aCS)))
+        return true;
+    return false;
+  }
+
+  public static boolean endsWith (@Nullable final CharSequence aCS, @Nullable final CharSequence aSearch)
+  {
+    if (aCS == null || aSearch == null)
+      return false;
+    final int nSearchLength = aSearch.length ();
+    if (nSearchLength == 0)
+      return true;
+    final int nCSLength = aCS.length ();
+    if (nCSLength < nSearchLength)
+      return false;
+
+    if (nSearchLength == 1)
+      return aCS.charAt (nCSLength - 1) == aSearch.charAt (0);
+
+    return aCS.subSequence (nCSLength - nSearchLength, nCSLength).equals (aSearch);
+  }
+
+  public static boolean endsWith (@Nullable final String sStr, @Nullable final String sSearch)
+  {
+    if (sStr == null || sSearch == null)
+      return false;
+    final int nSearchLength = sSearch.length ();
+    if (nSearchLength == 0)
+      return true;
+    final int nStrLength = sStr.length ();
+    if (nStrLength < nSearchLength)
+      return false;
+
+    if (nSearchLength == 1)
+      return sStr.charAt (nStrLength - 1) == sSearch.charAt (0);
+
+    return sStr.startsWith (sSearch, nStrLength - nSearchLength);
+  }
+
+  public static boolean endsWithIgnoreCase (@Nullable final CharSequence aCS, final char c)
+  {
+    return isNotEmpty (aCS) && Character.toLowerCase (Strings.getLastChar (aCS)) == Character.toLowerCase (c);
+  }
+
+  public static boolean endsWithIgnoreCase (@Nullable final String sStr, @Nullable final String sSearch)
+  {
+    if (sStr == null || sSearch == null)
+      return false;
+    final int nSearchLength = sSearch.length ();
+    if (nSearchLength == 0)
+      return true;
+    final int nStrLength = sStr.length ();
+    if (nStrLength < nSearchLength)
+      return false;
+    return sStr.substring (nStrLength - nSearchLength, nStrLength).equalsIgnoreCase (sSearch);
   }
 }

@@ -50,7 +50,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
-import com.helger.base.string.StringFind;
 import com.helger.base.string.StringParser;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
@@ -526,7 +525,7 @@ public final class URLHelper
       {
         // Only if the "?" is not the last char otherwise the base href already
         // contains a parameter!
-        final char cLast = StringFind.getLastChar (aSB);
+        final char cLast = Strings.getLastChar (aSB);
         if (cLast != QUESTIONMARK && cLast != AMPERSAND)
           aSB.append (AMPERSAND);
       }
@@ -541,7 +540,7 @@ public final class URLHelper
     // Append anchor
     if (bHasAnchor)
     {
-      if (StringFind.getLastChar (aSB) != HASH)
+      if (Strings.getLastChar (aSB) != HASH)
         aSB.append (HASH);
       aSB.append (sAnchor);
     }

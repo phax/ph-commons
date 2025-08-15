@@ -25,7 +25,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
-import com.helger.base.string.StringFind;
 import com.helger.base.string.StringHex;
 import com.helger.base.string.Strings;
 
@@ -91,7 +90,7 @@ public final class JsonEscapeHelper
     if (aInput == null)
       return null;
 
-    if (!StringFind.containsAny (aInput, CHARS_TO_MASK))
+    if (!Strings.containsAny (aInput, CHARS_TO_MASK))
       return new String (aInput);
 
     final StringBuilder aSB = new StringBuilder (aInput.length * 2);
@@ -106,7 +105,7 @@ public final class JsonEscapeHelper
     if (Strings.isNotEmpty (sInput))
     {
       final char [] aInput = sInput.toCharArray ();
-      if (!StringFind.containsAny (aInput, CHARS_TO_MASK))
+      if (!Strings.containsAny (aInput, CHARS_TO_MASK))
         aSB.append (sInput);
       else
         jsonEscapeToStringBuilder (aInput, aSB);
@@ -137,7 +136,7 @@ public final class JsonEscapeHelper
     if (Strings.isNotEmpty (sInput))
     {
       final char [] aInput = sInput.toCharArray ();
-      if (!StringFind.containsAny (aInput, CHARS_TO_MASK))
+      if (!Strings.containsAny (aInput, CHARS_TO_MASK))
         aWriter.write (aInput, 0, aInput.length);
       else
         jsonEscapeToWriter (aInput, aWriter);

@@ -160,7 +160,7 @@ public final class StringCount
       do
       {
         // Start searching from the last result
-        nIndex = StringFind.getIndexOf (sText, nLastIndex, sSearch);
+        nIndex = Strings.getIndexOf (sText, nLastIndex, sSearch);
         if (nIndex != CGlobal.STRING_NOT_FOUND)
         {
           // Match found
@@ -217,7 +217,7 @@ public final class StringCount
       do
       {
         // Start searching from the last result
-        nIndex = StringFind.getIndexOf (sText, nLastIndex, cSearch);
+        nIndex = Strings.getIndexOf (sText, nLastIndex, cSearch);
         if (nIndex != CGlobal.STRING_NOT_FOUND)
         {
           // Match found

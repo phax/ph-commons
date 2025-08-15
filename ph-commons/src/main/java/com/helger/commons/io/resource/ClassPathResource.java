@@ -38,7 +38,6 @@ import com.helger.base.string.Strings;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.io.stream.StreamHelperExt;
 import com.helger.commons.lang.ClassLoaderHelperExt;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
@@ -148,9 +147,9 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   @Nullable
   public static String getWithoutClassPathPrefix (@Nullable final String sPath)
   {
-    if (StringHelper.startsWith (sPath, CLASSPATH_PREFIX_LONG))
+    if (Strings.startsWith (sPath, CLASSPATH_PREFIX_LONG))
       return sPath.substring (CLASSPATH_PREFIX_LONG.length ());
-    if (StringHelper.startsWith (sPath, CLASSPATH_PREFIX_SHORT))
+    if (Strings.startsWith (sPath, CLASSPATH_PREFIX_SHORT))
       return sPath.substring (CLASSPATH_PREFIX_SHORT.length ());
     return sPath;
   }
@@ -166,8 +165,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
    */
   public static boolean isExplicitClassPathResource (@Nullable final String sName)
   {
-    return StringHelper.startsWith (sName, CLASSPATH_PREFIX_LONG) ||
-           StringHelper.startsWith (sName, CLASSPATH_PREFIX_SHORT);
+    return Strings.startsWith (sName, CLASSPATH_PREFIX_LONG) || Strings.startsWith (sName, CLASSPATH_PREFIX_SHORT);
   }
 
   @Nullable

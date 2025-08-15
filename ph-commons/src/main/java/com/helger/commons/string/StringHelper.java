@@ -31,10 +31,8 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
-import com.helger.base.array.ArrayHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringCount;
-import com.helger.base.string.StringFind;
 import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
@@ -622,132 +620,6 @@ public final class StringHelper extends Strings
       aTarget.append ('\'').append (sSource).append ('\'');
   }
 
-  public static boolean startsWith (@Nullable final CharSequence aCS, final char c)
-  {
-    return isNotEmpty (aCS) && aCS.charAt (0) == c;
-  }
-
-  public static boolean startsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
-  {
-    if (isNotEmpty (aCS) && aChars != null)
-      if (ArrayHelper.contains (aChars, aCS.charAt (0)))
-        return true;
-    return false;
-  }
-
-  public static boolean startsWithIgnoreCase (@Nullable final CharSequence aCS, final char c)
-  {
-    return isNotEmpty (aCS) && Character.toLowerCase (aCS.charAt (0)) == Character.toLowerCase (c);
-  }
-
-  public static boolean startsWith (@Nullable final CharSequence aCS, @Nullable final CharSequence aSearch)
-  {
-    if (aCS == null || aSearch == null)
-      return false;
-    final int nSearchLength = aSearch.length ();
-    if (nSearchLength == 0)
-      return true;
-    final int nCSLength = aCS.length ();
-    if (nCSLength < nSearchLength)
-      return false;
-    return aCS.subSequence (0, nSearchLength).equals (aSearch);
-  }
-
-  public static boolean startsWith (@Nullable final String sStr, @Nullable final String sSearch)
-  {
-    if (sStr == null || sSearch == null)
-      return false;
-    final int nSearchLength = sSearch.length ();
-    if (nSearchLength == 0)
-      return true;
-    final int nStrLength = sStr.length ();
-    if (nStrLength < nSearchLength)
-      return false;
-
-    if (nSearchLength == 1)
-      return sStr.charAt (0) == sSearch.charAt (0);
-
-    return sStr.subSequence (0, nSearchLength).equals (sSearch);
-  }
-
-  public static boolean startsWithIgnoreCase (@Nullable final String sStr, @Nullable final String sSearch)
-  {
-    if (sStr == null || sSearch == null)
-      return false;
-    final int nSearchLength = sSearch.length ();
-    if (nSearchLength == 0)
-      return true;
-    final int nStrLength = sStr.length ();
-    if (nStrLength < nSearchLength)
-      return false;
-    return sStr.substring (0, nSearchLength).equalsIgnoreCase (sSearch);
-  }
-
-  public static boolean endsWith (@Nullable final CharSequence aCS, final char c)
-  {
-    return isNotEmpty (aCS) && StringFind.getLastChar (aCS) == c;
-  }
-
-  public static boolean endsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
-  {
-    if (isNotEmpty (aCS) && aChars != null)
-      if (ArrayHelper.contains (aChars, StringFind.getLastChar (aCS)))
-        return true;
-    return false;
-  }
-
-  public static boolean endsWith (@Nullable final CharSequence aCS, @Nullable final CharSequence aSearch)
-  {
-    if (aCS == null || aSearch == null)
-      return false;
-    final int nSearchLength = aSearch.length ();
-    if (nSearchLength == 0)
-      return true;
-    final int nCSLength = aCS.length ();
-    if (nCSLength < nSearchLength)
-      return false;
-
-    if (nSearchLength == 1)
-      return aCS.charAt (nCSLength - 1) == aSearch.charAt (0);
-
-    return aCS.subSequence (nCSLength - nSearchLength, nCSLength).equals (aSearch);
-  }
-
-  public static boolean endsWith (@Nullable final String sStr, @Nullable final String sSearch)
-  {
-    if (sStr == null || sSearch == null)
-      return false;
-    final int nSearchLength = sSearch.length ();
-    if (nSearchLength == 0)
-      return true;
-    final int nStrLength = sStr.length ();
-    if (nStrLength < nSearchLength)
-      return false;
-
-    if (nSearchLength == 1)
-      return sStr.charAt (nStrLength - 1) == sSearch.charAt (0);
-
-    return sStr.startsWith (sSearch, nStrLength - nSearchLength);
-  }
-
-  public static boolean endsWithIgnoreCase (@Nullable final CharSequence aCS, final char c)
-  {
-    return isNotEmpty (aCS) && Character.toLowerCase (StringFind.getLastChar (aCS)) == Character.toLowerCase (c);
-  }
-
-  public static boolean endsWithIgnoreCase (@Nullable final String sStr, @Nullable final String sSearch)
-  {
-    if (sStr == null || sSearch == null)
-      return false;
-    final int nSearchLength = sSearch.length ();
-    if (nSearchLength == 0)
-      return true;
-    final int nStrLength = sStr.length ();
-    if (nStrLength < nSearchLength)
-      return false;
-    return sStr.substring (nStrLength - nSearchLength, nStrLength).equalsIgnoreCase (sSearch);
-  }
-
   /**
    * Remove any leading whitespaces from the passed string.
    *
@@ -1213,7 +1085,7 @@ public final class StringHelper extends Strings
                                         final char cSearch,
                                         final boolean bIncludingSearchChar)
   {
-    final int nIndex = StringFind.getIndexOf (sStr, cSearch);
+    final int nIndex = getIndexOf (sStr, cSearch);
     if (nIndex == CGlobal.STRING_NOT_FOUND)
       return null;
     return sStr.substring (0, nIndex + (bIncludingSearchChar ? 1 : 0));
@@ -1257,7 +1129,7 @@ public final class StringHelper extends Strings
     if (isEmpty (sSearch))
       return "";
 
-    final int nIndex = StringFind.getIndexOf (sStr, sSearch);
+    final int nIndex = getIndexOf (sStr, sSearch);
     if (nIndex == CGlobal.STRING_NOT_FOUND)
       return null;
     return sStr.substring (0, nIndex + (bIncludingSearchChar ? sSearch.length () : 0));
@@ -1300,7 +1172,7 @@ public final class StringHelper extends Strings
                                        final char cSearch,
                                        final boolean bIncludingSearchChar)
   {
-    final int nIndex = StringFind.getLastIndexOf (sStr, cSearch);
+    final int nIndex = getLastIndexOf (sStr, cSearch);
     if (nIndex == CGlobal.STRING_NOT_FOUND)
       return null;
     return sStr.substring (0, nIndex + (bIncludingSearchChar ? 1 : 0));
@@ -1344,7 +1216,7 @@ public final class StringHelper extends Strings
     if (isEmpty (sSearch))
       return "";
 
-    final int nIndex = StringFind.getLastIndexOf (sStr, sSearch);
+    final int nIndex = getLastIndexOf (sStr, sSearch);
     if (nIndex == CGlobal.STRING_NOT_FOUND)
       return null;
     return sStr.substring (0, nIndex + (bIncludingSearchChar ? sSearch.length () : 0));
@@ -1387,7 +1259,7 @@ public final class StringHelper extends Strings
                                        final char cSearch,
                                        final boolean bIncludingSearchChar)
   {
-    final int nIndex = StringFind.getIndexOf (sStr, cSearch);
+    final int nIndex = getIndexOf (sStr, cSearch);
     if (nIndex == CGlobal.STRING_NOT_FOUND)
       return null;
     return sStr.substring (nIndex + (bIncludingSearchChar ? 0 : 1));
@@ -1431,7 +1303,7 @@ public final class StringHelper extends Strings
     if (isEmpty (sSearch))
       return sStr;
 
-    final int nIndex = StringFind.getIndexOf (sStr, sSearch);
+    final int nIndex = getIndexOf (sStr, sSearch);
     if (nIndex == CGlobal.STRING_NOT_FOUND)
       return null;
     return sStr.substring (nIndex + (bIncludingSearchString ? 0 : sSearch.length ()));
@@ -1474,7 +1346,7 @@ public final class StringHelper extends Strings
                                       final char cSearch,
                                       final boolean bIncludingSearchChar)
   {
-    final int nIndex = StringFind.getLastIndexOf (sStr, cSearch);
+    final int nIndex = getLastIndexOf (sStr, cSearch);
     if (nIndex == CGlobal.STRING_NOT_FOUND)
       return null;
     return sStr.substring (nIndex + (bIncludingSearchChar ? 0 : 1));
@@ -1518,7 +1390,7 @@ public final class StringHelper extends Strings
     if (isEmpty (sSearch))
       return sStr;
 
-    final int nIndex = StringFind.getLastIndexOf (sStr, sSearch);
+    final int nIndex = getLastIndexOf (sStr, sSearch);
     if (nIndex == CGlobal.STRING_NOT_FOUND)
       return null;
     return sStr.substring (nIndex + (bIncludingSearchString ? 0 : sSearch.length ()));
@@ -1568,7 +1440,7 @@ public final class StringHelper extends Strings
   @Nullable
   public static String getFirstToken (@Nullable final String sStr, final char cSearch)
   {
-    final int nIndex = StringFind.getIndexOf (sStr, cSearch);
+    final int nIndex = getIndexOf (sStr, cSearch);
     return nIndex == CGlobal.STRING_NOT_FOUND ? sStr : sStr.substring (0, nIndex);
   }
 
@@ -1586,7 +1458,7 @@ public final class StringHelper extends Strings
   {
     if (Strings.isEmpty (sSearch))
       return sStr;
-    final int nIndex = StringFind.getIndexOf (sStr, sSearch);
+    final int nIndex = getIndexOf (sStr, sSearch);
     return nIndex == CGlobal.STRING_NOT_FOUND ? sStr : sStr.substring (0, nIndex);
   }
 
@@ -1602,7 +1474,7 @@ public final class StringHelper extends Strings
   @Nullable
   public static String getLastToken (@Nullable final String sStr, final char cSearch)
   {
-    final int nIndex = StringFind.getLastIndexOf (sStr, cSearch);
+    final int nIndex = getLastIndexOf (sStr, cSearch);
     return nIndex == CGlobal.STRING_NOT_FOUND ? sStr : sStr.substring (nIndex + 1);
   }
 
@@ -1620,7 +1492,7 @@ public final class StringHelper extends Strings
   {
     if (Strings.isEmpty (sSearch))
       return sStr;
-    final int nIndex = StringFind.getLastIndexOf (sStr, sSearch);
+    final int nIndex = getLastIndexOf (sStr, sSearch);
     return nIndex == CGlobal.STRING_NOT_FOUND ? sStr : sStr.substring (nIndex + getLength (sSearch));
   }
 
