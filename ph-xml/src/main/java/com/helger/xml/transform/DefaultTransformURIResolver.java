@@ -22,8 +22,8 @@ import javax.xml.transform.URIResolver;
 
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.io.resource.IReadableResource;
+import com.helger.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 
 import jakarta.annotation.Nonnull;

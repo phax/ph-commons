@@ -44,10 +44,10 @@ import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
-import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
-import com.helger.commons.io.resourceprovider.IReadableResourceProvider;
-import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
+import com.helger.io.resourceprovider.ClassPathResourceProvider;
+import com.helger.io.resourceprovider.FileSystemResourceProvider;
+import com.helger.io.resourceprovider.IReadableResourceProvider;
+import com.helger.io.resourceprovider.ReadableResourceProviderChain;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

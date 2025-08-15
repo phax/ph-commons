@@ -23,8 +23,8 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import com.helger.base.state.EChange;
-import com.helger.commons.io.relative.FileRelativeIO;
 import com.helger.dao.DAOException;
+import com.helger.io.relative.FileRelativeIO;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.MicroDocument;
 
