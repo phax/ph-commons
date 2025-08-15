@@ -51,12 +51,12 @@ import com.helger.base.io.nonblocking.NonBlockingBufferedWriter;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EValidity;
+import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.misc.SizeHelper;
 import com.helger.commons.io.stream.CountingFileInputStream;
 import com.helger.commons.io.stream.CountingFileOutputStream;
-import com.helger.commons.system.SystemProperties;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -16,6 +16,8 @@
  */
 package com.helger.commons.name;
 
+import com.helger.base.name.IHasName;
+
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 

@@ -20,10 +20,10 @@ import java.util.Locale;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
 import com.helger.base.string.Strings;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.display.IHasDisplayText;
 

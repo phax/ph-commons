@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.id.IHasIntID;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.base.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

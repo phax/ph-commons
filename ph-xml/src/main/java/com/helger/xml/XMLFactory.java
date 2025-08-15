@@ -37,7 +37,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
-import com.helger.commons.system.SystemProperties;
+import com.helger.base.system.SystemProperties;
 import com.helger.xml.serialize.read.DOMReaderDefaultSettings;
 
 import jakarta.annotation.Nonnull;

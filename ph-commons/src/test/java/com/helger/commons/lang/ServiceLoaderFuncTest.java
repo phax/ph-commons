@@ -31,10 +31,10 @@ import org.junit.Test;
 
 import com.helger.base.state.IClearable;
 import com.helger.base.state.IStoppable;
+import com.helger.base.system.EJavaVersion;
 import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.system.EJavaVersion;
 import com.helger.commons.type.IHasObjectType;
 
 /**

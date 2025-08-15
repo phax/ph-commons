@@ -19,6 +19,7 @@ package com.helger.commons.name;
 import java.util.Comparator;
 import java.util.Locale;
 
+import com.helger.base.name.IHasDisplayName;
 import com.helger.commons.compare.IComparator;
 
 import jakarta.annotation.Nonnull;

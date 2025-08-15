@@ -30,7 +30,7 @@ import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.IConditionalLogger;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
@@ -159,7 +159,7 @@ public class JAXBContextCacheKey
   }
 
   @Nonnull
-  private JAXBContext _createFromPackageAndClassLoader (@Nonnull final ConditionalLogger aCondLog)
+  private JAXBContext _createFromPackageAndClassLoader (@Nonnull final IConditionalLogger aCondLog)
   {
     final ClassLoader aClassLoader = _getClassLoader ();
 
@@ -191,7 +191,7 @@ public class JAXBContextCacheKey
   }
 
   @Nonnull
-  private JAXBContext _createFromClassesAndProperties (@Nonnull final ConditionalLogger aCondLog)
+  private JAXBContext _createFromClassesAndProperties (@Nonnull final IConditionalLogger aCondLog)
   {
     final ICommonsList <Class <?>> aClasses = _getAllClasses ();
 
@@ -223,9 +223,8 @@ public class JAXBContextCacheKey
     }
   }
 
-  // 11.0.4 did an incompatible change from boolean to ConditionalLogger
   @Nonnull
-  public JAXBContext createJAXBContext (@Nonnull final ConditionalLogger aCondLog)
+  public JAXBContext createJAXBContext (@Nonnull final IConditionalLogger aCondLog)
   {
     if (m_aPackages != null)
       return _createFromPackageAndClassLoader (aCondLog);

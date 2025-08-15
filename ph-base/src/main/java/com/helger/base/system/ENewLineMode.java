@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.system;
+package com.helger.base.system;
 
 import com.helger.annotation.Nonempty;
 
@@ -36,7 +36,7 @@ public enum ENewLineMode
   WINDOWS ("\r\n");
 
   /** The default newline mode as indicated by the system properties */
-  public static final ENewLineMode DEFAULT = getFromTextOrDefault (SystemProperties.getLineSeparator (),
+  public static final ENewLineMode DEFAULT = getFromTextOrDefault (System.lineSeparator (),
                                                                    EOperatingSystem.getCurrentOS ().getNewLineMode ());
 
   private final String m_sText;
@@ -47,8 +47,8 @@ public enum ENewLineMode
   }
 
   /**
-   * @return The textual representation of the new line in this mode. Neither
-   *         <code>null</code> nor empty.
+   * @return The textual representation of the new line in this mode. Neither <code>null</code> nor
+   *         empty.
    */
   @Nonnull
   @Nonempty

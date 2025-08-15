@@ -37,8 +37,8 @@ import com.helger.base.state.EMandatory;
 import com.helger.base.state.ESuccess;
 import com.helger.base.state.ETopBottom;
 import com.helger.base.state.EValidity;
+import com.helger.base.system.ENewLineMode;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroWriter;
 

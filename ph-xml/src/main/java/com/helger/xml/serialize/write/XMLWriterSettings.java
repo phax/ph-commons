@@ -29,8 +29,8 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.string.StringHex;
+import com.helger.base.system.ENewLineMode;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 

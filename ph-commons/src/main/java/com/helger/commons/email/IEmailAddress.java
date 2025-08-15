@@ -16,8 +16,8 @@
  */
 package com.helger.commons.email;
 
+import com.helger.base.name.IHasDisplayName;
 import com.helger.base.string.Strings;
-import com.helger.commons.name.IHasDisplayName;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

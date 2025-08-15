@@ -17,7 +17,7 @@
 package com.helger.commons.cache;
 
 import com.helger.base.iface.IHasSize;
-import com.helger.commons.name.IHasName;
+import com.helger.base.name.IHasName;
 
 /**
  * Read-only interface for a very simple Map-like cache.

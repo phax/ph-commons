@@ -24,8 +24,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.base.system.EOperatingSystem;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.system.EOperatingSystem;
 import com.helger.config.source.EConfigSourceType;
 
 /**

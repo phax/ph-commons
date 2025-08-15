@@ -18,7 +18,7 @@ package com.helger.commons.error.level;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.base.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -14,36 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.system;
+package com.helger.base.system;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.helger.base.string.Strings;
 
 /**
- * Test class for class {@link CryptoPolicy}.
+ * Test class for class {@link ENewLineMode}.
  *
  * @author Philip Helger
  */
-public final class CryptoPolicyTest
+public final class ENewLineModeTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (CryptoPolicyTest.class);
-
   @Test
-  public void testIf ()
+  public void testAll ()
   {
-    if (CryptoPolicy.isUnlimitedStrengthCryptoAvailable ())
+    for (final ENewLineMode e : ENewLineMode.values ())
     {
-      LOGGER.info ("Unlimited strength crypto IS available.");
-      assertTrue (CryptoPolicy.isUnlimitedStrengthCryptoAvailable ());
+      assertTrue (Strings.isNotEmpty (e.getText ()));
+      assertSame (e, ENewLineMode.valueOf (e.name ()));
+      assertSame (e, ENewLineMode.getFromTextOrNull (e.getText ()));
     }
-    else
-    {
-      LOGGER.warn ("Unlimited strength crypto is NOT available.");
-      assertFalse (CryptoPolicy.isUnlimitedStrengthCryptoAvailable ());
-    }
+
+    assertNotNull (ENewLineMode.DEFAULT);
   }
 }

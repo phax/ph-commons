@@ -16,7 +16,7 @@
  */
 package com.helger.xml.mock;
 
-import com.helger.commons.name.IHasDisplayName;
+import com.helger.base.name.IHasDisplayName;
 
 public final class MockHasDisplayName implements IHasDisplayName
 {

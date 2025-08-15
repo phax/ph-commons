@@ -19,7 +19,7 @@ package com.helger.tree.mock;
 import com.helger.annotation.Nonempty;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.commons.name.IHasName;
+import com.helger.base.name.IHasName;
 
 import jakarta.annotation.Nonnull;
 

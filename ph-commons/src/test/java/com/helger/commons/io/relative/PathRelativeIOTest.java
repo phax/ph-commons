@@ -24,8 +24,8 @@ import java.io.File;
 
 import org.junit.Test;
 
+import com.helger.base.system.EOperatingSystem;
 import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.system.EOperatingSystem;
 
 /**
  * Test class for class {@link PathRelativeIO}

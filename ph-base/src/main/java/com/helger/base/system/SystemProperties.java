@@ -14,9 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.system;
+package com.helger.base.system;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,17 +31,11 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.CGlobal;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.state.EChange;
-import com.helger.base.system.CSystemProperties;
-import com.helger.collection.commons.CommonsCopyOnWriteArraySet;
-import com.helger.collection.commons.CommonsHashMap;
-import com.helger.collection.commons.CommonsHashSet;
-import com.helger.collection.commons.ICommonsMap;
-import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.debug.GlobalDebugExt;
-import com.helger.commons.lang.PropertiesHelper;
+import com.helger.base.string.StringParser;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -48,12 +48,13 @@ import jakarta.annotation.Nullable;
 @ThreadSafe
 public final class SystemProperties implements IHasConditionalLogger
 {
-  // JDK serialization properties
-  public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
+  /** The global Java class version as a double value. */
+  public static final double JAVA_CLASS_VERSION = StringParser.parseDouble (getJavaClassVersion (),
+                                                                            CGlobal.ILLEGAL_DOUBLE);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SystemProperties.class);
   private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
-  private static final ICommonsSet <String> WARNED_PROP_NAMES = new CommonsCopyOnWriteArraySet <> ();
+  private static final Set <String> WARNED_PROP_NAMES = new CopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage
   private static final SystemProperties INSTANCE = new SystemProperties ();
@@ -116,10 +117,10 @@ public final class SystemProperties implements IHasConditionalLogger
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsSet <String> getAllWarnedPropertyNames ()
+  public static Set <String> getAllWarnedPropertyNames ()
   {
     // Convert from CopyOnWrite to regular HashSet
-    return new CommonsHashSet <> (WARNED_PROP_NAMES);
+    return new HashSet <> (WARNED_PROP_NAMES);
   }
 
   /**
@@ -331,7 +332,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getLineSeparator ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_LINE_SEPARATOR);
+    return System.lineSeparator ();
   }
 
   /**
@@ -480,27 +481,31 @@ public final class SystemProperties implements IHasConditionalLogger
   }
 
   /**
-   * @return A set with all defined property names. Never <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public static ICommonsSet <String> getAllPropertyNames ()
-  {
-    return getAllProperties ().copyOfKeySet ();
-  }
-
-  /**
    * @return A map with all system properties where the key is the system property name and the
    *         value is the system property value.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsMap <String, String> getAllProperties ()
+  public static Map <String, String> getAllProperties ()
   {
     final Properties aProperties = System.getProperties ();
     if (aProperties == null)
-      return new CommonsHashMap <> ();
-    return PropertiesHelper.getAsStringMap (aProperties);
+      return new HashMap <> ();
+
+    final Map <String, String> ret = new HashMap <> ();
+    for (final var e : aProperties.entrySet ())
+      ret.put (Objects.toString (e.getKey ()), Objects.toString (e.getValue ()));
+    return ret;
+  }
+
+  /**
+   * @return A set with all defined property names. Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static Set <String> getAllPropertyNames ()
+  {
+    return new HashSet <> (getAllProperties ().keySet ());
   }
 
   /**
@@ -530,8 +535,8 @@ public final class SystemProperties implements IHasConditionalLogger
     // http://download.oracle.com/javase/6/docs/technotes/guides/net/proxies.html
     // The first 2 (*.debug) should both be set to "all" to have the most
     // effects
-    return new String [] { GlobalDebugExt.SYSTEM_PROPERTY_JAVAX_NET_DEBUG,
-                           GlobalDebugExt.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG,
+    return new String [] { CSystemProperties.SYSTEM_PROPERTY_JAVAX_NET_DEBUG,
+                           CSystemProperties.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG,
                            "java.net.useSystemProxies",
                            "http.proxyHost",
                            "http.proxyPort",

@@ -22,6 +22,10 @@ import java.util.Locale;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.system.EJVMVendor;
+import com.helger.base.system.EJavaVersion;
+import com.helger.base.system.EOperatingSystem;
+import com.helger.base.system.EProcessorArchitecture;
 
 import jakarta.annotation.Nonnull;
 

@@ -38,8 +38,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.system.EOperatingSystem;
 import com.helger.commons.io.file.PathHelper;
-import com.helger.commons.system.EOperatingSystem;
 
 /**
  * Playground for {@link Path} testing

@@ -14,8 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.lang;
+package com.helger.base.lang;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.slf4j.Logger;
@@ -31,14 +36,10 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.id.IHasID;
 import com.helger.base.id.IHasIntID;
+import com.helger.base.name.IHasName;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.EChange;
 import com.helger.base.string.Strings;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.CommonsHashMap;
-import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.name.IHasName;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -55,7 +56,7 @@ public final class EnumHelper
   private static final Object [] NOT_CACHABLE = CGlobal.EMPTY_OBJECT_ARRAY;
   private static final SimpleReadWriteLock RW_LOCK_INTCACHE = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK_INTCACHE")
-  private static final ICommonsMap <String, Object []> INT_CACHE = new CommonsHashMap <> ();
+  private static final Map <String, Object []> INT_CACHE = new HashMap <> ();
 
   @PresentForCodeCoverage
   private static final EnumHelper INSTANCE = new EnumHelper ();
@@ -80,10 +81,17 @@ public final class EnumHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ENUMTYPE extends Enum <ENUMTYPE>> ICommonsList <ENUMTYPE> getAll (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                                   @Nullable final Predicate <? super ENUMTYPE> aFilter)
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> List <ENUMTYPE> getAll (@Nonnull final Class <ENUMTYPE> aClass,
+                                                                           @Nullable final Predicate <? super ENUMTYPE> aFilter)
   {
-    return CommonsArrayList.createFiltered (aClass.getEnumConstants (), aFilter);
+    if (aFilter == null)
+      return Arrays.asList (aClass.getEnumConstants ());
+
+    final List <ENUMTYPE> ret = new ArrayList <> ();
+    for (final ENUMTYPE aItem : aClass.getEnumConstants ())
+      if (aFilter.test (aItem))
+        ret.add (aItem);
+    return ret;
   }
 
   /**

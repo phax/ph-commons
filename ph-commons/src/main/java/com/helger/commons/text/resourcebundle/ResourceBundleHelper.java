@@ -27,7 +27,7 @@ import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.classloader.ClassLoaderHelper;
-import com.helger.commons.system.EJavaVersion;
+import com.helger.base.system.EJavaVersion;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

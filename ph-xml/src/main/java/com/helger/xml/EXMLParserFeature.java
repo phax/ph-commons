@@ -16,6 +16,8 @@
  */
 package com.helger.xml;
 
+import java.util.List;
+
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,9 +33,8 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -638,7 +639,7 @@ public enum EXMLParserFeature implements IHasName
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <EXMLParserFeature> getAllFeaturesOfType (@Nonnull final EXMLParserFeatureType eFeatureType)
+  public static List <EXMLParserFeature> getAllFeaturesOfType (@Nonnull final EXMLParserFeatureType eFeatureType)
   {
     ValueEnforcer.notNull (eFeatureType, "FeatureType");
 

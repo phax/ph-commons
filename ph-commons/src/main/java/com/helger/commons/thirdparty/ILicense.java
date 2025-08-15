@@ -17,7 +17,7 @@
 package com.helger.commons.thirdparty;
 
 import com.helger.base.id.IHasID;
-import com.helger.commons.name.IHasDisplayName;
+import com.helger.base.name.IHasDisplayName;
 import com.helger.commons.version.IHasVersion;
 
 import jakarta.annotation.Nullable;

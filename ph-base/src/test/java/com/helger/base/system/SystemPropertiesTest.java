@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.system;
+package com.helger.base.system;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -24,13 +24,9 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Comparator;
 import java.util.Map;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Test class for class {@link SystemProperties}
@@ -39,16 +35,14 @@ import org.slf4j.LoggerFactory;
  */
 public final class SystemPropertiesTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (SystemPropertiesTest.class);
-
   @Test
-  @Ignore ("Too verbose")
-  public void testPrintAll ()
+  public void testAll ()
   {
-    for (final Map.Entry <String, String> aEntry : SystemProperties.getAllProperties ()
-                                                                   .getSortedByKey (Comparator.naturalOrder ())
-                                                                   .entrySet ())
-      LOGGER.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
+    for (final Map.Entry <String, String> aEntry : SystemProperties.getAllProperties ().entrySet ())
+    {
+      assertNotNull (aEntry.getKey ());
+      assertNotNull (aEntry.getValue ());
+    }
   }
 
   @Test

@@ -23,11 +23,11 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.system.ENewLineMode;
+import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.ENewLineMode;
-import com.helger.commons.system.SystemProperties;
 
 import jakarta.annotation.Nonnull;
 

@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.string.Strings;
-import com.helger.commons.system.SystemProperties;
+import com.helger.base.system.SystemProperties;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;

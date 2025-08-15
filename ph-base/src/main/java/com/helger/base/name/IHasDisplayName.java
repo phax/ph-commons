@@ -14,42 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.name;
+package com.helger.base.name;
 
 import java.util.Comparator;
-import java.util.Locale;
-
-import com.helger.commons.compare.IComparator;
 
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
- * Base interface for all objects that have a mandatory <b>INTERNAL</b> name
- * that is not multilingual but should be human interpretable. If you need to
- * have a name that is displayed on the screen, please use the
- * {@link IHasDisplayName} interface.
+ * Base interface for objects that have a locale <b>independent</b> display name.<br>
+ * I contract to {@link IHasName} this interface is meant for display names of objects (e.g. user
+ * names or folder names).
  *
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IHasName
+public interface IHasDisplayName
 {
   /**
-   * @return The name of the object. May not be <code>null</code>.
+   * @return The display name of this object. Should never be <code>null</code>.
    */
   @Nonnull
-  String getName ();
+  String getDisplayName ();
 
   @Nonnull
-  static Comparator <IHasName> getComparatorName ()
+  static Comparator <IHasDisplayName> getComparatorDisplayName ()
   {
-    return Comparator.comparing (IHasName::getName);
-  }
-
-  @Nonnull
-  static Comparator <IHasName> getComparatorCollating (@Nullable final Locale aSortLocale)
-  {
-    return IComparator.getComparatorCollating (IHasName::getName, aSortLocale);
+    return Comparator.comparing (IHasDisplayName::getDisplayName);
   }
 }

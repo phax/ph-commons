@@ -29,8 +29,8 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringParser;
+import com.helger.base.system.SystemProperties;
 import com.helger.base.timing.StopWatch;
-import com.helger.commons.system.SystemProperties;
 
 import jakarta.annotation.Nonnull;
 

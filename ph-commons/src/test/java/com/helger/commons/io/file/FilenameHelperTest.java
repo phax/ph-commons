@@ -26,7 +26,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.system.EOperatingSystem;
+import com.helger.base.system.EOperatingSystem;
 
 /**
  * Test class for class {@link FilenameHelper}.

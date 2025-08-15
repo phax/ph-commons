@@ -23,8 +23,8 @@ import java.nio.file.Path;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.id.IHasIntID;
+import com.helger.base.lang.EnumHelper;
 import com.helger.base.state.ISuccessIndicator;
-import com.helger.commons.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

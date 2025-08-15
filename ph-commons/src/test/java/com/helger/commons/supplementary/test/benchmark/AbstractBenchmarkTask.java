@@ -20,9 +20,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.CGlobal;
+import com.helger.base.system.SystemProperties;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.system.SystemHelper;
-import com.helger.commons.system.SystemProperties;
 
 /**
  * Abstract benchmarking class.

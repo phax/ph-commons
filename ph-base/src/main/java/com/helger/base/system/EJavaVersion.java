@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.system;
+package com.helger.base.system;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
@@ -84,7 +84,7 @@ public enum EJavaVersion
     m_dMinVersionIncl = CGlobal.ILLEGAL_DOUBLE;
     m_dMaxVersionExcl = CGlobal.ILLEGAL_DOUBLE;
     m_bLTS = false;
-    m_bIsIt = EqualsHelper.equals (CGlobal.ILLEGAL_DOUBLE, JavaVersionHelper.JAVA_CLASS_VERSION);
+    m_bIsIt = EqualsHelper.equals (CGlobal.ILLEGAL_DOUBLE, SystemProperties.JAVA_CLASS_VERSION);
   }
 
   /**
@@ -105,7 +105,7 @@ public enum EJavaVersion
     m_dMinVersionIncl = dMinVersionIncl;
     m_dMaxVersionExcl = dMaxVersionExcl;
     m_bLTS = bLTS;
-    m_bIsIt = isMatchingVersion (JavaVersionHelper.JAVA_CLASS_VERSION);
+    m_bIsIt = isMatchingVersion (SystemProperties.JAVA_CLASS_VERSION);
   }
 
   protected boolean isMatchingVersion (final double dVersion)

@@ -35,10 +35,10 @@ import com.helger.base.exception.InitializationException;
 import com.helger.base.string.StringImplode;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
+import com.helger.base.system.EOperatingSystem;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.EOperatingSystem;
 import com.helger.commons.system.SystemHelper;
 
 import jakarta.annotation.Nonnull;

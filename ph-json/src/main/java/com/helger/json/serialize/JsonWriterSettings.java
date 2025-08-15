@@ -22,8 +22,8 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringHex;
+import com.helger.base.system.ENewLineMode;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.system.ENewLineMode;
 
 import jakarta.annotation.Nonnull;
 

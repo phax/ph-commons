@@ -17,7 +17,7 @@
 package com.helger.xml.microdom;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.name.IHasName;
+import com.helger.base.name.IHasName;
 
 import jakarta.annotation.Nonnull;
 

@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.system.ENewLineMode;
+import com.helger.base.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
 
 import jakarta.annotation.Nonnull;

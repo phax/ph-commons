@@ -31,8 +31,8 @@ import com.helger.annotation.WillNotClose;
 import com.helger.base.io.nonblocking.NonBlockingBufferedWriter;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHex;
+import com.helger.base.system.ENewLineMode;
 import com.helger.collection.commons.CommonsLinkedHashMap;
-import com.helger.commons.system.ENewLineMode;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

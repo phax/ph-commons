@@ -31,8 +31,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.base.system.EJavaVersion;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.system.EJavaVersion;
 
 /**
  * Test class for class {@link PDTFormatter}.

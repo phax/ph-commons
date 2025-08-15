@@ -29,10 +29,10 @@ import org.junit.Test;
 
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.numeric.BigHelper;
+import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.system.SystemProperties;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
 import com.helger.config.source.res.ConfigurationSourceJson;
 import com.helger.config.source.res.ConfigurationSourceProperties;

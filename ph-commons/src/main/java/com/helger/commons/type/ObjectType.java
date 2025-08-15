@@ -22,8 +22,8 @@ import com.helger.base.compare.IComparable;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
+import com.helger.base.name.IHasName;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.name.IHasName;
 
 import jakarta.annotation.Nonnull;
 

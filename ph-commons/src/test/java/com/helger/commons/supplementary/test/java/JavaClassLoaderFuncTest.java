@@ -28,9 +28,9 @@ import com.helger.annotation.misc.DevelopersNote;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.system.EJavaVersion;
 import com.helger.commons.lang.ClassHelperExt;
 import com.helger.commons.lang.ClassLoaderHelperExt;
-import com.helger.commons.system.EJavaVersion;
 import com.helger.commons.system.JavaVersionHelper;
 
 /**

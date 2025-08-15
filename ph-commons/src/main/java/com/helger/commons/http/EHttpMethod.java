@@ -17,8 +17,8 @@
 package com.helger.commons.http;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -23,8 +23,8 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
 import com.helger.base.string.Strings;
-import com.helger.commons.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

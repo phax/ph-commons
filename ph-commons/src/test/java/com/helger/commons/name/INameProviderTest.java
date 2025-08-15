@@ -21,6 +21,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import com.helger.base.name.IHasName;
+
 /**
  * Test class for class {@link INameProvider}.
  *

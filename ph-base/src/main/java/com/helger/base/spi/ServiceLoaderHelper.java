@@ -30,6 +30,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.IHasConditionalLogger;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -41,7 +42,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @Immutable
-public final class ServiceLoaderHelper
+public final class ServiceLoaderHelper implements IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ServiceLoaderHelper.class);
   private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);

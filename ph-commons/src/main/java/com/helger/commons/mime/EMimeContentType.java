@@ -18,8 +18,8 @@ package com.helger.commons.mime;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
 import com.helger.base.string.Strings;
-import com.helger.commons.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

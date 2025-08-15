@@ -56,6 +56,15 @@ public class CSystemProperties
   public static final String SYSTEM_PROPERTY_USER_HOME = "user.home";
   public static final String SYSTEM_PROPERTY_USER_NAME = "user.name";
 
+  public static final String SYSTEM_PROPERTY_MAIL_DEBUG = "mail.debug";
+  public static final String SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG = "java.security.debug";
+  public static final String SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG = "javax.activation.debug";
+  public static final String SYSTEM_PROPERTY_JAVAX_NET_DEBUG = "javax.net.debug";
+  public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
+
+  // JDK serialization properties
+  public static final String SYSTEM_PROPERTY_SERIALIZATION_DEBUG = "sun.io.serialization.extendedDebugInfo";
+
   private CSystemProperties ()
   {}
 }

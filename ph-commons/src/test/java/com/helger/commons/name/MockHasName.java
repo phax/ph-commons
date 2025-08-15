@@ -19,6 +19,7 @@ package com.helger.commons.name;
 import com.helger.annotation.Nonempty;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.name.IHasName;
 
 import jakarta.annotation.Nonnull;
 

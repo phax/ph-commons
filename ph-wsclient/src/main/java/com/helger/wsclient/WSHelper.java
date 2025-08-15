@@ -18,7 +18,7 @@ package com.helger.wsclient;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.CGlobal;
-import com.helger.commons.system.SystemProperties;
+import com.helger.base.system.SystemProperties;
 
 import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.handler.MessageContext;

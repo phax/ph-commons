@@ -19,9 +19,9 @@ package com.helger.commons.text.resolve;
 import java.util.Locale;
 
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.lang.EnumHelper;
 import com.helger.base.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.base.statistics.IMutableStatisticsHandlerKeyedCounter;
-import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.text.IHasText;
 

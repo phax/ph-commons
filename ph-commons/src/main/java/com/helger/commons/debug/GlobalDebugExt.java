@@ -18,7 +18,8 @@ package com.helger.commons.debug;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.commons.system.SystemProperties;
+import com.helger.base.system.CSystemProperties;
+import com.helger.base.system.SystemProperties;
 
 import jakarta.annotation.Nullable;
 
@@ -30,13 +31,6 @@ import jakarta.annotation.Nullable;
 @ThreadSafe
 public final class GlobalDebugExt extends GlobalDebug
 {
-  public static final String SYSTEM_PROPERTY_MAIL_DEBUG = "mail.debug";
-  public static final String SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG = "java.security.debug";
-  public static final String SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG = "javax.activation.debug";
-  public static final String SYSTEM_PROPERTY_JAVAX_NET_DEBUG = "javax.net.debug";
-  public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
-  public static final String SYSTEM_PROPERTY_SERIALIZATION_DEBUG = "sun.io.serialization.extendedDebugInfo";
-
   /**
    * Set the debug mode for the common Java components:
    * <ul>
@@ -53,16 +47,16 @@ public final class GlobalDebugExt extends GlobalDebug
     // Set JAXP debugging!
     // Note: this property is read-only on Ubuntu, defined by the following
     // policy file: /etc/tomcat6/policy.d/04webapps.policy
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAXP_DEBUG, bDebugMode);
+    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAXP_DEBUG, bDebugMode);
 
     // Set javax.activation debugging
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG, bDebugMode);
+    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG, bDebugMode);
 
     // Set javax.mail debugging
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_MAIL_DEBUG, bDebugMode);
+    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_MAIL_DEBUG, bDebugMode);
 
     // Set serialization debugging
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_SERIALIZATION_DEBUG, bDebugMode);
+    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_SERIALIZATION_DEBUG, bDebugMode);
   }
 
   /**
@@ -80,7 +74,7 @@ public final class GlobalDebugExt extends GlobalDebug
    */
   public static void setJavaNetDebugMode (@Nullable final String sValue)
   {
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVAX_NET_DEBUG, sValue);
+    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVAX_NET_DEBUG, sValue);
   }
 
   /**
@@ -107,6 +101,6 @@ public final class GlobalDebugExt extends GlobalDebug
    */
   public static void setJavaSecurityDebugMode (@Nullable final String sValue)
   {
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG, sValue);
+    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG, sValue);
   }
 }

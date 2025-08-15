@@ -23,7 +23,7 @@ import javax.xml.stream.XMLStreamException;
 import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
-import com.helger.commons.system.ENewLineMode;
+import com.helger.base.system.ENewLineMode;
 
 /**
  * Test class for class {@link SafeXMLStreamWriter}

@@ -29,12 +29,12 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.string.Strings;
+import com.helger.base.system.ENewLineMode;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.commons.compare.IComparator;
-import com.helger.commons.system.ENewLineMode;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

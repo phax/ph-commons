@@ -33,8 +33,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.system.ENewLineMode;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLFactory;

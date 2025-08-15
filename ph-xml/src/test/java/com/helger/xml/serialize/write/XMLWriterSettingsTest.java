@@ -29,9 +29,9 @@ import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
 import com.helger.base.string.Strings;
+import com.helger.base.system.ENewLineMode;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
 /**

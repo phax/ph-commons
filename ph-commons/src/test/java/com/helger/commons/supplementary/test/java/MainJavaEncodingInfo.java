@@ -23,9 +23,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.system.SystemProperties;
+import com.helger.collection.helper.CollectionSort;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.system.SystemHelper;
-import com.helger.commons.system.SystemProperties;
 
 public final class MainJavaEncodingInfo
 {
@@ -36,9 +37,9 @@ public final class MainJavaEncodingInfo
 
   public static void main (final String [] args)
   {
-    for (final Map.Entry <String, String> aEntry : SystemProperties.getAllProperties ()
-                                                                   .getSortedByKey (IComparator.getComparatorCollating (Locale.US))
-                                                                   .entrySet ())
+    for (final Map.Entry <String, String> aEntry : CollectionSort.getSortedByKey (SystemProperties.getAllProperties (),
+                                                                                  IComparator.getComparatorCollating (Locale.US))
+                                                                 .entrySet ())
       LOGGER.info (aEntry.getKey () + " == " + aEntry.getValue ());
     LOGGER.info ("Default Locale: " + SystemHelper.getSystemLocale ());
     LOGGER.info ("All locales:");

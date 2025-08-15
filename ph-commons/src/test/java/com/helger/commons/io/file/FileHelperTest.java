@@ -32,8 +32,8 @@ import org.junit.Test;
 import com.helger.base.CGlobal;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.system.EOperatingSystem;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.system.EOperatingSystem;
 
 /**
  * Test class for class {@link FileHelper}.

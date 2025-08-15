@@ -21,8 +21,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
 import com.helger.base.string.Strings;
-import com.helger.commons.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

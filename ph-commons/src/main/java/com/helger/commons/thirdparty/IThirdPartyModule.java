@@ -16,7 +16,7 @@
  */
 package com.helger.commons.thirdparty;
 
-import com.helger.commons.name.IHasDisplayName;
+import com.helger.base.name.IHasDisplayName;
 import com.helger.commons.version.IHasVersion;
 import com.helger.commons.version.Version;
 

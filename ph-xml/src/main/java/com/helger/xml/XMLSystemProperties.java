@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.system.EJavaVersion;
-import com.helger.commons.system.SystemProperties;
+import com.helger.base.system.EJavaVersion;
+import com.helger.base.system.SystemProperties;
 import com.helger.xml.serialize.read.DOMReader;
 
 import jakarta.annotation.Nullable;

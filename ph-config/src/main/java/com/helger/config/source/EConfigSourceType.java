@@ -19,7 +19,7 @@ package com.helger.config.source;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.base.lang.EnumHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

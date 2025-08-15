@@ -18,7 +18,7 @@ package com.helger.xml.serialize.write;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.base.lang.EnumHelper;
 import com.helger.xml.EXMLVersion;
 
 import jakarta.annotation.Nonnull;

@@ -23,8 +23,8 @@ import java.io.File;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.base.system.EOperatingSystem;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.system.EOperatingSystem;
 
 public final class JavaFileUNCFuncTest
 {

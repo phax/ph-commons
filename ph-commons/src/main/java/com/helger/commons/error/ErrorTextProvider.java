@@ -24,13 +24,13 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
 import com.helger.base.lang.ICloneable;
 import com.helger.base.string.StringReplace;
 import com.helger.base.string.Strings;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.location.ILocation;
 

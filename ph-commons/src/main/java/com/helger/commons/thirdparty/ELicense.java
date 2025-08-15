@@ -17,7 +17,7 @@
 package com.helger.commons.thirdparty;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.base.lang.EnumHelper;
 import com.helger.commons.version.Version;
 
 import jakarta.annotation.Nonnull;
