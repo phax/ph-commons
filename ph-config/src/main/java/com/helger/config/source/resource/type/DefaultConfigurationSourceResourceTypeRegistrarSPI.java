@@ -23,6 +23,11 @@ import com.helger.config.source.resource.properties.ConfigurationSourcePropertie
 
 import jakarta.annotation.Nonnull;
 
+/**
+ * The default SPI implementation that registers the properties resource type
+ *
+ * @author Philip Helger
+ */
 @IsSPIImplementation
 public class DefaultConfigurationSourceResourceTypeRegistrarSPI implements IConfigurationSourceResourceTypeRegistrarSPI
 {

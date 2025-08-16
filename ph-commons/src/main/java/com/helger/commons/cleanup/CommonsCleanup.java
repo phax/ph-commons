@@ -34,8 +34,7 @@ import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
-import com.helger.typeconvert.impl.TypeConverterRegistry;
-import com.helger.typeconvert.util.ClassHierarchyCache;
+import com.helger.typeconvert.cleanup.TypeConvertCleanup;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this library.
@@ -58,8 +57,6 @@ public final class CommonsCleanup
   @SuppressWarnings ("removal")
   public static void cleanup ()
   {
-    BaseCleanup.cleanup ();
-
     // Reinitialize singletons to the default values
     if (LocaleCache.isInstantiated ())
       LocaleCache.getInstance ().reinitialize ();
@@ -73,8 +70,6 @@ public final class CommonsCleanup
       MimeTypeDeterminator.getInstance ().reinitialize ();
     if (ThirdPartyModuleRegistry.isInstantiated ())
       ThirdPartyModuleRegistry.getInstance ().reinitialize ();
-    if (TypeConverterRegistry.isInstantiated ())
-      TypeConverterRegistry.getInstance ().reinitialize ();
     if (URLProtocolRegistry.isInstantiated ())
       URLProtocolRegistry.getInstance ().reinitialize ();
     if (EqualsImplementationRegistry.isInstantiated ())
@@ -93,7 +88,8 @@ public final class CommonsCleanup
     if (ImageDataManager.isInstantiated ())
       ImageDataManager.getInstance ().clearCache ();
 
-    // Clean this one last as it is used in equals and hashCode implementations!
-    ClassHierarchyCache.clearCache ();
+    // Reverse order!
+    TypeConvertCleanup.cleanup ();
+    BaseCleanup.cleanup ();
   }
 }

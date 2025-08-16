@@ -25,6 +25,11 @@ import com.helger.config.source.resource.type.IConfigurationSourceResourceTypeRe
 
 import jakarta.annotation.Nonnull;
 
+/**
+ * SPI implementation that registers the JSON source type for reading configuration items.
+ *
+ * @author Philip Helger
+ */
 @IsSPIImplementation
 public class JsonConfigurationSourceResourceTypeRegistrarSPI implements IConfigurationSourceResourceTypeRegistrarSPI
 {

@@ -132,4 +132,12 @@ public final class ConfigurationSourceResourceTypeRegistry
                                        "'");
     return ret;
   }
+
+  public void reinitialize ()
+  {
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitializing " + getClass ().getName ());
+
+    _reinitialize ();
+  }
 }
