@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.charset;
+package com.helger.base.charset;
 
 import java.nio.charset.Charset;
 

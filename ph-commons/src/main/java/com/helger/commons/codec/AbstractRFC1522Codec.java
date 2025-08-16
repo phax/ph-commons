@@ -25,10 +25,10 @@ import java.nio.charset.StandardCharsets;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.charset.CharsetHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringEncoding;
 import com.helger.base.string.StringHelper;
-import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.serialize.convert.SerializationConverter;
 
 import jakarta.annotation.Nonnull;

@@ -27,10 +27,10 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.base.charset.CharsetHelper;
 import com.helger.base.mock.CommonsAssert;
 import com.helger.base.string.StringHelper;
 import com.helger.base.system.ENewLineMode;
-import com.helger.commons.charset.CharsetHelper;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 

@@ -23,10 +23,10 @@ import java.nio.charset.Charset;
 import org.w3c.dom.ls.LSInput;
 
 import com.helger.annotation.style.UnsupportedOperation;
+import com.helger.base.charset.CharsetHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.charset.CharsetHelper;
 import com.helger.io.resource.IReadableResource;
 
 import jakarta.annotation.Nonnull;

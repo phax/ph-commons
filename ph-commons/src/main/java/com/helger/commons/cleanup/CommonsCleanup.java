@@ -18,7 +18,6 @@ package com.helger.commons.cleanup;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.cleanup.BaseCleanup;
 import com.helger.cache.regex.RegExCache;
 import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
@@ -34,7 +33,6 @@ import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
-import com.helger.typeconvert.cleanup.TypeConvertCleanup;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this library.
@@ -87,9 +85,5 @@ public final class CommonsCleanup
     LocaleHelper.clearCache ();
     if (ImageDataManager.isInstantiated ())
       ImageDataManager.getInstance ().clearCache ();
-
-    // Reverse order!
-    TypeConvertCleanup.cleanup ();
-    BaseCleanup.cleanup ();
   }
 }

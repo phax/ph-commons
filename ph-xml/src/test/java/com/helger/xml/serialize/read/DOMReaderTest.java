@@ -38,13 +38,13 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.charset.EUnicodeBOM;
 import com.helger.base.iface.IThrowingRunnable;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.base.system.EJavaVersion;
-import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.io.file.FileHelper;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.FileSystemResource;

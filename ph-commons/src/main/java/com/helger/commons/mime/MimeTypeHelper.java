@@ -19,7 +19,7 @@ package com.helger.commons.mime;
 import java.nio.charset.Charset;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.charset.CharsetHelper;
+import com.helger.base.charset.CharsetHelper;
 
 import jakarta.annotation.Nullable;
 

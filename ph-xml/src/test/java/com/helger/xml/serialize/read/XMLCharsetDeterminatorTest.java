@@ -28,10 +28,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.charset.EUnicodeBOM;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.charset.EUnicodeBOM;
 
 public final class XMLCharsetDeterminatorTest
 {

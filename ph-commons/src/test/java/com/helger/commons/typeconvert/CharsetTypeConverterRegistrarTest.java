@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetHelper;
+import com.helger.base.charset.CharsetHelper;
 import com.helger.typeconvert.impl.TypeConverter;
 
 /**

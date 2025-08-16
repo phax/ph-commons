@@ -24,6 +24,7 @@ import com.helger.cache.api.ICache;
 import com.helger.cache.api.IMutableCache;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link ICache} and {@link IMutableCache}. Since v9.3.8 this class
@@ -65,5 +66,11 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
   public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder ()
   {
     return new CacheBuilder <> ();
+  }
+
+  @Nonnull
+  public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder (@Nullable final Function <KEYTYPE, VALUETYPE> a)
+  {
+    return new CacheBuilder <KEYTYPE, VALUETYPE> ().valueProvider (a);
   }
 }

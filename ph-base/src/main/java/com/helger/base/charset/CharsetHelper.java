@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.charset;
+package com.helger.base.charset;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +23,8 @@ import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.UnsupportedCharsetException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.SortedMap;
 
 import org.slf4j.Logger;
@@ -41,8 +43,6 @@ import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingPushbackInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
-import com.helger.collection.commons.CommonsLinkedHashMap;
-import com.helger.collection.commons.ICommonsOrderedMap;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -147,9 +147,9 @@ public final class CharsetHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <String, Charset> getAllCharsets ()
+  public static Map <String, Charset> getAllCharsets ()
   {
-    return new CommonsLinkedHashMap <> (ALL_CHARSETS);
+    return new LinkedHashMap <> (ALL_CHARSETS);
   }
 
   @Nullable

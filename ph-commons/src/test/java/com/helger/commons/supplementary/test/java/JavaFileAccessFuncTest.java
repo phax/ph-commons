@@ -32,11 +32,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.charset.CharsetHelper;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.system.EOperatingSystem;
 import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.charset.CharsetHelper;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileOperationManager;
 import com.helger.io.file.FileOperations;

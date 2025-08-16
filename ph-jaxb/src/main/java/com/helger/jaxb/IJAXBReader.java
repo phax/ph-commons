@@ -32,14 +32,14 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.charset.CharsetHelper.InputStreamAndCharset;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.ByteBufferInputStream;
 import com.helger.base.io.stream.StreamHelper;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
 import com.helger.io.resource.IReadableResource;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
