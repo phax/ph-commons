@@ -14,31 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.thirdparty;
+package com.helger.base.version;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import org.junit.Test;
+import jakarta.annotation.Nonnull;
 
 /**
- * Test class for class {@link ELicense}.
+ * Base interface for objects having a version range.
  *
  * @author Philip Helger
  */
-public final class ELicenseTest
+@FunctionalInterface
+public interface IHasVersionRange
 {
-  @Test
-  public void testAll ()
-  {
-    for (final ELicense eLic : ELicense.values ())
-    {
-      assertNotNull (eLic.getID ());
-      assertNotNull (eLic.getDisplayName ());
-      eLic.getURL ();
-      eLic.getVersion ();
-      assertSame (eLic, ELicense.getFromIDOrNull (eLic.getID ()));
-      assertSame (eLic, ELicense.valueOf (eLic.name ()));
-    }
-  }
+  /**
+   * @return The version range of the object. Should never be <code>null</code>
+   *         .
+   */
+  @Nonnull
+  Version getVersionRange ();
 }

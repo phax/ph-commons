@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.thirdparty;
+package com.helger.base.thirdparty;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.version.Version;
+import com.helger.base.version.Version;
 
 import jakarta.annotation.Nullable;
 
@@ -27,13 +27,8 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @IsSPIImplementation
-public final class ThirdPartyModuleProvider_ph_commons implements IThirdPartyModuleProviderSPI
+public final class ThirdPartyModuleProvider_ph_base implements IThirdPartyModuleProviderSPI
 {
-  public static final IThirdPartyModule FINDBUGS = new ThirdPartyModule ("FindBugs JSR305 and annotations",
-                                                                         "Bill Pugh and David Hovemeyer",
-                                                                         ELicense.APACHE2,
-                                                                         new Version (3, 0, 2),
-                                                                         "http://findbugs.sourceforge.net/");
   public static final IThirdPartyModule SLF4J = new ThirdPartyModule ("SLF4J API",
                                                                       "QOS.ch",
                                                                       ELicense.MIT,
@@ -48,6 +43,6 @@ public final class ThirdPartyModuleProvider_ph_commons implements IThirdPartyMod
   @Nullable
   public IThirdPartyModule [] getAllThirdPartyModules ()
   {
-    return new IThirdPartyModule [] { FINDBUGS, SLF4J, BASE64 };
+    return new IThirdPartyModule [] { SLF4J, BASE64 };
   }
 }

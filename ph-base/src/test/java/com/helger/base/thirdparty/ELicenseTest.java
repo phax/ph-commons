@@ -14,27 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.thirdparty;
+package com.helger.base.thirdparty;
 
-import com.helger.annotation.style.IsSPIInterface;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
-import jakarta.annotation.Nullable;
+import org.junit.Test;
 
 /**
- * Implement this SPI interface if your JAR file contains external third party
- * modules.
+ * Test class for class {@link ELicense}.
  *
  * @author Philip Helger
  */
-@IsSPIInterface
-public interface IThirdPartyModuleProviderSPI
+public final class ELicenseTest
 {
-  /**
-   * @return A collection of all third party modules to be registered. May be
-   *         <code>null</code> or empty. Note: only modules that are required
-   *         for execution should be returned, and not modules only present for
-   *         testing.
-   */
-  @Nullable
-  IThirdPartyModule [] getAllThirdPartyModules ();
+  @Test
+  public void testAll ()
+  {
+    for (final ELicense eLic : ELicense.values ())
+    {
+      assertNotNull (eLic.getID ());
+      assertNotNull (eLic.getDisplayName ());
+      eLic.getURL ();
+      eLic.getVersion ();
+      assertSame (eLic, ELicense.getFromIDOrNull (eLic.getID ()));
+      assertSame (eLic, ELicense.valueOf (eLic.name ()));
+    }
+  }
 }

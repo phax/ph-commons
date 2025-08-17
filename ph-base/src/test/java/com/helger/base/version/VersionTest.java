@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.version;
+package com.helger.base.version;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.unittest.support.TestHelper;
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link Version}.
@@ -761,22 +761,21 @@ public final class VersionTest
   @Test
   public void testHashCode ()
   {
-    TestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
-                                                                       new Version (1, 2, 3, "4"));
-    TestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
-                                                                       Version.parse ("1.2.3.4"));
-    TestHelper.testDefaultImplementationWithEqualContentObject (new Version (1), Version.parse ("1"));
-    TestHelper.testDefaultImplementationWithEqualContentObject (Version.parse ("1"), Version.parse ("   1"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
+                                                                    new Version (1, 2, 3, "4"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
+                                                                    Version.parse ("1.2.3.4"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1), Version.parse ("1"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (Version.parse ("1"), Version.parse ("   1"));
 
-    TestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
-                                                                           new Version (1, 2, 3));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
-                                                                           new Version (1, 2, 3, "5"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
-                                                                           Version.parse ("1.3.3.4"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (new Version (2), Version.parse ("1"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (Version.parse ("1"),
-                                                                           Version.parse ("   11"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
+                                                                        new Version (1, 2, 3));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
+                                                                        new Version (1, 2, 3, "5"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
+                                                                        Version.parse ("1.3.3.4"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (2), Version.parse ("1"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (Version.parse ("1"), Version.parse ("   11"));
   }
 
   @Test

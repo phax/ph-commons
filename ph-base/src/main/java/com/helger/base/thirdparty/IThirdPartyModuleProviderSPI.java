@@ -14,21 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.thirdparty;
+package com.helger.base.thirdparty;
 
-import com.helger.base.id.IHasID;
-import com.helger.base.name.IHasDisplayName;
-import com.helger.commons.version.IHasVersion;
+import com.helger.annotation.style.IsSPIInterface;
 
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a single license.
+ * Implement this SPI interface if your JAR file contains external third party
+ * modules.
  *
  * @author Philip Helger
  */
-public interface ILicense extends IHasID <String>, IHasDisplayName, IHasVersion
+@IsSPIInterface
+public interface IThirdPartyModuleProviderSPI
 {
+  /**
+   * @return A collection of all third party modules to be registered. May be
+   *         <code>null</code> or empty. Note: only modules that are required
+   *         for execution should be returned, and not modules only present for
+   *         testing.
+   */
   @Nullable
-  String getURL ();
+  IThirdPartyModule [] getAllThirdPartyModules ();
 }

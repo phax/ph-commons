@@ -18,11 +18,11 @@
 package com.helger.bc.config;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.commons.thirdparty.ELicense;
-import com.helger.commons.thirdparty.IThirdPartyModule;
-import com.helger.commons.thirdparty.IThirdPartyModuleProviderSPI;
-import com.helger.commons.thirdparty.ThirdPartyModule;
-import com.helger.commons.version.Version;
+import com.helger.base.thirdparty.ELicense;
+import com.helger.base.thirdparty.IThirdPartyModule;
+import com.helger.base.thirdparty.IThirdPartyModuleProviderSPI;
+import com.helger.base.thirdparty.ThirdPartyModule;
+import com.helger.base.version.Version;
 
 import jakarta.annotation.Nonnull;
 

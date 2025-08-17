@@ -14,7 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.thirdparty;
+package com.helger.base.thirdparty;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +33,6 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.state.EChange;
-import com.helger.collection.commons.CommonsLinkedHashSet;
-import com.helger.collection.commons.ICommonsOrderedSet;
 
 import jakarta.annotation.Nonnull;
 
@@ -54,7 +55,7 @@ public final class ThirdPartyModuleRegistry
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsOrderedSet <IThirdPartyModule> m_aModules = new CommonsLinkedHashSet <> ();
+  private final Set <IThirdPartyModule> m_aModules = new LinkedHashSet <> ();
 
   private ThirdPartyModuleRegistry ()
   {
@@ -80,7 +81,7 @@ public final class ThirdPartyModuleRegistry
   {
     ValueEnforcer.notNull (aModule, "Module");
 
-    return m_aModules.addObject (aModule);
+    return EChange.valueOf (m_aModules.add (aModule));
   }
 
   @Nonnull
@@ -91,9 +92,9 @@ public final class ThirdPartyModuleRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsOrderedSet <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
+  public Set <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
   {
-    return m_aRWLock.readLockedGet (m_aModules::getClone);
+    return m_aRWLock.readLockedGet ( () -> new LinkedHashSet <> (m_aModules));
   }
 
   @Nonnegative

@@ -19,12 +19,12 @@ package com.helger.commons.cleanup;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.cleanup.ICleanUpRegistrarSPI;
 import com.helger.base.cleanup.ICleanUpRegistry;
+import com.helger.base.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hashcode.HashCodeImplementationRegistry;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
-import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
 
 import jakarta.annotation.Nonnull;

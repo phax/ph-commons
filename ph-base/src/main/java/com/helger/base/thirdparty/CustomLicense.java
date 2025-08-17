@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.thirdparty;
+package com.helger.base.thirdparty;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
@@ -22,7 +22,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.version.Version;
+import com.helger.base.version.Version;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

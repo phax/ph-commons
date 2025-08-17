@@ -14,22 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.version;
+package com.helger.base.thirdparty;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.id.IHasID;
+import com.helger.base.name.IHasDisplayName;
+import com.helger.base.version.IHasVersion;
+
+import jakarta.annotation.Nullable;
 
 /**
- * Base interface for objects having a version range.
+ * Represents a single license.
  *
  * @author Philip Helger
  */
-@FunctionalInterface
-public interface IHasVersionRange
+public interface ILicense extends IHasID <String>, IHasDisplayName, IHasVersion
 {
-  /**
-   * @return The version range of the object. Should never be <code>null</code>
-   *         .
-   */
-  @Nonnull
-  Version getVersionRange ();
+  @Nullable
+  String getURL ();
 }

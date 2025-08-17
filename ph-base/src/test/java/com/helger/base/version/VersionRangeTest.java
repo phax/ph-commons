@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.version;
+package com.helger.base.version;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.unittest.support.TestHelper;
+import com.helger.base.BaseTestHelper;
 
 /**
  * JUnit test for class {@link VersionRange}.
@@ -270,22 +270,22 @@ public final class VersionRangeTest
   @Test
   public void testGetAsString ()
   {
-    final String [] aTrueTests = new String [] { "[1.2.3]",
-                                                 "(1.2.3)",
-                                                 "[1.2)",
-                                                 "(3.4]",
-                                                 "[12,12]",
-                                                 "(1,4]",
-                                                 "[1.2.3,4.5.6)",
-                                                 "(47.11.0.alpha,58]",
-                                                 "[1.2.3,1.2.3]",
-                                                 VersionRange.DEFAULT_VERSION_RANGE_STRING };
+    final String [] aTrueTests = { "[1.2.3]",
+                                   "(1.2.3)",
+                                   "[1.2)",
+                                   "(3.4]",
+                                   "[12,12]",
+                                   "(1,4]",
+                                   "[1.2.3,4.5.6)",
+                                   "(47.11.0.alpha,58]",
+                                   "[1.2.3,1.2.3]",
+                                   VersionRange.DEFAULT_VERSION_RANGE_STRING };
     for (final String element : aTrueTests)
     {
       final VersionRange vr = VersionRange.parse (element);
       assertEquals (vr.getAsString (), element);
     }
-    final String [] aFalseTests = new String [] { " 1", "1.2.3", "[1.2.3, 4.5]", "00" };
+    final String [] aFalseTests = { " 1", "1.2.3", "[1.2.3, 4.5]", "00" };
     for (final String element : aFalseTests)
     {
       final VersionRange vr = VersionRange.parse (element);
@@ -296,22 +296,22 @@ public final class VersionRangeTest
   @Test
   public void testGetAsStringPrintZeroElements ()
   {
-    final String [] aTrueTests = new String [] { "[1.2.3]",
-                                                 "(1.2.3)",
-                                                 "[1.2.0)",
-                                                 "(3.4.0]",
-                                                 "[12.0.0,12.0.0]",
-                                                 "(1.0.0,4.0.0]",
-                                                 "[1.2.3,4.5.6)",
-                                                 "(47.11.0.alpha,58.0.0]",
-                                                 "[1.2.3,1.2.3]",
-                                                 "[0.0.0)" };
+    final String [] aTrueTests = { "[1.2.3]",
+                                   "(1.2.3)",
+                                   "[1.2.0)",
+                                   "(3.4.0]",
+                                   "[12.0.0,12.0.0]",
+                                   "(1.0.0,4.0.0]",
+                                   "[1.2.3,4.5.6)",
+                                   "(47.11.0.alpha,58.0.0]",
+                                   "[1.2.3,1.2.3]",
+                                   "[0.0.0)" };
     for (final String element : aTrueTests)
     {
       final VersionRange vr = VersionRange.parse (element);
       assertEquals (vr.getAsString (true), element);
     }
-    final String [] aFalseTests = new String [] { " 1.0.0", "1.2.3", "[1.2.3, 4.5.0]", "00.0.0" };
+    final String [] aFalseTests = { " 1.0.0", "1.2.3", "[1.2.3, 4.5.0]", "00.0.0" };
     for (final String element : aFalseTests)
     {
       final VersionRange vr = VersionRange.parse (element);
@@ -395,26 +395,26 @@ public final class VersionRangeTest
     assertEquals (vr1, vr1);
     assertNotEquals (vr1, null);
     assertNotEquals (vr1, "Not a VersionRange");
-    TestHelper.testDefaultImplementationWithEqualContentObject (vr1, VersionRange.parse ("(1.2,2.0]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.0)"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0)"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(,2.0]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.3,2.0]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.1]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
-                                                                           VersionRange.parse ("(,2.1]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
-                                                                           VersionRange.parse ("(1.3]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2,]"),
-                                                                           VersionRange.parse ("(,2.0]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
-                                                                           VersionRange.parse ("(1.2,]"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (vr1, VersionRange.parse ("(1.2,2.0]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.0)"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0)"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(,2.0]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.3,2.0]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.1]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
+                                                                        VersionRange.parse ("(,2.1]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
+                                                                        VersionRange.parse ("(1.3]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2,]"),
+                                                                        VersionRange.parse ("(,2.0]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(,2.0]"),
+                                                                        VersionRange.parse ("(1.2,]"));
 
-    TestHelper.testDefaultImplementationWithEqualContentObject (VersionRange.parse ("(1.2]"),
-                                                                       VersionRange.parse ("(1.2]"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
-                                                                           VersionRange.parse ("(1.2)"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (VersionRange.parse ("(1.2]"),
+                                                                    VersionRange.parse ("(1.2]"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"),
+                                                                        VersionRange.parse ("(1.2)"));
   }
 }
