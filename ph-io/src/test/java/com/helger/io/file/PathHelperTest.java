@@ -56,8 +56,8 @@ public final class PathHelperTest
   {
     final Path p = Paths.get ("pom.xml");
     assertTrue (PathHelper.equalPaths (p, Paths.get ("pom.xml")));
-    assertTrue (PathHelper.equalPaths (p, Paths.get ("../ph-commons/pom.xml")));
-    assertTrue (PathHelper.equalPaths (p.toRealPath (), Paths.get ("../ph-commons/pom.xml").toRealPath ()));
+    assertTrue (PathHelper.equalPaths (p, Paths.get ("../ph-io/pom.xml")));
+    assertTrue (PathHelper.equalPaths (p.toRealPath (), Paths.get ("../ph-io/pom.xml").toRealPath ()));
 
     assertFalse (p.isAbsolute ());
     assertTrue (Files.exists (p));
@@ -74,17 +74,17 @@ public final class PathHelperTest
     assertEquals ("pom.xml", p.toString ());
     assertEquals ("pom.xml", p.normalize ().toString ());
 
-    // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
-    assertTrue (p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
+    // C:\Users\xxx\git\ph-commons\ph-io\pom.xml
+    assertTrue (p.toRealPath ().toString ().endsWith (SEP + "ph-io" + SEP + "pom.xml"));
 
-    // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
-    assertTrue (p.toAbsolutePath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
+    // C:\Users\xxx\git\ph-commons\ph-io\pom.xml
+    assertTrue (p.toAbsolutePath ().toString ().endsWith (SEP + "ph-io" + SEP + "pom.xml"));
   }
 
   @Test
   public void testTraverse1 () throws IOException
   {
-    final Path p = Paths.get ("../ph-commons/pom.xml");
+    final Path p = Paths.get ("../ph-io/pom.xml");
     assertFalse (p.isAbsolute ());
     assertTrue (Files.exists (p));
     assertTrue (Files.exists (p.normalize ()));
@@ -97,22 +97,22 @@ public final class PathHelperTest
     assertTrue (Files.isSameFile (p, p));
     assertFalse (Files.isSymbolicLink (p));
     assertTrue (Files.isWritable (p));
-    assertEquals (".." + SEP + "ph-commons" + SEP + "pom.xml", p.toString ());
-    assertEquals (".." + SEP + "ph-commons" + SEP + "pom.xml", p.normalize ().toString ());
+    assertEquals (".." + SEP + "ph-io" + SEP + "pom.xml", p.toString ());
+    assertEquals (".." + SEP + "ph-io" + SEP + "pom.xml", p.normalize ().toString ());
 
-    // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
+    // C:\Users\xxx\git\ph-commons\ph-io\pom.xml
     assertTrue ("Is <" + p.toRealPath ().toString () + ">",
-                p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
+                p.toRealPath ().toString ().endsWith (SEP + "ph-io" + SEP + "pom.xml"));
 
-    // C:\Users\xxx\git\ph-commons\ph-commons\..\ph-commons\pom.xml
+    // C:\Users\xxx\git\ph-commons\ph-io\..\ph-io\pom.xml
     assertTrue ("Is <" + p.toAbsolutePath ().toString () + ">",
                 p.toAbsolutePath ()
                  .toString ()
-                 .endsWith (SEP + "ph-commons" + SEP + ".." + SEP + "ph-commons" + SEP + "pom.xml"));
+                 .endsWith (SEP + "ph-io" + SEP + ".." + SEP + "ph-io" + SEP + "pom.xml"));
 
     assertEquals (3, p.getNameCount ());
     assertEquals ("..", p.getName (0).toString ());
-    assertEquals ("ph-commons", p.getName (1).toString ());
+    assertEquals ("ph-io", p.getName (1).toString ());
     assertEquals ("pom.xml", p.getName (2).toString ());
     assertEquals ("pom.xml", p.getFileName ().toString ());
   }
@@ -166,9 +166,9 @@ public final class PathHelperTest
 
     if (WIN)
     {
-      // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
+      // C:\Users\xxx\git\ph-commons\ph-io\pom.xml
       assertTrue ("Is <" + p.toRealPath ().toString () + ">",
-                  p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
+                  p.toRealPath ().toString ().endsWith (SEP + "ph-io" + SEP + "pom.xml"));
     }
     else
     {
@@ -184,11 +184,9 @@ public final class PathHelperTest
       }
     }
 
-    // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
+    // C:\Users\xxx\git\ph-commons\ph-io\pom.xml
     assertTrue ("Is <" + p.toAbsolutePath ().toString () + ">",
-                p.toAbsolutePath ()
-                 .toString ()
-                 .endsWith (SEP + "ph-commons" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
+                p.toAbsolutePath ().toString ().endsWith (SEP + "ph-io" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
   }
 
   @Test
