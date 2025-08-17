@@ -23,9 +23,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.log.LogHelper;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.level.IErrorLevel;
+import com.helger.diagnostics.log.LogHelper;
 
 import jakarta.annotation.Nonnull;
 

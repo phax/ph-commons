@@ -14,28 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+package com.helger.base.exception;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Test class of class {@link InitializationException}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public final class InitializationExceptionTest
 {
   @Test
-  public void testGetBooleanValue ()
+  public void testAll ()
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    new InitializationException ();
+    new InitializationException ("any text");
+    new InitializationException (new Exception ());
+    new InitializationException ("any text", new Exception ());
   }
 }

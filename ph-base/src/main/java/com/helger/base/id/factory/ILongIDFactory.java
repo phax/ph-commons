@@ -14,28 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Interface for an object creating unique long IDs.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+@MustImplementEqualsAndHashcode
+@FunctionalInterface
+public interface ILongIDFactory extends IBaseIDFactory
 {
-  @Test
-  public void testGetBooleanValue ()
-  {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
-  }
+  /**
+   * Create a new unique long ID.
+   *
+   * @return The newly created ID.
+   */
+  long getNewID ();
 }

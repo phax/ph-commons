@@ -14,28 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+package com.helger.base.mock.exception;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Test class for class {@link MockIOException}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public final class MockIOExceptionTest
 {
-  @Test
-  public void testGetBooleanValue ()
+  @Test (expected = MockIOException.class)
+  public void testEmpty () throws MockIOException
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    throw new MockIOException ();
+  }
+
+  @Test (expected = MockIOException.class)
+  public void testWithMessage () throws MockIOException
+  {
+    throw new MockIOException ("msg");
   }
 }

@@ -14,38 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.graph.impl;
+package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.base.id.factory.IIDFactory;
-import com.helger.base.id.factory.StringIDFromGlobalIntIDFactory;
-
 /**
- * Test class for class {@link GraphObjectIDFactory}.
+ * Test class for class {@link MemoryLongIDFactory}.
  *
  * @author Philip Helger
  */
-public final class GraphObjectIDFactoryTest
+public final class MemoryLongIDFactoryTest
 {
   @Test
   public void testAll ()
   {
-    final IIDFactory <String> aOld = GraphObjectIDFactory.getIDFactory ();
-    assertNull (aOld);
+    final MemoryLongIDFactory x = new MemoryLongIDFactory (9);
+    assertEquals (9, x.getNewID ());
+    assertEquals (x, new MemoryLongIDFactory (10));
+    assertNotEquals (x, new MemoryLongIDFactory (11));
+
     try
     {
-      GraphObjectIDFactory.setIDFactory (null);
-      assertNotNull (GraphObjectIDFactory.createNewGraphObjectID ());
-      GraphObjectIDFactory.setIDFactory (new StringIDFromGlobalIntIDFactory ());
-      assertNotNull (GraphObjectIDFactory.createNewGraphObjectID ());
+      new MemoryLongIDFactory (-1);
+      fail ();
     }
-    finally
-    {
-      GraphObjectIDFactory.setIDFactory (aOld);
-    }
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }

@@ -14,28 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Base marker interface for all ID factories. It's only sense is to group all
+ * ID factories with the different types.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+@MustImplementEqualsAndHashcode
+public interface IBaseIDFactory
 {
-  @Test
-  public void testGetBooleanValue ()
-  {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
-  }
+  /* empty */
 }

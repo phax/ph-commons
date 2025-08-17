@@ -43,25 +43,24 @@ public final class TypeConverterExceptionTest
 
     try
     {
-      final TypeConverterException e = new TypeConverterException (null, URL.class, EReason.CONVERSION_FAILED);
+      new TypeConverterException (null, URL.class, EReason.CONVERSION_FAILED);
       fail ();
-      throw e;
     }
     catch (final NullPointerException ex)
     {}
+
     try
     {
-      final TypeConverterException e = new TypeConverterException (String.class, null, EReason.CONVERSION_FAILED);
+      new TypeConverterException (String.class, null, EReason.CONVERSION_FAILED);
       fail ();
-      throw e;
     }
     catch (final NullPointerException ex)
     {}
+
     try
     {
-      final TypeConverterException e = new TypeConverterException (String.class, URL.class, null);
+      new TypeConverterException (String.class, URL.class, null);
       fail ();
-      throw e;
     }
     catch (final NullPointerException ex)
     {}

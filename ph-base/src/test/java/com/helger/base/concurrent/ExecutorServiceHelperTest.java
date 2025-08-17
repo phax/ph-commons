@@ -14,28 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.concurrent;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Test class for class {@link ExecutorServiceHelper}
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public final class ExecutorServiceHelperTest
 {
   @Test
-  public void testGetBooleanValue ()
+  public void testAll ()
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    final ExecutorService aExecSvc = Executors.newFixedThreadPool (3);
+    aExecSvc.submit ( () -> {
+      // empty
+    });
+    assertTrue (ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (aExecSvc).isNotInterrupted ());
+
+    try
+    {
+      // null not allowed
+      ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
   }
 }

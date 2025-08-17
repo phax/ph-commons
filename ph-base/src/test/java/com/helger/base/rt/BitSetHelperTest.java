@@ -24,8 +24,6 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import com.helger.base.rt.BitSetHelper;
-
 /**
  * Test class for class {@link BitSetHelper}.
  *

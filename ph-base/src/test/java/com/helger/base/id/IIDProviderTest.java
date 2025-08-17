@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.base.id.mock.MockHasIDString;
+
 /**
- * Test class for class {@link BooleanHelper}.
+ * Test class for class {@link IIDProvider}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public final class IIDProviderTest
 {
   @Test
-  public void testGetBooleanValue ()
+  public void testAll ()
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    final IIDProvider <MockHasIDString, String> x = IHasID <String>::getID;
+    assertEquals ("success", x.getID (new MockHasIDString ("success")));
   }
 }

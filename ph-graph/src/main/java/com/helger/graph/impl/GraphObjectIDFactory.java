@@ -21,8 +21,8 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.commons.id.factory.GlobalIDFactory;
-import com.helger.commons.id.factory.IIDFactory;
+import com.helger.base.id.factory.GlobalIDFactory;
+import com.helger.base.id.factory.IIDFactory;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

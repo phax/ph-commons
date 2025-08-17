@@ -14,28 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Test class for class {@link StringIDFromUUIDFactory}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public final class StringIDFromUUIDFactoryTest
 {
   @Test
-  public void testGetBooleanValue ()
+  public void testAll ()
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    final Set <String> aIDs = new HashSet <> ();
+    for (int i = 0; i < 100; ++i)
+      assertTrue (aIDs.add (StringIDFromUUIDFactory.INSTANCE.getNewID ()));
   }
 }

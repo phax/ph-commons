@@ -14,28 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.typeconvert.spi;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-/**
- * Test class for class {@link BooleanHelper}.
- *
- * @author Philip Helger
- */
-public final class BooleanHelperTest
+import com.helger.base.numeric.mutable.MutableBoolean;
+import com.helger.typeconvert.impl.TypeConverter;
+
+public class MutableTypeConvertFuncTest
 {
   @Test
-  public void testGetBooleanValue ()
+  public void testTypeConversionBoolean ()
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    final MutableBoolean x = new MutableBoolean (true);
+    final Boolean b = TypeConverter.convert (x, Boolean.class);
+    assertNotNull (b);
+    assertTrue (b.booleanValue ());
+    assertTrue (TypeConverter.convertToBoolean (x));
+    assertEquals (x, TypeConverter.convert (true, MutableBoolean.class));
   }
+
 }

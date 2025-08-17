@@ -14,28 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
-import org.junit.Test;
+import jakarta.annotation.Nonnull;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Interface for an object creating unique IDs.
  *
  * @author Philip Helger
+ * @param <IDTYPE>
+ *        Type of ID to be generated
  */
-public final class BooleanHelperTest
+@MustImplementEqualsAndHashcode
+@FunctionalInterface
+public interface IIDFactory <IDTYPE> extends IBaseIDFactory
 {
-  @Test
-  public void testGetBooleanValue ()
-  {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
-  }
+  /**
+   * @return The new unique ID. May never be <code>null</code>.
+   */
+  @Nonnull
+  IDTYPE getNewID ();
 }

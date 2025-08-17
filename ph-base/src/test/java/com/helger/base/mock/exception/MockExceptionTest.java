@@ -14,28 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+package com.helger.base.mock.exception;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Test class for class {@link MockException}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public final class MockExceptionTest
 {
-  @Test
-  public void testGetBooleanValue ()
+  @Test (expected = MockException.class)
+  public void testEmpty () throws MockException
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    throw new MockException ();
+  }
+
+  @Test (expected = MockException.class)
+  public void testWithMessage () throws MockException
+  {
+    throw new MockException ("msg");
+  }
+
+  @Test (expected = MockException.class)
+  public void testWithException () throws MockException
+  {
+    throw new MockException (new Exception ());
+  }
+
+  @Test (expected = MockException.class)
+  public void testWithExceptionAndMessage () throws MockException
+  {
+    throw new MockException ("msg", new Exception ());
   }
 }

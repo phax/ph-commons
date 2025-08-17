@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.base.id.mock.MockHasIntID;
+
 /**
- * Test class for class {@link BooleanHelper}.
+ * Test class for class {@link IIntIDProvider}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public final class IIntIDProviderTest
 {
   @Test
-  public void testGetBooleanValue ()
+  public void testAll ()
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    final IIntIDProvider <MockHasIntID> x = IHasIntID::getID;
+    assertEquals (-3, x.getID (new MockHasIntID (-3)));
   }
 }

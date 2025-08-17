@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import jakarta.annotation.Nonnull;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * A factory that creates String IDs based on a specified {@link ILongIDFactory}
+ * . The implementation is as thread-safe as the used {@link ILongIDFactory}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public class StringIDFromLongIDFactory extends StringIDFactory
 {
-  @Test
-  public void testGetBooleanValue ()
+  public StringIDFromLongIDFactory (@Nonnull final ILongIDFactory aLongIDFactory)
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    this (aLongIDFactory, GlobalIDFactory.DEFAULT_PREFIX);
+  }
+
+  public StringIDFromLongIDFactory (@Nonnull final ILongIDFactory aLongIDFactory, @Nonnull final String sPrefix)
+  {
+    super (sPrefix, () -> Long.toString (aLongIDFactory.getNewID ()));
   }
 }

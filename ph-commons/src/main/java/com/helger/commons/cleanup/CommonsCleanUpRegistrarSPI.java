@@ -19,7 +19,6 @@ package com.helger.commons.cleanup;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.cleanup.ICleanUpRegistrarSPI;
 import com.helger.base.cleanup.ICleanUpRegistry;
-import com.helger.base.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hashcode.HashCodeImplementationRegistry;
@@ -45,8 +44,6 @@ public final class CommonsCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
       SerializationConverterRegistry.getInstance ().reinitialize ();
       if (MimeTypeDeterminator.isInstantiated ())
         MimeTypeDeterminator.getInstance ().reinitialize ();
-      if (ThirdPartyModuleRegistry.isInstantiated ())
-        ThirdPartyModuleRegistry.getInstance ().reinitialize ();
       if (URLProtocolRegistry.isInstantiated ())
         URLProtocolRegistry.getInstance ().reinitialize ();
       if (EqualsImplementationRegistry.isInstantiated ())

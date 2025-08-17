@@ -26,10 +26,10 @@ import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.mock.exception.IMockException;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.log.LogHelper;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.level.IHasErrorLevel;
+import com.helger.diagnostics.log.LogHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

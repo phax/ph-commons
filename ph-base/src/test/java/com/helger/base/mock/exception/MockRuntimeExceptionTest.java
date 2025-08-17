@@ -14,28 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+package com.helger.base.mock.exception;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * Test class for class {@link MockRuntimeException}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public final class MockRuntimeExceptionTest
 {
-  @Test
-  public void testGetBooleanValue ()
+  @Test (expected = MockRuntimeException.class)
+  public void testEmpty ()
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    throw new MockRuntimeException ();
+  }
+
+  @Test (expected = MockRuntimeException.class)
+  public void testWithMessage ()
+  {
+    throw new MockRuntimeException ("msg");
+  }
+
+  @Test (expected = MockRuntimeException.class)
+  public void testWithException ()
+  {
+    throw new MockRuntimeException (new Exception ());
+  }
+
+  @Test (expected = MockRuntimeException.class)
+  public void testWithExceptionAndMessage ()
+  {
+    throw new MockRuntimeException ("msg", new Exception ());
   }
 }

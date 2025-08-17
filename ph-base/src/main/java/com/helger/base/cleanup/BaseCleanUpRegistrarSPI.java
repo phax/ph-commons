@@ -3,6 +3,7 @@ package com.helger.base.cleanup;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.system.SystemProperties;
+import com.helger.base.thirdparty.ThirdPartyModuleRegistry;
 
 import jakarta.annotation.Nonnull;
 
@@ -12,6 +13,9 @@ public final class BaseCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
   public void registerCleanUpAction (@Nonnull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN, () -> {
+      if (ThirdPartyModuleRegistry.isInstantiated ())
+        ThirdPartyModuleRegistry.getInstance ().reinitialize ();
+
       EnumHelper.clearCache ();
       SystemProperties.clearWarnedPropertyNames ();
 

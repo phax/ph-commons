@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import jakarta.annotation.Nonnull;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * An {@link IStringIDFactory} implementation that uses a constant prefix and an
+ * int supplied from {@link GlobalIDFactory#getNewIntID()} to create unique IDs.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public class StringIDFromGlobalIntIDFactory extends StringIDFactory
 {
-  @Test
-  public void testGetBooleanValue ()
+  public StringIDFromGlobalIntIDFactory ()
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    this (GlobalIDFactory.DEFAULT_PREFIX);
+  }
+
+  public StringIDFromGlobalIntIDFactory (@Nonnull final String sPrefix)
+  {
+    super (sPrefix, () -> Integer.toString (GlobalIDFactory.getNewIntID ()));
   }
 }

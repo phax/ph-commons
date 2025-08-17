@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.rt;
+package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import jakarta.annotation.Nonnull;
 
 /**
- * Test class for class {@link BooleanHelper}.
+ * A factory that creates String IDs based on a specified {@link IIntIDFactory}.
+ * The implementation is as thread-safe as the used {@link IIntIDFactory}.
  *
  * @author Philip Helger
  */
-public final class BooleanHelperTest
+public class StringIDFromIntIDFactory extends StringIDFactory
 {
-  @Test
-  public void testGetBooleanValue ()
+  public StringIDFromIntIDFactory (@Nonnull final IIntIDFactory aIntIDFactory)
   {
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, true));
-    assertTrue (BooleanHelper.getBooleanValue (Boolean.TRUE, false));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, true));
-    assertFalse (BooleanHelper.getBooleanValue (Boolean.FALSE, false));
-    assertTrue (BooleanHelper.getBooleanValue (null, true));
-    assertFalse (BooleanHelper.getBooleanValue (null, false));
+    this (aIntIDFactory, GlobalIDFactory.DEFAULT_PREFIX);
+  }
+
+  public StringIDFromIntIDFactory (@Nonnull final IIntIDFactory aIntIDFactory, @Nonnull final String sPrefix)
+  {
+    super (sPrefix, () -> Integer.toString (aIntIDFactory.getNewID ()));
   }
 }
