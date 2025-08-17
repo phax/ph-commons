@@ -23,7 +23,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.callback.exception.IExceptionCallback;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.mock.exception.IMockException;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.level.EErrorLevel;

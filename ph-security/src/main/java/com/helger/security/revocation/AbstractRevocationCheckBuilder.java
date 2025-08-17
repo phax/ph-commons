@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.builder.IBuilder;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IThrowingRunnable;
 import com.helger.base.state.ETriState;
 import com.helger.base.timing.StopWatch;

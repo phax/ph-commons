@@ -22,7 +22,7 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.IsLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleLock;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 

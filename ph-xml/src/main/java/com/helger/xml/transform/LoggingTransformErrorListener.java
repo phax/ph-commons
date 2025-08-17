@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.log.LogHelper;

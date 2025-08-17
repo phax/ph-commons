@@ -19,7 +19,7 @@ package com.helger.datetime.expiration;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.datetime.helper.PDTFactory;
 

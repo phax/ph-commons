@@ -20,7 +20,7 @@ import java.security.Provider;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;

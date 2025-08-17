@@ -27,7 +27,7 @@ import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.NonClosingOutputStream;

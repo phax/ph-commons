@@ -52,7 +52,7 @@ import java.time.temporal.ValueRange;
 import java.time.zone.ZoneRules;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.datetime.xml.XMLOffsetDate;
 import com.helger.datetime.xml.XMLOffsetDateTime;

@@ -20,7 +20,7 @@ import java.io.File;
 import java.util.function.Predicate;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;

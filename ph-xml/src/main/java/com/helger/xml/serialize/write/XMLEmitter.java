@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;

@@ -16,10 +16,11 @@
  */
 package com.helger.base.id.factory;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link MemoryStaticLongIDFactory}.
@@ -33,6 +34,6 @@ public final class MemoryStaticLongIDFactoryTest
   {
     final MemoryStaticLongIDFactory x = new MemoryStaticLongIDFactory ();
     assertTrue (x.getNewID () >= MemoryStaticLongIDFactory.INITIAL_ID);
-    assertEquals (x, new MemoryStaticLongIDFactory ());
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (x, new MemoryStaticLongIDFactory ());
   }
 }

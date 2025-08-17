@@ -19,7 +19,7 @@ package com.helger.collection.hierarchy;
 import java.util.Comparator;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsList;
 

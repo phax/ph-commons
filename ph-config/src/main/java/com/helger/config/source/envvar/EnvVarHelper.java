@@ -18,7 +18,7 @@ package com.helger.config.source.envvar;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

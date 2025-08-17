@@ -23,7 +23,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedOutputStream;
 
 import jakarta.annotation.Nonnull;

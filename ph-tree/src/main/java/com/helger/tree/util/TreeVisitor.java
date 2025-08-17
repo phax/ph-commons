@@ -22,7 +22,7 @@ import org.w3c.dom.traversal.TreeWalker;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.hierarchy.ChildrenProviderHasChildren;
 import com.helger.collection.hierarchy.IChildrenProvider;
 import com.helger.collection.hierarchy.visit.ChildrenProviderHierarchyVisitor;

@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeCalculator;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.location.ILocation;

@@ -20,7 +20,7 @@ import java.util.Comparator;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.id.IHasID;
 import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;

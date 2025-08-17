@@ -26,7 +26,7 @@ import com.helger.base.charset.CharsetHelper;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.EncodeException;
 import com.helger.base.codec.ICodec;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringEncoding;
 import com.helger.base.string.StringHelper;
 

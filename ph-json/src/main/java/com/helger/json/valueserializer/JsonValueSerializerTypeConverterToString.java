@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import com.helger.annotation.WillNotClose;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.typeconvert.impl.TypeConverter;
 

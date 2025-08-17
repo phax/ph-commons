@@ -32,7 +32,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;

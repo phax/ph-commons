@@ -24,7 +24,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterableIterator;

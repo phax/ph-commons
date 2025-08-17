@@ -21,8 +21,8 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.base.IIterableIterator;

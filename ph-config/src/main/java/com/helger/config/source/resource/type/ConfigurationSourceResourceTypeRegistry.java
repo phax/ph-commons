@@ -25,7 +25,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashMap;

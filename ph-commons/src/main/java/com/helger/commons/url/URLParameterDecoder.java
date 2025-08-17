@@ -19,7 +19,7 @@ package com.helger.commons.url;
 import java.nio.charset.Charset;
 
 import com.helger.base.codec.IDecoder;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

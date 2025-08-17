@@ -29,7 +29,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

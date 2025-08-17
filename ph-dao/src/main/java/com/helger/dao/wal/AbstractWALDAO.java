@@ -41,7 +41,7 @@ import com.helger.annotation.concurrent.IsLocked;
 import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.EAppend;
 import com.helger.base.state.EChange;
 import com.helger.base.state.ESuccess;

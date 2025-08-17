@@ -23,8 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.ESuccess;
 import com.helger.collection.commons.CommonsArrayList;

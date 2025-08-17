@@ -21,7 +21,7 @@ import java.io.InputStream;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.io.stream.StreamHelperExt;
 

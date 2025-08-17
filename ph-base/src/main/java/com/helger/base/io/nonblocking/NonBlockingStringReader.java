@@ -22,7 +22,7 @@ import java.io.Reader;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

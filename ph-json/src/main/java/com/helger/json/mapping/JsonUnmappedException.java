@@ -19,7 +19,7 @@ package com.helger.json.mapping;
 import java.util.List;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.StackTraceHelper;
 import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsArrayList;

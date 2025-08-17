@@ -27,7 +27,7 @@ import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.iface.IHasOutputStream;

@@ -23,7 +23,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.ITriConsumer;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;

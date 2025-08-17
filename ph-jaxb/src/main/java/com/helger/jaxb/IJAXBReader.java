@@ -34,7 +34,7 @@ import org.xml.sax.XMLReader;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.charset.CharsetHelper;
 import com.helger.base.charset.CharsetHelper.InputStreamAndCharset;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;

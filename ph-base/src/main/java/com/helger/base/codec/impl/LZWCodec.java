@@ -33,7 +33,7 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.EncodeException;
 import com.helger.base.codec.IByteArrayCodec;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBitInputStream;
 import com.helger.base.io.nonblocking.NonBlockingBitOutputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;

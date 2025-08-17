@@ -22,7 +22,7 @@ import java.util.Arrays;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.bytes.ByteArrayWrapper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasByteArray;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;

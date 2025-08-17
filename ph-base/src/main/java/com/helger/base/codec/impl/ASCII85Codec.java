@@ -23,7 +23,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.IByteArrayStreamDecoder;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

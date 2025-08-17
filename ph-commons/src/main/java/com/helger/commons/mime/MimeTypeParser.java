@@ -26,7 +26,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.impl.RFC2616Codec;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;

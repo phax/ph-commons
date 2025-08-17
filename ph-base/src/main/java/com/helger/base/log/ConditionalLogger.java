@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.IEnabledIndicator;
 import com.helger.base.tostring.ToStringGenerator;
 

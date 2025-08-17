@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.compare.CompareHelper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;

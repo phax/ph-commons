@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.valueenforcer;
+package com.helger.base.enforce;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Vector;
 
 import org.junit.Test;
-
-import com.helger.base.equals.ValueEnforcer;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.CommonsHashMap;
-import com.helger.collection.commons.CommonsVector;
 
 /**
  * Test class for class {@link ValueEnforcer}.
@@ -75,18 +74,18 @@ public final class ValueEnforcerTest
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty7 ()
   {
-    ValueEnforcer.notEmpty (new CommonsArrayList <> (), "null");
+    ValueEnforcer.notEmpty (new ArrayList <> (), "null");
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty8 ()
   {
-    ValueEnforcer.notEmpty (new CommonsVector <> (), "null");
+    ValueEnforcer.notEmpty (new Vector <> (), "null");
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty9 ()
   {
-    ValueEnforcer.notEmpty (new CommonsHashMap <> (), "null");
+    ValueEnforcer.notEmpty (new HashMap <> (), "null");
   }
 }

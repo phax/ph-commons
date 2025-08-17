@@ -18,7 +18,7 @@ package com.helger.base.concurrent;
 
 import java.util.concurrent.locks.Lock;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

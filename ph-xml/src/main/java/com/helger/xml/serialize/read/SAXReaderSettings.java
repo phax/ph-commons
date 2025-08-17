@@ -37,7 +37,7 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.callback.CallbackList;
 import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.base.clone.ICloneable;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsEnumMap;
 import com.helger.collection.commons.ICommonsMap;

@@ -32,7 +32,7 @@ import org.xml.sax.SAXNotSupportedException;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
 

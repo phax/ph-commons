@@ -19,7 +19,7 @@ package com.helger.io.streamprovider;
 import java.nio.ByteBuffer;
 
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStreamAndReader;
 import com.helger.base.io.stream.ByteBufferInputStream;
 import com.helger.base.tostring.ToStringGenerator;

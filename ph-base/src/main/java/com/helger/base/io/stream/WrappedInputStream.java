@@ -19,7 +19,7 @@ package com.helger.base.io.stream;
 import java.io.FilterInputStream;
 import java.io.InputStream;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;

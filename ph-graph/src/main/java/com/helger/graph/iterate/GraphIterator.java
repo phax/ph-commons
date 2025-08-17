@@ -19,8 +19,8 @@ package com.helger.graph.iterate;
 import java.util.Iterator;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.equals.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsIterableIterator;

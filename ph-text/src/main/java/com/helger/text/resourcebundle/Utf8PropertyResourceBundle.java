@@ -22,7 +22,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import com.helger.base.charset.CharsetHelper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 

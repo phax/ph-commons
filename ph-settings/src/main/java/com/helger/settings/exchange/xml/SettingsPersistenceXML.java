@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.style.OverrideOnDemand;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.ESuccess;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.equals;
+package com.helger.base.enforce;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.base.equals.EqualsHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

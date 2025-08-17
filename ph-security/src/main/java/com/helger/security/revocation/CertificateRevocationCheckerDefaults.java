@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.security.crl.CRLCache;
 
 import jakarta.annotation.Nonnull;

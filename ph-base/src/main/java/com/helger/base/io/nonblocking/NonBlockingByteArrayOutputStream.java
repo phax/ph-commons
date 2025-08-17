@@ -27,7 +27,7 @@ import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.io.iface.IWriteToStream;
 import com.helger.base.tostring.ToStringGenerator;

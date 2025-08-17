@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.builder.IBuilder;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.Predicates;
 
 import jakarta.annotation.Nonnull;

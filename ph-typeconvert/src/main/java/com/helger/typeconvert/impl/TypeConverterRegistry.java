@@ -30,7 +30,7 @@ import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.state.EContinue;

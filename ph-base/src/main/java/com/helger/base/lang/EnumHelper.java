@@ -33,7 +33,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.id.IHasID;
 import com.helger.base.id.IHasIntID;
 import com.helger.base.name.IHasName;

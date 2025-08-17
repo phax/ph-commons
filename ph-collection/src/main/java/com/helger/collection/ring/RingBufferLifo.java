@@ -18,7 +18,7 @@ package com.helger.collection.ring;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;

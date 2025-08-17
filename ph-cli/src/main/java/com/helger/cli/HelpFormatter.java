@@ -26,7 +26,7 @@ import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.compare.IComparator;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.string.StringHelper;

@@ -16,7 +16,7 @@
  */
 package com.helger.security.authentication.result;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.security.authentication.credentials.ICredentialValidationResult;

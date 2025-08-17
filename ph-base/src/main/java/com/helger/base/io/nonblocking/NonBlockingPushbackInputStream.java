@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedInputStream;
 
 import jakarta.annotation.Nonnull;

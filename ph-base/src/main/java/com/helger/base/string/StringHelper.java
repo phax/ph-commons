@@ -40,7 +40,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.ICharConsumer;
 import com.helger.base.functional.ICharPredicate;
 import com.helger.base.numeric.MathHelper;

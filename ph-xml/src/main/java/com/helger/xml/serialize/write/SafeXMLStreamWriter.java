@@ -36,7 +36,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillCloseWhenClosed;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.charset.CharsetHelper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;

@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsSet;

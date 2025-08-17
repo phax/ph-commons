@@ -26,7 +26,7 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalQuery;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.datetime.rt.OffsetDate;
 import com.helger.datetime.xml.XMLOffsetDate;

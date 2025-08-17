@@ -22,7 +22,7 @@ import java.util.NoSuchElementException;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;

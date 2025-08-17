@@ -16,7 +16,7 @@
  */
 package com.helger.config.value;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
 

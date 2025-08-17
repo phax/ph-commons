@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.level.IHasErrorLevelComparable;

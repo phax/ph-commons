@@ -19,7 +19,7 @@ package com.helger.xml.microdom.convert;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.TypeConverterException.EReason;

@@ -31,8 +31,8 @@ import org.junit.Test;
 
 import com.helger.base.state.IClearable;
 import com.helger.base.state.IStoppable;
+import com.helger.base.type.IHasObjectType;
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.type.IHasObjectType;
 import com.helger.unittest.support.TestHelper;
 
 /**

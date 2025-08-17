@@ -18,7 +18,7 @@ package com.helger.xml.microdom.util;
 
 import java.util.NoSuchElementException;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterableIterator;

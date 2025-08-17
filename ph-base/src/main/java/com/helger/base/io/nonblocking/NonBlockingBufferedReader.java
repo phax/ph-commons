@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 
 import jakarta.annotation.Nonnull;

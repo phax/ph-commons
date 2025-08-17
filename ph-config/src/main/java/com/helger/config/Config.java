@@ -24,8 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringImplode;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.text.TextVariableHelper;
 import com.helger.base.tostring.ToStringGenerator;

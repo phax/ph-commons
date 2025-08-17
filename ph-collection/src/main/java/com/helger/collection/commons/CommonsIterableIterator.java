@@ -19,7 +19,7 @@ package com.helger.collection.commons;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.base.EmptyIterator;

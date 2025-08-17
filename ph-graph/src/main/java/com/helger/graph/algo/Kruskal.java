@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsTreeSet;
 import com.helger.collection.commons.ICommonsList;

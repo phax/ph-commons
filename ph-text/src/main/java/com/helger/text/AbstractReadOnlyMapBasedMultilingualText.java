@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.regex.RegExHelper;

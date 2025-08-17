@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
 

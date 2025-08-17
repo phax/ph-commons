@@ -25,7 +25,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;

@@ -19,7 +19,7 @@ package com.helger.commons.concurrent;
 import java.util.concurrent.ThreadFactory;
 
 import com.helger.base.builder.IResettableBuilder;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ETriState;
 
 import jakarta.annotation.Nonnull;

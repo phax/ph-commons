@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.type;
+package com.helger.base.type;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.unittest.support.TestHelper;
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link ObjectType}.
@@ -36,12 +36,12 @@ public final class ObjectTypeTest
     final ObjectType x = new ObjectType ("any");
     assertEquals ("any", x.getName ());
     assertEquals (0, x.compareTo (x));
-    TestHelper.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
 
     final ObjectType y = new ObjectType ("any2");
     assertEquals (-1, x.compareTo (y));
     assertEquals (+1, y.compareTo (x));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (x, y);
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (x, y);
 
     try
     {

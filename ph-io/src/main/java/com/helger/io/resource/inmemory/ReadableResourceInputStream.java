@@ -19,7 +19,7 @@ package com.helger.io.resource.inmemory;
 import java.io.InputStream;
 
 import com.helger.annotation.WillNotClose;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;

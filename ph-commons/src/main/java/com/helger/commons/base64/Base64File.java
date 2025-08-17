@@ -25,7 +25,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.codec.base64.Base64;
 import com.helger.base.codec.base64.Base64InputStream;
 import com.helger.base.codec.base64.Base64OutputStream;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedInputStream;
 import com.helger.base.io.nonblocking.NonBlockingBufferedOutputStream;
 import com.helger.base.state.ESuccess;

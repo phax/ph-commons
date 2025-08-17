@@ -18,7 +18,7 @@ package com.helger.datetime.period;
 
 import java.time.LocalDate;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.datetime.domain.IHasStartAndEnd;
 import com.helger.datetime.helper.PDTFactory;
 

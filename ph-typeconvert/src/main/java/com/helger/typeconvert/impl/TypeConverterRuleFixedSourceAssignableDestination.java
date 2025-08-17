@@ -18,7 +18,7 @@ package com.helger.typeconvert.impl;
 
 import java.util.function.Function;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;

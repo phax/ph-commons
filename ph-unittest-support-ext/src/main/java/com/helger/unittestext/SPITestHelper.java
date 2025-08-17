@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.annotation.style.IsSPIInterface;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;

@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;

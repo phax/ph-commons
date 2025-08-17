@@ -25,7 +25,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.url.EURLProtocol;
 import com.helger.base.url.IURLProtocol;

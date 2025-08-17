@@ -16,7 +16,7 @@
  */
 package com.helger.xml.util.statistics;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.helper.CollectionSort;
 import com.helger.statistics.api.IStatisticsHandlerCache;
 import com.helger.statistics.api.IStatisticsHandlerCounter;

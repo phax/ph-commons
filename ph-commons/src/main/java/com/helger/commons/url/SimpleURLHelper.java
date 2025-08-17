@@ -29,7 +29,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.codec.IDecoder;
 import com.helger.base.codec.IEncoder;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.url.CURL;
 import com.helger.base.url.IURLProtocol;

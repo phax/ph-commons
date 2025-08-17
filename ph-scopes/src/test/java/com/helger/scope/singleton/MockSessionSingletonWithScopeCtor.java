@@ -17,7 +17,7 @@
 package com.helger.scope.singleton;
 
 import com.helger.annotation.style.UsedViaReflection;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.scope.IScope;
 

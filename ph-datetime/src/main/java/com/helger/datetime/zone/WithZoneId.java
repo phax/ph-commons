@@ -18,7 +18,7 @@ package com.helger.datetime.zone;
 
 import java.time.ZoneId;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;

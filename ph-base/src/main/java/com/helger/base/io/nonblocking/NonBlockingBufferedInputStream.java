@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedInputStream;
 
 import jakarta.annotation.Nonnull;

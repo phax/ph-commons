@@ -38,7 +38,7 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.callback.CallbackList;
 import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.base.classloader.IHasClassLoader;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
 import com.helger.base.string.StringHex;
 import com.helger.base.tostring.ToStringGenerator;

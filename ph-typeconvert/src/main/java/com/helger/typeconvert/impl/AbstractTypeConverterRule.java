@@ -16,7 +16,7 @@
  */
 package com.helger.typeconvert.impl;
 
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.typeconvert.ITypeConverterRule;
 

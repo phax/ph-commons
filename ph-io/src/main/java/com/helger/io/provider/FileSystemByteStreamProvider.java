@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.EAppend;
 import com.helger.base.tostring.ToStringGenerator;

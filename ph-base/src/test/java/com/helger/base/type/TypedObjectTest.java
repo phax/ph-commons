@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.type;
+package com.helger.base.type;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.helger.unittest.support.TestHelper;
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link TypedObject}.
@@ -38,9 +38,9 @@ public final class TypedObjectTest
     final TypedObject <String> t1 = TypedObject.create (ot1, "id1");
     assertSame (ot1, t1.getObjectType ());
     assertEquals ("id1", t1.getID ());
-    TestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (ot1, "id1"));
-    TestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (t1));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot1, "id2"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot2, "id1"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (ot1, "id1"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (t1));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot1, "id2"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot2, "id1"));
   }
 }

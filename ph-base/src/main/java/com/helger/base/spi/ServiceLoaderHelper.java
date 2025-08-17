@@ -28,7 +28,7 @@ import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.annotation.style.IsSPIInterface;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.classloader.ClassLoaderHelper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 

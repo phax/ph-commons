@@ -24,7 +24,7 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
 import com.helger.base.builder.IBuilder;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.location.ILocation;
 import com.helger.base.location.SimpleLocation;
 import com.helger.base.traits.IGenericImplTrait;

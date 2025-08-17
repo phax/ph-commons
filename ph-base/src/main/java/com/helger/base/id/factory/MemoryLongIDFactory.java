@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 

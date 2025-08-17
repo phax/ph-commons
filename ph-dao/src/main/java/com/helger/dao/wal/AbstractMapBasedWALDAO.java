@@ -36,7 +36,7 @@ import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.callback.CallbackList;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.Predicates;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.clazz.ClassHelper;

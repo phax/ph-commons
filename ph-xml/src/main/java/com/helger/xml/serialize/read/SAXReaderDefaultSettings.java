@@ -34,7 +34,7 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.callback.CallbackList;
 import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsEnumMap;
 import com.helger.collection.commons.ICommonsMap;

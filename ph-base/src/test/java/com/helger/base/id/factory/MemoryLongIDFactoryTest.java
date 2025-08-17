@@ -17,10 +17,11 @@
 package com.helger.base.id.factory;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link MemoryLongIDFactory}.
@@ -34,8 +35,8 @@ public final class MemoryLongIDFactoryTest
   {
     final MemoryLongIDFactory x = new MemoryLongIDFactory (9);
     assertEquals (9, x.getNewID ());
-    assertEquals (x, new MemoryLongIDFactory (10));
-    assertNotEquals (x, new MemoryLongIDFactory (11));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (x, new MemoryLongIDFactory (10));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (x, new MemoryLongIDFactory (11));
 
     try
     {

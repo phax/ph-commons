@@ -27,7 +27,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.StackTraceHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringImplode;

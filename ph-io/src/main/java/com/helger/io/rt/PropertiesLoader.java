@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 import java.util.Properties;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.NonBlockingProperties;
 import com.helger.base.rt.PropertiesHelper;
 import com.helger.io.resource.FileSystemResource;
