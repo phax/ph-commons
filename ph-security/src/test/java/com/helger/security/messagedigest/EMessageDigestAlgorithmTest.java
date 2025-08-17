@@ -34,8 +34,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.codec.impl.Base32Codec;
 import com.helger.base.string.StringHelper;
-import com.helger.commons.codec.Base32Codec;
 
 /**
  * Test class for class {@link EMessageDigestAlgorithm}.

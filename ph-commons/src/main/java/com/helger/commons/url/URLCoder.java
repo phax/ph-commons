@@ -20,9 +20,9 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import com.helger.base.codec.DecodeException;
+import com.helger.base.codec.impl.URLCodec;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.codec.DecodeException;
-import com.helger.commons.codec.URLCodec;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.base.codec.Base64;
+import com.helger.base.codec.base64.Base64;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileOperations;
 import com.helger.io.file.SimpleFileIO;

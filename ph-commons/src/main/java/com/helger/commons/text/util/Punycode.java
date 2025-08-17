@@ -18,8 +18,8 @@ package com.helger.commons.text.util;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.codec.DecodeException;
-import com.helger.commons.codec.EncodeException;
+import com.helger.base.codec.DecodeException;
+import com.helger.base.codec.EncodeException;
 import com.helger.commons.text.codepoint.CodepointHelper;
 import com.helger.commons.text.codepoint.CodepointIteratorCharArray;
 

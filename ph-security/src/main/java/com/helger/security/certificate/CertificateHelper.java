@@ -49,7 +49,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.codec.Base64;
+import com.helger.base.codec.base64.Base64;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.string.StringHelper;

@@ -26,13 +26,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.codec.IDecoder;
+import com.helger.base.codec.IEncoder;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.url.CURL;
 import com.helger.collection.CollectionHelper;
-import com.helger.commons.codec.IDecoder;
-import com.helger.commons.codec.IEncoder;
 import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;

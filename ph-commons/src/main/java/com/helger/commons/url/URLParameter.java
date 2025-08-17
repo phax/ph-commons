@@ -18,12 +18,12 @@ package com.helger.commons.url;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.codec.IEncoder;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.url.CURL;
-import com.helger.commons.codec.IEncoder;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

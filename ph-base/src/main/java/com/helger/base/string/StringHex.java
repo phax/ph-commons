@@ -121,7 +121,7 @@ public class StringHex
    * Get the decimal value of the passed hex character
    *
    * @param c
-   *        The hex char to convert
+   *        The hex char to convert (0-9, a-f, A-F)
    * @return A value between 0 and 15, or -1 if the input character is not a hex char!
    */
   @CheckForSigned
@@ -141,7 +141,7 @@ public class StringHex
   {
     final int nHex1 = getHexValue (cHigh);
     final int nHex2 = getHexValue (cLow);
-    return nHex1 < 0 || nHex2 < 0 ? -1 : (nHex1 << 4) | nHex2;
+    return nHex1 < 0 || nHex2 < 0 ? -1 : (nHex1 << 4) | (nHex2 & 0xff);
   }
 
   @Nonnull

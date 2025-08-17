@@ -30,7 +30,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.base.codec.Base64;
+import com.helger.base.codec.base64.Base64;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsCopyOnWriteArrayList;
 import com.helger.collection.commons.CommonsCopyOnWriteArraySet;

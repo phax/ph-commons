@@ -38,6 +38,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
 import com.helger.base.clone.ICloneable;
+import com.helger.base.codec.impl.RFC2616Codec;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
@@ -53,7 +54,6 @@ import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.commons.codec.RFC2616Codec;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.web.PDTWebDateHelper;
 

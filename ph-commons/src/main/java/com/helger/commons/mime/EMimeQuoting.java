@@ -20,8 +20,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
 import com.helger.annotation.Nonempty;
-import com.helger.commons.codec.QuotedPrintableCodec;
-import com.helger.commons.codec.URLCodec;
+import com.helger.base.codec.impl.QuotedPrintableCodec;
+import com.helger.base.codec.impl.URLCodec;
 
 import jakarta.annotation.Nonnull;
 

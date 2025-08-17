@@ -22,9 +22,9 @@ import java.io.OutputStream;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.codec.Base64;
-import com.helger.base.codec.Base64InputStream;
-import com.helger.base.codec.Base64OutputStream;
+import com.helger.base.codec.base64.Base64;
+import com.helger.base.codec.base64.Base64InputStream;
+import com.helger.base.codec.base64.Base64OutputStream;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedInputStream;
 import com.helger.base.io.nonblocking.NonBlockingBufferedOutputStream;
