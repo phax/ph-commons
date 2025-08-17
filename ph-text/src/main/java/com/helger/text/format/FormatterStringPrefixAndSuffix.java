@@ -14,27 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.format;
+package com.helger.text.format;
 
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A formatter that skip a prefix and/or a suffix to a string.
+ * A formatter that adds a prefix and/or a suffix to a string.
  *
  * @author Philip Helger
  */
-public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
+public class FormatterStringPrefixAndSuffix extends AbstractFormatterString
 {
   private final String m_sPrefix;
   private final String m_sSuffix;
 
-  public FormatterStringSkipPrefixAndSuffix (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
+  public FormatterStringPrefixAndSuffix (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
   {
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
@@ -55,13 +54,7 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
   @Override
   public String apply (@Nullable final Object aValue)
   {
-    String sValue = getValueAsString (aValue);
-    // strip prefix and suffix
-    if (m_sPrefix.length () > 0)
-      sValue = StringHelper.trimStart (sValue, m_sPrefix);
-    if (m_sSuffix.length () > 0)
-      sValue = StringHelper.trimEnd (sValue, m_sSuffix);
-    return sValue;
+    return m_sPrefix + getValueAsString (aValue) + m_sSuffix;
   }
 
   @Override
@@ -71,7 +64,7 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final FormatterStringSkipPrefixAndSuffix rhs = (FormatterStringSkipPrefixAndSuffix) o;
+    final FormatterStringPrefixAndSuffix rhs = (FormatterStringPrefixAndSuffix) o;
     return m_sPrefix.equals (rhs.m_sPrefix) && m_sSuffix.equals (rhs.m_sSuffix);
   }
 
@@ -88,14 +81,20 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
   }
 
   @Nonnull
-  public static FormatterStringSkipPrefixAndSuffix createPrefixOnly (@Nonnull final String sPrefix)
+  public static FormatterStringPrefixAndSuffix createPrefixOnly (@Nonnull final String sPrefix)
   {
-    return new FormatterStringSkipPrefixAndSuffix (sPrefix, "");
+    return new FormatterStringPrefixAndSuffix (sPrefix, "");
   }
 
   @Nonnull
-  public static FormatterStringSkipPrefixAndSuffix createSuffixOnly (@Nonnull final String sSuffix)
+  public static FormatterStringPrefixAndSuffix createSuffixOnly (@Nonnull final String sSuffix)
   {
-    return new FormatterStringSkipPrefixAndSuffix ("", sSuffix);
+    return new FormatterStringPrefixAndSuffix ("", sSuffix);
+  }
+
+  @Nonnull
+  public static FormatterStringPrefixAndSuffix createWithBrackets ()
+  {
+    return new FormatterStringPrefixAndSuffix ("[", "]");
   }
 }

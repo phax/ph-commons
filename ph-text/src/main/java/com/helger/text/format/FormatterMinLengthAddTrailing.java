@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.format;
+package com.helger.text.format;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.equals.ValueEnforcer;
