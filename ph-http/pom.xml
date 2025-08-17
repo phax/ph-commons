@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+    Copyright (C) 2015-2025 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,12 +24,13 @@
     <artifactId>ph-commons-parent-pom</artifactId>
     <version>12.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>ph-wsclient</artifactId>
+  <artifactId>ph-http</artifactId>
   <packaging>bundle</packaging>
-  <name>ph-wsclient</name>
-  <description>Java library with WebService client</description>
-  <url>https://github.com/phax/ph-commons/ph-wsclient</url>
-  <inceptionYear>2017</inceptionYear>
+  <name>ph-http</name>
+  <description>Special Java 17+ Library with HTTP functionality</description>
+  <url>https://github.com/phax/ph-commons/ph-http</url>
+  <inceptionYear>2025</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,6 +38,7 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
@@ -50,24 +52,32 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-
+  
   <dependencies>
     <dependency>
-      <groupId>jakarta.xml.ws</groupId>
-      <artifactId>jakarta.xml.ws-api</artifactId>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-base</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-http</artifactId>
+      <artifactId>ph-collection</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-xml</artifactId>
-      <optional>true</optional>
+      <artifactId>ph-datetime</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-io</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
-
+  
   <build>
     <plugins>
       <plugin>
@@ -76,8 +86,8 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Automatic-Module-Name>com.helger.wsclient</Automatic-Module-Name>
-            <Export-Package>com.helger.wsclient.*</Export-Package>
+            <Automatic-Module-Name>com.helger.http</Automatic-Module-Name>
+            <Export-Package>com.helger.http.*</Export-Package>
             <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>

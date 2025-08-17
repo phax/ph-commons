@@ -40,10 +40,10 @@ import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.http.CHttpHeader;
-import com.helger.commons.http.HttpHeaderMap;
-import com.helger.commons.ws.HostnameVerifierVerifyAll;
-import com.helger.commons.ws.TrustManagerTrustAll;
+import com.helger.http.CHttpHeader;
+import com.helger.http.header.HttpHeaderMap;
+import com.helger.http.security.HostnameVerifierVerifyAll;
+import com.helger.http.security.TrustManagerTrustAll;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
