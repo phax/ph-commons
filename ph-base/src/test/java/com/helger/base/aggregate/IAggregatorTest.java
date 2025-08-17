@@ -40,7 +40,7 @@ public final class IAggregatorTest
   @Test
   public void testUseFirst ()
   {
-    final IAggregator <String, String> a1 = x -> x.isEmpty () ? null : x.iterator ().next ();
+    final IAggregator <String, String> a1 = x -> x == null || x.isEmpty () ? null : x.iterator ().next ();
     assertEquals (a1, a1);
     assertNotEquals (a1, null);
     assertNotEquals (a1, "any other");
