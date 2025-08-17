@@ -27,8 +27,8 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.base.string.StringHelper;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.mime.IMimeType;
+import com.helger.mime.CMimeType;
+import com.helger.mime.IMimeType;
 
 /**
  * Test class for class {@link MimeTypeInfoManager}.

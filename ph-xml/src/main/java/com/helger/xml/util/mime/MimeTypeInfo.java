@@ -31,9 +31,9 @@ import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.mime.IMimeType;
-import com.helger.commons.mime.MimeTypeParser;
-import com.helger.commons.mime.MimeTypeParserException;
+import com.helger.mime.IMimeType;
+import com.helger.mime.parse.MimeTypeParser;
+import com.helger.mime.parse.MimeTypeParserException;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

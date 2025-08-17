@@ -14,23 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback.exception;
+package com.helger.mime.parse;
 
-import org.junit.Test;
-
-import com.helger.base.mock.exception.MockException;
-import com.helger.diagnostics.callback.exception.LoggingExceptionCallback;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Test class for class {@link LoggingExceptionCallback}
+ * Exception for errors that occur during MIME type parsing.<br>
+ * Since v10 it is a checked exception
  *
  * @author Philip Helger
  */
-public final class LoggingExceptionCallbackTest
+public class MimeTypeParserException extends Exception
 {
-  @Test
-  public void testAll ()
+  public MimeTypeParserException (@Nonnull final String sMsg)
   {
-    new LoggingExceptionCallback ().onException (new MockException ());
+    super (sMsg);
+  }
+
+  public MimeTypeParserException (@Nonnull final String sMsg, @Nullable final Throwable aCause)
+  {
+    super (sMsg, aCause);
   }
 }

@@ -249,6 +249,12 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-mime</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -350,6 +356,7 @@
     <module>ph-security</module>
     <module>ph-config</module>
     <module>ph-config-json</module>
+    <module>ph-mime</module>
     
     <module>ph-commons</module>
     <module>ph-xml</module>
