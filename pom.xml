@@ -199,6 +199,16 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-matrix</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-scopes</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-text</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -215,11 +225,6 @@
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-wsclient</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-scopes</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -260,11 +265,6 @@
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-tree</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-matrix</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -335,10 +335,11 @@
     <module>ph-datetime</module>
     <module>ph-io</module>
     <module>ph-unittest-support-ext</module>
+    <module>ph-matrix</module>
+    <module>ph-scopes</module>
     <module>ph-text</module>
     <module>ph-config</module>
     <module>ph-commons</module>
-    <module>ph-scopes</module>
     <module>ph-bc</module>
     <module>ph-security</module>
     <module>ph-xml</module>
@@ -348,7 +349,6 @@
     <module>ph-json</module>
     <module>ph-config-json</module>
     <module>ph-tree</module>
-    <module>ph-matrix</module>
     <module>ph-graph</module>
     <module>ph-settings</module>
     <module>ph-less-commons</module>
