@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import com.helger.base.id.IHasIntID;
 import com.helger.base.id.IIntIDProvider;
+import com.helger.commons.id.mock.MockHasIntID;
 
 /**
  * Test class for class {@link IIntIDProvider}.

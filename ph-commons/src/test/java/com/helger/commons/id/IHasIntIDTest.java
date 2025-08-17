@@ -23,6 +23,7 @@ import org.junit.Test;
 import com.helger.base.id.IHasIntID;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.commons.id.mock.MockHasIntID;
 
 /**
  * Test class for class {@link IHasIntID}.

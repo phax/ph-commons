@@ -23,6 +23,7 @@ import org.junit.Test;
 import com.helger.base.id.IHasLongID;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.commons.id.mock.MockHasLongID;
 
 /**
  * Test class for class {@link IHasLongID}.

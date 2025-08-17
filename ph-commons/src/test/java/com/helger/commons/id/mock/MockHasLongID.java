@@ -14,26 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.id;
+package com.helger.commons.id.mock;
 
-import com.helger.base.id.IHasID;
+import com.helger.base.id.IHasLongID;
 
-public final class MockHasIDString implements IHasID <String>
+public final class MockHasLongID implements IHasLongID
 {
-  private final String m_sID;
+  private final long m_nID;
 
-  public MockHasIDString (final int nID)
+  public MockHasLongID (final long nID)
   {
-    this (Integer.toString (nID));
+    m_nID = nID;
   }
 
-  public MockHasIDString (final String sName)
+  public long getID ()
   {
-    m_sID = sName;
-  }
-
-  public String getID ()
-  {
-    return m_sID;
+    return m_nID;
   }
 }

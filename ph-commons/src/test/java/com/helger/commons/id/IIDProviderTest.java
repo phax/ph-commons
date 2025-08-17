@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import com.helger.base.id.IHasID;
 import com.helger.base.id.IIDProvider;
+import com.helger.commons.id.mock.MockHasIDString;
 
 /**
  * Test class for class {@link IIDProvider}.

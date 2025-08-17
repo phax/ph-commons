@@ -61,7 +61,7 @@
     
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-io</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
