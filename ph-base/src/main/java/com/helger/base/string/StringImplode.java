@@ -1240,5 +1240,4 @@ public final class StringImplode
                          .separatorInner (cSepInner)
                          .build ();
   }
-
 }
