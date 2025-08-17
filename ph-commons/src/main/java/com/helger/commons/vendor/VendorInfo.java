@@ -23,19 +23,16 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
-import com.helger.base.url.EURLProtocol;
-import com.helger.base.url.IURLProtocol;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.email.EmailAddressHelper;
-import com.helger.commons.url.URLProtocolRegistry;
 import com.helger.datetime.helper.PDTFactory;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Contains some general vendor specific information. This is mainly for keeping
- * the CI in all applications.
+ * Contains some general vendor specific information. This is mainly for keeping the CI in all
+ * applications.
  *
  * @author Philip Helger
  */
@@ -65,7 +62,6 @@ public final class VendorInfo
   private static String s_sVendorLocation = DEFAULT_VENDOR_LOCATION;
   private static int s_nInceptionYear = DEFAULT_INCEPTION_YEAR;
   private static String s_sVendorName = DEFAULT_VENDOR_NAME;
-  private static String s_sVendorURLWithoutProtocol = DEFAULT_VENDOR_URL_WITHOUT_PROTOCOL;
   private static String s_sVendorURL = DEFAULT_VENDOR_URL;
   private static String s_sVendorEmailSuffix = DEFAULT_VENDOR_EMAIL_SUFFIX;
   private static String s_sVendorEmail = DEFAULT_VENDOR_EMAIL;
@@ -107,12 +103,6 @@ public final class VendorInfo
   }
 
   @Nonnull
-  public static String getVendorURLWithoutProtocol ()
-  {
-    return s_sVendorURLWithoutProtocol;
-  }
-
-  @Nonnull
   public static String getVendorURL ()
   {
     return s_sVendorURL;
@@ -121,20 +111,7 @@ public final class VendorInfo
   public static void setVendorURL (@Nonnull @Nonempty final String sVendorURL)
   {
     ValueEnforcer.notEmpty (sVendorURL, "VendorURL");
-
-    final IURLProtocol aProtocol = URLProtocolRegistry.getInstance ().getProtocol (sVendorURL);
-    if (aProtocol == null)
-    {
-      // No protocol present - assume HTTP
-      s_sVendorURLWithoutProtocol = sVendorURL;
-      s_sVendorURL = EURLProtocol.HTTP.getWithProtocol (sVendorURL);
-    }
-    else
-    {
-      // Strip leading protocol
-      s_sVendorURLWithoutProtocol = sVendorURL.substring (aProtocol.getProtocol ().length ());
-      s_sVendorURL = sVendorURL;
-    }
+    s_sVendorURL = sVendorURL;
   }
 
   @Nonnull

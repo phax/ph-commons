@@ -257,6 +257,16 @@
         <artifactId>ph-xml</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-tree</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-http</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       
       <dependency>
         <groupId>com.helger.commons</groupId>
@@ -271,11 +281,6 @@
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-jaxb</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-tree</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -358,11 +363,12 @@
     <module>ph-config-json</module>
     <module>ph-mime</module>
     <module>ph-xml</module>
+    <module>ph-tree</module>
+    <module>ph-http</module>
     
     <module>ph-commons</module>
     <module>ph-wsclient</module>
     <module>ph-jaxb</module>
-    <module>ph-tree</module>
     <module>ph-graph</module>
     <module>ph-settings</module>
     <module>ph-less-commons</module>

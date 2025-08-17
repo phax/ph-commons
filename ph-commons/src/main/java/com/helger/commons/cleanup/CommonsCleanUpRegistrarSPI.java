@@ -23,7 +23,6 @@ import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hashcode.HashCodeImplementationRegistry;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
-import com.helger.commons.url.URLProtocolRegistry;
 
 import jakarta.annotation.Nonnull;
 
@@ -41,8 +40,6 @@ public final class CommonsCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 500, () -> {
       // Reinitialize singletons to the default values
       SerializationConverterRegistry.getInstance ().reinitialize ();
-      if (URLProtocolRegistry.isInstantiated ())
-        URLProtocolRegistry.getInstance ().reinitialize ();
       if (EqualsImplementationRegistry.isInstantiated ())
         EqualsImplementationRegistry.getInstance ().reinitialize ();
       if (HashCodeImplementationRegistry.isInstantiated ())
