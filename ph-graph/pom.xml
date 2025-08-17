@@ -60,6 +60,15 @@
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
+      <artifactId>ph-typeconvert</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-commons</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.helger.commons</groupId>
       <artifactId>ph-xml</artifactId>
       <optional>true</optional>
     </dependency>
