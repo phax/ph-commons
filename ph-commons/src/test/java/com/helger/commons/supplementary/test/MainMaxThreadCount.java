@@ -19,7 +19,7 @@ package com.helger.commons.supplementary.test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.concurrent.ThreadHelper;
+import com.helger.base.concurrent.ThreadHelper;
 
 /**
  * Determine the maximum number of threads to be created. Warning: may

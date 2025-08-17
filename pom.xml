@@ -219,12 +219,22 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-graph</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-scopes</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-text</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-dao</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -267,12 +277,6 @@
         <artifactId>ph-http</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-commons</artifactId>
-        <version>${project.version}</version>
-      </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-wsclient</artifactId>
@@ -285,22 +289,12 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-graph</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
         <artifactId>ph-settings</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-less-commons</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-dao</artifactId>
+        <artifactId>ph-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
@@ -355,24 +349,22 @@
     <module>ph-json</module>
     <module>ph-bc</module>
     <module>ph-matrix</module>
+    <module>ph-graph</module>
     <module>ph-scopes</module>
     <module>ph-text</module>
+    <module>ph-dao</module>
     <module>ph-diagnostics</module>
     <module>ph-security</module>
     <module>ph-config</module>
     <module>ph-config-json</module>
     <module>ph-mime</module>
     <module>ph-xml</module>
+    <module>ph-jaxb</module>
     <module>ph-tree</module>
     <module>ph-http</module>
-    
-    <module>ph-commons</module>
     <module>ph-wsclient</module>
-    <module>ph-jaxb</module>
-    <module>ph-graph</module>
     <module>ph-settings</module>
-    <module>ph-less-commons</module>
-    <module>ph-dao</module>
+    <module>ph-commons</module>
   </modules>
 
   <build>

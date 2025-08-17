@@ -66,7 +66,7 @@ public final class VendorInfoTest
   public void testURL ()
   {
     assertEquals (VendorInfo.DEFAULT_VENDOR_URL, VendorInfo.getVendorURL ());
-    VendorInfo.setVendorURL ("www.example.org");
+    VendorInfo.setVendorURL ("http://www.example.org");
     assertEquals ("http://www.example.org", VendorInfo.getVendorURL ());
     VendorInfo.setVendorURL ("http://example.com");
     assertEquals ("http://example.com", VendorInfo.getVendorURL ());

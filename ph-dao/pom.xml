@@ -60,7 +60,7 @@
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-io</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -69,6 +69,10 @@
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-scopes</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-datetime</artifactId>
     </dependency>
   </dependencies>
   
