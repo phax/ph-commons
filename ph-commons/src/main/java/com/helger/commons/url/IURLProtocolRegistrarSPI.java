@@ -17,6 +17,7 @@
 package com.helger.commons.url;
 
 import com.helger.annotation.style.IsSPIInterface;
+import com.helger.base.url.IURLProtocol;
 import com.helger.collection.commons.ICommonsSet;
 
 import jakarta.annotation.Nullable;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.url;
+package com.helger.base.url;
 
 import com.helger.annotation.Nonempty;
 
@@ -175,14 +175,6 @@ public enum EURLProtocol implements IURLProtocol
   {
     if (sURL == null)
       return null;
-    return m_sProtocol + sURL;
-  }
-
-  @Nullable
-  public String getWithProtocolIfNone (@Nullable final String sURL)
-  {
-    if (sURL == null || URLProtocolRegistry.getInstance ().hasKnownProtocol (sURL))
-      return sURL;
     return m_sProtocol + sURL;
   }
 

@@ -26,10 +26,10 @@ import java.util.function.Consumer;
 
 import org.junit.Test;
 
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
 import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
-import com.helger.commons.location.ILocation;
-import com.helger.commons.location.SimpleLocation;
 import com.helger.json.IJsonObject;
 
 /**

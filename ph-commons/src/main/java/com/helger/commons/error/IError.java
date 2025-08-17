@@ -21,10 +21,10 @@ import java.util.Locale;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
 import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.commons.error.text.IHasErrorText;
-import com.helger.commons.location.ILocation;
-import com.helger.commons.location.SimpleLocation;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

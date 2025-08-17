@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.base.url.EURLProtocol;
+
 /**
  * Test class for class {@link SimpleURLHelper}.
  *

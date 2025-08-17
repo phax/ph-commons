@@ -24,12 +24,12 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeCalculator;
 import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.text.IHasErrorText;
-import com.helger.commons.location.ILocation;
-import com.helger.commons.location.SimpleLocation;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

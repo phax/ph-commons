@@ -32,6 +32,7 @@ import com.helger.base.debug.GlobalDebug;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.url.CURL;
+import com.helger.base.url.IURLProtocol;
 import com.helger.collection.CollectionHelper;
 import com.helger.io.url.URLHelper;
 

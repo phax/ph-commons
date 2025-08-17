@@ -25,14 +25,14 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.base.builder.IBuilder;
 import com.helger.base.equals.ValueEnforcer;
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
 import com.helger.base.traits.IGenericImplTrait;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.text.ConstantHasErrorText;
 import com.helger.commons.error.text.DynamicHasErrorText;
 import com.helger.commons.error.text.IHasErrorText;
-import com.helger.commons.location.ILocation;
-import com.helger.commons.location.SimpleLocation;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.text.IMultilingualText;
 

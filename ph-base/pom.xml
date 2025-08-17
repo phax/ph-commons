@@ -26,7 +26,7 @@
   </parent>
   <artifactId>ph-base</artifactId>
   <packaging>bundle</packaging>
-  <name>ph-commons</name>
+  <name>ph-base</name>
   <description>Java 17+ Library with tons of interfaces required in all projects</description>
   <url>https://github.com/phax/ph-commons/ph-base</url>
   <inceptionYear>2025</inceptionYear>

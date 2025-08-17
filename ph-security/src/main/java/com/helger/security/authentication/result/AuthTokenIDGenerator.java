@@ -19,7 +19,7 @@ package com.helger.security.authentication.result;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.string.StringHex;
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.security.random.VerySecureRandom;
 
 import jakarta.annotation.Nonnull;
 

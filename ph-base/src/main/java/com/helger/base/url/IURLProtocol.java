@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.url;
+package com.helger.base.url;
 
 import com.helger.annotation.Nonempty;
 
@@ -22,8 +22,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Base interface for an URL protocol descriptor. See {@link EURLProtocol} for
- * an implementation.
+ * Base interface for an URL protocol descriptor. See {@link EURLProtocol} for an implementation.
  *
  * @author Philip Helger
  */
@@ -32,8 +31,7 @@ public interface IURLProtocol
   /**
    * Retrieve the URL protocol prefix to be used. May contain "//".
    *
-   * @return The underlying text representation of the protocol. Never
-   *         <code>null</code> nor empty.
+   * @return The underlying text representation of the protocol. Never <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
@@ -53,24 +51,11 @@ public interface IURLProtocol
    *
    * @param sURL
    *        The URL to be prefixed. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>. The
-   *         protocol is prepended independent whether the URL already has a
-   *         protocol or not.
+   * @return <code>null</code> if the parameter is <code>null</code>. The protocol is prepended
+   *         independent whether the URL already has a protocol or not.
    */
   @Nullable
   String getWithProtocol (@Nullable String sURL);
-
-  /**
-   * Prefix the passed URL with this protocol if the URL does not have a
-   * protocol yet.
-   *
-   * @param sURL
-   *        The URL to be prefixed. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>. The
-   *         protocol is prepended if the URL not already has a protocol.
-   */
-  @Nullable
-  String getWithProtocolIfNone (@Nullable String sURL);
 
   /**
    * @return <code>true</code> if this protocol can handle HTTP query parameters

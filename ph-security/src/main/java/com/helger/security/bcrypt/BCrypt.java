@@ -21,7 +21,7 @@ import java.security.SecureRandom;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.exception.InitializationException;
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.security.random.VerySecureRandom;
 
 import jakarta.annotation.Nonnull;
 

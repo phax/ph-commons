@@ -24,15 +24,14 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.timing.StopWatch;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.url.EURLProtocol;
-import com.helger.commons.url.IURLDownloader;
+import com.helger.base.url.EURLProtocol;
+import com.helger.base.url.IURLDownloader;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A class for downloading CRL data. This class is as thread-safe as the used
- * {@link IURLDownloader}
+ * A class for downloading CRL data. This class is as thread-safe as the used {@link IURLDownloader}
  *
  * @author Philip Helger
  * @since 11.2.0

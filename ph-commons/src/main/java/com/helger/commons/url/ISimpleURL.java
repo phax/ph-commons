@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
+import com.helger.base.url.IURLProtocol;
 import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;

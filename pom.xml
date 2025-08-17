@@ -189,12 +189,22 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-jaxb-adapter</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-io</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-unittest-support-ext</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-json</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -219,7 +229,17 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-security</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-config</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-config-json</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -229,37 +249,17 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-wsclient</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-security</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
         <artifactId>ph-xml</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-jaxb-adapter</artifactId>
+        <artifactId>ph-wsclient</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-jaxb</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-json</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-config-json</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -333,21 +333,22 @@
     <module>ph-statistics</module>
     <module>ph-cache</module>
     <module>ph-datetime</module>
+    <module>ph-jaxb-adapter</module>
     <module>ph-io</module>
     <module>ph-unittest-support-ext</module>
+    <module>ph-json</module>
     <module>ph-bc</module>
     <module>ph-matrix</module>
     <module>ph-scopes</module>
     <module>ph-text</module>
-    <module>ph-config</module>
-    <module>ph-commons</module>
     <module>ph-security</module>
+    <module>ph-config</module>
+    <module>ph-config-json</module>
+    
+    <module>ph-commons</module>
     <module>ph-xml</module>
     <module>ph-wsclient</module>
-    <module>ph-jaxb-adapter</module>
     <module>ph-jaxb</module>
-    <module>ph-json</module>
-    <module>ph-config-json</module>
     <module>ph-tree</module>
     <module>ph-graph</module>
     <module>ph-settings</module>

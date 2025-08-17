@@ -38,10 +38,10 @@ import org.xml.sax.ext.Locator2;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
+import com.helger.base.location.SimpleLocation;
 import com.helger.base.string.StringHelper;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.location.SimpleLocation;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroDocumentType;

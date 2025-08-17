@@ -27,12 +27,12 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.lang.StackTraceHelper;
+import com.helger.base.location.ILocation;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringReplace;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.location.ILocation;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

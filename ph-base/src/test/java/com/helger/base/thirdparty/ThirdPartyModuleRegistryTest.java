@@ -33,7 +33,7 @@ public final class ThirdPartyModuleRegistryTest
   public void testAll ()
   {
     assertNotNull (ThirdPartyModuleRegistry.getInstance ().getAllRegisteredThirdPartyModules ());
-    final int nCount = 3;
+    final int nCount = 2;
     assertEquals (nCount, ThirdPartyModuleRegistry.getInstance ().getAllRegisteredThirdPartyModules ().size ());
     assertEquals (nCount, ThirdPartyModuleRegistry.getInstance ().getRegisteredThirdPartyModuleCount ());
 

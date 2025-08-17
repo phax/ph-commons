@@ -27,6 +27,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.spi.ServiceLoaderHelper;
+import com.helger.base.url.EURLProtocol;
+import com.helger.base.url.IURLProtocol;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsMap;
@@ -36,9 +38,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A central registry for supported URL protocols. By default, the registry will
- * include all protocols contained in {@link EURLProtocol}, but it may be
- * extended by custom protocols
+ * A central registry for supported URL protocols. By default, the registry will include all
+ * protocols contained in {@link EURLProtocol}, but it may be extended by custom protocols
  *
  * @author Boris Gregorcic
  * @author Philip Helger
@@ -163,8 +164,7 @@ public final class URLProtocolRegistry
    *
    * @param sURL
    *        The URL to analyze
-   * @return <code>true</code> if the protocol is known, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if the protocol is known, <code>false</code> otherwise
    */
   public boolean hasKnownProtocol (@Nullable final String sURL)
   {
@@ -176,8 +176,7 @@ public final class URLProtocolRegistry
    *
    * @param aURL
    *        The URL to analyze
-   * @return <code>true</code> if the protocol is known, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if the protocol is known, <code>false</code> otherwise
    */
   public boolean hasKnownProtocol (@Nullable final ISimpleURL aURL)
   {
@@ -198,9 +197,18 @@ public final class URLProtocolRegistry
     return aProtocol == null ? sURL : sURL.substring (aProtocol.getProtocol ().length ());
   }
 
+  @Nullable
+  public String getWithProtocolIfNone (@Nonnull final IURLProtocol aProtocol, @Nullable final String sURL)
+  {
+    ValueEnforcer.notNull (aProtocol, "Protocol");
+    if (sURL == null || hasKnownProtocol (sURL))
+      return sURL;
+    return aProtocol.getWithProtocol (sURL);
+  }
+
   /**
-   * Reinitialize all protocols. Adds all {@link EURLProtocol} values and
-   * invokes all SPI implementations.
+   * Reinitialize all protocols. Adds all {@link EURLProtocol} values and invokes all SPI
+   * implementations.
    */
   public void reinitialize ()
   {

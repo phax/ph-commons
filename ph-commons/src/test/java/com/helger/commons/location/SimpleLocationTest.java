@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
 import com.helger.unittest.support.TestHelper;
 
 /**

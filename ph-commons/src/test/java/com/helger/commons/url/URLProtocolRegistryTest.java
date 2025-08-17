@@ -23,6 +23,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.base.url.EURLProtocol;
+
 /**
  * Test class for class {@link URLProtocolRegistry}.
  *
