@@ -252,15 +252,15 @@
         <artifactId>ph-mime</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-xml</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.commons</groupId>
-        <artifactId>ph-xml</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -357,9 +357,9 @@
     <module>ph-config</module>
     <module>ph-config-json</module>
     <module>ph-mime</module>
+    <module>ph-xml</module>
     
     <module>ph-commons</module>
-    <module>ph-xml</module>
     <module>ph-wsclient</module>
     <module>ph-jaxb</module>
     <module>ph-tree</module>
