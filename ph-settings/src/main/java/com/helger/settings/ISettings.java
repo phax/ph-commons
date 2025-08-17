@@ -17,7 +17,7 @@
 package com.helger.settings;
 
 import com.helger.base.name.IHasName;
-import com.helger.commons.collection.attr.IAttributeContainerAny;
+import com.helger.typeconvert.collection.IAttributeContainerAny;
 
 /**
  * Read-only settings base interface.

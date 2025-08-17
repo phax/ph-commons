@@ -31,8 +31,8 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.collection.attr.AttributeContainerAnyConcurrent;
-import com.helger.commons.collection.attr.IAttributeContainerAny;
+import com.helger.typeconvert.collection.AttributeContainerAnyConcurrent;
+import com.helger.typeconvert.collection.IAttributeContainerAny;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

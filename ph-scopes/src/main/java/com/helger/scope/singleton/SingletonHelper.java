@@ -20,7 +20,6 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.commons.debug.GlobalDebugExt;
 
 import jakarta.annotation.Nullable;
 
@@ -58,7 +57,7 @@ public final class SingletonHelper
 
   /**
    * @return <code>true</code> if singleton consistency debugging is enabled, <code>false</code> if
-   *         it is disabled. The default value is {@link GlobalDebugExt#isDebugMode()}.
+   *         it is disabled. The default value is {@link GlobalDebug#isDebugMode()}.
    */
   public static boolean isDebugConsistency ()
   {

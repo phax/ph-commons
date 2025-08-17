@@ -14,10 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collection.attr;
+package com.helger.typeconvert.collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -36,7 +37,6 @@ import com.helger.base.mock.CommonsAssert;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link AttributeContainerAny}.
@@ -106,24 +106,15 @@ public final class AttributeContainerAnyTest
     assertFalse (x.containsKey ("null1"));
     assertTrue (x.removeObject ("null1").isUnchanged ());
 
-    TestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (),
-                                                                new AttributeContainerAny <> ());
-    TestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key",
-                                                                                                                                          "key2" },
-                                                                                                                          new Object [] { "value",
-                                                                                                                                          "value2" })),
-                                                                new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key",
-                                                                                                                                          "key2" },
-                                                                                                                          new Object [] { "value",
-                                                                                                                                          "value2" })));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key",
-                                                                                                                                              "key2" },
-                                                                                                                              new Object [] { "value",
-                                                                                                                                              "value2" })),
-                                                                    new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key",
-                                                                                                                                              "key2" },
-                                                                                                                              new Object [] { "value",
-                                                                                                                                              "value" })));
+    assertEquals (new AttributeContainerAny <> (), new AttributeContainerAny <> ());
+    assertEquals (new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key", "key2" },
+                                                                            new Object [] { "value", "value2" })),
+                  new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key", "key2" },
+                                                                            new Object [] { "value", "value2" })));
+    assertNotEquals (new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key", "key2" },
+                                                                               new Object [] { "value", "value2" })),
+                     new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key", "key2" },
+                                                                               new Object [] { "value", "value" })));
 
     assertTrue (new AttributeContainerAny <> ((Map <String, Object>) null).isEmpty ());
   }

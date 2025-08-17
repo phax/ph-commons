@@ -16,8 +16,9 @@
  */
 package com.helger.text.cleanup;
 
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.cleanup.ICleanUpRegistrarSPI;
+import com.helger.base.cleanup.ICleanUpRegistry;
 import com.helger.text.compare.CollatorHelper;
 import com.helger.text.locale.LocaleCache;
 import com.helger.text.locale.LocaleHelper;
@@ -25,38 +26,32 @@ import com.helger.text.locale.country.CountryCache;
 import com.helger.text.locale.language.LanguageCache;
 import com.helger.text.resolve.DefaultTextResolver;
 
+import jakarta.annotation.Nonnull;
+
 /**
  * The sole purpose of this class to clear all caches, that reside in this library.
  *
  * @author Philip Helger
  */
-@Immutable
-public final class TextCleanup
+@IsSPIImplementation
+public final class TextCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
-  @PresentForCodeCoverage
-  private static final TextCleanup INSTANCE = new TextCleanup ();
-
-  private TextCleanup ()
-  {}
-
-  /**
-   * Cleanup all custom caches contained in this library. Loaded SPI implementations are not
-   * affected by this method!
-   */
-  public static void cleanup ()
+  public void registerCleanUpAction (@Nonnull final ICleanUpRegistry aRegistry)
   {
-    // Reinitialize singletons to the default values
-    if (LocaleCache.isInstantiated ())
-      LocaleCache.getInstance ().reinitialize ();
-    if (CountryCache.isInstantiated ())
-      CountryCache.getInstance ().reinitialize ();
-    if (LanguageCache.isInstantiated ())
-      LanguageCache.getInstance ().reinitialize ();
+    aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 300, () -> {
+      // Reinitialize singletons to the default values
+      if (LocaleCache.isInstantiated ())
+        LocaleCache.getInstance ().reinitialize ();
+      if (CountryCache.isInstantiated ())
+        CountryCache.getInstance ().reinitialize ();
+      if (LanguageCache.isInstantiated ())
+        LanguageCache.getInstance ().reinitialize ();
 
-    // Clear caches
-    if (DefaultTextResolver.isInstantiated ())
-      DefaultTextResolver.getInstance ().clearCache ();
-    CollatorHelper.clearCache ();
-    LocaleHelper.clearCache ();
+      // Clear caches
+      if (DefaultTextResolver.isInstantiated ())
+        DefaultTextResolver.getInstance ().clearCache ();
+      CollatorHelper.clearCache ();
+      LocaleHelper.clearCache ();
+    });
   }
 }

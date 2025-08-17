@@ -24,7 +24,7 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.id.IHasID;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.collection.attr.IAttributeContainerAny;
+import com.helger.typeconvert.collection.IAttributeContainerAny;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

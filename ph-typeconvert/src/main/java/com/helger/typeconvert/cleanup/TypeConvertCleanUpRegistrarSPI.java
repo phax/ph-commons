@@ -16,36 +16,31 @@
  */
 package com.helger.typeconvert.cleanup;
 
-import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.cleanup.ICleanUpRegistrarSPI;
+import com.helger.base.cleanup.ICleanUpRegistry;
 import com.helger.typeconvert.impl.TypeConverterRegistry;
 import com.helger.typeconvert.util.ClassHierarchyCache;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this library.
  *
  * @author Philip Helger
  */
-@Immutable
-public final class TypeConvertCleanup
+@IsSPIImplementation
+public final class TypeConvertCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
-  @PresentForCodeCoverage
-  private static final TypeConvertCleanup INSTANCE = new TypeConvertCleanup ();
-
-  private TypeConvertCleanup ()
-  {}
-
-  /**
-   * Cleanup all custom caches contained in this library. Loaded SPI implementations are not
-   * affected by this method!
-   */
-  public static void cleanup ()
+  public void registerCleanUpAction (@Nonnull final ICleanUpRegistry aRegistry)
   {
-    // Reinitialize singletons to the default values
-    if (TypeConverterRegistry.isInstantiated ())
-      TypeConverterRegistry.getInstance ().reinitialize ();
+    aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 100, () -> {
+      // Reinitialize singletons to the default values
+      if (TypeConverterRegistry.isInstantiated ())
+        TypeConverterRegistry.getInstance ().reinitialize ();
 
-    // Clean this one last as it is used in equals and hashCode implementations!
-    ClassHierarchyCache.clearCache ();
+      // Clean this one last as it is used in equals and hashCode implementations!
+      ClassHierarchyCache.clearCache ();
+    });
   }
 }

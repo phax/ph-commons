@@ -22,8 +22,8 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.collection.attr.AttributeContainerAny;
 import com.helger.graph.IMutableBaseGraphObject;
+import com.helger.typeconvert.collection.AttributeContainerAny;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

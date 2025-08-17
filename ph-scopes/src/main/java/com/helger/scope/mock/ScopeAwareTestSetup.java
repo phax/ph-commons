@@ -20,12 +20,12 @@ import java.io.File;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.commons.cleanup.CommonsCleanup;
+import com.helger.base.cleanup.CleanUpRegistry;
 import com.helger.scope.mgr.ScopeManager;
 
 /**
- * This class provides the initialization handling for scopes in unit tests. It
- * is independent of JUnit and can be used with any unit testing framework.
+ * This class provides the initialization handling for scopes in unit tests. It is independent of
+ * JUnit and can be used with any unit testing framework.
  *
  * @author Philip Helger
  */
@@ -45,8 +45,7 @@ public final class ScopeAwareTestSetup
   {}
 
   /**
-   * Run this before tests are executed to initialize a global scope and a
-   * request.
+   * Run this before tests are executed to initialize a global scope and a request.
    */
   public static void setupScopeTests ()
   {
@@ -69,6 +68,6 @@ public final class ScopeAwareTestSetup
     ScopeManager.onGlobalEnd ();
 
     // Clean all ph-commons stuff
-    CommonsCleanup.cleanup ();
+    CleanUpRegistry.getInstance ().performCleanUp ();
   }
 }

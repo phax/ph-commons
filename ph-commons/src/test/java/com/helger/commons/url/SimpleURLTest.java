@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.attr.StringMap;
+import com.helger.typeconvert.collection.StringMap;
 import com.helger.unittest.support.TestHelper;
 
 /**
