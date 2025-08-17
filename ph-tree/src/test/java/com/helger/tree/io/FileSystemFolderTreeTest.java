@@ -24,8 +24,8 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.IFileFilter;
 import com.helger.tree.util.TreeVisitor;

@@ -19,7 +19,7 @@ package com.helger.xml.sax;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.error.list.ErrorList;
+import com.helger.diagnostics.error.list.ErrorList;
 
 import jakarta.annotation.Nonnull;
 

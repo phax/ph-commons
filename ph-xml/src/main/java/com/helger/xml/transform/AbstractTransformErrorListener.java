@@ -22,10 +22,10 @@ import javax.xml.transform.TransformerException;
 import com.helger.base.location.ILocation;
 import com.helger.base.location.SimpleLocation;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.SingleError;
-import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.SingleError;
+import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.text.IMultilingualText;
 
 import jakarta.annotation.Nonnull;

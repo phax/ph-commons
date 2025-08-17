@@ -17,7 +17,7 @@
 package com.helger.tree.mock;
 
 import com.helger.collection.commons.ICommonsCollection;
-import com.helger.commons.hierarchy.IChildrenProvider;
+import com.helger.collection.hierarchy.IChildrenProvider;
 
 import jakarta.annotation.Nullable;
 

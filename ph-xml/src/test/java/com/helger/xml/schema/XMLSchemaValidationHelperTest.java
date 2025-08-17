@@ -27,7 +27,7 @@ import javax.xml.validation.Schema;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.error.list.IErrorList;
+import com.helger.diagnostics.error.list.IErrorList;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
 import com.helger.xml.serialize.read.DOMReader;

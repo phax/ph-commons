@@ -16,7 +16,7 @@
  */
 package com.helger.tree;
 
-import com.helger.commons.hierarchy.IHasChildren;
+import com.helger.collection.hierarchy.IHasChildren;
 
 import jakarta.annotation.Nonnull;
 

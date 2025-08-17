@@ -29,9 +29,9 @@ import com.helger.base.state.IClearable;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.error.level.IHasErrorLevels;
+import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
+import com.helger.diagnostics.error.level.IHasErrorLevels;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

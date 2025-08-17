@@ -17,7 +17,7 @@
 package com.helger.jaxb.validation;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.error.IError;
+import com.helger.diagnostics.error.IError;
 
 import jakarta.annotation.Nonnull;
 

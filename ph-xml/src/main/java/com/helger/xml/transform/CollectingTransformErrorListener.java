@@ -22,8 +22,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.list.ErrorList;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.list.ErrorList;
 
 import jakarta.annotation.Nonnull;
 

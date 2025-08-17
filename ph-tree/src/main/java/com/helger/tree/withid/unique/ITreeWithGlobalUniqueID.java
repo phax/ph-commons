@@ -19,7 +19,7 @@ package com.helger.tree.withid.unique;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.ICommonsCollection;
-import com.helger.commons.hierarchy.IChildrenProviderWithID;
+import com.helger.collection.hierarchy.IChildrenProviderWithID;
 import com.helger.tree.withid.ITreeItemWithID;
 import com.helger.tree.withid.ITreeWithID;
 

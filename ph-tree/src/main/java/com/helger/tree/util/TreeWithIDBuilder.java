@@ -26,9 +26,9 @@ import com.helger.base.id.IHasID;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.hierarchy.IChildrenProvider;
-import com.helger.commons.hierarchy.IHasParent;
-import com.helger.commons.hierarchy.IParentProvider;
+import com.helger.collection.hierarchy.IChildrenProvider;
+import com.helger.collection.hierarchy.IHasParent;
+import com.helger.collection.hierarchy.IParentProvider;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
 

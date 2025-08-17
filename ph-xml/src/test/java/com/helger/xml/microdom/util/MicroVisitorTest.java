@@ -23,9 +23,9 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.base.numeric.mutable.MutableInt;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.collection.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroNode;

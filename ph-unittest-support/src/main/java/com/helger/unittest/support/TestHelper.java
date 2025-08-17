@@ -36,7 +36,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.iface.IThrowingRunnable;
 import com.helger.base.lang.IExplicitlyCloneable;
-import com.helger.base.lang.StackTraceHelper;
+import com.helger.base.rt.StackTraceHelper;
 import com.helger.base.serialize.SerializationHelper;
 import com.helger.base.string.StringImplode;
 

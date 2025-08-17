@@ -22,9 +22,9 @@ import java.time.LocalDateTime;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.datetime.helper.PDTFactory;
+import com.helger.diagnostics.error.level.IErrorLevel;
+import com.helger.diagnostics.error.level.IHasErrorLevelComparable;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

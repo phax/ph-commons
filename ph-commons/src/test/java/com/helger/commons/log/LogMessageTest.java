@@ -27,8 +27,8 @@ import java.time.LocalDateTime;
 import org.junit.Test;
 
 import com.helger.base.mock.exception.MockException;
-import com.helger.commons.error.level.EErrorLevel;
 import com.helger.datetime.helper.PDTFactory;
+import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.unittest.support.TestHelper;
 
 /**

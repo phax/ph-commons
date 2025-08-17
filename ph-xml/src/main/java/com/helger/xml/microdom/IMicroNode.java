@@ -28,9 +28,9 @@ import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.hierarchy.IHasChildrenRecursive;
-import com.helger.commons.hierarchy.IHasChildrenSorted;
-import com.helger.commons.hierarchy.IHasParent;
+import com.helger.collection.hierarchy.IHasChildrenRecursive;
+import com.helger.collection.hierarchy.IHasChildrenSorted;
+import com.helger.collection.hierarchy.IHasParent;
 import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;

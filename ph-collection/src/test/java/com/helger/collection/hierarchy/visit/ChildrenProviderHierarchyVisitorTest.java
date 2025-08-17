@@ -1,0 +1,79 @@
+/*
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.collection.hierarchy.visit;
+
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
+import com.helger.collection.hierarchy.IChildrenProvider;
+import com.helger.collection.hierarchy.MockChildrenProvider;
+import com.helger.collection.hierarchy.MockHasChildren;
+
+/**
+ * Test class for class {@link ChildrenProviderHierarchyVisitor}.
+ *
+ * @author Philip Helger
+ */
+public final class ChildrenProviderHierarchyVisitorTest
+{
+  @Test
+  public void testAll ()
+  {
+    final MockHasChildren hca = new MockHasChildren ("a");
+    final MockHasChildren hcb = new MockHasChildren ("b");
+    final MockHasChildren hc1 = new MockHasChildren ("1", hca, hcb);
+    final IChildrenProvider <MockHasChildren> cp = new MockChildrenProvider (hc1);
+
+    // Having children
+    ChildrenProviderHierarchyVisitor.visitAll (cp, new DefaultHierarchyVisitorCallback <> (), false);
+
+    // Not having children
+    ChildrenProviderHierarchyVisitor.visitAll (new MockChildrenProvider (hca),
+                                               new DefaultHierarchyVisitorCallback <> (),
+                                               false);
+
+    // Start explicitly at object
+    ChildrenProviderHierarchyVisitor.visitFrom (hc1, cp, new DefaultHierarchyVisitorCallback <> (), true);
+    // no provider
+    try
+    {
+      ChildrenProviderHierarchyVisitor.visitAll (null, new DefaultHierarchyVisitorCallback <> (), true);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+
+    // no callback
+    try
+    {
+      ChildrenProviderHierarchyVisitor.visitAll (cp, null, false);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+
+    // no callback
+    try
+    {
+      ChildrenProviderHierarchyVisitor.visitFrom (null, cp, null, true);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+  }
+}

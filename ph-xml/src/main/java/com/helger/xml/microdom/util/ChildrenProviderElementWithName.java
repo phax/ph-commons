@@ -23,7 +23,7 @@ import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.hierarchy.IChildrenProvider;
+import com.helger.collection.hierarchy.IChildrenProvider;
 import com.helger.xml.microdom.IMicroElement;
 
 import jakarta.annotation.Nonnull;

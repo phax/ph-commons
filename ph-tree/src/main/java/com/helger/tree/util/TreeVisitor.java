@@ -23,12 +23,12 @@ import org.w3c.dom.traversal.TreeWalker;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
-import com.helger.commons.hierarchy.IChildrenProvider;
-import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.ChildrenProviderHasChildren;
+import com.helger.collection.hierarchy.IChildrenProvider;
+import com.helger.collection.hierarchy.visit.ChildrenProviderHierarchyVisitor;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.collection.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.tree.IBasicTree;
 import com.helger.tree.IBasicTreeItem;
 

@@ -22,8 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.level.EErrorLevel;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.level.EErrorLevel;
 
 import jakarta.annotation.Nonnull;
 

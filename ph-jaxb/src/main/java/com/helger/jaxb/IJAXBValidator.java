@@ -16,8 +16,8 @@
  */
 package com.helger.jaxb;
 
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.error.list.IErrorList;
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.diagnostics.error.list.IErrorList;
 
 import jakarta.annotation.Nonnull;
 

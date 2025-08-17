@@ -25,8 +25,8 @@ import org.xml.sax.SAXParseException;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
-import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.log.LogHelper;
+import com.helger.diagnostics.error.level.IErrorLevel;
 
 import jakarta.annotation.Nonnull;
 

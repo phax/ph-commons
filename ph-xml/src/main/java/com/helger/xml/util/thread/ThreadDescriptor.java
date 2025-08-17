@@ -30,7 +30,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.base.lang.StackTraceHelper;
+import com.helger.base.rt.StackTraceHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;

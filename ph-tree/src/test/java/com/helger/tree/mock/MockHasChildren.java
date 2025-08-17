@@ -24,7 +24,7 @@ import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.hierarchy.IHasChildren;
+import com.helger.collection.hierarchy.IHasChildren;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

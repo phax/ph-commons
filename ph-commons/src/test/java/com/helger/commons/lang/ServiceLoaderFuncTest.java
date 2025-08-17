@@ -31,9 +31,7 @@ import org.junit.Test;
 
 import com.helger.base.state.IClearable;
 import com.helger.base.state.IStoppable;
-import com.helger.base.system.EJavaVersion;
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.type.IHasObjectType;
 import com.helger.unittest.support.TestHelper;
 
@@ -49,8 +47,8 @@ public final class ServiceLoaderFuncTest
   public void testLoadEmptyService ()
   {
     // No such service file present
-    final ServiceLoader <MockChildrenProvider> aSL = ServiceLoader.load (MockChildrenProvider.class);
-    final Iterator <MockChildrenProvider> it = aSL.iterator ();
+    final ServiceLoader <ServiceLoaderFuncTest> aSL = ServiceLoader.load (ServiceLoaderFuncTest.class);
+    final Iterator <ServiceLoaderFuncTest> it = aSL.iterator ();
     assertNotNull (it);
     assertFalse (it.hasNext ());
     try
@@ -104,30 +102,17 @@ public final class ServiceLoaderFuncTest
     final ServiceLoader <IStoppable> aSL = ServiceLoader.load (IStoppable.class);
     final Iterator <IStoppable> it = aSL.iterator ();
     assertNotNull (it);
-    if (EJavaVersion.getCurrentVersion ().isOlderOrEqualsThan (EJavaVersion.JDK_1_8))
+
+    // Here it works but fails when reading
+    assertTrue (it.hasNext ());
+    try
     {
-      try
-      {
-        // this fails
-        it.hasNext ();
-        fail ();
-      }
-      catch (final ServiceConfigurationError ex)
-      {}
+      // this fails
+      CollectionHelperExt.newList (it);
+      fail ();
     }
-    else
-    {
-      // Here it works but fails when reading
-      assertTrue (it.hasNext ());
-      try
-      {
-        // this fails
-        CollectionHelperExt.newList (it);
-        fail ();
-      }
-      catch (final ServiceConfigurationError ex)
-      {}
-    }
+    catch (final ServiceConfigurationError ex)
+    {}
   }
 
   @Test

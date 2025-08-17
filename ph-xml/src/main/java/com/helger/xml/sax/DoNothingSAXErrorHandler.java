@@ -19,7 +19,7 @@ package com.helger.xml.sax;
 import org.xml.sax.SAXParseException;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.commons.error.level.IErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
 
 import jakarta.annotation.Nonnull;
 

@@ -26,7 +26,7 @@ import java.util.Collection;
 import org.junit.Test;
 
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.hierarchy.IParentProvider;
+import com.helger.collection.hierarchy.IParentProvider;
 import com.helger.tree.mock.MockChildrenProvider;
 import com.helger.tree.mock.MockHasChildren;
 import com.helger.tree.mock.MockHasIDString;

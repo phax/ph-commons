@@ -19,9 +19,9 @@ package com.helger.xml.microdom.util;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.ValueEnforcer;
-import com.helger.commons.hierarchy.IChildrenProvider;
-import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
-import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.IChildrenProvider;
+import com.helger.collection.hierarchy.visit.ChildrenProviderHierarchyVisitor;
+import com.helger.collection.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.xml.microdom.IMicroNode;
 
 import jakarta.annotation.Nonnull;
