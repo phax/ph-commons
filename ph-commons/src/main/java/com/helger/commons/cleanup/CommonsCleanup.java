@@ -18,19 +18,11 @@ package com.helger.commons.cleanup;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.cache.regex.RegExCache;
-import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hashcode.HashCodeImplementationRegistry;
-import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.locale.LocaleHelper;
-import com.helger.commons.locale.country.CountryCache;
-import com.helger.commons.locale.language.LanguageCache;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
-import com.helger.commons.text.resolve.DefaultTextResolver;
-import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
 
@@ -56,14 +48,7 @@ public final class CommonsCleanup
   public static void cleanup ()
   {
     // Reinitialize singletons to the default values
-    if (LocaleCache.isInstantiated ())
-      LocaleCache.getInstance ().reinitialize ();
-    if (CountryCache.isInstantiated ())
-      CountryCache.getInstance ().reinitialize ();
-    if (LanguageCache.isInstantiated ())
-      LanguageCache.getInstance ().reinitialize ();
-    if (SerializationConverterRegistry.isInstantiated ())
-      SerializationConverterRegistry.getInstance ().reinitialize ();
+    SerializationConverterRegistry.getInstance ().reinitialize ();
     if (MimeTypeDeterminator.isInstantiated ())
       MimeTypeDeterminator.getInstance ().reinitialize ();
     if (ThirdPartyModuleRegistry.isInstantiated ())
@@ -76,13 +61,6 @@ public final class CommonsCleanup
       HashCodeImplementationRegistry.getInstance ().reinitialize ();
 
     // Clear caches
-    if (DefaultTextResolver.isInstantiated ())
-      DefaultTextResolver.getInstance ().clearCache ();
-    ResourceBundleHelper.clearCache ();
-    if (RegExCache.isInstantiated ())
-      RegExCache.getInstance ().clearCache ();
-    CollatorHelper.clearCache ();
-    LocaleHelper.clearCache ();
     if (ImageDataManager.isInstantiated ())
       ImageDataManager.getInstance ().clearCache ();
   }

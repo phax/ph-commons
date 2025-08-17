@@ -26,7 +26,7 @@ import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.text.IMultilingualText;
+import com.helger.text.IMultilingualText;
 
 import jakarta.annotation.Nonnull;
 

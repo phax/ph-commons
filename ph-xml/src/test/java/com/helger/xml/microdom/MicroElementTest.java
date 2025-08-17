@@ -31,7 +31,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.text.MultilingualText;
+import com.helger.text.MultilingualText;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.unittest.junit4.DebugModeTestRule;
 import com.helger.unittest.support.TestHelper;

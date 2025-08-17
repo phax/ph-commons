@@ -26,10 +26,10 @@ import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.string.util.LevenshteinDistance;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
+import com.helger.text.locale.LocaleFormatter;
 
 /**
  * Check different levenshtein impolementations.<br>

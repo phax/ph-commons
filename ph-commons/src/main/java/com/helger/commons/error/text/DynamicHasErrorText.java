@@ -24,8 +24,8 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.equals.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.text.IHasText;
-import com.helger.commons.text.display.IHasDisplayText;
+import com.helger.text.IHasText;
+import com.helger.text.display.IHasDisplayText;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

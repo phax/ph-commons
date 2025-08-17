@@ -36,8 +36,8 @@ import org.w3c.dom.NodeList;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.numeric.BigHelper;
-import com.helger.commons.locale.LocaleHelper;
 import com.helger.io.url.URLHelper;
+import com.helger.text.locale.LocaleHelper;
 
 import jakarta.annotation.Nonnull;
 

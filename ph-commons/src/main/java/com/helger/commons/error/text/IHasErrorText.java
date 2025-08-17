@@ -17,7 +17,7 @@
 package com.helger.commons.error.text;
 
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.commons.text.display.IHasDisplayText;
+import com.helger.text.display.IHasDisplayText;
 
 /**
  * Base interface for objects having an error text. Compared to

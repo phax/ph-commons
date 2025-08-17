@@ -20,8 +20,8 @@ import java.util.function.Function;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.cache.api.ICache;
-import com.helger.cache.api.IMutableCache;
+import com.helger.cache.ICache;
+import com.helger.cache.IMutableCache;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

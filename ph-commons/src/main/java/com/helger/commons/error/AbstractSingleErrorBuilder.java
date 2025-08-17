@@ -33,8 +33,8 @@ import com.helger.commons.error.text.DynamicHasErrorText;
 import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.text.IMultilingualText;
 import com.helger.datetime.helper.PDTFactory;
+import com.helger.text.IMultilingualText;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

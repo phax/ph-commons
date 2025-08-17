@@ -28,8 +28,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.string.StringReplace;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.commons.compare.ComparatorHelper;
-import com.helger.commons.locale.LocaleCache;
+import com.helger.text.compare.ComparatorHelper;
+import com.helger.text.locale.LocaleCache;
 
 public final class JavaCollatorFuncTest
 {

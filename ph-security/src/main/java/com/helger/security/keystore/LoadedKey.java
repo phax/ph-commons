@@ -22,7 +22,7 @@ import java.util.Locale;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.commons.text.util.TextHelper;
+import com.helger.text.util.TextHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

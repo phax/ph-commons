@@ -25,11 +25,11 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.collection.helper.CollectionHelperExt;
-import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
-import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.text.MultilingualText;
-import com.helger.commons.text.ReadOnlyMultilingualText;
-import com.helger.commons.text.util.TextHelper;
+import com.helger.text.AbstractReadOnlyMapBasedMultilingualText;
+import com.helger.text.IMultilingualText;
+import com.helger.text.MultilingualText;
+import com.helger.text.ReadOnlyMultilingualText;
+import com.helger.text.util.TextHelper;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.microdom.IMicroElement;
 

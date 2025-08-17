@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.collection.helper.CollectionSort;
-import com.helger.commons.compare.ComparatorHelper;
+import com.helger.text.compare.ComparatorHelper;
 
 public final class JavaListAllLocalesFuncTest
 {

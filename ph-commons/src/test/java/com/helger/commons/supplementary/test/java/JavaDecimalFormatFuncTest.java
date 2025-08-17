@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.base.string.StringRemove;
 import com.helger.base.system.EJavaVersion;
-import com.helger.commons.locale.LocaleCache;
+import com.helger.text.locale.LocaleCache;
 
 public final class JavaDecimalFormatFuncTest
 {

@@ -29,7 +29,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
-import com.helger.commons.text.codepoint.CodepointHelper;
+import com.helger.text.codepoint.CodepointHelper;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.microdom.IMicroDocument;

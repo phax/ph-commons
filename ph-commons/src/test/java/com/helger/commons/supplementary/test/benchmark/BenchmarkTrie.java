@@ -30,10 +30,10 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsTreeMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.supplementary.test.code.StringTrieFuncTest;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
+import com.helger.text.locale.LocaleFormatter;
 
 /**
  * Check different Maps with String keys.<br>

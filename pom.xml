@@ -199,6 +199,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-text</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-config</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -330,6 +335,7 @@
     <module>ph-datetime</module>
     <module>ph-io</module>
     <module>ph-unittest-support-ext</module>
+    <module>ph-text</module>
     <module>ph-config</module>
     <module>ph-commons</module>
     <module>ph-scopes</module>

@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
-import com.helger.commons.text.display.IHasDisplayTextWithArgs;
+import com.helger.text.display.IHasDisplayTextWithArgs;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
