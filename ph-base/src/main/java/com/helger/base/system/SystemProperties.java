@@ -223,7 +223,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVersion ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VERSION);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VERSION);
   }
 
   /**
@@ -232,7 +232,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVendor ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VENDOR);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VENDOR);
   }
 
   /**
@@ -241,7 +241,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVendorURL ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VENDOR_URL);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VENDOR_URL);
   }
 
   /**
@@ -250,7 +250,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaHome ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_HOME);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_HOME);
   }
 
   /**
@@ -259,7 +259,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaClassVersion ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_CLASS_VERSION);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_CLASS_VERSION);
   }
 
   /**
@@ -268,7 +268,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaClassPath ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_CLASS_PATH);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_CLASS_PATH);
   }
 
   /**
@@ -277,7 +277,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaLibraryPath ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_LIBRARY_PATH);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_LIBRARY_PATH);
   }
 
   /**
@@ -286,7 +286,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getOsName ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_OS_NAME);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_OS_NAME);
   }
 
   /**
@@ -295,7 +295,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getOsArch ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_OS_ARCH);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_OS_ARCH);
   }
 
   /**
@@ -304,7 +304,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getOsVersion ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_OS_VERSION);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_OS_VERSION);
   }
 
   /**
@@ -313,7 +313,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getFileSeparator ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_FILE_SEPARATOR);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_FILE_SEPARATOR);
   }
 
   /**
@@ -322,7 +322,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getPathSeparator ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_PATH_SEPARATOR);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_PATH_SEPARATOR);
   }
 
   /**
@@ -340,7 +340,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getUserName ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_USER_NAME);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_USER_NAME);
   }
 
   /**
@@ -349,7 +349,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getUserHome ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_USER_HOME);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_USER_HOME);
   }
 
   /**
@@ -358,7 +358,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getUserDir ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_USER_DIR);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_USER_DIR);
   }
 
   /**
@@ -367,7 +367,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVmName ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VM_NAME);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VM_NAME);
   }
 
   /**
@@ -376,7 +376,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVmSpecificationVersion ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VERSION);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VERSION);
   }
 
   /**
@@ -385,7 +385,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVmSpecificationVendor ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VENDOR);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VENDOR);
   }
 
   /**
@@ -394,7 +394,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVmSpecificationUrl ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_URL);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_URL);
   }
 
   /**
@@ -403,7 +403,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVmVersion ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VM_VERSION);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VM_VERSION);
   }
 
   /**
@@ -412,7 +412,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVmVendor ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VM_VENDOR);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VM_VENDOR);
   }
 
   /**
@@ -421,7 +421,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaVmUrl ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_VM_URL);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_VM_URL);
   }
 
   /**
@@ -430,7 +430,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaSpecificationVersion ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_SPECIFICATION_VERSION);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_SPECIFICATION_VERSION);
   }
 
   /**
@@ -439,7 +439,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaSpecificationVendor ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_SPECIFICATION_VENDOR);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_SPECIFICATION_VENDOR);
   }
 
   /**
@@ -448,7 +448,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaSpecificationUrl ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_SPECIFICATION_URL);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_SPECIFICATION_URL);
   }
 
   /**
@@ -458,7 +458,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getTmpDir ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_IO_TMPDIR);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_IO_TMPDIR);
   }
 
   /**
@@ -467,7 +467,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaRuntimeVersion ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_RUNTIME_VERSION);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_RUNTIME_VERSION);
   }
 
   /**
@@ -476,7 +476,7 @@ public final class SystemProperties implements IHasConditionalLogger
   @Nullable
   public static String getJavaRuntimeName ()
   {
-    return getPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_RUNTIME_NAME);
+    return getPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_RUNTIME_NAME);
   }
 
   /**
@@ -539,8 +539,8 @@ public final class SystemProperties implements IHasConditionalLogger
     // http://download.oracle.com/javase/6/docs/technotes/guides/net/proxies.html
     // The first 2 (*.debug) should both be set to "all" to have the most
     // effects
-    return new String [] { CSystemProperties.SYSTEM_PROPERTY_JAVAX_NET_DEBUG,
-                           CSystemProperties.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG,
+    return new String [] { CSystemProperty.SYSTEM_PROPERTY_JAVAX_NET_DEBUG,
+                           CSystemProperty.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG,
                            "java.net.useSystemProxies",
                            "http.proxyHost",
                            "http.proxyPort",

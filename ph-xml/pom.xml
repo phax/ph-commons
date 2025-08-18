@@ -73,6 +73,7 @@
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-mime</artifactId>
+      <optional>true</optional>
     </dependency>
     
     <dependency>

@@ -18,7 +18,7 @@ package com.helger.commons.debug;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.debug.GlobalDebug;
-import com.helger.base.system.CSystemProperties;
+import com.helger.base.system.CSystemProperty;
 import com.helger.base.system.SystemProperties;
 
 import jakarta.annotation.Nullable;
@@ -47,16 +47,16 @@ public final class GlobalDebugExt extends GlobalDebug
     // Set JAXP debugging!
     // Note: this property is read-only on Ubuntu, defined by the following
     // policy file: /etc/tomcat6/policy.d/04webapps.policy
-    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAXP_DEBUG, bDebugMode);
+    SystemProperties.setPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAXP_DEBUG, bDebugMode);
 
     // Set javax.activation debugging
-    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG, bDebugMode);
+    SystemProperties.setPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG, bDebugMode);
 
     // Set javax.mail debugging
-    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_MAIL_DEBUG, bDebugMode);
+    SystemProperties.setPropertyValue (CSystemProperty.SYSTEM_PROPERTY_MAIL_DEBUG, bDebugMode);
 
     // Set serialization debugging
-    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_SERIALIZATION_DEBUG, bDebugMode);
+    SystemProperties.setPropertyValue (CSystemProperty.SYSTEM_PROPERTY_SERIALIZATION_DEBUG, bDebugMode);
   }
 
   /**
@@ -74,7 +74,7 @@ public final class GlobalDebugExt extends GlobalDebug
    */
   public static void setJavaNetDebugMode (@Nullable final String sValue)
   {
-    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVAX_NET_DEBUG, sValue);
+    SystemProperties.setPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVAX_NET_DEBUG, sValue);
   }
 
   /**
@@ -101,6 +101,6 @@ public final class GlobalDebugExt extends GlobalDebug
    */
   public static void setJavaSecurityDebugMode (@Nullable final String sValue)
   {
-    SystemProperties.setPropertyValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG, sValue);
+    SystemProperties.setPropertyValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG, sValue);
   }
 }

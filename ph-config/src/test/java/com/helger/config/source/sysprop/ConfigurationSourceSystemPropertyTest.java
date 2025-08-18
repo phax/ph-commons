@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.base.system.CSystemProperties;
+import com.helger.base.system.CSystemProperty;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.unittest.support.TestHelper;
 
@@ -42,7 +42,7 @@ public final class ConfigurationSourceSystemPropertyTest
     assertSame (EConfigSourceType.SYSTEM_PROPERTY, c.getSourceType ());
     assertEquals (EConfigSourceType.SYSTEM_PROPERTY.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertNotNull (c.getConfigurationValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_HOME));
+    assertNotNull (c.getConfigurationValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_HOME));
     assertNull (c.getConfigurationValue ("I really don't know that system property!"));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceSystemProperty ());
@@ -56,7 +56,7 @@ public final class ConfigurationSourceSystemPropertyTest
     assertSame (EConfigSourceType.SYSTEM_PROPERTY, c.getSourceType ());
     assertEquals (7654, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertNotNull (c.getConfigurationValue (CSystemProperties.SYSTEM_PROPERTY_JAVA_HOME));
+    assertNotNull (c.getConfigurationValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_HOME));
     assertNull (c.getConfigurationValue ("I really don't know that system property!"));
   }
 }

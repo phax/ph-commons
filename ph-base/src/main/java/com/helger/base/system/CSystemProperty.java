@@ -24,7 +24,7 @@ import com.helger.annotation.concurrent.Immutable;
  * @author Philip Helger
  */
 @Immutable
-public class CSystemProperties
+public class CSystemProperty
 {
   public static final String SYSTEM_PROPERTY_FILE_SEPARATOR = "file.separator";
   public static final String SYSTEM_PROPERTY_JAVA_CLASS_PATH = "java.class.path";
@@ -65,6 +65,6 @@ public class CSystemProperties
   // JDK serialization properties
   public static final String SYSTEM_PROPERTY_SERIALIZATION_DEBUG = "sun.io.serialization.extendedDebugInfo";
 
-  private CSystemProperties ()
+  private CSystemProperty ()
   {}
 }
