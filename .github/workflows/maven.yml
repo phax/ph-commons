@@ -22,9 +22,6 @@ name: Maven build
 
 on:
   push:
-    branches:
-      - master
-      - v12
   pull_request:
     branches:
       - master
