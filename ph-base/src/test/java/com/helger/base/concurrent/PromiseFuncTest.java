@@ -65,13 +65,15 @@ public class PromiseFuncTest
     }
   }
 
+  private static int WAIT_MS = 100;
+
   @Test
   public void testCFRunAsync () throws Exception
   {
     final MutableInt aValue = new MutableInt (0);
     final Runnable r = () -> {
       LOGGER.info ("testCFRunAsync Thread: " + Thread.currentThread ().getId ());
-      ThreadHelper.sleep (300);
+      ThreadHelper.sleep (WAIT_MS);
       aValue.inc ();
     };
     final StopWatch aSW = StopWatch.createdStarted ();
@@ -79,7 +81,7 @@ public class PromiseFuncTest
     aSW.stop ();
     assertEquals (3, aValue.intValue ());
     final long nMillis = aSW.getMillis ();
-    assertTrue ("Took " + nMillis + " ms", nMillis >= 900);
+    assertTrue ("Took " + nMillis + " ms", nMillis >= (3 * WAIT_MS));
   }
 
   @Test
@@ -87,15 +89,18 @@ public class PromiseFuncTest
   {
     final Function <MutableInt, MutableInt> f = x -> {
       LOGGER.info ("testCFApplyAsync Thread: " + Thread.currentThread ().getId ());
-      ThreadHelper.sleep (300);
+      ThreadHelper.sleep (WAIT_MS);
       return new MutableInt (x.intValue () + 1);
     };
     final StopWatch aSW = StopWatch.createdStarted ();
-    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0))).thenApplyAsync (f).thenApplyAsync (f).get ();
+    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0)))
+                                            .thenApplyAsync (f)
+                                            .thenApplyAsync (f)
+                                            .get ();
     aSW.stop ();
     assertEquals (3, aMI.intValue ());
     final long nMillis = aSW.getMillis ();
-    assertTrue ("Took " + nMillis + " ms", nMillis >= 900);
+    assertTrue ("Took " + nMillis + " ms", nMillis >= (3 * WAIT_MS));
   }
 
   @Test
@@ -103,14 +108,17 @@ public class PromiseFuncTest
   {
     final Function <MutableInt, MutableInt> f = x -> {
       LOGGER.info ("testCFApplySync Thread: " + Thread.currentThread ().getId ());
-      ThreadHelper.sleep (300);
+      ThreadHelper.sleep (WAIT_MS);
       return new MutableInt (x.intValue () + 1);
     };
     final StopWatch aSW = StopWatch.createdStarted ();
-    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0))).thenApply (f).thenApply (f).get ();
+    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0)))
+                                            .thenApply (f)
+                                            .thenApply (f)
+                                            .get ();
     aSW.stop ();
     assertEquals (3, aMI.intValue ());
     final long nMillis = aSW.getMillis ();
-    assertTrue ("Took " + nMillis + " ms", nMillis >= 900);
+    assertTrue ("Took " + nMillis + " ms", nMillis >= (3 * WAIT_MS));
   }
 }

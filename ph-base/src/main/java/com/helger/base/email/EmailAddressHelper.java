@@ -14,13 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.email;
+package com.helger.base.email;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.cache.regex.RegExCache;
 
 import jakarta.annotation.Nullable;
 
@@ -36,29 +35,28 @@ public final class EmailAddressHelper
   public static final String EMAIL_ADDRESS_PATTERN = "[a-z0-9!#\\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\\$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
   /**
-   * This is the simple email RegEx that deals with Unicode email addresses.
-   * Based on
+   * This is the simple email RegEx that deals with Unicode email addresses. Based on
    * https://github.com/itplr-kosit/validator-configuration-xrechnung/issues/109
    */
   public static final String EMAIL_ADDRESS_PATTERN_SIMPLE = "[^@\\s]+@([^@.\\s]+\\.)+[^@.\\s]+";
 
   /** Compile this pattern only once */
-  private static final Pattern PATTERN = RegExCache.getPattern (EMAIL_ADDRESS_PATTERN);
+  private static final Pattern PATTERN = Pattern.compile (EMAIL_ADDRESS_PATTERN);
 
   /** Compile this pattern only once */
-  private static final Pattern PATTERN_SIMPLE = RegExCache.getPattern (EMAIL_ADDRESS_PATTERN_SIMPLE);
+  private static final Pattern PATTERN_SIMPLE = Pattern.compile (EMAIL_ADDRESS_PATTERN_SIMPLE);
 
   private EmailAddressHelper ()
   {}
 
   /**
-   * Get the unified version of an email address. It trims leading and trailing
-   * spaces and lower-cases the email address.
+   * Get the unified version of an email address. It trims leading and trailing spaces and
+   * lower-cases the email address.
    *
    * @param sEmailAddress
    *        The email address to unify. May be <code>null</code>.
-   * @return The unified email address or <code>null</code> if the input address
-   *         is <code>null</code>.
+   * @return The unified email address or <code>null</code> if the input address is
+   *         <code>null</code>.
    */
   @Nullable
   public static String getUnifiedEmailAddress (@Nullable final String sEmailAddress)
@@ -67,14 +65,13 @@ public final class EmailAddressHelper
   }
 
   /**
-   * Checks if a value is a valid e-mail address according to the original,
-   * complex regular expression (see {@link #EMAIL_ADDRESS_PATTERN}).
+   * Checks if a value is a valid e-mail address according to the original, complex regular
+   * expression (see {@link #EMAIL_ADDRESS_PATTERN}).
    *
    * @param sEmailAddress
-   *        The value validation is being performed on. A <code>null</code>
-   *        value is considered invalid.
-   * @return <code>true</code> if the email address is valid, <code>false</code>
-   *         otherwise.
+   *        The value validation is being performed on. A <code>null</code> value is considered
+   *        invalid.
+   * @return <code>true</code> if the email address is valid, <code>false</code> otherwise.
    */
   public static boolean isValid (@Nullable final String sEmailAddress)
   {
@@ -89,16 +86,14 @@ public final class EmailAddressHelper
   }
 
   /**
-   * Checks if a value is a valid e-mail address according to the simple regular
-   * expression (see {@link #EMAIL_ADDRESS_PATTERN_SIMPLE}). The idea is, that
-   * all email addresses valid with {@link #isValid(String)} are still valid
-   * with this one.
+   * Checks if a value is a valid e-mail address according to the simple regular expression (see
+   * {@link #EMAIL_ADDRESS_PATTERN_SIMPLE}). The idea is, that all email addresses valid with
+   * {@link #isValid(String)} are still valid with this one.
    *
    * @param sEmailAddress
-   *        The value validation is being performed on. A <code>null</code>
-   *        value is considered invalid.
-   * @return <code>true</code> if the email address is valid, <code>false</code>
-   *         otherwise.
+   *        The value validation is being performed on. A <code>null</code> value is considered
+   *        invalid.
+   * @return <code>true</code> if the email address is valid, <code>false</code> otherwise.
    */
   public static boolean isValidForSimplePattern (@Nullable final String sEmailAddress)
   {

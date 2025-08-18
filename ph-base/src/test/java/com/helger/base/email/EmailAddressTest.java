@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.email;
+package com.helger.base.email;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.unittest.support.TestHelper;
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link EmailAddress}.
@@ -54,9 +54,10 @@ public final class EmailAddressTest
     assertEquals ("ph@example.org", aMA.getAddress ());
     assertNull (aMA.getPersonal ());
 
-    TestHelper.testDefaultImplementationWithEqualContentObject (aMA, new EmailAddress ("ph@example.org"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example2.org"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example.org", "My name"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (aMA, new EmailAddress ("ph@example.org"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example2.org"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (aMA,
+                                                                        new EmailAddress ("ph@example.org", "My name"));
 
     aMA = new EmailAddress ("ph@example.org", "Philip");
     assertEquals ("ph@example.org", aMA.getAddress ());

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.string.util;
+package com.helger.base.string;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -121,8 +121,7 @@ public class StringScanner
   /**
    * Get all remaining chars, and set the index to the end of the input string
    *
-   * @return The remaining string. May not be <code>null</code> but may be
-   *         empty.
+   * @return The remaining string. May not be <code>null</code> but may be empty.
    */
   @Nonnull
   public String getRest ()
@@ -150,13 +149,12 @@ public class StringScanner
   }
 
   /**
-   * Get the string until the specified end character, but excluding the end
-   * character.
+   * Get the string until the specified end character, but excluding the end character.
    *
    * @param cEndExcl
    *        The end character to search.
-   * @return A non-<code>null</code> string with all characters from the current
-   *         index until the end character, but not including the end character.
+   * @return A non-<code>null</code> string with all characters from the current index until the end
+   *         character, but not including the end character.
    */
   @Nonnull
   public String getUntil (final char cEndExcl)
@@ -190,9 +188,9 @@ public class StringScanner
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("input", m_sInput)
-                                       .append ("maxIndex", m_nMaxIndex)
-                                       .append ("curIndex", m_nCurIndex)
+    return new ToStringGenerator (this).append ("Input", m_sInput)
+                                       .append ("MaxIndex", m_nMaxIndex)
+                                       .append ("CurIndex", m_nCurIndex)
                                        .getToString ();
   }
 }

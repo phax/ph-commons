@@ -21,11 +21,11 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.email.EmailAddressHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.email.EmailAddressHelper;
 import com.helger.datetime.helper.PDTFactory;
 
 import jakarta.annotation.Nonnull;
