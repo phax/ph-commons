@@ -57,11 +57,22 @@
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
+      <artifactId>ph-io</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-text</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.helger.commons</groupId>
       <artifactId>ph-graph</artifactId>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-xml</artifactId>
+      <optional>true</optional>
     </dependency>
     
     <dependency>

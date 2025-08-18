@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback.exception;
+package com.helger.diagnostics.callback.exception;
 
 import org.junit.Test;
 
 import com.helger.base.mock.exception.MockException;
-import com.helger.diagnostics.callback.exception.LoggingExceptionCallback;
 
 /**
  * Test class for class {@link LoggingExceptionCallback}
