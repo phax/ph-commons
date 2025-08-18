@@ -78,7 +78,7 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.unittest</Automatic-Module-Name>
-            <Export-Package>com.helger.unitest.*</Export-Package>
+            <Export-Package>com.helger.unittest.*</Export-Package>
             <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>

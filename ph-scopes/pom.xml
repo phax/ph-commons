@@ -30,7 +30,6 @@
   <description>All scope related functionality</description>
   <url>https://github.com/phax/ph-commons/ph-scopes</url>
   <inceptionYear>2016</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
-  
   <developers>
     <developer>
       <id>philip</id>
@@ -52,7 +49,6 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -62,7 +58,6 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-statistics</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -75,7 +70,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
   <build>
     <plugins>
       <plugin>
@@ -84,13 +78,15 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Automatic-Module-Name>com.helger.scopes</Automatic-Module-Name>
+            <Automatic-Module-Name>com.helger.scope</Automatic-Module-Name>
             <Export-Package>com.helger.scope.*</Export-Package>
             <Import-Package>!jakarta.annotation.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
+osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IGlobalScopeSPI)"; cardinality:=multiple; resolution:=optional,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IRequestScopeSPI)"; cardinality:=multiple; resolution:=optional,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.ISessionScopeSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.base.cleanup.ICleanUpRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

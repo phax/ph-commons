@@ -82,7 +82,7 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.unittestext</Automatic-Module-Name>
-            <Export-Package>com.helger.unitestext.*</Export-Package>
+            <Export-Package>com.helger.unittestext.*</Export-Package>
             <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>

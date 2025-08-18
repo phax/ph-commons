@@ -30,7 +30,6 @@
   <description>Java 1.8+ Library with XML handling routines</description>
   <url>https://github.com/phax/ph-commons/ph-xml</url>
   <inceptionYear>2014</inceptionYear>
-
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -52,7 +49,6 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -70,25 +66,21 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-diagnostics</artifactId>
     </dependency>
-    <!-- cannot be optional -->
-    <dependency>
+    <!-- cannot be optional -->    <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-mime</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
-
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-unittest-support-ext</artifactId>
       <optional>true</optional>
     </dependency>
-    
     <dependency>
       <groupId>org.dom4j</groupId>
       <artifactId>dom4j</artifactId>
@@ -101,16 +93,13 @@
         </exclusion>
       </exclusions>
     </dependency>
-
-    <!-- OSGI container is required for a test case -->
-    <dependency>
+    <!-- OSGI container is required for a test case -->    <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.framework</artifactId>
       <version>7.0.5</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -125,7 +114,8 @@
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.base.cleanup.ICleanUpRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

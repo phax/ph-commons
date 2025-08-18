@@ -18,6 +18,7 @@ package com.helger.xml;
 
 import java.util.Locale;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -153,6 +154,7 @@ public enum EXMLParserProperty implements IHasName
    * Xerces will not behave in a strictly spec-compliant way when this property is set. By default,
    * this property is not set; Xerces's behaviour is therefore strictly spec-compliant by default.
    */
+  @Deprecated
   GENERAL_SECURITY_MANAGER (EXMLParserPropertyType.GENERAL,
                             "http://apache.org/xml/properties/security-manager",
                             "org.apache.xerces.util.SecurityManager"),
@@ -216,7 +218,51 @@ public enum EXMLParserProperty implements IHasName
    */
   JAXP_SCHEMA_SOURCE (EXMLParserPropertyType.GENERAL,
                       "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                      Object.class);
+                      Object.class),
+
+  /**
+   * Restrict access to external DTDs and external Entity References to the protocols specified.If
+   * access is denied due to the restriction of this property, a runtime exception that is specific
+   * to the context is thrown. In the case of javax.xml.parsers.SAXParserfor example,
+   * org.xml.sax.SAXException is thrown.<br>
+   * Value: a list of protocols separated by comma. A protocol is the scheme portion of a
+   * java.net.URI, or in the case of the JAR protocol, "jar" plus the scheme portion separated by
+   * colon.<br>
+   * ({@link XMLConstants#ACCESS_EXTERNAL_DTD})
+   *
+   * @since 10.1.7
+   */
+  ACCESS_EXTERNAL_DTD (EXMLParserPropertyType.GENERAL, XMLConstants.ACCESS_EXTERNAL_DTD, String.class),
+
+  /**
+   * Restrict access to the protocols specified for external reference set by theschemaLocation
+   * attribute, Import and Include element. If access is denied due to the restriction of this
+   * property, a runtime exception that is specific to the context is thrown. In the case of
+   * javax.xml.validation.SchemaFactoryfor example, org.xml.sax.SAXException is thrown.<br>
+   * Value: a list of protocols separated by comma. A protocol is the scheme portion of a
+   * java.net.URI, or in the case of the JAR protocol, "jar" plus the scheme portion separated by
+   * colon. <br>
+   * ({@link XMLConstants#ACCESS_EXTERNAL_SCHEMA})
+   *
+   * @since 10.1.7
+   */
+  ACCESS_EXTERNAL_SCHEMA (EXMLParserPropertyType.GENERAL, XMLConstants.ACCESS_EXTERNAL_SCHEMA, String.class),
+
+  /**
+   * Restrict access to the protocols specified for external references set by the stylesheet
+   * processing instruction, Import and Include element, and document function.If access is denied
+   * due to the restriction of this property, a runtime exception that is specific to the context is
+   * thrown. In the case of constructing new javax.xml.transform.Transformer for example,
+   * javax.xml.transform.TransformerConfigurationExceptionwill be thrown by the
+   * javax.xml.transform.TransformerFactory.<br>
+   * Value: a list of protocols separated by comma. A protocol is the scheme portion of a
+   * java.net.URI, or in the case of the JAR protocol, "jar" plus the scheme portion separated by
+   * colon<br>
+   * ({@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET})
+   *
+   * @since 10.1.7
+   */
+  ACCESS_EXTERNAL_STYLESHEET (EXMLParserPropertyType.GENERAL, XMLConstants.ACCESS_EXTERNAL_STYLESHEET, String.class),;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (EXMLParserProperty.class);
 

@@ -30,7 +30,6 @@
   <description>Special Java 17+ Library with type conversion functionality</description>
   <url>https://github.com/phax/ph-commons/ph-typeconvert</url>
   <inceptionYear>2025</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
-  
   <developers>
     <developer>
       <id>philip</id>
@@ -52,14 +49,12 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-collection</artifactId>
     </dependency>
   </dependencies>
-  
   <build>
     <plugins>
       <plugin>
@@ -71,6 +66,11 @@
             <Automatic-Module-Name>com.helger.typeconvert</Automatic-Module-Name>
             <Export-Package>com.helger.typeconvert.*</Export-Package>
             <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
+osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.typeconvert.ITypeConverterRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.base.cleanup.ICleanUpRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.typeconvert.ITypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

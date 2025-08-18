@@ -59,50 +59,6 @@ public enum EXMLParserFeature implements IHasName
   SECURE_PROCESSING (EXMLParserFeatureType.GENERAL, XMLConstants.FEATURE_SECURE_PROCESSING),
 
   /**
-   * Restrict access to external DTDs and external Entity References to the protocols specified.If
-   * access is denied due to the restriction of this property, a runtime exception that is specific
-   * to the context is thrown. In the case of javax.xml.parsers.SAXParserfor example,
-   * org.xml.sax.SAXException is thrown.<br>
-   * Value: a list of protocols separated by comma. A protocol is the scheme portion of a
-   * java.net.URI, or in the case of the JAR protocol, "jar" plus the scheme portion separated by
-   * colon.<br>
-   * ({@link XMLConstants#ACCESS_EXTERNAL_DTD})
-   *
-   * @since 10.1.7
-   */
-  ACCESS_EXTERNAL_DTD (EXMLParserFeatureType.GENERAL, XMLConstants.ACCESS_EXTERNAL_DTD),
-
-  /**
-   * Restrict access to the protocols specified for external reference set by theschemaLocation
-   * attribute, Import and Include element. If access is denied due to the restriction of this
-   * property, a runtime exception that is specific to the context is thrown. In the case of
-   * javax.xml.validation.SchemaFactoryfor example, org.xml.sax.SAXException is thrown.<br>
-   * Value: a list of protocols separated by comma. A protocol is the scheme portion of a
-   * java.net.URI, or in the case of the JAR protocol, "jar" plus the scheme portion separated by
-   * colon. <br>
-   * ({@link XMLConstants#ACCESS_EXTERNAL_SCHEMA})
-   *
-   * @since 10.1.7
-   */
-  ACCESS_EXTERNAL_SCHEMA (EXMLParserFeatureType.GENERAL, XMLConstants.ACCESS_EXTERNAL_SCHEMA),
-
-  /**
-   * Restrict access to the protocols specified for external references set by the stylesheet
-   * processing instruction, Import and Include element, and document function.If access is denied
-   * due to the restriction of this property, a runtime exception that is specific to the context is
-   * thrown. In the case of constructing new javax.xml.transform.Transformer for example,
-   * javax.xml.transform.TransformerConfigurationExceptionwill be thrown by the
-   * javax.xml.transform.TransformerFactory.<br>
-   * Value: a list of protocols separated by comma. A protocol is the scheme portion of a
-   * java.net.URI, or in the case of the JAR protocol, "jar" plus the scheme portion separated by
-   * colon<br>
-   * ({@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET})
-   *
-   * @since 10.1.7
-   */
-  ACCESS_EXTERNAL_STYLESHEET (EXMLParserFeatureType.GENERAL, XMLConstants.ACCESS_EXTERNAL_STYLESHEET),
-
-  /**
    * When true: Perform namespace processing: prefixes will be stripped off element and attribute
    * names and replaced with the corresponding namespace URIs. By default, the two will simply be
    * concatenated, but the namespace-sep core property allows the application to specify a delimiter
