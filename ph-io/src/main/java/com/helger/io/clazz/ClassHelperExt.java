@@ -22,8 +22,8 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
-import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -65,6 +65,6 @@ public final class ClassHelperExt extends ClassHelper
 
     // returns null if not found
     final InputStream aIS = aClass.getResourceAsStream (sPathWithSlash);
-    return StreamHelperExt.checkForInvalidFilterInputStream (aIS);
+    return StreamHelper.checkForInvalidFilterInputStream (aIS);
   }
 }
