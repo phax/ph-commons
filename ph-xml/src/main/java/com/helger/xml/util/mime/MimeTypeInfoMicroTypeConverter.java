@@ -66,19 +66,19 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
     final IMicroElement eRet = new MicroElement (sNamespaceURI, sTagName);
     for (final MimeTypeWithSource aMimeType : aObject.getAllMimeTypesWithSource ())
     {
-      eRet.addElement (sNamespaceURI, ELEMENT_MIMETYPE)
+      eRet.addElementNS (sNamespaceURI, ELEMENT_MIMETYPE)
           .setAttribute (ATTR_SOURCE, aMimeType.getSource ())
           .addText (aMimeType.getMimeTypeAsString ());
     }
     if (aObject.hasComment ())
-      eRet.addElement (sNamespaceURI, ELEMENT_COMMENT).addText (aObject.getComment ());
+      eRet.addElementNS (sNamespaceURI, ELEMENT_COMMENT).addText (aObject.getComment ());
     for (final String sParentType : aObject.getAllParentTypes ())
-      eRet.addElement (sNamespaceURI, ELEMENT_PARENT_TYPE).addText (sParentType);
+      eRet.addElementNS (sNamespaceURI, ELEMENT_PARENT_TYPE).addText (sParentType);
     for (final String sGlob : aObject.getAllGlobs ())
-      eRet.addElement (sNamespaceURI, ELEMENT_GLOB).addText (sGlob);
+      eRet.addElementNS (sNamespaceURI, ELEMENT_GLOB).addText (sGlob);
     for (final ExtensionWithSource aExtension : aObject.getAllExtensionsWithSource ())
     {
-      eRet.addElement (sNamespaceURI, ELEMENT_EXTENSION)
+      eRet.addElementNS (sNamespaceURI, ELEMENT_EXTENSION)
           .setAttribute (ATTR_SOURCE, aExtension.getSource ())
           .addText (aExtension.getExtension ());
     }

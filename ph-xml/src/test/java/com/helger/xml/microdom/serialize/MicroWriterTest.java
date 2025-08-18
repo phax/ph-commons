@@ -151,7 +151,7 @@ public final class MicroWriterTest
     _testGetNodeAsXMLString (aDoc);
     _testGetNodeAsXMLString (aDoc.getDocumentElement ());
     _testGetNodeAsXMLString (new MicroElement ("xyz"));
-    _testGetNodeAsXMLString (new MicroElement ("xyz").setAttribute ("nsuri", "attr", "1"));
+    _testGetNodeAsXMLString (new MicroElement ("xyz").setAttributeNS ("nsuri", "attr", "1"));
     _testGetNodeAsXMLString (new MicroContainer ());
     _testGetNodeAsXMLString (new MicroContainer (new MicroComment ("useless"), new MicroElement ("xyz")));
     _testGetNodeAsXMLString (new MicroComment ("useless"));
@@ -338,11 +338,11 @@ public final class MicroWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.addElement ("ns1url", "root");
-    eRoot.addElement ("ns2url", "child1");
-    eRoot.addElement ("ns2url", "child2").setAttribute ("attr1", "a");
-    eRoot.addElement ("ns3url", "child3").setAttribute ("ns3url", "attr1", "a");
-    eRoot.addElement ("ns3url", "child4").setAttribute ("ns4url", "attr1", "a");
+    final IMicroElement eRoot = aDoc.addElementNS ("ns1url", "root");
+    eRoot.addElementNS ("ns2url", "child1");
+    eRoot.addElementNS ("ns2url", "child2").setAttribute ("attr1", "a");
+    eRoot.addElementNS ("ns3url", "child3").setAttributeNS ("ns3url", "attr1", "a");
+    eRoot.addElementNS ("ns3url", "child4").setAttributeNS ("ns4url", "attr1", "a");
 
     String s = MicroWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
@@ -391,7 +391,7 @@ public final class MicroWriterTest
                   "</a:root>",
                   s);
 
-    eRoot.addElement ("ns3url", "zz");
+    eRoot.addElementNS ("ns3url", "zz");
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
                   "<a:root xmlns:a=\"ns1url\" xmlns:xy=\"ns2url\">" +
@@ -410,11 +410,11 @@ public final class MicroWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.addElement ("ns1url", "root");
-    eRoot.addElement ("ns2url", "child1");
-    eRoot.addElement ("ns2url", "child2").setAttribute ("attr1", "a");
-    eRoot.addElement ("ns3url", "child3").setAttribute ("ns3url", "attr1", "a");
-    eRoot.addElement ("ns3url", "child4").setAttribute ("ns4url", "attr1", "a");
+    final IMicroElement eRoot = aDoc.addElementNS ("ns1url", "root");
+    eRoot.addElementNS ("ns2url", "child1");
+    eRoot.addElementNS ("ns2url", "child2").setAttribute ("attr1", "a");
+    eRoot.addElementNS ("ns3url", "child3").setAttributeNS ("ns3url", "attr1", "a");
+    eRoot.addElementNS ("ns3url", "child4").setAttributeNS ("ns4url", "attr1", "a");
 
     String s = MicroWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
@@ -577,9 +577,9 @@ public final class MicroWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.addElement ("ns1url", "root");
-    eRoot.addElement ("ns2url", "child1").setAttribute ("ns2url", "attr1", "value1");
-    eRoot.addElement ("ns2url", "child2").setAttribute ("ns3url", "attr2", "value2");
+    final IMicroElement eRoot = aDoc.addElementNS ("ns1url", "root");
+    eRoot.addElementNS ("ns2url", "child1").setAttributeNS ("ns2url", "attr1", "value1");
+    eRoot.addElementNS ("ns2url", "child2").setAttributeNS ("ns3url", "attr2", "value2");
 
     {
       final String s = MicroWriter.getNodeAsString (aDoc, aSettings);
@@ -688,9 +688,9 @@ public final class MicroWriterTest
 
     // default order
     final IMicroElement e = new MicroElement ("urn:stringdefault", "a");
-    e.setAttribute ("urn:string3", "c", "1");
-    e.setAttribute ("urn:string2", "b", "2");
-    e.setAttribute ("urn:string1", "a", "3");
+    e.setAttributeNS ("urn:string3", "c", "1");
+    e.setAttributeNS ("urn:string2", "b", "2");
+    e.setAttributeNS ("urn:string1", "a", "3");
     // Attributes are ordered automatically in DOM!
     assertEquals ("<a xmlns='urn:stringdefault' xmlns:ns0='urn:string3' ns0:c='1' xmlns:ns1='urn:string2' ns1:b='2' xmlns:ns2='urn:string1' ns2:a='3' />",
                   MicroWriter.getNodeAsString (e, aSettings));

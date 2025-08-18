@@ -102,11 +102,11 @@ public final class TreeXMLConverter
                                {
                                  // create item element
                                  final IMicroElement eItem = aParents.peek ()
-                                                                     .addElement (sNamespaceURI, ELEMENT_ITEM);
+                                                                     .addElementNS (sNamespaceURI, ELEMENT_ITEM);
                                  eItem.setAttribute (ATTR_ID, aIDConverter.apply (aItem.getID ()));
 
                                  // append data
-                                 final IMicroElement eData = eItem.addElement (sNamespaceURI, ELEMENT_DATA);
+                                 final IMicroElement eData = eItem.addElementNS (sNamespaceURI, ELEMENT_DATA);
                                  aDataConverter.appendDataValue (eData, aItem.getData ());
 
                                  aParents.push (eItem);
@@ -157,10 +157,10 @@ public final class TreeXMLConverter
                                {
                                  // create item element
                                  final IMicroElement eItem = aParents.peek ()
-                                                                     .addElement (sNamespaceURI, ELEMENT_ITEM);
+                                                                     .addElementNS (sNamespaceURI, ELEMENT_ITEM);
 
                                  // append data
-                                 final IMicroElement eData = eItem.addElement (sNamespaceURI, ELEMENT_DATA);
+                                 final IMicroElement eData = eItem.addElementNS (sNamespaceURI, ELEMENT_DATA);
                                  aDataConverter.appendDataValue (eData, aItem.getData ());
 
                                  aParents.push (eItem);

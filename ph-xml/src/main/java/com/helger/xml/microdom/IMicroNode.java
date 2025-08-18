@@ -1044,7 +1044,7 @@ public interface IMicroNode extends
   @Nonnull
   default IMicroElement addElement (@Nonnull @Nonempty final String sTagName)
   {
-    return addElement (null, sTagName);
+    return addElementNS (null, sTagName);
   }
 
   /**
@@ -1058,13 +1058,13 @@ public interface IMicroNode extends
    * @return The created element
    * @throws MicroException
    *         if this node cannot have children
-   * @deprecated Use {@link #addElement(String,String)} instead
+   * @deprecated Use {@link #addElementNS(String,String)} instead
    */
   @Deprecated
   @Nonnull
   default IMicroElement appendElement (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
   {
-    return addElement (sNamespaceURI, sTagName);
+    return addElementNS (sNamespaceURI, sTagName);
   }
 
   /**
@@ -1080,7 +1080,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroElement addElement (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
+  default IMicroElement addElementNS (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
   {
     return addChild (new MicroElement (sNamespaceURI, sTagName));
   }

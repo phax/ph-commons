@@ -159,7 +159,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
     final IMicroElement aElement;
     if (StringHelper.isNotEmpty (sNamespaceURI))
-      aElement = m_aParent.addElement (sNamespaceURI, sLocalName);
+      aElement = m_aParent.addElementNS (sNamespaceURI, sLocalName);
     else
       aElement = m_aParent.addElement (sLocalName);
 
@@ -176,7 +176,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
         // Ignore the "xmlns" attributes, as the SAX handler passes the correct
         // namespace URIs
         if (!sAttrName.startsWith (XMLConstants.XMLNS_ATTRIBUTE))
-          aElement.setAttribute (sAttrNamespaceURI, sAttrName, sAttrValue);
+          aElement.setAttributeNS (sAttrNamespaceURI, sAttrName, sAttrValue);
       }
     }
     m_aParent = aElement;

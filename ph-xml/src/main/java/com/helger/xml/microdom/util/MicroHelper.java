@@ -183,7 +183,7 @@ public final class MicroHelper
           {
             // Ignore all "xmlns" attributes (special namespace URI!)
             if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
-              eElement.setAttribute (sAttrNamespaceURI, aAttr.getLocalName (), aAttr.getValue ());
+              eElement.setAttributeNS (sAttrNamespaceURI, aAttr.getLocalName (), aAttr.getValue ());
           }
           else
             eElement.setAttribute (aAttr.getName (), aAttr.getValue ());

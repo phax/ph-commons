@@ -190,8 +190,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   /**
    * Get the attribute value of the given attribute name. If this element has no such attribute,
    * <code>null</code> is returned. The attribute value is converted via the
-   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no
-   * such attribute is present, <code>null</code> is returned.
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no such
+   * attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
    *        Destination type
@@ -213,8 +213,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   /**
    * Get the attribute value of the given attribute name. If this element has no such attribute,
    * <code>null</code> is returned. The attribute value is converted via the
-   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no
-   * such attribute is present, <code>null</code> is returned.
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no such
+   * attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
    *        Destination type
@@ -241,8 +241,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   /**
    * Get the attribute value of the given attribute name. If this element has no such attribute,
    * <code>null</code> is returned. The attribute value is converted via the
-   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no
-   * such attribute is present, <code>null</code> is returned.
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no such
+   * attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
    *        Destination type
@@ -436,9 +436,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 @Nullable final String sAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   @Nullable final String sAttrValue)
   {
     return setAttribute (new MicroQName (sNamespaceURI, sAttrName), sAttrValue);
   }
@@ -484,9 +484,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 @Nonnull final IHasAttributeValue aAttrValueProvider)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   @Nonnull final IHasAttributeValue aAttrValueProvider)
   {
     return setAttribute (new MicroQName (sNamespaceURI, sAttrName), aAttrValueProvider);
   }
@@ -542,11 +542,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final boolean bAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final boolean bAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
   }
 
   /**
@@ -596,11 +596,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final double dAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final double dAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Double.toString (dAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Double.toString (dAttrValue));
   }
 
   /**
@@ -648,11 +648,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final float fAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final float fAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Float.toString (fAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Float.toString (fAttrValue));
   }
 
   /**
@@ -700,11 +700,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final int nAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final int nAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
   }
 
   /**
@@ -752,11 +752,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final long nAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final long nAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
   }
 
   /**
@@ -777,8 +777,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. If the type of the value is not {@link String}, the
-   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a {@link String}
+   * object.
    *
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
@@ -812,8 +812,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. If the type of the value is not {@link String}, the
-   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a {@link String}
+   * object.
    *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
@@ -824,9 +824,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttributeWithConversion (@Nullable final String sNamespaceURI,
-                                               @Nonnull final String sAttrName,
-                                               @Nullable final Object aAttrValue)
+  default IMPLTYPE setAttributeNSWithConversion (@Nullable final String sNamespaceURI,
+                                                 @Nonnull final String sAttrName,
+                                                 @Nullable final Object aAttrValue)
   {
     return setAttributeWithConversion (new MicroQName (sNamespaceURI, sAttrName), aAttrValue);
   }
@@ -841,22 +841,22 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @param sAttrValue
    *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
-   * @deprecated Don't call this; Call {@link #setAttribute(String, String, String)} directly.
+   * @deprecated Don't call this; Call {@link #setAttributeNS(String, String, String)} directly.
    */
   @Deprecated (forRemoval = false)
   @Nonnull
-  @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
-  default IMPLTYPE setAttributeWithConversion (@Nullable final String sNamespaceURI,
-                                               @Nonnull final String sAttrName,
-                                               @Nullable final String sAttrValue)
+  @DevelopersNote ("No need for setAttributeWithConversion - setAttributeNS is enough")
+  default IMPLTYPE setAttributeNSWithConversion (@Nullable final String sNamespaceURI,
+                                                 @Nonnull final String sAttrName,
+                                                 @Nullable final String sAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, sAttrValue);
+    return setAttributeNS (sNamespaceURI, sAttrName, sAttrValue);
   }
 
   /**
    * Set an attribute value of this element. If the type of the value is not {@link String}, the
-   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a
-   * {@link String} object.
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a {@link String}
+   * object.
    *
    * @param aAttrName
    *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
@@ -900,7 +900,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   @Nonnull
   default EChange removeAttribute (@Nullable final String sAttrName)
   {
-    return removeAttribute (null, sAttrName);
+    return removeAttributeNS (null, sAttrName);
   }
 
   /**
@@ -914,7 +914,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *         such attribute exists at this element.
    */
   @Nonnull
-  default EChange removeAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  default EChange removeAttributeNS (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
     if (StringHelper.isEmpty (sAttrName))
       return EChange.UNCHANGED;

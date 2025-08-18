@@ -102,7 +102,7 @@ public final class StaxFuncTest
 
           IMicroElement aElement;
           if (StringHelper.isNotEmpty (sNamespaceURI))
-            aElement = aParent.addElement (sNamespaceURI, sLocalName);
+            aElement = aParent.addElementNS (sNamespaceURI, sLocalName);
           else
             aElement = aParent.addElement (sLocalName);
 
@@ -117,7 +117,7 @@ public final class StaxFuncTest
               // Ignore the "xmlns" attributes, as the SAX handler passes the
               // correct namespace URIs
               if (!sAttrName.startsWith (XMLConstants.XMLNS_ATTRIBUTE))
-                aElement.setAttribute (sAttrNamespaceURI, sAttrName, sAttrValue);
+                aElement.setAttributeNS (sAttrNamespaceURI, sAttrName, sAttrValue);
             }
 
           aParent = aElement;

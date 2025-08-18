@@ -40,7 +40,7 @@ public final class ChildrenProviderElementWithNameTest
     eRoot.addElement ("any");
     eRoot.addText ("Text");
     eRoot.addElement ("else");
-    eRoot.addElement ("namespace", "any");
+    eRoot.addElementNS ("namespace", "any");
     return aDoc;
   }
 

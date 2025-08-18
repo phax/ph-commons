@@ -101,7 +101,7 @@ public final class MicroElementTest
     e.addText ("any");
     assertTrue (e.isEqualContent (e.getClone ()));
     e = new MicroElement ("myns", "xyz");
-    e.addElement ("x", "z");
+    e.addElementNS ("x", "z");
     assertTrue (e.isEqualContent (e.getClone ()));
 
     assertTrue (e.isEqualContent (e));
@@ -383,7 +383,7 @@ public final class MicroElementTest
     assertNull (eClone.getNamespaceURI ());
     assertEquals (eRoot.getAllQAttributes (), eClone.getAllQAttributes ());
 
-    eRoot.setAttribute ("nsuri", "attr2", "c");
+    eRoot.setAttributeNS ("nsuri", "attr2", "c");
     eClone = eRoot.getClone ();
     assertEquals (eRoot.getTagName (), eClone.getTagName ());
     assertNull (eRoot.getNamespaceURI ());
@@ -402,11 +402,11 @@ public final class MicroElementTest
     final String NSURI = "http://www.helger.com/unittest";
     final String NSURI2 = "http://www.helger.com/unittest/second";
     final IMicroElement eRoot = new MicroElement ("root");
-    final IMicroElement a = eRoot.addElement (NSURI, "a");
-    final IMicroElement b = eRoot.addElement (NSURI2, "b");
+    final IMicroElement a = eRoot.addElementNS (NSURI, "a");
+    final IMicroElement b = eRoot.addElementNS (NSURI2, "b");
     final IMicroContainer aCont = eRoot.addContainer ();
     aCont.addElement ("c");
-    final IMicroElement d = aCont.addElement (NSURI, "d");
+    final IMicroElement d = aCont.addElementNS (NSURI, "d");
 
     assertNotNull (eRoot.getAllChildElements ((String) null));
     assertNotNull (eRoot.getAllChildElements (null, (String) null));

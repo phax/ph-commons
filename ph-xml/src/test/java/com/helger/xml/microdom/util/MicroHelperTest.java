@@ -175,7 +175,7 @@ public final class MicroHelperTest
     final String sNSURI = "my-namespace-uri";
     final IMicroElement e = new MicroElement (sNSURI, "x");
     assertNull (MicroHelper.getChildTextContent (e, sNSURI, "y"));
-    final IMicroElement y = e.addElement (sNSURI, "y");
+    final IMicroElement y = e.addElementNS (sNSURI, "y");
     assertNull (MicroHelper.getChildTextContent (e, sNSURI, "y"));
     y.addText ("Text");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, sNSURI, "y"));
@@ -191,7 +191,7 @@ public final class MicroHelperTest
     final String sNSURI = "my-namespace-uri";
     final IMicroElement e = new MicroElement (sNSURI, "x");
     assertNull (MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
-    final IMicroElement y = e.addElement (sNSURI, "y");
+    final IMicroElement y = e.addElementNS (sNSURI, "y");
     assertNull (MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
     y.addText ("100");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
