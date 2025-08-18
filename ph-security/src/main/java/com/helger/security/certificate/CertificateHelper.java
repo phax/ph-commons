@@ -52,10 +52,10 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.codec.base64.Base64;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.stream.StringInputStream;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringHex;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.io.stream.StringInputStream;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
 

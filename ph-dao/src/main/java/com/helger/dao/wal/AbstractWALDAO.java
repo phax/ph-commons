@@ -43,6 +43,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.EAppend;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.ESuccess;
 import com.helger.base.timing.StopWatch;
@@ -61,7 +62,6 @@ import com.helger.io.file.FileOperationManager;
 import com.helger.io.relative.IFileRelativeIO;
 import com.helger.io.resource.FileSystemResource;
 import com.helger.io.resource.IReadableResource;
-import com.helger.io.stream.StreamHelperExt;
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.api.IMutableStatisticsHandlerTimer;
 import com.helger.statistics.impl.StatisticsManager;
@@ -545,7 +545,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
             final String sActionTypeID;
             try
             {
-              sActionTypeID = StreamHelperExt.readSafeUTF (aOIS);
+              sActionTypeID = StreamHelper.readSafeUTF (aOIS);
             }
             catch (final EOFException ex)
             {
@@ -561,7 +561,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
             // Read all elements
             for (int i = 0; i < nElements; ++i)
             {
-              final String sElement = StreamHelperExt.readSafeUTF (aOIS);
+              final String sElement = StreamHelper.readSafeUTF (aOIS);
               final DATATYPE aElement = convertWALStringToNative (sElement);
               if (aElement == null)
               {
@@ -1011,7 +1011,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     try (final DataOutputStream aDOS = new DataOutputStream (aWALRes.getOutputStream (EAppend.APPEND)))
     {
       // Write action type ID
-      StreamHelperExt.writeSafeUTF (aDOS, eActionType.getID ());
+      StreamHelper.writeSafeUTF (aDOS, eActionType.getID ());
 
       // Write number of elements
       aDOS.writeInt (aModifiedElements.size ());
@@ -1020,7 +1020,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
       for (final DATATYPE aModifiedElement : aModifiedElements)
       {
         final String sElement = convertNativeToWALString (aModifiedElement);
-        StreamHelperExt.writeSafeUTF (aDOS, sElement);
+        StreamHelper.writeSafeUTF (aDOS, sElement);
       }
 
       CONDLOG.info ( () -> "Finished writing WAL file " + aWALRes);

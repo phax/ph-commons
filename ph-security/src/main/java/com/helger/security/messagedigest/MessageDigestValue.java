@@ -29,14 +29,14 @@ import com.helger.base.array.bytes.ByteArrayWrapper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.iface.IHasByteArray;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.io.stream.StreamHelperExt;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * Represents a single message digest value as the combination of the algorithm
- * and the digest bytes.
+ * Represents a single message digest value as the combination of the algorithm and the digest
+ * bytes.
  *
  * @author Philip Helger
  */
@@ -48,7 +48,8 @@ public class MessageDigestValue implements IHasByteArray
   private final EMessageDigestAlgorithm m_eAlgorithm;
   private final ByteArrayWrapper m_aBytes;
 
-  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm, @Nonnull @Nonempty final byte [] aDigestBytes)
+  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
+                             @Nonnull @Nonempty final byte [] aDigestBytes)
   {
     this (eAlgorithm, aDigestBytes, DEFAULT_COPY_NEEDED);
   }
@@ -78,8 +79,8 @@ public class MessageDigestValue implements IHasByteArray
   }
 
   /**
-   * @return The message digest bytes. The length depends on the used algorithm.
-   *         Never <code>null</code>.
+   * @return The message digest bytes. The length depends on the used algorithm. Never
+   *         <code>null</code>.
    * @since 9.1.3
    */
   @Nonnull
@@ -103,8 +104,7 @@ public class MessageDigestValue implements IHasByteArray
   }
 
   /**
-   * @return The hex-encoded String of the message digest bytes. Never
-   *         <code>null</code>.
+   * @return The hex-encoded String of the message digest bytes. Never <code>null</code>.
    */
   @Nonnull
   @Nonempty
@@ -137,18 +137,17 @@ public class MessageDigestValue implements IHasByteArray
   }
 
   /**
-   * Create a new {@link MessageDigestValue} object based on the passed source
-   * byte array
+   * Create a new {@link MessageDigestValue} object based on the passed source byte array
    *
    * @param aBytes
-   *        The byte array to create the hash value from. May not be
-   *        <code>null</code>.
+   *        The byte array to create the hash value from. May not be <code>null</code>.
    * @param eAlgorithm
    *        The algorithm to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static MessageDigestValue create (@Nonnull final byte [] aBytes, @Nonnull final EMessageDigestAlgorithm eAlgorithm)
+  public static MessageDigestValue create (@Nonnull final byte [] aBytes,
+                                           @Nonnull final EMessageDigestAlgorithm eAlgorithm)
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
     aMD.update (aBytes);
@@ -157,8 +156,7 @@ public class MessageDigestValue implements IHasByteArray
   }
 
   /**
-   * Create a new {@link MessageDigestValue} object based on the passed source
-   * {@link InputStream}.
+   * Create a new {@link MessageDigestValue} object based on the passed source {@link InputStream}.
    *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
@@ -173,7 +171,7 @@ public class MessageDigestValue implements IHasByteArray
                                            @Nonnull final EMessageDigestAlgorithm eAlgorithm) throws IOException
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
-    StreamHelperExt.readUntilEOF (aIS, (aBytes, nBytes) -> aMD.update (aBytes, 0, nBytes));
+    StreamHelper.readUntilEOF (aIS, (aBytes, nBytes) -> aMD.update (aBytes, 0, nBytes));
     // aMD goes out of scope anyway, so no need to copy byte[]
     return new MessageDigestValue (eAlgorithm, aMD.digest (), false);
   }

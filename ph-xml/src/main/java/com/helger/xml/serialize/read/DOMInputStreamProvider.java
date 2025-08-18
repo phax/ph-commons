@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 
 import org.w3c.dom.Node;
 
-import com.helger.io.streamprovider.StringInputStreamProvider;
+import com.helger.base.io.streamprovider.StringInputStreamProvider;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;

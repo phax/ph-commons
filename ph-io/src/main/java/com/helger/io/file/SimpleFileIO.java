@@ -200,7 +200,7 @@ public final class SimpleFileIO
   public static ESuccess writeFile (@Nonnull final File aFile, @Nonnull final byte [] aContent)
   {
     final OutputStream aFOS = FileHelper.getOutputStream (aFile);
-    return aFOS == null ? ESuccess.FAILURE : StreamHelperExt.writeStream (aFOS, aContent);
+    return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, aContent);
   }
 
   @Nonnull
@@ -210,7 +210,7 @@ public final class SimpleFileIO
                                     @Nonnegative final int nLength)
   {
     final OutputStream aFOS = FileHelper.getOutputStream (aFile);
-    return aFOS == null ? ESuccess.FAILURE : StreamHelperExt.writeStream (aFOS, aContent, nOffset, nLength);
+    return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, aContent, nOffset, nLength);
   }
 
   @Nonnull
@@ -219,6 +219,6 @@ public final class SimpleFileIO
                                     @Nonnull final Charset aCharset)
   {
     final OutputStream aFOS = FileHelper.getOutputStream (aFile);
-    return aFOS == null ? ESuccess.FAILURE : StreamHelperExt.writeStream (aFOS, sContent, aCharset);
+    return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, sContent, aCharset);
   }
 }

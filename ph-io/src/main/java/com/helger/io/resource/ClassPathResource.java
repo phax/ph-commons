@@ -37,7 +37,6 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.clazz.ClassLoaderHelperExt;
-import com.helger.io.stream.StreamHelperExt;
 import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
@@ -126,13 +125,13 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   {
     if (m_aClassLoader != null)
       throw new IOException ("Cannot serialize a ClassPathResource that has a specific ClassLoader!");
-    StreamHelperExt.writeSafeUTF (aOOS, m_sPath);
+    StreamHelper.writeSafeUTF (aOOS, m_sPath);
     // Don't write the rest! After serialization the URL must be resolved again!
   }
 
   private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
   {
-    m_sPath = StreamHelperExt.readSafeUTF (aOIS);
+    m_sPath = StreamHelper.readSafeUTF (aOIS);
   }
 
   /**

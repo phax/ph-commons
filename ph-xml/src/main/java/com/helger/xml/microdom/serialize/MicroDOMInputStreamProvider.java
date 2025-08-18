@@ -18,7 +18,7 @@ package com.helger.xml.microdom.serialize;
 
 import java.nio.charset.Charset;
 
-import com.helger.io.streamprovider.StringInputStreamProvider;
+import com.helger.base.io.streamprovider.StringInputStreamProvider;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;

@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.io.EAppend;
-import com.helger.io.streamprovider.ByteArrayOutputStreamProvider;
+import com.helger.base.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.microdom.MicroDocumentType;
 

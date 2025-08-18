@@ -31,14 +31,14 @@ import org.junit.Test;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.iface.IHasOutputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.streamprovider.ByteArrayOutputStreamProvider;
+import com.helger.base.io.streamprovider.StringInputStreamProvider;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
-import com.helger.io.streamprovider.ByteArrayOutputStreamProvider;
-import com.helger.io.streamprovider.StringInputStreamProvider;
 
 /**
  * Test class for {@link XMLListHandler}.

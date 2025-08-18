@@ -31,8 +31,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
-import com.helger.io.stream.LoggingInputStream;
-import com.helger.io.stream.StringInputStream;
+import com.helger.base.io.stream.LoggingInputStream;
+import com.helger.base.io.stream.StringInputStream;
 import com.helger.json.IJson;
 import com.helger.json.IJsonValue;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;

@@ -27,6 +27,7 @@ import org.junit.Test;
 
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.io.stream.StringInputStream;
 import com.helger.io.file.FileOperations;
 
 /**

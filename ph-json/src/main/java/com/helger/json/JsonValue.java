@@ -28,10 +28,10 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.numeric.BigHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.io.stream.StreamHelperExt;
 import com.helger.json.serialize.JsonReader;
 import com.helger.json.valueserializer.IJsonValueSerializer;
 import com.helger.json.valueserializer.JsonValueSerializerConstant;
@@ -79,12 +79,12 @@ public class JsonValue implements IJsonValue
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter ();
     appendAsJsonString (aWriter);
-    StreamHelperExt.writeSafeUTF (aOOS, aWriter.getAsString ());
+    StreamHelper.writeSafeUTF (aOOS, aWriter.getAsString ());
   }
 
   private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
   {
-    final String sJson = StreamHelperExt.readSafeUTF (aOIS);
+    final String sJson = StreamHelper.readSafeUTF (aOIS);
     final JsonValue aJson = (JsonValue) JsonReader.readFromString (sJson);
     m_aValue = aJson.m_aValue;
   }

@@ -32,12 +32,12 @@ import org.junit.Test;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.iface.IHasOutputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.streamprovider.ByteArrayOutputStreamProvider;
+import com.helger.base.io.streamprovider.StringInputStreamProvider;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
-import com.helger.io.streamprovider.ByteArrayOutputStreamProvider;
-import com.helger.io.streamprovider.StringInputStreamProvider;
 
 /**
  * Test class for {@link XMLMapHandler}.
