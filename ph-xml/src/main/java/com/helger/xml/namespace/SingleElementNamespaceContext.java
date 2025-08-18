@@ -47,8 +47,7 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
    * Create a namespace context with the default (empty) prefix
    *
    * @param sNamespaceURI
-   *        The namespace URI to use. May neither be <code>null</code> nor
-   *        empty.
+   *        The namespace URI to use. May neither be <code>null</code> nor empty.
    */
   public SingleElementNamespaceContext (@Nonnull @Nonempty final String sNamespaceURI)
   {
@@ -93,12 +92,14 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getPrefixToNamespaceURIMap ()
   {
-    return CollectionHelperExt.newMap (m_sPrefix, m_sNamespaceURI);
+    return CollectionHelperExt.createMap (m_sPrefix, m_sNamespaceURI);
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("prefix", m_sPrefix).append ("namespaceURI", m_sNamespaceURI).getToString ();
+    return new ToStringGenerator (this).append ("prefix", m_sPrefix)
+                                       .append ("namespaceURI", m_sNamespaceURI)
+                                       .getToString ();
   }
 }

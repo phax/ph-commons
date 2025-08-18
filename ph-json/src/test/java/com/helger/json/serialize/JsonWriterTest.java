@@ -118,8 +118,7 @@ public final class JsonWriterTest
     assertEquals ("[1,0,10]",
                   JsonConverter.convertToJson (new CommonsArrayList <> (BigDecimal.ONE,
                                                                         BigInteger.ZERO,
-                                                                        BigDecimal.TEN))
-                               .getAsJsonString ());
+                                                                        BigDecimal.TEN)).getAsJsonString ());
   }
 
   @Test
@@ -147,7 +146,8 @@ public final class JsonWriterTest
   public void testComplex ()
   {
     final ICommonsList <JsonObject> aObjs = new CommonsArrayList <> ();
-    for (final ICommonsMap <String, String> aRow : new CommonsArrayList <> (CollectionHelperExt.newMap ("key", "value")))
+    for (final ICommonsMap <String, String> aRow : new CommonsArrayList <> (CollectionHelperExt.createMap ("key",
+                                                                                                           "value")))
     {
       final JsonObject aObj = new JsonObject ();
       for (final Map.Entry <String, String> aEntry : aRow.entrySet ())

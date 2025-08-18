@@ -80,10 +80,10 @@ public final class CommonsHashMapTest
   @Test
   public void testGetSwappedKeyValues ()
   {
-    final ICommonsMap <String, Integer> aMap = CollectionHelperExt.newMap (new String [] { "a", "b", "c" },
-                                                                           new Integer [] { Integer.valueOf (0),
-                                                                                            Integer.valueOf (1),
-                                                                                            Integer.valueOf (2) });
+    final ICommonsMap <String, Integer> aMap = CollectionHelperExt.createMap (new String [] { "a", "b", "c" },
+                                                                              new Integer [] { Integer.valueOf (0),
+                                                                                               Integer.valueOf (1),
+                                                                                               Integer.valueOf (2) });
     final ICommonsMap <Integer, String> aMapSwapped = aMap.getSwappedKeyValues ();
     assertEquals (aMap.size (), aMapSwapped.size ());
     assertEquals (aMap, aMapSwapped.getSwappedKeyValues ());

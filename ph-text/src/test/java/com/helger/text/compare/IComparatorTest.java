@@ -16,8 +16,8 @@
  */
 package com.helger.text.compare;
 
-import static com.helger.collection.helper.CollectionHelperExt.newList;
-import static com.helger.collection.helper.CollectionHelperExt.newMap;
+import static com.helger.collection.helper.CollectionHelperExt.createList;
+import static com.helger.collection.helper.CollectionHelperExt.createMap;
 import static com.helger.collection.helper.CollectionSort.getSorted;
 import static com.helger.collection.helper.CollectionSort.getSortedByKey;
 import static com.helger.collection.helper.CollectionSort.getSortedByValue;
@@ -56,7 +56,7 @@ public final class IComparatorTest
   @Test
   public void testCollating ()
   {
-    final List <String> l = CollectionHelperExt.newList ("a", null, "c");
+    final List <String> l = CollectionHelperExt.createList ("a", null, "c");
     assertEquals (3, getSorted (l, ComparatorHelper.getComparatorCollating (Locale.US)).size ());
     assertEquals (3, getSorted (l, ComparatorHelper.getComparatorCollating (Locale.US).reversed ()).size ());
     assertEquals (3, getSorted (l, ComparatorHelper.getComparatorCollating (L_EN)).size ());
@@ -150,7 +150,7 @@ public final class IComparatorTest
   @Test
   public void testGetSortedIIterableIteratorWithLocale ()
   {
-    final ICommonsList <String> aList = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aList = createList ("d", "c", "b", "a");
     final ICommonsList <String> aSorted = getSorted (new CommonsIterableIterator <> (aList),
                                                      ComparatorHelper.getComparatorCollating (Locale.US));
     assertEquals (4, aSorted.size ());
@@ -177,7 +177,7 @@ public final class IComparatorTest
   {
     assertNotNull (getSorted ((Iterator <String>) null, new MyStringCompi ()));
 
-    final ICommonsList <String> aList = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aList = createList ("d", "c", "b", "a");
 
     try
     {
@@ -201,7 +201,7 @@ public final class IComparatorTest
   {
     assertNotNull (getSorted ((Iterable <String>) null, new MyStringCompi ()));
 
-    final ICommonsList <String> aList = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aList = createList ("d", "c", "b", "a");
 
     try
     {
@@ -254,13 +254,13 @@ public final class IComparatorTest
     try
     {
       // null Comparator
-      getSortedByKey (newMap (), (Comparator <String>) null);
+      getSortedByKey (createMap (), (Comparator <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    final Map <String, String> aMap = newMap ("K2", "ValueA", "K3", "ValueB", "K1", "ValueC");
+    final Map <String, String> aMap = createMap ("K2", "ValueA", "K3", "ValueB", "K1", "ValueC");
     assertNotNull (aMap);
     assertEquals (3, aMap.size ());
 
@@ -288,13 +288,13 @@ public final class IComparatorTest
     try
     {
       // null Comparator
-      getSortedByValue (newMap (), (Comparator <String>) null);
+      getSortedByValue (createMap (), (Comparator <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    final Map <String, String> aMap = newMap ("K1", "ValueB", "K2", "ValueC", "K3", "ValueA");
+    final Map <String, String> aMap = createMap ("K1", "ValueB", "K2", "ValueC", "K3", "ValueA");
     assertNotNull (aMap);
     assertEquals (3, aMap.size ());
 

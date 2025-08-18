@@ -85,7 +85,7 @@ public final class CollectionHelperExt extends CollectionHelper
     if (eType == null)
     {
       // It's not a supported container -> create a new list with one element
-      return newList (aObj);
+      return createList (aObj);
     }
 
     switch (eType)
@@ -94,25 +94,25 @@ public final class CollectionHelperExt extends CollectionHelper
         // It's already a collection
         if (aObj instanceof final CommonsArrayList <?> aList)
           return aList;
-        return newList ((Collection <?>) aObj);
+        return createList ((Collection <?>) aObj);
       case SET:
         // Convert to list
-        return newList ((Set <?>) aObj);
+        return createList ((Set <?>) aObj);
       case MAP:
         // Use the entry set of the map as list
-        return newList (((Map <?, ?>) aObj).entrySet ());
+        return createList (((Map <?, ?>) aObj).entrySet ());
       case ARRAY:
         // Convert the array to a list
-        return newList ((Object []) aObj);
+        return createList ((Object []) aObj);
       case ITERATOR:
         // Convert the iterator to a list
-        return newList ((Iterator <?>) aObj);
+        return createList ((Iterator <?>) aObj);
       case ITERABLE:
         // Convert the iterable to a list
-        return newList ((Iterable <?>) aObj);
+        return createList ((Iterable <?>) aObj);
       case ENUMERATION:
         // Convert the enumeration to a list
-        return newList ((Enumeration <?>) aObj);
+        return createList ((Enumeration <?>) aObj);
       default:
         throw new IllegalStateException ("Unhandled collection type " + eType + "!");
     }
@@ -138,11 +138,11 @@ public final class CollectionHelperExt extends CollectionHelper
                                                                        @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
   {
     if (isEmpty (aCollection1))
-      return newSet (0);
+      return createSet (0);
     if (isEmpty (aCollection2))
-      return newSet (aCollection1);
+      return createSet (aCollection1);
 
-    final ICommonsSet <ELEMENTTYPE> ret = newSet (aCollection1);
+    final ICommonsSet <ELEMENTTYPE> ret = createSet (aCollection1);
     ret.removeAll (aCollection2);
     return ret;
   }
@@ -166,69 +166,69 @@ public final class CollectionHelperExt extends CollectionHelper
                                                                         @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
   {
     if (isEmpty (aCollection1))
-      return newSet (0);
+      return createSet (0);
     if (isEmpty (aCollection2))
-      return newSet (0);
+      return createSet (0);
 
-    final ICommonsSet <ELEMENTTYPE> ret = newSet (aCollection1);
+    final ICommonsSet <ELEMENTTYPE> ret = createSet (aCollection1);
     ret.retainAll (aCollection2);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nonnegative final int nInitialCapacity)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nonnegative final int nInitialCapacity)
   {
     return new CommonsHashMap <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap ()
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap ()
   {
     return new CommonsHashMap <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                             @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
-                                                                                                                             @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> createMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                                @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                                @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aMap))
-      return newMap (0);
+      return createMap (0);
     return new CommonsHashMap <> (aMap, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                                            @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
-                                                                                                            @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
+  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> createMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                               @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                               @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aCollection))
-      return newMap (0);
+      return createMap (0);
     return new CommonsHashMap <> (aCollection, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                 @Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                    @Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
   {
     if (isEmpty (aMap))
-      return newMap (0);
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aMap.size ());
+      return createMap (0);
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = createMap (aMap.size ());
     ret.putAll (aMap, aFilter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE aKey,
-                                                                                 @Nullable final VALUETYPE aValue)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nullable final KEYTYPE aKey,
+                                                                                    @Nullable final VALUETYPE aValue)
   {
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (1);
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = createMap (1);
     ret.put (aKey, aValue);
     return ret;
   }
@@ -236,15 +236,15 @@ public final class CollectionHelperExt extends CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> CommonsHashMap <ELEMENTTYPE, ELEMENTTYPE> newMap (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsHashMap <ELEMENTTYPE, ELEMENTTYPE> createMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return newMap (0);
+      return createMap (0);
 
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final CommonsHashMap <ELEMENTTYPE, ELEMENTTYPE> ret = newMap (aValues.length / 2);
+    final CommonsHashMap <ELEMENTTYPE, ELEMENTTYPE> ret = createMap (aValues.length / 2);
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -252,8 +252,8 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE [] aKeys,
-                                                                                 @Nullable final VALUETYPE [] aValues)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nullable final KEYTYPE [] aKeys,
+                                                                                    @Nullable final VALUETYPE [] aValues)
   {
     final int nKeys = ArrayHelper.getSize (aKeys);
     final int nValues = ArrayHelper.getSize (aValues);
@@ -268,9 +268,9 @@ public final class CollectionHelperExt extends CollectionHelper
 
     // Are both empty?
     if (nKeys == 0)
-      return newMap (0);
+      return createMap (0);
 
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (nKeys);
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = createMap (nKeys);
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -278,8 +278,8 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                                 @Nullable final Collection <? extends VALUETYPE> aValues)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
+                                                                                    @Nullable final Collection <? extends VALUETYPE> aValues)
   {
     final int nKeys = getSize (aKeys);
     final int nValues = getSize (aValues);
@@ -294,9 +294,9 @@ public final class CollectionHelperExt extends CollectionHelper
 
     // Are both empty?
     if (nKeys == 0)
-      return newMap (0);
+      return createMap (0);
 
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (nKeys);
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = createMap (nKeys);
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -306,22 +306,22 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
-      return newMap (0);
+      return createMap (0);
 
     return new CommonsHashMap <> (aMap);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (aMaps == null || aMaps.length == 0)
-      return newMap (0);
+      return createMap (0);
 
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap ();
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = createMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -329,82 +329,82 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return newMap (0);
+      return createMap (0);
 
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aCollection.size ());
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = createMap (aCollection.size ());
     ret.putAll (aCollection);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> createMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return newMap (0);
+      return createMap (0);
 
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap ();
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = createMap ();
     ret.putAll (aCollection);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nonnegative final int nInitialCapacity)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nonnegative final int nInitialCapacity)
   {
     return new CommonsLinkedHashMap <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap ()
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap ()
   {
     return new CommonsLinkedHashMap <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                                          @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
-                                                                                                                                          @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> createOrderedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                                             @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                                             @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aMap))
-      return newOrderedMap (0);
+      return createOrderedMap (0);
     return new CommonsLinkedHashMap <> (aMap, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                                                         @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
-                                                                                                                         @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
+  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> createOrderedMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                                            @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                            @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aCollection))
-      return newOrderedMap (0);
+      return createOrderedMap (0);
     return new CommonsLinkedHashMap <> (aCollection, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                              @Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                                 @Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
   {
     if (isEmpty (aMap))
-      return newOrderedMap (0);
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aMap.size ());
+      return createOrderedMap (0);
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = createOrderedMap (aMap.size ());
     ret.putAll (aMap, aFilter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE aKey,
-                                                                                              @Nullable final VALUETYPE aValue)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nullable final KEYTYPE aKey,
+                                                                                                 @Nullable final VALUETYPE aValue)
   {
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (1);
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = createOrderedMap (1);
     ret.put (aKey, aValue);
     return ret;
   }
@@ -412,15 +412,15 @@ public final class CollectionHelperExt extends CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> CommonsLinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> newOrderedMap (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsLinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> createOrderedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return newOrderedMap (0);
+      return createOrderedMap (0);
 
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final CommonsLinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> ret = newOrderedMap (aValues.length / 2);
+    final CommonsLinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> ret = createOrderedMap (aValues.length / 2);
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -443,8 +443,8 @@ public final class CollectionHelperExt extends CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE [] aKeys,
-                                                                                              @Nullable final VALUETYPE [] aValues)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nullable final KEYTYPE [] aKeys,
+                                                                                                 @Nullable final VALUETYPE [] aValues)
   {
     final int nKeys = ArrayHelper.getSize (aKeys);
     final int nValues = ArrayHelper.getSize (aValues);
@@ -459,9 +459,9 @@ public final class CollectionHelperExt extends CollectionHelper
 
     // Are both empty?
     if (nKeys == 0)
-      return newOrderedMap (0);
+      return createOrderedMap (0);
 
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (nKeys);
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = createOrderedMap (nKeys);
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -469,8 +469,8 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                                              @Nullable final Collection <? extends VALUETYPE> aValues)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
+                                                                                                 @Nullable final Collection <? extends VALUETYPE> aValues)
   {
     final int nKeys = getSize (aKeys);
     final int nValues = getSize (aValues);
@@ -485,9 +485,9 @@ public final class CollectionHelperExt extends CollectionHelper
 
     // Are both empty?
     if (nKeys == 0)
-      return newOrderedMap (0);
+      return createOrderedMap (0);
 
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (nKeys);
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = createOrderedMap (nKeys);
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -497,21 +497,21 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
-      return newOrderedMap (0);
+      return createOrderedMap (0);
     return new CommonsLinkedHashMap <> (aMap);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (ArrayHelper.isEmpty (aMaps))
-      return newOrderedMap (0);
+      return createOrderedMap (0);
 
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap ();
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = createOrderedMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -519,60 +519,60 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return newOrderedMap (0);
+      return createOrderedMap (0);
 
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aCollection.size ());
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = createOrderedMap (aCollection.size ());
     ret.putAll (aCollection);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> createOrderedMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return newOrderedMap (0);
+      return createOrderedMap (0);
 
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap ();
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = createOrderedMap ();
     ret.putAll (aCollection);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap ()
   {
     return new CommonsTreeMap <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE extends Comparable <? super DSTKEYTYPE>, DSTVALUETYPE> CommonsTreeMap <DSTKEYTYPE, DSTVALUETYPE> newSortedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                                                                           @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
-                                                                                                                                                                           @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE extends Comparable <? super DSTKEYTYPE>, DSTVALUETYPE> CommonsTreeMap <DSTKEYTYPE, DSTVALUETYPE> createSortedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                                                                              @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
+                                                                                                                                                                              @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
   {
     return new CommonsTreeMap <> (aMap, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                                                            @Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                                                               @Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
   {
-    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = createSortedMap ();
     ret.putAll (aMap, aFilter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final KEYTYPE aKey,
-                                                                                                                            @Nullable final VALUETYPE aValue)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap (@Nullable final KEYTYPE aKey,
+                                                                                                                               @Nullable final VALUETYPE aValue)
   {
-    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = createSortedMap ();
     ret.put (aKey, aValue);
     return ret;
   }
@@ -580,15 +580,15 @@ public final class CollectionHelperExt extends CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeMap <ELEMENTTYPE, ELEMENTTYPE> newSortedMap (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeMap <ELEMENTTYPE, ELEMENTTYPE> createSortedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return newSortedMap ();
+      return createSortedMap ();
 
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final CommonsTreeMap <ELEMENTTYPE, ELEMENTTYPE> ret = newSortedMap ();
+    final CommonsTreeMap <ELEMENTTYPE, ELEMENTTYPE> ret = createSortedMap ();
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -596,18 +596,18 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final KEYTYPE [] aKeys,
-                                                                                                                            @Nullable final VALUETYPE [] aValues)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap (@Nullable final KEYTYPE [] aKeys,
+                                                                                                                               @Nullable final VALUETYPE [] aValues)
   {
     // Are both empty?
     if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
-      return newSortedMap ();
+      return createSortedMap ();
 
     // keys OR values may be null here
     if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
       throw new IllegalArgumentException ("The passed arrays have different length!");
 
-    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = createSortedMap ();
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -615,18 +615,18 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                                                                            @Nullable final Collection <? extends VALUETYPE> aValues)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
+                                                                                                                               @Nullable final Collection <? extends VALUETYPE> aValues)
   {
     // Are both empty?
     if (isEmpty (aKeys) && isEmpty (aValues))
-      return newSortedMap ();
+      return createSortedMap ();
 
     // keys OR values may be null here
     if (getSize (aKeys) != getSize (aValues))
       throw new IllegalArgumentException ("Number of keys is different from number of values");
 
-    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = createSortedMap ();
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -636,24 +636,24 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
-      return newSortedMap ();
+      return createSortedMap ();
 
-    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = createSortedMap ();
     ret.putAll (aMap);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (aMaps == null || aMaps.length == 0)
-      return newSortedMap ();
+      return createSortedMap ();
 
-    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = createSortedMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -661,84 +661,84 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return newSortedMap ();
+      return createSortedMap ();
 
-    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = createSortedMap ();
     ret.putAll (aCollection);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> createSortedMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return newSortedMap ();
+      return createSortedMap ();
 
-    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = createSortedMap ();
     ret.putAll (aCollection);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nonnegative final int nInitialCapacity)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nonnegative final int nInitialCapacity)
   {
     return new CommonsHashSet <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet ()
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet ()
   {
     return new CommonsHashSet <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsHashSet <DSTTYPE> newSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                          @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> CommonsHashSet <DSTTYPE> createSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                             @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
-      return newSet (0);
-    final CommonsHashSet <DSTTYPE> ret = newSet (aCollection.size ());
+      return createSet (0);
+    final CommonsHashSet <DSTTYPE> ret = createSet (aCollection.size ());
     ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsHashSet <DSTTYPE> newSetMapped (@Nullable final SRCTYPE [] aArray,
-                                                                          @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> CommonsHashSet <DSTTYPE> createSetMapped (@Nullable final SRCTYPE [] aArray,
+                                                                             @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (ArrayHelper.isEmpty (aArray))
-      return newSet (0);
+      return createSet (0);
 
-    final CommonsHashSet <DSTTYPE> ret = newSet (aArray.length);
+    final CommonsHashSet <DSTTYPE> ret = createSet (aArray.length);
     ret.addAllMapped (aArray, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                   @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                      @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (isEmpty (aCollection))
-      return newSet (0);
-    final CommonsHashSet <ELEMENTTYPE> ret = newSet (aCollection.size ());
+      return createSet (0);
+    final CommonsHashSet <ELEMENTTYPE> ret = createSet (aCollection.size ());
     ret.addAll (aCollection, aFilter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nullable final ELEMENTTYPE aValue)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = newSet (1);
+    final CommonsHashSet <ELEMENTTYPE> ret = createSet (1);
     ret.add (aValue);
     return ret;
   }
@@ -746,58 +746,58 @@ public final class CollectionHelperExt extends CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return newSet (0);
+      return createSet (0);
 
-    final CommonsHashSet <ELEMENTTYPE> ret = newSet (aValues.length);
+    final CommonsHashSet <ELEMENTTYPE> ret = createSet (aValues.length);
     ret.addAll (aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
+    final CommonsHashSet <ELEMENTTYPE> ret = createSet ();
     ret.addAll (aCont);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return newSet (0);
+      return createSet (0);
 
     return new CommonsHashSet <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
+    final CommonsHashSet <ELEMENTTYPE> ret = createSet ();
     ret.addAll (aIter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return newSet (0);
-    return newSet (aIter.iterator ());
+      return createSet (0);
+    return createSet (aIter.iterator ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
+    final CommonsHashSet <ELEMENTTYPE> ret = createSet ();
     ret.addAll (aEnum);
     return ret;
   }
@@ -805,8 +805,8 @@ public final class CollectionHelperExt extends CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE extends Enum <ELEMENTTYPE>> EnumSet <ELEMENTTYPE> newEnumSet (@Nonnull final Class <ELEMENTTYPE> aEnumClass,
-                                                                                           @Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE extends Enum <ELEMENTTYPE>> EnumSet <ELEMENTTYPE> createEnumSet (@Nonnull final Class <ELEMENTTYPE> aEnumClass,
+                                                                                              @Nullable final ELEMENTTYPE... aValues)
   {
     final EnumSet <ELEMENTTYPE> ret = EnumSet.noneOf (aEnumClass);
     if (aValues != null)
@@ -816,8 +816,8 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Enum <ELEMENTTYPE>> EnumSet <ELEMENTTYPE> newEnumSet (@Nonnull final Class <ELEMENTTYPE> aEnumClass,
-                                                                                           @Nullable final Collection <ELEMENTTYPE> aValues)
+  public static <ELEMENTTYPE extends Enum <ELEMENTTYPE>> EnumSet <ELEMENTTYPE> createEnumSet (@Nonnull final Class <ELEMENTTYPE> aEnumClass,
+                                                                                              @Nullable final Collection <ELEMENTTYPE> aValues)
   {
     if (isEmpty (aValues))
       return EnumSet.noneOf (aEnumClass);
@@ -826,8 +826,8 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Enum <ELEMENTTYPE>> EnumSet <ELEMENTTYPE> newEnumSet (@Nonnull final Class <ELEMENTTYPE> aEnumClass,
-                                                                                           @Nullable final EnumSet <ELEMENTTYPE> aValues)
+  public static <ELEMENTTYPE extends Enum <ELEMENTTYPE>> EnumSet <ELEMENTTYPE> createEnumSet (@Nonnull final Class <ELEMENTTYPE> aEnumClass,
+                                                                                              @Nullable final EnumSet <ELEMENTTYPE> aValues)
   {
     if (aValues == null)
       return EnumSet.noneOf (aEnumClass);
@@ -836,46 +836,46 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet ()
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet ()
   {
     return new CommonsTreeSet <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> CommonsTreeSet <DSTTYPE> newSortedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                                                     @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> CommonsTreeSet <DSTTYPE> createSortedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                                        @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
-    final CommonsTreeSet <DSTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <DSTTYPE> ret = createSortedSet ();
     ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> CommonsTreeSet <DSTTYPE> newSortedSetMapped (@Nullable final SRCTYPE [] aArray,
-                                                                                                                     @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> CommonsTreeSet <DSTTYPE> createSortedSetMapped (@Nullable final SRCTYPE [] aArray,
+                                                                                                                        @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
-    final CommonsTreeSet <DSTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <DSTTYPE> ret = createSortedSet ();
     ret.addAllMapped (aArray, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                                                                  @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                                                                     @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = createSortedSet ();
     ret.addAll (aCollection, aFilter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = createSortedSet ();
     ret.add (aValue);
     return ret;
   }
@@ -883,27 +883,27 @@ public final class CollectionHelperExt extends CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet (@Nullable final ELEMENTTYPE... aValues)
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = createSortedSet ();
     ret.addAll (aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = createSortedSet ();
     ret.addAll (aCont);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = createSortedSet ();
     if (isNotEmpty (aCont))
       ret.addAll (aCont);
     return ret;
@@ -911,86 +911,86 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = createSortedSet ();
     ret.addAll (aIter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return newSortedSet ();
-    return newSortedSet (aIter.iterator ());
+      return createSortedSet ();
+    return createSortedSet (aIter.iterator ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> createSortedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = createSortedSet ();
     ret.addAll (aEnum);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnegative final int nInitialCapacity)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nonnegative final int nInitialCapacity)
   {
     return new CommonsLinkedHashSet <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet ()
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet ()
   {
     return new CommonsLinkedHashSet <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsLinkedHashSet <DSTTYPE> newOrderedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                       @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> CommonsLinkedHashSet <DSTTYPE> createOrderedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                          @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
-      return newOrderedSet (0);
-    final CommonsLinkedHashSet <DSTTYPE> ret = newOrderedSet (aCollection.size ());
+      return createOrderedSet (0);
+    final CommonsLinkedHashSet <DSTTYPE> ret = createOrderedSet (aCollection.size ());
     ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsLinkedHashSet <DSTTYPE> newOrderedSetMapped (@Nullable final SRCTYPE [] aArray,
-                                                                                       @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> CommonsLinkedHashSet <DSTTYPE> createOrderedSetMapped (@Nullable final SRCTYPE [] aArray,
+                                                                                          @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (ArrayHelper.isEmpty (aArray))
-      return newOrderedSet (0);
-    final CommonsLinkedHashSet <DSTTYPE> ret = newOrderedSet (aArray.length);
+      return createOrderedSet (0);
+    final CommonsLinkedHashSet <DSTTYPE> ret = createOrderedSet (aArray.length);
     ret.addAllMapped (aArray, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                                @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                                   @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (isEmpty (aCollection))
-      return newOrderedSet (0);
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aCollection.size ());
+      return createOrderedSet (0);
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = createOrderedSet (aCollection.size ());
     ret.addAll (aCollection, aFilter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nullable final ELEMENTTYPE aValue)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (1);
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = createOrderedSet (1);
     ret.add (aValue);
     return ret;
   }
@@ -998,65 +998,65 @@ public final class CollectionHelperExt extends CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return newOrderedSet (0);
+      return createOrderedSet (0);
 
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aValues.length);
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = createOrderedSet (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = createOrderedSet ();
     ret.addAll (aCont);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return newOrderedSet (0);
+      return createOrderedSet (0);
     return new CommonsLinkedHashSet <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = createOrderedSet ();
     ret.addAll (aIter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return newOrderedSet (0);
-    return newOrderedSet (aIter.iterator ());
+      return createOrderedSet (0);
+    return createOrderedSet (aIter.iterator ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createOrderedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = createOrderedSet ();
     ret.addAll (aEnum);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newListPrefilled (@Nullable final ELEMENTTYPE aValue,
-                                                                               @Nonnegative final int nElements)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createListPrefilled (@Nullable final ELEMENTTYPE aValue,
+                                                                                  @Nonnegative final int nElements)
   {
     ValueEnforcer.isGE0 (nElements, "Elements");
 
@@ -1068,31 +1068,31 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nonnegative final int nInitialCapacity)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nonnegative final int nInitialCapacity)
   {
     return new CommonsArrayList <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList ()
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList ()
   {
     return new CommonsArrayList <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                      @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                         @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     return CommonsArrayList.createFiltered (aCollection, aFilter);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nullable final ELEMENTTYPE aValue)
   {
-    final CommonsArrayList <ELEMENTTYPE> ret = newList (1);
+    final CommonsArrayList <ELEMENTTYPE> ret = createList (1);
     ret.add (aValue);
     return ret;
   }
@@ -1100,66 +1100,66 @@ public final class CollectionHelperExt extends CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nullable final ELEMENTTYPE... aValues)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
-      return newList (0);
+      return createList (0);
 
-    final CommonsArrayList <ELEMENTTYPE> ret = newList (aValues.length);
+    final CommonsArrayList <ELEMENTTYPE> ret = createList (aValues.length);
     ret.addAll (aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> newListMapped (@Nullable final SRCTYPE [] aValues,
-                                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> createListMapped (@Nullable final SRCTYPE [] aValues,
+                                                                                @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
-      return newList (0);
+      return createList (0);
 
-    final CommonsArrayList <DSTTYPE> ret = newList (aValues.length);
+    final CommonsArrayList <DSTTYPE> ret = createList (aValues.length);
     ret.addAllMapped (aValues, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> newListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
-                                                                                 @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
+  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> createListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
+                                                                                    @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
-    final CommonsArrayList <DSTTYPE> ret = newList ();
+    final CommonsArrayList <DSTTYPE> ret = createList ();
     ret.addAllMapped (aIter, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> newListMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> createListMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
-      return newList (0);
-    final CommonsArrayList <DSTTYPE> ret = newList (aCollection.size ());
+      return createList (0);
+    final CommonsArrayList <DSTTYPE> ret = createList (aCollection.size ());
     ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> newListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                                 @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
+  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> createListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                                                    @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                                    @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
-    final CommonsArrayList <DSTTYPE> ret = newList ();
+    final CommonsArrayList <DSTTYPE> ret = createList ();
     ret.addAllMapped (aCollection, aFilter, aMapper);
     return ret;
   }
 
   /**
-   * Compared to {@link Collections#list(Enumeration)} this method is more flexible in Generics
+   * Compared to {@link Collections#list(Enumeration)} this method is more flexible in generics
    * parameter.
    *
    * @param <ELEMENTTYPE>
@@ -1171,44 +1171,44 @@ public final class CollectionHelperExt extends CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     return new CommonsArrayList <> (aEnum);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final CommonsArrayList <ELEMENTTYPE> ret = newList ();
+    final CommonsArrayList <ELEMENTTYPE> ret = createList ();
     ret.addAll (aIter);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
     return new CommonsArrayList <> (aIter);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return newList (0);
+      return createList (0);
 
     return new CommonsArrayList <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createList (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return newList (0);
-    return newList (aIter.iterator ());
+      return createList (0);
+    return createList (aIter.iterator ());
   }
 
   /**
@@ -1233,7 +1233,7 @@ public final class CollectionHelperExt extends CollectionHelper
     if (isEmpty (aValues) || isEmpty (aKeys))
       return null;
 
-    final ICommonsMap <KEY, VALUE> ret = newMap ();
+    final ICommonsMap <KEY, VALUE> ret = createMap ();
     for (final KEY aKey : aKeys)
       if (aValues.containsKey (aKey))
         ret.put (aKey, aValues.get (aKey));
@@ -1247,13 +1247,13 @@ public final class CollectionHelperExt extends CollectionHelper
   {
     final int nSize1 = getSize (aCollection1);
     if (nSize1 == 0)
-      return newList (aCollection2);
+      return createList (aCollection2);
 
     final int nSize2 = getSize (aCollection2);
     if (nSize2 == 0)
-      return newList (aCollection1);
+      return createList (aCollection1);
 
-    final CommonsArrayList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
+    final CommonsArrayList <ELEMENTTYPE> ret = createList (nSize1 + nSize2);
     ret.addAll (aCollection1);
     ret.addAll (aCollection2);
     return ret;
@@ -1267,13 +1267,13 @@ public final class CollectionHelperExt extends CollectionHelper
   {
     final int nSize1 = getSize (aCont1);
     if (nSize1 == 0)
-      return newList (aCont2);
+      return createList (aCont2);
 
     final int nSize2 = ArrayHelper.getSize (aCont2);
     if (nSize2 == 0)
-      return newList (aCont1);
+      return createList (aCont1);
 
-    final CommonsArrayList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
+    final CommonsArrayList <ELEMENTTYPE> ret = createList (nSize1 + nSize2);
     ret.addAll (aCont1);
     Collections.addAll (ret, aCont2);
     return ret;
@@ -1286,13 +1286,13 @@ public final class CollectionHelperExt extends CollectionHelper
   {
     final int nSize1 = ArrayHelper.getSize (aCont1);
     if (nSize1 == 0)
-      return newList (aCont2);
+      return createList (aCont2);
 
     final int nSize2 = getSize (aCont2);
     if (nSize2 == 0)
-      return newList (aCont1);
+      return createList (aCont1);
 
-    final CommonsArrayList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
+    final CommonsArrayList <ELEMENTTYPE> ret = createList (nSize1 + nSize2);
     Collections.addAll (ret, aCont1);
     ret.addAll (aCont2);
     return ret;
@@ -1305,13 +1305,13 @@ public final class CollectionHelperExt extends CollectionHelper
   {
     final int nSize1 = getSize (aCont1);
     if (nSize1 == 0)
-      return newSet (aCont2);
+      return createSet (aCont2);
 
     final int nSize2 = getSize (aCont2);
     if (nSize2 == 0)
-      return newSet (aCont1);
+      return createSet (aCont1);
 
-    final ICommonsSet <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
+    final ICommonsSet <ELEMENTTYPE> ret = createSet (nSize1 + nSize2);
     ret.addAll (aCont1);
     ret.addAll (aCont2);
     return ret;
@@ -1325,13 +1325,13 @@ public final class CollectionHelperExt extends CollectionHelper
   {
     final int nSize1 = getSize (aCont1);
     if (nSize1 == 0)
-      return newSet (aCont2);
+      return createSet (aCont2);
 
     final int nSize2 = ArrayHelper.getSize (aCont2);
     if (nSize2 == 0)
-      return newSet (aCont1);
+      return createSet (aCont1);
 
-    final ICommonsSet <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
+    final ICommonsSet <ELEMENTTYPE> ret = createSet (nSize1 + nSize2);
     ret.addAll (aCont1);
     Collections.addAll (ret, aCont2);
     return ret;
@@ -1344,13 +1344,13 @@ public final class CollectionHelperExt extends CollectionHelper
   {
     final int nSize1 = ArrayHelper.getSize (aCont1);
     if (nSize1 == 0)
-      return newSet (aCont2);
+      return createSet (aCont2);
 
     final int nSize2 = getSize (aCont2);
     if (nSize2 == 0)
-      return newSet (aCont1);
+      return createSet (aCont1);
 
-    final ICommonsSet <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
+    final ICommonsSet <ELEMENTTYPE> ret = createSet (nSize1 + nSize2);
     Collections.addAll (ret, aCont1);
     ret.addAll (aCont2);
     return ret;
@@ -1406,9 +1406,9 @@ public final class CollectionHelperExt extends CollectionHelper
                                                                       @Nullable final Map <KEY, VALUE> aMap2)
   {
     if (isEmpty (aMap1))
-      return newMap (aMap2);
+      return createMap (aMap2);
     if (isEmpty (aMap2))
-      return newMap (aMap1);
+      return createMap (aMap1);
 
     // create and fill result map
     final ICommonsMap <KEY, VALUE> ret = new CommonsHashMap <> (aMap1);
@@ -1418,8 +1418,8 @@ public final class CollectionHelperExt extends CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static CommonsArrayList <?> newObjectListFromArray (@Nullable final Object aValue,
-                                                             @Nonnull final Class <?> aComponentType)
+  public static CommonsArrayList <?> createObjectListFromArray (@Nullable final Object aValue,
+                                                                @Nonnull final Class <?> aComponentType)
   {
     if (aValue == null)
       return null;
@@ -1470,7 +1470,7 @@ public final class CollectionHelperExt extends CollectionHelper
     if (ArrayHelper.isEmpty (aArray))
       return null;
 
-    final CommonsArrayList <Object> ret = newList (aArray.length);
+    final CommonsArrayList <Object> ret = createList (aArray.length);
     Collections.addAll (ret, aArray);
     return ret;
   }
@@ -1501,7 +1501,7 @@ public final class CollectionHelperExt extends CollectionHelper
 
     final int nSize = getSize (aCont);
     if (nSize == 0 || nStartIndex >= nSize)
-      return newList (0);
+      return createList (0);
 
     int nEndIndex = nStartIndex + nSectionLength;
     if (nEndIndex > nSize)
@@ -1509,6 +1509,6 @@ public final class CollectionHelperExt extends CollectionHelper
 
     // Create a copy of the list because "subList" only returns a view of the
     // original list!
-    return newList (aCont.subList (nStartIndex, nEndIndex));
+    return createList (aCont.subList (nStartIndex, nEndIndex));
   }
 }

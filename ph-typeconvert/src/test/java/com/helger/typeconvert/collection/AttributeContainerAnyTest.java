@@ -107,14 +107,14 @@ public final class AttributeContainerAnyTest
     assertTrue (x.removeObject ("null1").isUnchanged ());
 
     assertEquals (new AttributeContainerAny <> (), new AttributeContainerAny <> ());
-    assertEquals (new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key", "key2" },
-                                                                            new Object [] { "value", "value2" })),
-                  new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key", "key2" },
-                                                                            new Object [] { "value", "value2" })));
-    assertNotEquals (new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key", "key2" },
+    assertEquals (new AttributeContainerAny <> (CollectionHelperExt.createMap (new String [] { "key", "key2" },
                                                                                new Object [] { "value", "value2" })),
-                     new AttributeContainerAny <> (CollectionHelperExt.newMap (new String [] { "key", "key2" },
-                                                                               new Object [] { "value", "value" })));
+                  new AttributeContainerAny <> (CollectionHelperExt.createMap (new String [] { "key", "key2" },
+                                                                               new Object [] { "value", "value2" })));
+    assertNotEquals (new AttributeContainerAny <> (CollectionHelperExt.createMap (new String [] { "key", "key2" },
+                                                                                  new Object [] { "value", "value2" })),
+                     new AttributeContainerAny <> (CollectionHelperExt.createMap (new String [] { "key", "key2" },
+                                                                                  new Object [] { "value", "value" })));
 
     assertTrue (new AttributeContainerAny <> ((Map <String, Object>) null).isEmpty ());
   }

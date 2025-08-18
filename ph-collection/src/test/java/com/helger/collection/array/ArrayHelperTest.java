@@ -667,7 +667,7 @@ public final class ArrayHelperTest
   @Test
   public void testNewArrayFromCollection ()
   {
-    String [] x = newArray (CollectionHelperExt.newList ("s1", "s2", "s3"), String.class);
+    String [] x = newArray (CollectionHelperExt.createList ("s1", "s2", "s3"), String.class);
     assertNotNull (x);
     assertEquals (3, x.length);
 
@@ -677,11 +677,11 @@ public final class ArrayHelperTest
     x = newArray ((List <String>) null, String.class);
     assertNotNull (x);
 
-    CharSequence [] y = newArray (CollectionHelperExt.newList ("s1", "s2", "s3"), CharSequence.class);
+    CharSequence [] y = newArray (CollectionHelperExt.createList ("s1", "s2", "s3"), CharSequence.class);
     assertNotNull (y);
     assertEquals (3, y.length);
 
-    y = newArray (CollectionHelperExt.newSet ("s1", "s2", "s3"), CharSequence.class);
+    y = newArray (CollectionHelperExt.createSet ("s1", "s2", "s3"), CharSequence.class);
     assertNotNull (y);
     assertEquals (3, y.length);
   }
@@ -1193,7 +1193,7 @@ public final class ArrayHelperTest
   {
     final Function <String, Integer> aMapper = Integer::valueOf;
 
-    Integer [] x = newArrayMapped (CollectionHelperExt.newList ("1", "2", "3"), aMapper, Integer.class);
+    Integer [] x = newArrayMapped (CollectionHelperExt.createList ("1", "2", "3"), aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (3, x.length);
     assertEquals (1, x[0].intValue ());
@@ -1216,7 +1216,7 @@ public final class ArrayHelperTest
     try
     {
       // Converter may not be null
-      newArrayMapped (CollectionHelperExt.newList ("1", "2", "3"), null, Integer.class);
+      newArrayMapped (CollectionHelperExt.createList ("1", "2", "3"), null, Integer.class);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1225,7 +1225,7 @@ public final class ArrayHelperTest
     try
     {
       // Destination class may not be null
-      newArrayMapped (CollectionHelperExt.newList ("1", "2", "3"), aMapper, (Class <Integer>) null);
+      newArrayMapped (CollectionHelperExt.createList ("1", "2", "3"), aMapper, (Class <Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)

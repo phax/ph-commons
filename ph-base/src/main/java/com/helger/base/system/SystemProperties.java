@@ -16,9 +16,7 @@
  */
 package com.helger.base.system;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
@@ -34,6 +32,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
+import com.helger.base.rt.NonBlockingProperties;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringParser;
 
@@ -486,13 +485,13 @@ public final class SystemProperties implements IHasConditionalLogger
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <String, String> getAllProperties ()
+  public static NonBlockingProperties getAllProperties ()
   {
     final Properties aProperties = System.getProperties ();
     if (aProperties == null)
-      return new HashMap <> ();
+      return new NonBlockingProperties ();
 
-    final Map <String, String> ret = new HashMap <> ();
+    final NonBlockingProperties ret = new NonBlockingProperties ();
     for (final var e : aProperties.entrySet ())
       ret.put (Objects.toString (e.getKey ()), Objects.toString (e.getValue ()));
     return ret;
@@ -505,7 +504,12 @@ public final class SystemProperties implements IHasConditionalLogger
   @ReturnsMutableCopy
   public static Set <String> getAllPropertyNames ()
   {
-    return new HashSet <> (getAllProperties ().keySet ());
+    final Set <String> ret = new HashSet <> ();
+    final Properties aProperties = System.getProperties ();
+    if (aProperties != null)
+      for (final Object aKey : aProperties.keySet ())
+        ret.add (Objects.toString (aKey));
+    return ret;
   }
 
   /**

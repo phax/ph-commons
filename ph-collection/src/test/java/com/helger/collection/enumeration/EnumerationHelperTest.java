@@ -18,7 +18,7 @@ package com.helger.collection.enumeration;
 
 import static com.helger.collection.enumeration.EnumerationHelper.getEnumeration;
 import static com.helger.collection.enumeration.EnumerationHelper.isEmpty;
-import static com.helger.collection.helper.CollectionHelperExt.newList;
+import static com.helger.collection.helper.CollectionHelperExt.createList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -46,13 +46,13 @@ public final class EnumerationHelperTest
     assertTrue (isEmpty ((Enumeration <?>) null));
     assertTrue (isEmpty (getEnumeration (new CommonsArrayList <> ())));
     assertTrue (isEmpty (new EmptyEnumeration <> ()));
-    assertFalse (isEmpty (getEnumeration (newList ("any"))));
+    assertFalse (isEmpty (getEnumeration (createList ("any"))));
   }
 
   @Test
   public void testGetEnumeratorFromIterator ()
   {
-    final List <String> aList = newList ("d", "c", "b", "a");
+    final List <String> aList = createList ("d", "c", "b", "a");
     Enumeration <String> aEnum = getEnumeration (aList.iterator ());
     assertTrue (aEnum.hasMoreElements ());
     assertEquals ("d", aEnum.nextElement ());

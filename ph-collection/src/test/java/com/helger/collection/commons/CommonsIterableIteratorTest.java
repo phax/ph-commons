@@ -50,23 +50,23 @@ public final class CommonsIterableIteratorTest
     assertTrue (iit.hasNext ());
     assertEquals ("Hallo", iit.next ());
 
-    iit = new CommonsIterableIterator <> (CollectionHelperExt.newList ("Hallo", "Welt", "from", "Copenhagen"));
+    iit = new CommonsIterableIterator <> (CollectionHelperExt.createList ("Hallo", "Welt", "from", "Copenhagen"));
     iit.next ();
     iit.remove ();
 
     assertEquals (3,
-                  CollectionHelperExt.newList (new CommonsIterableIterator <> (new String [] { "a", "b", "c" }))
+                  CollectionHelperExt.createList (new CommonsIterableIterator <> (new String [] { "a", "b", "c" }))
                                      .size ());
     assertEquals (3,
-                  CollectionHelperExt.newList (new CommonsIterableIterator <> (CollectionHelperExt.newList ("a",
-                                                                                                            "b",
-                                                                                                            "c")))
+                  CollectionHelperExt.createList (new CommonsIterableIterator <> (CollectionHelperExt.createList ("a",
+                                                                                                                  "b",
+                                                                                                                  "c")))
                                      .size ());
     assertEquals (3,
-                  CollectionHelperExt.newList (new CommonsIterableIterator <> (CollectionHelperExt.newList ("a",
-                                                                                                            "b",
-                                                                                                            "c")
-                                                                                                  .iterator ()))
+                  CollectionHelperExt.createList (new CommonsIterableIterator <> (CollectionHelperExt.createList ("a",
+                                                                                                                  "b",
+                                                                                                                  "c")
+                                                                                                     .iterator ()))
                                      .size ());
     TestHelper.testToStringImplementation (iit);
 

@@ -241,11 +241,11 @@ public final class XMLHelperTest
     XMLHelper.append (eRoot, doc2.createElement ("child"));
     XMLHelper.append (eRoot, "TextNode");
     XMLHelper.append (eRoot, doc2.createElement ("child"));
-    XMLHelper.append (eRoot, CollectionHelperExt.newList ("Text 1", " ", "Text 2"));
-    XMLHelper.append (eRoot, new CommonsIterableIterator <> (CollectionHelperExt.newList ("Text 1", " ", "Text 2")));
+    XMLHelper.append (eRoot, CollectionHelperExt.createList ("Text 1", " ", "Text 2"));
+    XMLHelper.append (eRoot, new CommonsIterableIterator <> (CollectionHelperExt.createList ("Text 1", " ", "Text 2")));
     XMLHelper.append (eRoot, doc.createElement ("foobar"));
     XMLHelper.append (eRoot, _getTestDoc ());
-    XMLHelper.append (eRoot, CollectionHelperExt.newSet (doc.createElement ("e1"), doc.createElement ("e2")));
+    XMLHelper.append (eRoot, CollectionHelperExt.createSet (doc.createElement ("e1"), doc.createElement ("e2")));
     XMLHelper.append (eRoot, new Element [] { doc.createElement ("e3"), doc.createElement ("e4") });
 
     try

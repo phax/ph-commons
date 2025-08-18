@@ -60,7 +60,7 @@ public final class MicroHelperTest
     final IMicroElement eRoot = aDoc.addElement ("root");
     MicroHelper.append (eRoot, "Any text");
     MicroHelper.append (eRoot, new MicroElement ("child"));
-    MicroHelper.append (eRoot, CollectionHelperExt.newList ("t1", "t2"));
+    MicroHelper.append (eRoot, CollectionHelperExt.createList ("t1", "t2"));
     MicroHelper.append (eRoot, ArrayHelper.newArray ("t1", "t2"));
     try
     {

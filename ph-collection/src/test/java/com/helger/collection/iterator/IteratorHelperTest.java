@@ -16,7 +16,7 @@
  */
 package com.helger.collection.iterator;
 
-import static com.helger.collection.helper.CollectionHelperExt.newList;
+import static com.helger.collection.helper.CollectionHelperExt.createList;
 import static com.helger.collection.iterator.IteratorHelper.getIterator;
 import static com.helger.collection.iterator.IteratorHelper.getReverseIterator;
 import static com.helger.collection.iterator.IteratorHelper.getSize;
@@ -55,7 +55,7 @@ public final class IteratorHelperTest
     assertTrue (isEmpty ((Iterator <?>) null));
     assertTrue (isEmpty (new CommonsArrayList <> ().iterator ()));
     assertTrue (isEmpty (new EmptyIterator <> ()));
-    assertFalse (isEmpty (newList ("any").iterator ()));
+    assertFalse (isEmpty (createList ("any").iterator ()));
     assertTrue (isEmpty (new EmptyIterator <> ()));
   }
 
@@ -65,7 +65,7 @@ public final class IteratorHelperTest
     assertTrue (isEmpty ((ICommonsIterableIterator <?>) null));
     assertTrue (isEmpty (new CommonsIterableIterator <> (new CommonsArrayList <> ())));
     assertTrue (isEmpty (CommonsIterableIterator.<String> createEmpty ()));
-    assertFalse (isEmpty (new CommonsIterableIterator <> (newList ("any"))));
+    assertFalse (isEmpty (new CommonsIterableIterator <> (createList ("any"))));
   }
 
   @Test
@@ -73,7 +73,7 @@ public final class IteratorHelperTest
   {
     assertEquals (0, getSize ((ICommonsIterableIterator <?>) null));
     assertEquals (0, getSize (CommonsIterableIterator.createEmpty ()));
-    assertEquals (1, getSize (new CommonsIterableIterator <> (newList ("any"))));
+    assertEquals (1, getSize (new CommonsIterableIterator <> (createList ("any"))));
   }
 
   @Test
@@ -81,7 +81,7 @@ public final class IteratorHelperTest
   {
     assertEquals (0, getSize ((Iterator <?>) null));
     assertEquals (0, getSize (new CommonsArrayList <String> ().iterator ()));
-    assertEquals (1, getSize (newList ("any").iterator ()));
+    assertEquals (1, getSize (createList ("any").iterator ()));
   }
 
   @Test
@@ -90,7 +90,7 @@ public final class IteratorHelperTest
     assertNotNull (getReverseIterator (null));
     assertFalse (getReverseIterator (null).hasNext ());
 
-    final List <String> aList = newList ("d", "c", "b", "a");
+    final List <String> aList = createList ("d", "c", "b", "a");
     final Iterator <String> it = getReverseIterator (aList);
     assertTrue (it.hasNext ());
     assertEquals ("a", it.next ());
@@ -127,7 +127,7 @@ public final class IteratorHelperTest
   {
     assertNotNull (getIterator ((List <?>) null));
     assertFalse (getIterator ((List <?>) null).hasNext ());
-    assertTrue (getIterator (newList ("abc")).hasNext ());
+    assertTrue (getIterator (createList ("abc")).hasNext ());
   }
 
   /**
@@ -138,7 +138,7 @@ public final class IteratorHelperTest
   {
     assertNotNull (getIterator ((Iterator <?>) null));
     assertFalse (getIterator ((Iterator <?>) null).hasNext ());
-    assertTrue (getIterator (newList ("abc").iterator ()).hasNext ());
+    assertTrue (getIterator (createList ("abc").iterator ()).hasNext ());
   }
 
   /**
@@ -155,7 +155,7 @@ public final class IteratorHelperTest
   @Test
   public void testGetIteratorFromEnumeration ()
   {
-    final Enumeration <String> aSourceEnum = Collections.enumeration (newList ("a", "b", "c", "d"));
+    final Enumeration <String> aSourceEnum = Collections.enumeration (createList ("a", "b", "c", "d"));
     IIterableIterator <String> it = IteratorHelper.getIterator (aSourceEnum);
     assertNotNull (it);
     assertSame (it, it.iterator ());

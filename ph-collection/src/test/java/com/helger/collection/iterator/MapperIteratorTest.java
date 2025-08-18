@@ -40,7 +40,8 @@ public final class MapperIteratorTest
   @Test
   public void testGetIteratorWithConversion ()
   {
-    final Iterator <Integer> it = new MapperIterator <> (CollectionHelperExt.newList ("100", "-25"), Integer::valueOf);
+    final Iterator <Integer> it = new MapperIterator <> (CollectionHelperExt.createList ("100", "-25"),
+                                                         Integer::valueOf);
     assertNotNull (it);
     assertTrue (it.hasNext ());
     assertEquals (Integer.valueOf (100), it.next ());

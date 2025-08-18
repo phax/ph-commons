@@ -44,15 +44,15 @@ public final class ChildElementIteratorTest
 
     // 1 child
     final Element eRoot = (Element) doc.appendChild (doc.createElement ("root"));
-    assertEquals (1, CollectionHelperExt.newList (new ChildElementIterator (doc)).size ());
+    assertEquals (1, CollectionHelperExt.createList (new ChildElementIterator (doc)).size ());
 
     // 2 children
     eRoot.appendChild (doc.createElement ("Hallo"));
     eRoot.appendChild (doc.createTextNode (" - "));
     eRoot.appendChild (doc.createElement ("Welt"));
-    assertEquals (2, CollectionHelperExt.newList (new ChildElementIterator (eRoot)).size ());
+    assertEquals (2, CollectionHelperExt.createList (new ChildElementIterator (eRoot)).size ());
     assertEquals (1,
-                  CollectionHelperExt.newList (new ChildElementIterator (eRoot).withFilter (XMLHelper.filterElementWithTagName ("Hallo")))
+                  CollectionHelperExt.createList (new ChildElementIterator (eRoot).withFilter (XMLHelper.filterElementWithTagName ("Hallo")))
                                      .size ());
 
     try

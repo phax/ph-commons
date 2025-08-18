@@ -46,6 +46,6 @@ public final class Utf8ResourceBundleTest
     final ResourceBundle rb = Utf8ResourceBundle.getBundle (sBundle, L_DE, ClassLoaderHelper.getDefaultClassLoader ());
     assertNotNull (rb);
     assertTrue (rb instanceof Utf8PropertyResourceBundle);
-    assertEquals (2, CollectionHelperExt.newList (rb.getKeys ()).size ());
+    assertEquals (2, CollectionHelperExt.createList (rb.getKeys ()).size ());
   }
 }

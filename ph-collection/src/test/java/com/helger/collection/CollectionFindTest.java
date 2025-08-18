@@ -22,7 +22,7 @@ import static com.helger.collection.CollectionFind.getFirstElement;
 import static com.helger.collection.CollectionFind.getLastElement;
 import static com.helger.collection.CollectionHelper.removeFirstElement;
 import static com.helger.collection.CollectionHelper.removeLastElement;
-import static com.helger.collection.helper.CollectionHelperExt.newList;
+import static com.helger.collection.helper.CollectionHelperExt.createList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -45,12 +45,12 @@ public final class CollectionFindTest
   {
     assertFalse (containsAnyNullElement ((ICommonsList <String>) null));
     assertFalse (containsAnyNullElement (new CommonsArrayList <> ()));
-    assertFalse (containsAnyNullElement (newList ("a")));
-    assertFalse (containsAnyNullElement (newList ("a", "b", "c")));
-    assertTrue (containsAnyNullElement (newList (null, "a")));
-    assertTrue (containsAnyNullElement (newList ("a", null)));
-    assertTrue (containsAnyNullElement (newList ((String) null)));
-    assertTrue (containsAnyNullElement (newList (null, Integer.valueOf (5))));
+    assertFalse (containsAnyNullElement (createList ("a")));
+    assertFalse (containsAnyNullElement (createList ("a", "b", "c")));
+    assertTrue (containsAnyNullElement (createList (null, "a")));
+    assertTrue (containsAnyNullElement (createList ("a", null)));
+    assertTrue (containsAnyNullElement (createList ((String) null)));
+    assertTrue (containsAnyNullElement (createList (null, Integer.valueOf (5))));
   }
 
   @Test
@@ -72,7 +72,7 @@ public final class CollectionFindTest
   @Test
   public void testFirstAndLast ()
   {
-    final ICommonsList <String> aList = newList ("s1", "s2", "s3");
+    final ICommonsList <String> aList = createList ("s1", "s2", "s3");
     final Set <String> aSet = new CommonsLinkedHashSet <> (aList);
 
     assertNull (removeFirstElement (new CommonsArrayList <> ()));

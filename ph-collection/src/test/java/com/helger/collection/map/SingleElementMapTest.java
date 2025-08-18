@@ -122,7 +122,7 @@ public final class SingleElementMapTest
     try
     {
       // too many items
-      aMap.putAll (CollectionHelperExt.newMap (new String [] { "x", "y" }, new Integer [] { I1, I2 }));
+      aMap.putAll (CollectionHelperExt.createMap (new String [] { "x", "y" }, new Integer [] { I1, I2 }));
       fail ();
     }
     catch (final IllegalArgumentException ex)

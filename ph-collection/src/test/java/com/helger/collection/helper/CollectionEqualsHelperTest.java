@@ -236,7 +236,7 @@ public final class CollectionEqualsHelperTest
     final ICommonsMap <ICommonsList <String>, ICommonsSet <String>> aMap = new CommonsHashMap <> ();
     aMap.put (new CommonsArrayList <> ("a", "b", "c"), new CommonsHashSet <> ("a", "b", "c"));
     aMap.put (new CommonsArrayList <> ("a", "b", "d"), new CommonsHashSet <> ("a", "b", "d"));
-    assertTrue (CollectionEqualsHelper.equalsCollection (aMap, CollectionHelperExt.newMap (aMap)));
+    assertTrue (CollectionEqualsHelper.equalsCollection (aMap, CollectionHelperExt.createMap (aMap)));
 
     assertFalse (CollectionEqualsHelper.equalsCollection (aMap, ArrayHelper.newArray ("a", "b", "c", "d")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aMap, new CommonsArrayList <> ("a", "b", "c")));
@@ -410,7 +410,7 @@ public final class CollectionEqualsHelperTest
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
                                                      EnumerationHelper.getEnumeration ("a", "b")));
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
-                                                     CollectionHelperExt.newOrderedSet ("a", "b")));
+                                                     CollectionHelperExt.createOrderedSet ("a", "b")));
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"), new MockIterable ("a", "b")));
 
     assertFalse (CollectionEqualsHelper.equalsAsList (null, "abc"));

@@ -163,7 +163,6 @@ public final class MainReadSharedMimeInfo
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
       final MimeType aOldMimeType = MimeTypeParser.parseMimeType (sOldMimeType);
-      
 
       // First check for Mime Type, as they are unique
       ICommonsList <MimeTypeInfo> aNew = aMgr.getAllInfosOfMimeType (aOldMimeType);
@@ -220,11 +219,11 @@ public final class MainReadSharedMimeInfo
           // No such mapping from ext to mime type
 
           // Create a new entry
-          aMgr.registerMimeType (new MimeTypeInfo (CollectionHelperExt.newOrderedSet (new MimeTypeWithSource (sOldMimeType)),
+          aMgr.registerMimeType (new MimeTypeInfo (CollectionHelperExt.createOrderedSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
                                                    new CommonsLinkedHashSet <> (),
                                                    new CommonsLinkedHashSet <> (),
-                                                   CollectionHelperExt.newOrderedSet (new ExtensionWithSource (sOldExt)),
+                                                   CollectionHelperExt.createOrderedSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)
             LOGGER.info ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");

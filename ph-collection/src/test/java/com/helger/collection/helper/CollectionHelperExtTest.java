@@ -80,8 +80,8 @@ public final class CollectionHelperExtTest
   @Test
   public void testGetDifference ()
   {
-    final ICommonsList <String> l1 = newList ("Hello", "Welt", "from", "Vienna");
-    final ICommonsList <String> l2 = newList ("Welt", "from");
+    final ICommonsList <String> l1 = createList ("Hello", "Welt", "from", "Vienna");
+    final ICommonsList <String> l2 = createList ("Welt", "from");
 
     // Result should be "Hello" and "Vienna"
     final Set <String> ret = getDifference (l1, l2);
@@ -101,8 +101,8 @@ public final class CollectionHelperExtTest
   @Test
   public void testGetIntersected ()
   {
-    final ICommonsList <String> l1 = newList ("Hallo", "Welt", "from", "Vienna");
-    final ICommonsList <String> l2 = newList ("Welt", "from");
+    final ICommonsList <String> l1 = createList ("Hallo", "Welt", "from", "Vienna");
+    final ICommonsList <String> l2 = createList ("Welt", "from");
 
     // Result should be "Hello" and "Vienna"
     final Set <String> ret = getIntersected (l1, l2);
@@ -127,19 +127,19 @@ public final class CollectionHelperExtTest
     assertNull (makeUnmodifiable ((Map <?, ?>) null));
     assertNull (makeUnmodifiable ((SortedMap <?, ?>) null));
 
-    final ICommonsCollection <String> c = newList ("s1", "s2");
+    final ICommonsCollection <String> c = createList ("s1", "s2");
     assertNotNull (makeUnmodifiable (c));
     assertNotSame (c, makeUnmodifiable (c));
-    final ICommonsList <String> l = newList ("s1", "s2");
+    final ICommonsList <String> l = createList ("s1", "s2");
     assertNotNull (makeUnmodifiable (l));
     assertNotSame (l, makeUnmodifiable (l));
-    final ICommonsSet <String> s = newSet ("s1", "s2");
+    final ICommonsSet <String> s = createSet ("s1", "s2");
     assertNotNull (makeUnmodifiable (s));
     assertNotSame (s, makeUnmodifiable (s));
     final ICommonsSortedSet <String> ss = new CommonsTreeSet <> (s);
     assertNotNull (makeUnmodifiable (ss));
     assertNotSame (ss, makeUnmodifiable (ss));
-    final ICommonsMap <String, String> m = newMap ("s1", "s2");
+    final ICommonsMap <String, String> m = createMap ("s1", "s2");
     assertNotNull (makeUnmodifiable (m));
     assertNotSame (m, makeUnmodifiable (m));
     final ICommonsSortedMap <String, String> sm = new CommonsTreeMap <> (m);
@@ -157,19 +157,19 @@ public final class CollectionHelperExtTest
     assertNotNull (makeUnmodifiableNotNull ((Map <?, ?>) null));
     assertNotNull (makeUnmodifiableNotNull ((SortedMap <?, ?>) null));
 
-    final ICommonsCollection <String> c = newList ("s1", "s2");
+    final ICommonsCollection <String> c = createList ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (c));
     assertNotSame (c, makeUnmodifiableNotNull (c));
-    final ICommonsList <String> l = newList ("s1", "s2");
+    final ICommonsList <String> l = createList ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (l));
     assertNotSame (l, makeUnmodifiableNotNull (l));
-    final ICommonsSet <String> s = newSet ("s1", "s2");
+    final ICommonsSet <String> s = createSet ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (s));
     assertNotSame (s, makeUnmodifiableNotNull (s));
     final ICommonsSortedSet <String> ss = new CommonsTreeSet <> (s);
     assertNotNull (makeUnmodifiableNotNull (ss));
     assertNotSame (ss, makeUnmodifiableNotNull (ss));
-    final ICommonsMap <String, String> m = newMap ("s1", "s2");
+    final ICommonsMap <String, String> m = createMap ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (m));
     assertNotSame (m, makeUnmodifiableNotNull (m));
     final ICommonsSortedMap <String, String> sm = new CommonsTreeMap <> (m);
@@ -180,14 +180,14 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewMap_Empty ()
   {
-    assertNotNull (newMap ());
-    assertTrue (newMap ().isEmpty ());
+    assertNotNull (createMap ());
+    assertTrue (createMap ().isEmpty ());
   }
 
   @Test
   public void testNewMap_KeyValue ()
   {
-    final Map <String, Integer> aMap = newMap ("Hallo", I5);
+    final Map <String, Integer> aMap = createMap ("Hallo", I5);
     assertNotNull (aMap);
     assertEquals (1, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
@@ -197,10 +197,10 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewMap_Map ()
   {
-    final Map <String, Integer> aMap = newMap ("Hallo", I5);
+    final Map <String, Integer> aMap = createMap ("Hallo", I5);
     assertNotNull (aMap);
 
-    final Map <String, Integer> aMap2 = newMap (aMap);
+    final Map <String, Integer> aMap2 = createMap (aMap);
     assertEquals (1, aMap2.size ());
     assertNotNull (aMap2.get ("Hallo"));
     assertEquals (I5, aMap2.get ("Hallo"));
@@ -209,15 +209,15 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewMap_MapArray ()
   {
-    final Map <String, Integer> aMapA = newMap ("Hallo", I5);
-    final Map <String, Integer> aMapB = newMap ("Welt", I3);
+    final Map <String, Integer> aMapA = createMap ("Hallo", I5);
+    final Map <String, Integer> aMapB = createMap ("Welt", I3);
 
-    Map <String, Integer> aMap2 = newMap (ArrayHelper.newArray (aMapA, aMapB));
+    Map <String, Integer> aMap2 = createMap (ArrayHelper.newArray (aMapA, aMapB));
     assertEquals (2, aMap2.size ());
     assertEquals (I5, aMap2.get ("Hallo"));
     assertEquals (I3, aMap2.get ("Welt"));
 
-    aMap2 = newMap (ArrayHelper.newArray (aMapA, aMapA));
+    aMap2 = createMap (ArrayHelper.newArray (aMapA, aMapA));
     assertEquals (1, aMap2.size ());
     assertEquals (I5, aMap2.get ("Hallo"));
   }
@@ -225,19 +225,19 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewMap_Array ()
   {
-    assertNotNull (newMap ((Object []) null));
-    assertTrue (newMap ((Object []) null).isEmpty ());
+    assertNotNull (createMap ((Object []) null));
+    assertTrue (createMap ((Object []) null).isEmpty ());
 
     try
     {
       // odd number of parameters not allowed
-      newMap ("Hallo", "Welt", "from");
+      createMap ("Hallo", "Welt", "from");
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    final Map <String, String> aMap = newMap ("Hallo", "Welt", "from", "Vienna");
+    final Map <String, String> aMap = createMap ("Hallo", "Welt", "from", "Vienna");
     assertNotNull (aMap);
     assertEquals (2, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
@@ -252,7 +252,7 @@ public final class CollectionHelperExtTest
     try
     {
       // null keys not allowed
-      newMap ((Object []) null, new String [] { "a" });
+      createMap ((Object []) null, new String [] { "a" });
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -261,7 +261,7 @@ public final class CollectionHelperExtTest
     try
     {
       // null values not allowed
-      newMap (new String [] { "a" }, (Object []) null);
+      createMap (new String [] { "a" }, (Object []) null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -270,13 +270,13 @@ public final class CollectionHelperExtTest
     try
     {
       // different length not allowed
-      newMap (new String [0], new String [1]);
+      createMap (new String [0], new String [1]);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    Map <Integer, String> aMap = newMap (new Integer [] { I2, I4 }, new String [] { "Hallo", "Welt" });
+    Map <Integer, String> aMap = createMap (new Integer [] { I2, I4 }, new String [] { "Hallo", "Welt" });
     assertNotNull (aMap);
     assertEquals (2, aMap.size ());
     assertNotNull (aMap.get (I2));
@@ -284,7 +284,7 @@ public final class CollectionHelperExtTest
     assertNotNull (aMap.get (I4));
     assertEquals ("Welt", aMap.get (I4));
 
-    aMap = newMap (new Integer [] {}, new String [] {});
+    aMap = createMap (new Integer [] {}, new String [] {});
     assertNotNull (aMap);
     assertEquals (0, aMap.size ());
   }
@@ -292,12 +292,12 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewMap_CollectionCollection ()
   {
-    final ICommonsList <String> aKeys = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aKeys = createList ("d", "c", "b", "a");
     final ICommonsList <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
-      newMap (null, aValues);
+      createMap (null, aValues);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -306,13 +306,13 @@ public final class CollectionHelperExtTest
     try
     {
       // null values not allowed
-      newMap (aKeys, null);
+      createMap (aKeys, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    Map <String, Integer> aMap = newMap (aKeys, aValues);
+    Map <String, Integer> aMap = createMap (aKeys, aValues);
     assertNotNull (aMap);
     assertTrue (aMap.keySet ().containsAll (aKeys));
     assertTrue (aMap.values ().containsAll (aValues));
@@ -321,38 +321,38 @@ public final class CollectionHelperExtTest
     {
       // There are more values than keys
       aValues.add (Integer.valueOf (42));
-      newMap (aKeys, aValues);
+      createMap (aKeys, aValues);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    // Simple test for newMap (Map)
-    assertEquals (aMap, newMap (aMap));
-    assertEquals (aMap, newMap (aMap.entrySet ()));
+    // Simple test for createMap (Map)
+    assertEquals (aMap, createMap (aMap));
+    assertEquals (aMap, createMap (aMap.entrySet ()));
 
     aKeys.clear ();
     aValues.clear ();
-    aMap = newMap (aKeys, aValues);
+    aMap = createMap (aKeys, aValues);
     assertNotNull (aMap);
     assertTrue (aMap.isEmpty ());
 
-    // Simple test for newMap (Map)
-    assertEquals (aMap, newMap (aMap));
-    assertEquals (aMap, newMap (aMap.entrySet ()));
+    // Simple test for createMap (Map)
+    assertEquals (aMap, createMap (aMap));
+    assertEquals (aMap, createMap (aMap.entrySet ()));
   }
 
   @Test
   public void testNewSortedMap_Empty ()
   {
-    assertNotNull (CollectionHelperExt.<String, String> newSortedMap ());
-    assertTrue (CollectionHelperExt.<String, String> newSortedMap ().isEmpty ());
+    assertNotNull (CollectionHelperExt.<String, String> createSortedMap ());
+    assertTrue (CollectionHelperExt.<String, String> createSortedMap ().isEmpty ());
   }
 
   @Test
   public void testNewSortedMap_KeyValue ()
   {
-    final SortedMap <String, Integer> aSortedMap = newSortedMap ("Hallo", I5);
+    final SortedMap <String, Integer> aSortedMap = createSortedMap ("Hallo", I5);
     assertNotNull (aSortedMap);
     assertEquals (1, aSortedMap.size ());
     assertNotNull (aSortedMap.get ("Hallo"));
@@ -362,19 +362,19 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedMap_Array ()
   {
-    assertNotNull (newSortedMap ((String []) null));
-    assertTrue (newSortedMap ((String []) null).isEmpty ());
+    assertNotNull (createSortedMap ((String []) null));
+    assertTrue (createSortedMap ((String []) null).isEmpty ());
 
     try
     {
       // odd number of parameters not allowed
-      newSortedMap ("Hallo", "Welt", "from");
+      createSortedMap ("Hallo", "Welt", "from");
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    final SortedMap <String, String> aSortedMap = newSortedMap ("Hallo", "Welt", "from", "Vienna");
+    final SortedMap <String, String> aSortedMap = createSortedMap ("Hallo", "Welt", "from", "Vienna");
     assertNotNull (aSortedMap);
     assertEquals (2, aSortedMap.size ());
     assertNotNull (aSortedMap.get ("Hallo"));
@@ -389,7 +389,7 @@ public final class CollectionHelperExtTest
     try
     {
       // null keys not allowed
-      newSortedMap ((String []) null, new String [] { "a" });
+      createSortedMap ((String []) null, new String [] { "a" });
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -398,7 +398,7 @@ public final class CollectionHelperExtTest
     try
     {
       // null values not allowed
-      newSortedMap (new String [] { "a" }, (Object []) null);
+      createSortedMap (new String [] { "a" }, (Object []) null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -407,14 +407,14 @@ public final class CollectionHelperExtTest
     try
     {
       // different length not allowed
-      newSortedMap (new String [0], new String [1]);
+      createSortedMap (new String [0], new String [1]);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    SortedMap <Integer, String> aSortedMap = newSortedMap (new Integer [] { I2, I4 },
-                                                           new String [] { "Hallo", "Welt" });
+    SortedMap <Integer, String> aSortedMap = createSortedMap (new Integer [] { I2, I4 },
+                                                              new String [] { "Hallo", "Welt" });
     assertNotNull (aSortedMap);
     assertEquals (2, aSortedMap.size ());
     assertNotNull (aSortedMap.get (I2));
@@ -422,7 +422,7 @@ public final class CollectionHelperExtTest
     assertNotNull (aSortedMap.get (I4));
     assertEquals ("Welt", aSortedMap.get (I4));
 
-    aSortedMap = newSortedMap (new Integer [] {}, new String [] {});
+    aSortedMap = createSortedMap (new Integer [] {}, new String [] {});
     assertNotNull (aSortedMap);
     assertEquals (0, aSortedMap.size ());
   }
@@ -430,12 +430,12 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedMap_CollectionCollection ()
   {
-    final ICommonsList <String> aKeys = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aKeys = createList ("d", "c", "b", "a");
     final ICommonsList <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
-      newSortedMap ((ICommonsList <String>) null, aValues);
+      createSortedMap ((ICommonsList <String>) null, aValues);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -444,13 +444,13 @@ public final class CollectionHelperExtTest
     try
     {
       // null values not allowed
-      newSortedMap (aKeys, null);
+      createSortedMap (aKeys, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    SortedMap <String, Integer> aSortedMap = newSortedMap (aKeys, aValues);
+    SortedMap <String, Integer> aSortedMap = createSortedMap (aKeys, aValues);
     assertNotNull (aSortedMap);
     assertTrue (aSortedMap.keySet ().containsAll (aKeys));
     assertTrue (aSortedMap.values ().containsAll (aValues));
@@ -459,38 +459,38 @@ public final class CollectionHelperExtTest
     {
       // There are more values than keys
       aValues.add (Integer.valueOf (42));
-      newSortedMap (aKeys, aValues);
+      createSortedMap (aKeys, aValues);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    // Simple test for newSortedMap (SortedMap)
-    assertEquals (aSortedMap, newSortedMap (aSortedMap));
-    assertEquals (aSortedMap, newSortedMap (aSortedMap.entrySet ()));
+    // Simple test for createSortedMap (SortedMap)
+    assertEquals (aSortedMap, createSortedMap (aSortedMap));
+    assertEquals (aSortedMap, createSortedMap (aSortedMap.entrySet ()));
 
     aKeys.clear ();
     aValues.clear ();
-    aSortedMap = newSortedMap (aKeys, aValues);
+    aSortedMap = createSortedMap (aKeys, aValues);
     assertNotNull (aSortedMap);
     assertTrue (aSortedMap.isEmpty ());
 
-    // Simple test for newSortedMap (SortedMap)
-    assertEquals (aSortedMap, newSortedMap (aSortedMap));
-    assertEquals (aSortedMap, newSortedMap (aSortedMap.entrySet ()));
+    // Simple test for createSortedMap (SortedMap)
+    assertEquals (aSortedMap, createSortedMap (aSortedMap));
+    assertEquals (aSortedMap, createSortedMap (aSortedMap.entrySet ()));
   }
 
   @Test
   public void testNewOrderedMap_Empty ()
   {
-    assertNotNull (newOrderedMap ());
-    assertTrue (newOrderedMap ().isEmpty ());
+    assertNotNull (createOrderedMap ());
+    assertTrue (createOrderedMap ().isEmpty ());
   }
 
   @Test
   public void testNewOrderedMap_KeyValue ()
   {
-    final Map <String, Integer> aMap = newOrderedMap ("Hallo", I5);
+    final Map <String, Integer> aMap = createOrderedMap ("Hallo", I5);
     assertNotNull (aMap);
     assertEquals (1, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
@@ -500,19 +500,19 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedMap_Array ()
   {
-    assertNotNull (newOrderedMap ((Object []) null));
-    assertTrue (newOrderedMap ((Object []) null).isEmpty ());
+    assertNotNull (createOrderedMap ((Object []) null));
+    assertTrue (createOrderedMap ((Object []) null).isEmpty ());
 
     try
     {
       // odd number of parameters not allowed
-      newOrderedMap ("Hallo", "Welt", "from");
+      createOrderedMap ("Hallo", "Welt", "from");
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    final Map <String, String> aMap = newOrderedMap ("Hallo", "Welt", "from", "Vienna");
+    final Map <String, String> aMap = createOrderedMap ("Hallo", "Welt", "from", "Vienna");
     assertNotNull (aMap);
     assertEquals (2, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
@@ -524,7 +524,8 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedMap_ArrayArray ()
   {
-    ICommonsMap <String, Integer> aMap = newOrderedMap (new String [] { "Hallo", "Alice" }, new Integer [] { I1, I2 });
+    ICommonsMap <String, Integer> aMap = createOrderedMap (new String [] { "Hallo", "Alice" },
+                                                           new Integer [] { I1, I2 });
     assertNotNull (aMap);
     assertEquals (2, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
@@ -544,7 +545,7 @@ public final class CollectionHelperExtTest
     try
     {
       // key array may not be null
-      newOrderedMap (null, new Integer [] { I1, I2 });
+      createOrderedMap (null, new Integer [] { I1, I2 });
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -553,7 +554,7 @@ public final class CollectionHelperExtTest
     try
     {
       // value array may not be null
-      newOrderedMap (new String [] { "Hallo", "Alice" }, null);
+      createOrderedMap (new String [] { "Hallo", "Alice" }, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -562,13 +563,13 @@ public final class CollectionHelperExtTest
     try
     {
       // key and value array need to have the same length
-      newOrderedMap (new String [] { "Hallo", "Alice" }, new Integer [] { I1, });
+      createOrderedMap (new String [] { "Hallo", "Alice" }, new Integer [] { I1, });
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    aMap = newOrderedMap (new String [] {}, new Integer [] {});
+    aMap = createOrderedMap (new String [] {}, new Integer [] {});
     assertNotNull (aMap);
     assertEquals (0, aMap.size ());
   }
@@ -576,12 +577,12 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedMap_CollectionCollection ()
   {
-    final ICommonsList <String> aKeys = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aKeys = createList ("d", "c", "b", "a");
     final ICommonsList <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
-      newOrderedMap (null, aValues);
+      createOrderedMap (null, aValues);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -590,13 +591,13 @@ public final class CollectionHelperExtTest
     try
     {
       // null values not allowed
-      newOrderedMap (aKeys, null);
+      createOrderedMap (aKeys, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    Map <String, Integer> aMap = newOrderedMap (aKeys, aValues);
+    Map <String, Integer> aMap = createOrderedMap (aKeys, aValues);
     assertNotNull (aMap);
     assertTrue (aMap.keySet ().containsAll (aKeys));
     assertTrue (aMap.values ().containsAll (aValues));
@@ -605,31 +606,31 @@ public final class CollectionHelperExtTest
     {
       // There are more values than keys
       aValues.add (Integer.valueOf (42));
-      newOrderedMap (aKeys, aValues);
+      createOrderedMap (aKeys, aValues);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    // Simple test for newMap (Map)
-    assertEquals (aMap, newOrderedMap (aMap));
-    assertEquals (aMap, newOrderedMap (aMap.entrySet ()));
+    // Simple test for createMap (Map)
+    assertEquals (aMap, createOrderedMap (aMap));
+    assertEquals (aMap, createOrderedMap (aMap.entrySet ()));
 
     aKeys.clear ();
     aValues.clear ();
-    aMap = newOrderedMap (aKeys, aValues);
+    aMap = createOrderedMap (aKeys, aValues);
     assertNotNull (aMap);
     assertTrue (aMap.isEmpty ());
 
-    // Simple test for newMap (Map)
-    assertEquals (aMap, newOrderedMap (aMap));
-    assertEquals (aMap, newOrderedMap (aMap.entrySet ()));
+    // Simple test for createMap (Map)
+    assertEquals (aMap, createOrderedMap (aMap));
+    assertEquals (aMap, createOrderedMap (aMap.entrySet ()));
   }
 
   @Test
   public void testNewSet_Empty ()
   {
-    final Set <String> aSet = newSet ();
+    final Set <String> aSet = createSet ();
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -637,12 +638,12 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSet_SingleValue ()
   {
-    Set <String> aSet = newSet ("Hallo");
+    Set <String> aSet = createSet ("Hallo");
     assertNotNull (aSet);
     assertEquals (1, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
 
-    aSet = newSet ((String) null);
+    aSet = createSet ((String) null);
     assertNotNull (aSet);
     assertEquals (1, aSet.size ());
     assertTrue (aSet.contains (null));
@@ -651,29 +652,29 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSet_Array ()
   {
-    Set <String> aSet = newSet ("Hallo", "Welt");
+    Set <String> aSet = createSet ("Hallo", "Welt");
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (new String [0]);
+    aSet = createSet (new String [0]);
     assertNotNull (aSet);
 
-    aSet = newSet ((String []) null);
+    aSet = createSet ((String []) null);
     assertNotNull (aSet);
   }
 
   @Test
   public void testNewSetIterable ()
   {
-    Set <String> aSet = newSet ((Iterable <String>) newList ("Hallo", "Welt"));
+    Set <String> aSet = createSet ((Iterable <String>) createList ("Hallo", "Welt"));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet ((Iterable <String>) new CommonsArrayList <String> ());
+    aSet = createSet ((Iterable <String>) new CommonsArrayList <String> ());
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -681,13 +682,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSetCollection ()
   {
-    Set <String> aSet = newSet (newList ("Hallo", "Welt"));
+    Set <String> aSet = createSet (createList ("Hallo", "Welt"));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (new CommonsArrayList <> ());
+    aSet = createSet (new CommonsArrayList <> ());
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -695,13 +696,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSetIIterableIterator ()
   {
-    Set <String> aSet = newSet (new CommonsIterableIterator <> (newList ("Hallo", "Welt")));
+    Set <String> aSet = createSet (new CommonsIterableIterator <> (createList ("Hallo", "Welt")));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
+    aSet = createSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -709,13 +710,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSetEnumeration ()
   {
-    Set <String> aSet = newSet (getEnumeration (newList ("Hallo", "Welt")));
+    Set <String> aSet = createSet (getEnumeration (createList ("Hallo", "Welt")));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (getEnumeration (new CommonsArrayList <> ()));
+    aSet = createSet (getEnumeration (new CommonsArrayList <> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -723,8 +724,8 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSetIterator ()
   {
-    final Iterator <String> it = newSet ("Hallo", "Welt").iterator ();
-    final Set <String> aUnmodifiableSet = newSet (it);
+    final Iterator <String> it = createSet ("Hallo", "Welt").iterator ();
+    final Set <String> aUnmodifiableSet = createSet (it);
     assertNotNull (aUnmodifiableSet);
     assertEquals (2, aUnmodifiableSet.size ());
     assertTrue (aUnmodifiableSet.contains ("Hallo"));
@@ -734,7 +735,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedSet_Empty ()
   {
-    final SortedSet <String> aSet = newSortedSet ();
+    final SortedSet <String> aSet = createSortedSet ();
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -742,12 +743,12 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedSet_SingleValue ()
   {
-    SortedSet <String> aSet = newSortedSet ("Hallo");
+    SortedSet <String> aSet = createSortedSet ("Hallo");
     assertNotNull (aSet);
     assertEquals (1, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
 
-    aSet = newSortedSet ((String) null);
+    aSet = createSortedSet ((String) null);
     assertNotNull (aSet);
     assertEquals (1, aSet.size ());
     assertTrue (aSet.contains (null));
@@ -756,29 +757,29 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedSet_Array ()
   {
-    SortedSet <String> aSet = newSortedSet ("Hallo", "Welt");
+    SortedSet <String> aSet = createSortedSet ("Hallo", "Welt");
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSortedSet (new String [0]);
+    aSet = createSortedSet (new String [0]);
     assertNotNull (aSet);
 
-    aSet = newSortedSet ((String []) null);
+    aSet = createSortedSet ((String []) null);
     assertNotNull (aSet);
   }
 
   @Test
   public void testNewSortedSetIterable ()
   {
-    SortedSet <String> aSet = newSortedSet ((Iterable <String>) newList ("Hallo", "Welt"));
+    SortedSet <String> aSet = createSortedSet ((Iterable <String>) createList ("Hallo", "Welt"));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSortedSet ((Iterable <String>) new CommonsArrayList <String> ());
+    aSet = createSortedSet ((Iterable <String>) new CommonsArrayList <String> ());
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -786,13 +787,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedSetCollection ()
   {
-    SortedSet <String> aSet = newSortedSet (newList ("Hallo", "Welt"));
+    SortedSet <String> aSet = createSortedSet (createList ("Hallo", "Welt"));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSortedSet (new CommonsArrayList <> ());
+    aSet = createSortedSet (new CommonsArrayList <> ());
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -800,7 +801,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedSetIIterableIterator ()
   {
-    SortedSet <String> aSet = newSortedSet (new CommonsIterableIterator <> (newList ("Hallo", "Welt", null)));
+    SortedSet <String> aSet = createSortedSet (new CommonsIterableIterator <> (createList ("Hallo", "Welt", null)));
     assertNotNull (aSet);
     assertEquals (3, aSet.size ());
     assertNull (aSet.first ());
@@ -808,7 +809,7 @@ public final class CollectionHelperExtTest
     assertTrue (aSet.contains ("Welt"));
     assertTrue (aSet.contains (null));
 
-    aSet = newSortedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
+    aSet = createSortedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -816,13 +817,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedSetEnumeration ()
   {
-    SortedSet <String> aSet = newSortedSet (getEnumeration (newList ("Hallo", "Welt")));
+    SortedSet <String> aSet = createSortedSet (getEnumeration (createList ("Hallo", "Welt")));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSortedSet (getEnumeration (new CommonsArrayList <> ()));
+    aSet = createSortedSet (getEnumeration (new CommonsArrayList <> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -830,8 +831,8 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewSortedSetIterator ()
   {
-    final Iterator <String> it = newSortedSet ("Hallo", "Welt").iterator ();
-    final SortedSet <String> aUnmodifiableSet = newSortedSet (it);
+    final Iterator <String> it = createSortedSet ("Hallo", "Welt").iterator ();
+    final SortedSet <String> aUnmodifiableSet = createSortedSet (it);
     assertNotNull (aUnmodifiableSet);
     assertEquals (2, aUnmodifiableSet.size ());
     assertTrue (aUnmodifiableSet.contains ("Hallo"));
@@ -841,7 +842,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedSetEmpty ()
   {
-    final Set <String> aOrderedSet = newOrderedSet ();
+    final Set <String> aOrderedSet = createOrderedSet ();
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -849,12 +850,12 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedSetSingleValue ()
   {
-    Set <String> aOrderedSet = newOrderedSet ("Hallo");
+    Set <String> aOrderedSet = createOrderedSet ("Hallo");
     assertNotNull (aOrderedSet);
     assertEquals (1, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
 
-    aOrderedSet = newOrderedSet ((String) null);
+    aOrderedSet = createOrderedSet ((String) null);
     assertNotNull (aOrderedSet);
     assertEquals (1, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains (null));
@@ -863,29 +864,29 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedSetArray ()
   {
-    Set <String> aOrderedSet = newOrderedSet ("Hallo", "Welt");
+    Set <String> aOrderedSet = createOrderedSet ("Hallo", "Welt");
     assertNotNull (aOrderedSet);
     assertEquals (2, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (new String [0]);
+    aOrderedSet = createOrderedSet (new String [0]);
     assertNotNull (aOrderedSet);
 
-    aOrderedSet = newOrderedSet ((String []) null);
+    aOrderedSet = createOrderedSet ((String []) null);
     assertNotNull (aOrderedSet);
   }
 
   @Test
   public void testNewOrderedSetIterable ()
   {
-    Set <String> aOrderedSet = newOrderedSet ((Iterable <String>) newList ("Hallo", "Welt"));
+    Set <String> aOrderedSet = createOrderedSet ((Iterable <String>) createList ("Hallo", "Welt"));
     assertNotNull (aOrderedSet);
     assertEquals (2, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet ((Iterable <String>) new CommonsArrayList <String> ());
+    aOrderedSet = createOrderedSet ((Iterable <String>) new CommonsArrayList <String> ());
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -893,13 +894,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedSetCollection ()
   {
-    Set <String> aOrderedSet = newOrderedSet (newList ("Hallo", "Welt"));
+    Set <String> aOrderedSet = createOrderedSet (createList ("Hallo", "Welt"));
     assertNotNull (aOrderedSet);
     assertEquals (2, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (new CommonsArrayList <> ());
+    aOrderedSet = createOrderedSet (new CommonsArrayList <> ());
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -907,13 +908,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedSetIIterableIterator ()
   {
-    Set <String> aOrderedSet = newOrderedSet (new CommonsIterableIterator <> (newList ("Hallo", "Welt")));
+    Set <String> aOrderedSet = createOrderedSet (new CommonsIterableIterator <> (createList ("Hallo", "Welt")));
     assertNotNull (aOrderedSet);
     assertEquals (2, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
+    aOrderedSet = createOrderedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -921,13 +922,13 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedSetEnumeration ()
   {
-    Set <String> aOrderedSet = newOrderedSet (getEnumeration (newList ("Hallo", "Welt")));
+    Set <String> aOrderedSet = createOrderedSet (getEnumeration (createList ("Hallo", "Welt")));
     assertNotNull (aOrderedSet);
     assertEquals (2, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (getEnumeration (new CommonsArrayList <> ()));
+    aOrderedSet = createOrderedSet (getEnumeration (new CommonsArrayList <> ()));
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -935,8 +936,8 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewOrderedSetIterator ()
   {
-    final Iterator <String> it = newOrderedSet ("Hallo", "Welt").iterator ();
-    final Set <String> aOrderedSet = newOrderedSet (it);
+    final Iterator <String> it = createOrderedSet ("Hallo", "Welt").iterator ();
+    final Set <String> aOrderedSet = createOrderedSet (it);
     assertNotNull (aOrderedSet);
     assertEquals (2, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
@@ -946,19 +947,19 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewListPrefilled ()
   {
-    ICommonsList <String> aList = newListPrefilled ("s", 5);
+    ICommonsList <String> aList = createListPrefilled ("s", 5);
     assertNotNull (aList);
     assertEquals (5, aList.size ());
     for (int i = 0; i < 5; ++i)
       assertEquals ("s", aList.get (i));
 
-    aList = newListPrefilled ("s", 0);
+    aList = createListPrefilled ("s", 0);
     assertNotNull (aList);
     assertEquals (0, aList.size ());
 
     try
     {
-      newListPrefilled ("s", -1);
+      createListPrefilled ("s", -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -968,7 +969,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewListEmpty ()
   {
-    final ICommonsList <String> aList = newList ();
+    final ICommonsList <String> aList = createList ();
     assertNotNull (aList);
     assertEquals (0, aList.size ());
   }
@@ -976,12 +977,12 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewListSingleValue ()
   {
-    ICommonsList <String> aList = newList ("Hallo");
+    ICommonsList <String> aList = createList ("Hallo");
     assertNotNull (aList);
     assertEquals (1, aList.size ());
     assertTrue (aList.contains ("Hallo"));
 
-    aList = newList ((String) null);
+    aList = createList ((String) null);
     assertNotNull (aList);
     assertEquals (1, aList.size ());
     assertTrue (aList.contains (null));
@@ -990,7 +991,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewListArray ()
   {
-    ICommonsList <String> aList = newList ("Hallo", "Welt", "from", "Vienna");
+    ICommonsList <String> aList = createList ("Hallo", "Welt", "from", "Vienna");
     assertNotNull (aList);
     assertEquals (4, aList.size ());
     assertTrue (aList.contains ("Hallo"));
@@ -998,10 +999,10 @@ public final class CollectionHelperExtTest
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList ((String []) null);
+    aList = createList ((String []) null);
     assertNotNull (aList);
 
-    aList = newList (new String [0]);
+    aList = createList (new String [0]);
     assertNotNull (aList);
   }
 
@@ -1014,7 +1015,7 @@ public final class CollectionHelperExtTest
     assertTrue (aSource.add ("from"));
     assertTrue (aSource.add ("Vienna"));
 
-    ICommonsList <String> aList = newList (aSource.iterator ());
+    ICommonsList <String> aList = createList (aSource.iterator ());
     assertNotNull (aList);
     assertEquals (4, aList.size ());
     assertTrue (aList.contains ("Hallo"));
@@ -1022,19 +1023,19 @@ public final class CollectionHelperExtTest
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (new CommonsArrayList <String> ().iterator ());
+    aList = createList (new CommonsArrayList <String> ().iterator ());
     assertNotNull (aList);
 
-    aList = newList ((Iterator <String>) null);
+    aList = createList ((Iterator <String>) null);
     assertNotNull (aList);
   }
 
   @Test
   public void testNewListCollection ()
   {
-    final ICommonsList <String> aSource = newList ("Hallo", "Welt", "from", "Vienna");
+    final ICommonsList <String> aSource = createList ("Hallo", "Welt", "from", "Vienna");
 
-    ICommonsList <String> aList = newList (aSource);
+    ICommonsList <String> aList = createList (aSource);
     assertNotNull (aList);
     assertEquals (4, aList.size ());
     assertTrue (aList.contains ("Hallo"));
@@ -1042,19 +1043,19 @@ public final class CollectionHelperExtTest
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (new CommonsArrayList <> ());
+    aList = createList (new CommonsArrayList <> ());
     assertNotNull (aList);
 
-    aList = newList ((ICommonsList <String>) null);
+    aList = createList ((ICommonsList <String>) null);
     assertNotNull (aList);
   }
 
   @Test
   public void testNewListIterable ()
   {
-    final ICommonsList <String> aSource = newList ("Hallo", "Welt", "from", "Vienna");
+    final ICommonsList <String> aSource = createList ("Hallo", "Welt", "from", "Vienna");
 
-    ICommonsList <String> aList = newList ((Iterable <String>) aSource);
+    ICommonsList <String> aList = createList ((Iterable <String>) aSource);
     assertNotNull (aList);
     assertEquals (4, aList.size ());
     assertTrue (aList.contains ("Hallo"));
@@ -1062,19 +1063,19 @@ public final class CollectionHelperExtTest
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList ((Iterable <String>) new CommonsArrayList <String> ());
+    aList = createList ((Iterable <String>) new CommonsArrayList <String> ());
     assertNotNull (aList);
 
-    aList = newList ((Iterable <String>) null);
+    aList = createList ((Iterable <String>) null);
     assertNotNull (aList);
   }
 
   @Test
   public void testNewListIIterableIterator ()
   {
-    final ICommonsList <String> aSource = newList ("Hallo", "Welt", "from", "Vienna");
+    final ICommonsList <String> aSource = createList ("Hallo", "Welt", "from", "Vienna");
 
-    ICommonsList <String> aList = newList (new CommonsIterableIterator <> (aSource));
+    ICommonsList <String> aList = createList (new CommonsIterableIterator <> (aSource));
     assertNotNull (aList);
     assertEquals (4, aList.size ());
     assertTrue (aList.contains ("Hallo"));
@@ -1082,10 +1083,10 @@ public final class CollectionHelperExtTest
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
+    aList = createList (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
     assertNotNull (aList);
 
-    aList = newList ((ICommonsIterableIterator <String>) null);
+    aList = createList ((ICommonsIterableIterator <String>) null);
     assertNotNull (aList);
   }
 
@@ -1094,7 +1095,7 @@ public final class CollectionHelperExtTest
   {
     assertNotNull (getSorted ((Iterator <String>) null));
 
-    final ICommonsList <String> aList = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aList = createList ("d", "c", "b", "a");
     final ICommonsList <String> aSorted = getSorted (aList.iterator ());
     assertEquals (4, aSorted.size ());
     assertEquals ("a", aSorted.get (0));
@@ -1108,7 +1109,7 @@ public final class CollectionHelperExtTest
   {
     assertNotNull (getSorted ((Iterable <String>) null));
 
-    final ICommonsList <String> aList = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aList = createList ("d", "c", "b", "a");
     final ICommonsList <String> aSorted = getSorted (aList);
     assertEquals (4, aSorted.size ());
     assertEquals ("a", aSorted.get (0));
@@ -1122,7 +1123,7 @@ public final class CollectionHelperExtTest
   {
     assertNotNull (getSorted ((ICommonsIterableIterator <String>) null));
 
-    final ICommonsList <String> aList = newList ("d", "c", "b", "a");
+    final ICommonsList <String> aList = createList ("d", "c", "b", "a");
     final ICommonsList <String> aSorted = getSorted (new CommonsIterableIterator <> (aList));
     assertEquals (4, aSorted.size ());
     assertEquals ("a", aSorted.get (0));
@@ -1151,7 +1152,7 @@ public final class CollectionHelperExtTest
     assertTrue (isEmpty ((Map <?, ?>) null));
     assertTrue (isEmpty (new CommonsVector <> ()));
     assertTrue (isEmpty (new CommonsHashMap <> ()));
-    assertFalse (isEmpty (newList ("d", "c", "b", "a")));
+    assertFalse (isEmpty (createList ("d", "c", "b", "a")));
     assertTrue (isEmpty ((Iterable <?>) new NonBlockingStack <> ()));
   }
 
@@ -1167,15 +1168,15 @@ public final class CollectionHelperExtTest
     assertTrue (isEmpty (new CommonsHashMap <> ()));
     assertTrue (isEmpty (new CommonsLinkedHashMap <> ()));
 
-    assertFalse (isEmpty (newList ("Hallo")));
-    assertFalse (isEmpty (newMap ("Hallo", "Welt")));
+    assertFalse (isEmpty (createList ("Hallo")));
+    assertFalse (isEmpty (createMap ("Hallo", "Welt")));
   }
 
   @Test
   public void testSize ()
   {
-    assertEquals (2, getSize (newList ("Ha", "We")));
-    assertEquals (1, getSize (newMap ("Ha", "We")));
+    assertEquals (2, getSize (createList ("Ha", "We")));
+    assertEquals (1, getSize (createMap ("Ha", "We")));
     assertEquals (0, getSize ((Collection <String>) null));
     assertEquals (0, getSize ((Map <String, Double>) null));
   }
@@ -1183,11 +1184,11 @@ public final class CollectionHelperExtTest
   @Test
   public void testGetFilteredMap ()
   {
-    assertNull (getFilteredMap (null, newList ("a")));
-    assertNull (getFilteredMap (newMap ("a", "value-of-a"), null));
+    assertNull (getFilteredMap (null, createList ("a")));
+    assertNull (getFilteredMap (createMap ("a", "value-of-a"), null));
 
-    final Map <String, String> aFilteredMap = getFilteredMap (newMap ("a", "value-of-a", "b", "value-of-b"),
-                                                              newList ("a"));
+    final Map <String, String> aFilteredMap = getFilteredMap (createMap ("a", "value-of-a", "b", "value-of-b"),
+                                                              createList ("a"));
     assertNotNull (aFilteredMap);
     assertEquals (1, aFilteredMap.size ());
     assertTrue (aFilteredMap.containsKey ("a"));
@@ -1201,7 +1202,7 @@ public final class CollectionHelperExtTest
     assertTrue (getReverseList (null).isEmpty ());
 
     // Make it not sorted :)
-    final ICommonsList <String> aList = newList ("1", "3", "2");
+    final ICommonsList <String> aList = createList ("1", "3", "2");
     final ICommonsList <String> aReverse = getReverseList (aList);
     assertNotNull (aReverse);
     assertEquals (3, aReverse.size ());
@@ -1219,7 +1220,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testGetReverseInlineList ()
   {
-    ICommonsList <String> aList = newList ("1", "3", "2");
+    ICommonsList <String> aList = createList ("1", "3", "2");
 
     // Sort inline
     assertSame (aList, getReverseInlineList (aList));
@@ -1228,7 +1229,7 @@ public final class CollectionHelperExtTest
     assertEquals ("3", aList.get (1));
     assertEquals ("1", aList.get (2));
 
-    aList = newList ();
+    aList = createList ();
     assertSame (aList, getReverseInlineList (aList));
     assertEquals (0, aList.size ());
 
@@ -1240,7 +1241,7 @@ public final class CollectionHelperExtTest
   {
     assertTrue (isEmpty ((Iterable <?>) null));
     assertTrue (isEmpty ((Iterable <String>) new CommonsArrayList <String> ()));
-    assertFalse (isEmpty ((Iterable <String>) newList ("any")));
+    assertFalse (isEmpty ((Iterable <String>) createList ("any")));
   }
 
   @Test
@@ -1248,7 +1249,7 @@ public final class CollectionHelperExtTest
   {
     assertTrue (isEmpty ((Collection <?>) null));
     assertTrue (isEmpty (new CommonsArrayList <> ()));
-    assertFalse (isEmpty (newList ("any")));
+    assertFalse (isEmpty (createList ("any")));
   }
 
   @Test
@@ -1256,7 +1257,7 @@ public final class CollectionHelperExtTest
   {
     assertTrue (isEmpty ((Map <?, ?>) null));
     assertTrue (isEmpty (new CommonsHashMap <> ()));
-    assertFalse (isEmpty (newMap ("any", "value")));
+    assertFalse (isEmpty (createMap ("any", "value")));
   }
 
   @Test
@@ -1264,7 +1265,7 @@ public final class CollectionHelperExtTest
   {
     assertEquals (0, getSize ((Collection <?>) null));
     assertEquals (0, getSize (new CommonsArrayList <> ()));
-    assertEquals (1, getSize (newList ("any")));
+    assertEquals (1, getSize (createList ("any")));
   }
 
   @Test
@@ -1272,7 +1273,7 @@ public final class CollectionHelperExtTest
   {
     assertEquals (0, getSize ((Map <?, ?>) null));
     assertEquals (0, getSize (new CommonsHashMap <> ()));
-    assertEquals (1, getSize (newMap ("key", "value")));
+    assertEquals (1, getSize (createMap ("key", "value")));
   }
 
   @Test
@@ -1280,80 +1281,80 @@ public final class CollectionHelperExtTest
   {
     assertEquals (0, getSize ((Iterable <?>) null));
     assertEquals (0, getSize ((Iterable <String>) new CommonsArrayList <String> ()));
-    assertEquals (1, getSize ((Iterable <String>) newList ("any")));
+    assertEquals (1, getSize ((Iterable <String>) createList ("any")));
   }
 
   @Test
   public void testGetConcatenatedList_CollectionCollection ()
   {
-    final ICommonsList <String> a = newList ("a", "b");
-    final ICommonsList <String> b = newList ("c", "d");
+    final ICommonsList <String> a = createList ("a", "b");
+    final ICommonsList <String> b = createList ("c", "d");
     assertTrue (getConcatenatedList ((Collection <String>) null, (Collection <String>) null).isEmpty ());
     assertEquals (a, getConcatenatedList (a, (Collection <String>) null));
     assertEquals (b, getConcatenatedList ((Collection <String>) null, b));
-    assertEquals (newList ("a", "b", "c", "d"), getConcatenatedList (a, b));
+    assertEquals (createList ("a", "b", "c", "d"), getConcatenatedList (a, b));
   }
 
   @Test
   public void testGetConcatenatedList_CollectionArray ()
   {
-    final ICommonsList <String> a = newList ("a", "b");
+    final ICommonsList <String> a = createList ("a", "b");
     final String [] b = ArrayHelper.newArray ("c", "d");
     assertTrue (getConcatenatedList ((Collection <String>) null, (String []) null).isEmpty ());
     assertEquals (a, getConcatenatedList (a, (String []) null));
-    assertEquals (newList (b), getConcatenatedList ((Collection <String>) null, b));
-    assertEquals (newList ("a", "b", "c", "d"), getConcatenatedList (a, b));
+    assertEquals (createList (b), getConcatenatedList ((Collection <String>) null, b));
+    assertEquals (createList ("a", "b", "c", "d"), getConcatenatedList (a, b));
   }
 
   @Test
   public void testGetConcatenatedList_ArrayCollection ()
   {
     final String [] a = ArrayHelper.newArray ("a", "b");
-    final ICommonsList <String> b = newList ("c", "d");
+    final ICommonsList <String> b = createList ("c", "d");
     assertTrue (getConcatenatedList ((String []) null, (Collection <String>) null).isEmpty ());
-    assertEquals (newList (a), getConcatenatedList (a, (Collection <String>) null));
+    assertEquals (createList (a), getConcatenatedList (a, (Collection <String>) null));
     assertEquals (b, getConcatenatedList ((String []) null, b));
-    assertEquals (newList ("a", "b", "c", "d"), getConcatenatedList (a, b));
+    assertEquals (createList ("a", "b", "c", "d"), getConcatenatedList (a, b));
   }
 
   @Test
   public void testGetConcatenatedSet_CollectionCollection ()
   {
-    final Set <String> a = newSet ("a", "b");
-    final Set <String> b = newSet ("c", "d");
+    final Set <String> a = createSet ("a", "b");
+    final Set <String> b = createSet ("c", "d");
     assertTrue (getConcatenatedSet ((Collection <String>) null, (Collection <String>) null).isEmpty ());
     assertEquals (a, getConcatenatedSet (a, (Collection <String>) null));
     assertEquals (b, getConcatenatedSet ((Collection <String>) null, b));
-    assertEquals (newSet ("a", "b", "c", "d"), getConcatenatedSet (a, b));
+    assertEquals (createSet ("a", "b", "c", "d"), getConcatenatedSet (a, b));
   }
 
   @Test
   public void testGetConcatenatedSet_CollectionArray ()
   {
-    final Set <String> a = newSet ("a", "b");
+    final Set <String> a = createSet ("a", "b");
     final String [] b = ArrayHelper.newArray ("c", "d");
     assertTrue (getConcatenatedSet ((Collection <String>) null, (String []) null).isEmpty ());
     assertEquals (a, getConcatenatedSet (a, (String []) null));
-    assertEquals (newSet (b), getConcatenatedSet ((Collection <String>) null, b));
-    assertEquals (newSet ("a", "b", "c", "d"), getConcatenatedSet (a, b));
+    assertEquals (createSet (b), getConcatenatedSet ((Collection <String>) null, b));
+    assertEquals (createSet ("a", "b", "c", "d"), getConcatenatedSet (a, b));
   }
 
   @Test
   public void testGetConcatenatedSet_ArrayCollection ()
   {
     final String [] a = ArrayHelper.newArray ("a", "b");
-    final Set <String> b = newSet ("c", "d");
+    final Set <String> b = createSet ("c", "d");
     assertTrue (getConcatenatedSet ((String []) null, (Collection <String>) null).isEmpty ());
-    assertEquals (newSet (a), getConcatenatedSet (a, (Collection <String>) null));
+    assertEquals (createSet (a), getConcatenatedSet (a, (Collection <String>) null));
     assertEquals (b, getConcatenatedSet ((String []) null, b));
-    assertEquals (newSet ("a", "b", "c", "d"), getConcatenatedSet (a, b));
+    assertEquals (createSet ("a", "b", "c", "d"), getConcatenatedSet (a, b));
   }
 
   @Test
   public void testGetConcatenatedInline ()
   {
     // Array version
-    ICommonsList <String> aBaseList = newList ("1");
+    ICommonsList <String> aBaseList = createList ("1");
     assertSame (aBaseList, getConcatenatedInline (aBaseList, "2", "3"));
     assertEquals (3, aBaseList.size ());
     assertEquals ("1", aBaseList.get (0));
@@ -1362,8 +1363,8 @@ public final class CollectionHelperExtTest
     assertEquals (3, aBaseList.size ());
 
     // Collection version
-    aBaseList = newList ("1");
-    assertSame (aBaseList, getConcatenatedInline (aBaseList, newList ("2", "3")));
+    aBaseList = createList ("1");
+    assertSame (aBaseList, getConcatenatedInline (aBaseList, createList ("2", "3")));
     assertEquals (3, aBaseList.size ());
     assertEquals ("1", aBaseList.get (0));
     assertEquals ("3", aBaseList.get (2));
@@ -1371,7 +1372,7 @@ public final class CollectionHelperExtTest
     assertEquals (3, aBaseList.size ());
 
     // Set test
-    final Set <String> aBaseSet = newSet ("1");
+    final Set <String> aBaseSet = createSet ("1");
     assertSame (aBaseSet, getConcatenatedInline (aBaseSet, "2", "3"));
     assertEquals (3, aBaseSet.size ());
     assertTrue (aBaseSet.contains ("1"));
@@ -1388,7 +1389,7 @@ public final class CollectionHelperExtTest
     {}
     try
     {
-      getConcatenatedInline ((ICommonsList <String>) null, newList ("a"));
+      getConcatenatedInline ((ICommonsList <String>) null, createList ("a"));
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1398,8 +1399,8 @@ public final class CollectionHelperExtTest
   @Test
   public void testGetCombinedMap ()
   {
-    final Map <String, Integer> m1 = newMap ("Hallo", I1);
-    final Map <String, Integer> m2 = newMap ("Welt", I2);
+    final Map <String, Integer> m1 = createMap ("Hallo", I1);
+    final Map <String, Integer> m2 = createMap ("Welt", I2);
     assertTrue (getCombinedMap (null, null).isEmpty ());
     assertEquals (m1, getCombinedMap (m1, null));
     assertEquals (m2, getCombinedMap (null, m2));
@@ -1420,26 +1421,26 @@ public final class CollectionHelperExtTest
   @Test
   public void testNewObjectListFromArray ()
   {
-    assertNotNull (newObjectListFromArray (new Integer [] { Integer.valueOf (2), Integer.valueOf (0x7f) },
-                                           Integer.class));
-    assertNotNull (newObjectListFromArray (new boolean [] { true, false }, boolean.class));
-    assertNotNull (newObjectListFromArray (new byte [] { (byte) 2, (byte) 0x7f }, byte.class));
-    assertNotNull (newObjectListFromArray (new char [] { 'a', 'Z' }, char.class));
-    assertNotNull (newObjectListFromArray (new double [] { 3.14, 47.11 }, double.class));
-    assertNotNull (newObjectListFromArray (new float [] { 3.14f, 47.11f }, float.class));
-    assertNotNull (newObjectListFromArray (new int [] { 314, 4711 }, int.class));
-    assertNotNull (newObjectListFromArray (new long [] { 314, 4711 }, long.class));
-    assertNotNull (newObjectListFromArray (new short [] { 123, 255 }, short.class));
+    assertNotNull (createObjectListFromArray (new Integer [] { Integer.valueOf (2), Integer.valueOf (0x7f) },
+                                              Integer.class));
+    assertNotNull (createObjectListFromArray (new boolean [] { true, false }, boolean.class));
+    assertNotNull (createObjectListFromArray (new byte [] { (byte) 2, (byte) 0x7f }, byte.class));
+    assertNotNull (createObjectListFromArray (new char [] { 'a', 'Z' }, char.class));
+    assertNotNull (createObjectListFromArray (new double [] { 3.14, 47.11 }, double.class));
+    assertNotNull (createObjectListFromArray (new float [] { 3.14f, 47.11f }, float.class));
+    assertNotNull (createObjectListFromArray (new int [] { 314, 4711 }, int.class));
+    assertNotNull (createObjectListFromArray (new long [] { 314, 4711 }, long.class));
+    assertNotNull (createObjectListFromArray (new short [] { 123, 255 }, short.class));
 
-    assertNull (newObjectListFromArray (null, Integer.class));
-    assertNull (newObjectListFromArray (null, boolean.class));
-    assertNull (newObjectListFromArray (null, byte.class));
-    assertNull (newObjectListFromArray (null, char.class));
-    assertNull (newObjectListFromArray (null, double.class));
-    assertNull (newObjectListFromArray (null, float.class));
-    assertNull (newObjectListFromArray (null, int.class));
-    assertNull (newObjectListFromArray (null, long.class));
-    assertNull (newObjectListFromArray (null, short.class));
+    assertNull (createObjectListFromArray (null, Integer.class));
+    assertNull (createObjectListFromArray (null, boolean.class));
+    assertNull (createObjectListFromArray (null, byte.class));
+    assertNull (createObjectListFromArray (null, char.class));
+    assertNull (createObjectListFromArray (null, double.class));
+    assertNull (createObjectListFromArray (null, float.class));
+    assertNull (createObjectListFromArray (null, int.class));
+    assertNull (createObjectListFromArray (null, long.class));
+    assertNull (createObjectListFromArray (null, short.class));
   }
 
   @Test
@@ -1464,7 +1465,7 @@ public final class CollectionHelperExtTest
     catch (final IllegalArgumentException ex)
     {}
 
-    final ICommonsList <String> aSource = newList ("a", "b", "c", "d");
+    final ICommonsList <String> aSource = createList ("a", "b", "c", "d");
 
     ICommonsList <String> aSubList = getSubList (aSource, 0, 2);
     assertNotNull (aSubList);
@@ -1509,7 +1510,7 @@ public final class CollectionHelperExtTest
     assertNull (getAtIndex (null, -1));
     assertNull (getAtIndex (null, 1));
 
-    final ICommonsList <String> aList = newList ("a", "b");
+    final ICommonsList <String> aList = createList ("a", "b");
     assertNull (getAtIndex (aList, -1));
     assertEquals ("a", getAtIndex (aList, 0));
     assertNull (getAtIndex (aList, 2));
@@ -1525,45 +1526,45 @@ public final class CollectionHelperExtTest
   @Test
   public void testNew ()
   {
-    newList ();
-    newList ("a");
-    newList ("a");
-    newList (new CommonsArrayList <> ("a"));
-    newList (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
-    newList ((Iterable <String>) new CommonsArrayList <> ("a"));
-    newList (new CommonsArrayList <> ("a").iterator ());
-    newList (new CommonsArrayList <> ("a"), Objects::nonNull);
-    newListMapped (new CommonsArrayList <> ("a"), Object::toString);
-    newListMapped (new Object [] { "a" }, Object::toString);
-    newSet ();
-    newSet ("a");
-    newSet ("a");
-    newSet (new CommonsArrayList <> ("a"));
-    newSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
-    newSet ((Iterable <String>) new CommonsArrayList <> ("a"));
-    newSet (new CommonsArrayList <> ("a").iterator ());
-    newSet (new CommonsArrayList <> ("a"), Objects::nonNull);
-    newSetMapped (new CommonsArrayList <> ("a"), Object::toString);
-    newSetMapped (new Object [] { "a" }, Object::toString);
-    newOrderedSet ();
-    newOrderedSet ("a");
-    newOrderedSet ("a");
-    newOrderedSet (new CommonsArrayList <> ("a"));
-    newOrderedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
-    newOrderedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
-    newOrderedSet (new CommonsArrayList <> ("a").iterator ());
-    newOrderedSet (new CommonsArrayList <> ("a"), Objects::nonNull);
-    newOrderedSetMapped (new CommonsArrayList <> ("a"), Object::toString);
-    newOrderedSetMapped (new Object [] { "a" }, Object::toString);
-    newSortedSet ();
-    newSortedSet ("a");
-    newSortedSet ("a");
-    newSortedSet (new CommonsArrayList <> ("a"));
-    newSortedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
-    newSortedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
-    newSortedSet (new CommonsArrayList <> ("a").iterator ());
-    newSortedSet (new CommonsArrayList <> ("a"), Objects::nonNull);
-    newSortedSetMapped (new CommonsArrayList <> ("a"), Object::toString);
-    newSortedSetMapped (new Object [] { "a" }, Object::toString);
+    createList ();
+    createList ("a");
+    createList ("a");
+    createList (new CommonsArrayList <> ("a"));
+    createList (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
+    createList ((Iterable <String>) new CommonsArrayList <> ("a"));
+    createList (new CommonsArrayList <> ("a").iterator ());
+    createList (new CommonsArrayList <> ("a"), Objects::nonNull);
+    createListMapped (new CommonsArrayList <> ("a"), Object::toString);
+    createListMapped (new Object [] { "a" }, Object::toString);
+    createSet ();
+    createSet ("a");
+    createSet ("a");
+    createSet (new CommonsArrayList <> ("a"));
+    createSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
+    createSet ((Iterable <String>) new CommonsArrayList <> ("a"));
+    createSet (new CommonsArrayList <> ("a").iterator ());
+    createSet (new CommonsArrayList <> ("a"), Objects::nonNull);
+    createSetMapped (new CommonsArrayList <> ("a"), Object::toString);
+    createSetMapped (new Object [] { "a" }, Object::toString);
+    createOrderedSet ();
+    createOrderedSet ("a");
+    createOrderedSet ("a");
+    createOrderedSet (new CommonsArrayList <> ("a"));
+    createOrderedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
+    createOrderedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
+    createOrderedSet (new CommonsArrayList <> ("a").iterator ());
+    createOrderedSet (new CommonsArrayList <> ("a"), Objects::nonNull);
+    createOrderedSetMapped (new CommonsArrayList <> ("a"), Object::toString);
+    createOrderedSetMapped (new Object [] { "a" }, Object::toString);
+    createSortedSet ();
+    createSortedSet ("a");
+    createSortedSet ("a");
+    createSortedSet (new CommonsArrayList <> ("a"));
+    createSortedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ("a")));
+    createSortedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
+    createSortedSet (new CommonsArrayList <> ("a").iterator ());
+    createSortedSet (new CommonsArrayList <> ("a"), Objects::nonNull);
+    createSortedSetMapped (new CommonsArrayList <> ("a"), Object::toString);
+    createSortedSetMapped (new Object [] { "a" }, Object::toString);
   }
 }

@@ -38,7 +38,7 @@ import com.helger.collection.helper.CollectionHelperExt;
  */
 public final class CSVIteratorTest
 {
-  private static final List <String> STRINGS = CollectionHelperExt.newList ("test1", "test2");
+  private static final List <String> STRINGS = CollectionHelperExt.createList ("test1", "test2");
 
   private CSVReader m_aMockReader;
 

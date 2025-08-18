@@ -18,7 +18,7 @@ package com.helger.collection.helper;
 
 import static com.helger.collection.CollectionHelper.isEmpty;
 import static com.helger.collection.CollectionHelper.isNotEmpty;
-import static com.helger.collection.helper.CollectionHelperExt.newList;
+import static com.helger.collection.helper.CollectionHelperExt.createList;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -164,7 +164,7 @@ public class CollectionSort
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
-    return getSortedInline (newList (aIter));
+    return getSortedInline (createList (aIter));
   }
 
   /**
@@ -184,7 +184,7 @@ public class CollectionSort
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter,
                                                                                                                  @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return getSortedInline (newList (aIter), aComparator);
+    return getSortedInline (createList (aIter), aComparator);
   }
 
   /**
@@ -201,7 +201,7 @@ public class CollectionSort
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    return getSortedInline (newList (aIter));
+    return getSortedInline (createList (aIter));
   }
 
   /**
@@ -221,7 +221,7 @@ public class CollectionSort
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterator <? extends ELEMENTTYPE> aIter,
                                                                         @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return getSortedInline (newList (aIter), aComparator);
+    return getSortedInline (createList (aIter), aComparator);
   }
 
   /**
@@ -237,7 +237,7 @@ public class CollectionSort
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    return getSortedInline (newList (aCont));
+    return getSortedInline (createList (aCont));
   }
 
   /**
@@ -257,7 +257,7 @@ public class CollectionSort
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterable <? extends ELEMENTTYPE> aCont,
                                                                         @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return getSortedInline (newList (aCont), aComparator);
+    return getSortedInline (createList (aCont), aComparator);
   }
 
   /**
@@ -273,7 +273,7 @@ public class CollectionSort
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    return getSortedInline (newList (aCont));
+    return getSortedInline (createList (aCont));
   }
 
   /**
@@ -293,7 +293,7 @@ public class CollectionSort
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Collection <? extends ELEMENTTYPE> aCont,
                                                                         @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return getSortedInline (newList (aCont), aComparator);
+    return getSortedInline (createList (aCont), aComparator);
   }
 
   /**
@@ -310,7 +310,7 @@ public class CollectionSort
   @SafeVarargs
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE... aCont)
   {
-    return getSortedInline (newList (aCont));
+    return getSortedInline (createList (aCont));
   }
 
   /**
@@ -330,7 +330,7 @@ public class CollectionSort
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE [] aCont,
                                                                         @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return getSortedInline (newList (aCont), aComparator);
+    return getSortedInline (createList (aCont), aComparator);
   }
 
   @Nullable

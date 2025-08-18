@@ -51,7 +51,8 @@ public final class ReadOnlyMultilingualTextTest
     assertNotNull (aMLT.texts ().keySet ());
     assertTrue (aMLT.texts ().isEmpty ());
 
-    final Map <Locale, String> aMap = CollectionHelperExt.newMap (new Locale [] { L_DE, L_EN }, new String [] { "de", "en" });
+    final Map <Locale, String> aMap = CollectionHelperExt.createMap (new Locale [] { L_DE, L_EN },
+                                                                     new String [] { "de", "en" });
     aMLT = new ReadOnlyMultilingualText (aMap);
     assertEquals (2, aMLT.texts ().size ());
     assertTrue (aMLT.texts ().containsKey (L_DE));
@@ -83,11 +84,12 @@ public final class ReadOnlyMultilingualTextTest
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
-                                                                       new ReadOnlyMultilingualText (CollectionHelperExt.newMap (new Locale [] { L_DE,
-                                                                                                                                              L_EN },
-                                                                                                                              new String [] { "de",
-                                                                                                                                              "en" })));
-    TestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (), new ReadOnlyMultilingualText ());
+                                                                new ReadOnlyMultilingualText (CollectionHelperExt.createMap (new Locale [] { L_DE,
+                                                                                                                                             L_EN },
+                                                                                                                             new String [] { "de",
+                                                                                                                                             "en" })));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (),
+                                                                new ReadOnlyMultilingualText ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadOnlyMultilingualText ());
 
     try

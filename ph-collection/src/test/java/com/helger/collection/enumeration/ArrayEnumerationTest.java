@@ -16,7 +16,7 @@
  */
 package com.helger.collection.enumeration;
 
-import static com.helger.collection.helper.CollectionHelperExt.newList;
+import static com.helger.collection.helper.CollectionHelperExt.createList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -126,7 +126,7 @@ public final class ArrayEnumerationTest
   @Test
   public void testNewListEnumeration ()
   {
-    ICommonsList <String> aList = newList (new ArrayEnumeration <> ("Hallo", "Welt", "from", "Vienna"));
+    ICommonsList <String> aList = createList (new ArrayEnumeration <> ("Hallo", "Welt", "from", "Vienna"));
     assertNotNull (aList);
     assertEquals (4, aList.size ());
     assertTrue (aList.contains ("Hallo"));
@@ -134,10 +134,10 @@ public final class ArrayEnumerationTest
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (new EmptyEnumeration <> ());
+    aList = createList (new EmptyEnumeration <> ());
     assertNotNull (aList);
 
-    aList = newList ((Enumeration <String>) null);
+    aList = createList ((Enumeration <String>) null);
     assertNotNull (aList);
   }
 }

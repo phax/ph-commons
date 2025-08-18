@@ -170,12 +170,12 @@ public final class MultilingualTextTest
     final MultilingualText t = new MultilingualText ();
 
     // 1 element
-    assertTrue (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelperExt.newMap (L_DE, "de"))).isChanged ());
+    assertTrue (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelperExt.createMap (L_DE, "de"))).isChanged ());
     assertEquals (1, t.texts ().size ());
     assertTrue (t.texts ().containsKey (L_DE));
 
     // Assign the exact same content again
-    assertFalse (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelperExt.newMap (L_DE, "de"))).isChanged ());
+    assertFalse (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelperExt.createMap (L_DE, "de"))).isChanged ());
     assertEquals (1, t.texts ().size ());
     assertTrue (t.texts ().containsKey (L_DE));
 
