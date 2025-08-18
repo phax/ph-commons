@@ -138,102 +138,116 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // boolean[]
     aRegistry.registerTypeConverter (boolean [].class,
                                      CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
+                                     PrimitiveCollectionHelper::createPrimitiveList);
     aRegistry.registerTypeConverter (boolean [].class,
                                      CommonsHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
     aRegistry.registerTypeConverter (boolean [].class,
                                      CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
     aRegistry.registerTypeConverter (boolean [].class,
                                      CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
 
     // byte[]
     aRegistry.registerTypeConverter (byte [].class, String.class, Base64::encodeBytes);
     aRegistry.registerTypeConverter (String.class, byte [].class, Base64::safeDecode);
     aRegistry.registerTypeConverter (byte [].class,
                                      CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
-    aRegistry.registerTypeConverter (byte [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (byte [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
     aRegistry.registerTypeConverter (byte [].class,
                                      CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
     aRegistry.registerTypeConverter (byte [].class,
                                      CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
 
     // char[]
     aRegistry.registerTypeConverter (char [].class, String.class, String::new);
     aRegistry.registerTypeConverter (String.class, char [].class, String::toCharArray);
     aRegistry.registerTypeConverter (char [].class,
                                      CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
-    aRegistry.registerTypeConverter (char [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (char [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
     aRegistry.registerTypeConverter (char [].class,
                                      CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
     aRegistry.registerTypeConverter (char [].class,
                                      CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
 
     // double[]
     aRegistry.registerTypeConverter (double [].class,
                                      CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
-    aRegistry.registerTypeConverter (double [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (double [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
     aRegistry.registerTypeConverter (double [].class,
                                      CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
     aRegistry.registerTypeConverter (double [].class,
                                      CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
 
     // float[]
     aRegistry.registerTypeConverter (float [].class,
                                      CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
-    aRegistry.registerTypeConverter (float [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (float [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
     aRegistry.registerTypeConverter (float [].class,
                                      CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
     aRegistry.registerTypeConverter (float [].class,
                                      CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
 
     // int[]
-    aRegistry.registerTypeConverter (int [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
-    aRegistry.registerTypeConverter (int [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (int [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (int [].class, CommonsHashSet.class, PrimitiveCollectionHelper::createPrimitiveSet);
     aRegistry.registerTypeConverter (int [].class,
                                      CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
     aRegistry.registerTypeConverter (int [].class,
                                      CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
 
     // long[]
     aRegistry.registerTypeConverter (long [].class,
                                      CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
-    aRegistry.registerTypeConverter (long [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (long [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
     aRegistry.registerTypeConverter (long [].class,
                                      CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
     aRegistry.registerTypeConverter (long [].class,
                                      CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
 
     // short[]
     aRegistry.registerTypeConverter (short [].class,
                                      CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
-    aRegistry.registerTypeConverter (short [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (short [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
     aRegistry.registerTypeConverter (short [].class,
                                      CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
     aRegistry.registerTypeConverter (short [].class,
                                      CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
 
     // To array
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (boolean [].class, aSource -> {

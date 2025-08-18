@@ -59,18 +59,18 @@ public final class LRUSetTest
     assertEquals (MAX_SIZE, aCache.size ());
 
     // addAll
-    assertTrue (aCache.addAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -5)));
-    assertTrue (aCache.addAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -6)));
+    assertTrue (aCache.addAll (PrimitiveCollectionHelper.createPrimitiveList (-4, -5)));
+    assertTrue (aCache.addAll (PrimitiveCollectionHelper.createPrimitiveList (-4, -6)));
     assertEquals (MAX_SIZE, aCache.size ());
 
     // containsAll
-    assertTrue (aCache.containsAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -5)));
-    assertFalse (aCache.containsAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -7)));
+    assertTrue (aCache.containsAll (PrimitiveCollectionHelper.createPrimitiveList (-4, -5)));
+    assertFalse (aCache.containsAll (PrimitiveCollectionHelper.createPrimitiveList (-4, -7)));
     assertEquals (MAX_SIZE, aCache.size ());
 
     // removeAll
-    assertTrue (aCache.removeAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -5, -6)));
-    assertFalse (aCache.removeAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -5, -6)));
+    assertTrue (aCache.removeAll (PrimitiveCollectionHelper.createPrimitiveList (-4, -5, -6)));
+    assertFalse (aCache.removeAll (PrimitiveCollectionHelper.createPrimitiveList (-4, -5, -6)));
     assertEquals (MAX_SIZE - 3, aCache.size ());
 
     try

@@ -1427,42 +1427,42 @@ public final class CollectionHelperExt extends CollectionHelper
     if (aComponentType == boolean.class)
     {
       // get as CommonsList<Boolean>
-      return PrimitiveCollectionHelper.newPrimitiveList ((boolean []) aValue);
+      return PrimitiveCollectionHelper.createPrimitiveList ((boolean []) aValue);
     }
     if (aComponentType == byte.class)
     {
       // get as CommonsList<Byte>
-      return PrimitiveCollectionHelper.newPrimitiveList ((byte []) aValue);
+      return PrimitiveCollectionHelper.createPrimitiveList ((byte []) aValue);
     }
     if (aComponentType == char.class)
     {
       // get as CommonsList<Character>
-      return PrimitiveCollectionHelper.newPrimitiveList ((char []) aValue);
+      return PrimitiveCollectionHelper.createPrimitiveList ((char []) aValue);
     }
     if (aComponentType == double.class)
     {
       // get as CommonsList<Double>
-      return PrimitiveCollectionHelper.newPrimitiveList ((double []) aValue);
+      return PrimitiveCollectionHelper.createPrimitiveList ((double []) aValue);
     }
     if (aComponentType == float.class)
     {
       // get as CommonsList<Float>
-      return PrimitiveCollectionHelper.newPrimitiveList ((float []) aValue);
+      return PrimitiveCollectionHelper.createPrimitiveList ((float []) aValue);
     }
     if (aComponentType == int.class)
     {
       // get as CommonsList<Integer>
-      return PrimitiveCollectionHelper.newPrimitiveList ((int []) aValue);
+      return PrimitiveCollectionHelper.createPrimitiveList ((int []) aValue);
     }
     if (aComponentType == long.class)
     {
       // get as CommonsList<Long>
-      return PrimitiveCollectionHelper.newPrimitiveList ((long []) aValue);
+      return PrimitiveCollectionHelper.createPrimitiveList ((long []) aValue);
     }
     if (aComponentType == short.class)
     {
       // get as CommonsList<Short>
-      return PrimitiveCollectionHelper.newPrimitiveList ((short []) aValue);
+      return PrimitiveCollectionHelper.createPrimitiveList ((short []) aValue);
     }
 
     // the rest

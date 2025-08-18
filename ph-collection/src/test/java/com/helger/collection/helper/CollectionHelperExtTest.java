@@ -26,7 +26,7 @@ import static com.helger.collection.helper.CollectionHelperExt.*;
 import static com.helger.collection.helper.CollectionSort.getReverseInlineList;
 import static com.helger.collection.helper.CollectionSort.getReverseList;
 import static com.helger.collection.helper.CollectionSort.getSorted;
-import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveList;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.createPrimitiveList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -293,7 +293,7 @@ public final class CollectionHelperExtTest
   public void testNewMap_CollectionCollection ()
   {
     final ICommonsList <String> aKeys = createList ("d", "c", "b", "a");
-    final ICommonsList <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
+    final ICommonsList <Integer> aValues = createPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
@@ -431,7 +431,7 @@ public final class CollectionHelperExtTest
   public void testNewSortedMap_CollectionCollection ()
   {
     final ICommonsList <String> aKeys = createList ("d", "c", "b", "a");
-    final ICommonsList <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
+    final ICommonsList <Integer> aValues = createPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
@@ -578,7 +578,7 @@ public final class CollectionHelperExtTest
   public void testNewOrderedMap_CollectionCollection ()
   {
     final ICommonsList <String> aKeys = createList ("d", "c", "b", "a");
-    final ICommonsList <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
+    final ICommonsList <Integer> aValues = createPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed

@@ -16,10 +16,10 @@
  */
 package com.helger.collection.helper;
 
-import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveList;
-import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveOrderedSet;
-import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveSet;
-import static com.helger.collection.helper.PrimitiveCollectionHelper.newPrimitiveSortedSet;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.createPrimitiveList;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.createPrimitiveOrderedSet;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.createPrimitiveSet;
+import static com.helger.collection.helper.PrimitiveCollectionHelper.createPrimitiveSortedSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -36,127 +36,127 @@ public final class PrimitiveCollectionHelperTest
   public void testNewBooleanContainer ()
   {
     final boolean [] aEmptyArray = {};
-    assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final boolean [] aValues = { true, true };
-    assertEquals (2, newPrimitiveList (aValues).size ());
-    assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newPrimitiveSortedSet (aValues).size ());
+    assertEquals (2, createPrimitiveList (aValues).size ());
+    assertEquals (1, createPrimitiveSet (aValues).size ());
+    assertEquals (1, createPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, createPrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewByteContainer ()
   {
     final byte [] aEmptyArray = {};
-    assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final byte [] aValues = { 3, 3 };
-    assertEquals (2, newPrimitiveList (aValues).size ());
-    assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newPrimitiveSortedSet (aValues).size ());
+    assertEquals (2, createPrimitiveList (aValues).size ());
+    assertEquals (1, createPrimitiveSet (aValues).size ());
+    assertEquals (1, createPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, createPrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewCharContainer ()
   {
     final char [] aEmptyArray = {};
-    assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final char [] aValues = { 'x', 'x' };
-    assertEquals (2, newPrimitiveList (aValues).size ());
-    assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newPrimitiveSortedSet (aValues).size ());
+    assertEquals (2, createPrimitiveList (aValues).size ());
+    assertEquals (1, createPrimitiveSet (aValues).size ());
+    assertEquals (1, createPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, createPrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewDoubleContainer ()
   {
     final double [] aEmptyArray = {};
-    assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final double [] aValues = { 1.1, 1.1 };
-    assertEquals (2, newPrimitiveList (aValues).size ());
-    assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newPrimitiveSortedSet (aValues).size ());
+    assertEquals (2, createPrimitiveList (aValues).size ());
+    assertEquals (1, createPrimitiveSet (aValues).size ());
+    assertEquals (1, createPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, createPrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewFloatContainer ()
   {
     final float [] aEmptyArray = {};
-    assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final float [] aValues = { 3.2f, 3.2f };
-    assertEquals (2, newPrimitiveList (aValues).size ());
-    assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newPrimitiveSortedSet (aValues).size ());
+    assertEquals (2, createPrimitiveList (aValues).size ());
+    assertEquals (1, createPrimitiveSet (aValues).size ());
+    assertEquals (1, createPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, createPrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewIntContainer ()
   {
     final int [] aEmptyArray = {};
-    assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final int [] aValues = { 5, 5 };
-    assertEquals (2, newPrimitiveList (aValues).size ());
-    assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newPrimitiveSortedSet (aValues).size ());
+    assertEquals (2, createPrimitiveList (aValues).size ());
+    assertEquals (1, createPrimitiveSet (aValues).size ());
+    assertEquals (1, createPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, createPrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewLongContainer ()
   {
     final long [] aEmptyArray = {};
-    assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final long [] aValues = { 17, 17 };
-    assertEquals (2, newPrimitiveList (aValues).size ());
-    assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newPrimitiveSortedSet (aValues).size ());
+    assertEquals (2, createPrimitiveList (aValues).size ());
+    assertEquals (1, createPrimitiveSet (aValues).size ());
+    assertEquals (1, createPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, createPrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewShortContainer ()
   {
     final short [] aEmptyArray = {};
-    assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (createPrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final short [] aValues = { 5, 5 };
-    assertEquals (2, newPrimitiveList (aValues).size ());
-    assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newPrimitiveSortedSet (aValues).size ());
+    assertEquals (2, createPrimitiveList (aValues).size ());
+    assertEquals (1, createPrimitiveSet (aValues).size ());
+    assertEquals (1, createPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, createPrimitiveSortedSet (aValues).size ());
   }
 }
