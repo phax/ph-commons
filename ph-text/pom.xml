@@ -28,7 +28,7 @@
   <packaging>bundle</packaging>
   <name>ph-text</name>
   <description>Special Java 17+ Library with text and locale functionality</description>
-  <url>https://github.com/phax/ph-commons/ph-io</url>
+  <url>https://github.com/phax/ph-commons/ph-text</url>
   <inceptionYear>2025</inceptionYear>
   
   <licenses>

@@ -17,6 +17,7 @@
 package com.helger.base.classloader;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
 
@@ -27,6 +28,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -180,5 +182,31 @@ public class ClassLoaderHelper
 
     // returns null if not found
     return aClassLoader.getResources (sPathWithoutSlash);
+  }
+
+  /**
+   * Get the input stream of the passed resource using the specified class loader only. This is a
+   * sanity wrapper around <code>classLoader.getResourceAsStream (sPath)</code>.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty. Internally it is
+   *        ensured that the provided path does NOT start with a slash.
+   * @return <code>null</code> if the path could not be resolved using the specified class loader.
+   */
+  @Nullable
+  public static InputStream getResourceAsStream (@Nonnull final ClassLoader aClassLoader,
+                                                 @Nonnull @Nonempty final String sPath)
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    ValueEnforcer.notEmpty (sPath, "Path");
+
+    // Ensure the path does NOT starts with a "/"
+    final String sPathWithoutSlash = internalGetPathWithoutLeadingSlash (sPath);
+
+    // returns null if not found
+    final InputStream aIS = aClassLoader.getResourceAsStream (sPathWithoutSlash);
+    return StreamHelper.checkForInvalidFilterInputStream (aIS);
   }
 }

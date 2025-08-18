@@ -36,7 +36,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.io.clazz.ClassLoaderHelperExt;
 import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
@@ -198,7 +197,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     if (aClassLoader != null)
     {
       // An explicit ClassLoader was provided - use it
-      ret = ClassLoaderHelperExt.getResourceAsStream (aClassLoader, sPath);
+      ret = ClassLoaderHelper.getResourceAsStream (aClassLoader, sPath);
     }
     else
       if (aURL != null)
