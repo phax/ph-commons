@@ -56,33 +56,33 @@ public interface IJsonObject extends
    * @return this for chaining
    */
   @Nonnull
-  IJsonObject addJson (@Nonnull String sName, @Nonnull IJson aValue);
+  IJsonObject add (@Nonnull String sName, @Nonnull IJson aValue);
 
   @Nonnull
-  default IJsonObject addJsonIf (@Nonnull final String sName,
-                                 @Nonnull final IJson aValue,
-                                 @Nonnull final Predicate <? super IJson> aFilter)
+  default IJsonObject addIf (@Nonnull final String sName,
+                             @Nonnull final IJson aValue,
+                             @Nonnull final Predicate <? super IJson> aFilter)
   {
     if (aFilter.test (aValue))
-      addJson (sName, aValue);
+      add (sName, aValue);
     return this;
   }
 
   @Nonnull
-  default IJsonObject addJsonIf (@Nonnull final String sName,
-                                 @Nonnull final IJson aValue,
-                                 @Nonnull final BooleanSupplier aFilter)
+  default IJsonObject addIf (@Nonnull final String sName,
+                             @Nonnull final IJson aValue,
+                             @Nonnull final BooleanSupplier aFilter)
   {
     if (aFilter.getAsBoolean ())
-      addJson (sName, aValue);
+      add (sName, aValue);
     return this;
   }
 
   @Nonnull
-  default IJsonObject addJsonIfNotNull (@Nonnull final String sName, @Nullable final IJson aValue)
+  default IJsonObject addIfNotNull (@Nonnull final String sName, @Nullable final IJson aValue)
   {
     if (aValue != null)
-      addJson (sName, aValue);
+      add (sName, aValue);
     return this;
   }
 
@@ -98,8 +98,17 @@ public interface IJsonObject extends
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, @Nullable final Object aValue)
   {
-    final IJson aJson = JsonConverter.convertToJson (aValue);
-    return addJson (sName, aJson);
+    return add (sName, JsonConverter.convertToJson (aValue));
+  }
+
+  @Nonnull
+  default IJsonObject addIf (@Nonnull final String sName,
+                             @Nullable final Object aValue,
+                             @Nonnull final BooleanSupplier aSupplier)
+  {
+    if (aSupplier.getAsBoolean ())
+      add (sName, aValue);
+    return this;
   }
 
   @Nonnull
@@ -137,38 +146,38 @@ public interface IJsonObject extends
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final boolean bValue)
   {
-    return addJson (sName, JsonValue.create (bValue));
+    return add (sName, JsonValue.create (bValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final char cValue)
   {
-    return addJson (sName, JsonValue.create (cValue));
+    return add (sName, JsonValue.create (cValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final double dValue)
   {
-    return addJson (sName, JsonValue.create (dValue));
+    return add (sName, JsonValue.create (dValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final int nValue)
   {
-    return addJson (sName, JsonValue.create (nValue));
+    return add (sName, JsonValue.create (nValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final long nValue)
   {
-    return addJson (sName, JsonValue.create (nValue));
+    return add (sName, JsonValue.create (nValue));
   }
 
   @Nonnull
   default IJsonObject addAll (@Nullable final Map <String, ?> aMap)
   {
     if (aMap != null)
-      for (final Map.Entry <String, ?> aEntry : aMap.entrySet ())
+      for (final var aEntry : aMap.entrySet ())
         add (aEntry);
     return this;
   }
@@ -184,7 +193,7 @@ public interface IJsonObject extends
   default IJsonObject addAll (@Nullable final IJsonObject aObject)
   {
     if (aObject != null)
-      for (final Map.Entry <String, IJson> aEntry : aObject)
+      for (final var aEntry : aObject)
         add (aEntry);
     return this;
   }
@@ -194,8 +203,8 @@ public interface IJsonObject extends
                                                 @Nonnull final Function <? super VALUETYPE, IJson> aValueMapper)
   {
     if (aMap != null)
-      for (final Map.Entry <String, ? extends VALUETYPE> aEntry : aMap.entrySet ())
-        addJson (aEntry.getKey (), aValueMapper.apply (aEntry.getValue ()));
+      for (final var aEntry : aMap.entrySet ())
+        add (aEntry.getKey (), aValueMapper.apply (aEntry.getValue ()));
     return this;
   }
 
@@ -205,8 +214,8 @@ public interface IJsonObject extends
                                                          @Nonnull final Function <? super VALUETYPE, IJson> aValueMapper)
   {
     if (aMap != null)
-      for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aMap.entrySet ())
-        addJson (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+      for (final var aEntry : aMap.entrySet ())
+        add (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
     return this;
   }
 
@@ -422,7 +431,7 @@ public interface IJsonObject extends
     {
       ret = aValueProvider.apply (sName);
       if (ret != null)
-        addJson (sName, ret);
+        add (sName, ret);
     }
     return ret;
   }

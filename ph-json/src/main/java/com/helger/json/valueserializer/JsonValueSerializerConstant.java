@@ -30,8 +30,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * A {@link IJsonValueSerializer} implementation that uses a constant value.
- * Required for true, false and null.
+ * A {@link IJsonValueSerializer} implementation that uses a constant value. Required for true,
+ * false and null.
  *
  * @author Philip Helger
  */
@@ -59,7 +59,8 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
     return m_sValue;
   }
 
-  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter)
+                                                                                                              throws IOException
   {
     aWriter.write (m_sValue);
   }
@@ -84,6 +85,6 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_sValue).getToString ();
+    return new ToStringGenerator (this).append ("Value", m_sValue).getToString ();
   }
 }

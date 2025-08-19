@@ -29,9 +29,9 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This {@link IJsonParserHandler} constructs the whole JSON tree while parsing
- * it. The resulting JSON object can be retrieved via {@link #getJson()}. This
- * can be seen as the "DOM" JSON implementation.
+ * This {@link IJsonParserHandler} constructs the whole JSON tree while parsing it. The resulting
+ * JSON object can be retrieved via {@link #getJson()}. This can be seen as the "DOM" JSON
+ * implementation.
  *
  * @author Philip Helger
  */
@@ -59,7 +59,7 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
         if (m_aObjectName.isEmpty ())
           throw new IllegalStateException ("Internal inconsistency - empty object name stack");
 
-      aParent.getAsObject ().addJson (m_aObjectName.pop (), aValue);
+      aParent.getAsObject ().add (m_aObjectName.pop (), aValue);
     }
   }
 

@@ -265,9 +265,9 @@ public final class JsonWriterTest
     assertEquals ("{" + sCRLF + "  \"foo\":\"bar\"" + sCRLF + "}",
                   aWriter.writeAsString (new JsonObject ().add ("foo", "bar")));
     assertEquals ("{" + sCRLF + "  \"foo\":[" + sCRLF + "    1," + sCRLF + "    2" + sCRLF + "  ]" + sCRLF + "}",
-                  aWriter.writeAsString (new JsonObject ().addJson ("foo", new JsonArray ().add (1).add (2))));
+                  aWriter.writeAsString (new JsonObject ().add ("foo", new JsonArray ().add (1).add (2))));
     assertEquals ("{" + sCRLF + "  \"foo\":{" + sCRLF + "    \"bar\":\"baz\"" + sCRLF + "  }" + sCRLF + "}",
-                  aWriter.writeAsString (new JsonObject ().addJson ("foo", new JsonObject ().add ("bar", "baz"))));
+                  aWriter.writeAsString (new JsonObject ().add ("foo", new JsonObject ().add ("bar", "baz"))));
     assertEquals ("[]", aWriter.writeAsString (new JsonArray ()));
     assertEquals ("[" + sCRLF + "  {" + sCRLF + "    \"foo\":\"bar\"" + sCRLF + "  }" + sCRLF + "]",
                   aWriter.writeAsString (new JsonArray ().add (new JsonObject ().add ("foo", "bar"))));

@@ -45,6 +45,7 @@ public interface IJsonArray extends
                             IGetterByIndexTrait,
                             IGenericAdderTrait <IJson, IJsonArray>
 {
+  /* Implementation for IGenericAdderTrait */
   @Nonnull
   default IPrimitiveConverterTo <IJson> getPrimitiveConverterTo ()
   {

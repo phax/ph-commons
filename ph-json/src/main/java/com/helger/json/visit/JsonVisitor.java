@@ -16,8 +16,6 @@
  */
 package com.helger.json.visit;
 
-import java.util.Map;
-
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -67,7 +65,7 @@ public final class JsonVisitor
         final IJsonObject aObject = (IJsonObject) aJson;
         aCB.onJsonObjectStart (aObject);
 
-        for (final Map.Entry <String, IJson> aEntry : aObject)
+        for (final var aEntry : aObject)
         {
           aCB.onJsonObjectElementName (aEntry.getKey ());
           // Object value
