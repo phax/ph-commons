@@ -19,24 +19,23 @@ package com.helger.cli;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.traits.IGetterByKeyTrait;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * This class represents a parsed command line. Parsing happens in class
- * {@link CmdLineParser}.
+ * This class represents a parsed command line. Parsing happens in class {@link CmdLineParser}.
  *
  * @author Philip Helger
  */
@@ -72,13 +71,13 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
   @Nullable
   private ICommonsList <String> _find (@Nullable final String sOption)
   {
-    if (StringHelper.hasNoText (sOption))
+    if (StringHelper.isEmpty (sOption))
       return null;
 
     for (final Map.Entry <IOptionBase, ICommonsList <String>> aEntry : m_aParams.entrySet ())
-      if (aEntry.getKey () instanceof Option)
+      if (aEntry.getKey () instanceof final Option aOption)
       {
-        if (((Option) aEntry.getKey ()).matches (sOption))
+        if (aOption.matches (sOption))
           return aEntry.getValue ();
       }
       else

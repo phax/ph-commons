@@ -18,23 +18,23 @@ package com.helger.graph.algo;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.CommonsTreeSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.debug.GlobalDebug;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringImplode;
+import com.helger.collection.commons.CommonsTreeSet;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
 import com.helger.graph.simple.ISimpleGraph;
 import com.helger.graph.simple.SimpleGraph;
 import com.helger.graph.simple.SimpleGraphObjectFastFactory;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Find the minimum spanning tree of a graph, using Kruskal's algorithm.
@@ -96,7 +96,7 @@ public final class Kruskal
                                         @Nonnull @Nonempty final String sRelationCostAttr)
   {
     return "{" +
-           StringHelper.getImploded (',', new CommonsTreeSet <> (aRel.getAllConnectedNodeIDs ())) +
+           StringImplode.getImploded (',', new CommonsTreeSet <> (aRel.getAllConnectedNodeIDs ())) +
            ":" +
            aRel.attrs ().getAsInt (sRelationCostAttr) +
            "}";
@@ -113,7 +113,7 @@ public final class Kruskal
     {
       LOGGER.info ("Starting Kruskal on " + aSortedRelations.size () + " relations");
       LOGGER.info ("Sorted relations: " +
-                   StringHelper.getImplodedMapped (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
+                   StringImplode.getImplodedMapped (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
     }
 
     final SimpleGraph ret = new SimpleGraph (new SimpleGraphObjectFastFactory ());

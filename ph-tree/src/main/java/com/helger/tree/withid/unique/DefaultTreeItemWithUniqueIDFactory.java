@@ -16,10 +16,10 @@
  */
 package com.helger.tree.withid.unique;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.tree.withid.DefaultTreeItemWithID;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special tree item factory that maintains a unique ID over all items!

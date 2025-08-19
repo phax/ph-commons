@@ -16,19 +16,18 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.lang.clazz.ClassHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base implementation of the {@link IGlobalScope} interface.<br>
- * Note: for synchronization issues, this class stores the attributes in a
- * separate map.
+ * Note: for synchronization issues, this class stores the attributes in a separate map.
  *
  * @author Philip Helger
  */

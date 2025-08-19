@@ -26,8 +26,8 @@ import javax.xml.transform.TransformerFactory;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link LoggingTransformErrorListener}.
@@ -56,6 +56,6 @@ public final class LoggingTransformErrorListenerTest
     // Read invalid XSLT
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
 
-    CommonsTestHelper.testToStringImplementation (el);
+    TestHelper.testToStringImplementation (el);
   }
 }

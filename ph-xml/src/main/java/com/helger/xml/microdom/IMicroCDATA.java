@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents a CDATA node.

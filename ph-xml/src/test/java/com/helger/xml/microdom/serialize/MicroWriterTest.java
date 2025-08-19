@@ -28,8 +28,8 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.text.codepoint.CodepointHelper;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.text.codepoint.CodepointHelper;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.microdom.IMicroDocument;
@@ -151,7 +151,7 @@ public final class MicroWriterTest
     _testGetNodeAsXMLString (aDoc);
     _testGetNodeAsXMLString (aDoc.getDocumentElement ());
     _testGetNodeAsXMLString (new MicroElement ("xyz"));
-    _testGetNodeAsXMLString (new MicroElement ("xyz").setAttribute ("nsuri", "attr", "1"));
+    _testGetNodeAsXMLString (new MicroElement ("xyz").setAttributeNS ("nsuri", "attr", "1"));
     _testGetNodeAsXMLString (new MicroContainer ());
     _testGetNodeAsXMLString (new MicroContainer (new MicroComment ("useless"), new MicroElement ("xyz")));
     _testGetNodeAsXMLString (new MicroComment ("useless"));
@@ -227,7 +227,7 @@ public final class MicroWriterTest
     // As an element value
     {
       final IMicroElement e = new MicroElement ("bla");
-      e.appendText (SURROGATE_PAIR_TEST_STRING);
+      e.addText (SURROGATE_PAIR_TEST_STRING);
       final String sXML = MicroWriter.getNodeAsString (e, aSettings);
       assertEquals ("<bla>" + SURROGATE_PAIR_TEST_STRING + "</bla>", sXML);
     }
@@ -286,22 +286,22 @@ public final class MicroWriterTest
 
     // Simple CDATA
     IMicroElement e = new MicroElement ("a");
-    e.appendCDATA ("foobar");
+    e.addCDATA ("foobar");
     assertEquals ("<a><![CDATA[foobar]]></a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing the forbidden CDATA end marker
     e = new MicroElement ("a");
-    e.appendCDATA ("a]]>b");
+    e.addCDATA ("a]]>b");
     assertEquals ("<a><![CDATA[a]]]]><![CDATA[>b]]></a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing more than one forbidden CDATA end marker
     e = new MicroElement ("a");
-    e.appendCDATA ("a]]>b]]>c");
+    e.addCDATA ("a]]>b]]>c");
     assertEquals ("<a><![CDATA[a]]]]><![CDATA[>b]]]]><![CDATA[>c]]></a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing a complete CDATA section
     e = new MicroElement ("a");
-    e.appendCDATA ("a<![CDATA[x]]>b");
+    e.addCDATA ("a<![CDATA[x]]>b");
     assertEquals ("<a><![CDATA[a<![CDATA[x]]]]><![CDATA[>b]]></a>", MicroWriter.getNodeAsString (e, aSettings));
   }
 
@@ -313,22 +313,22 @@ public final class MicroWriterTest
 
     // Simple CDATA
     IMicroElement e = new MicroElement ("a");
-    e.appendCDATA ("foobar");
+    e.addCDATA ("foobar");
     assertEquals ("<a>foobar</a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing the forbidden CDATA end marker
     e = new MicroElement ("a");
-    e.appendCDATA ("a]]>b");
+    e.addCDATA ("a]]>b");
     assertEquals ("<a>a]]&gt;b</a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing more than one forbidden CDATA end marker
     e = new MicroElement ("a");
-    e.appendCDATA ("a]]>b]]>c");
+    e.addCDATA ("a]]>b]]>c");
     assertEquals ("<a>a]]&gt;b]]&gt;c</a>", MicroWriter.getNodeAsString (e, aSettings));
 
     // Containing a complete CDATA section
     e = new MicroElement ("a");
-    e.appendCDATA ("a<![CDATA[x]]>b");
+    e.addCDATA ("a<![CDATA[x]]>b");
     assertEquals ("<a>a&lt;![CDATA[x]]&gt;b</a>", MicroWriter.getNodeAsString (e, aSettings));
   }
 
@@ -338,11 +338,11 @@ public final class MicroWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement ("ns1url", "root");
-    eRoot.appendElement ("ns2url", "child1");
-    eRoot.appendElement ("ns2url", "child2").setAttribute ("attr1", "a");
-    eRoot.appendElement ("ns3url", "child3").setAttribute ("ns3url", "attr1", "a");
-    eRoot.appendElement ("ns3url", "child4").setAttribute ("ns4url", "attr1", "a");
+    final IMicroElement eRoot = aDoc.addElementNS ("ns1url", "root");
+    eRoot.addElementNS ("ns2url", "child1");
+    eRoot.addElementNS ("ns2url", "child2").setAttribute ("attr1", "a");
+    eRoot.addElementNS ("ns3url", "child3").setAttributeNS ("ns3url", "attr1", "a");
+    eRoot.addElementNS ("ns3url", "child4").setAttributeNS ("ns4url", "attr1", "a");
 
     String s = MicroWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
@@ -391,7 +391,7 @@ public final class MicroWriterTest
                   "</a:root>",
                   s);
 
-    eRoot.appendElement ("ns3url", "zz");
+    eRoot.addElementNS ("ns3url", "zz");
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
                   "<a:root xmlns:a=\"ns1url\" xmlns:xy=\"ns2url\">" +
@@ -410,11 +410,11 @@ public final class MicroWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement ("ns1url", "root");
-    eRoot.appendElement ("ns2url", "child1");
-    eRoot.appendElement ("ns2url", "child2").setAttribute ("attr1", "a");
-    eRoot.appendElement ("ns3url", "child3").setAttribute ("ns3url", "attr1", "a");
-    eRoot.appendElement ("ns3url", "child4").setAttribute ("ns4url", "attr1", "a");
+    final IMicroElement eRoot = aDoc.addElementNS ("ns1url", "root");
+    eRoot.addElementNS ("ns2url", "child1");
+    eRoot.addElementNS ("ns2url", "child2").setAttribute ("attr1", "a");
+    eRoot.addElementNS ("ns3url", "child3").setAttributeNS ("ns3url", "attr1", "a");
+    eRoot.addElementNS ("ns3url", "child4").setAttributeNS ("ns4url", "attr1", "a");
 
     String s = MicroWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
@@ -474,7 +474,7 @@ public final class MicroWriterTest
         final String sText = "abc" + (char) i + "def";
         assertEquals (7, sText.length ());
         final IMicroDocument aDoc = new MicroDocument ();
-        aDoc.appendElement ("root").appendText (sText);
+        aDoc.addElement ("root").addText (sText);
         final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
         final IMicroDocument aDoc2 = MicroReader.readMicroXML (sXML);
         assertNotNull ("Failed to read with byte " + i + "\n" + sXML, aDoc2);
@@ -496,7 +496,7 @@ public final class MicroWriterTest
         final String sText = "abc" + (char) i + "def";
         assertEquals (7, sText.length ());
         final IMicroDocument aDoc = new MicroDocument ();
-        aDoc.appendElement ("root").appendCDATA (sText);
+        aDoc.addElement ("root").addCDATA (sText);
         final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
         final IMicroDocument aDoc2 = MicroReader.readMicroXML (sXML);
         assertNotNull ("Failed to read with byte " + i + "\n" + sXML, aDoc2);
@@ -525,7 +525,7 @@ public final class MicroWriterTest
         final String sText = "abc" + (char) i + "def";
         assertEquals (7, sText.length ());
         final IMicroDocument aDoc = new MicroDocument ();
-        aDoc.appendElement ("root").appendText (sText);
+        aDoc.addElement ("root").addText (sText);
         final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
         final IMicroDocument aDoc2 = MicroReader.readMicroXML (sXML);
         assertNotNull ("Failed to read with byte " + i + "\n" + sXML, aDoc2);
@@ -554,7 +554,7 @@ public final class MicroWriterTest
         final String sText = "abc" + (char) i + "def";
         assertEquals (7, sText.length ());
         final IMicroDocument aDoc = new MicroDocument ();
-        aDoc.appendElement ("root").appendCDATA (sText);
+        aDoc.addElement ("root").addCDATA (sText);
         final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
         final IMicroDocument aDoc2 = MicroReader.readMicroXML (sXML);
         assertNotNull ("Failed to read with byte " + i + "\n" + sXML, aDoc2);
@@ -577,9 +577,9 @@ public final class MicroWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement ("ns1url", "root");
-    eRoot.appendElement ("ns2url", "child1").setAttribute ("ns2url", "attr1", "value1");
-    eRoot.appendElement ("ns2url", "child2").setAttribute ("ns3url", "attr2", "value2");
+    final IMicroElement eRoot = aDoc.addElementNS ("ns1url", "root");
+    eRoot.addElementNS ("ns2url", "child1").setAttributeNS ("ns2url", "attr1", "value1");
+    eRoot.addElementNS ("ns2url", "child2").setAttributeNS ("ns3url", "attr2", "value2");
 
     {
       final String s = MicroWriter.getNodeAsString (aDoc, aSettings);
@@ -688,9 +688,9 @@ public final class MicroWriterTest
 
     // default order
     final IMicroElement e = new MicroElement ("urn:stringdefault", "a");
-    e.setAttribute ("urn:string3", "c", "1");
-    e.setAttribute ("urn:string2", "b", "2");
-    e.setAttribute ("urn:string1", "a", "3");
+    e.setAttributeNS ("urn:string3", "c", "1");
+    e.setAttributeNS ("urn:string2", "b", "2");
+    e.setAttributeNS ("urn:string1", "a", "3");
     // Attributes are ordered automatically in DOM!
     assertEquals ("<a xmlns='urn:stringdefault' xmlns:ns0='urn:string3' ns0:c='1' xmlns:ns1='urn:string2' ns1:b='2' xmlns:ns2='urn:string1' ns2:a='3' />",
                   MicroWriter.getNodeAsString (e, aSettings));

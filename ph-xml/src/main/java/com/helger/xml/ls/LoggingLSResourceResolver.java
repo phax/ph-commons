@@ -16,12 +16,12 @@
  */
 package com.helger.xml.ls;
 
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
+
+import jakarta.annotation.Nullable;
 
 /**
  * A logging only {@link LSResourceResolver} implementation.

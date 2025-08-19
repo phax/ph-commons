@@ -26,9 +26,9 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.graph.IMutableDirectedGraphRelation;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DirectedGraphNode}.
@@ -42,11 +42,11 @@ public final class DirectedGraphNodeTest
   {
     final DirectedGraphNode n = new DirectedGraphNode ();
     assertNotNull (n.getID ());
-    assertTrue (StringHelper.hasText (n.getID ()));
+    assertTrue (StringHelper.isNotEmpty (n.getID ()));
 
     final DirectedGraphNode n1 = new DirectedGraphNode ("");
     assertNotNull (n1.getID ());
-    assertTrue (StringHelper.hasText (n1.getID ()));
+    assertTrue (StringHelper.isNotEmpty (n1.getID ()));
     assertEquals (0, n1.getAllFromNodes ().size ());
     assertEquals (0, n1.getIncomingRelationCount ());
     assertEquals (0, n1.getAllToNodes ().size ());
@@ -226,13 +226,15 @@ public final class DirectedGraphNodeTest
   @Test
   public void testStdMethods ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphNode ("id0"), new DirectedGraphNode ("id0"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphNode ("id0"), new DirectedGraphNode ("id1"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphNode ("id0"),
+                                                                       new DirectedGraphNode ("id0"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphNode ("id0"),
+                                                                           new DirectedGraphNode ("id1"));
     final DirectedGraphNode n1 = new DirectedGraphNode ("id0");
     n1.attrs ().putIn ("a", "b");
     final DirectedGraphNode n2 = new DirectedGraphNode ("id0");
     n2.attrs ().putIn ("a", "c");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (n1, n2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (n1, n2);
   }
 
   @Test

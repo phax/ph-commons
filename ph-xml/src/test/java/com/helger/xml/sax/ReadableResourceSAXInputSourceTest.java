@@ -22,10 +22,10 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.MockNullInputStreamProvider;
 
 /**
@@ -41,7 +41,7 @@ public final class ReadableResourceSAXInputSourceTest
     final IReadableResource aRes = new ClassPathResource ("xml/list.xml");
     final ReadableResourceSAXInputSource is = new ReadableResourceSAXInputSource (aRes);
     assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
-    CommonsTestHelper.testToStringImplementation (is);
+    TestHelper.testToStringImplementation (is);
 
     assertNull (new ReadableResourceSAXInputSource (new MockNullInputStreamProvider (), "sysid").getByteStream ());
   }

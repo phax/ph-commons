@@ -20,14 +20,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.url.URLHelper;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.io.url.URLHelper;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.Binding;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.EndpointReference;

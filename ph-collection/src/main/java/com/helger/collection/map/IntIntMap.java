@@ -19,14 +19,14 @@ package com.helger.collection.map;
 import java.util.Arrays;
 import java.util.function.IntUnaryOperator;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.iface.IHasSize;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.lang.IHasSize;
+import jakarta.annotation.Nonnull;
 
 /**
  * Special int-int-primitive map. Source: https://github.com/mikvor/hashmapTest

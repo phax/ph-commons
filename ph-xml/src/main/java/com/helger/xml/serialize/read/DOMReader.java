@@ -24,11 +24,6 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -36,18 +31,24 @@ import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.pool.ObjectPool;
-import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
-import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.timing.StopWatch;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.pool.ObjectPool;
+import com.helger.base.timing.StopWatch;
+import com.helger.io.resource.IReadableResource;
+import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
+import com.helger.statistics.api.IMutableStatisticsHandlerTimer;
+import com.helger.statistics.impl.StatisticsManager;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.sax.CollectingSAXErrorHandler;
 import com.helger.xml.sax.InputSourceFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper class to read XML documents via SAX or DOM
@@ -321,8 +322,8 @@ public final class DOMReader
         // Ensure a collecting error handler is present
         final CollectingSAXErrorHandler aCEH;
         final ErrorHandler aCustomErrorHandler = aSettings.getErrorHandler ();
-        if (aCustomErrorHandler instanceof CollectingSAXErrorHandler)
-          aCEH = (CollectingSAXErrorHandler) aCustomErrorHandler;
+        if (aCustomErrorHandler instanceof final CollectingSAXErrorHandler aCollectingHdl)
+          aCEH = aCollectingHdl;
         else
         {
           aCEH = new CollectingSAXErrorHandler ();

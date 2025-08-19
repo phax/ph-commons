@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-jaxb</artifactId>
   <packaging>bundle</packaging>
@@ -57,10 +57,6 @@
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.commons</groupId>
       <artifactId>ph-xml</artifactId>
     </dependency>
     <!-- Required only for JAXBNamespacePrefixMapper -->
@@ -68,6 +64,12 @@
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
       <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -113,7 +115,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.jaxb</Automatic-Module-Name>
             <Export-Package>com.helger.jaxb.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

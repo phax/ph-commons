@@ -27,9 +27,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.base.string.StringImplode;
+import com.helger.collection.helper.CollectionHelperExt;
 
 /**
  * Test class for class {@link CSVIterator}.
@@ -38,14 +38,14 @@ import com.helger.commons.string.StringHelper;
  */
 public final class CSVIteratorTest
 {
-  private static final List <String> STRINGS = CollectionHelper.newList ("test1", "test2");
+  private static final List <String> STRINGS = CollectionHelperExt.createList ("test1", "test2");
 
   private CSVReader m_aMockReader;
 
   @Before
   public void setUp ()
   {
-    m_aMockReader = new CSVReader (new NonBlockingStringReader (StringHelper.getImploded (',', STRINGS)));
+    m_aMockReader = new CSVReader (new NonBlockingStringReader (StringImplode.getImploded (',', STRINGS)));
   }
 
   @Test (expected = UnsupportedOperationException.class)

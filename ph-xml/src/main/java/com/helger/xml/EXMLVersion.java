@@ -16,11 +16,11 @@
  */
 package com.helger.xml;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.base.string.StringHelper;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.StringHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * XML version determinator.
@@ -71,16 +71,16 @@ public enum EXMLVersion
    * @param sVersion
    *        The version string to search. May be <code>null</code>.
    * @param eDefault
-   *        The default version to be returned, if no such enum value is
-   *        present. May be <code>null</code>.
-   * @return The provided default version (which may be <code>null</code>) if no
-   *         such {@link EXMLVersion} object is present.
+   *        The default version to be returned, if no such enum value is present. May be
+   *        <code>null</code>.
+   * @return The provided default version (which may be <code>null</code>) if no such
+   *         {@link EXMLVersion} object is present.
    */
   @Nullable
   public static EXMLVersion getFromVersionOrDefault (@Nullable final String sVersion,
                                                      @Nullable final EXMLVersion eDefault)
   {
-    if (StringHelper.hasText (sVersion))
+    if (StringHelper.isNotEmpty (sVersion))
       for (final EXMLVersion eVersion : values ())
         if (eVersion.getVersion ().equals (sVersion))
           return eVersion;

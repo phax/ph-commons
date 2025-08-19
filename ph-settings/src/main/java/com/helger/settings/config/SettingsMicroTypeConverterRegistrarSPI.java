@@ -16,16 +16,16 @@
  */
 package com.helger.settings.config;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.settings.Settings;
 import com.helger.settings.exchange.xml.SettingsMicroDocumentConverter;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Register settings specific {@link IMicroTypeConverter}.

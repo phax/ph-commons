@@ -19,20 +19,20 @@ package com.helger.config.source.appl;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IConfigurationSource} for application based

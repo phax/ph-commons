@@ -20,18 +20,18 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EContinue;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.commons.ICommonsIterable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any

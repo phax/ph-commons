@@ -38,7 +38,6 @@ import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
 import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.cert.X509CertificateHolder;
@@ -50,12 +49,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.CGlobal;
 import com.helger.bc.PBCProvider;
-import com.helger.commons.CGlobal;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.collection.CollectionHelper;
+import com.helger.io.file.FileHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link KeyStoreHelper}.

@@ -16,9 +16,9 @@
  */
 package com.helger.tree;
 
-import javax.annotation.Nonnull;
+import com.helger.collection.hierarchy.IHasChildren;
 
-import com.helger.commons.hierarchy.IHasChildren;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for a tree.

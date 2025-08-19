@@ -28,7 +28,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.debug.GlobalDebug;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.scope.mock.ScopeTestRule;
 
 /**
@@ -63,16 +63,23 @@ public final class SessionSingletonFuncTest
   public void testInstantiateManually ()
   {
     // The check is only performed when debug mode is enabled
-    assertTrue (GlobalDebug.isDebugMode ());
     try
     {
-      // Is not meant to be invoked directly!
-      new MockSessionSingleton ();
-      fail ();
+      GlobalDebug.setDebugModeDirect (true);
+      try
+      {
+        // Is not meant to be invoked directly!
+        new MockSessionSingleton ();
+        fail ();
+      }
+      catch (final IllegalStateException ex)
+      {
+        // Expected
+      }
     }
-    catch (final IllegalStateException ex)
+    finally
     {
-      // Expected
+      GlobalDebug.setDebugModeDirect (GlobalDebug.DEFAULT_DEBUG_MODE);
     }
   }
 

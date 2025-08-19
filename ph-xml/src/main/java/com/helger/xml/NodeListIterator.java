@@ -19,15 +19,15 @@ package com.helger.xml;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsIterableIterator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special {@link Iterator} for {@link Node} objects based on {@link NodeList}
@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class NodeListIterator implements IIterableIterator <Node>
+public class NodeListIterator implements ICommonsIterableIterator <Node>
 {
   private final NodeList m_aNL;
   private int m_nIndex = 0;

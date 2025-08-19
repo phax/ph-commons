@@ -19,14 +19,14 @@ package com.helger.commons.supplementary.test.benchmark;
 import java.math.BigDecimal;
 import java.util.Random;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 /**
- * This code benchmarks the performance of copying an array purely in Java
- * versus copying it with System.arraycopy.
+ * This code benchmarks the performance of copying an array purely in Java versus copying it with
+ * System.arraycopy.
  * <p>
- * If available on the executing platform, it may be very useful to perform
- * benchmarks with the server JVM as well as the default client JVM.
+ * If available on the executing platform, it may be very useful to perform benchmarks with the
+ * server JVM as well as the default client JVM.
  */
 public final class BenchmarkStringCodePoints extends AbstractBenchmarkTask
 {

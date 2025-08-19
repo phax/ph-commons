@@ -19,19 +19,19 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.WillNotClose;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.json.CJson;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * A {@link IJsonValueSerializer} implementation that uses a constant value.
- * Required for true, false and null.
+ * A {@link IJsonValueSerializer} implementation that uses a constant value. Required for true,
+ * false and null.
  *
  * @author Philip Helger
  */
@@ -59,7 +59,8 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
     return m_sValue;
   }
 
-  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter)
+                                                                                                              throws IOException
   {
     aWriter.write (m_sValue);
   }
@@ -84,6 +85,6 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_sValue).getToString ();
+    return new ToStringGenerator (this).append ("Value", m_sValue).getToString ();
   }
 }

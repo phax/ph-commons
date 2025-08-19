@@ -19,9 +19,6 @@ package com.helger.xml.serialize.read;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.slf4j.Logger;
@@ -34,17 +31,21 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.exception.IExceptionCallback;
-import com.helger.commons.collection.impl.CommonsEnumMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.CallbackList;
+import com.helger.base.callback.exception.IExceptionCallback;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsEnumMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * SAX reader settings

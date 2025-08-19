@@ -19,21 +19,21 @@ package com.helger.tree.util;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.hierarchy.IChildrenProvider;
-import com.helger.commons.hierarchy.IHasParent;
-import com.helger.commons.hierarchy.IParentProvider;
-import com.helger.commons.id.IHasID;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.id.IHasID;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.hierarchy.IChildrenProvider;
+import com.helger.collection.hierarchy.IHasParent;
+import com.helger.collection.hierarchy.IParentProvider;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility classes for building a tree from flat collections.

@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroDocumentType}.
@@ -52,7 +52,7 @@ public final class MicroDocumentTypeTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.DOCUMENT_TYPE, e.getType ());
-    CommonsTestHelper.testToStringImplementation (e);
+    TestHelper.testToStringImplementation (e);
 
     assertFalse (e.isEqualContent (null));
     assertTrue (e.isEqualContent (e));

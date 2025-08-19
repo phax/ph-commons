@@ -19,27 +19,28 @@ package com.helger.xml.serialize.write;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.NamespaceContext;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.system.ENewLineMode;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHex;
+import com.helger.base.system.ENewLineMode;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
  * Default implementation of the {@link IXMLWriterSettings} interface.<br>
- * Describes the export settings for the MicroWriter. Defaults to indented and
- * aligned XML in the UTF-8 charset.
+ * Describes the export settings for the MicroWriter. Defaults to indented and aligned XML in the
+ * UTF-8 charset.
  *
  * @author Philip Helger
  */
@@ -123,8 +124,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * <li>with document type</li>
    * <li>with comments</li>
    * <li>Indented and aligned</li>
-   * <li>Writing invalid characters to the file as is - may result in invalid
-   * XML files</li>
+   * <li>Writing invalid characters to the file as is - may result in invalid XML files</li>
    * <li>Default character set UTF-8</li>
    * <li>No namespace context</li>
    * </ul>
@@ -215,12 +215,10 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   /**
-   * Change whether a newline should be printed after the XML declaration or
-   * not.
+   * Change whether a newline should be printed after the XML declaration or not.
    *
    * @param bNewLineAfterXMLDeclaration
-   *        <code>true</code> to print it, <code>false</code> to not print a new
-   *        line.
+   *        <code>true</code> to print it, <code>false</code> to not print a new line.
    * @return this for chaining
    */
   @Nonnull
@@ -499,6 +497,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final XMLWriterSettings rhs = (XMLWriterSettings) o;
+    final Object aObj1 = m_aNamespaceContext;
     // namespace context does not necessarily implement equals/hashCode
     return m_eSerializeVersion.equals (rhs.m_eSerializeVersion) &&
            m_eSerializeXMLDecl.equals (rhs.m_eSerializeXMLDecl) &&
@@ -509,7 +508,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            m_aIndentDeterminator.equals (rhs.m_aIndentDeterminator) &&
            m_eIncorrectCharacterHandling.equals (rhs.m_eIncorrectCharacterHandling) &&
            m_aCharset.equals (rhs.m_aCharset) &&
-           EqualsHelper.equals (m_aNamespaceContext, rhs.m_aNamespaceContext) &&
+           EqualsHelper.equals (aObj1, rhs.m_aNamespaceContext) &&
            m_bUseDoubleQuotesForAttributes == rhs.m_bUseDoubleQuotesForAttributes &&
            m_aBracketModeDeterminator.equals (rhs.m_aBracketModeDeterminator) &&
            m_bSpaceOnSelfClosedElement == rhs.m_bSpaceOnSelfClosedElement &&
@@ -551,7 +550,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public String toString ()
   {
     if (m_sIndentationStringToString == null)
-      m_sIndentationStringToString = StringHelper.getHexEncoded (m_sIndentationString.getBytes (StandardCharsets.ISO_8859_1));
+      m_sIndentationStringToString = StringHex.getHexEncoded (m_sIndentationString.getBytes (StandardCharsets.ISO_8859_1));
     return new ToStringGenerator (this).append ("SerializeVersion", m_eSerializeVersion)
                                        .append ("SerializeXMLDecl", m_eSerializeXMLDecl)
                                        .append ("NewLineAfterXMLDeclaration", m_bNewLineAfterXMLDeclaration)
@@ -568,7 +567,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("NewlineMode", m_eNewLineMode)
                                        .append ("IndentationString", m_sIndentationStringToString)
                                        .append ("EmitNamespaces", m_bEmitNamespaces)
-                                       .append ("PutNamespaceContextPrefixesInRoot", m_bPutNamespaceContextPrefixesInRoot)
+                                       .append ("PutNamespaceContextPrefixesInRoot",
+                                                m_bPutNamespaceContextPrefixesInRoot)
                                        .append ("WriteCDATAAsText", m_bWriteCDATAAsText)
                                        .append ("OrderAttributesAndNamespaces", m_bOrderAttributesAndNamespaces)
                                        .getToString ();
@@ -611,9 +611,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   /**
-   * The canonical form of an XML document is physical representation of the
-   * document produced by the method described in this specification. The
-   * changes are summarized in the following list:
+   * The canonical form of an XML document is physical representation of the document produced by
+   * the method described in this specification. The changes are summarized in the following list:
    * <ul>
    * <li>The document is encoded in UTF-8</li>
    * <li>Line breaks normalized to #xA on input, before parsing</li>
@@ -622,19 +621,17 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * <li>CDATA sections are replaced with their character content</li>
    * <li>The XML declaration and document type declaration are removed</li>
    * <li>Empty elements are converted to start-end tag pairs</li>
-   * <li>Whitespace outside of the document element and within start and end
-   * tags is normalized</li>
-   * <li>All whitespace in character content is retained (excluding characters
-   * removed during line feed normalization)</li>
-   * <li>Attribute value delimiters are set to quotation marks (double
-   * quotes)</li>
-   * <li>Special characters in attribute values and character content are
-   * replaced by character references</li>
+   * <li>Whitespace outside of the document element and within start and end tags is normalized</li>
+   * <li>All whitespace in character content is retained (excluding characters removed during line
+   * feed normalization)</li>
+   * <li>Attribute value delimiters are set to quotation marks (double quotes)</li>
+   * <li>Special characters in attribute values and character content are replaced by character
+   * references</li>
    * <li>Superfluous namespace declarations are removed from each element</li>
    * <li>Default attributes are added to each element</li>
    * <li>Fixup of xml:base attributes [C14N-Issues] is performed</li>
-   * <li>Lexicographic order is imposed on the namespace declarations and
-   * attributes of each element</li>
+   * <li>Lexicographic order is imposed on the namespace declarations and attributes of each
+   * element</li>
    * </ul>
    *
    * @return {@link XMLWriterSettings} for canonicalization

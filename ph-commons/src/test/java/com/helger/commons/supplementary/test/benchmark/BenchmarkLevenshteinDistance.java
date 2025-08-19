@@ -22,17 +22,14 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.locale.LocaleFormatter;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.string.util.LevenshteinDistance;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.text.locale.LocaleFormatter;
 
 /**
  * Check different levenshtein impolementations.<br>
@@ -66,25 +63,26 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     findWhetherSynchronizedOrLockAreFaster ();
   }
 
-  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
-                                                      final Charset aCharset) throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes, final Charset aCharset)
+                                                                                                            throws IOException
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
-    final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),
-                                                                                                aCharset));
-    String sLine;
-    int nIdx = 0;
-    while ((sLine = aBR.readLine ()) != null)
+    try (final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),
+                                                                                                     aCharset)))
     {
-      nIdx++;
-      if ((nIdx % 3) == 0)
+      String sLine;
+      int nIdx = 0;
+      while ((sLine = aBR.readLine ()) != null)
       {
-        ret.add (sLine);
-        if (ret.size () >= 100)
-          break;
+        nIdx++;
+        if ((nIdx % 3) == 0)
+        {
+          ret.add (sLine);
+          if (ret.size () >= 100)
+            break;
+        }
       }
     }
-    StreamHelper.close (aBR);
     return ret;
   }
 
@@ -174,7 +172,6 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
       m_bSimple = (LV_COST_INSERT == 1 && LV_COST_DELETE == 1 && LV_COST_SUBSTITUTE == 1);
     }
 
-    @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     public void run ()
     {
       final int n = m_aStrings.length;

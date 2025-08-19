@@ -16,9 +16,8 @@
  */
 package com.helger.json;
 
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Json read and write constants.

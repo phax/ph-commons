@@ -18,9 +18,9 @@ package com.helger.xml.mock;
 
 import java.io.InputStream;
 
-import javax.annotation.Nullable;
+import com.helger.base.io.iface.IHasInputStream;
 
-import com.helger.commons.io.IHasInputStream;
+import jakarta.annotation.Nullable;
 
 public final class MockNullInputStreamProvider implements IHasInputStream
 {

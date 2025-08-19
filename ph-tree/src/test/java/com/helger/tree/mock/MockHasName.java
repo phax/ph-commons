@@ -16,12 +16,12 @@
  */
 package com.helger.tree.mock;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.name.IHasName;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.name.IHasName;
+import jakarta.annotation.Nonnull;
 
 public final class MockHasName implements IHasName, Comparable <MockHasName>
 {

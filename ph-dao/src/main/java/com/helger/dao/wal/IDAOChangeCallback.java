@@ -16,10 +16,10 @@
  */
 package com.helger.dao.wal;
 
-import javax.annotation.Nonnull;
+import com.helger.base.callback.ICallback;
+import com.helger.base.id.IHasID;
 
-import com.helger.commons.callback.ICallback;
-import com.helger.commons.id.IHasID;
+import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface for DAO stuff

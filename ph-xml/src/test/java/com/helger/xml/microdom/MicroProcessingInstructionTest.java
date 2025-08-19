@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroProcessingInstruction}.
@@ -53,7 +53,7 @@ public final class MicroProcessingInstructionTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.PROCESSING_INSTRUCTION, e.getType ());
-    CommonsTestHelper.testToStringImplementation (e);
+    TestHelper.testToStringImplementation (e);
 
     e = new MicroProcessingInstruction ("xyz", "data");
     assertNotNull (e);
@@ -110,7 +110,7 @@ public final class MicroProcessingInstructionTest
     try
     {
       // Cannot add any child to a comment
-      e.appendChild (new MicroProcessingInstruction ("other"));
+      e.addChild (new MicroProcessingInstruction ("other"));
       fail ();
     }
     catch (final MicroException ex)

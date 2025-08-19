@@ -21,16 +21,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.ICommonsList;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a facade for a {@link List}. It may be used to wrap any kind of

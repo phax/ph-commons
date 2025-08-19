@@ -26,9 +26,9 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.EJavaVersion;
+import com.helger.base.string.StringRemove;
+import com.helger.base.system.EJavaVersion;
+import com.helger.text.locale.LocaleCache;
 
 public final class JavaDecimalFormatFuncTest
 {
@@ -108,9 +108,8 @@ public final class JavaDecimalFormatFuncTest
   public void testCurrencyNoSymbol ()
   {
     /*
-     * You could remove the currency symbol placeholder ('¤' or '\u00A4') from
-     * the pattern and then create a number format with this pattern. Something
-     * like the following:
+     * You could remove the currency symbol placeholder ('¤' or '\u00A4') from the pattern and then
+     * create a number format with this pattern. Something like the following:
      */
     final Locale aLocale = LocaleCache.getInstance ().getLocale ("fr");
     NumberFormat curFormat = NumberFormat.getCurrencyInstance (aLocale);
@@ -122,7 +121,7 @@ public final class JavaDecimalFormatFuncTest
     else
       assertEquals ("#,##0.00 \u00A4", pattern);
 
-    final String patternWithoutCurSym = StringHelper.removeAll (pattern, '\u00A4');
+    final String patternWithoutCurSym = StringRemove.removeAll (pattern, '\u00A4');
     if (EJavaVersion.JDK_9.isSupportedVersion ())
       assertEquals ("#,##0.00\u00A0", patternWithoutCurSym);
     else

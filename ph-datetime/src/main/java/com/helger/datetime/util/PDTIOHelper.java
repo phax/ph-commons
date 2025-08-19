@@ -20,12 +20,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.datetime.format.PDTToString;
+import com.helger.datetime.helper.PDTFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.PDTToString;
+import jakarta.annotation.Nonnull;
 
 /**
  * Some date time specific routines especially helpful for IO.

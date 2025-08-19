@@ -27,9 +27,9 @@ import javax.xml.namespace.QName;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.transform.TransformSourceFactory;
 
 import jakarta.xml.bind.JAXBContext;

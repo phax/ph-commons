@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.tree.DefaultTree;
 import com.helger.tree.mock.MockHasName;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;

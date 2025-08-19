@@ -16,14 +16,14 @@
  */
 package com.helger.xml;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsIterableIterator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Iterate child elements of a single node. Does not iterate recursively. Does
@@ -31,10 +31,10 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ChildElementIterator implements IIterableIterator <Element>
+public class ChildElementIterator implements ICommonsIterableIterator <Element>
 {
   /** The nodes to iterate. */
-  private final IIterableIterator <Element> m_aIter;
+  private final ICommonsIterableIterator <Element> m_aIter;
 
   public ChildElementIterator (@Nullable final Node aStartNode)
   {

@@ -18,25 +18,25 @@ package com.helger.xml.util.mime;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.hashcode.IHashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.mime.IMimeType;
+import com.helger.mime.parse.MimeTypeParser;
+import com.helger.mime.parse.MimeTypeParserException;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.hashcode.IHashCodeGenerator;
-import com.helger.commons.mime.IMimeType;
-import com.helger.commons.mime.MimeTypeParser;
-import com.helger.commons.mime.MimeTypeParserException;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a single MIME type with information relevant for us.
@@ -112,7 +112,9 @@ public final class MimeTypeInfo
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("mimeType", m_aMimeType).appendIfNotNull ("source", m_sSource).getToString ();
+      return new ToStringGenerator (this).append ("mimeType", m_aMimeType)
+                                         .appendIfNotNull ("source", m_sSource)
+                                         .getToString ();
     }
   }
 
@@ -183,7 +185,9 @@ public final class MimeTypeInfo
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("extension", m_sExt).appendIfNotNull ("source", m_sSource).getToString ();
+      return new ToStringGenerator (this).append ("extension", m_sExt)
+                                         .appendIfNotNull ("source", m_sSource)
+                                         .getToString ();
     }
   }
 
@@ -248,7 +252,7 @@ public final class MimeTypeInfo
 
   public boolean containsMimeType (@Nullable final String sMimeType)
   {
-    if (StringHelper.hasText (sMimeType))
+    if (StringHelper.isNotEmpty (sMimeType))
       for (final MimeTypeWithSource aItem : m_aMimeTypes)
         if (aItem.getMimeTypeAsString ().equals (sMimeType))
           return true;
@@ -281,7 +285,7 @@ public final class MimeTypeInfo
 
   public boolean hasComment ()
   {
-    return StringHelper.hasText (m_sComment);
+    return StringHelper.isNotEmpty (m_sComment);
   }
 
   @Nonnull
@@ -350,7 +354,7 @@ public final class MimeTypeInfo
 
   public boolean containsExtension (@Nullable final String sExtension)
   {
-    if (StringHelper.hasText (sExtension))
+    if (StringHelper.isNotEmpty (sExtension))
       for (final ExtensionWithSource aExtension : m_aExtensions)
         if (aExtension.matches (sExtension))
           return true;
@@ -379,7 +383,7 @@ public final class MimeTypeInfo
 
   public boolean hasSource ()
   {
-    return StringHelper.hasText (m_sSource);
+    return StringHelper.isNotEmpty (m_sSource);
   }
 
   @Override

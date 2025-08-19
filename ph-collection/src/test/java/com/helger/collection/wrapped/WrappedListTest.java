@@ -28,12 +28,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.lang.GenericReflection;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link WrappedList}.

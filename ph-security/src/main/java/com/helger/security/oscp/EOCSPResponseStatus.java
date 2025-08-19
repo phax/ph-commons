@@ -16,13 +16,13 @@
  */
 package com.helger.security.oscp;
 
-import javax.annotation.Nullable;
-
 import org.bouncycastle.asn1.ocsp.OCSPResponseStatus;
 
-import com.helger.commons.id.IHasIntID;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.base.id.IHasIntID;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.state.ISuccessIndicator;
+
+import jakarta.annotation.Nullable;
 
 /**
  * OSCP response status as enum.

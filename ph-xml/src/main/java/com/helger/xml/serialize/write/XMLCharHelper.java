@@ -18,18 +18,18 @@ package com.helger.xml.serialize.write;
 
 import java.util.BitSet;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsOrderedSet;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains XML utility methods for character handling.

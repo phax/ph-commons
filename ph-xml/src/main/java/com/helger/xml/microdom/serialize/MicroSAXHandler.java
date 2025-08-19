@@ -19,9 +19,6 @@ package com.helger.xml.microdom.serialize;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 
 import org.slf4j.Logger;
@@ -39,11 +36,12 @@ import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.ext.Locator2;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.location.SimpleLocation;
+import com.helger.base.string.StringHelper;
+import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroDocumentType;
@@ -53,6 +51,9 @@ import com.helger.xml.microdom.IMicroText;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.MicroDocumentType;
 import com.helger.xml.sax.AbstractSAXErrorHandler;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The SAX handler used by the {@link MicroReader}.
@@ -83,7 +84,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   {
     m_bSaveIgnorableWhitespaces = bSaveIgnorableWhitespaces;
     m_aEntityResolver = aEntityResolver;
-    m_aEntityResolver2 = aEntityResolver instanceof EntityResolver2 ? (EntityResolver2) aEntityResolver : null;
+    m_aEntityResolver2 = aEntityResolver instanceof final EntityResolver2 aER2 ? aER2 : null;
     m_bTrackPosition = bTrackPosition;
   }
 
@@ -114,10 +115,10 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     {
       m_aLocator = aLocator;
       _updatePosition ("setLocator");
-      if (aLocator instanceof Locator2)
+      if (aLocator instanceof final Locator2 aL2)
       {
-        m_sSourceXMLVersion = ((Locator2) aLocator).getXMLVersion ();
-        m_sSourceXMLEncoding = ((Locator2) aLocator).getEncoding ();
+        m_sSourceXMLVersion = aL2.getXMLVersion ();
+        m_sSourceXMLEncoding = aL2.getEncoding ();
       }
     }
   }
@@ -157,10 +158,10 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     _createParentDocument ();
 
     final IMicroElement aElement;
-    if (StringHelper.hasText (sNamespaceURI))
-      aElement = m_aParent.appendElement (sNamespaceURI, sLocalName);
+    if (StringHelper.isNotEmpty (sNamespaceURI))
+      aElement = m_aParent.addElementNS (sNamespaceURI, sLocalName);
     else
-      aElement = m_aParent.appendElement (sLocalName);
+      aElement = m_aParent.addElement (sLocalName);
 
     // copy attributes
     if (aAttributes != null)
@@ -175,7 +176,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
         // Ignore the "xmlns" attributes, as the SAX handler passes the correct
         // namespace URIs
         if (!sAttrName.startsWith (XMLConstants.XMLNS_ATTRIBUTE))
-          aElement.setAttribute (sAttrNamespaceURI, sAttrName, sAttrValue);
+          aElement.setAttributeNS (sAttrNamespaceURI, sAttrName, sAttrValue);
       }
     }
     m_aParent = aElement;
@@ -193,7 +194,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   {
     _updatePosition ("processingInstruction");
     _createParentDocument ();
-    m_aParent.appendProcessingInstruction (sTarget, sData);
+    m_aParent.addProcessingInstruction (sTarget, sData);
   }
 
   public void characters (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
@@ -213,7 +214,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
       else
       {
         // Add to parent
-        m_aParent.appendCDATA (aChars, nStart, nLength);
+        m_aParent.addCDATA (aChars, nStart, nLength);
       }
     }
     else
@@ -232,13 +233,13 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
         else
         {
           // Add to parent
-          m_aParent.appendText (aChars, nStart, nLength);
+          m_aParent.addText (aChars, nStart, nLength);
         }
       }
       else
       {
         // Add to parent
-        m_aParent.appendText (aChars, nStart, nLength);
+        m_aParent.addText (aChars, nStart, nLength);
       }
     }
   }
@@ -253,7 +254,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
       // In case the comment comes before the root element....
       _createParentDocument ();
 
-      m_aParent.appendComment (aChars, nStart, nLength);
+      m_aParent.addComment (aChars, nStart, nLength);
     }
   }
 
@@ -275,10 +276,10 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
           aLastText.appendData (aChars, nStart, nLength);
         }
         else
-          m_aParent.appendIgnorableWhitespaceText (aChars, nStart, nLength);
+          m_aParent.addIgnorableWhitespaceText (aChars, nStart, nLength);
       }
       else
-        m_aParent.appendIgnorableWhitespaceText (aChars, nStart, nLength);
+        m_aParent.addIgnorableWhitespaceText (aChars, nStart, nLength);
     }
   }
 
@@ -421,8 +422,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   /**
-   * @return The created and filled micro document. May be <code>null</code> if
-   *         no document start event came in.
+   * @return The created and filled micro document. May be <code>null</code> if no document start
+   *         event came in.
    */
   @Nullable
   public IMicroDocument getDocument ()

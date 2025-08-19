@@ -19,26 +19,29 @@ package com.helger.json.parser;
 import java.io.IOException;
 import java.io.Reader;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.stream.NonBlockingPushbackReader;
-import com.helger.commons.state.EEOI;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingPushbackReader;
+import com.helger.base.state.EEOI;
+import com.helger.base.string.StringHex;
 import com.helger.json.CJson;
 import com.helger.json.parser.handler.IJsonParserHandler;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * This is a generic JSON parser that invokes a custom callback for all found
- * elements. This can be used as the basis for a "SAX" like JSON parsing, if
- * required.
+ * This is a generic JSON parser that invokes a custom callback for all found elements. This can be
+ * used as the basis for a "SAX" like JSON parsing, if required.
  *
  * @author Philip Helger
  */
@@ -73,14 +76,7 @@ public class JsonParser
   }
 
   /** The end of input special value */
-  public static final int EOI = -1;
-  public static final boolean DEFAULT_TRACK_POSITION = false;
-  public static final int DEFAULT_TAB_SIZE = 8;
-  public static final boolean DEFAULT_ALWAYS_USE_BIG_NUMBER = false;
-  public static final boolean DEFAULT_REQUIRE_STRING_QUOTES = true;
-  public static final boolean DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING = false;
-  public static final boolean DEFAULT_CHECK_FOR_EOI = true;
-  public static final int DEFAULT_MAX_NESTING_DEPTH = 1000;
+  public static final int EOI_CHAR = -1;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (JsonParser.class);
   private static final int MAX_PUSH_BACK_CHARS = 2;
@@ -90,13 +86,7 @@ public class JsonParser
   private final IJsonParserHandler m_aCallback;
 
   // Settings
-  private boolean m_bTrackPosition = DEFAULT_TRACK_POSITION;
-  private int m_nTabSize = DEFAULT_TAB_SIZE;
-  private boolean m_bAlwaysUseBigNumber = DEFAULT_ALWAYS_USE_BIG_NUMBER;
-  private boolean m_bRequireStringQuotes = DEFAULT_REQUIRE_STRING_QUOTES;
-  private boolean m_bAllowSpecialCharsInStrings = DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING;
-  private boolean m_bCheckForEOI = DEFAULT_CHECK_FOR_EOI;
-  private int m_nMaxNestingDepth = DEFAULT_MAX_NESTING_DEPTH;
+  private final JsonParserSettings m_aSettings = new JsonParserSettings ();
 
   // Status variables
   // Position tracking
@@ -117,127 +107,25 @@ public class JsonParser
   }
 
   /**
-   * @return <code>true</code> if position tracking is enabled,
-   *         <code>false</code> if not. By default it is disabled - see
-   *         {@link #DEFAULT_TRACK_POSITION}
+   * @return The mutable parser settings to be used. Never <code>null</code>.
+   * @since v12.0.0
    */
-  public final boolean isTrackPosition ()
+  @Nonnull
+  @ReturnsMutableObject
+  public final JsonParserSettings jsonParserSettings ()
   {
-    return m_bTrackPosition;
+    return m_aSettings;
   }
 
   /**
-   * @param bTrackPosition
-   *        <code>true</code> to track the position, <code>false</code> if not.
-   * @return this for chaining
+   * @return The immutable parser settings to be used. Never <code>null</code>.
+   * @since v12.0.0
    */
   @Nonnull
-  public final JsonParser setTrackPosition (final boolean bTrackPosition)
+  @ReturnsImmutableObject
+  public final IJsonParserSettings getJsonParserSettings ()
   {
-    m_bTrackPosition = bTrackPosition;
-    return this;
-  }
-
-  @Nonnegative
-  public final int getTabSize ()
-  {
-    return m_nTabSize;
-  }
-
-  @Nonnull
-  public final JsonParser setTabSize (@Nonnegative final int nTabSize)
-  {
-    ValueEnforcer.isGT0 (nTabSize, "TabSize");
-    m_nTabSize = nTabSize;
-    return this;
-  }
-
-  public final boolean isAlwaysUseBigNumber ()
-  {
-    return m_bAlwaysUseBigNumber;
-  }
-
-  @Nonnull
-  public final JsonParser setAlwaysUseBigNumber (final boolean bAlwaysUseBigNumber)
-  {
-    m_bAlwaysUseBigNumber = bAlwaysUseBigNumber;
-    return this;
-  }
-
-  public final boolean isRequireStringQuotes ()
-  {
-    return m_bRequireStringQuotes;
-  }
-
-  @Nonnull
-  public final JsonParser setRequireStringQuotes (final boolean bRequireStringQuotes)
-  {
-    m_bRequireStringQuotes = bRequireStringQuotes;
-    return this;
-  }
-
-  public final boolean isAllowSpecialCharsInStrings ()
-  {
-    return m_bAllowSpecialCharsInStrings;
-  }
-
-  @Nonnull
-  public final JsonParser setAllowSpecialCharsInStrings (final boolean bAllowSpecialCharsInStrings)
-  {
-    m_bAllowSpecialCharsInStrings = bAllowSpecialCharsInStrings;
-    return this;
-  }
-
-  /**
-   * @return <code>true</code> if a check for end of input should be performed,
-   *         <code>false</code> if not. By default it is enabled for backwards
-   *         compatibility - see {@link #DEFAULT_CHECK_FOR_EOI}
-   * @since 9.3.8
-   */
-  public final boolean isCheckForEOI ()
-  {
-    return m_bCheckForEOI;
-  }
-
-  /**
-   * Enable or disable the check for end of input. This can be helpful, if an
-   * InputStream contains several JSON objects in a row, to read all of them in
-   * a single flow.
-   *
-   * @param bCheckForEOI
-   *        <code>true</code> to check for EOI, <code>false</code> if not.
-   * @return this for chaining
-   * @since 9.3.8
-   */
-  @Nonnull
-  public final JsonParser setCheckForEOI (final boolean bCheckForEOI)
-  {
-    m_bCheckForEOI = bCheckForEOI;
-    return this;
-  }
-
-  /**
-   * @return The maximum nesting depth of the JSON to read. Always &gt; 0.
-   * @since 11.0.5
-   */
-  @Nonnegative
-  public final int getMaxNestingDepth ()
-  {
-    return m_nMaxNestingDepth;
-  }
-
-  /**
-   * @param nMaxNestingDepth
-   *        The maximum nesting depth of the JSON to read. Must be &gt; 0.
-   * @return this for chaining
-   * @since 11.0.5
-   */
-  @Nonnull
-  public final JsonParser setMaxNestingDepth (@Nonnegative final int nMaxNestingDepth)
-  {
-    ValueEnforcer.isGT0 (nMaxNestingDepth, "MaxNestingDepth");
-    m_nMaxNestingDepth = nMaxNestingDepth;
-    return this;
+    return m_aSettings;
   }
 
   /**
@@ -259,10 +147,9 @@ public class JsonParser
   }
 
   /**
-   * Must return int to differentiate between the whole char range (0-0xffff)
-   * and EOF (-1).
+   * Must return int to differentiate between the whole char range (0-0xffff) and EOF (-1).
    *
-   * @return the char read or {@link #EOI} (=-1) in case of EOF
+   * @return the char read or {@link #EOI_CHAR} (=-1) in case of EOF
    */
   private int _readChar ()
   {
@@ -270,7 +157,7 @@ public class JsonParser
     {
       final int c = m_aReader.read ();
 
-      if (m_bTrackPosition)
+      if (m_aSettings.isTrackPosition ())
       {
         if (m_nBackupChars > 0)
         {
@@ -278,19 +165,18 @@ public class JsonParser
           m_nBackupChars--;
         }
         else
-          m_aParsePos.updatePosition (c, m_nTabSize);
+          m_aParsePos.updatePosition (c, m_aSettings.getTabSize ());
       }
       return c;
     }
     catch (final IOException ex)
     {
-      return EOI;
+      return EOI_CHAR;
     }
   }
 
   /**
-   * Backup the provided char (put it back in the queue for re-reading) if it is
-   * not end of input
+   * Backup the provided char (put it back in the queue for re-reading) if it is not end of input
    *
    * @param c
    *        char to backup
@@ -299,7 +185,7 @@ public class JsonParser
    */
   private void _backupChar (final int c)
   {
-    if (c != EOI)
+    if (c != EOI_CHAR)
       try
       {
         m_aReader.unread (c);
@@ -314,33 +200,34 @@ public class JsonParser
   @Nonnull
   private static String _getPrintableChar (final int c)
   {
-    if (c == EOI)
+    if (c == EOI_CHAR)
       return "<EOI>";
     if (c <= 32)
-      return "0x" + StringHelper.getHexStringLeadingZero (c, 2);
+      return "0x" + StringHex.getHexStringLeadingZero (c, 2);
     if (c >= 127)
-      return "0x" + StringHelper.getHexStringLeadingZero (c, 4);
+      return "0x" + StringHex.getHexStringLeadingZero (c, 4);
     return "'" + (char) c + "'";
   }
 
   @Nonnull
   private JsonParseException _parseEx (@Nullable final IJsonParsePosition aTokenStart, @Nonnull final String sMsg)
   {
-    if (m_bTrackPosition)
+    if (m_aSettings.isTrackPosition ())
       return new JsonParseException (aTokenStart, m_aParsePos, sMsg);
 
     return new JsonParseException (sMsg);
   }
 
   @Nullable
-  private IJsonParsePosition _getCurrentParsePos ()
+  @ReturnsMutableCopy
+  private IJsonParsePosition _getCurrentParsePosClone ()
   {
-    return m_bTrackPosition ? m_aParsePos.getClone () : null;
+    return m_aSettings.isTrackPosition () ? m_aParsePos.getClone () : null;
   }
 
   private void _readComment () throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
     // Use SB2 because _skipSpaces uses SB1
     final JsonStringBuilder aStrComment = m_aSB2.reset ();
 
@@ -357,14 +244,14 @@ public class JsonParser
           m_aCallback.onComment (aStrComment.getAsString ());
           return;
         }
-        if (c2 == EOI)
+        if (c2 == EOI_CHAR)
           throw _parseEx (aStartPos, "Unclosed JSON comment at end of input");
 
         // Backup the "/" try
         _backupChar (c2);
       }
 
-      if (c1 == EOI)
+      if (c1 == EOI_CHAR)
         throw _parseEx (aStartPos, "Unclosed JSON comment at end of input");
 
       aStrComment.append ((char) c1);
@@ -430,7 +317,7 @@ public class JsonParser
    */
   private int _getHexValue (@Nullable final IJsonParsePosition aStartPos, final int c) throws JsonParseException
   {
-    final int ret = StringHelper.getHexValue ((char) c);
+    final int ret = StringHex.getHexValue ((char) c);
     if (ret == -1)
       throw _parseEx (aStartPos, "Invalid hex character " + _getPrintableChar (c) + " provided!");
     return ret;
@@ -487,6 +374,7 @@ public class JsonParser
     return (c >= 0x21 && c <= 0x7a) && c != ':';
   }
 
+  @Immutable
   private static final class TwoStrings
   {
     private final String m_sOriginal;
@@ -502,15 +390,14 @@ public class JsonParser
   /**
    * @param eQuoteMode
    *        The quoting mode used. May not be <code>null</code>.
-   * @return A pair where the first string is the original read string whereas
-   *         the second part is the unescaped read string without leading and
-   *         trailing quotes
+   * @return A pair where the first string is the original read string whereas the second part is
+   *         the unescaped read string without leading and trailing quotes
    * @throws JsonParseException
    */
   @Nonnull
   private TwoStrings _readString (@Nonnull final EStringQuoteMode eQuoteMode) throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
     final JsonStringBuilder aStrStringOriginalContent = m_aSB1.reset ();
     final JsonStringBuilder aStrStringUnescapedContent = m_aSB2.reset ();
 
@@ -524,7 +411,7 @@ public class JsonParser
     }
     else
     {
-      if (m_bRequireStringQuotes)
+      if (m_aSettings.isRequireStringQuotes ())
         throw _parseEx (aStartPos,
                         "Invalid JSON String start character " +
                                    _getPrintableChar (cStart) +
@@ -548,14 +435,14 @@ public class JsonParser
           _readStringEscapeChar (aStartPos, aStrStringOriginalContent, aStrStringUnescapedContent);
           break;
         }
-        case EOI:
+        case EOI_CHAR:
           throw _parseEx (aStartPos, "Unclosed JSON String at end of input");
         case '\b':
         case '\f':
         case '\n':
         case '\r':
         case '\t':
-          if (!m_bAllowSpecialCharsInStrings)
+          if (!m_aSettings.isAllowSpecialCharsInStrings ())
             throw _parseEx (aStartPos, "Invalid JSON String character " + _getPrintableChar (c));
           // else fall-though!
         default:
@@ -637,7 +524,10 @@ public class JsonParser
     // positive maximas
     long r = 0;
     while (nPos < nMax)
-      r = (r * 10L) + ('0' - s.charAt (nPos++));
+    {
+      r = (r * 10L) + ('0' - s.charAt (nPos));
+      nPos++;
+    }
 
     if (bMustCheck)
     {
@@ -688,7 +578,7 @@ public class JsonParser
       if (bIsDecimal)
       {
         // Decimal number
-        if (nCharCount > 18 || m_bAlwaysUseBigNumber)
+        if (nCharCount > 18 || m_aSettings.isAlwaysUseBigNumber ())
           return aNumChars.getAsBigDecimal ();
 
         return aNumChars.getAsDouble ();
@@ -708,7 +598,7 @@ public class JsonParser
       }
 
       // No exponent present
-      if (m_bAlwaysUseBigNumber)
+      if (m_aSettings.isAlwaysUseBigNumber ())
         return aNumChars.getAsBigInteger ();
 
       return _parseNumberInt (aNumChars);
@@ -723,7 +613,7 @@ public class JsonParser
 
   private void _readNumber () throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     final JsonStringBuilder aStrNumber = m_aSB1.reset ();
     int c = _readChar ();
@@ -813,7 +703,7 @@ public class JsonParser
 
   private void _expect (@Nonnull final String sKeyword) throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     for (final char cExpected : sKeyword.toCharArray ())
     {
@@ -832,7 +722,7 @@ public class JsonParser
 
   private void _readArray () throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     m_aCallback.onArrayStart ();
     int nIndex = 0;
@@ -870,7 +760,7 @@ public class JsonParser
 
   private void _readObject () throws JsonParseException
   {
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     m_aCallback.onObjectStart ();
     int nIndex = 0;
@@ -930,12 +820,12 @@ public class JsonParser
   private void _incNestingLevel (@Nullable final IJsonParsePosition aTokenStart) throws JsonParseException
   {
     m_nNestingLevel++;
-    if (m_nNestingLevel > m_nMaxNestingDepth)
+    if (m_nNestingLevel > m_aSettings.getMaxNestingDepth ())
       throw _parseEx (aTokenStart,
                       "The nesting level " +
                                    m_nNestingLevel +
                                    " exceeds the maximum nesting level of " +
-                                   m_nMaxNestingDepth);
+                                   m_aSettings.getMaxNestingDepth ());
   }
 
   private void _decNestingLevel ()
@@ -948,8 +838,7 @@ public class JsonParser
   /**
    * Read a single value
    *
-   * @return {@link EEOI#CONTINUE} if something was read, {@link EEOI#EOI} if
-   *         there was an EOI
+   * @return {@link EEOI#CONTINUE} if something was read, {@link EEOI#EOI} if there was an EOI
    * @throws JsonParseException
    *         In case of parse exceptions
    */
@@ -958,7 +847,7 @@ public class JsonParser
   {
     _skipSpaces ();
 
-    final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+    final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
     final int cFirst = _readChar ();
     switch (cFirst)
@@ -1016,7 +905,7 @@ public class JsonParser
         _readObject ();
         _decNestingLevel ();
         break;
-      case EOI:
+      case EOI_CHAR:
         return EEOI.EOI;
       default:
         throw _parseEx (aStartPos, "Syntax error in JSON. Found " + _getPrintableChar (cFirst));
@@ -1027,8 +916,7 @@ public class JsonParser
   /**
    * Main parsing routine
    *
-   * @return {@link EEOI#NOT_EOI} if something was read, {@link EEOI#EOI} if
-   *         there was an EOI
+   * @return {@link EEOI#NOT_EOI} if something was read, {@link EEOI#EOI} if there was an EOI
    * @throws JsonParseException
    *         In case a parse error occurs.
    */
@@ -1036,17 +924,17 @@ public class JsonParser
   public EEOI parse () throws JsonParseException
   {
     final EEOI eEOI = _readValue ();
-    if (eEOI.isNotEndOfInput () && m_bCheckForEOI)
+    if (eEOI.isNotEndOfInput () && m_aSettings.isCheckForEOI ())
     {
-      // Non EOF
+      // Non-EOF
       // Check for trailing whitespaces (reads a char)
       _skipSpaces ();
 
-      final IJsonParsePosition aStartPos = _getCurrentParsePos ();
+      final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
       // Check for expected end of input
       final int c = _readChar ();
-      if (c != EOI)
+      if (c != EOI_CHAR)
         throw _parseEx (aStartPos, "Invalid character " + _getPrintableChar (c) + " after JSON root object");
     }
     return eEOI;

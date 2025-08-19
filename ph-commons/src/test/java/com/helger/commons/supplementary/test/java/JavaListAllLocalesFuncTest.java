@@ -24,8 +24,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.IComparator;
+import com.helger.collection.helper.CollectionSort;
+import com.helger.text.compare.ComparatorHelper;
 
 public final class JavaListAllLocalesFuncTest
 {
@@ -35,17 +35,26 @@ public final class JavaListAllLocalesFuncTest
   @Ignore ("Too verbose")
   public void testListAllCountries ()
   {
-    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
-                                                            IComparator.getComparatorCollating (Locale::getCountry, Locale.US)))
+    for (final Locale aLocale : CollectionSort.getSorted (Locale.getAvailableLocales (),
+                                                          ComparatorHelper.getComparatorCollating (Locale::getCountry,
+                                                                                                   Locale.US)))
       if (aLocale.getCountry ().length () > 0)
-        LOGGER.info (aLocale.getCountry () + " " + aLocale.getDisplayCountry (Locale.US) + " (" + aLocale.toString () + ")");
+        LOGGER.info (aLocale.getCountry () +
+                     " " +
+                     aLocale.getDisplayCountry (Locale.US) +
+                     " (" +
+                     aLocale.toString () +
+                     ")");
   }
 
   @Test
   public void testListAllSerbianCountries ()
   {
-    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (), Comparator.comparing (Locale::toString)))
-      if (aLocale.getLanguage ().equals ("sr") || aLocale.getLanguage ().equals ("sh") || aLocale.getLanguage ().equals ("bs"))
+    for (final Locale aLocale : CollectionSort.getSorted (Locale.getAvailableLocales (),
+                                                          Comparator.comparing (Locale::toString)))
+      if (aLocale.getLanguage ().equals ("sr") ||
+          aLocale.getLanguage ().equals ("sh") ||
+          aLocale.getLanguage ().equals ("bs"))
         LOGGER.info (aLocale.toString () + ": " + aLocale.getDisplayName (Locale.US));
   }
 }

@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "patterns": [
+    {
+      "name": "Project Structure & Build",
+      "description": "Instructions for maintaining project structure and build configuration",
+      "rules": [
+        "All projects must use Apache Maven 3.x for building (pom.xml)",
+        "All projects must include Eclipse project files (.project, .classpath, .settings)",
+        "A FindBugs configuration file (findbugs-exclude.xml) must be present in project root",
+        "Non-JDK-extension projects must use ph-commons as their base library"
+      ]
+    },
+    {
+      "name": "File Organization",
+      "description": "Standard file organization rules",
+      "rules": [
+        "Every Java file must include a copyright notice: 'Copyright (C) YYYY-YYYY Philip Helger (www.helger.com)'",
+        "Every Java file must include the Apache License 2.0 header",
+        "Imports must be organized in groups: Java standard library, third-party, com.helger.*"
+      ]
+    },
+    {
+      "name": "Documentation Standards",
+      "description": "Rules for code documentation",
+      "rules": [
+        "Classes must have clear purpose descriptions in JavaDoc",
+        "Document thread-safety characteristics with @ThreadSafe, @NotThreadSafe, or @Immutable",
+        "Include implementation notes for performance considerations",
+        "Document mathematical algorithms comprehensively",
+        "Methods must document parameter constraints with @Nonnull or @Nullable",
+        "Generic type parameters must be documented with @param tags",
+        "Return value semantics must be documented (e.g., @ReturnsMutableCopy)"
+      ]
+    },
+    {
+      "name": "Naming Conventions",
+      "description": "Standard naming patterns",
+      "rules": [
+        "Classes use PascalCase (e.g., MatrixInt, QRDecomposition)",
+        "Interfaces start with 'I' followed by PascalCase",
+        "Private/protected instance fields use 'm_' prefix",
+        "Private/protected static fields use 's_' prefix",
+        "Static final fields may use upper case",
+        "Private methods start with underscore",
+        "Use type prefixes for fields: 'a' (arrays), 'b' (boolean), 'c' (char), 'd' (double), 'e' (enum), 'f' (float), 'n' (numeric), 's' (String)"
+      ]
+    },
+    {
+      "name": "Code Organization",
+      "description": "Class structure and organization",
+      "rules": [
+        "Order class members: static fields, instance fields, constructors, public methods, protected/package methods, private methods",
+        "Helper classes must be final with private constructor",
+        "Helper classes must include @PresentForCodeCoverage instance"
+      ]
+    },
+    {
+      "name": "Thread Safety",
+      "description": "Threading and synchronization patterns",
+      "rules": [
+        "Mark thread-safe classes with @ThreadSafe",
+        "Mark non-thread-safe classes with @NotThreadSafe",
+        "Mark immutable classes with @Immutable",
+        "Use @GuardedBy for synchronized fields",
+        "Use SimpleReadWriteLock for thread-safe implementations",
+        "Always use try-finally blocks for lock releasing"
+      ]
+    },
+    {
+      "name": "Collections Framework",
+      "description": "Collection implementation patterns",
+      "rules": [
+        "Use ICommonsCollection, ICommonsList, ICommonsSet, ICommonsMap interfaces",
+        "Use CommonsArrayList, CommonsHashMap for standard implementations",
+        "Use CommonsCopyOnWriteArrayList for thread-safe collections",
+        "Always validate collection parameters using ValueEnforcer"
+      ]
+    },
+    {
+      "name": "Error Handling",
+      "description": "Exception and validation patterns",
+      "rules": [
+        "Use ValueEnforcer for parameter validation",
+        "Document exceptions comprehensively",
+        "Use custom exception interfaces where appropriate",
+        "Define generic exception types in interfaces"
+      ]
+    },
+    {
+      "name": "Resource Management",
+      "description": "Resource handling patterns",
+      "rules": [
+        "Implement AutoCloseable for cleanup",
+        "Support try-with-resources pattern",
+        "Document resource cleanup requirements",
+        "Provide proper shutdown sequences"
+      ]
+    },
+    {
+      "name": "Builder Patterns",
+      "description": "Builder implementation guidelines",
+      "rules": [
+        "Implement IResettableBuilder for builder classes",
+        "Use fluent interface with method chaining",
+        "Validate fields in builder methods",
+        "Clearly distinguish between optional and required parameters"
+      ]
+    }
+  ],
+  "search_optimization": [
+    {
+      "pattern": "thread-safe",
+      "include": ["@ThreadSafe", "@NotThreadSafe", "@Immutable", "SimpleReadWriteLock", "synchronized"]
+    },
+    {
+      "pattern": "collection",
+      "include": ["ICommonsCollection", "ICommonsList", "ICommonsSet", "ICommonsMap", "CommonsArrayList"]
+    },
+    {
+      "pattern": "validation",
+      "include": ["ValueEnforcer", "@Nonnull", "@Nullable", "validate"]
+    }
+  ]
+}

@@ -16,17 +16,15 @@
  */
 package com.helger.json.visit;
 
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.IJsonValue;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Recursively visit all Json nodes and invoke the provided callback.
@@ -67,7 +65,7 @@ public final class JsonVisitor
         final IJsonObject aObject = (IJsonObject) aJson;
         aCB.onJsonObjectStart (aObject);
 
-        for (final Map.Entry <String, IJson> aEntry : aObject)
+        for (final var aEntry : aObject)
         {
           aCB.onJsonObjectElementName (aEntry.getKey ());
           // Object value

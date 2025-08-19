@@ -20,17 +20,17 @@ import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.cache.MappedCache;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.cache.impl.MappedCache;
 import com.helger.datetime.expiration.ExpiringObject;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An revocation cache that checks the revocation status of each certificate and keeps the status

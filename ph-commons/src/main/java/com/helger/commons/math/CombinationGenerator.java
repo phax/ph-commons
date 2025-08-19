@@ -20,17 +20,17 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.CGlobal;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterableIterator;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.lang.GenericReflection;
+import jakarta.annotation.Nonnull;
 
 /**
  * Utility class for generating all possible combinations of elements for a
@@ -44,7 +44,7 @@ import com.helger.commons.lang.GenericReflection;
  * @param <DATATYPE>
  *        Element type to be combined
  */
-public class CombinationGenerator <DATATYPE> implements IIterableIterator <ICommonsList <DATATYPE>>
+public class CombinationGenerator <DATATYPE> implements ICommonsIterableIterator <ICommonsList <DATATYPE>>
 {
   private final DATATYPE [] m_aElements;
   private final int [] m_aIndexResult;

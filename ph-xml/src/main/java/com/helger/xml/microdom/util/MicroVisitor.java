@@ -16,15 +16,15 @@
  */
 package com.helger.xml.microdom.util;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.hierarchy.IChildrenProvider;
-import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
-import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.hierarchy.IChildrenProvider;
+import com.helger.collection.hierarchy.visit.ChildrenProviderHierarchyVisitor;
+import com.helger.collection.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.xml.microdom.IMicroNode;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper class that visits a {@link com.helger.xml.microdom.IMicroNode} with a

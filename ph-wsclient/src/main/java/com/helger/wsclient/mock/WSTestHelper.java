@@ -18,16 +18,15 @@ package com.helger.wsclient.mock;
 
 import java.io.File;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
 
+import jakarta.annotation.Nonnull;
 import jakarta.jws.WebService;
 
 /**

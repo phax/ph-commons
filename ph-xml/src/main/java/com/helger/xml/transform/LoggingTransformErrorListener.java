@@ -18,16 +18,16 @@ package com.helger.xml.transform;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.log.LogHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.level.IErrorLevel;
+import com.helger.diagnostics.log.LogHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * {@link javax.xml.transform.ErrorListener} that simply logs data to a logger.

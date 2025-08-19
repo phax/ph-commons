@@ -18,7 +18,7 @@ package com.helger.scope;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsAssert;
+import com.helger.base.mock.CommonsAssert;
 
 /**
  * Test class for class {@link ScopeHelper}.

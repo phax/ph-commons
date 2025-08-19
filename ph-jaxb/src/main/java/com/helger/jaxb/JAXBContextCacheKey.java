@@ -19,28 +19,27 @@ package com.helger.jaxb;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ClassLoaderHelper;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.log.ConditionalLogger;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.CGlobal;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.log.IConditionalLogger;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.base.string.StringImplode;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsList;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.annotation.XmlSchema;
@@ -92,7 +91,7 @@ public class JAXBContextCacheKey
     m_aClassLoader = new WeakReference <> (aClassLoader);
     m_aClasses = null;
     m_aProperties = null;
-    m_sEqualsHashCodeKey = StringHelper.imploder ().source (aPackages, Package::getName).separator (':').build ();
+    m_sEqualsHashCodeKey = StringImplode.imploder ().source (aPackages, Package::getName).separator (':').build ();
 
     // When using "-npa" on JAXB no package-info class is created!
     for (final Package aPackage : aPackages)
@@ -122,12 +121,11 @@ public class JAXBContextCacheKey
     m_aClassLoader = null;
     m_aClasses = new CommonsArrayList <> (aClasses, WeakReference::new);
     m_aProperties = new CommonsHashMap <> (aProperties);
-    m_sEqualsHashCodeKey = StringHelper.imploder ().source (aClasses, Class::getName).separator (':').build ();
+    m_sEqualsHashCodeKey = StringImplode.imploder ().source (aClasses, Class::getName).separator (':').build ();
   }
 
   /**
-   * @return The list of classes passed in the constructor. May be
-   *         <code>null</code>.
+   * @return The list of classes passed in the constructor. May be <code>null</code>.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -148,8 +146,8 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * @return The class loader passed in the constructor or the default class
-   *         loader. May be <code>null</code>.
+   * @return The class loader passed in the constructor or the default class loader. May be
+   *         <code>null</code>.
    */
   @Nullable
   private ClassLoader _getClassLoader ()
@@ -161,15 +159,15 @@ public class JAXBContextCacheKey
   }
 
   @Nonnull
-  private JAXBContext _createFromPackageAndClassLoader (@Nonnull final ConditionalLogger aCondLog)
+  private JAXBContext _createFromPackageAndClassLoader (@Nonnull final IConditionalLogger aCondLog)
   {
     final ClassLoader aClassLoader = _getClassLoader ();
 
     aCondLog.info ( () -> "Creating JAXB context for packages " +
-                          StringHelper.imploder ()
-                                      .source (m_aPackages, x -> '\'' + x.getName () + '\'')
-                                      .separator (", ")
-                                      .build () +
+                          StringImplode.imploder ()
+                                       .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                                       .separator (", ")
+                                       .build () +
                           " using ClassLoader " +
                           aClassLoader.toString ());
 
@@ -181,10 +179,10 @@ public class JAXBContextCacheKey
     catch (final JAXBException ex)
     {
       final String sMsg = "Failed to create JAXB context for packages " +
-                          StringHelper.imploder ()
-                                      .source (m_aPackages, x -> '\'' + x.getName () + '\'')
-                                      .separator (", ")
-                                      .build () +
+                          StringImplode.imploder ()
+                                       .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                                       .separator (", ")
+                                       .build () +
                           " using ClassLoader " +
                           aClassLoader;
       LOGGER.error (sMsg + ": " + ex.getMessage ());
@@ -193,41 +191,40 @@ public class JAXBContextCacheKey
   }
 
   @Nonnull
-  private JAXBContext _createFromClassesAndProperties (@Nonnull final ConditionalLogger aCondLog)
+  private JAXBContext _createFromClassesAndProperties (@Nonnull final IConditionalLogger aCondLog)
   {
     final ICommonsList <Class <?>> aClasses = _getAllClasses ();
 
     // E.g. an internal class - try anyway!
     aCondLog.info ( () -> "Creating JAXB context for classes " +
-                          StringHelper.imploder ()
-                                      .source (aClasses, x -> '\'' + x.getName () + '\'')
-                                      .separator (", ")
-                                      .build () +
+                          StringImplode.imploder ()
+                                       .source (aClasses, x -> '\'' + x.getName () + '\'')
+                                       .separator (", ")
+                                       .build () +
                           (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
 
     try
     {
       // Using the version with a ClassLoader would require an
       // ObjectFactory.class or an jaxb.index file in the same package!
-      final Class <?> [] aClassArray = aClasses.toArray (ArrayHelper.EMPTY_CLASS_ARRAY);
+      final Class <?> [] aClassArray = aClasses.toArray (CGlobal.EMPTY_CLASS_ARRAY);
       return JAXBContext.newInstance (aClassArray, m_aProperties);
     }
     catch (final JAXBException ex)
     {
       final String sMsg = "Failed to create JAXB context for classes " +
-                          StringHelper.imploder ()
-                                      .source (aClasses, x -> '\'' + x.getName () + '\'')
-                                      .separator (", ")
-                                      .build () +
+                          StringImplode.imploder ()
+                                       .source (aClasses, x -> '\'' + x.getName () + '\'')
+                                       .separator (", ")
+                                       .build () +
                           (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ());
       LOGGER.error (sMsg + ": " + ex.getMessage ());
       throw new IllegalArgumentException (sMsg, ex);
     }
   }
 
-  // 11.0.4 did an incompatible change from boolean to ConditionalLogger
   @Nonnull
-  public JAXBContext createJAXBContext (@Nonnull final ConditionalLogger aCondLog)
+  public JAXBContext createJAXBContext (@Nonnull final IConditionalLogger aCondLog)
   {
     if (m_aPackages != null)
       return _createFromPackageAndClassLoader (aCondLog);
@@ -328,8 +325,7 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * Factory method with a list of packages and the provided
-   * {@link ClassLoader}.
+   * Factory method with a list of packages and the provided {@link ClassLoader}.
    *
    * @param aPackages
    *        List of packages to load. May not be <code>null</code>.
@@ -346,13 +342,11 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * Get the {@link JAXBContext} from an existing {@link Class} object. If the
-   * class's owning package is a valid JAXB package, this method redirects to
-   * {@link #createForPackage(Package)}
+   * Get the {@link JAXBContext} from an existing {@link Class} object. If the class's owning
+   * package is a valid JAXB package, this method redirects to {@link #createForPackage(Package)}
    *
    * @param aClass
-   *        The class for which the JAXB context is to be created. May not be
-   *        <code>null</code>.
+   *        The class for which the JAXB context is to be created. May not be <code>null</code>.
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
@@ -363,16 +357,15 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * Get the {@link JAXBContext} from an existing {@link Class} object. If the
-   * class's owning package is a valid JAXB package, this method redirects to
+   * Get the {@link JAXBContext} from an existing {@link Class} object. If the class's owning
+   * package is a valid JAXB package, this method redirects to
    * {@link #createForPackage(Package, ClassLoader)}
    *
    * @param aClass
-   *        The class for which the JAXB context is to be created. May not be
-   *        <code>null</code>.
+   *        The class for which the JAXB context is to be created. May not be <code>null</code>.
    * @param aClassLoader
-   *        Class loader to use. May be <code>null</code> in which case the
-   *        default class loader is used.
+   *        Class loader to use. May be <code>null</code> in which case the default class loader is
+   *        used.
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
@@ -395,8 +388,8 @@ public class JAXBContextCacheKey
    * Get the {@link JAXBContext} from existing {@link Class} objects.
    *
    * @param aClasses
-   *        The classes for which the JAXB context is to be created. May not be
-   *        <code>null</code> nor empty.
+   *        The classes for which the JAXB context is to be created. May not be <code>null</code>
+   *        nor empty.
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
@@ -410,8 +403,8 @@ public class JAXBContextCacheKey
    * Get the {@link JAXBContext} from existing {@link Class} objects.
    *
    * @param aClasses
-   *        The classes for which the JAXB context is to be created. May not be
-   *        <code>null</code> nor empty.
+   *        The classes for which the JAXB context is to be created. May not be <code>null</code>
+   *        nor empty.
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
@@ -422,12 +415,12 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * Get the {@link JAXBContext} from existing {@link Class} objects and
-   * optional JAXB Context properties.
+   * Get the {@link JAXBContext} from existing {@link Class} objects and optional JAXB Context
+   * properties.
    *
    * @param aClasses
-   *        The classes for which the JAXB context is to be created. May not be
-   *        <code>null</code> nor empty.
+   *        The classes for which the JAXB context is to be created. May not be <code>null</code>
+   *        nor empty.
    * @param aProperties
    *        JAXB context properties. May be <code>null</code>.
    * @return The created object. Never <code>null</code>.

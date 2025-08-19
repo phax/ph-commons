@@ -18,18 +18,18 @@ package com.helger.jaxb.validation;
 
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.diagnostics.error.list.IErrorList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.error.list.IErrorList;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}

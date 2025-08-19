@@ -34,17 +34,17 @@ package com.helger.commons.csv;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * A very simple CSV parser released under a commercial-friendly license. This
- * just implements splitting a single line into fields.
+ * A very simple CSV parser released under a commercial-friendly license. This just implements
+ * splitting a single line into fields.
  *
  * @author Glen Smith
  * @author Rainer Pruy
@@ -53,23 +53,20 @@ import com.helger.commons.string.StringHelper;
 public class CSVParser
 {
   /**
-   * This is the character that the {@link CSVParser} will treat as the
-   * separator.
+   * This is the character that the {@link CSVParser} will treat as the separator.
    */
   private char m_cSeparatorChar = CCSV.DEFAULT_SEPARATOR;
   /**
-   * This is the character that the {@link CSVParser} will treat as the
-   * quotation character.
+   * This is the character that the {@link CSVParser} will treat as the quotation character.
    */
   private char m_cQuoteChar = CCSV.DEFAULT_QUOTE_CHARACTER;
   /**
-   * This is the character that the {@link CSVParser} will treat as the escape
-   * character.
+   * This is the character that the {@link CSVParser} will treat as the escape character.
    */
   private char m_cEscapeChar = CCSV.DEFAULT_ESCAPE_CHARACTER;
   /**
-   * Determines if the field is between quotes (<code>true</code>) or between
-   * separators (<code>false</code>).
+   * Determines if the field is between quotes (<code>true</code>) or between separators
+   * (<code>false</code>).
    */
   private boolean m_bStrictQuotes = CCSV.DEFAULT_STRICT_QUOTES;
   /**
@@ -172,8 +169,7 @@ public class CSVParser
   }
 
   /**
-   * Sets the strict quotes setting - if true, characters outside the quotes are
-   * ignored.
+   * Sets the strict quotes setting - if true, characters outside the quotes are ignored.
    *
    * @param bStrictQuotes
    *        if <code>true</code>, characters outside the quotes are ignored
@@ -195,12 +191,11 @@ public class CSVParser
   }
 
   /**
-   * Sets the ignore leading whitespace setting - if true, white space in front
-   * of a quote in a field is ignored.
+   * Sets the ignore leading whitespace setting - if true, white space in front of a quote in a
+   * field is ignored.
    *
    * @param bIgnoreLeadingWhiteSpace
-   *        if <code>true</code>, white space in front of a quote in a field is
-   *        ignored
+   *        if <code>true</code>, white space in front of a quote in a field is ignored
    * @return this
    */
   @Nonnull
@@ -219,8 +214,7 @@ public class CSVParser
   }
 
   /**
-   * Sets the ignore quotations mode - if <code>true</code>, quotations are
-   * ignored.
+   * Sets the ignore quotations mode - if <code>true</code>, quotations are ignored.
    *
    * @param bIgnoreQuotations
    *        if <code>true</code>, quotations are ignored
@@ -234,9 +228,8 @@ public class CSVParser
   }
 
   /**
-   * checks to see if any two of the three characters are the same. This is
-   * because in openCSV the separator, quote, and escape characters must the
-   * different.
+   * checks to see if any two of the three characters are the same. This is because in openCSV the
+   * separator, quote, and escape characters must the different.
    *
    * @return <code>true</code> if any two of the three are the same.
    */
@@ -248,15 +241,13 @@ public class CSVParser
   }
 
   /**
-   * checks that the two characters are the same and are not the defined
-   * NULL_CHARACTER.
+   * checks that the two characters are the same and are not the defined NULL_CHARACTER.
    *
    * @param c1
    *        first character
    * @param c2
    *        second character
-   * @return true if both characters are the same and are not the defined
-   *         NULL_CHARACTER
+   * @return true if both characters are the same and are not the defined NULL_CHARACTER
    */
   private static boolean _isSameCharacter (final char c1, final char c2)
   {
@@ -272,13 +263,12 @@ public class CSVParser
   }
 
   /**
-   * Parses an incoming String and returns an array of elements. This method is
-   * used when the data spans multiple lines.
+   * Parses an incoming String and returns an array of elements. This method is used when the data
+   * spans multiple lines.
    *
    * @param sNextLine
    *        current line to be processed
-   * @return the tokenized list of elements, or <code>null</code> if nextLine is
-   *         <code>null</code>
+   * @return the tokenized list of elements, or <code>null</code> if nextLine is <code>null</code>
    * @throws IOException
    *         if bad things happen during the read
    */
@@ -289,13 +279,12 @@ public class CSVParser
   }
 
   /**
-   * Parses an incoming String and returns an array of elements. This method is
-   * used when all data is contained in a single line.
+   * Parses an incoming String and returns an array of elements. This method is used when all data
+   * is contained in a single line.
    *
    * @param sNextLine
    *        Line to be parsed.
-   * @return the tokenized list of elements, or <code>null</code> if nextLine is
-   *         <code>null</code>
+   * @return the tokenized list of elements, or <code>null</code> if nextLine is <code>null</code>
    * @throws IOException
    *         if bad things happen during the read
    */
@@ -312,8 +301,7 @@ public class CSVParser
    *        the string to parse
    * @param bMulti
    *        Does it take multiple lines to form a single record.
-   * @return the tokenized list of elements, or <code>null</code> if sNextLine
-   *         is <code>null</code>
+   * @return the tokenized list of elements, or <code>null</code> if sNextLine is <code>null</code>
    * @throws IOException
    *         if bad things happen during the read
    */
@@ -469,8 +457,8 @@ public class CSVParser
   }
 
   /**
-   * Checks to see if the character after the index is a quotation character.
-   * precondition: the current character is a quote or an escape
+   * Checks to see if the character after the index is a quotation character. precondition: the
+   * current character is a quote or an escape
    *
    * @param sNextLine
    *        the current line
@@ -480,16 +468,19 @@ public class CSVParser
    *        current index in line
    * @return true if the following character is a quote
    */
-  private boolean _isNextCharacterEscapedQuote (@Nonnull final String sNextLine, final boolean bInQuotes, final int nIndex)
+  private boolean _isNextCharacterEscapedQuote (@Nonnull final String sNextLine,
+                                                final boolean bInQuotes,
+                                                final int nIndex)
   {
     // 1. we are in quotes, therefore there can be escaped quotes in here.
     // 2. there is indeed another character to check.
-    return bInQuotes && sNextLine.length () > (nIndex + 1) && _isCharacterQuoteCharacter (sNextLine.charAt (nIndex + 1));
+    return bInQuotes &&
+           sNextLine.length () > (nIndex + 1) &&
+           _isCharacterQuoteCharacter (sNextLine.charAt (nIndex + 1));
   }
 
   /**
-   * Checks to see if the passed in character is the defined quotation
-   * character.
+   * Checks to see if the passed in character is the defined quotation character.
    *
    * @param c
    *        source character
@@ -513,8 +504,8 @@ public class CSVParser
   }
 
   /**
-   * Checks to see if the character passed in could be escapable. Escapable
-   * characters for openCSV are the quotation character or the escape character.
+   * Checks to see if the character passed in could be escapable. Escapable characters for openCSV
+   * are the quotation character or the escape character.
    *
    * @param c
    *        source character
@@ -526,10 +517,9 @@ public class CSVParser
   }
 
   /**
-   * Checks to see if the character after the current index in a String is an
-   * escapable character. Meaning the next character is either a quotation
-   * character or the escape char and you are inside quotes. precondition: the
-   * current character is an escape
+   * Checks to see if the character after the current index in a String is an escapable character.
+   * Meaning the next character is either a quotation character or the escape char and you are
+   * inside quotes. precondition: the current character is an escape
    *
    * @param sNextLine
    *        the current line
@@ -539,7 +529,9 @@ public class CSVParser
    *        current index in line
    * @return <code>true</code> if the following character is a quote
    */
-  protected boolean isNextCharacterEscapable (@Nonnull final String sNextLine, final boolean bInQuotes, final int nIndex)
+  protected boolean isNextCharacterEscapable (@Nonnull final String sNextLine,
+                                              final boolean bInQuotes,
+                                              final int nIndex)
   {
     // we are in quotes, therefore there can be escaped quotes in here.
     // there is indeed another character to check.
@@ -547,8 +539,8 @@ public class CSVParser
   }
 
   /**
-   * Checks if every element is the character sequence is whitespace.
-   * precondition: sb.length() is greater than 0
+   * Checks if every element is the character sequence is whitespace. precondition: sb.length() is
+   * greater than 0
    *
    * @param sb
    *        A sequence of characters to examine

@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-config</artifactId>
   <packaging>bundle</packaging>
@@ -30,7 +30,6 @@
   <description>General purpose configuration library with different sources</description>
   <url>https://github.com/phax/ph-commons/ph-config</url>
   <inceptionYear>2020</inceptionYear>
-
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -52,22 +49,25 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-typeconvert</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-xml</artifactId>
+      <artifactId>ph-collection</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-json</artifactId>
+      <artifactId>ph-io</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
-  
   <build>
     <plugins>
       <plugin>
@@ -78,7 +78,11 @@
           <instructions>
             <Automatic-Module-Name>com.helger.config</Automatic-Module-Name>
             <Export-Package>com.helger.config.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
+osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.config.source.resource.type.IConfigurationSourceResourceTypeRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.config.source.resource.type.IConfigurationSourceResourceTypeRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

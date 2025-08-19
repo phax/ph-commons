@@ -16,10 +16,10 @@
  */
 package com.helger.tree.withid;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
 
-import com.helger.commons.annotation.OverrideOnDemand;
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract tree item with ID factory implementation

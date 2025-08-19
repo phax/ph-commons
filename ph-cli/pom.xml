@@ -23,7 +23,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-cli</artifactId>
   <packaging>bundle</packaging>
@@ -53,7 +53,17 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-collection</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-typeconvert</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
@@ -66,7 +76,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.cli</Automatic-Module-Name>
             <Export-Package>com.helger.cli.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

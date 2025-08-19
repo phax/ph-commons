@@ -19,18 +19,17 @@ package com.helger.cli;
 
 import java.util.Iterator;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Manager for {@link IOptionBase} objects which may be {@link Option} or
- * {@link OptionGroup}.
+ * Manager for {@link IOptionBase} objects which may be {@link Option} or {@link OptionGroup}.
  *
  * @author Philip Helger
  */
@@ -46,10 +45,10 @@ public class Options implements ICommonsIterable <IOptionBase>
   {
     for (final IOptionBase aOB : m_aOptions)
     {
-      if (aOB instanceof Option)
+      if (aOB instanceof final Option aOption)
       {
-        if (((Option) aOB).matches (s))
-          return (Option) aOB;
+        if (aOption.matches (s))
+          return aOption;
       }
       else
       {
@@ -62,7 +61,7 @@ public class Options implements ICommonsIterable <IOptionBase>
   }
 
   @Nonnull
-  public Options addOption (@Nonnull final Option.Builder aBuilder)
+  public Options addOption (@Nonnull final OptionBuilder aBuilder)
   {
     return addOption (aBuilder.build ());
   }
@@ -72,10 +71,14 @@ public class Options implements ICommonsIterable <IOptionBase>
     ValueEnforcer.notNull (aOption, "Option");
     if (aOption.hasShortOpt ())
       ValueEnforcer.isNull (_getFromName (aOption.getShortOpt ()),
-                            () -> "Another option with the short name '" + aOption.getShortOpt () + "' is already contained!");
+                            () -> "Another option with the short name '" +
+                                  aOption.getShortOpt () +
+                                  "' is already contained!");
     if (aOption.hasLongOpt ())
       ValueEnforcer.isNull (_getFromName (aOption.getLongOpt ()),
-                            () -> "Another option with the longs name '" + aOption.getLongOpt () + "' is already contained!");
+                            () -> "Another option with the longs name '" +
+                                  aOption.getLongOpt () +
+                                  "' is already contained!");
   }
 
   @Nonnull
@@ -115,8 +118,8 @@ public class Options implements ICommonsIterable <IOptionBase>
   {
     final ICommonsList <Option> ret = new CommonsArrayList <> ();
     for (final IOptionBase aOptionBase : m_aOptions)
-      if (aOptionBase instanceof Option)
-        ret.add ((Option) aOptionBase);
+      if (aOptionBase instanceof final Option aOption)
+        ret.add (aOption);
       else
         ret.addAll (((OptionGroup) aOptionBase).getAllOptions ());
     return ret;
@@ -127,12 +130,9 @@ public class Options implements ICommonsIterable <IOptionBase>
   {
     if (aOption != null)
       for (final IOptionBase aOptionBase : m_aOptions)
-        if (aOptionBase instanceof OptionGroup)
-        {
-          final OptionGroup aOptionGroup = (OptionGroup) aOptionBase;
+        if (aOptionBase instanceof final OptionGroup aOptionGroup)
           if (aOptionGroup.contains (aOption))
             return aOptionGroup;
-        }
     return null;
   }
 }

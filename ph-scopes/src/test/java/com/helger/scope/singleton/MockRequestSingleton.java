@@ -16,9 +16,9 @@
  */
 package com.helger.scope.singleton;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.style.UsedViaReflection;
 
-import com.helger.commons.annotation.UsedViaReflection;
+import jakarta.annotation.Nonnull;
 
 /**
  * Mock implementation of {@link AbstractRequestSingleton}.
@@ -29,7 +29,7 @@ public final class MockRequestSingleton extends AbstractRequestSingleton
 {
   private int i = 0;
 
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public MockRequestSingleton ()
   {}

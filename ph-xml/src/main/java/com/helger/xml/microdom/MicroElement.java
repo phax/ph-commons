@@ -21,33 +21,33 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsImmutableObject;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.ITriConsumer;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.wrapper.Wrapper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.debug.GlobalDebug;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.functional.ITriConsumer;
+import com.helger.base.state.EChange;
+import com.helger.base.state.EContinue;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.wrapper.Wrapper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.typeconvert.impl.TypeConverter;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroElement} interface.
@@ -193,7 +193,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
     // Avoid having a conversion issue with empty strings!
-    if (StringHelper.hasNoText (sAttrValue))
+    if (StringHelper.isEmpty (sAttrValue))
       return null;
     // throws TypeConverterException if nothing can be converted
     return TypeConverter.convert (sAttrValue, aDstClass);
@@ -252,7 +252,8 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @Nonnull
   public EChange setNamespaceURI (@Nullable final String sNamespaceURI)
   {
-    if (EqualsHelper.equals (m_sNamespaceURI, sNamespaceURI))
+    final Object aObj1 = m_sNamespaceURI;
+    if (EqualsHelper.equals (aObj1, sNamespaceURI))
       return EChange.UNCHANGED;
     m_sNamespaceURI = sNamespaceURI;
     return EChange.CHANGED;
@@ -386,7 +387,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
       ret.m_aAttrs = new CommonsLinkedHashMap <> (m_aAttrs);
 
     // Deep clone all child nodes
-    forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
+    forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
     return ret;
   }
 
@@ -398,9 +399,11 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (!super.isEqualContent (o))
       return false;
     final MicroElement rhs = (MicroElement) o;
-    return EqualsHelper.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
+    final Object aObj1 = m_sNamespaceURI;
+    final Object aObj11 = m_aAttrs;
+    return EqualsHelper.equals (aObj1, rhs.m_sNamespaceURI) &&
            m_sTagName.equals (rhs.m_sTagName) &&
-           EqualsHelper.equals (m_aAttrs, rhs.m_aAttrs);
+           EqualsHelper.equals (aObj11, rhs.m_aAttrs);
   }
 
   @Override

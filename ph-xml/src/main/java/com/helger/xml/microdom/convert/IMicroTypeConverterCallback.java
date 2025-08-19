@@ -16,9 +16,9 @@
  */
 package com.helger.xml.microdom.convert;
 
-import javax.annotation.Nonnull;
+import com.helger.base.state.EContinue;
 
-import com.helger.commons.state.EContinue;
+import jakarta.annotation.Nonnull;
 
 /**
  * A callback interface that is used to iterate all available micro type

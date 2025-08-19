@@ -22,12 +22,12 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-commons</artifactId>
   <packaging>bundle</packaging>
   <name>ph-commons</name>
-  <description>Java 1.8+ Library with tons of utility classes required in all projects</description>
+  <description>Java 17+ Library with tons of utility classes required in all projects</description>
   <url>https://github.com/phax/ph-commons/ph-commons</url>
   <inceptionYear>2014</inceptionYear>
   <licenses>
@@ -49,31 +49,35 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
-    <!-- We need jsr305 and not annotations because SuppressFBWarnings is contained! -->
     <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>${jsr305.version}</version>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-datetime</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>com.github.spotbugs</groupId>
-      <artifactId>spotbugs-annotations</artifactId>
-      <version>${spotbugs-annotations.version}</version>
-      <scope>compile</scope>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-io</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-text</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-graph</artifactId>
       <optional>true</optional>
     </dependency>
-    
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>compile</scope>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-xml</artifactId>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -84,20 +88,17 @@
           <instructions>
             <Automatic-Module-Name>com.helger.commons</Automatic-Module-Name>
             <Export-Package>com.helger.commons.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.equals.IEqualsImplementationRegistrarSPI)"; cardinality:=multiple; resolution:=optional,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI)"; cardinality:=multiple; resolution:=optional,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.serialize.convert.ISerializationConverterRegistrarSPI)"; cardinality:=multiple; resolution:=optional,
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.thirdparty.IThirdPartyModuleProviderSPI)"; cardinality:=multiple; resolution:=optional,
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.typeconvert.ITypeConverterRegistrarSPI)"; cardinality:=multiple; resolution:=optional,
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.url.IURLProtocolRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.commons.equals.IEqualsImplementationRegistrarSPI,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.equals.IEqualsImplementationRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.base.cleanup.ICleanUpRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.equals.IEqualsImplementationRegistrarSPI,
 osgi.serviceloader; osgi.serviceloader=com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI,
 osgi.serviceloader; osgi.serviceloader=com.helger.commons.serialize.convert.ISerializationConverterRegistrarSPI,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.thirdparty.IThirdPartyModuleProviderSPI,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.ITypeConverterRegistrarSPI</Provide-Capability>
+osgi.serviceloader; osgi.serviceloader=com.helger.typeconvert.ITypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

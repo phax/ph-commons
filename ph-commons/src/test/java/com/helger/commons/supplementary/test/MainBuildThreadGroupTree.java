@@ -19,8 +19,6 @@ package com.helger.commons.supplementary.test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class MainBuildThreadGroupTree
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainBuildThreadGroupTree.class);
@@ -28,7 +26,6 @@ public final class MainBuildThreadGroupTree
   private MainBuildThreadGroupTree ()
   {}
 
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   private static String _getTGName (final ThreadGroup aParamTG)
   {
     ThreadGroup aTG = aParamTG;
@@ -46,8 +43,8 @@ public final class MainBuildThreadGroupTree
   public static void main (final String [] args)
   {
     /*
-     * Enumerate all threads and thread groups in the system. See the sample in
-     * The Java Class Libraries, volume 1 in the Thread description.
+     * Enumerate all threads and thread groups in the system. See the sample in The Java Class
+     * Libraries, volume 1 in the Thread description.
      */
     ThreadGroup rootGroup = Thread.currentThread ().getThreadGroup ();
     while (rootGroup.getParent () != null)

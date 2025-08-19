@@ -18,12 +18,12 @@ package com.helger.xml.microdom.convert;
 
 import java.awt.Color;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.string.StringParser;
+import com.helger.base.string.StringParser;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Micro type converter for class {@link Color}.

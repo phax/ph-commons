@@ -29,15 +29,15 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IHasOutputStream;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
-import com.helger.commons.io.streamprovider.StringInputStreamProvider;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.iface.IHasOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.streamprovider.ByteArrayOutputStreamProvider;
+import com.helger.base.io.streamprovider.StringInputStreamProvider;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 
 /**
  * Test class for {@link XMLMapHandler}.

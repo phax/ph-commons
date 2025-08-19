@@ -23,19 +23,19 @@ import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.charset.CharsetHelper.InputStreamAndCharset;
+import com.helger.base.charset.EUnicodeBOM;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
-import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * XML charset determinator based on a byte array.

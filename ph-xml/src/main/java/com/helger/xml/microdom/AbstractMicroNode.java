@@ -20,27 +20,26 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.callback.CallbackList;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.state.EContinue;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsEnumMap;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.callback.CallbackList;
-import com.helger.commons.collection.impl.CommonsEnumMap;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * This is an abstract base class for the micro document object model. It
- * implements a set of common methods required for all object types. Especially
- * for the parent/child handling, the sub class AbstractMicroNodeWithChildren
- * provides some additional features.
+ * This is an abstract base class for the micro document object model. It implements a set of common
+ * methods required for all object types. Especially for the parent/child handling, the sub class
+ * AbstractMicroNodeWithChildren provides some additional features.
  *
  * @author Philip Helger
  */
@@ -57,14 +56,13 @@ public abstract class AbstractMicroNode implements IMicroNode
    *        The appended child node.
    */
   @OverrideOnDemand
-  protected void onAppendChild (@Nonnull final AbstractMicroNode aChildNode)
+  protected void onAddChild (@Nonnull final AbstractMicroNode aChildNode)
   {
-    throw new MicroException ("Cannot append children in class " + getClass ().getName ());
+    throw new MicroException ("Cannot add children in class " + getClass ().getName ());
   }
 
   /**
-   * Callback that is invoked once a child is to be inserted before another
-   * child.
+   * Callback that is invoked once a child is to be inserted before another child.
    *
    * @param aChildNode
    *        The new child node to be inserted.
@@ -78,8 +76,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   /**
-   * Callback that is invoked once a child is to be inserted after another
-   * child.
+   * Callback that is invoked once a child is to be inserted after another child.
    *
    * @param aChildNode
    *        The new child node to be inserted.
@@ -93,8 +90,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   /**
-   * Callback that is invoked once a child is to be inserted at the specified
-   * index.
+   * Callback that is invoked once a child is to be inserted at the specified index.
    *
    * @param nIndex
    *        The index where the node should be inserted.
@@ -108,10 +104,10 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nullable
-  public final <NODETYPE extends IMicroNode> NODETYPE appendChild (@Nullable final NODETYPE aChildNode)
+  public final <NODETYPE extends IMicroNode> NODETYPE addChild (@Nullable final NODETYPE aChildNode)
   {
     if (aChildNode != null)
-      onAppendChild ((AbstractMicroNode) aChildNode);
+      onAddChild ((AbstractMicroNode) aChildNode);
     return aChildNode;
   }
 
@@ -134,7 +130,8 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nullable
-  public final <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative final int nIndex, @Nullable final NODETYPE aChildNode)
+  public final <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative final int nIndex,
+                                                                     @Nullable final NODETYPE aChildNode)
   {
     if (aChildNode != null)
       onInsertAtIndex (nIndex, (AbstractMicroNode) aChildNode);
@@ -167,8 +164,8 @@ public abstract class AbstractMicroNode implements IMicroNode
    *
    * @param nIndex
    *        The 0-based index of the item to be removed.
-   * @return {@link EChange#CHANGED} if the node was successfully removed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the node was successfully removed, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @OverrideOnDemand
   @Nonnull
@@ -186,8 +183,8 @@ public abstract class AbstractMicroNode implements IMicroNode
   /**
    * Remove all children from this node.
    *
-   * @return {@link EChange#CHANGED} if at least one child was present, and was
-   *         successfully removed, {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if at least one child was present, and was successfully
+   *         removed, {@link EChange#UNCHANGED} otherwise.
    */
   @OverrideOnDemand
   @Nonnull
@@ -237,7 +234,8 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Override
-  public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter, @Nonnull final Consumer <? super IMicroNode> aConsumer)
+  public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                              @Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
     // empty
   }
@@ -375,10 +373,9 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   /*
-   * Note: the implementations with "this instanceof IMicroXXX" is faster than
-   * doing either "getType ().equals (EMicroNodeType....)" and faster than
-   * having "return false;" in here and "return true;" in the respective
-   * implementation classes.
+   * Note: the implementations with "this instanceof IMicroXXX" is faster than doing either
+   * "getType ().equals (EMicroNodeType....)" and faster than having "return false;" in here and
+   * "return true;" in the respective implementation classes.
    */
 
   public final boolean isDocument ()
@@ -458,7 +455,8 @@ public abstract class AbstractMicroNode implements IMicroNode
 
     if (m_aEventTargets == null)
       m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
-    final CallbackList <IMicroEventTarget> aSet = m_aEventTargets.computeIfAbsent (eEventType, k -> new CallbackList <> ());
+    final CallbackList <IMicroEventTarget> aSet = m_aEventTargets.computeIfAbsent (eEventType,
+                                                                                   k -> new CallbackList <> ());
     return EChange.valueOf (aSet.add (aTarget));
   }
 
@@ -494,7 +492,8 @@ public abstract class AbstractMicroNode implements IMicroNode
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("ParentNodeName", m_aParentNode == null ? null : m_aParentNode.getNodeName ())
+    return new ToStringGenerator (this).appendIfNotNull ("ParentNodeName",
+                                                         m_aParentNode == null ? null : m_aParentNode.getNodeName ())
                                        .appendIfNotNull ("EventTargets", m_aEventTargets)
                                        .getToString ();
   }

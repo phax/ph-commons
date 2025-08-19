@@ -16,16 +16,17 @@
  */
 package com.helger.xml.xpath;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
 import javax.xml.namespace.QName;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.compare.IComparable;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.compare.IComparable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class contains a single key for a map-based function resolver.

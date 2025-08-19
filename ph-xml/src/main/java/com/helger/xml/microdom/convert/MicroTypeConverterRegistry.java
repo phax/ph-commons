@@ -19,29 +19,29 @@ package com.helger.xml.microdom.convert;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.impl.CommonsWeakHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.Singleton;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.base.spi.ServiceLoaderHelper;
+import com.helger.collection.commons.CommonsWeakHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.typeconvert.util.ClassHierarchyCache;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A utility class for converting objects from and to
  * {@link com.helger.xml.microdom.IMicroElement}.<br>
  * The functionality is a special case of the
- * {@link com.helger.commons.typeconvert.TypeConverterRegistry} as we need a
- * parameter for conversion in this case.
+ * {@link com.helger.typeconvert.impl.TypeConverterRegistry} as we need a parameter for conversion
+ * in this case.
  *
  * @author Philip Helger
  */
@@ -49,7 +49,7 @@ import com.helger.commons.lang.ServiceLoaderHelper;
 @Singleton
 public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegistry
 {
-  private static final class SingletonHolder
+  static final class SingletonHolder
   {
     private static final MicroTypeConverterRegistry INSTANCE = new MicroTypeConverterRegistry ();
   }
@@ -101,22 +101,23 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     }
   }
 
-  public <T> void registerMicroElementTypeConverter (@Nonnull final Class <T> aClass, @Nonnull final IMicroTypeConverter <T> aConverter)
+  public <T> void registerMicroElementTypeConverter (@Nonnull final Class <T> aClass,
+                                                     @Nonnull final IMicroTypeConverter <T> aConverter)
   {
     _registerMicroElementTypeConverter (aClass, aConverter);
   }
 
   /**
-   * Register type converters from and to XML (IMicroElement). This method is
-   * private to avoid later modification of the available type converters,
-   * because this may lead to unexpected results.
+   * Register type converters from and to XML (IMicroElement). This method is private to avoid later
+   * modification of the available type converters, because this may lead to unexpected results.
    *
    * @param aClass
    *        The class to be registered.
    * @param aConverter
    *        The type converter from and to XML
    */
-  private <T> void _registerMicroElementTypeConverter (@Nonnull final Class <T> aClass, @Nonnull final IMicroTypeConverter <T> aConverter)
+  private <T> void _registerMicroElementTypeConverter (@Nonnull final Class <T> aClass,
+                                                       @Nonnull final IMicroTypeConverter <T> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -182,7 +183,12 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
               if (ret != null)
               {
                 if (LOGGER.isTraceEnabled ())
-                  LOGGER.trace ("Using micro type converter " + ret + " for class " + aDstClass + " based on " + aCurDstClass);
+                  LOGGER.trace ("Using micro type converter " +
+                                ret +
+                                " for class " +
+                                aDstClass +
+                                " based on " +
+                                aCurDstClass);
                 break;
               }
             }
@@ -194,8 +200,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   }
 
   /**
-   * Iterate all registered micro type converters. For informational purposes
-   * only.
+   * Iterate all registered micro type converters. For informational purposes only.
    *
    * @param aCallback
    *        The callback invoked for all iterations.

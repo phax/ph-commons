@@ -16,22 +16,22 @@
  */
 package com.helger.security.authentication.credentials;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import java.util.List;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.exception.InitializationException;
-import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.exception.InitializationException;
+import com.helger.base.spi.ServiceLoaderHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
 
 @Immutable
 public final class AuthCredentialValidatorManager
 {
-  private static final ICommonsList <IAuthCredentialValidatorSPI> HDL_LIST;
+  private static final List <IAuthCredentialValidatorSPI> HDL_LIST;
 
   static
   {
@@ -47,11 +47,10 @@ public final class AuthCredentialValidatorManager
   @ReturnsMutableCopy
   public static ICommonsList <IAuthCredentialValidatorSPI> getAllAuthCredentialValidators ()
   {
-    return HDL_LIST.getClone ();
+    return new CommonsArrayList <> (HDL_LIST);
   }
 
   @Nonnull
-  @SuppressFBWarnings ("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
   public static ICredentialValidationResult validateCredentials (@Nonnull final IAuthCredentials aCredentials)
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -65,7 +64,10 @@ public final class AuthCredentialValidatorManager
       {
         final ICredentialValidationResult aResult = aHdl.validateCredentials (aCredentials);
         if (aResult == null)
-          throw new IllegalStateException ("validateCredentials returned a null object from " + aHdl + " for credentials " + aCredentials);
+          throw new IllegalStateException ("validateCredentials returned a null object from " +
+                                           aHdl +
+                                           " for credentials " +
+                                           aCredentials);
         if (aResult.isSuccess ())
         {
           // This validator successfully validated the passed credentials

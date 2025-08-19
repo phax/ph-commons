@@ -22,11 +22,11 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>2.1.4</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
   <groupId>com.helger.commons</groupId>
   <artifactId>ph-commons-parent-pom</artifactId>
-  <version>11.2.7-SNAPSHOT</version>
+  <version>12.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ph-commons-parent-pom</name>
   <description>Base POM to build the ph-commons projects</description>
@@ -62,17 +62,28 @@
     </developer>
   </developers>
   
+  <!-- Enable when using a SNAPSHOT version: -->
+  <!--
+  -->
+  <repositories>
+    <repository>
+      <name>Central Portal Snapshots</name>
+      <id>central-portal-snapshots</id>
+      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  
   <properties>
-    <!-- for testing purposes only
-    <maven.compiler.target>24</maven.compiler.target>
-    <maven.compiler.source>24</maven.compiler.source>
-    -->
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
     <bc.version>1.81</bc.version>
     <bcpg.version>${bc.version}</bcpg.version>
-    <jsr305.version>3.0.2</jsr305.version>
-    <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version>
   </properties>
   
   <dependencyManagement>
@@ -133,12 +144,17 @@
 
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-commons</artifactId>
+        <artifactId>ph-annotations</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-wsclient</artifactId>
+        <artifactId>ph-base</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-unittest-support</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -148,7 +164,7 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-scopes</artifactId>
+        <artifactId>ph-typeconvert</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -158,17 +174,17 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-bc</artifactId>
+        <artifactId>ph-statistics</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-security</artifactId>
+        <artifactId>ph-cache</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-xml</artifactId>
+        <artifactId>ph-datetime</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -178,7 +194,12 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-jaxb</artifactId>
+        <artifactId>ph-io</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-unittest-support-ext</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -188,7 +209,7 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-tree</artifactId>
+        <artifactId>ph-bc</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -203,12 +224,27 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-datetime</artifactId>
+        <artifactId>ph-scopes</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-settings</artifactId>
+        <artifactId>ph-text</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-dao</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-diagnostics</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-security</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -218,23 +254,53 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-less-commons</artifactId>
+        <artifactId>ph-config-json</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-dao</artifactId>
+        <artifactId>ph-mime</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-xml</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-tree</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-http</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-wsclient</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-jaxb</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-settings</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -268,29 +334,49 @@
   </dependencies>
   
   <modules>
-    <module>ph-commons</module>
+    <module>ph-annotations</module>
+    <module>ph-base</module>
+    <module>ph-unittest-support</module>
     <module>ph-collection</module>
-    <module>ph-scopes</module>
+    <module>ph-typeconvert</module>
     <module>ph-cli</module>
-    <module>ph-bc</module>
-    <module>ph-security</module>
-    <module>ph-xml</module>
-    <module>ph-wsclient</module>
+    <module>ph-statistics</module>
+    <module>ph-cache</module>
+    <module>ph-datetime</module>
     <module>ph-jaxb-adapter</module>
-    <module>ph-jaxb</module>
+    <module>ph-io</module>
+    <module>ph-unittest-support-ext</module>
     <module>ph-json</module>
-    <module>ph-tree</module>
+    <module>ph-bc</module>
     <module>ph-matrix</module>
     <module>ph-graph</module>
-    <module>ph-datetime</module>
-    <module>ph-settings</module>
-    <module>ph-config</module>
-    <module>ph-less-commons</module>
+    <module>ph-scopes</module>
+    <module>ph-text</module>
     <module>ph-dao</module>
+    <module>ph-diagnostics</module>
+    <module>ph-security</module>
+    <module>ph-config</module>
+    <module>ph-config-json</module>
+    <module>ph-mime</module>
+    <module>ph-xml</module>
+    <module>ph-jaxb</module>
+    <module>ph-tree</module>
+    <module>ph-http</module>
+    <module>ph-wsclient</module>
+    <module>ph-settings</module>
+    <module>ph-commons</module>
   </modules>
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>17</source>
+          <target>17</target>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>de.thetaphi</groupId>
         <artifactId>forbiddenapis</artifactId>
@@ -307,22 +393,27 @@
           <excludes>
             <!-- uses String methods -->
             <exclude>**/Benchmark*.class</exclude>
+            <exclude>**/BaseTypeConverterRegistrar*.class</exclude>
             <!-- uses java.util.Properties -->
             <exclude>**/IPrivilegedAction.class</exclude>
             <exclude>**/PropertiesHelper.class</exclude>
             <exclude>**/PBCProvider.class</exclude>
             <exclude>**/KeyStoreHelper.class</exclude>
+            <exclude>**/SystemProperties.class</exclude>
             <!-- java.security.provider extends java.util.properties -->
             <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
             <exclude>**/EMacAlgorithm.class</exclude>
             <exclude>**/EMessageDigestAlgorithm.class</exclude>
             <exclude>**/IKeyStoreType.class</exclude>
-            <exclude>**/IKeyStoreDescriptor*.class</exclude>
-            <exclude>**/IKeyStoreAndKeyDescriptor*.class</exclude>
-            <exclude>**/ITrustStoreDescriptor*.class</exclude>
-            <exclude>**/KeyStoreDescriptor*.class</exclude>
-            <exclude>**/KeyStoreAndKeyDescriptor*.class</exclude>
-            <exclude>**/TrustStoreDescriptor*.class</exclude>
+            <exclude>**/IKeyStoreDescriptor.class</exclude>
+            <exclude>**/IKeyStoreAndKeyDescriptor.class</exclude>
+            <exclude>**/ITrustStoreDescriptor.class</exclude>
+            <exclude>**/KeyStoreDescriptor.class</exclude>
+            <exclude>**/KeyStoreDescriptorBuilder.class</exclude>
+            <exclude>**/KeyStoreAndKeyDescriptor.class</exclude>
+            <exclude>**/KeyStoreAndKeyDescriptorBuilder.class</exclude>
+            <exclude>**/TrustStoreDescriptor.class</exclude>
+            <exclude>**/TrustStoreDescriptorBuilder.class</exclude>
             <!-- CLI module printing to System.out -->
             <exclude>**/HelpFormatter.class</exclude>
             <exclude>**/BugsTest.class</exclude>

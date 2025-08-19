@@ -21,15 +21,14 @@ import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.datetime.PDTWebDateHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.datetime.web.PDTWebDateHelper;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**

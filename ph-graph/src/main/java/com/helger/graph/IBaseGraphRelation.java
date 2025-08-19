@@ -16,12 +16,12 @@
  */
 package com.helger.graph;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.ICommonsOrderedSet;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single undirected graph relation.

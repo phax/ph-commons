@@ -18,13 +18,13 @@ package com.helger.datetime.expiration;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IMutableExpirableWithReplacement}
@@ -56,7 +56,8 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
   @Nonnull
   public EChange setExpirationDateTime (@Nullable final LocalDateTime aExpirationDateTime)
   {
-    if (EqualsHelper.equals (aExpirationDateTime, m_aExpirationDateTime))
+    final Object aObj2 = m_aExpirationDateTime;
+    if (EqualsHelper.equals (aExpirationDateTime, aObj2))
       return EChange.UNCHANGED;
     m_aExpirationDateTime = aExpirationDateTime;
     return EChange.CHANGED;
@@ -71,7 +72,8 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
   @Nonnull
   public EChange setReplacement (@Nullable final DATATYPE aReplacement)
   {
-    if (EqualsHelper.equals (aReplacement, m_aReplacement))
+    final Object aObj2 = m_aReplacement;
+    if (EqualsHelper.equals (aReplacement, aObj2))
       return EChange.UNCHANGED;
     m_aReplacement = aReplacement;
     return EChange.CHANGED;
@@ -85,8 +87,10 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ExpirableWithReplacement <?> rhs = (ExpirableWithReplacement <?>) o;
-    return EqualsHelper.equals (m_aExpirationDateTime, rhs.m_aExpirationDateTime) &&
-           EqualsHelper.equals (m_aReplacement, rhs.m_aReplacement);
+    final Object aObj1 = m_aExpirationDateTime;
+    final Object aObj11 = m_aReplacement;
+    return EqualsHelper.equals (aObj1, rhs.m_aExpirationDateTime) &&
+           EqualsHelper.equals (aObj11, rhs.m_aReplacement);
   }
 
   @Override

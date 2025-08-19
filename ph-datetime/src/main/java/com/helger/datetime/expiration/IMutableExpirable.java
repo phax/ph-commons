@@ -18,10 +18,10 @@ package com.helger.datetime.expiration;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.state.EChange;
 
-import com.helger.commons.state.EChange;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for objects that can expire.

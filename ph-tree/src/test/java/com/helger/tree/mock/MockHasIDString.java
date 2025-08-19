@@ -16,7 +16,7 @@
  */
 package com.helger.tree.mock;
 
-import com.helger.commons.id.IHasID;
+import com.helger.base.id.IHasID;
 
 public final class MockHasIDString implements IHasID <String>
 {

@@ -16,14 +16,15 @@
  */
 package com.helger.xml.serialize.read;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Read-only interface for the {@link SAXReaderSettings}. Implementations of

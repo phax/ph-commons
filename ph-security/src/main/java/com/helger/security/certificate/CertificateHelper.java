@@ -32,9 +32,6 @@ import java.security.cert.X509Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Date;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
@@ -48,17 +45,22 @@ import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.base64.Base64;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.StringInputStream;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.codec.base64.Base64;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.stream.StringInputStream;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringHex;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Some utility methods handling X.509 certificates.
@@ -70,11 +72,6 @@ public final class CertificateHelper
 {
   public static final String BEGIN_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
   public static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
-
-  @Deprecated (forRemoval = true, since = "11.1.1")
-  public static final String BEGIN_CERTIFICATE_INVALID = "-----BEGINCERTIFICATE-----";
-  @Deprecated (forRemoval = true, since = "11.1.1")
-  public static final String END_CERTIFICATE_INVALID = "-----ENDCERTIFICATE-----";
 
   public static final String BEGIN_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----";
   public static final String END_PRIVATE_KEY = "-----END PRIVATE KEY-----";
@@ -99,22 +96,6 @@ public final class CertificateHelper
   public static CertificateFactory getX509CertificateFactory () throws CertificateException
   {
     return CertificateFactory.getInstance ("X.509");
-  }
-
-  /**
-   * Make sure, the provided String is surrounded by the PEM headers {@link #BEGIN_CERTIFICATE} and
-   * {@link #END_CERTIFICATE}
-   *
-   * @param sCertString
-   *        Certificate string to use.
-   * @return The String with the surrounding headers and footers
-   * @deprecated Use {@link #getCertificateWithPEMHeader(String)} instead
-   */
-  @Deprecated (forRemoval = true, since = "11.1.1")
-  @Nonnull
-  public static String getWithPEMHeader (@Nonnull final String sCertString)
-  {
-    return getCertificateWithPEMHeader (sCertString);
   }
 
   /**
@@ -152,21 +133,11 @@ public final class CertificateHelper
   @Nullable
   public static String getWithoutPEMHeader (@Nullable final String sCertificate)
   {
-    if (StringHelper.hasNoText (sCertificate))
+    if (StringHelper.isEmpty (sCertificate))
       return null;
 
     // Remove special begin and end stuff
     String sRealCertificate = sCertificate.trim ();
-
-    /**
-     * Handle certain misconfiguration issues. E.g. for 9906:testconsip on
-     *
-     * <pre>
-     * http://b-c073e04afb234f70e74d3444ba3f8eaa.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis%3A%3A9906%3Atestconsip/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AOrder-2%3A%3AOrder%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns001%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol3a%3Aver2.0%3A%3A2.1
-     * </pre>
-     */
-    sRealCertificate = StringHelper.trimStart (sRealCertificate, BEGIN_CERTIFICATE_INVALID);
-    sRealCertificate = StringHelper.trimEnd (sRealCertificate, END_CERTIFICATE_INVALID);
 
     // Remove regular PEM headers also
     sRealCertificate = StringHelper.trimStart (sRealCertificate, BEGIN_CERTIFICATE);
@@ -223,7 +194,7 @@ public final class CertificateHelper
 
     // Remove special begin and end stuff
     String sPlainString = getWithoutPEMHeader (sCertificate);
-    if (StringHelper.hasNoText (sPlainString))
+    if (StringHelper.isEmpty (sPlainString))
       return null;
 
     // Start building the result
@@ -368,7 +339,7 @@ public final class CertificateHelper
   public static X509Certificate convertStringToCertficate (@Nullable final String sCertString,
                                                            final boolean bWithFallback) throws CertificateException
   {
-    if (StringHelper.hasNoText (sCertString))
+    if (StringHelper.isEmpty (sCertString))
     {
       // No string -> no certificate
       return null;
@@ -395,7 +366,7 @@ public final class CertificateHelper
       String sHexDecodedString;
       try
       {
-        sHexDecodedString = new String (StringHelper.getHexDecoded (sCertString), CERT_CHARSET);
+        sHexDecodedString = new String (StringHex.getHexDecoded (sCertString), CERT_CHARSET);
       }
       catch (final IllegalArgumentException ex2)
       {
@@ -443,7 +414,7 @@ public final class CertificateHelper
   {
     // Remove prefix/suffix
     final String sPlainCert = getWithoutPEMHeader (sCertificate);
-    if (StringHelper.hasNoText (sPlainCert))
+    if (StringHelper.isEmpty (sPlainCert))
       return null;
 
     // The remaining string is supposed to be Base64 encoded -> decode
@@ -529,7 +500,7 @@ public final class CertificateHelper
   @Nullable
   public static PrivateKey convertStringToPrivateKey (@Nullable final String sPrivateKey) throws GeneralSecurityException
   {
-    if (StringHelper.hasNoText (sPrivateKey))
+    if (StringHelper.isEmpty (sPrivateKey))
       return null;
 
     String sRealPrivateKey = StringHelper.trimStart (sPrivateKey, BEGIN_PRIVATE_KEY);
@@ -561,9 +532,8 @@ public final class CertificateHelper
       try
       {
         final ASN1Encodable aBCDecoded = JcaX509ExtensionUtils.parseExtensionValue (aBCBytes);
-        if (aBCDecoded instanceof ASN1Sequence)
+        if (aBCDecoded instanceof final ASN1Sequence aBCSequence)
         {
-          final ASN1Sequence aBCSequence = (ASN1Sequence) aBCDecoded;
           final BasicConstraints aBasicConstraints = BasicConstraints.getInstance (aBCSequence);
           if (aBasicConstraints != null)
             return aBasicConstraints.isCA ();

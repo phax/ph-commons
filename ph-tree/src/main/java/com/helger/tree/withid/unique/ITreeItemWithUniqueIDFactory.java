@@ -16,14 +16,14 @@
  */
 package com.helger.tree.withid.unique;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsCollection;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.ICommonsCollection;
 import com.helger.tree.withid.ITreeItemWithID;
 import com.helger.tree.withid.ITreeItemWithIDFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * An abstract tree item factory that maintains a unique ID over all items!

@@ -19,35 +19,34 @@ package com.helger.settings.exchange.configfile;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsImmutableObject;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resourceprovider.DefaultResourceProvider;
-import com.helger.commons.io.resourceprovider.IReadableResourceProvider;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.system.SystemProperties;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.system.SystemProperties;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resourceprovider.DefaultResourceProvider;
+import com.helger.io.resourceprovider.IReadableResourceProvider;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Builder class for {@link ConfigFile} objects. By default this build class
- * reads properties files, and uses a {@link DefaultResourceProvider} to resolve
- * config file paths.
+ * Builder class for {@link ConfigFile} objects. By default this build class reads properties files,
+ * and uses a {@link DefaultResourceProvider} to resolve config file paths.
  *
  * @author Philip Helger
  */
@@ -115,7 +114,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   @Nonnull
   public ConfigFileBuilder addPath (@Nullable final String sConfigPath)
   {
-    if (StringHelper.hasText (sConfigPath))
+    if (StringHelper.isNotEmpty (sConfigPath))
       m_aPaths.add (sConfigPath);
     return this;
   }

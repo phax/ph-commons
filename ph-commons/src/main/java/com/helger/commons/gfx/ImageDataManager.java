@@ -19,37 +19,37 @@ package com.helger.commons.gfx;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.AccessControlException;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.collection.map.LRUMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.dimension.SizeInt;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.state.EChange;
-import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
-import com.helger.commons.statistics.StatisticsManager;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.Singleton;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.dimension.SizeInt;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.state.EChange;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.map.LRUMap;
+import com.helger.io.resource.IReadableResource;
+import com.helger.statistics.api.IMutableStatisticsHandlerCache;
+import com.helger.statistics.impl.StatisticsManager;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * This service class is used to cache information about images. It is used to
- * set the HTML attributes width and height for images. It has an internal cache
- * to avoid querying the data every time.
+ * This service class is used to cache information about images. It is used to set the HTML
+ * attributes width and height for images. It has an internal cache to avoid querying the data every
+ * time.
  *
  * @author Philip Helger
  */
@@ -133,11 +133,6 @@ public final class ImageDataManager
     {
       LOGGER.error ("Failed to read image data from resource " + aRes, ex);
     }
-    catch (final AccessControlException ex)
-    {
-      // can be thrown by f.exist!
-      LOGGER.error ("Whatsoever on " + aRes, ex);
-    }
     catch (final IllegalArgumentException ex)
     {
       // can be thrown by the BMP reader :)
@@ -153,9 +148,8 @@ public final class ImageDataManager
       return null;
 
     /*
-     * Use containsKey here instead of "get () != null" in case an image is
-     * queried over and over but is not existing. The implementation inserts
-     * null values for all elements that are invalid
+     * Use containsKey here instead of "get () != null" in case an image is queried over and over
+     * but is not existing. The implementation inserts null values for all elements that are invalid
      */
     m_aRWLock.readLock ().lock ();
     try

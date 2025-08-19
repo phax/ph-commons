@@ -16,17 +16,17 @@
  */
 package com.helger.xml.sax;
 
-import javax.annotation.Nonnull;
-
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.error.IError;
-import com.helger.commons.error.SingleError;
-import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.location.SimpleLocation;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.SingleError;
+import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * java.xml error handler base class.

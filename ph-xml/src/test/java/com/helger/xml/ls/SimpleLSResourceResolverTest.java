@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.security.Permission;
 import java.util.HashMap;
 
 import javax.xml.XMLConstants;
@@ -30,13 +29,11 @@ import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.launch.Framework;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.resource.URLResource;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.io.resource.URLResource;
 
 /**
  * Test class for class {@link SimpleLSResourceResolver}.
@@ -45,30 +42,6 @@ import com.helger.commons.io.resource.URLResource;
  */
 public final class SimpleLSResourceResolverTest
 {
-  public static final class LoggingSecurityManager extends SecurityManager
-  {
-    private static final Logger LOGGER = LoggerFactory.getLogger (LoggingSecurityManager.class);
-
-    @Override
-    public void checkPermission (final Permission perm)
-    {
-      LOGGER.info (perm.toString ());
-    }
-
-    @Override
-    public void checkPermission (final Permission perm, final Object context)
-    {
-      LOGGER.info ("[CTX] " + context + ": " + perm.toString ());
-    }
-  }
-
-  static
-  {
-    // Just for playing around :)
-    if (false)
-      System.setSecurityManager (new LoggingSecurityManager ());
-  }
-
   @Test
   public void testOSGIBundle () throws BundleException
   {

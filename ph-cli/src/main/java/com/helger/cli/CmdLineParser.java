@@ -19,21 +19,22 @@ package com.helger.cli;
 
 import java.util.Arrays;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringImplode;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A parser for commandline options. Based on Apache commons-cli
@@ -131,11 +132,12 @@ public class CmdLineParser
   @Nonnull
   private static String _getDisplayName (@Nonnull final OptionGroup aOptionGroup)
   {
-    return "[" + StringHelper.getImplodedMapped (" | ", aOptionGroup, CmdLineParser::_getDisplayName) + "]";
+    return "[" + StringImplode.getImplodedMapped (" | ", aOptionGroup, CmdLineParser::_getDisplayName) + "]";
   }
 
   @Nonnull
-  public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions, @Nullable final String [] aArgs) throws CmdLineParseException
+  public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions, @Nullable final String [] aArgs)
+                                                                                                             throws CmdLineParseException
   {
     ValueEnforcer.notNull (aOptions, "Options");
 
@@ -157,7 +159,7 @@ public class CmdLineParser
       for (int nArgIndex = 0; nArgIndex < aArgs.length; ++nArgIndex)
       {
         final String sArg = StringHelper.trim (aArgs[nArgIndex]);
-        if (StringHelper.hasText (sArg))
+        if (StringHelper.isNotEmpty (sArg))
         {
           final MatchedOption aMatchedOption = _findMatchingOption (aStrToOptionMap, sArg);
           if (aMatchedOption != null)
@@ -195,7 +197,7 @@ public class CmdLineParser
             final boolean bUnlimitedArgs = aOption.hasInfiniteArgs ();
             final ICommonsList <String> aValues = new CommonsArrayList <> ();
 
-            if (StringHelper.hasText (sValueInArg))
+            if (StringHelper.isNotEmpty (sValueInArg))
             {
               // As e.g. in "-Dtest=value"
               if (aOption.hasValueSeparator ())
@@ -229,7 +231,7 @@ public class CmdLineParser
               // Lets consume this argument
               nArgIndex++;
 
-              if (StringHelper.hasText (sNextArg))
+              if (StringHelper.isNotEmpty (sNextArg))
               {
                 // As e.g. in "-Dtest=value"
                 if (aOption.hasValueSeparator ())
@@ -268,13 +270,14 @@ public class CmdLineParser
     for (final IOptionBase aOptionBase : aOptions)
       if (aOptionBase.isRequired ())
       {
-        if (aOptionBase instanceof Option)
+        if (aOptionBase instanceof final Option aOption)
         {
-          final Option aOption = (Option) aOptionBase;
           if (!ret.hasOption (aOption))
             throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
                                              aOption,
-                                             "The option " + _getDisplayName (aOption) + " is required but is missing!");
+                                             "The option " +
+                                                      _getDisplayName (aOption) +
+                                                      " is required but is missing!");
         }
         else
         {
@@ -282,7 +285,9 @@ public class CmdLineParser
           if (!ret.hasOption (aOptionGroup))
             throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
                                              aOptionGroup,
-                                             "An option of " + _getDisplayName (aOptionGroup) + " is required but is missing!");
+                                             "An option of " +
+                                                           _getDisplayName (aOptionGroup) +
+                                                           " is required but is missing!");
         }
       }
 

@@ -23,25 +23,24 @@ import java.lang.management.MonitorInfo;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.lang.StackTraceHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.rt.StackTraceHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * This class contains the information of a single thread at a certain point of
- * time.
+ * This class contains the information of a single thread at a certain point of time.
  *
  * @author Philip Helger
  */
@@ -64,9 +63,9 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
   private final ThreadInfo m_aThreadInfo;
 
   /**
-   * Enable the retrieval of {@link ThreadInfo} objects. Warning: this takes a
-   * lot of CPU, so enable this only when you are not running a performance
-   * critical application! The default is {@value #DEFAULT_ENABLE_THREAD_INFO}.
+   * Enable the retrieval of {@link ThreadInfo} objects. Warning: this takes a lot of CPU, so enable
+   * this only when you are not running a performance critical application! The default is
+   * {@value #DEFAULT_ENABLE_THREAD_INFO}.
    *
    * @param bEnableThreadInfo
    *        <code>true</code> to enabled, <code>false</code> to disable.
@@ -133,7 +132,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
   @Nonempty
   public String getStackTraceNotNull ()
   {
-    return StringHelper.hasText (m_sStackTrace) ? m_sStackTrace : "No stack trace available\n";
+    return StringHelper.isNotEmpty (m_sStackTrace) ? m_sStackTrace : "No stack trace available\n";
   }
 
   @Nonnull
@@ -201,20 +200,20 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
       eRet.setAttribute ("state", m_eState.toString ());
     eRet.setAttribute ("priority", m_nPriority);
     eRet.setAttribute ("threadgroup", m_sThreadGroup);
-    eRet.appendElement ("stacktrace").appendText (getStackTraceNotNull ());
+    eRet.addElement ("stacktrace").addText (getStackTraceNotNull ());
     if (m_aThreadInfo != null)
     {
-      final IMicroElement eThreadInfo = eRet.appendElement ("threadinfo");
+      final IMicroElement eThreadInfo = eRet.addElement ("threadinfo");
       try
       {
         final MonitorInfo [] aMonitorInfos = m_aThreadInfo.getLockedMonitors ();
         if (ArrayHelper.isNotEmpty (aMonitorInfos))
         {
-          final IMicroElement eMonitorInfos = eThreadInfo.appendElement ("monitorinfos");
+          final IMicroElement eMonitorInfos = eThreadInfo.addElement ("monitorinfos");
           eMonitorInfos.setAttribute ("count", aMonitorInfos.length);
           for (final MonitorInfo aMonitorInfo : aMonitorInfos)
           {
-            final IMicroElement eMonitor = eMonitorInfos.appendElement ("monitor");
+            final IMicroElement eMonitor = eMonitorInfos.addElement ("monitor");
             eMonitor.setAttribute ("classname", aMonitorInfo.getClassName ());
             eMonitor.setAttribute ("identity", Integer.toHexString (aMonitorInfo.getIdentityHashCode ()));
             if (aMonitorInfo.getLockedStackFrame () != null)
@@ -226,11 +225,11 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
         final LockInfo [] aSynchronizers = m_aThreadInfo.getLockedSynchronizers ();
         if (ArrayHelper.isNotEmpty (aSynchronizers))
         {
-          final IMicroElement eSynchronizers = eThreadInfo.appendElement ("synchronizers");
+          final IMicroElement eSynchronizers = eThreadInfo.addElement ("synchronizers");
           eSynchronizers.setAttribute ("count", aSynchronizers.length);
           for (final LockInfo aSynchronizer : aSynchronizers)
           {
-            final IMicroElement eSynchronizer = eSynchronizers.appendElement ("synchronizer");
+            final IMicroElement eSynchronizer = eSynchronizers.addElement ("synchronizer");
             eSynchronizer.setAttribute ("classname", aSynchronizer.getClassName ());
             eSynchronizer.setAttribute ("identity", Integer.toHexString (aSynchronizer.getIdentityHashCode ()));
           }
@@ -238,7 +237,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
       }
       catch (final Exception ex)
       {
-        eThreadInfo.setAttribute ("error", ex.getMessage ()).appendText (StackTraceHelper.getStackAsString (ex));
+        eThreadInfo.setAttribute ("error", ex.getMessage ()).addText (StackTraceHelper.getStackAsString (ex));
       }
     }
     return eRet;

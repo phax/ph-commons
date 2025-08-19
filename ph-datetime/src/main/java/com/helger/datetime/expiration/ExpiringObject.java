@@ -19,12 +19,12 @@ package com.helger.datetime.expiration;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.datetime.helper.PDTFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * An object that can expire.

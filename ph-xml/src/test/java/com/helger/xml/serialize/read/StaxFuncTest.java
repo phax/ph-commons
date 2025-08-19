@@ -28,11 +28,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
-import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.location.SimpleLocation;
+import com.helger.base.string.StringHelper;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroDocumentType;
@@ -101,10 +101,10 @@ public final class StaxFuncTest
           final String sLocalName = aReader.getLocalName ();
 
           IMicroElement aElement;
-          if (StringHelper.hasText (sNamespaceURI))
-            aElement = aParent.appendElement (sNamespaceURI, sLocalName);
+          if (StringHelper.isNotEmpty (sNamespaceURI))
+            aElement = aParent.addElementNS (sNamespaceURI, sLocalName);
           else
-            aElement = aParent.appendElement (sLocalName);
+            aElement = aParent.addElement (sLocalName);
 
           final int nAttrs = aReader.getAttributeCount ();
           if (nAttrs > 0)
@@ -117,7 +117,7 @@ public final class StaxFuncTest
               // Ignore the "xmlns" attributes, as the SAX handler passes the
               // correct namespace URIs
               if (!sAttrName.startsWith (XMLConstants.XMLNS_ATTRIBUTE))
-                aElement.setAttribute (sAttrNamespaceURI, sAttrName, sAttrValue);
+                aElement.setAttributeNS (sAttrNamespaceURI, sAttrName, sAttrValue);
             }
 
           aParent = aElement;
@@ -138,7 +138,7 @@ public final class StaxFuncTest
           }
           final String sTarget = aReader.getPITarget ();
           final String sData = aReader.getPIData ();
-          aParent.appendProcessingInstruction (sTarget, sData);
+          aParent.addProcessingInstruction (sTarget, sData);
           break;
         }
         case XMLStreamConstants.CHARACTERS:
@@ -158,13 +158,13 @@ public final class StaxFuncTest
             else
             {
               // Add to parent
-              aParent.appendText (sText);
+              aParent.addText (sText);
             }
           }
           else
           {
             // Add to parent
-            aParent.appendText (sText);
+            aParent.addText (sText);
           }
           break;
         }
@@ -181,7 +181,7 @@ public final class StaxFuncTest
               aDoc = new MicroDocument (aDocType);
               aParent = aDoc;
             }
-            aParent.appendComment (sText);
+            aParent.addComment (sText);
           }
           break;
         }
@@ -201,10 +201,10 @@ public final class StaxFuncTest
                 aLastText.appendData (sText);
               }
               else
-                aParent.appendIgnorableWhitespaceText (sText);
+                aParent.addIgnorableWhitespaceText (sText);
             }
             else
-              aParent.appendIgnorableWhitespaceText (sText);
+              aParent.addIgnorableWhitespaceText (sText);
           }
           break;
         }
@@ -261,7 +261,7 @@ public final class StaxFuncTest
           else
           {
             // Add to parent
-            aParent.appendCDATA (sText);
+            aParent.addCDATA (sText);
           }
           break;
         }

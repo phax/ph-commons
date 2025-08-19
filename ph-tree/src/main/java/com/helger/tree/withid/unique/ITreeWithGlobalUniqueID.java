@@ -16,15 +16,15 @@
  */
 package com.helger.tree.withid.unique;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.hierarchy.IChildrenProviderWithID;
-import com.helger.commons.state.EChange;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.state.EChange;
+import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.hierarchy.IChildrenProviderWithID;
 import com.helger.tree.withid.ITreeItemWithID;
 import com.helger.tree.withid.ITreeWithID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A specialized version of the tree, where each item is required to have a

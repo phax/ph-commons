@@ -16,13 +16,18 @@
  */
 package com.helger.json.parser;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
+/**
+ * Represents the position inside the JSON parse process.
+ *
+ * @author Philip Helger
+ */
 @NotThreadSafe
 public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonParsePosition
 {
@@ -121,6 +126,6 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("line", m_nLine).append ("column", m_nColumn).getToString ();
+    return new ToStringGenerator (this).append ("Line", m_nLine).append ("Column", m_nColumn).getToString ();
   }
 }

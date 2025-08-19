@@ -16,22 +16,22 @@
  */
 package com.helger.json.parser.handler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.NonBlockingStack;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.collection.stack.NonBlockingStack;
 import com.helger.json.IJson;
 import com.helger.json.IJsonCollection;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * This {@link IJsonParserHandler} constructs the whole JSON tree while parsing
- * it. The resulting JSON object can be retrieved via {@link #getJson()}. This
- * can be seen as the "DOM" JSON implementation.
+ * This {@link IJsonParserHandler} constructs the whole JSON tree while parsing it. The resulting
+ * JSON object can be retrieved via {@link #getJson()}. This can be seen as the "DOM" JSON
+ * implementation.
  *
  * @author Philip Helger
  */
@@ -59,7 +59,7 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
         if (m_aObjectName.isEmpty ())
           throw new IllegalStateException ("Internal inconsistency - empty object name stack");
 
-      aParent.getAsObject ().addJson (m_aObjectName.pop (), aValue);
+      aParent.getAsObject ().add (m_aObjectName.pop (), aValue);
     }
   }
 

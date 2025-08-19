@@ -24,13 +24,13 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
-import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.text.MultilingualText;
-import com.helger.commons.text.ReadOnlyMultilingualText;
-import com.helger.commons.text.util.TextHelper;
+import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.text.AbstractReadOnlyMapBasedMultilingualText;
+import com.helger.text.IMultilingualText;
+import com.helger.text.MultilingualText;
+import com.helger.text.ReadOnlyMultilingualText;
+import com.helger.text.util.TextHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.microdom.IMicroElement;
 
 /**
@@ -55,16 +55,16 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
     assertEquals (aMLT, aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, MultilingualText.class));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
   }
 
   @Test
   public void testReadonlyMultiLingualText ()
   {
-    final ReadOnlyMultilingualText aMLT = new ReadOnlyMultilingualText (CollectionHelper.newOrderedMap (new Locale [] { Locale.GERMAN,
-                                                                                                                        Locale.CHINA },
-                                                                                                        new String [] { "Cumberlandstraße",
-                                                                                                                        "Whatspever" }));
+    final ReadOnlyMultilingualText aMLT = new ReadOnlyMultilingualText (CollectionHelperExt.createOrderedMap (new Locale [] { Locale.GERMAN,
+                                                                                                                              Locale.CHINA },
+                                                                                                              new String [] { "Cumberlandstraße",
+                                                                                                                              "Whatspever" }));
 
     final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aMLT, "mtext");
     assertNotNull (aElement);
@@ -74,7 +74,7 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
     assertEquals (aMLT, aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, ReadOnlyMultilingualText.class));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
   }
 
   @Test
@@ -92,6 +92,6 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
     assertEquals (new ReadOnlyMultilingualText (aMLT), aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, AbstractReadOnlyMapBasedMultilingualText.class));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (aMLT), aMLT2);
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (aMLT), aMLT2);
   }
 }

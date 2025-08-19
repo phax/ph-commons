@@ -16,12 +16,12 @@
  */
 package com.helger.settings;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.cache.Cache;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.cache.impl.Cache;
 import com.helger.settings.factory.ISettingsFactory;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A cache for the Settings

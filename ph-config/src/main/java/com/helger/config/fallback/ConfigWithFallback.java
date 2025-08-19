@@ -18,18 +18,18 @@ package com.helger.config.fallback;
 
 import java.math.BigDecimal;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.Config;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link IConfigWithFallback}.
@@ -109,13 +109,14 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public String getAsStringOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
   {
     String ret = getAsString (sPrimary);
-    if (StringHelper.hasNoText (ret))
+    if (StringHelper.isEmpty (ret))
     {
       // Try the old names
       for (final String sOld : aOldOnes)
       {
         ret = getAsString (sOld);
-        if (StringHelper.hasText (ret))
+        final String sStr = ret;
+        if (StringHelper.isNotEmpty (sStr))
         {
           // Notify on old name usage
           m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);

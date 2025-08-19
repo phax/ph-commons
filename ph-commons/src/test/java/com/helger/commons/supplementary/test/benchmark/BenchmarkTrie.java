@@ -23,17 +23,17 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.locale.LocaleFormatter;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsTreeMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.commons.supplementary.test.code.StringTrieFuncTest;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.text.locale.LocaleFormatter;
 
 /**
  * Check different Maps with String keys.<br>
@@ -52,8 +52,8 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     execute ();
   }
 
-  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
-                                                      final Charset aCharset) throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes, final Charset aCharset)
+                                                                                                            throws IOException
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
     final BufferedReader aBR = new BufferedReader (new InputStreamReader (aRes.getInputStream (), aCharset));
@@ -99,9 +99,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     final AbstractStringMapBase aL2a = new StringMapTST (aStringArray);
     LOGGER.info ("Initial check done!");
 
-    double dTime;
-
-    dTime = benchmarkTask (aL2a);
+    double dTime = benchmarkTask (aL2a);
     LOGGER.info ("StringMapTST: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
     LOGGER.info (aL2a.size () + " entries");
 

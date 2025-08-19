@@ -16,10 +16,10 @@
  */
 package com.helger.scope.spi;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.IsSPIInterface;
+import com.helger.annotation.style.IsSPIInterface;
 import com.helger.scope.ISessionScope;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * SPI for handling the session scope lifecycle. Is invoked for non-web and web

@@ -26,8 +26,8 @@ import java.time.temporal.ChronoField;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.XMLOffsetDateTime;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.xml.XMLOffsetDateTime;
 
 /**
  * Test class for class {@link AdapterXMLOffsetDateTime}.

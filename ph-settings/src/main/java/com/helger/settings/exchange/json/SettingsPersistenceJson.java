@@ -23,18 +23,15 @@ import java.nio.charset.Charset;
 import java.util.Comparator;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.WillClose;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
+import com.helger.collection.helper.CollectionSort;
 import com.helger.json.IJson;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
@@ -44,10 +41,13 @@ import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
+import com.helger.typeconvert.impl.TypeConverter;
+
+import jakarta.annotation.Nonnull;
 
 /**
- * A special {@link ISettingsPersistence} implementation that reads and writes
- * .json files. It assumes the ISO-8859-1 charset.
+ * A special {@link ISettingsPersistence} implementation that reads and writes .json files. It
+ * assumes the ISO-8859-1 charset.
  *
  * @author Philip Helger
  */
@@ -90,8 +90,7 @@ public class SettingsPersistenceJson implements ISettingsPersistence
   }
 
   /**
-   * @return The settings factory as specified in the constructor. Never
-   *         <code>null</code>.
+   * @return The settings factory as specified in the constructor. Never <code>null</code>.
    */
   @Nonnull
   public final ISettingsFactory <?> getSettingsFactory ()
@@ -131,10 +130,11 @@ public class SettingsPersistenceJson implements ISettingsPersistence
     final ISettings aSettings = m_aSettingsFactory.apply (getReadSettingsName ());
 
     // Read the properties file from the input stream
-    final IJsonObject aProps = JsonReader.builder ().source (aIS, m_aCharset).customizeCallback (aParser -> {
-      aParser.setRequireStringQuotes (false);
-      aParser.setAlwaysUseBigNumber (true);
-    }).readAsObject ();
+    final IJsonObject aProps = JsonReader.builder ()
+                                         .source (aIS, m_aCharset)
+                                         .requireStringQuotes (false)
+                                         .alwaysUseBigNumber (true)
+                                         .readAsObject ();
     if (aProps != null)
       for (final Map.Entry <String, IJson> aEntry : aProps)
         _recursiveReadSettings (aEntry.getKey (), aEntry.getValue (), aSettings);
@@ -149,8 +149,8 @@ public class SettingsPersistenceJson implements ISettingsPersistence
     try
     {
       final IJsonObject aProps = new JsonObject ();
-      for (final Map.Entry <String, Object> aEntry : CollectionHelper.getSorted (aSettings.entrySet (),
-                                                                                 Comparator.comparing (Map.Entry::getKey)))
+      for (final Map.Entry <String, Object> aEntry : CollectionSort.getSorted (aSettings.entrySet (),
+                                                                               Comparator.comparing (Map.Entry::getKey)))
       {
         final String sName = aEntry.getKey ();
         final Object aValue = aEntry.getValue ();

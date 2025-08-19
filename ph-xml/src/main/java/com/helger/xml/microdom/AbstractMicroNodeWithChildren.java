@@ -20,26 +20,26 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.state.EContinue;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.typeconvert.impl.TypeConverter;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.typeconvert.TypeConverter;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Basic implementation class for the micro document object model. It overrides
- * all methods required for correct parent/child handling.
+ * Basic implementation class for the micro document object model. It overrides all methods required
+ * for correct parent/child handling.
  *
  * @author Philip Helger
  */
@@ -49,8 +49,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   private ICommonsList <IMicroNode> m_aChildren;
 
   /**
-   * @return The writable list of all child nodes - handle with care. May be
-   *         <code>null</code>.
+   * @return The writable list of all child nodes - handle with care. May be <code>null</code>.
    */
   @Nullable
   @ReturnsMutableObject ("efficient access")
@@ -66,7 +65,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected void onAppendChild (@Nonnull final AbstractMicroNode aChildNode)
+  protected void onAddChild (@Nonnull final AbstractMicroNode aChildNode)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to documents");
@@ -309,11 +308,11 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
           aSB.append (aCDATA.getNodeValue ());
         }
         else
-          if (aChild instanceof IMicroNodeWithChildren)
+          if (aChild instanceof final IMicroNodeWithChildren aChildWithChildren)
           {
             // Recursive call
-            final String sTextContent = ((IMicroNodeWithChildren) aChild).getTextContent ();
-            if (StringHelper.hasText (sTextContent))
+            final String sTextContent = aChildWithChildren.getTextContent ();
+            if (StringHelper.isNotEmpty (sTextContent))
               aSB.append (sTextContent);
           }
     }
@@ -327,7 +326,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     final String sTextContent = getTextContent ();
 
     // Avoid having a conversion issue with empty strings!
-    if (StringHelper.hasNoText (sTextContent))
+    if (StringHelper.isEmpty (sTextContent))
       return null;
 
     return TypeConverter.convert (sTextContent, aDstClass);

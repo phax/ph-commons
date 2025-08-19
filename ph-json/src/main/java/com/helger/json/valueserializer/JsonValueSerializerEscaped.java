@@ -19,12 +19,12 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.WillNotClose;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.json.convert.JsonEscapeHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special {@link IJsonValueSerializer} that writes an escaped string.

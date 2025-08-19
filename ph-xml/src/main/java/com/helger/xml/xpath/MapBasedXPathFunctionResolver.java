@@ -18,23 +18,24 @@ package com.helger.xml.xpath;
 
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.QName;
 import javax.xml.xpath.XPathFunction;
 import javax.xml.xpath.XPathFunctionResolver;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Class is used in conjunction with {@link javax.xml.xpath.XPathExpression} to

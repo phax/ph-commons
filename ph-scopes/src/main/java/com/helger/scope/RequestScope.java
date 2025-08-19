@@ -16,15 +16,15 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.tostring.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation for non-web request scopes.

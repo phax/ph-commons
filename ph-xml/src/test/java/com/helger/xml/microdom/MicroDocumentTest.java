@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroDocument}.
@@ -56,7 +56,7 @@ public final class MicroDocumentTest
     assertFalse (new MicroDocument ().isEqualContent (new MicroDocument (new MicroDocumentType ("any", "public", "system"))));
 
     // Clone with children
-    e.appendElement ("root");
+    e.addElement ("root");
     assertTrue (e.isEqualContent (e.getClone ()));
   }
 
@@ -76,12 +76,12 @@ public final class MicroDocumentTest
   public void testAppendToRoot ()
   {
     IMicroDocument d = new MicroDocument ();
-    assertNotNull (d.appendElement ("root"));
+    assertNotNull (d.addElement ("root"));
 
     try
     {
       // Can only add comments, document types or one element
-      d.appendEntityReference ("lt");
+      d.addEntityReference ("lt");
       fail ();
     }
     catch (final MicroException ex)
@@ -90,24 +90,24 @@ public final class MicroDocumentTest
     try
     {
       // Cannot append a second root element!
-      d.appendElement ("root2");
+      d.addElement ("root2");
       fail ();
     }
     catch (final MicroException ex)
     {}
 
     d = new MicroDocument ();
-    assertNotNull (d.appendComment ("This is a root comment"));
-    assertNotNull (d.appendComment ("Well I forgot something"));
-    assertNotNull (d.appendElement ("root"));
-    assertNotNull (d.appendComment ("Some more comment after the root element"));
+    assertNotNull (d.addComment ("This is a root comment"));
+    assertNotNull (d.addComment ("Well I forgot something"));
+    assertNotNull (d.addElement ("root"));
+    assertNotNull (d.addComment ("Some more comment after the root element"));
   }
 
   @Test
   public void testToString ()
   {
     final IMicroDocument d = new MicroDocument ();
-    CommonsTestHelper.testToStringImplementation (d);
+    TestHelper.testToStringImplementation (d);
   }
 
   @Test
@@ -115,7 +115,7 @@ public final class MicroDocumentTest
   {
     final IMicroDocument aDoc = new MicroDocument ();
     assertFalse (aDoc.isStandalone ());
-    final IMicroElement eRoot = aDoc.appendElement ("root");
+    final IMicroElement eRoot = aDoc.addElement ("root");
     assertFalse (aDoc.isStandalone ());
     eRoot.setAttribute ("any", "Value");
     assertFalse (aDoc.isStandalone ());

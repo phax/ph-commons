@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-json</artifactId>
   <packaging>bundle</packaging>
@@ -56,20 +56,12 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-io</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>com.github.spotbugs</groupId>
-      <artifactId>spotbugs-annotations</artifactId>
-      <version>${spotbugs-annotations.version}</version>
-      <scope>compile</scope>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -84,7 +76,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.json</Automatic-Module-Name>
             <Export-Package>com.helger.json.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.json.valueserializer.IJsonValueSerializerRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>

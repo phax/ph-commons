@@ -22,11 +22,11 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 public final class UnicodeFuncTest
 {

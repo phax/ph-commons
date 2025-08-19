@@ -19,18 +19,18 @@ package com.helger.security.certificate;
 import java.security.cert.X509Certificate;
 import java.time.OffsetDateTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.ETriState;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.security.revocation.RevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a specific helper class to check the validity of certificates based on specific trusted

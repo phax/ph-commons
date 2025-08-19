@@ -25,46 +25,46 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.IsLocked;
-import com.helger.commons.annotation.MustBeLocked;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.callback.CallbackList;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.functional.Predicates;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.io.relative.IFileRelativeIO;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.wrapper.Wrapper;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ELockType;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.IsLocked;
+import com.helger.annotation.concurrent.MustBeLocked;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.CallbackList;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.functional.Predicates;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.wrapper.Wrapper;
+import com.helger.collection.CollectionFind;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.dao.DAOException;
 import com.helger.dao.EDAOActionType;
+import com.helger.io.relative.IFileRelativeIO;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Base class for WAL based DAO that uses a simple {@link ICommonsMap} for data
- * storage.
+ * Base class for WAL based DAO that uses a simple {@link ICommonsMap} for data storage.
  *
  * @author Philip Helger
  * @param <INTERFACETYPE>
@@ -79,8 +79,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
                                              IMapBasedDAO <INTERFACETYPE>
 {
   /**
-   * Extensible constructor parameter builder. Must be static because it is used
-   * in the constructor and no <code>this</code> is present.
+   * Extensible constructor parameter builder. Must be static because it is used in the constructor
+   * and no <code>this</code> is present.
    *
    * @author Philip Helger
    * @param <IMPLTYPE>
@@ -129,9 +129,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   private final Predicate <IMicroElement> m_aReadElementFilter;
 
   /**
-   * Default constructor. Automatically tries to read the file in the
-   * constructor (except this is changed in the init settings). WAL based
-   * classes must have a fixed filename!
+   * Default constructor. Automatically tries to read the file in the constructor (except this is
+   * changed in the init settings). WAL based classes must have a fixed filename!
    *
    * @param aImplClass
    *        Implementation class. May not be <code>null</code>.
@@ -140,8 +139,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @param sFilename
    *        The filename to read and write.
    * @param aInitSettings
-   *        Optional initialization settings to be used. May not be
-   *        <code>null</code>.
+   *        Optional initialization settings to be used. May not be <code>null</code>.
    * @throws DAOException
    *         If reading and reading fails
    */
@@ -189,8 +187,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     aDoc.getDocumentElement ().forAllChildElements (m_aReadElementFilter, eItem -> {
       final IMPLTYPE aItem = MicroTypeConverter.convertToNative (eItem, aDataTypeClass);
       _addItem (aItem, EDAOActionType.CREATE);
-      if (aItem instanceof IDAOReadChangeAware)
-        if (((IDAOReadChangeAware) aItem).isReadChanged ())
+      if (aItem instanceof final IDAOReadChangeAware aChangeAware)
+        if (aChangeAware.isReadChanged ())
         {
           // Remember that something was changed while reading
           aChange.set (EChange.CHANGED);
@@ -212,9 +210,9 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   protected IMicroDocument createWriteData ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
+    final IMicroElement eRoot = aDoc.addElement (ELEMENT_ROOT);
     for (final IMPLTYPE aItem : internalGetAllSortedByKey ())
-      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aItem, ELEMENT_ITEM));
+      eRoot.addChild (MicroTypeConverter.convertToMicroElement (aItem, ELEMENT_ITEM));
     return aDoc;
   }
 
@@ -233,8 +231,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @param eActionType
    *        The action type. Must be CREATE or UPDATE!
    * @throws IllegalArgumentException
-   *         If on CREATE an item with the same ID is already contained. If on
-   *         UPDATE an item with the provided ID does NOT exist.
+   *         If on CREATE an item with the same ID is already contained. If on UPDATE an item with
+   *         the provided ID does NOT exist.
    */
   @MustBeLocked (ELockType.WRITE)
   private void _addItem (@Nonnull final IMPLTYPE aItem, @Nonnull final EDAOActionType eActionType)
@@ -271,9 +269,9 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * The super method must be called every time something changed in the DAO. It
-   * triggers the writing to a file if auto-save is active. This method must be
-   * called within a write-lock as it is not locked!
+   * The super method must be called every time something changed in the DAO. It triggers the
+   * writing to a file if auto-save is active. This method must be called within a write-lock as it
+   * is not locked!
    *
    * @param aModifiedElement
    *        The modified data element. May not be <code>null</code>.
@@ -283,7 +281,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    */
   @Override
   @MustBeLocked (ELockType.WRITE)
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @DevelopersNote ("Avoid that this method is overridden")
   protected final void markAsChanged (@Nonnull final IMPLTYPE aModifiedElement,
                                       @Nonnull final EDAOActionType eActionType)
@@ -292,8 +290,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Add an item including invoking the callback. Must only be invoked inside a
-   * write-lock.
+   * Add an item including invoking the callback. Must only be invoked inside a write-lock.
    *
    * @param aNewItem
    *        The item to be added. May not be <code>null</code>.
@@ -309,14 +306,12 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Add an item including invoking the callback. Must only be invoked inside a
-   * write-lock.
+   * Add an item including invoking the callback. Must only be invoked inside a write-lock.
    *
    * @param aNewItem
    *        The item to be added. May not be <code>null</code>.
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
    * @return The passed parameter as-is. Never <code>null</code>.
    * @throws IllegalArgumentException
    *         If an item with the same ID is already contained
@@ -341,8 +336,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Update an existing item including invoking the callback. Must only be
-   * invoked inside a write-lock.
+   * Update an existing item including invoking the callback. Must only be invoked inside a
+   * write-lock.
    *
    * @param aItem
    *        The item to be updated. May not be <code>null</code>.
@@ -356,14 +351,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Update an existing item including invoking the callback. Must only be
-   * invoked inside a write-lock.
+   * Update an existing item including invoking the callback. Must only be invoked inside a
+   * write-lock.
    *
    * @param aItem
    *        The item to be updated. May not be <code>null</code>.
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
    * @throws IllegalArgumentException
    *         If no item with the same ID is already contained
    * @since 9.2.1
@@ -385,13 +379,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Delete the item by removing it from the map. If something was remove the
-   * onDeleteItem callback is invoked. Must only be invoked inside a write-lock.
+   * Delete the item by removing it from the map. If something was remove the onDeleteItem callback
+   * is invoked. Must only be invoked inside a write-lock.
    *
    * @param sID
    *        The ID to be removed. May be <code>null</code>.
-   * @return The deleted item. If <code>null</code> no such item was found and
-   *         therefore nothing was removed.
+   * @return The deleted item. If <code>null</code> no such item was found and therefore nothing was
+   *         removed.
    */
   @MustBeLocked (ELockType.WRITE)
   @Nullable
@@ -401,23 +395,22 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Delete the item by removing it from the map. If something was remove the
-   * onDeleteItem callback is invoked. Must only be invoked inside a write-lock.
+   * Delete the item by removing it from the map. If something was remove the onDeleteItem callback
+   * is invoked. Must only be invoked inside a write-lock.
    *
    * @param sID
    *        The ID to be removed. May be <code>null</code>.
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
-   * @return The deleted item. If <code>null</code> no such item was found and
-   *         therefore nothing was removed.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
+   * @return The deleted item. If <code>null</code> no such item was found and therefore nothing was
+   *         removed.
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
   @Nullable
   protected final IMPLTYPE internalDeleteItem (@Nullable final String sID, final boolean bInvokeCallbacks)
   {
-    if (StringHelper.hasNoText (sID))
+    if (StringHelper.isEmpty (sID))
       return null;
 
     final IMPLTYPE aDeletedItem = m_aMap.remove (sID);
@@ -436,9 +429,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Mark an item as "deleted" without actually deleting it from the map. This
-   * method only triggers the update action but does not alter the item. Must
-   * only be invoked inside a write-lock.
+   * Mark an item as "deleted" without actually deleting it from the map. This method only triggers
+   * the update action but does not alter the item. Must only be invoked inside a write-lock.
    *
    * @param aItem
    *        The item that was marked as "deleted"
@@ -450,15 +442,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Mark an item as "deleted" without actually deleting it from the map. This
-   * method only triggers the update action but does not alter the item. Must
-   * only be invoked inside a write-lock.
+   * Mark an item as "deleted" without actually deleting it from the map. This method only triggers
+   * the update action but does not alter the item. Must only be invoked inside a write-lock.
    *
    * @param aItem
    *        The item that was marked as "deleted"
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
@@ -475,9 +465,9 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Mark an item as "no longer deleted" without actually adding it to the map.
-   * This method only triggers the update action but does not alter the item.
-   * Must only be invoked inside a write-lock.
+   * Mark an item as "no longer deleted" without actually adding it to the map. This method only
+   * triggers the update action but does not alter the item. Must only be invoked inside a
+   * write-lock.
    *
    * @param aItem
    *        The item that was marked as "no longer deleted"
@@ -489,15 +479,14 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Mark an item as "no longer deleted" without actually adding it to the map.
-   * This method only triggers the update action but does not alter the item.
-   * Must only be invoked inside a write-lock.
+   * Mark an item as "no longer deleted" without actually adding it to the map. This method only
+   * triggers the update action but does not alter the item. Must only be invoked inside a
+   * write-lock.
    *
    * @param aItem
    *        The item that was marked as "no longer deleted"
    * @param bInvokeCallbacks
-   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
-   *        so.
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do so.
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
@@ -514,11 +503,10 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Remove all items without triggering any callback. Must only be invoked
-   * inside a write-lock.
+   * Remove all items without triggering any callback. Must only be invoked inside a write-lock.
    *
-   * @return {@link EChange#CHANGED} if something was contained,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something was contained, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @MustBeLocked (ELockType.WRITE)
   @Nonnull
@@ -556,7 +544,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     // INTERFACETYPE"
     final ICommonsList <INTERFACETYPE> ret = new CommonsArrayList <> ();
     // (Runnable) cast for Java 9
-    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAll (m_aMap.values (), aFilter, ret::add));
+    m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAll (m_aMap.values (), aFilter, ret::add));
     return ret;
   }
 
@@ -581,7 +569,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
                              @Nonnull final Consumer <? super INTERFACETYPE> aConsumer)
   {
     // (Runnable) cast for Java 9
-    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAll (m_aMap.values (), aFilter, aConsumer));
+    m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAll (m_aMap.values (), aFilter, aConsumer));
   }
 
   @Nonnull
@@ -599,17 +587,17 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
                                              @Nonnull final Consumer <? super RETTYPE> aConsumer)
   {
     // (Runnable) cast for Java 9
-    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAllMapped (m_aMap.values (),
-                                                                           aFilter,
-                                                                           aMapper,
-                                                                           aConsumer));
+    m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAllMapped (m_aMap.values (),
+                                                                         aFilter,
+                                                                         aMapper,
+                                                                         aConsumer));
   }
 
   @IsLocked (ELockType.READ)
   @Nullable
   public final INTERFACETYPE findFirst (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedGet ( () -> CollectionHelper.findFirst (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedGet ( () -> CollectionFind.findFirst (m_aMap.values (), aFilter));
   }
 
   @Nullable
@@ -617,7 +605,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final <RETTYPE> RETTYPE findFirstMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
                                                   @Nonnull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
   {
-    return m_aRWLock.readLockedGet ( () -> CollectionHelper.findFirstMapped (m_aMap.values (), aFilter, aMapper));
+    return m_aRWLock.readLockedGet ( () -> CollectionFind.findFirstMapped (m_aMap.values (), aFilter, aMapper));
   }
 
   @Override
@@ -630,7 +618,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean containsAny (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsAny (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsAny (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)
@@ -642,13 +630,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean containsNone (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsNone (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsNone (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)
   public final boolean containsOnly (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsOnly (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsOnly (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)
@@ -704,8 +692,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * Same as {@link #getOfID(String)} but the locking must happen on the called
-   * side.
+   * Same as {@link #getOfID(String)} but the locking must happen on the called side.
    *
    * @param sID
    *        The ID to search. May be <code>null</code>.
@@ -716,7 +703,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.READ)
   protected final IMPLTYPE internalGetOfID (@Nullable final String sID)
   {
-    if (StringHelper.hasNoText (sID))
+    if (StringHelper.isEmpty (sID))
       return null;
 
     return m_aMap.get (sID);
@@ -733,15 +720,15 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   protected final IMPLTYPE getOfID (@Nullable final String sID)
   {
-    if (StringHelper.hasNoText (sID))
+    if (StringHelper.isEmpty (sID))
       return null;
 
     return m_aRWLock.readLockedGet ( () -> m_aMap.get (sID));
   }
 
   /**
-   * Get the item at the specified index. This method only returns defined
-   * results if an ordered map is used for data storage.
+   * Get the item at the specified index. This method only returns defined results if an ordered map
+   * is used for data storage.
    *
    * @param nIndex
    *        The index to retrieve. Should be &ge; 0.
@@ -757,7 +744,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.READ)
   protected final boolean internalContainsWithID (@Nullable final String sID)
   {
-    if (StringHelper.hasNoText (sID))
+    if (StringHelper.isEmpty (sID))
       return false;
 
     return m_aMap.containsKey (sID);
@@ -766,7 +753,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean containsWithID (@Nullable final String sID)
   {
-    if (StringHelper.hasNoText (sID))
+    if (StringHelper.isEmpty (sID))
       return false;
 
     return m_aRWLock.readLockedBoolean ( () -> m_aMap.containsKey (sID));

@@ -18,22 +18,23 @@ package com.helger.json;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.traits.IGetterByKeyTrait;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.json.convert.JsonConverter;
+import com.helger.typeconvert.trait.IGetterByKeyTrait;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a JSON object that is a map from String to IJson
@@ -55,23 +56,33 @@ public interface IJsonObject extends
    * @return this for chaining
    */
   @Nonnull
-  IJsonObject addJson (@Nonnull String sName, @Nonnull IJson aValue);
+  IJsonObject add (@Nonnull String sName, @Nonnull IJson aValue);
 
   @Nonnull
-  default IJsonObject addJsonIf (@Nonnull final String sName,
-                                 @Nonnull final IJson aValue,
-                                 @Nonnull final Predicate <? super IJson> aFilter)
+  default IJsonObject addIf (@Nonnull final String sName,
+                             @Nonnull final IJson aValue,
+                             @Nonnull final Predicate <? super IJson> aFilter)
   {
     if (aFilter.test (aValue))
-      addJson (sName, aValue);
+      add (sName, aValue);
     return this;
   }
 
   @Nonnull
-  default IJsonObject addJsonIfNotNull (@Nonnull final String sName, @Nullable final IJson aValue)
+  default IJsonObject addIf (@Nonnull final String sName,
+                             @Nonnull final IJson aValue,
+                             @Nonnull final BooleanSupplier aFilter)
+  {
+    if (aFilter.getAsBoolean ())
+      add (sName, aValue);
+    return this;
+  }
+
+  @Nonnull
+  default IJsonObject addIfNotNull (@Nonnull final String sName, @Nullable final IJson aValue)
   {
     if (aValue != null)
-      addJson (sName, aValue);
+      add (sName, aValue);
     return this;
   }
 
@@ -87,8 +98,17 @@ public interface IJsonObject extends
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, @Nullable final Object aValue)
   {
-    final IJson aJson = JsonConverter.convertToJson (aValue);
-    return addJson (sName, aJson);
+    return add (sName, JsonConverter.convertToJson (aValue));
+  }
+
+  @Nonnull
+  default IJsonObject addIf (@Nonnull final String sName,
+                             @Nullable final Object aValue,
+                             @Nonnull final BooleanSupplier aSupplier)
+  {
+    if (aSupplier.getAsBoolean ())
+      add (sName, aValue);
+    return this;
   }
 
   @Nonnull
@@ -112,7 +132,7 @@ public interface IJsonObject extends
   @Nonnull
   default IJsonObject addIfNotEmpty (@Nonnull final String sName, @Nullable final String sValue)
   {
-    if (StringHelper.hasText (sValue))
+    if (StringHelper.isNotEmpty (sValue))
       add (sName, sValue);
     return this;
   }
@@ -126,45 +146,44 @@ public interface IJsonObject extends
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final boolean bValue)
   {
-    return addJson (sName, JsonValue.create (bValue));
+    return add (sName, JsonValue.create (bValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final char cValue)
   {
-    return addJson (sName, JsonValue.create (cValue));
+    return add (sName, JsonValue.create (cValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final double dValue)
   {
-    return addJson (sName, JsonValue.create (dValue));
+    return add (sName, JsonValue.create (dValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final int nValue)
   {
-    return addJson (sName, JsonValue.create (nValue));
+    return add (sName, JsonValue.create (nValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final long nValue)
   {
-    return addJson (sName, JsonValue.create (nValue));
+    return add (sName, JsonValue.create (nValue));
   }
 
   @Nonnull
   default IJsonObject addAll (@Nullable final Map <String, ?> aMap)
   {
     if (aMap != null)
-      for (final Map.Entry <String, ?> aEntry : aMap.entrySet ())
+      for (final var aEntry : aMap.entrySet ())
         add (aEntry);
     return this;
   }
 
   /**
-   * Add all entries of the passed object to this object. So this is a
-   * "flattening add all".
+   * Add all entries of the passed object to this object. So this is a "flattening add all".
    *
    * @param aObject
    *        The object to add from. May be <code>null</code>.
@@ -174,7 +193,7 @@ public interface IJsonObject extends
   default IJsonObject addAll (@Nullable final IJsonObject aObject)
   {
     if (aObject != null)
-      for (final Map.Entry <String, IJson> aEntry : aObject)
+      for (final var aEntry : aObject)
         add (aEntry);
     return this;
   }
@@ -184,8 +203,8 @@ public interface IJsonObject extends
                                                 @Nonnull final Function <? super VALUETYPE, IJson> aValueMapper)
   {
     if (aMap != null)
-      for (final Map.Entry <String, ? extends VALUETYPE> aEntry : aMap.entrySet ())
-        addJson (aEntry.getKey (), aValueMapper.apply (aEntry.getValue ()));
+      for (final var aEntry : aMap.entrySet ())
+        add (aEntry.getKey (), aValueMapper.apply (aEntry.getValue ()));
     return this;
   }
 
@@ -195,8 +214,8 @@ public interface IJsonObject extends
                                                          @Nonnull final Function <? super VALUETYPE, IJson> aValueMapper)
   {
     if (aMap != null)
-      for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aMap.entrySet ())
-        addJson (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+      for (final var aEntry : aMap.entrySet ())
+        add (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
     return this;
   }
 
@@ -227,13 +246,13 @@ public interface IJsonObject extends
   IJson get (@Nullable String sName);
 
   /**
-   * Get the element with the specified key. This is the {@link IJsonValue}
-   * specific version of {@link #get(String)}.
+   * Get the element with the specified key. This is the {@link IJsonValue} specific version of
+   * {@link #get(String)}.
    *
    * @param sName
    *        The name of the value to retrieve. May be <code>null</code>.
-   * @return <code>null</code> if no value for the name exists or if the value
-   *         is not a {@link IJsonValue}.
+   * @return <code>null</code> if no value for the name exists or if the value is not a
+   *         {@link IJsonValue}.
    */
   @Nullable
   default Object getValue (@Nullable final String sName)
@@ -249,13 +268,13 @@ public interface IJsonObject extends
   }
 
   /**
-   * Get the element with the specified key. This is the {@link IJsonValue}
-   * specific version of {@link #get(String)}.
+   * Get the element with the specified key. This is the {@link IJsonValue} specific version of
+   * {@link #get(String)}.
    *
    * @param sName
    *        The name of the value to retrieve. May be <code>null</code>.
-   * @return <code>null</code> if no value for the name exists or if the value
-   *         is not a {@link IJsonValue}.
+   * @return <code>null</code> if no value for the name exists or if the value is not a
+   *         {@link IJsonValue}.
    */
   @Nullable
   default IJsonValue getAsValue (@Nullable final String sName)
@@ -265,13 +284,13 @@ public interface IJsonObject extends
   }
 
   /**
-   * Get the element with the specified key. This is the {@link IJsonArray}
-   * specific version of {@link #get(String)}.
+   * Get the element with the specified key. This is the {@link IJsonArray} specific version of
+   * {@link #get(String)}.
    *
    * @param sName
    *        The name of the value to retrieve. May be <code>null</code>.
-   * @return <code>null</code> if no value for the name exists or if the value
-   *         is not a {@link IJsonArray}.
+   * @return <code>null</code> if no value for the name exists or if the value is not a
+   *         {@link IJsonArray}.
    */
   @Nullable
   default IJsonArray getAsArray (@Nullable final String sName)
@@ -281,13 +300,13 @@ public interface IJsonObject extends
   }
 
   /**
-   * Get the element with the specified key. This is the {@link IJsonObject}
-   * specific version of {@link #get(String)}.
+   * Get the element with the specified key. This is the {@link IJsonObject} specific version of
+   * {@link #get(String)}.
    *
    * @param sName
    *        The name of the value to retrieve. May be <code>null</code>.
-   * @return <code>null</code> if no value for the name exists or if the value
-   *         is not a {@link IJsonObject}.
+   * @return <code>null</code> if no value for the name exists or if the value is not a
+   *         {@link IJsonObject}.
    */
   @Nullable
   default IJsonObject getAsObject (@Nullable final String sName)
@@ -297,8 +316,7 @@ public interface IJsonObject extends
   }
 
   /**
-   * @return A copy of all contained items. Never <code>null</code> but maybe
-   *         empty.
+   * @return A copy of all contained items. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -308,8 +326,7 @@ public interface IJsonObject extends
    * Invoke the passed consumer on all entries of this object.
    *
    * @param aConsumer
-   *        Consumer with the first param being the key and second param being
-   *        the value.
+   *        Consumer with the first param being the key and second param being the value.
    */
   void forEach (@Nonnull BiConsumer <? super String, ? super IJson> aConsumer);
 
@@ -318,8 +335,7 @@ public interface IJsonObject extends
    *
    * @param aValue
    *        The value to be checked for containment. May be <code>null</code>.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   boolean containsValue (@Nullable IJson aValue);
 
@@ -328,8 +344,7 @@ public interface IJsonObject extends
    *
    * @param aValue
    *        The value to be checked for containment. May be <code>null</code>.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean containsValue (@Nullable final Object aValue)
   {
@@ -341,8 +356,7 @@ public interface IJsonObject extends
    *
    * @param bValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean containsValue (final boolean bValue)
   {
@@ -354,8 +368,7 @@ public interface IJsonObject extends
    *
    * @param cValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean containsValue (final char cValue)
   {
@@ -367,8 +380,7 @@ public interface IJsonObject extends
    *
    * @param dValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean containsValue (final double dValue)
   {
@@ -380,8 +392,7 @@ public interface IJsonObject extends
    *
    * @param nValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean containsValue (final int nValue)
   {
@@ -393,8 +404,7 @@ public interface IJsonObject extends
    *
    * @param nValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean containsValue (final long nValue)
   {
@@ -407,10 +417,9 @@ public interface IJsonObject extends
    * @param sName
    *        The name of the property. May not be <code>null</code>.
    * @param aValueProvider
-   *        The value provider of the property. May not be <code>null</code>. Is
-   *        only invoked, if the property is not present.
-   * @return Either the existing property value, or the newly calculated
-   *         property value.
+   *        The value provider of the property. May not be <code>null</code>. Is only invoked, if
+   *        the property is not present.
+   * @return Either the existing property value, or the newly calculated property value.
    * @since 8.6.4
    */
   @Nullable
@@ -422,14 +431,14 @@ public interface IJsonObject extends
     {
       ret = aValueProvider.apply (sName);
       if (ret != null)
-        addJson (sName, ret);
+        add (sName, ret);
     }
     return ret;
   }
 
   /**
-   * @return A map of all cloned values contained in this object in the same
-   *         order. Never <code>null</code>.
+   * @return A map of all cloned values contained in this object in the same order. Never
+   *         <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy

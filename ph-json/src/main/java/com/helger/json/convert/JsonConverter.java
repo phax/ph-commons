@@ -19,13 +19,9 @@ package com.helger.json.convert;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.array.ArrayHelper;
 import com.helger.json.IHasJson;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
@@ -33,6 +29,10 @@ import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;
+import com.helger.typeconvert.impl.TypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A utility class for converting objects from and to {@link IJson}.
@@ -49,8 +49,7 @@ public final class JsonConverter
   {}
 
   /**
-   * Convert any Object to an {@link IJson} representation. Supported classes
-   * are:
+   * Convert any Object to an {@link IJson} representation. Supported classes are:
    * <ul>
    * <li><code>null</code></li>
    * <li>com.helger.json.IJson</li>
@@ -79,57 +78,40 @@ public final class JsonConverter
     if (aObject == null)
       return JsonValue.NULL;
 
-    if (aObject instanceof IJson)
-      return (IJson) aObject;
+    if (aObject instanceof final IJson aJson)
+      return aJson;
 
-    if (aObject instanceof IHasJson)
-      return ((IHasJson) aObject).getAsJson ();
+    if (aObject instanceof final IHasJson aHasJson)
+      return aHasJson.getAsJson ();
 
     if (ArrayHelper.isArray (aObject))
     {
-      if (aObject instanceof boolean [])
-      {
-        final boolean [] aArray = (boolean []) aObject;
+      if (aObject instanceof final boolean [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);
-      }
-      if (aObject instanceof byte [])
-      {
-        final byte [] aArray = (byte []) aObject;
+
+      if (aObject instanceof final byte [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);
-      }
-      if (aObject instanceof char [])
-      {
-        final char [] aArray = (char []) aObject;
+
+      if (aObject instanceof final char [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);
-      }
-      if (aObject instanceof double [])
-      {
-        final double [] aArray = (double []) aObject;
+
+      if (aObject instanceof final double [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);
-      }
-      if (aObject instanceof float [])
-      {
-        final float [] aArray = (float []) aObject;
+
+      if (aObject instanceof final float [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);
-      }
-      if (aObject instanceof int [])
-      {
-        final int [] aArray = (int []) aObject;
+
+      if (aObject instanceof final int [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);
-      }
-      if (aObject instanceof long [])
-      {
-        final long [] aArray = (long []) aObject;
+
+      if (aObject instanceof final long [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);
-      }
-      if (aObject instanceof short [])
-      {
-        final short [] aArray = (short []) aObject;
+
+      if (aObject instanceof final short [] aArray)
         return new JsonArray (aArray.length).addAll (aArray);
-      }
-      if (aObject instanceof Object [])
+
+      if (aObject instanceof final Object [] aArray)
       {
-        final Object [] aArray = (Object []) aObject;
         final IJsonArray aJsonArray = new JsonArray (aArray.length);
         for (final Object aValue : aArray)
         {
@@ -141,9 +123,8 @@ public final class JsonConverter
       throw new IllegalStateException ("Expected an array but got none. Object=" + aObject);
     }
 
-    if (aObject instanceof Collection <?>)
+    if (aObject instanceof final Collection <?> aCollection)
     {
-      final Collection <?> aCollection = (Collection <?>) aObject;
       final IJsonArray aJsonArray = new JsonArray (aCollection.size ());
       for (final Object aValue : aCollection)
       {
@@ -153,9 +134,8 @@ public final class JsonConverter
       return aJsonArray;
     }
 
-    if (aObject instanceof Map <?, ?>)
+    if (aObject instanceof final Map <?, ?> aMap)
     {
-      final Map <?, ?> aMap = (Map <?, ?>) aObject;
       final IJsonObject aJsonObject = new JsonObject (aMap.size ());
       for (final Map.Entry <?, ?> aEntry : aMap.entrySet ())
       {
@@ -164,7 +144,7 @@ public final class JsonConverter
           throw new IllegalArgumentException ("Map key '" + aEntry.getKey () + "' could not be converted to a String!");
         // Recursive conversion
         final IJson aValue = convertToJson (aEntry.getValue ());
-        aJsonObject.addJson (sKey, aValue);
+        aJsonObject.add (sKey, aValue);
       }
       return aJsonObject;
     }

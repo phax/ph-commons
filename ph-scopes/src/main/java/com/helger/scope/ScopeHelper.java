@@ -16,14 +16,11 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 
-import org.slf4j.Logger;
-
-import com.helger.commons.concurrent.SimpleReadWriteLock;
+import jakarta.annotation.Nullable;
 
 /**
  * Global scope utility methods that don't nicely fit somewhere else.
@@ -58,8 +55,8 @@ public final class ScopeHelper
    * Enable or disable scope life cycle debugging for all scopes.
    *
    * @param bDebugLifeCycle
-   *        <code>true</code> if the scope life cycle should be debugged,
-   *        <code>false</code> to disable it. By default is is disabled.
+   *        <code>true</code> if the scope life cycle should be debugged, <code>false</code> to
+   *        disable it. By default is is disabled.
    */
   public static void setLifeCycleDebuggingEnabled (final boolean bDebugLifeCycle)
   {
@@ -67,9 +64,8 @@ public final class ScopeHelper
   }
 
   /**
-   * @return <code>true</code> if life cycle debugging for all scopes is
-   *         enabled, <code>false</code> if it is disabled. The default value is
-   *         disabled.
+   * @return <code>true</code> if life cycle debugging for all scopes is enabled, <code>false</code>
+   *         if it is disabled. The default value is disabled.
    */
   public static boolean isLifeCycleDebuggingEnabled ()
   {
@@ -80,8 +76,8 @@ public final class ScopeHelper
    * Enable or disable global scope life cycle debugging.
    *
    * @param bDebugScope
-   *        <code>true</code> if the global scope life cycle should be debugged,
-   *        <code>false</code> to disable it. By default is is disabled.
+   *        <code>true</code> if the global scope life cycle should be debugged, <code>false</code>
+   *        to disable it. By default is is disabled.
    */
   public static void setDebugGlobalScopeEnabled (final boolean bDebugScope)
   {
@@ -89,9 +85,8 @@ public final class ScopeHelper
   }
 
   /**
-   * @return <code>true</code> if global scope life cycle debugging is enabled,
-   *         <code>false</code> if it is disabled. The default value is
-   *         disabled.
+   * @return <code>true</code> if global scope life cycle debugging is enabled, <code>false</code>
+   *         if it is disabled. The default value is disabled.
    */
   public static boolean isDebugGlobalScopeEnabled ()
   {
@@ -102,9 +97,8 @@ public final class ScopeHelper
    * Enable or disable session scope life cycle debugging.
    *
    * @param bDebugScope
-   *        <code>true</code> if the session scope life cycle should be
-   *        debugged, <code>false</code> to disable it. By default is is
-   *        disabled.
+   *        <code>true</code> if the session scope life cycle should be debugged, <code>false</code>
+   *        to disable it. By default is is disabled.
    */
   public static void setDebugSessionScopeEnabled (final boolean bDebugScope)
   {
@@ -112,9 +106,8 @@ public final class ScopeHelper
   }
 
   /**
-   * @return <code>true</code> if session scope life cycle debugging is enabled,
-   *         <code>false</code> if it is disabled. The default value is
-   *         disabled.
+   * @return <code>true</code> if session scope life cycle debugging is enabled, <code>false</code>
+   *         if it is disabled. The default value is disabled.
    */
   public static boolean isDebugSessionScopeEnabled ()
   {
@@ -125,9 +118,8 @@ public final class ScopeHelper
    * Enable or disable request scope life cycle debugging.
    *
    * @param bDebugScope
-   *        <code>true</code> if the request scope life cycle should be
-   *        debugged, <code>false</code> to disable it. By default is is
-   *        disabled.
+   *        <code>true</code> if the request scope life cycle should be debugged, <code>false</code>
+   *        to disable it. By default is is disabled.
    */
   public static void setDebugRequestScopeEnabled (final boolean bDebugScope)
   {
@@ -135,9 +127,8 @@ public final class ScopeHelper
   }
 
   /**
-   * @return <code>true</code> if request scope life cycle debugging is enabled,
-   *         <code>false</code> if it is disabled. The default value is
-   *         disabled.
+   * @return <code>true</code> if request scope life cycle debugging is enabled, <code>false</code>
+   *         if it is disabled. The default value is disabled.
    */
   public static boolean isDebugRequestScopeEnabled ()
   {
@@ -157,8 +148,8 @@ public final class ScopeHelper
    * Enable or disable stack traces when debugging scopes.
    *
    * @param bDebugWithStackTrace
-   *        <code>true</code> to enable stack traces, <code>false</code> to
-   *        disable them. By default is is disabled.
+   *        <code>true</code> to enable stack traces, <code>false</code> to disable them. By default
+   *        is is disabled.
    */
   public static void setDebugWithStackTrace (final boolean bDebugWithStackTrace)
   {
@@ -166,8 +157,8 @@ public final class ScopeHelper
   }
 
   /**
-   * @return <code>true</code> if stack traces should be logged,
-   *         <code>false</code> if not. The default value is disabled.
+   * @return <code>true</code> if stack traces should be logged, <code>false</code> if not. The
+   *         default value is disabled.
    */
   public static boolean isDebugWithStackTrace ()
   {
@@ -175,28 +166,11 @@ public final class ScopeHelper
   }
 
   /**
-   * This is a just a helper method to determine whether global scope
-   * creation/deletion issues should be logged or not.
+   * This is a just a helper method to determine whether global scope creation/deletion issues
+   * should be logged or not.
    *
-   * @param aLogger
-   *        The logger to check.
-   * @return <code>true</code> if global scope creation/deletion should be
-   *         logged, <code>false</code> otherwise.
-   * @since 9.4.7
-   * @deprecated Use {@link #isDebugGlobalScopeLifeCycle()} instead
-   */
-  @Deprecated (forRemoval = true, since = "11.0.4")
-  public static boolean isDebugGlobalScopeLifeCycle (@Nonnull final Logger aLogger)
-  {
-    return isDebugGlobalScopeLifeCycle ();
-  }
-
-  /**
-   * This is a just a helper method to determine whether global scope
-   * creation/deletion issues should be logged or not.
-   *
-   * @return <code>true</code> if global scope creation/deletion should be
-   *         logged, <code>false</code> otherwise.
+   * @return <code>true</code> if global scope creation/deletion should be logged,
+   *         <code>false</code> otherwise.
    * @since 11.0.4
    */
   public static boolean isDebugGlobalScopeLifeCycle ()
@@ -205,28 +179,11 @@ public final class ScopeHelper
   }
 
   /**
-   * This is a just a helper method to determine whether session scope
-   * creation/deletion issues should be logged or not.
+   * This is a just a helper method to determine whether session scope creation/deletion issues
+   * should be logged or not.
    *
-   * @param aLogger
-   *        The logger to check.
-   * @return <code>true</code> if session scope creation/deletion should be
-   *         logged, <code>false</code> otherwise.
-   * @since 9.4.7
-   * @deprecated Use {@link #isDebugSessionScopeLifeCycle()} instead
-   */
-  @Deprecated (forRemoval = true, since = "11.0.4")
-  public static boolean isDebugSessionScopeLifeCycle (@Nonnull final Logger aLogger)
-  {
-    return isDebugSessionScopeLifeCycle ();
-  }
-
-  /**
-   * This is a just a helper method to determine whether session scope
-   * creation/deletion issues should be logged or not.
-   *
-   * @return <code>true</code> if session scope creation/deletion should be
-   *         logged, <code>false</code> otherwise.
+   * @return <code>true</code> if session scope creation/deletion should be logged,
+   *         <code>false</code> otherwise.
    * @since 11.0.4
    */
   public static boolean isDebugSessionScopeLifeCycle ()
@@ -235,28 +192,11 @@ public final class ScopeHelper
   }
 
   /**
-   * This is a just a helper method to determine whether request scope
-   * creation/deletion issues should be logged or not.
+   * This is a just a helper method to determine whether request scope creation/deletion issues
+   * should be logged or not.
    *
-   * @param aLogger
-   *        The logger to check.
-   * @return <code>true</code> if request scope creation/deletion should be
-   *         logged, <code>false</code> otherwise.
-   * @since 9.4.7
-   * @deprecated Use {@link #isDebugRequestScopeLifeCycle()} instead
-   */
-  @Deprecated (forRemoval = true, since = "11.0.4")
-  public static boolean isDebugRequestScopeLifeCycle (@Nonnull final Logger aLogger)
-  {
-    return isDebugRequestScopeLifeCycle ();
-  }
-
-  /**
-   * This is a just a helper method to determine whether request scope
-   * creation/deletion issues should be logged or not.
-   *
-   * @return <code>true</code> if request scope creation/deletion should be
-   *         logged, <code>false</code> otherwise.
+   * @return <code>true</code> if request scope creation/deletion should be logged,
+   *         <code>false</code> otherwise.
    * @since 11.0.4
    */
   public static boolean isDebugRequestScopeLifeCycle ()
@@ -272,20 +212,6 @@ public final class ScopeHelper
    */
   public static class DebugScopeException extends Exception
   {}
-
-  /**
-   * @return An exception with the current stack trace or <code>null</code> if
-   *         {@link #isDebugWithStackTrace()} is <code>false</code>
-   * @see #isDebugWithStackTrace()
-   * @deprecated In favour of {@link ScopeHelper#getDebugException()} as we
-   *             should not return Throwable
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "11.0.5")
-  public static Throwable getDebugStackTrace ()
-  {
-    return isDebugWithStackTrace () ? new DebugScopeException () : null;
-  }
 
   /**
    * @return An exception with the current stack trace or <code>null</code> if

@@ -16,21 +16,21 @@
  */
 package com.helger.settings.exchange.configfile;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.system.SystemProperties;
-import com.helger.commons.traits.IGetterByKeyTrait;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.system.SystemProperties;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.io.resource.IReadableResource;
 import com.helger.settings.ISettings;
+import com.helger.typeconvert.trait.IGetterByKeyTrait;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A configuration file that consists of a readable resource that backed the

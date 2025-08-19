@@ -19,26 +19,27 @@ package com.helger.xml.serialize.write;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.Immutable;
 import javax.xml.namespace.NamespaceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
-import com.helger.commons.statistics.StatisticsManager;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.CGlobal;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
+import com.helger.statistics.api.IMutableStatisticsHandlerSize;
+import com.helger.statistics.impl.StatisticsManager;
 import com.helger.xml.EXMLVersion;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a helper class to serialize DOM nodes to a String.
@@ -66,12 +67,12 @@ public final class XMLWriter
    * Write a node to an {@link OutputStream} using the default settings.
    *
    * @param aNode
-   *        The node to be serialized. May be any kind of node (incl.
-   *        documents). May not be <code>null</code>.
+   *        The node to be serialized. May be any kind of node (incl. documents). May not be
+   *        <code>null</code>.
    * @param aOS
-   *        The {@link OutputStream} to write to. May not be <code>null</code>.
-   *        The {@link OutputStream} is closed anyway directly after the
-   *        operation finishes (on success and on error).
+   *        The {@link OutputStream} to write to. May not be <code>null</code>. The
+   *        {@link OutputStream} is closed anyway directly after the operation finishes (on success
+   *        and on error).
    * @return {@link ESuccess}
    */
   @Nonnull
@@ -84,12 +85,12 @@ public final class XMLWriter
    * Write a node to an {@link OutputStream} using custom settings.
    *
    * @param aNode
-   *        The node to be serialized. May be any kind of node (incl.
-   *        documents). May not be <code>null</code>.
+   *        The node to be serialized. May be any kind of node (incl. documents). May not be
+   *        <code>null</code>.
    * @param aOS
-   *        The {@link OutputStream} to write to. May not be <code>null</code>.
-   *        The {@link OutputStream} is closed anyway directly after the
-   *        operation finishes (on success and on error).
+   *        The {@link OutputStream} to write to. May not be <code>null</code>. The
+   *        {@link OutputStream} is closed anyway directly after the operation finishes (on success
+   *        and on error).
    * @param aSettings
    *        The serialization settings to be used. May not be <code>null</code>.
    * @return {@link ESuccess}
@@ -129,12 +130,11 @@ public final class XMLWriter
    * Write a node to a {@link Writer} using the default settings.
    *
    * @param aNode
-   *        The node to be serialized. May be any kind of node (incl.
-   *        documents). May not be <code>null</code>.
+   *        The node to be serialized. May be any kind of node (incl. documents). May not be
+   *        <code>null</code>.
    * @param aWriter
-   *        The {@link Writer} to write to. May not be <code>null</code>. The
-   *        {@link Writer} is closed anyway directly after the operation
-   *        finishes (on success and on error).
+   *        The {@link Writer} to write to. May not be <code>null</code>. The {@link Writer} is
+   *        closed anyway directly after the operation finishes (on success and on error).
    * @return {@link ESuccess}
    */
   @Nonnull
@@ -147,12 +147,11 @@ public final class XMLWriter
    * Write a node to a {@link Writer} using the default settings.
    *
    * @param aNode
-   *        The node to be serialized. May be any kind of node (incl.
-   *        documents). May not be <code>null</code>.
+   *        The node to be serialized. May be any kind of node (incl. documents). May not be
+   *        <code>null</code>.
    * @param aWriter
-   *        The {@link Writer} to write to. May not be <code>null</code>. The
-   *        {@link Writer} is closed anyway directly after the operation
-   *        finishes (on success and on error).
+   *        The {@link Writer} to write to. May not be <code>null</code>. The {@link Writer} is
+   *        closed anyway directly after the operation finishes (on success and on error).
    * @param aSettings
    *        The serialization settings to be used. May not be <code>null</code>.
    * @return {@link ESuccess}
@@ -189,8 +188,7 @@ public final class XMLWriter
   }
 
   /**
-   * Convert the passed DOM node to an XML string using the provided XML writer
-   * settings.
+   * Convert the passed DOM node to an XML string using the provided XML writer settings.
    *
    * @param aNode
    *        The node to be converted to a string. May not be <code>null</code> .
@@ -220,8 +218,8 @@ public final class XMLWriter
 
   /**
    * Convert the passed DOM node to an XML string using
-   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized
-   * version of {@link #getNodeAsString(Node, IXMLWriterSettings)}.
+   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized version of
+   * {@link #getNodeAsString(Node, IXMLWriterSettings)}.
    *
    * @param aNode
    *        The node to be converted to a string. May not be <code>null</code> .
@@ -235,12 +233,10 @@ public final class XMLWriter
   }
 
   /**
-   * Convert the passed DOM node to an XML byte array using the provided XML
-   * writer settings.
+   * Convert the passed DOM node to an XML byte array using the provided XML writer settings.
    *
    * @param aNode
-   *        The node to be converted to a byte array. May not be
-   *        <code>null</code>.
+   *        The node to be converted to a byte array. May not be <code>null</code>.
    * @param aSettings
    *        The XML writer settings to be used. May not be <code>null</code>.
    * @return The byte array representation of the passed node.
@@ -268,12 +264,11 @@ public final class XMLWriter
 
   /**
    * Convert the passed micro node to an XML byte array using
-   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized
-   * version of {@link #getNodeAsBytes(Node, IXMLWriterSettings)}.
+   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized version of
+   * {@link #getNodeAsBytes(Node, IXMLWriterSettings)}.
    *
    * @param aNode
-   *        The node to be converted to a byte array. May not be
-   *        <code>null</code> .
+   *        The node to be converted to a byte array. May not be <code>null</code> .
    * @return The byte array representation of the passed node.
    * @since 8.6.3
    */

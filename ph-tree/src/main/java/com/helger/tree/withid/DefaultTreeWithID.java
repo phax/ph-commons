@@ -16,8 +16,9 @@
  */
 package com.helger.tree.withid;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.NotThreadSafe;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any

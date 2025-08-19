@@ -21,25 +21,23 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.state.EContinue;
+import com.helger.base.state.ESuccess;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.ToStringGenerator;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Basic implementation of the {@link ITreeItem} interface
@@ -70,8 +68,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    * Constructor for root object.
    *
    * @param aFactory
-   *        The factory to use for creating tree items. May not be
-   *        <code>null</code>.
+   *        The factory to use for creating tree items. May not be <code>null</code>.
    */
   public BasicTreeItem (@Nonnull final ITreeItemFactory <DATATYPE, ITEMTYPE> aFactory)
   {
@@ -84,9 +81,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    * Constructor for normal elements.
    *
    * @param aParent
-   *        Parent item to use. May never be <code>null</code> since only the
-   *        root has no parent and for the root item a special no-argument
-   *        constructor is present.
+   *        Parent item to use. May never be <code>null</code> since only the root has no parent and
+   *        for the root item a special no-argument constructor is present.
    */
   public BasicTreeItem (@Nonnull final ITEMTYPE aParent)
   {
@@ -105,9 +101,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   /**
-   * This method is called to validate a data object. This method may be
-   * overloaded in derived classes. The default implementation accepts all
-   * values.
+   * This method is called to validate a data object. This method may be overloaded in derived
+   * classes. The default implementation accepts all values.
    *
    * @param aData
    *        The value to validate.
@@ -166,8 +161,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    *
    * @param aData
    *        the data associated with this item
-   * @return the created TreeItem object or <code>null</code> if the ID is
-   *         already in use and bAllowOverwrite is false
+   * @return the created TreeItem object or <code>null</code> if the ID is already in use and
+   *         bAllowOverwrite is false
    */
   @Nonnull
   public final ITEMTYPE createChildItem (@Nullable final DATATYPE aData)
@@ -285,7 +280,6 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren == null ? null : m_aChildren.getLastOrNull ();
   }
 
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public final boolean isSameOrChildOf (@Nonnull final ITEMTYPE aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
@@ -360,7 +354,9 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BasicTreeItem <?, ?> rhs = (BasicTreeItem <?, ?>) o;
-    return EqualsHelper.equals (m_aData, rhs.m_aData) && EqualsHelper.equals (m_aChildren, rhs.m_aChildren);
+    final Object aObj1 = m_aData;
+    final Object aObj11 = m_aChildren;
+    return EqualsHelper.equals (aObj1, rhs.m_aData) && EqualsHelper.equals (aObj11, rhs.m_aChildren);
   }
 
   @Override

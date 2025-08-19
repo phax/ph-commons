@@ -16,14 +16,14 @@
  */
 package com.helger.graph.simple;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphObjectFactory;
 import com.helger.graph.IMutableGraphRelation;
 import com.helger.graph.impl.GraphNodeFast;
 import com.helger.graph.impl.GraphRelationFast;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMutableGraphObjectFactory} with

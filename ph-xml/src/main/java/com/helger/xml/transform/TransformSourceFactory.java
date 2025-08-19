@@ -24,26 +24,27 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Node;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.ByteBufferInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.url.URLHelper;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.stream.ByteBufferInputStream;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resource.URLResource;
+import com.helger.io.url.URLHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Factory class to create the correct {@link javax.xml.transform.Source}
- * objects for different input types.
+ * Factory class to create the correct {@link javax.xml.transform.Source} objects for different
+ * input types.
  *
  * @author Philip Helger
  */
@@ -83,8 +84,8 @@ public final class TransformSourceFactory
   @Nonnull
   public static StreamSource create (@Nonnull final IHasInputStream aISP)
   {
-    if (aISP instanceof IReadableResource)
-      return create ((IReadableResource) aISP);
+    if (aISP instanceof final IReadableResource aRes)
+      return create (aRes);
     return create (aISP.getInputStream ());
   }
 

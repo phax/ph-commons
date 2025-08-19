@@ -16,13 +16,13 @@
  */
 package com.helger.xml.ls;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract {@link LSResourceResolver} base implementation.

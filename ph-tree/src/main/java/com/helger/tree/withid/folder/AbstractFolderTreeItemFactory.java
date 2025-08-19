@@ -18,15 +18,15 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.aggregate.IAggregator;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.aggregate.IAggregator;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.tree.withid.unique.AbstractTreeItemWithUniqueIDFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The default folder tree item factory implementation.

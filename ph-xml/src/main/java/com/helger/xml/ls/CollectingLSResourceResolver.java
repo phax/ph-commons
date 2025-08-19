@@ -16,19 +16,19 @@
  */
 package com.helger.xml.ls;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A class that collects all requested resources.

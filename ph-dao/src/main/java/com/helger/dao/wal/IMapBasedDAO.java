@@ -22,16 +22,16 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.id.IHasID;
+import com.helger.base.iface.IHasSize;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.lang.IHasSize;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Read-only base interface for the MAP based DAO

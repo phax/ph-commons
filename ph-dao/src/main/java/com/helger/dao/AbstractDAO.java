@@ -18,26 +18,25 @@ package com.helger.dao;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.MustBeLocked;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.callback.CallbackList;
-import com.helger.commons.collection.NonBlockingStack;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.io.file.FileIOError;
-import com.helger.commons.io.file.FileOperationManager;
-import com.helger.commons.log.ConditionalLogger;
-import com.helger.commons.log.IHasConditionalLogger;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.ELockType;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.MustBeLocked;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.CallbackList;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.IHasConditionalLogger;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.stack.NonBlockingStack;
+import com.helger.io.file.FileIOError;
+import com.helger.io.file.FileOperationManager;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base implementation of {@link IDAO}
@@ -50,13 +49,11 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   /** By default auto-save is enabled */
   public static final boolean DEFAULT_AUTO_SAVE_ENABLED = true;
   /**
-   * The default extension for an old file that was not yet deleted. Mainly used
-   * in the WAL DAO
+   * The default extension for an old file that was not yet deleted. Mainly used in the WAL DAO
    */
   public static final String FILENAME_EXTENSION_PREV = ".prev";
   /**
-   * The default extension for a file that is newly created. Mainly used in the
-   * WAL DAO
+   * The default extension for a file that is newly created. Mainly used in the WAL DAO
    */
   public static final String FILENAME_EXTENSION_NEW = ".new";
 
@@ -65,7 +62,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
 
   protected static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractDAO.class);
-  protected static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, !GlobalDebug.DEFAULT_SILENT_MODE);
+  protected static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
@@ -77,8 +74,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   private boolean m_bAutoSaveEnabled = DEFAULT_AUTO_SAVE_ENABLED;
 
   /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it
-   *         is enabled.
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it is enabled.
    * @since 9.2.0
    */
   public static boolean isSilentMode ()
@@ -90,8 +86,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
    * Enable or disable certain regular log messages.
    *
    * @param bSilentMode
-   *        <code>true</code> to disable logging, <code>false</code> to enable
-   *        logging
+   *        <code>true</code> to disable logging, <code>false</code> to enable logging
    * @return The previous value of the silent mode.
    * @since 9.2.0
    */
@@ -104,9 +99,8 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   {}
 
   /**
-   * @return The static mutable exception handler list that is invoked for read
-   *         exceptions. Never <code>null</code>. The list applies to ALL DAOs
-   *         since it is static.
+   * @return The static mutable exception handler list that is invoked for read exceptions. Never
+   *         <code>null</code>. The list applies to ALL DAOs since it is static.
    */
   @Nonnull
   @ReturnsMutableObject
@@ -116,9 +110,8 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   }
 
   /**
-   * @return The static mutable exception handler list that is invoked for write
-   *         exceptions. Never <code>null</code>. The list applies to ALL DAOs
-   *         since it is static.
+   * @return The static mutable exception handler list that is invoked for write exceptions. Never
+   *         <code>null</code>. The list applies to ALL DAOs since it is static.
    */
   @Nonnull
   @ReturnsMutableObject
@@ -128,8 +121,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   }
 
   /**
-   * @return <code>true</code> if auto save is enabled, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if auto save is enabled, <code>false</code> otherwise.
    */
   @MustBeLocked (ELockType.READ)
   protected final boolean internalIsAutoSaveEnabled ()
@@ -138,8 +130,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   }
 
   /**
-   * @return <code>true</code> if auto save is enabled, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if auto save is enabled, <code>false</code> otherwise.
    */
   public final boolean isAutoSaveEnabled ()
   {
@@ -198,9 +189,8 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   }
 
   /**
-   * Check the access to the passed file using the specified mode. If the access
-   * is not provided, a {@link DAOException} is thrown. If everything is good,
-   * this method returns without a comment.
+   * Check the access to the passed file using the specified mode. If the access is not provided, a
+   * {@link DAOException} is thrown. If everything is good, this method returns without a comment.
    *
    * @param aFile
    *        The file to check. May not be <code>null</code>.

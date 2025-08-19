@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.CGlobal;
 
 /**
  * Test class for class {@link XMLMaskHelper}.
@@ -52,17 +52,17 @@ public final class XMLMaskHelperTest
                                                               "\u0001")));
 
     // Replace with ""
-    assertArrayEquals (ArrayHelper.EMPTY_CHAR_ARRAY,
+    assertArrayEquals (CGlobal.EMPTY_CHAR_ARRAY,
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "\u0001"));
-    assertArrayEquals (ArrayHelper.EMPTY_CHAR_ARRAY,
+    assertArrayEquals (CGlobal.EMPTY_CHAR_ARRAY,
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_11,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "\u0000"));
-    assertArrayEquals (ArrayHelper.EMPTY_CHAR_ARRAY,
+    assertArrayEquals (CGlobal.EMPTY_CHAR_ARRAY,
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.HTML,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,

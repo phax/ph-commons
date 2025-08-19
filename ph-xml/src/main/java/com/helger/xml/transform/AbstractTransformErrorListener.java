@@ -16,18 +16,19 @@
  */
 package com.helger.xml.transform;
 
-import javax.annotation.Nonnull;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
 
-import com.helger.commons.error.IError;
-import com.helger.commons.error.SingleError;
-import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.location.ILocation;
-import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.IMultilingualText;
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.SingleError;
+import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
+import com.helger.text.IMultilingualText;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract implementation of a transformation {@link ErrorListener}.

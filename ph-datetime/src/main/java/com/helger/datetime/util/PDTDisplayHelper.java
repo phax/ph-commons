@@ -20,16 +20,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.CGlobal;
+import com.helger.base.numeric.MathHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.math.MathHelper;
+import jakarta.annotation.Nonnull;
 
 /**
  * Display helper methods for date/time functions.

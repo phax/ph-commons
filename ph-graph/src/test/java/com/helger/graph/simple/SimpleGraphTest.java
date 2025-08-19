@@ -29,12 +29,12 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.graph.AbstractGraphTestCase;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.impl.GraphNode;
 import com.helger.matrix.Matrix;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link SimpleGraph}.
@@ -138,9 +138,9 @@ public final class SimpleGraphTest extends AbstractGraphTestCase
 
     assertTrue (sg.isSelfContained ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (_buildGraph (), _buildGraph ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SimpleGraph (), new SimpleGraph ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (_buildGraph (), new SimpleGraph ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (_buildGraph (), _buildGraph ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (new SimpleGraph (), new SimpleGraph ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (_buildGraph (), new SimpleGraph ());
   }
 
   @Test

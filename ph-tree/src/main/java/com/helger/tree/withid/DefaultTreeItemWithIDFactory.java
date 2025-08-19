@@ -16,10 +16,10 @@
  */
 package com.helger.tree.withid;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
 
-import com.helger.commons.ValueEnforcer;
+import jakarta.annotation.Nonnull;
 
 /**
  * Special implementation of {@link AbstractTreeItemWithIDFactory} using the

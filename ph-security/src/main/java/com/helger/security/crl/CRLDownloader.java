@@ -18,21 +18,20 @@ package com.helger.security.crl;
 
 import java.security.cert.CRL;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.timing.StopWatch;
-import com.helger.commons.url.EURLProtocol;
-import com.helger.commons.url.IURLDownloader;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.timing.StopWatch;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.url.EURLProtocol;
+import com.helger.base.url.IURLDownloader;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * A class for downloading CRL data. This class is as thread-safe as the used
- * {@link IURLDownloader}
+ * A class for downloading CRL data. This class is as thread-safe as the used {@link IURLDownloader}
  *
  * @author Philip Helger
  * @since 11.2.0

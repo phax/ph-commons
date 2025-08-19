@@ -16,7 +16,7 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 public class MockNullableTestNullable implements IMockNullableTest
 {
@@ -24,18 +24,6 @@ public class MockNullableTestNullable implements IMockNullableTest
   {}
 
   public void paramNonnull (@Nullable final String s)
-  {}
-
-  public void paramNonnullAlways (@Nullable final String s)
-  {}
-
-  public void paramNonnullMaybe (@Nullable final String s)
-  {}
-
-  public void paramNonnullNever (@Nullable final String s)
-  {}
-
-  public void paramNonnullUnknown (@Nullable final String s)
   {}
 
   public void paramNullable (@Nullable final String s)

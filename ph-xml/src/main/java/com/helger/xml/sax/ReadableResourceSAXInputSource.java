@@ -18,17 +18,17 @@ package com.helger.xml.sax;
 
 import java.io.InputStream;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.io.resource.IReadableResource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special {@link InputSource} implementation that reads from

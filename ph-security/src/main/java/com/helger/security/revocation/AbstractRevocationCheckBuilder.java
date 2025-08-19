@@ -42,27 +42,27 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.timing.StopWatch;
-import com.helger.commons.traits.IGenericImplTrait;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.iface.IThrowingRunnable;
+import com.helger.base.state.ETriState;
+import com.helger.base.timing.StopWatch;
+import com.helger.base.traits.IGenericImplTrait;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.security.crl.CRLCache;
 import com.helger.security.crl.CRLHelper;
 import com.helger.security.keystore.KeyStoreHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A utility class to configure the revocation check in a fine grained way. This

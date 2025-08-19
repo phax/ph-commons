@@ -18,22 +18,22 @@ package com.helger.xml;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsEnumMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsEnumMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.dom.EXMLDOMFeature;
 import com.helger.xml.dom.EXMLDOMFeatureVersion;
 import com.helger.xml.dom.EXMLDOMNodeType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Misc. XML DOM helper method for checking the setup etc.

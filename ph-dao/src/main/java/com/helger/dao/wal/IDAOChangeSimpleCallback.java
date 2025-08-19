@@ -16,9 +16,9 @@
  */
 package com.helger.dao.wal;
 
-import javax.annotation.Nonnull;
+import com.helger.base.id.IHasID;
 
-import com.helger.commons.id.IHasID;
+import jakarta.annotation.Nonnull;
 
 /**
  * Simple version of the DAO callback that calls {@link #onChange(IHasID)} for

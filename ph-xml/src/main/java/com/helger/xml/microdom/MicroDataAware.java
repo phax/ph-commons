@@ -16,16 +16,15 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroDataAware} interface.
@@ -44,7 +43,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
 
   public MicroDataAware (@Nullable final CharSequence aText)
   {
-    if (StringHelper.hasNoText (aText))
+    if (StringHelper.isEmpty (aText))
       m_aSB = new StringBuilder ();
     else
       m_aSB = new StringBuilder (aText);
@@ -106,18 +105,18 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroDataAware rhs = (MicroDataAware) o;
-    return EqualsHelper.equals (m_aSB, rhs.m_aSB);
+    return m_aSB.toString ().equals (rhs.m_aSB.toString ());
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aSB).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aSB.toString ()).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("data", m_aSB).getToString ();
+    return new ToStringGenerator (this).append ("Data", m_aSB).getToString ();
   }
 }

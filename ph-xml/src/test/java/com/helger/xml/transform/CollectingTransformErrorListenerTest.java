@@ -32,8 +32,8 @@ import javax.xml.transform.dom.DOMResult;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.XMLFactory;
 
 /**
@@ -80,7 +80,7 @@ public final class CollectingTransformErrorListenerTest
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
     assertTrue (el.getErrorList ().containsAtLeastOneError ());
 
-    CommonsTestHelper.testToStringImplementation (el);
+    TestHelper.testToStringImplementation (el);
   }
 
   @Test
@@ -121,6 +121,6 @@ public final class CollectingTransformErrorListenerTest
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
     assertTrue (el.getErrorList ().containsAtLeastOneError ());
 
-    CommonsTestHelper.testToStringImplementation (el);
+    TestHelper.testToStringImplementation (el);
   }
 }

@@ -27,21 +27,20 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.mutable.MutableBoolean;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.numeric.mutable.MutableBoolean;
+import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.jaxb.mock.JAXBMarshallerMockArchive;
 import com.helger.jaxb.mock.external.MockJAXBArchive;
 import com.helger.jaxb.mock.external.MockJAXBCollection;
 import com.helger.jaxb.mock.external.MockJAXBIssue;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;

@@ -16,11 +16,11 @@
  */
 package com.helger.security.password.hash;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract base class of {@link IPasswordHashCreator}.

@@ -18,25 +18,24 @@ package com.helger.jaxb.validation;
 
 import java.net.URL;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.SingleError;
-import com.helger.commons.error.SingleError.Builder;
-import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.location.ILocation;
-import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.SingleError;
+import com.helger.diagnostics.error.SingleErrorBuilder;
+import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.xml.serialize.write.XMLWriter;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.ValidationEvent;
 import jakarta.xml.bind.ValidationEventHandler;
 import jakarta.xml.bind.ValidationEventLocator;
@@ -145,7 +144,7 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
   public final boolean handleEvent (@Nonnull final ValidationEvent aEvent)
   {
     final IErrorLevel aErrorLevel = getErrorLevel (aEvent.getSeverity ());
-    final Builder aErrBuilder = SingleError.builder ().errorLevel (aErrorLevel);
+    final SingleErrorBuilder aErrBuilder = SingleError.builder ().errorLevel (aErrorLevel);
 
     final ValidationEventLocator aLocator = aEvent.getLocator ();
     aErrBuilder.errorLocation (new SimpleLocation (getLocationResourceID (aLocator),

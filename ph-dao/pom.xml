@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-dao</artifactId>
   <packaging>bundle</packaging>
@@ -56,7 +56,11 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-statistics</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-io</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -66,13 +70,9 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-scopes</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>com.github.spotbugs</groupId>
-      <artifactId>spotbugs-annotations</artifactId>
-      <version>${spotbugs-annotations.version}</version>
-      <scope>compile</scope>
-      <optional>true</optional>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-datetime</artifactId>
     </dependency>
   </dependencies>
   
@@ -86,7 +86,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.dao</Automatic-Module-Name>
             <Export-Package>com.helger.dao.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

@@ -1,0 +1,325 @@
+/*
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.diagnostics.error;
+
+import java.time.LocalDateTime;
+
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeCalculator;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
+import com.helger.diagnostics.error.text.IHasErrorText;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
+/**
+ * Default implementation of {@link IError}.<br>
+ * Note: cannot be called <code>Error</code> because this would conflict with the default Java
+ * Exception class.
+ *
+ * @author Philip Helger
+ * @since 8.5.0
+ */
+@Immutable
+public class SingleError implements IError
+{
+  private final LocalDateTime m_aErrorDT;
+  private final IErrorLevel m_aErrorLevel;
+  private final String m_sErrorID;
+  private final String m_sErrorFieldName;
+  private final ILocation m_aErrorLocation;
+  private final IHasErrorText m_aErrorText;
+  private final Throwable m_aLinkedException;
+
+  /**
+   * Constructor for the Builder only.
+   *
+   * @param aBuilder
+   *        The builder to take the data from. May not be <code>null</code>.
+   */
+  protected SingleError (@Nonnull final AbstractSingleErrorBuilder <?, ?> aBuilder)
+  {
+    this (aBuilder.m_aErrorDT,
+          aBuilder.m_aErrorLevel,
+          aBuilder.m_sErrorID,
+          aBuilder.m_sErrorFieldName,
+          aBuilder.m_aErrorLocation,
+          aBuilder.m_aErrorText,
+          aBuilder.m_aLinkedException);
+  }
+
+  /**
+   * Constructor
+   *
+   * @param aErrorDT
+   *        Error date time
+   * @param aErrorLevel
+   *        Error level. May not be <code>null</code>.
+   * @param sErrorID
+   *        Error ID
+   * @param sErrorFieldName
+   *        Error field name
+   * @param aErrorLocation
+   *        Error location
+   * @param aErrorText
+   *        Error text
+   * @param aLinkedException
+   *        Linked exception
+   * @since 10.1.7
+   */
+  public SingleError (@Nullable final LocalDateTime aErrorDT,
+                      @Nonnull final IErrorLevel aErrorLevel,
+                      @Nullable final String sErrorID,
+                      @Nullable final String sErrorFieldName,
+                      @Nullable final ILocation aErrorLocation,
+                      @Nullable final IHasErrorText aErrorText,
+                      @Nullable final Throwable aLinkedException)
+  {
+    m_aErrorDT = aErrorDT;
+    m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
+    m_sErrorID = sErrorID;
+    m_sErrorFieldName = sErrorFieldName;
+    m_aErrorLocation = aErrorLocation != null ? aErrorLocation : SimpleLocation.NO_LOCATION;
+    m_aErrorText = aErrorText;
+    m_aLinkedException = aLinkedException;
+  }
+
+  @Nullable
+  public LocalDateTime getErrorDateTime ()
+  {
+    return m_aErrorDT;
+  }
+
+  @Nonnull
+  public IErrorLevel getErrorLevel ()
+  {
+    return m_aErrorLevel;
+  }
+
+  @Override
+  @Nullable
+  public String getErrorID ()
+  {
+    return m_sErrorID;
+  }
+
+  @Override
+  @Nullable
+  public String getErrorFieldName ()
+  {
+    return m_sErrorFieldName;
+  }
+
+  @Override
+  @Nonnull
+  public ILocation getErrorLocation ()
+  {
+    return m_aErrorLocation;
+  }
+
+  @Override
+  @Nullable
+  public IHasErrorText getErrorTexts ()
+  {
+    return m_aErrorText;
+  }
+
+  @Override
+  @Nullable
+  public Throwable getLinkedException ()
+  {
+    return m_aLinkedException;
+  }
+
+  /**
+   * Overridable implementation of Throwable for the Linked exception field. This can be overridden
+   * to implement a different algorithm. This is customizable because there is no default way of
+   * comparing Exceptions in Java. If you override this method you must also override
+   * {@link #hashCodeLinkedException(HashCodeGenerator, Throwable)}!
+   *
+   * @param t1
+   *        First Throwable. May be <code>null</code>.
+   * @param t2
+   *        Second Throwable. May be <code>null</code>.
+   * @return <code>true</code> if they are equals (or both null)
+   */
+  @OverrideOnDemand
+  protected boolean equalsLinkedException (@Nullable final Throwable t1, @Nullable final Throwable t2)
+  {
+    if (EqualsHelper.identityEqual (t1, t2))
+      return true;
+    if (t1 == null || t2 == null)
+      return false;
+    return t1.getClass ().equals (t2.getClass ()) && EqualsHelper.equals (t1.getMessage (), t2.getMessage ());
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final SingleError rhs = (SingleError) o;
+    return EqualsHelper.equals (m_aErrorDT, rhs.m_aErrorDT) &&
+           m_aErrorLevel.equals (rhs.m_aErrorLevel) &&
+           EqualsHelper.equals (m_sErrorID, rhs.m_sErrorID) &&
+           EqualsHelper.equals (m_sErrorFieldName, rhs.m_sErrorFieldName) &&
+           EqualsHelper.equals (m_aErrorLocation, rhs.m_aErrorLocation) &&
+           EqualsHelper.equals (m_aErrorText, rhs.m_aErrorText) &&
+           equalsLinkedException (m_aLinkedException, rhs.m_aLinkedException);
+  }
+
+  /**
+   * Overridable implementation of Throwable for the Linked exception field. This can be overridden
+   * to implement a different algorithm. This is customizable because there is no default way of
+   * hashing Exceptions in Java. If you override this method you must also override
+   * {@link #equalsLinkedException(Throwable, Throwable)}!
+   *
+   * @param aHCG
+   *        The hash code generator to append to. Never <code>null</code>.
+   * @param t
+   *        The Throwable to append. May be <code>null</code>.
+   */
+  @OverrideOnDemand
+  protected void hashCodeLinkedException (@Nonnull final HashCodeGenerator aHCG, @Nullable final Throwable t)
+  {
+    if (t == null)
+      aHCG.append (HashCodeCalculator.HASHCODE_NULL);
+    else
+      aHCG.append (t.getClass ()).append (t.getMessage ());
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    final HashCodeGenerator aHCG = new HashCodeGenerator (this).append (m_aErrorDT)
+                                                               .append (m_aErrorLevel)
+                                                               .append (m_sErrorID)
+                                                               .append (m_sErrorFieldName)
+                                                               .append (m_aErrorLocation)
+                                                               .append (m_aErrorText);
+    hashCodeLinkedException (aHCG, m_aLinkedException);
+    return aHCG.getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).appendIfNotNull ("ErrorDateTime", m_aErrorDT)
+                                       .append ("ErrorLevel", m_aErrorLevel)
+                                       .appendIfNotNull ("ErrorID", m_sErrorID)
+                                       .appendIfNotNull ("ErrorFieldName", m_sErrorFieldName)
+                                       .appendIfNotNull ("ErrorLocation", m_aErrorLocation)
+                                       .appendIfNotNull ("ErrorText", m_aErrorText)
+                                       .appendIfNotNull ("LinkedException", m_aLinkedException)
+                                       .getToString ();
+  }
+
+  /**
+   * Create a new empty error builder with the default error level from {@link SingleErrorBuilder}.
+   *
+   * @return A new Error builder. Never <code>null</code>.
+   */
+  @Nonnull
+  public static SingleErrorBuilder builder ()
+  {
+    return new SingleErrorBuilder ();
+  }
+
+  /**
+   * Create a new error builder containing all the data from the provided error.
+   *
+   * @param aError
+   *        The error to copy the data from
+   * @return A new Error builder containing all the data from the provided error. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static SingleErrorBuilder builder (@Nonnull final IError aError)
+  {
+    return new SingleErrorBuilder (aError);
+  }
+
+  /**
+   * Create a new empty error builder with the SUCCESS error level.
+   *
+   * @return A new Error builder with default error level {@link EErrorLevel#SUCCESS}. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static SingleErrorBuilder builderSuccess ()
+  {
+    return builder ().errorLevel (EErrorLevel.SUCCESS);
+  }
+
+  /**
+   * Create a new empty error builder with the INFO error level.
+   *
+   * @return A new Error builder with default error level {@link EErrorLevel#INFO}. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static SingleErrorBuilder builderInfo ()
+  {
+    return builder ().errorLevel (EErrorLevel.INFO);
+  }
+
+  /**
+   * Create a new empty error builder with the WARN error level.
+   *
+   * @return A new Error builder with default error level {@link EErrorLevel#WARN}. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static SingleErrorBuilder builderWarn ()
+  {
+    return builder ().errorLevel (EErrorLevel.WARN);
+  }
+
+  /**
+   * Create a new empty error builder with the ERROR error level.
+   *
+   * @return A new Error builder with default error level {@link EErrorLevel#ERROR}. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static SingleErrorBuilder builderError ()
+  {
+    return builder ().errorLevel (EErrorLevel.ERROR);
+  }
+
+  /**
+   * Create a new empty error builder with the FATAL ERROR error level.
+   *
+   * @return A new Error builder with default error level {@link EErrorLevel#FATAL_ERROR}. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static SingleErrorBuilder builderFatalError ()
+  {
+    return builder ().errorLevel (EErrorLevel.FATAL_ERROR);
+  }
+}

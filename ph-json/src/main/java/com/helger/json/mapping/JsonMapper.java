@@ -16,19 +16,20 @@
  */
 package com.helger.json.mapping;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import java.util.List;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.lang.StackTraceHelper;
-import com.helger.commons.location.ILocation;
-import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.location.ILocation;
+import com.helger.base.location.SimpleLocation;
+import com.helger.base.rt.StackTraceHelper;
+import com.helger.base.state.ETriState;
+import com.helger.base.string.StringHelper;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Contains some JSON mappings to commonly used data types.
@@ -55,8 +56,8 @@ public final class JsonMapper
   {}
 
   /**
-   * Get the tristate representation of the provided value. Either
-   * {@link #JSON_TRISTATE_TRUE} or {@link #JSON_TRISTATE_FALSE}.
+   * Get the tristate representation of the provided value. Either {@link #JSON_TRISTATE_TRUE} or
+   * {@link #JSON_TRISTATE_FALSE}.
    *
    * @param b
    *        boolean value to get converted.
@@ -71,9 +72,8 @@ public final class JsonMapper
   }
 
   /**
-   * Get the tristate representation of the provided value. Either
-   * {@link #JSON_TRISTATE_TRUE}, {@link #JSON_TRISTATE_FALSE} or
-   * {@link #JSON_TRISTATE_UNDEFINED}.
+   * Get the tristate representation of the provided value. Either {@link #JSON_TRISTATE_TRUE},
+   * {@link #JSON_TRISTATE_FALSE} or {@link #JSON_TRISTATE_UNDEFINED}.
    *
    * @param eTriState
    *        Tristate value to get converted. May be <code>null</code>.
@@ -91,9 +91,8 @@ public final class JsonMapper
   }
 
   /**
-   * Convert the provided value into a tristate value. Must be one of
-   * {@link #JSON_TRISTATE_TRUE}, {@link #JSON_TRISTATE_FALSE} or
-   * {@link #JSON_TRISTATE_UNDEFINED}.
+   * Convert the provided value into a tristate value. Must be one of {@link #JSON_TRISTATE_TRUE},
+   * {@link #JSON_TRISTATE_FALSE} or {@link #JSON_TRISTATE_UNDEFINED}.
    *
    * @param sTriState
    *        Source value. May be <code>null</code>.
@@ -124,8 +123,7 @@ public final class JsonMapper
    *
    * @param t
    *        The exception to convert to a JSON object. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the JSON
-   *         object otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the JSON object otherwise.
    * @see JsonUnmappedException for a representation after reading
    */
   @Nullable
@@ -133,8 +131,8 @@ public final class JsonMapper
   {
     if (t == null)
       return null;
-    if (t instanceof JsonUnmappedException)
-      return ((JsonUnmappedException) t).getAsJson ();
+    if (t instanceof final JsonUnmappedException aUnmappedEx)
+      return aUnmappedEx.getAsJson ();
     return new JsonObject ().add (JSON_CLASS, t.getClass ().getName ())
                             .addIfNotNull (JSON_MESSAGE, t.getMessage ())
                             .add (JSON_STACK_TRACE, StackTraceHelper.getStackAsString (t));
@@ -148,8 +146,8 @@ public final class JsonMapper
 
     final String sClassName = aObj.getAsString (JsonMapper.JSON_CLASS);
     final String sMessage = aObj.getAsString (JsonMapper.JSON_MESSAGE);
-    final ICommonsList <String> aStackTraceLines = StringHelper.getExploded (StackTraceHelper.DEFAULT_LINE_SEPARATOR,
-                                                                             aObj.getAsString (JsonMapper.JSON_STACK_TRACE));
+    final List <String> aStackTraceLines = StringHelper.getExploded (StackTraceHelper.DEFAULT_LINE_SEPARATOR,
+                                                                aObj.getAsString (JsonMapper.JSON_STACK_TRACE));
     if (sClassName == null)
       return null;
 
@@ -180,7 +178,7 @@ public final class JsonMapper
     final String sResourceID = aObj.getAsString (JSON_RESOURCE_ID);
     final int nLineNumber = aObj.getAsInt (JSON_LINE_NUM, -1);
     final int nColumnNumber = aObj.getAsInt (JSON_COLUMN_NUM, -1);
-    if (StringHelper.hasNoText (sResourceID) && nLineNumber < 0 && nColumnNumber < 0)
+    if (StringHelper.isEmpty (sResourceID) && nLineNumber < 0 && nColumnNumber < 0)
       return null;
 
     return new SimpleLocation (sResourceID, nLineNumber, nColumnNumber);

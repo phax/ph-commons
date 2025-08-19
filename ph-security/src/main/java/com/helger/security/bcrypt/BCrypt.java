@@ -19,11 +19,11 @@ package com.helger.security.bcrypt;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.exception.InitializationException;
+import com.helger.security.random.VerySecureRandom;
 
-import com.helger.commons.exception.InitializationException;
-import com.helger.commons.random.VerySecureRandom;
+import jakarta.annotation.Nonnull;
 
 //Copyright (c) 2006 Damien Miller <djm@mindrot.org>
 //

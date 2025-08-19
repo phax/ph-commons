@@ -16,11 +16,11 @@
  */
 package com.helger.security.password.salt;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for a password salt.

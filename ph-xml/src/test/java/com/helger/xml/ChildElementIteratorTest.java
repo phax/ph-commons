@@ -24,7 +24,8 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 
 /**
  * Test class for class {@link ChildElementIterator}.
@@ -43,16 +44,16 @@ public final class ChildElementIteratorTest
 
     // 1 child
     final Element eRoot = (Element) doc.appendChild (doc.createElement ("root"));
-    assertEquals (1, CollectionHelper.newList (new ChildElementIterator (doc)).size ());
+    assertEquals (1, CollectionHelperExt.createList (new ChildElementIterator (doc)).size ());
 
     // 2 children
     eRoot.appendChild (doc.createElement ("Hallo"));
     eRoot.appendChild (doc.createTextNode (" - "));
     eRoot.appendChild (doc.createElement ("Welt"));
-    assertEquals (2, CollectionHelper.newList (new ChildElementIterator (eRoot)).size ());
+    assertEquals (2, CollectionHelperExt.createList (new ChildElementIterator (eRoot)).size ());
     assertEquals (1,
-                  CollectionHelper.newList (new ChildElementIterator (eRoot).withFilter (XMLHelper.filterElementWithTagName ("Hallo")))
-                                  .size ());
+                  CollectionHelperExt.createList (new ChildElementIterator (eRoot).withFilter (XMLHelper.filterElementWithTagName ("Hallo")))
+                                     .size ());
 
     try
     {

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 public class MockNullableTestNonNull implements IMockNullableTest
 {
@@ -24,18 +24,6 @@ public class MockNullableTestNonNull implements IMockNullableTest
   {}
 
   public void paramNonnull (@Nonnull final String s)
-  {}
-
-  public void paramNonnullAlways (@Nonnull final String s)
-  {}
-
-  public void paramNonnullMaybe (@Nonnull final String s)
-  {}
-
-  public void paramNonnullNever (@Nonnull final String s)
-  {}
-
-  public void paramNonnullUnknown (@Nonnull final String s)
   {}
 
   // Eclipse complains here, because in the interface the parameter is declared

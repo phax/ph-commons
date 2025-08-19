@@ -20,23 +20,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.array.bytes.ByteArrayWrapper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.io.iface.IHasByteArray;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.ByteArrayWrapper;
-import com.helger.commons.io.IHasByteArray;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
 /**
- * Represents a single message digest value as the combination of the algorithm
- * and the digest bytes.
+ * Represents a single message digest value as the combination of the algorithm and the digest
+ * bytes.
  *
  * @author Philip Helger
  */
@@ -48,7 +48,8 @@ public class MessageDigestValue implements IHasByteArray
   private final EMessageDigestAlgorithm m_eAlgorithm;
   private final ByteArrayWrapper m_aBytes;
 
-  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm, @Nonnull @Nonempty final byte [] aDigestBytes)
+  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
+                             @Nonnull @Nonempty final byte [] aDigestBytes)
   {
     this (eAlgorithm, aDigestBytes, DEFAULT_COPY_NEEDED);
   }
@@ -78,8 +79,8 @@ public class MessageDigestValue implements IHasByteArray
   }
 
   /**
-   * @return The message digest bytes. The length depends on the used algorithm.
-   *         Never <code>null</code>.
+   * @return The message digest bytes. The length depends on the used algorithm. Never
+   *         <code>null</code>.
    * @since 9.1.3
    */
   @Nonnull
@@ -103,8 +104,7 @@ public class MessageDigestValue implements IHasByteArray
   }
 
   /**
-   * @return The hex-encoded String of the message digest bytes. Never
-   *         <code>null</code>.
+   * @return The hex-encoded String of the message digest bytes. Never <code>null</code>.
    */
   @Nonnull
   @Nonempty
@@ -137,18 +137,17 @@ public class MessageDigestValue implements IHasByteArray
   }
 
   /**
-   * Create a new {@link MessageDigestValue} object based on the passed source
-   * byte array
+   * Create a new {@link MessageDigestValue} object based on the passed source byte array
    *
    * @param aBytes
-   *        The byte array to create the hash value from. May not be
-   *        <code>null</code>.
+   *        The byte array to create the hash value from. May not be <code>null</code>.
    * @param eAlgorithm
    *        The algorithm to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static MessageDigestValue create (@Nonnull final byte [] aBytes, @Nonnull final EMessageDigestAlgorithm eAlgorithm)
+  public static MessageDigestValue create (@Nonnull final byte [] aBytes,
+                                           @Nonnull final EMessageDigestAlgorithm eAlgorithm)
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
     aMD.update (aBytes);
@@ -157,8 +156,7 @@ public class MessageDigestValue implements IHasByteArray
   }
 
   /**
-   * Create a new {@link MessageDigestValue} object based on the passed source
-   * {@link InputStream}.
+   * Create a new {@link MessageDigestValue} object based on the passed source {@link InputStream}.
    *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.

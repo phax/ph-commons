@@ -18,12 +18,12 @@ package com.helger.dao;
 
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.functional.IThrowingSupplier;
+import com.helger.base.iface.IThrowingRunnable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.functional.IThrowingSupplier;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstraction layer around auto save stuff.

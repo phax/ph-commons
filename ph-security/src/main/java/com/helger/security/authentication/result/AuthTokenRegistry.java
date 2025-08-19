@@ -18,20 +18,20 @@ package com.helger.security.authentication.result;
 
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.security.authentication.subject.IAuthSubject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class manages all the currently available authentications tokens.
@@ -48,7 +48,8 @@ public final class AuthTokenRegistry
   {}
 
   @Nonnull
-  public static IAuthToken createToken (@Nonnull final IAuthIdentification aIdentification, @Nonnegative final int nExpirationSeconds)
+  public static IAuthToken createToken (@Nonnull final IAuthIdentification aIdentification,
+                                        @Nonnegative final int nExpirationSeconds)
   {
     final AuthToken aToken = new AuthToken (aIdentification, nExpirationSeconds);
     final String sTokenID = aToken.getID ();
@@ -80,7 +81,7 @@ public final class AuthTokenRegistry
   @Nullable
   private static AuthToken _getValidNotExpiredToken (@Nullable final String sTokenID)
   {
-    if (StringHelper.hasNoText (sTokenID))
+    if (StringHelper.isEmpty (sTokenID))
       return null;
 
     final AuthToken aToken = RW_LOCK.readLockedGet ( () -> MAP.get (sTokenID));
@@ -105,8 +106,8 @@ public final class AuthTokenRegistry
   }
 
   /**
-   * Get all tokens of the specified auth subject. All tokens are returned, no
-   * matter whether they are expired or not.
+   * Get all tokens of the specified auth subject. All tokens are returned, no matter whether they
+   * are expired or not.
    *
    * @param aSubject
    *        The subject to query. May not be <code>null</code>.
@@ -118,8 +119,8 @@ public final class AuthTokenRegistry
     ValueEnforcer.notNull (aSubject, "Subject");
 
     return RW_LOCK.readLockedGet ( () -> CommonsArrayList.createFiltered (MAP.values (),
-                                                                            aToken -> aToken.getIdentification ()
-                                                                                            .hasAuthSubject (aSubject)));
+                                                                          aToken -> aToken.getIdentification ()
+                                                                                          .hasAuthSubject (aSubject)));
   }
 
   /**

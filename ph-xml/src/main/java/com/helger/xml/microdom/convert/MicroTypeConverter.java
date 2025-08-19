@@ -16,22 +16,22 @@
  */
 package com.helger.xml.microdom.convert;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.typeconvert.TypeConverterException;
-import com.helger.commons.typeconvert.TypeConverterException.EReason;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.TypeConverterException.EReason;
 import com.helger.xml.microdom.IMicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A utility class for converting objects from and to {@link IMicroElement}.<br>
  * The functionality is a special case of the
- * {@link com.helger.commons.typeconvert.TypeConverter} as we need a parameter
+ * {@link com.helger.typeconvert.impl.TypeConverter} as we need a parameter
  * for conversion in this case.<br>
  * All converters are registered in the {@link MicroTypeConverterRegistry}.
  *

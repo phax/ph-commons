@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link MicroContainer}.
@@ -52,9 +52,9 @@ public final class MicroContainerTest
     assertNotNull (e.getNodeValue ());
     assertTrue (e.isEqualContent (e.getClone ()));
     assertSame (EMicroNodeType.CONTAINER, e.getType ());
-    CommonsTestHelper.testToStringImplementation (e);
+    TestHelper.testToStringImplementation (e);
 
-    e.appendElement ("any");
+    e.addElement ("any");
     assertNotNull (e);
     assertTrue (e.isEqualContent (e.getClone ()));
 
@@ -64,7 +64,7 @@ public final class MicroContainerTest
 
     assertTrue (new MicroContainer ().isEqualContent (new MicroContainer ()));
     e = new MicroContainer ();
-    e.appendText ("text");
+    e.addText ("text");
     assertFalse (new MicroContainer ().isEqualContent (e));
     final IMicroNode [] aChildNodes = { new MicroText ("any") };
 

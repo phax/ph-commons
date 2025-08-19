@@ -23,16 +23,16 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.security.crl.CRLCache;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A helper class with certificate revocation check default settings.

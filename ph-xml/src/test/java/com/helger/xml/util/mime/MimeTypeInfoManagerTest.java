@@ -26,9 +26,9 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.mime.IMimeType;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.mime.CMimeType;
+import com.helger.mime.IMimeType;
 
 /**
  * Test class for class {@link MimeTypeInfoManager}.
@@ -51,8 +51,10 @@ public final class MimeTypeInfoManagerTest
     assertTrue (aMgr.getAllMimeTypesForFilename ("TEST.XLS").contains (CMimeType.APPLICATION_MS_EXCEL));
     assertTrue (aMgr.getAllMimeTypesForFilename ("test.hastenichgesehen").isEmpty ());
 
-    assertTrue (aMgr.getAllMimeTypeStringsForFilename ("test.xls").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
-    assertTrue (aMgr.getAllMimeTypeStringsForFilename ("TEST.XLS").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
+    assertTrue (aMgr.getAllMimeTypeStringsForFilename ("test.xls")
+                    .contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
+    assertTrue (aMgr.getAllMimeTypeStringsForFilename ("TEST.XLS")
+                    .contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
     assertTrue (aMgr.getAllMimeTypeStringsForFilename ("test.hastenichgesehen").isEmpty ());
 
     assertTrue (aMgr.containsMimeTypeForFilename ("test.xls"));
@@ -67,8 +69,10 @@ public final class MimeTypeInfoManagerTest
     assertEquals (CMimeType.APPLICATION_MS_EXCEL, aMgr.getPrimaryMimeTypeForExtension ("XLS"));
     assertNull (aMgr.getPrimaryMimeTypeForExtension ("waerhaettedasgedacht"));
 
-    assertTrue (aMgr.getAllMimeTypeStringsForExtension ("xls").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
-    assertTrue (aMgr.getAllMimeTypeStringsForExtension ("XLS").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
+    assertTrue (aMgr.getAllMimeTypeStringsForExtension ("xls")
+                    .contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
+    assertTrue (aMgr.getAllMimeTypeStringsForExtension ("XLS")
+                    .contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
     assertTrue (aMgr.getAllMimeTypeStringsForExtension ("abersichernicht").isEmpty ());
 
     assertTrue (aMgr.getAllMimeTypesForExtension ("xml").contains (CMimeType.APPLICATION_XML));
@@ -76,11 +80,15 @@ public final class MimeTypeInfoManagerTest
 
     assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xls"));
     assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("XLS"));
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL_2007.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xlsx"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL_2007.getAsString (),
+                  aMgr.getPrimaryMimeTypeStringForExtension ("xlsx"));
     assertEquals (CMimeType.APPLICATION_MS_WORD.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("doc"));
-    assertEquals (CMimeType.APPLICATION_MS_WORD_2007.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("docx"));
-    assertEquals (CMimeType.APPLICATION_MS_POWERPOINT.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("ppt"));
-    assertEquals (CMimeType.APPLICATION_MS_POWERPOINT_2007.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("pptx"));
+    assertEquals (CMimeType.APPLICATION_MS_WORD_2007.getAsString (),
+                  aMgr.getPrimaryMimeTypeStringForExtension ("docx"));
+    assertEquals (CMimeType.APPLICATION_MS_POWERPOINT.getAsString (),
+                  aMgr.getPrimaryMimeTypeStringForExtension ("ppt"));
+    assertEquals (CMimeType.APPLICATION_MS_POWERPOINT_2007.getAsString (),
+                  aMgr.getPrimaryMimeTypeStringForExtension ("pptx"));
     assertEquals (CMimeType.APPLICATION_XML.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xml"));
     assertNull (aMgr.getPrimaryMimeTypeStringForExtension ("waerhaettedasgedacht"));
 
@@ -120,7 +128,7 @@ public final class MimeTypeInfoManagerTest
     for (final IMimeType aMimeType : aMgr.getAllMimeTypes ())
       assertNotNull (aMimeType);
     for (final String sMimeType : aMgr.getAllMimeTypeStrings ())
-      assertTrue (StringHelper.hasText (sMimeType));
+      assertTrue (StringHelper.isNotEmpty (sMimeType));
   }
 
   @Test

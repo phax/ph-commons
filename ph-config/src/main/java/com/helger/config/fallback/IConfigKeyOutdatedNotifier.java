@@ -16,9 +16,9 @@
  */
 package com.helger.config.fallback;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
-import com.helger.commons.annotation.Nonempty;
+import jakarta.annotation.Nonnull;
 
 /**
  * Sanity callback interface to notify about the usage of an outdated

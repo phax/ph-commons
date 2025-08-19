@@ -16,14 +16,14 @@
  */
 package com.helger.commons.string.util;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.string.StringHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility class for calculating the Levenshtein distance of 2 strings.
@@ -90,8 +90,7 @@ public final class LevenshteinDistance
   }
 
   /**
-   * Main generic Levenshtein implementation. Assume all preconditions are
-   * checked.
+   * Main generic Levenshtein implementation. Assume all preconditions are checked.
    *
    * @param aStr1
    *        Not null
@@ -135,7 +134,8 @@ public final class LevenshteinDistance
       for (int i = 0; i < nLen1; i++)
       {
         final int nSubstCost = aStr1[i] == ch2 ? 0 : nCostSubstitution;
-        aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete), aPrevRow[i] + nSubstCost);
+        aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete),
+                                   aPrevRow[i] + nSubstCost);
       }
 
       // swap current distance counts to 'previous row' distance counts
@@ -150,8 +150,7 @@ public final class LevenshteinDistance
   }
 
   /**
-   * Get the distance of the 2 strings, using the costs 1 for insertion,
-   * deletion and substitution.
+   * Get the distance of the 2 strings, using the costs 1 for insertion, deletion and substitution.
    *
    * @param aStr1
    *        First string.
@@ -198,8 +197,7 @@ public final class LevenshteinDistance
   }
 
   /**
-   * Get the distance of the 2 strings, using the costs 1 for insertion,
-   * deletion and substitution.
+   * Get the distance of the 2 strings, using the costs 1 for insertion, deletion and substitution.
    *
    * @param sStr1
    *        First string.
@@ -242,6 +240,12 @@ public final class LevenshteinDistance
     if (nCostInsert == 1 && nCostDelete == 1 && nCostSubstitution == 1)
       return _getDistance111 (sStr1.toCharArray (), nLen1, sStr2.toCharArray (), nLen2);
 
-    return _getDistance (sStr1.toCharArray (), nLen1, sStr2.toCharArray (), nLen2, nCostInsert, nCostDelete, nCostSubstitution);
+    return _getDistance (sStr1.toCharArray (),
+                         nLen1,
+                         sStr2.toCharArray (),
+                         nLen2,
+                         nCostInsert,
+                         nCostDelete,
+                         nCostSubstitution);
   }
 }

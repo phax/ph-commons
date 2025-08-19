@@ -36,11 +36,11 @@ public final class ChildrenProviderElementWithNameTest
   private static IMicroDocument _buildTestDoc ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement ("root");
-    eRoot.appendElement ("any");
-    eRoot.appendText ("Text");
-    eRoot.appendElement ("else");
-    eRoot.appendElement ("namespace", "any");
+    final IMicroElement eRoot = aDoc.addElement ("root");
+    eRoot.addElement ("any");
+    eRoot.addText ("Text");
+    eRoot.addElement ("else");
+    eRoot.addElementNS ("namespace", "any");
     return aDoc;
   }
 

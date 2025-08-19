@@ -26,9 +26,9 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.base.iface.IThrowingRunnable;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.sax.CachingSAXInputSource;
 
 /**
@@ -56,7 +56,7 @@ public final class SAXReaderTest
   @Test
   public void testMultithreadedSAX_CachingSAXInputSource ()
   {
-    CommonsTestHelper.testInParallel (1000,
+    TestHelper.testInParallel (1000,
                                       (IThrowingRunnable <SAXException>) () -> assertTrue (SAXReader.readXMLSAX (new CachingSAXInputSource (new ClassPathResource ("xml/buildinfo.xml")),
                                                                                                                  new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
                                                                                                     .isSuccess ()));
@@ -65,7 +65,7 @@ public final class SAXReaderTest
   @Test
   public void testMultithreadedSAX_ReadableResourceSAXInputSource ()
   {
-    CommonsTestHelper.testInParallel (1000,
+    TestHelper.testInParallel (1000,
                                       (IThrowingRunnable <SAXException>) () -> assertTrue (SAXReader.readXMLSAX (new ClassPathResource ("xml/buildinfo.xml"),
                                                                                                                  new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
                                                                                                     .isSuccess ()));

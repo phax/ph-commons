@@ -16,28 +16,30 @@
  */
 package com.helger.scope.spi;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.exception.mock.IMockException;
-import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.Singleton;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.mock.exception.IMockException;
+import com.helger.base.spi.ServiceLoaderHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.IRequestScope;
 import com.helger.scope.ISessionScope;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * This is an internal class, that triggers the SPI implementations registered
- * for scope lifecycle SPI implementations. <b>Never</b> call this class from
- * outside of this project!
+ * This is an internal class, that triggers the SPI implementations registered for scope lifecycle
+ * SPI implementations. <b>Never</b> call this class from outside of this project!
  *
  * @author Philip Helger
  */
@@ -56,11 +58,11 @@ public final class ScopeSPIManager
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private ICommonsList <IGlobalScopeSPI> m_aGlobalSPIs;
+  private List <IGlobalScopeSPI> m_aGlobalSPIs;
   @GuardedBy ("m_aRWLock")
-  private ICommonsList <ISessionScopeSPI> m_aSessionSPIs;
+  private List <ISessionScopeSPI> m_aSessionSPIs;
   @GuardedBy ("m_aRWLock")
-  private ICommonsList <IRequestScopeSPI> m_aRequestSPIs;
+  private List <IRequestScopeSPI> m_aRequestSPIs;
 
   private ScopeSPIManager ()
   {
@@ -94,30 +96,27 @@ public final class ScopeSPIManager
   }
 
   /**
-   * @return All registered global scope SPI listeners. Never <code>null</code>
-   *         but maybe empty.
+   * @return All registered global scope SPI listeners. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
-    return m_aRWLock.readLockedGet ( () -> m_aGlobalSPIs.getClone ());
+    return m_aRWLock.readLockedGet ( () -> new CommonsArrayList <> (m_aGlobalSPIs));
   }
 
   /**
-   * @return All registered session scope SPI listeners. Never <code>null</code>
-   *         but maybe empty.
+   * @return All registered session scope SPI listeners. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
-    return m_aRWLock.readLockedGet ( () -> m_aSessionSPIs.getClone ());
+    return m_aRWLock.readLockedGet ( () -> new CommonsArrayList <> (m_aSessionSPIs));
   }
 
   /**
-   * @return All registered request scope SPI listeners. Never <code>null</code>
-   *         but maybe empty.
+   * @return All registered request scope SPI listeners. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -127,7 +126,7 @@ public final class ScopeSPIManager
     m_aRWLock.readLock ().lock ();
     try
     {
-      return m_aRequestSPIs.getClone ();
+      return new CommonsArrayList <> (m_aRequestSPIs);
     }
     finally
     {

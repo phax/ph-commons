@@ -16,9 +16,9 @@
  */
 package com.helger.security.authentication.subject;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.name.IHasDisplayName;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.base.id.IHasID;
+import com.helger.base.name.IHasDisplayName;
 
 /**
  * Represents a user or any other subject that can be authenticated in an

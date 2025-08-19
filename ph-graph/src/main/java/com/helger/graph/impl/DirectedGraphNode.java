@@ -18,26 +18,26 @@ package com.helger.graph.impl;
 
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.CollectionFind;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation if the {@link IMutableDirectedGraphNode} interface
@@ -72,12 +72,16 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     if (m_aIncoming != null)
     {
       if (m_aIncoming.containsKey (aNewRelation.getID ()))
-        throw new IllegalArgumentException ("The passed relation (" + aNewRelation + ") is already contained as an incoming relation");
+        throw new IllegalArgumentException ("The passed relation (" +
+                                            aNewRelation +
+                                            ") is already contained as an incoming relation");
 
       // check if the relation from-node is already contained
       for (final IMutableDirectedGraphRelation aRelation : m_aIncoming.values ())
         if (aRelation.getFrom () == aNewRelation.getFrom ())
-          throw new IllegalArgumentException ("The from-node of the passed relation (" + aNewRelation + ") is already contained");
+          throw new IllegalArgumentException ("The from-node of the passed relation (" +
+                                              aNewRelation +
+                                              ") is already contained");
     }
     else
     {
@@ -144,7 +148,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   {
     final ICommonsSet <IMutableDirectedGraphNode> ret = new CommonsHashSet <> ();
     if (m_aIncoming != null)
-      CollectionHelper.findAllMapped (m_aIncoming.values (), IMutableDirectedGraphRelation::getFrom, ret::add);
+      CollectionFind.findAllMapped (m_aIncoming.values (), IMutableDirectedGraphRelation::getFrom, ret::add);
     return ret;
   }
 
@@ -165,11 +169,15 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     if (m_aOutgoing != null)
     {
       if (m_aOutgoing.containsKey (aNewRelation.getID ()))
-        throw new IllegalArgumentException ("The passed relation " + aNewRelation + " is already contained as an outgoing relation");
+        throw new IllegalArgumentException ("The passed relation " +
+                                            aNewRelation +
+                                            " is already contained as an outgoing relation");
       // check if the relation to-node is already contained
       for (final IMutableDirectedGraphRelation aRelation : m_aOutgoing.values ())
         if (aRelation.getTo () == aNewRelation.getTo ())
-          throw new IllegalArgumentException ("The to-node of the passed relation " + aNewRelation + " is already contained");
+          throw new IllegalArgumentException ("The to-node of the passed relation " +
+                                              aNewRelation +
+                                              " is already contained");
     }
     else
     {
@@ -216,7 +224,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   {
     final ICommonsSet <IMutableDirectedGraphNode> ret = new CommonsHashSet <> ();
     if (m_aOutgoing != null)
-      CollectionHelper.findAllMapped (m_aOutgoing.values (), IMutableDirectedGraphRelation::getTo, ret::add);
+      CollectionFind.findAllMapped (m_aOutgoing.values (), IMutableDirectedGraphRelation::getTo, ret::add);
     return ret;
   }
 

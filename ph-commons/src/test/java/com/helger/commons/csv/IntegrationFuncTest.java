@@ -47,7 +47,7 @@ import java.nio.file.Files;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.ICommonsList;
 
 public final class IntegrationFuncTest
 {

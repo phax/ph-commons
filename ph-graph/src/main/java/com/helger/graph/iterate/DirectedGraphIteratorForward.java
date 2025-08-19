@@ -20,17 +20,17 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.NonBlockingStack;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsIterableIterator;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.stack.NonBlockingStack;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A simple forward iterator for directed graphs (following the outgoing nodes).
@@ -38,7 +38,7 @@ import com.helger.graph.IMutableDirectedGraphRelation;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class DirectedGraphIteratorForward implements IIterableIterator <IMutableDirectedGraphNode>
+public final class DirectedGraphIteratorForward implements ICommonsIterableIterator <IMutableDirectedGraphNode>
 {
   /**
    * This class represents a node in the current iteration process. It is

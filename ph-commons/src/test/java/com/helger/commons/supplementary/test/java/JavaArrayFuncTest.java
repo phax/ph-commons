@@ -25,14 +25,14 @@ import java.lang.reflect.Array;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsAssert;
+import com.helger.base.mock.CommonsAssert;
 
 public final class JavaArrayFuncTest
 {
   @Test
   public void testReflectionIntArray ()
   {
-    final int [] aIntArray = new int [] { 1, 2, 3, 4 };
+    final int [] aIntArray = { 1, 2, 3, 4 };
     assertEquals (4, Array.getLength (aIntArray));
     // Check type conversions from Array class
     try

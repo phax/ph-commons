@@ -16,7 +16,7 @@
  */
 package com.helger.tree.withid;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * A factory interface that creates tree items.

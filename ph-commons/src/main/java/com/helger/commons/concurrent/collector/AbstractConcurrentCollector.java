@@ -20,20 +20,20 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.state.ESuccess;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.base.state.ESuccess;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract concurrent collector based on {@link BlockingQueue}.
@@ -49,8 +49,8 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   public static final int DEFAULT_MAX_QUEUE_SIZE = 100;
 
   /**
-   * The STOP object that is internally added to the queue to indicate the last
-   * token. Should implement Comparable for the priority queue
+   * The STOP object that is internally added to the queue to indicate the last token. Should
+   * implement Comparable for the priority queue
    */
   public static final Object STOP_QUEUE_OBJECT = new Object ();
 
@@ -69,8 +69,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
    * Constructor creating an {@link ArrayBlockingQueue} internally.
    *
    * @param nMaxQueueSize
-   *        The maximum number of items that can be in the queue. Must be &gt;
-   *        0.
+   *        The maximum number of items that can be in the queue. Must be &gt; 0.
    */
   protected AbstractConcurrentCollector (@Nonnegative final int nMaxQueueSize)
   {

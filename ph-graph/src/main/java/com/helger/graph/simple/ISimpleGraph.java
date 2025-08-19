@@ -16,11 +16,11 @@
  */
 package com.helger.graph.simple;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
 import com.helger.graph.IMutableGraph;
 import com.helger.graph.IMutableGraphRelation;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a modifiable simple graph.

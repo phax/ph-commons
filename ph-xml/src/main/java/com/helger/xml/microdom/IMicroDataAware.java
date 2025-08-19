@@ -16,9 +16,10 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a helper interface that allows for setting character data. This is

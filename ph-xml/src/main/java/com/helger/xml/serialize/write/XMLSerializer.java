@@ -16,8 +16,6 @@
  */
 package com.helger.xml.serialize.write;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
@@ -33,17 +31,19 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.state.ETriState;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLHelper;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Internal XML serializer that takes org.w3c.dom.Node objects, extracts the
- * information to serialize and passes the respective information to an
- * {@link XMLEmitter} object.
+ * Internal XML serializer that takes org.w3c.dom.Node objects, extracts the information to
+ * serialize and passes the respective information to an {@link XMLEmitter} object.
  *
  * @author Philip Helger
  */
@@ -251,8 +251,9 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       });
 
       // Determine indent
-      final Element aParentElement = aParentNode != null &&
-                                     aParentNode.getNodeType () == Node.ELEMENT_NODE ? (Element) aParentNode : null;
+      final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE
+                                                                                                            ? (Element) aParentNode
+                                                                                                            : null;
       final String sParentNamespaceURI;
       final String sParentTagName;
       if (aParentElement != null)

@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.string.StringHelper;
 
-import com.helger.commons.string.StringHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special marker interface that is implemented by classes, that really
@@ -54,7 +54,7 @@ public interface IMicroNodeWithChildren extends IMicroNode
   /**
    * Get the concatenated text content of all direct {@link IMicroText} child
    * nodes of this element. The value is converted via the
-   * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired
    * destination class.
    *
    * @param <DSTTYPE>

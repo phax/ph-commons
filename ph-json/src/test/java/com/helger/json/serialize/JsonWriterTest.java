@@ -29,31 +29,31 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.Nullable;
-
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsNavigableMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.mutable.MutableBoolean;
-import com.helger.commons.mutable.MutableByte;
-import com.helger.commons.mutable.MutableChar;
-import com.helger.commons.mutable.MutableDouble;
-import com.helger.commons.mutable.MutableFloat;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.mutable.MutableLong;
-import com.helger.commons.mutable.MutableShort;
+import com.helger.base.numeric.mutable.MutableBoolean;
+import com.helger.base.numeric.mutable.MutableByte;
+import com.helger.base.numeric.mutable.MutableChar;
+import com.helger.base.numeric.mutable.MutableDouble;
+import com.helger.base.numeric.mutable.MutableFloat;
+import com.helger.base.numeric.mutable.MutableInt;
+import com.helger.base.numeric.mutable.MutableLong;
+import com.helger.base.numeric.mutable.MutableShort;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.CommonsTreeMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsNavigableMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.json.IJson;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.convert.JsonConverter;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link JsonWriter}.
@@ -118,8 +118,7 @@ public final class JsonWriterTest
     assertEquals ("[1,0,10]",
                   JsonConverter.convertToJson (new CommonsArrayList <> (BigDecimal.ONE,
                                                                         BigInteger.ZERO,
-                                                                        BigDecimal.TEN))
-                               .getAsJsonString ());
+                                                                        BigDecimal.TEN)).getAsJsonString ());
   }
 
   @Test
@@ -147,7 +146,8 @@ public final class JsonWriterTest
   public void testComplex ()
   {
     final ICommonsList <JsonObject> aObjs = new CommonsArrayList <> ();
-    for (final ICommonsMap <String, String> aRow : new CommonsArrayList <> (CollectionHelper.newMap ("key", "value")))
+    for (final ICommonsMap <String, String> aRow : new CommonsArrayList <> (CollectionHelperExt.createMap ("key",
+                                                                                                           "value")))
     {
       final JsonObject aObj = new JsonObject ();
       for (final Map.Entry <String, String> aEntry : aRow.entrySet ())
@@ -265,9 +265,9 @@ public final class JsonWriterTest
     assertEquals ("{" + sCRLF + "  \"foo\":\"bar\"" + sCRLF + "}",
                   aWriter.writeAsString (new JsonObject ().add ("foo", "bar")));
     assertEquals ("{" + sCRLF + "  \"foo\":[" + sCRLF + "    1," + sCRLF + "    2" + sCRLF + "  ]" + sCRLF + "}",
-                  aWriter.writeAsString (new JsonObject ().addJson ("foo", new JsonArray ().add (1).add (2))));
+                  aWriter.writeAsString (new JsonObject ().add ("foo", new JsonArray ().add (1).add (2))));
     assertEquals ("{" + sCRLF + "  \"foo\":{" + sCRLF + "    \"bar\":\"baz\"" + sCRLF + "  }" + sCRLF + "}",
-                  aWriter.writeAsString (new JsonObject ().addJson ("foo", new JsonObject ().add ("bar", "baz"))));
+                  aWriter.writeAsString (new JsonObject ().add ("foo", new JsonObject ().add ("bar", "baz"))));
     assertEquals ("[]", aWriter.writeAsString (new JsonArray ()));
     assertEquals ("[" + sCRLF + "  {" + sCRLF + "    \"foo\":\"bar\"" + sCRLF + "  }" + sCRLF + "]",
                   aWriter.writeAsString (new JsonArray ().add (new JsonObject ().add ("foo", "bar"))));

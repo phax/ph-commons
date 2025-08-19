@@ -20,17 +20,17 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.state.EChange;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.state.EChange;
+import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.commons.ICommonsIterable;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.tree.withid.unique.ITreeWithGlobalUniqueID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default proxy interface for {@link ITreeWithGlobalUniqueID}.

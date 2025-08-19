@@ -21,12 +21,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import javax.annotation.Nonnegative;
-
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.SystemProperties;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.string.StringHelper;
+import com.helger.base.system.SystemProperties;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -40,8 +39,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  * Test whether reading of XML 1.1 documents is valid.<br>
  * Links:
  * <ul>
- * <li><a href=
- * "http://stackoverflow.com/questions/4988114/java-standard-lib-produce-wrong-xml-1-1"
+ * <li><a href= "http://stackoverflow.com/questions/4988114/java-standard-lib-produce-wrong-xml-1-1"
  * >Link 1</a></li>
  * </ul>
  *
@@ -54,9 +52,9 @@ public final class ReadWriteXML11FuncTest
   private static void _generateXmlFile (final String sFilename, @Nonnegative final int nElementCount)
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eMain = aDoc.appendElement ("main_tag");
+    final IMicroElement eMain = aDoc.addElement ("main_tag");
     for (int i = 0; i < nElementCount; ++i)
-      eMain.appendElement ("test").appendText (StringHelper.getLeadingZero (i, 4));
+      eMain.addElement ("test").addText (StringHelper.getLeadingZero (i, 4));
 
     assertTrue (MicroWriter.writeToFile (aDoc, new File (sFilename), XWS_11).isSuccess ());
   }

@@ -19,11 +19,11 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-
+import com.helger.annotation.WillNotClose;
 import com.helger.json.IJsonValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for handling the serialization of simple {@link IJsonValue}

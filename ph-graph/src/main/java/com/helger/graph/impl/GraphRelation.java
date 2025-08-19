@@ -16,18 +16,18 @@
  */
 package com.helger.graph.impl;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMutableGraphRelation} interface

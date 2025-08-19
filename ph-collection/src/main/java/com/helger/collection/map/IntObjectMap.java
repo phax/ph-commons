@@ -19,17 +19,17 @@ package com.helger.collection.map;
 import java.util.Arrays;
 import java.util.function.IntFunction;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.iface.IHasSize;
+import com.helger.base.reflection.GenericReflection;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.lang.IHasSize;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special int-Object map. Based on: https://github.com/mikvor/hashmapTest
@@ -302,8 +302,8 @@ public class IntObjectMap <T> implements IHasSize
   }
 
   /**
-   * Find an index of a cell which should be updated by 'put' operation. It can
-   * be: 1) a cell with a given key 2) first free cell in the chain
+   * Find an index of a cell which should be updated by 'put' operation. It can be: 1) a cell with a
+   * given key 2) first free cell in the chain
    *
    * @param key
    *        Key to look for

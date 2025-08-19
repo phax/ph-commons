@@ -26,8 +26,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 
 /**
  * Test case for the {@link HelpFormatter} class.

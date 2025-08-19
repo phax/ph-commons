@@ -18,14 +18,14 @@ package com.helger.tree.withid;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.state.EChange;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.id.IHasID;
+import com.helger.base.state.EChange;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.tree.IBasicTreeItem;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a basic tree item with an ID. Never use this class directly but

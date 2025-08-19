@@ -23,9 +23,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.aggregate.IAggregator;
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.aggregate.IAggregator;
+import com.helger.base.string.StringImplode;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultFolderTreeItemFactory}.
@@ -37,8 +37,8 @@ public final class DefaultFolderTreeItemFactoryTest
   @Test
   public void testBasic ()
   {
-    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (x -> StringHelper.getImploded ('/',
-                                                                                                                                                  x));
+    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (x -> StringImplode.getImploded ('/',
+                                                                                                                                                   x));
     assertNotNull (ftif.createRoot ());
     try
     {
@@ -52,12 +52,13 @@ public final class DefaultFolderTreeItemFactoryTest
   @Test
   public void testEquals ()
   {
-    final IAggregator <String, String> aAggregator = x -> StringHelper.getImploded ('/', x);
+    final IAggregator <String, String> aAggregator = x -> StringImplode.getImploded ('/', x);
     final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (aAggregator);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ftif, new DefaultFolderTreeItemFactory <> (aAggregator));
+    TestHelper.testDefaultImplementationWithEqualContentObject (ftif,
+                                                                       new DefaultFolderTreeItemFactory <> (aAggregator));
     // New aggregator - different object!
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ftif,
-                                                                           new DefaultFolderTreeItemFactory <> (x -> StringHelper.getImploded ('/',
-                                                                                                                                               x)));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (ftif,
+                                                                           new DefaultFolderTreeItemFactory <> (x -> StringImplode.getImploded ('/',
+                                                                                                                                                x)));
   }
 }

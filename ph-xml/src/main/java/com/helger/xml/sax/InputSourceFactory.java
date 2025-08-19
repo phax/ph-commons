@@ -24,26 +24,25 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.xml.sax.InputSource;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.ByteBufferInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.url.URLHelper;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.stream.ByteBufferInputStream;
+import com.helger.io.file.FileHelper;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resource.URLResource;
+import com.helger.io.url.URLHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Factory class to create the correct {@link InputSource} objects for different
- * input types.
+ * Factory class to create the correct {@link InputSource} objects for different input types.
  *
  * @author Philip Helger
  */
@@ -83,8 +82,8 @@ public final class InputSourceFactory
   @Nullable
   public static InputSource create (@Nonnull final IHasInputStream aISP)
   {
-    if (aISP instanceof IReadableResource)
-      return create ((IReadableResource) aISP);
+    if (aISP instanceof final IReadableResource aRes)
+      return create (aRes);
     return create (aISP.getInputStream ());
   }
 
@@ -131,7 +130,9 @@ public final class InputSourceFactory
   }
 
   @Nonnull
-  public static InputSource create (@Nonnull final char [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static InputSource create (@Nonnull final char [] aXML,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
   {
     return new StringSAXInputSource (aXML, nOfs, nLen);
   }
@@ -143,7 +144,9 @@ public final class InputSourceFactory
   }
 
   @Nonnull
-  public static InputSource create (@Nonnull final byte [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static InputSource create (@Nonnull final byte [] aXML,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
   {
     return create (new NonBlockingByteArrayInputStream (aXML, nOfs, nLen));
   }

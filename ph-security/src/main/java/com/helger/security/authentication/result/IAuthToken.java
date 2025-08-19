@@ -18,11 +18,11 @@ package com.helger.security.authentication.result;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.id.IHasID;
 
-import com.helger.commons.id.IHasID;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for an auth token.

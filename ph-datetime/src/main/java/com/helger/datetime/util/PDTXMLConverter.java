@@ -27,10 +27,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -39,11 +35,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.datetime.PDTConfig;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.exception.InitializationException;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.CGlobal;
+import com.helger.base.exception.InitializationException;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.zone.PDTConfig;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility class for XML date/time data type handling.

@@ -16,11 +16,11 @@
  */
 package com.helger.security.authentication.credentials;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.IsSPIInterface;
+import com.helger.annotation.style.IsSPIInterface;
 import com.helger.security.authentication.subject.IAuthSubject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This interface needs to be implemented by all classes that are used for

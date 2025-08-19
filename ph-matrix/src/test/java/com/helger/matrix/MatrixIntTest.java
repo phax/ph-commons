@@ -33,19 +33,18 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FileOperations;
+
+import jakarta.annotation.Nonnull;
 
 /**
- * TestMatrix tests the functionality of the Jama MatrixInt class and associated
- * decompositions.
+ * TestMatrix tests the functionality of the Jama MatrixInt class and associated decompositions.
  * <P>
  * Run the test from the command line using <BLOCKQUOTE>
  *
@@ -55,12 +54,11 @@ import com.helger.commons.string.StringHelper;
  * </CODE>
  * </PRE>
  *
- * </BLOCKQUOTE> Detailed output is provided indicating the functionality being
- * tested and whether the functionality is correctly implemented. Exception
- * handling is also tested.
+ * </BLOCKQUOTE> Detailed output is provided indicating the functionality being tested and whether
+ * the functionality is correctly implemented. Exception handling is also tested.
  * <P>
- * The test is designed to run to completion and give a summary of any
- * implementation errors encountered. The final output should be: <BLOCKQUOTE>
+ * The test is designed to run to completion and give a summary of any implementation errors
+ * encountered. The final output should be: <BLOCKQUOTE>
  *
  * <PRE>
  * <CODE>
@@ -70,10 +68,9 @@ import com.helger.commons.string.StringHelper;
  * </CODE>
  * </PRE>
  *
- * </BLOCKQUOTE> If the test does not run to completion, this indicates that
- * there is a substantial problem within the implementation that was not
- * anticipated in the test design. The stopping point should give an indication
- * of where the problem exists.
+ * </BLOCKQUOTE> If the test does not run to completion, this indicates that there is a substantial
+ * problem within the implementation that was not anticipated in the test design. The stopping point
+ * should give an indication of where the problem exists.
  **/
 public final class MatrixIntTest
 {
@@ -129,17 +126,15 @@ public final class MatrixIntTest
     final int sumofsquares = 650;
 
     /**
-     * Constructors and constructor-like methods: double[], int double[][] int,
-     * int int, int, double int, int, double[][] constructWithCopy(double[][])
-     * random(int,int) identity(int)
+     * Constructors and constructor-like methods: double[], int double[][] int, int int, int, double
+     * int, int, double[][] constructWithCopy(double[][]) random(int,int) identity(int)
      **/
 
     _print ("\nTesting constructors and constructor-like methods...\n");
     try
     {
       /**
-       * _check that exception is thrown in packed constructor with invalid
-       * length
+       * _check that exception is thrown in packed constructor with invalid length
        **/
       new MatrixInt (columnwise, invalidld);
       fail ("exception not thrown for invalid input");
@@ -151,8 +146,7 @@ public final class MatrixIntTest
     try
     {
       /**
-       * _check that exception is thrown in default constructor if input array
-       * is 'ragged'
+       * _check that exception is thrown in default constructor if input array is 'ragged'
        **/
       final MatrixInt a = new MatrixInt (rvals);
       tmp = a.get (raggedr, raggedc);
@@ -168,8 +162,7 @@ public final class MatrixIntTest
     try
     {
       /**
-       * _check that exception is thrown in constructWithCopy if input array is
-       * 'ragged'
+       * _check that exception is thrown in constructWithCopy if input array is 'ragged'
        **/
       final MatrixInt a = MatrixInt.constructWithCopy (rvals);
       tmp = a.get (raggedr, raggedc);
@@ -214,10 +207,9 @@ public final class MatrixIntTest
     }
 
     /**
-     * Access Methods: getColumnDimension() getRowDimension() getArray()
-     * getArrayCopy() getColumnPackedCopy() getRowPackedCopy() get(int,int)
-     * getMatrix(int,int,int,int) getMatrix(int,int,int[])
-     * getMatrix(int[],int,int) getMatrix(int[],int[]) set(int,int,double)
+     * Access Methods: getColumnDimension() getRowDimension() getArray() getArrayCopy()
+     * getColumnPackedCopy() getRowPackedCopy() get(int,int) getMatrix(int,int,int,int)
+     * getMatrix(int,int,int[]) getMatrix(int[],int,int) getMatrix(int[],int[]) set(int,int,double)
      * setMatrix(int,int,int,int,MatrixInt) setMatrix(int,int,int[],MatrixInt)
      * setMatrix(int[],int,int,MatrixInt) setMatrix(int[],int[],MatrixInt)
      **/
@@ -312,8 +304,8 @@ public final class MatrixIntTest
     }
     try
     {
-      if (b.get (b.getRowDimension () - 1,
-                 b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
+      if (b.get (b.getRowDimension () - 1, b.getColumnDimension () - 1) !=
+          avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
       {
         fail ("MatrixInt entry (i,j) not successfully retreived");
       }
@@ -683,9 +675,8 @@ public final class MatrixIntTest
     }
 
     /**
-     * Array-like methods: minus minusEquals plus plusEquals arrayLeftDivide
-     * arrayLeftDivideEquals arrayRightDivide arrayRightDivideEquals arrayTimes
-     * arrayTimesEquals uminus
+     * Array-like methods: minus minusEquals plus plusEquals arrayLeftDivide arrayLeftDivideEquals
+     * arrayRightDivide arrayRightDivideEquals arrayTimes arrayTimesEquals uminus
      **/
 
     _print ("\nTesting array-like methods...\n");
@@ -1009,8 +1000,8 @@ public final class MatrixIntTest
     }
 
     /**
-     * LA methods: transpose times cond rank det trace norm1 norm2 normF normInf
-     * solve solveTranspose inverse chol eig lu qr svd
+     * LA methods: transpose times cond rank det trace norm1 norm2 normF normInf solve
+     * solveTranspose inverse chol eig lu qr svd
      **/
 
     _print ("\nTesting linear algebra methods...\n");
@@ -1161,7 +1152,7 @@ public final class MatrixIntTest
   private static void _try_success (final String s, final String e)
   {
     _print (">    " + s + "success\n");
-    if (StringHelper.hasText (e))
+    if (StringHelper.isNotEmpty (e))
       _print (">      Message: " + e + "\n");
   }
 

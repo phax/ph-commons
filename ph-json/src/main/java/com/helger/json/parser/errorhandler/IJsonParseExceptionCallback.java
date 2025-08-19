@@ -16,7 +16,7 @@
  */
 package com.helger.json.parser.errorhandler;
 
-import com.helger.commons.callback.exception.IExceptionCallback;
+import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.json.parser.JsonParseException;
 
 /**

@@ -30,24 +30,24 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.Immutable;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.system.EOperatingSystem;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.system.EOperatingSystem;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
+
+import jakarta.annotation.Nonnull;
 
 /**
- * Reads a TTF font file and provides access to kerning information. Thanks to
- * the Apache FOP project for their inspiring work!
+ * Reads a TTF font file and provides access to kerning information. Thanks to the Apache FOP
+ * project for their inspiring work!
  *
  * @author Nathan Sweet <misc@n4te.com>
  */
@@ -139,9 +139,8 @@ public final class FontKerningFuncTest
     }
 
     /**
-     * Returns the kerning value for the specified glyphs. The glyph code for a
-     * Unicode codepoint can be retrieved with
-     * {@link GlyphVector#getGlyphCode(int)}.
+     * Returns the kerning value for the specified glyphs. The glyph code for a Unicode codepoint
+     * can be retrieved with {@link GlyphVector#getGlyphCode(int)}.
      *
      * @param nFirstGlyphCode
      *        first glyph code
@@ -282,7 +281,9 @@ public final class FontKerningFuncTest
       final Font aFont = Font.getFont (aTextAttributes);
 
       final char [] aChars = "T,".toCharArray ();
-      final GlyphVector aGlyphVector = aFont.layoutGlyphVector (new FontRenderContext (new AffineTransform (), false, true),
+      final GlyphVector aGlyphVector = aFont.layoutGlyphVector (new FontRenderContext (new AffineTransform (),
+                                                                                       false,
+                                                                                       true),
                                                                 aChars,
                                                                 0,
                                                                 aChars.length,

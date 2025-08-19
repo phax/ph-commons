@@ -22,9 +22,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
@@ -33,26 +30,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.exception.IExceptionCallback;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.lang.IHasClassLoader;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.CallbackList;
+import com.helger.base.callback.exception.IExceptionCallback;
+import com.helger.base.classloader.IHasClassLoader;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.StringHex;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
-import com.helger.jaxb.validation.IValidationEventHandlerFactory;
 import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.xml.schema.XMLSchemaCache;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
@@ -61,8 +60,7 @@ import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.ValidationEventHandler;
 
 /**
- * This is the generic reader and writer base class for JAXB enabled document
- * types.
+ * This is the generic reader and writer base class for JAXB enabled document types.
  *
  * @author Philip Helger
  * @param <JAXBTYPE>
@@ -97,11 +95,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * Constructor without XSD paths.
    *
    * @param aType
-   *        The class of the JAXB document implementation type. May not be
-   *        <code>null</code>.
+   *        The class of the JAXB document implementation type. May not be <code>null</code>.
    * @param aQName
-   *        The qualified name in which the object should be wrapped. May not be
-   *        <code>null</code>.
+   *        The qualified name in which the object should be wrapped. May not be <code>null</code>.
    * @since 9.1.5
    * @see #createSimpleJAXBElement(QName, Class)
    */
@@ -114,13 +110,11 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * Constructor without XSD paths.
    *
    * @param aType
-   *        The class of the JAXB document implementation type. May not be
-   *        <code>null</code>.
+   *        The class of the JAXB document implementation type. May not be <code>null</code>.
    * @param aWrapper
-   *        Wrap the passed domain object into a {@link JAXBElement} for
-   *        marshalling (writing). This can usually be done using the
-   *        respective's package ObjectFactory implementation. May not be
-   *        <code>null</code>.
+   *        Wrap the passed domain object into a {@link JAXBElement} for marshalling (writing). This
+   *        can usually be done using the respective's package ObjectFactory implementation. May not
+   *        be <code>null</code>.
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 @Nonnull final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
@@ -132,16 +126,14 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * Constructor with XSD paths.
    *
    * @param aType
-   *        The class of the JAXB document implementation type. May not be
-   *        <code>null</code>.
+   *        The class of the JAXB document implementation type. May not be <code>null</code>.
    * @param aXSDs
-   *        The XSDs used to validate document. May be <code>null</code> or
-   *        empty indicating, that no XSD check is needed.
+   *        The XSDs used to validate document. May be <code>null</code> or empty indicating, that
+   *        no XSD check is needed.
    * @param aJAXBElementWrapper
-   *        Wrap the passed domain object into a {@link JAXBElement} for
-   *        marshalling (writing). This can usually be done using the
-   *        respective's package ObjectFactory implementation. May not be
-   *        <code>null</code>.
+   *        Wrap the passed domain object into a {@link JAXBElement} for marshalling (writing). This
+   *        can usually be done using the respective's package ObjectFactory implementation. May not
+   *        be <code>null</code>.
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 @Nullable final List <? extends ClassPathResource> aXSDs,
@@ -183,8 +175,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
 
   /**
    * @return The special JAXB validation event handler to be used. By default
-   *         {@link JAXBBuilderDefaultSettings#getDefaultValidationEventHandler()}
-   *         is used.
+   *         {@link JAXBBuilderDefaultSettings#getDefaultValidationEventHandler()} is used.
    */
   @Nullable
   public final ValidationEventHandler getValidationEventHandler ()
@@ -207,29 +198,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   }
 
   /**
-   * Set a factory to be used to create {@link ValidationEventHandler} objects.
-   * By default none is present. Since v11 this is deprecated, because it was
-   * too complicated to use.
-   *
-   * @param aVEHFactory
-   *        The new factory to be used. May be <code>null</code>.
-   * @return this for chaining
-   * @deprecated Set the validation event handler manually. Use
-   *             {@link #setValidationEventHandler(ValidationEventHandler)}
-   *             instead.
-   */
-  @Nonnull
-  @Deprecated (forRemoval = true, since = "11.0.0")
-  public final GenericJAXBMarshaller <JAXBTYPE> setValidationEventHandlerFactory (@Nullable final IValidationEventHandlerFactory aVEHFactory)
-  {
-    return setValidationEventHandler (aVEHFactory == null ? null : aVEHFactory.apply (m_aEventHandler));
-  }
-
-  /**
-   * Special overload of
-   * {@link #setValidationEventHandler(ValidationEventHandler)} for the easy
-   * version of just collecting the errors and additionally invoking the old
-   * validation handler.
+   * Special overload of {@link #setValidationEventHandler(ValidationEventHandler)} for the easy
+   * version of just collecting the errors and additionally invoking the old validation handler.
    *
    * @param aErrorList
    *        The error list to fill. May not be <code>null</code>.
@@ -336,8 +306,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * Enable or disable the usage of an eventually configured XML Schema.
    *
    * @param bUseSchema
-   *        <code>true</code> to use an XML Schema, <code>false</code> to not
-   *        use it.
+   *        <code>true</code> to use an XML Schema, <code>false</code> to not use it.
    * @return this for chaining
    * @since 11.0.3
    */
@@ -379,8 +348,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * Set the no namespace schema location to be used for writing JAXB objects.
    *
    * @param sNoNamespaceSchemaLocation
-   *        The no namespace schema location to be used. May be
-   *        <code>null</code>.
+   *        The no namespace schema location to be used. May be <code>null</code>.
    * @return this for chaining
    * @since 9.0.0
    */
@@ -397,8 +365,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   }
 
   /**
-   * Change whether the context cache should be used or not. Since creating the
-   * JAXB context is quite cost intensive it is recommended to leave it enabled.
+   * Change whether the context cache should be used or not. Since creating the JAXB context is
+   * quite cost intensive it is recommended to leave it enabled.
    *
    * @param bUseContextCache
    *        <code>true</code> to use it (default), <code>false</code> if not.
@@ -434,8 +402,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   }
 
   /**
-   * @return A list of all XSD resources used for validation. Never
-   *         <code>null</code> but maybe empty.
+   * @return A list of all XSD resources used for validation. Never <code>null</code> but maybe
+   *         empty.
    */
   @Nonnull
   @Nonempty
@@ -446,8 +414,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   }
 
   /**
-   * @return The validation schema to be used. May be <code>null</code>
-   *         indicating that no validation is required.
+   * @return The validation schema to be used. May be <code>null</code> indicating that no
+   *         validation is required.
    * @see #isUseSchema()
    * @see #getOriginalXSDs()
    */
@@ -470,8 +438,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * Create the JAXBContext - cached or uncached.
    *
    * @param aClassLoader
-   *        The class loader to be used for XML schema resolving. May be
-   *        <code>null</code>.
+   *        The class loader to be used for XML schema resolving. May be <code>null</code>.
    * @return The created JAXBContext and never <code>null</code>.
    * @throws JAXBException
    *         In case creation fails
@@ -490,8 +457,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
 
   /**
    * @param aClassLoader
-   *        The class loader to be used for XML schema resolving. May be
-   *        <code>null</code>.
+   *        The class loader to be used for XML schema resolving. May be <code>null</code>.
    * @return The JAXB unmarshaller to use. Never <code>null</code>.
    * @throws JAXBException
    *         In case the creation fails.
@@ -546,10 +512,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
 
   /**
    * @param aClassLoader
-   *        The class loader to be used for XML schema resolving. May be
-   *        <code>null</code>.
-   * @return A marshaller for converting document to XML. Never
-   *         <code>null</code>.
+   *        The class loader to be used for XML schema resolving. May be <code>null</code>.
+   * @return A marshaller for converting document to XML. Never <code>null</code>.
    * @throws JAXBException
    *         In case of an error.
    */
@@ -695,9 +659,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
                                        .append ("NSContext", m_aNSContext)
                                        .append ("Charset", m_aCharset)
                                        .append ("IndentString",
-                                                m_sIndentString == null ? null
-                                                                        : StringHelper.getHexEncoded (m_sIndentString,
-                                                                                                      StandardCharsets.ISO_8859_1))
+                                                m_sIndentString == null ? null : StringHex.getHexEncoded (
+                                                                                                          m_sIndentString,
+                                                                                                          StandardCharsets.ISO_8859_1))
                                        .append ("SchemaLocation", m_sSchemaLocation)
                                        .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                                        .append ("UseContextCache", m_bUseContextCache)

@@ -18,15 +18,15 @@ package com.helger.security.authentication.result;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.security.authentication.subject.IAuthSubject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IAuthIdentification} interface.

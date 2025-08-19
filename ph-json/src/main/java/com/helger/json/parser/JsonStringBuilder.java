@@ -20,11 +20,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
 /**
  * A special StringBuilder implementation that supports conversion to numeric

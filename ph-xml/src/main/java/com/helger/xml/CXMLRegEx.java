@@ -18,10 +18,9 @@ package com.helger.xml;
 
 import java.util.regex.Pattern;
 
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.regex.RegExCache;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.cache.regex.RegExCache;
 
 /**
  * XML regular expressions.<br>

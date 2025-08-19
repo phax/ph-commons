@@ -16,12 +16,12 @@
  */
 package com.helger.json.visit;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.callback.ICallback;
+import com.helger.base.callback.ICallback;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.IJsonValue;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface for visiting the JSON hierarchy.

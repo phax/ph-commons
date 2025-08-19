@@ -21,9 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultTreeWithID}.
@@ -38,10 +36,10 @@ public final class DefaultTreeWithIDTest
     final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
     assertNotNull (t.getRootItem ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <> ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <> ());
     final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <> ();
     t2.getRootItem ().createChildItem ("dataid", "data");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, t2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (t, t2);
   }
 
   @Test
@@ -61,7 +59,6 @@ public final class DefaultTreeWithIDTest
       new DefaultTreeWithID <> (new DefaultTreeItemWithIDFactory <String, String> ()
       {
         @Override
-        @SuppressFBWarnings (value = "NP_NONNULL_RETURN_VIOLATION", justification = "We want to test returning null!")
         public DefaultTreeItemWithID <String, String> createRoot ()
         {
           return null;

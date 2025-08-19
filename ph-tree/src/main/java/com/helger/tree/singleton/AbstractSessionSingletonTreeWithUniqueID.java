@@ -16,17 +16,15 @@
  */
 package com.helger.tree.singleton;
 
-import javax.annotation.Nonnull;
-
 import com.helger.scope.singleton.AbstractSessionSingleton;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents a global singleton tree with a unique ID. It basically is a
- * {@link AbstractSessionSingleton} wrapping a
- * {@link DefaultTreeWithGlobalUniqueID} with the same API.
+ * {@link AbstractSessionSingleton} wrapping a {@link DefaultTreeWithGlobalUniqueID} with the same
+ * API.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -34,7 +32,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @param <VALUETYPE>
  *        Tree value type
  */
-@SuppressFBWarnings ("SE_BAD_FIELD")
 public abstract class AbstractSessionSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> extends AbstractSessionSingleton
                                                                implements
                                                                ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE>

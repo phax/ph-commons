@@ -19,31 +19,30 @@ package com.helger.xml.serialize.read;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.validation.Schema;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.exception.IExceptionCallback;
-import com.helger.commons.collection.impl.CommonsEnumMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.state.EChange;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.callback.CallbackList;
+import com.helger.base.callback.exception.IExceptionCallback;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.collection.commons.CommonsEnumMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * DOM reader default settings
@@ -245,7 +244,6 @@ public final class DOMReaderDefaultSettings
   }
 
   @Nullable
-  @SuppressFBWarnings ("NP_BOOLEAN_RETURN_NULL")
   public static Boolean getFeatureValue (@Nullable final EXMLParserFeature eFeature)
   {
     if (eFeature == null)

@@ -18,15 +18,13 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link ITrustStoreDescriptor}.
@@ -36,10 +34,10 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class TrustStoreDescriptor implements ITrustStoreDescriptor
 {
-  private final IKeyStoreType m_aType;
-  private final String m_sPath;
-  private final char [] m_aPassword;
-  private final Provider m_aProvider;
+  final IKeyStoreType m_aType;
+  final String m_sPath;
+  final char [] m_aPassword;
+  final Provider m_aProvider;
   // Lazily initialized
   private LoadedKeyStore m_aLTS;
 
@@ -124,74 +122,5 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
   public static TrustStoreDescriptorBuilder builder (@Nonnull final TrustStoreDescriptor a)
   {
     return new TrustStoreDescriptorBuilder (a);
-  }
-
-  /**
-   * Builder class for class {@link TrustStoreDescriptor}.
-   *
-   * @author Philip Helger
-   */
-  public static class TrustStoreDescriptorBuilder implements IBuilder <TrustStoreDescriptor>
-  {
-    private IKeyStoreType m_aType;
-    private String m_sPath;
-    private char [] m_aPassword;
-    private Provider m_aProvider;
-
-    public TrustStoreDescriptorBuilder ()
-    {}
-
-    public TrustStoreDescriptorBuilder (@Nonnull final TrustStoreDescriptor aSrc)
-    {
-      type (aSrc.m_aType).path (aSrc.m_sPath).password (aSrc.m_aPassword).provider (aSrc.m_aProvider);
-    }
-
-    @Nonnull
-    public final TrustStoreDescriptorBuilder type (@Nullable final IKeyStoreType a)
-    {
-      m_aType = a;
-      return this;
-    }
-
-    @Nonnull
-    public final TrustStoreDescriptorBuilder path (@Nullable final String s)
-    {
-      m_sPath = s;
-      return this;
-    }
-
-    @Nonnull
-    public final TrustStoreDescriptorBuilder password (@Nullable final String s)
-    {
-      return password (s == null ? null : s.toCharArray ());
-    }
-
-    @Nonnull
-    public final TrustStoreDescriptorBuilder password (@Nullable final char [] a)
-    {
-      m_aPassword = a;
-      return this;
-    }
-
-    @Nonnull
-    public final TrustStoreDescriptorBuilder provider (@Nullable final Provider a)
-    {
-      m_aProvider = a;
-      return this;
-    }
-
-    @Nonnull
-    public TrustStoreDescriptor build () throws IllegalStateException
-    {
-      if (m_aType == null)
-        throw new IllegalStateException ("Type is missing");
-      if (StringHelper.hasNoText (m_sPath))
-        throw new IllegalStateException ("Path is empty");
-      if (m_aPassword == null)
-        throw new IllegalStateException ("Password is missing");
-      // Provider may be null
-
-      return new TrustStoreDescriptor (m_aType, m_sPath, m_aPassword, m_aProvider);
-    }
   }
 }

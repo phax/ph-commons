@@ -19,19 +19,19 @@ package com.helger.commons.concurrent.collector;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.state.ESuccess;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.base.state.ESuccess;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Concurrent collector that performs action on multiple objects at once
@@ -52,9 +52,8 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   private IConcurrentPerformer <List <DATATYPE>> m_aPerformer;
 
   /**
-   * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
-   * maximum queue length and {@link #DEFAULT_MAX_PERFORM_COUNT} as the max
-   * perform count.
+   * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the maximum queue length and
+   * {@link #DEFAULT_MAX_PERFORM_COUNT} as the max perform count.
    */
   public ConcurrentCollectorMultiple ()
   {
@@ -65,11 +64,9 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    * Constructor.
    *
    * @param nMaxQueueSize
-   *        The maximum number of items that can be in the queue. Must be &gt;
-   *        0.
+   *        The maximum number of items that can be in the queue. Must be &gt; 0.
    * @param nMaxPerformCount
-   *        The maximum number of objects to be put in the queue for execution.
-   *        Must be &gt; 0.
+   *        The maximum number of objects to be put in the queue for execution. Must be &gt; 0.
    */
   public ConcurrentCollectorMultiple (@Nonnegative final int nMaxQueueSize, @Nonnegative final int nMaxPerformCount)
   {
@@ -84,8 +81,8 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   }
 
   /**
-   * Constructor using an existing {@link BlockingQueue} and the default max
-   * perform count ({@value #DEFAULT_MAX_PERFORM_COUNT}).
+   * Constructor using an existing {@link BlockingQueue} and the default max perform count
+   * ({@value #DEFAULT_MAX_PERFORM_COUNT}).
    *
    * @param aQueue
    *        {@link BlockingQueue} to use. May not be <code>null</code>.
@@ -101,8 +98,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    * @param aQueue
    *        {@link BlockingQueue} to use. May not be <code>null</code>.
    * @param nMaxPerformCount
-   *        The maximum number of objects to be put in the list for execution.
-   *        Must be &gt; 0.
+   *        The maximum number of objects to be put in the list for execution. Must be &gt; 0.
    */
   public ConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue,
                                       @Nonnegative final int nMaxPerformCount)
@@ -112,8 +108,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   }
 
   /**
-   * @return The maximum number of objects to be put in the list for execution.
-   *         Always &ge; 0.
+   * @return The maximum number of objects to be put in the list for execution. Always &ge; 0.
    */
   @Nonnegative
   public final int getMaxPerformCount ()
@@ -122,8 +117,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   }
 
   /**
-   * @return The current performer set. <code>null</code> if none was explicitly
-   *         set.
+   * @return The current performer set. <code>null</code> if none was explicitly set.
    */
   @Nullable
   public final IConcurrentPerformer <List <DATATYPE>> getPerformer ()
@@ -132,10 +126,9 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   }
 
   /**
-   * Set the performer to be used. This method must be invoked before the
-   * collector can be run. The passed implementation must be rock-solid as this
-   * class will not make any retries. If the passed performer throws and
-   * exception without handling the objects correct the objects will be lost!
+   * Set the performer to be used. This method must be invoked before the collector can be run. The
+   * passed implementation must be rock-solid as this class will not make any retries. If the passed
+   * performer throws and exception without handling the objects correct the objects will be lost!
    *
    * @param aPerformer
    *        The performer to be used. May not be <code>null</code>.
@@ -156,9 +149,8 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    * Internal method to invoke the performed for the passed list of objects.
    *
    * @param aObjectsToPerform
-   *        List of objects to be passed to the performer. Never
-   *        <code>null</code>. The length is at last
-   *        {@link #getMaxPerformCount()}.
+   *        List of objects to be passed to the performer. Never <code>null</code>. The length is at
+   *        last {@link #getMaxPerformCount()}.
    * @return {@link ESuccess}
    */
   @Nonnull
@@ -191,14 +183,12 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   }
 
   /**
-   * This method starts the collector by taking objects from the internal
-   * {@link BlockingQueue}. So this method blocks and must be invoked from a
-   * separate thread. This method runs until {@link #stopQueuingNewObjects()} is
-   * new called and the queue is empty.
+   * This method starts the collector by taking objects from the internal {@link BlockingQueue}. So
+   * this method blocks and must be invoked from a separate thread. This method runs until
+   * {@link #stopQueuingNewObjects()} is new called and the queue is empty.
    *
    * @throws IllegalStateException
-   *         if no performer is set - see
-   *         {@link #setPerformer(IConcurrentPerformer)}
+   *         if no performer is set - see {@link #setPerformer(IConcurrentPerformer)}
    */
   public final void collect ()
   {

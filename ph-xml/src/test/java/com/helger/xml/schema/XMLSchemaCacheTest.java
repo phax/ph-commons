@@ -27,15 +27,13 @@ import javax.xml.validation.Schema;
 
 import org.junit.Test;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.xml.ls.CollectingLSResourceResolver;
 import com.helger.xml.ls.LSResourceData;
 import com.helger.xml.ls.LoggingLSResourceResolver;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link XMLSchemaCache}.
@@ -100,7 +98,6 @@ public final class XMLSchemaCacheTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCustom ()
   {
     @PresentForCodeCoverage
@@ -147,7 +144,7 @@ public final class XMLSchemaCacheTest
     {}
     try
     {
-      sc.getSchema (new IReadableResource [0]);
+      sc.getSchema ();
       fail ();
     }
     catch (final IllegalArgumentException ex)

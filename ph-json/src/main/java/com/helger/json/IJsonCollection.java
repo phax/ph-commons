@@ -16,7 +16,7 @@
  */
 package com.helger.json;
 
-import com.helger.commons.lang.IHasSize;
+import com.helger.base.iface.IHasSize;
 
 /**
  * Base interface for all JSON arrays and objects. So the base interface for

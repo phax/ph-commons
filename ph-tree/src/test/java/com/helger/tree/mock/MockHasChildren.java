@@ -16,18 +16,18 @@
  */
 package com.helger.tree.mock;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.id.IHasID;
+import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.helper.CollectionHelperExt;
+import com.helger.collection.hierarchy.IHasChildren;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hierarchy.IHasChildren;
-import com.helger.commons.id.IHasID;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class MockHasChildren implements IHasChildren <MockHasChildren>, IHasID <String>
 {
@@ -37,7 +37,7 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
   public MockHasChildren (@Nonnull final String sID, @Nullable final MockHasChildren... aList)
   {
     m_sID = sID;
-    m_aList = CollectionHelper.newList (aList);
+    m_aList = CollectionHelperExt.createList (aList);
   }
 
   public String getID ()

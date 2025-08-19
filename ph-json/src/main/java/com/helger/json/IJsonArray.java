@@ -18,21 +18,21 @@ package com.helger.json;
 
 import java.util.function.ObjIntConsumer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.traits.IGenericAdderTrait;
+import com.helger.base.traits.IPrimitiveConverterTo;
+import com.helger.collection.base.FilterIterator;
+import com.helger.collection.base.IIterableIterator;
+import com.helger.collection.base.MapperIterator;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.typeconvert.trait.IGetterByIndexTrait;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.iterate.FilterIterator;
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.collection.iterate.MapperIterator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.traits.IGenericAdderTrait;
-import com.helger.commons.traits.IGetterByIndexTrait;
-import com.helger.commons.traits.IPrimitiveConverterTo;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * JSON array.
@@ -45,6 +45,7 @@ public interface IJsonArray extends
                             IGetterByIndexTrait,
                             IGenericAdderTrait <IJson, IJsonArray>
 {
+  /* Implementation for IGenericAdderTrait */
   @Nonnull
   default IPrimitiveConverterTo <IJson> getPrimitiveConverterTo ()
   {
@@ -54,7 +55,7 @@ public interface IJsonArray extends
   @Nonnull
   default IJsonArray addIfNotEmpty (@Nullable final String sValue)
   {
-    if (StringHelper.hasText (sValue))
+    if (StringHelper.isNotEmpty (sValue))
       add (sValue);
     return thisAsT ();
   }
@@ -76,13 +77,12 @@ public interface IJsonArray extends
   IJson get (@Nonnegative int nIndex);
 
   /**
-   * Get the element at the specified index. This is the {@link IJsonValue}
-   * specific version of {@link #get(int)}.
+   * Get the element at the specified index. This is the {@link IJsonValue} specific version of
+   * {@link #get(int)}.
    *
    * @param nIndex
    *        The index to retrieve.
-   * @return <code>null</code> if the index is invalid or if the value is not a
-   *         {@link IJsonValue}.
+   * @return <code>null</code> if the index is invalid or if the value is not a {@link IJsonValue}.
    */
   @Nullable
   default IJsonValue getValueAtIndex (@Nonnegative final int nIndex)
@@ -92,13 +92,12 @@ public interface IJsonArray extends
   }
 
   /**
-   * Get the element at the specified index. This is the {@link IJsonArray}
-   * specific version of {@link #get(int)}.
+   * Get the element at the specified index. This is the {@link IJsonArray} specific version of
+   * {@link #get(int)}.
    *
    * @param nIndex
    *        The index to retrieve.
-   * @return <code>null</code> if the index is invalid or if the value is not a
-   *         {@link IJsonArray}.
+   * @return <code>null</code> if the index is invalid or if the value is not a {@link IJsonArray}.
    */
   @Nullable
   default IJsonArray getArrayAtIndex (@Nonnegative final int nIndex)
@@ -108,13 +107,12 @@ public interface IJsonArray extends
   }
 
   /**
-   * Get the element at the specified index. This is the {@link IJsonObject}
-   * specific version of {@link #get(int)}.
+   * Get the element at the specified index. This is the {@link IJsonObject} specific version of
+   * {@link #get(int)}.
    *
    * @param nIndex
    *        The index to retrieve.
-   * @return <code>null</code> if the index is invalid or if the value is not a
-   *         {@link IJsonObject}.
+   * @return <code>null</code> if the index is invalid or if the value is not a {@link IJsonObject}.
    */
   @Nullable
   default IJsonObject getObjectAtIndex (@Nonnegative final int nIndex)
@@ -124,14 +122,12 @@ public interface IJsonArray extends
   }
 
   /**
-   * Get the plain Object value of the element at the specified index. If the
-   * element at the specified index is not a Json value, <code>null</code> is
-   * returned.
+   * Get the plain Object value of the element at the specified index. If the element at the
+   * specified index is not a Json value, <code>null</code> is returned.
    *
    * @param nIndex
    *        The index to retrieve.
-   * @return <code>null</code> if the index is invalid or if the value is not a
-   *         {@link IJsonValue}.
+   * @return <code>null</code> if the index is invalid or if the value is not a {@link IJsonValue}.
    */
   @Nullable
   default Object getValue (@Nonnegative final int nIndex)
@@ -141,8 +137,8 @@ public interface IJsonArray extends
   }
 
   /**
-   * Get a sub array of this array from the specified start index (incl.) up to
-   * the specified end index (excl.).
+   * Get a sub array of this array from the specified start index (incl.) up to the specified end
+   * index (excl.).
    *
    * @param nStartIndex
    *        The start index. Must be &ge; 0.
@@ -155,8 +151,7 @@ public interface IJsonArray extends
   IJsonArray getSubArray (@Nonnegative int nStartIndex, @Nonnegative int nEndIndex);
 
   /**
-   * @return A copy of all contained items. Never <code>null</code> but maybe
-   *         empty.
+   * @return A copy of all contained items. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -166,8 +161,7 @@ public interface IJsonArray extends
    * Invoke the passed consumer on all entries of this array.
    *
    * @param aConsumer
-   *        Consumer with the first param being the value and second param being
-   *        the 0-based index.
+   *        Consumer with the first param being the value and second param being the 0-based index.
    */
   @Override
   void forEachByIndex (@Nonnull ObjIntConsumer <? super IJson> aConsumer);
@@ -177,8 +171,7 @@ public interface IJsonArray extends
    *
    * @param aValue
    *        The value to be checked for containment. May be <code>null</code>.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   boolean contains (@Nullable IJson aValue);
 
@@ -187,8 +180,7 @@ public interface IJsonArray extends
    *
    * @param aValue
    *        The value to be checked for containment. May be <code>null</code>.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean contains (@Nullable final Object aValue)
   {
@@ -200,8 +192,7 @@ public interface IJsonArray extends
    *
    * @param bValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean contains (final boolean bValue)
   {
@@ -213,8 +204,7 @@ public interface IJsonArray extends
    *
    * @param cValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean contains (final char cValue)
   {
@@ -226,8 +216,7 @@ public interface IJsonArray extends
    *
    * @param dValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean contains (final double dValue)
   {
@@ -239,8 +228,7 @@ public interface IJsonArray extends
    *
    * @param nValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean contains (final int nValue)
   {
@@ -252,8 +240,7 @@ public interface IJsonArray extends
    *
    * @param nValue
    *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the value is contained, <code>false</code> if not.
    */
   default boolean contains (final long nValue)
   {
@@ -291,8 +278,7 @@ public interface IJsonArray extends
   }
 
   /**
-   * @return A list of all cloned values contained in this array. Never
-   *         <code>null</code>.
+   * @return A list of all cloned values contained in this array. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy

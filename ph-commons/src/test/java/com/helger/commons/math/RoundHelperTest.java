@@ -25,10 +25,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.base.mock.CommonsAssert;
 import com.helger.commons.math.RoundHelper.EDecimalType;
-import com.helger.commons.mock.CommonsAssert;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link RoundHelper}.
@@ -44,7 +42,6 @@ public final class RoundHelperTest
       assertSame (e, EDecimalType.valueOf (e.name ()));
   }
 
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   @Test
   public void testGetRounded ()
   {
@@ -94,7 +91,6 @@ public final class RoundHelperTest
     CommonsAssert.assertEquals (Double.NEGATIVE_INFINITY, RoundHelper.getRoundedUpFix (Double.NEGATIVE_INFINITY, 0));
   }
 
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   @Test
   public void testGetFormatted ()
   {
@@ -153,8 +149,10 @@ public final class RoundHelperTest
     assertEquals ("1.50", RoundHelper.getFormattedFix2 (1.4999, Locale.US));
     assertEquals ("1.50", RoundHelper.getFormattedFix2 (1.5, Locale.US));
     assertEquals (Double.toString (Double.NaN), RoundHelper.getFormattedFix (Double.NaN, 0, Locale.US));
-    assertEquals (Double.toString (Double.POSITIVE_INFINITY), RoundHelper.getFormattedFix (Double.POSITIVE_INFINITY, 0, Locale.US));
-    assertEquals (Double.toString (Double.NEGATIVE_INFINITY), RoundHelper.getFormattedFix (Double.NEGATIVE_INFINITY, 0, Locale.US));
+    assertEquals (Double.toString (Double.POSITIVE_INFINITY),
+                  RoundHelper.getFormattedFix (Double.POSITIVE_INFINITY, 0, Locale.US));
+    assertEquals (Double.toString (Double.NEGATIVE_INFINITY),
+                  RoundHelper.getFormattedFix (Double.NEGATIVE_INFINITY, 0, Locale.US));
   }
 
   @Test

@@ -16,14 +16,14 @@
  */
 package com.helger.jaxb.validation;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.list.ErrorList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}

@@ -16,8 +16,8 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * MicroDOM internal event.

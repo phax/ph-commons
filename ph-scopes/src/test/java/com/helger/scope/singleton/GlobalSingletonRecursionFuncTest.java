@@ -18,14 +18,14 @@ package com.helger.scope.singleton;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.scope.IScope;
 import com.helger.scope.mock.ScopeTestRule;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link AbstractGlobalSingleton}.

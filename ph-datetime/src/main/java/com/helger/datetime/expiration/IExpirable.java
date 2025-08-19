@@ -19,10 +19,10 @@ package com.helger.datetime.expiration;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.datetime.helper.PDTFactory;
 
-import com.helger.commons.datetime.PDTFactory;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Read-only interface for objects that can expire.

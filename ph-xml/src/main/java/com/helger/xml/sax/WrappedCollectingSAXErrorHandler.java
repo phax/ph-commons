@@ -16,12 +16,12 @@
  */
 package com.helger.xml.sax;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.diagnostics.error.list.ErrorList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.error.list.ErrorList;
+import jakarta.annotation.Nonnull;
 
 /**
  * An error handler implementation that stores all warnings, errors and fatal

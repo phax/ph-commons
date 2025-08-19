@@ -16,13 +16,13 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.ETriState;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroDocument} interface.
@@ -41,7 +41,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   public MicroDocument (@Nullable final IMicroDocumentType aDocType)
   {
     if (aDocType != null)
-      appendChild (aDocType);
+      addChild (aDocType);
   }
 
   @Nonnull
@@ -61,7 +61,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   }
 
   @Override
-  protected void onAppendChild (@Nonnull final AbstractMicroNode aChildNode)
+  protected void onAddChild (@Nonnull final AbstractMicroNode aChildNode)
   {
     if (!_canBeAppendedToDocumentRoot (aChildNode))
       throw new MicroException ("Cannot add nodes of type " + aChildNode + " to a document");
@@ -78,7 +78,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
                                       " and wants to add " +
                                       aChildNode);
     }
-    super.onAppendChild (aChildNode);
+    super.onAddChild (aChildNode);
   }
 
   @Nonnull
@@ -118,7 +118,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   {
     final MicroDocument ret = new MicroDocument ();
     ret.setStandalone (m_eStandalone);
-    forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
+    forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
     return ret;
   }
 

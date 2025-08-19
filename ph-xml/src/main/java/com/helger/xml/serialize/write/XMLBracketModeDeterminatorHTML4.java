@@ -19,14 +19,15 @@ package com.helger.xml.serialize.write;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link IXMLBracketModeDeterminator} for HTML4. This is not

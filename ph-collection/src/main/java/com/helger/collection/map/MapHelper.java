@@ -16,8 +16,8 @@
  */
 package com.helger.collection.map;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Primitive map common methods

@@ -16,14 +16,14 @@
  */
 package com.helger.json.parser.errorhandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.json.parser.JsonParseException;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link IJsonParseExceptionCallback} that logs all

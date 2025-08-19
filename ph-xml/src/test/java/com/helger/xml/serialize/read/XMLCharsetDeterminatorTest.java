@@ -27,11 +27,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.charset.EUnicodeBOM;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 public final class XMLCharsetDeterminatorTest
 {

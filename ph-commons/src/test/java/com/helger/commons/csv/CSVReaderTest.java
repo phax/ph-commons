@@ -44,16 +44,16 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.helper.CollectionHelperExt;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link CSVReader}.
@@ -137,7 +137,7 @@ public final class CSVReaderTest
     aSB.append ("a,\0b,aReader");
 
     try (final NonBlockingStringReader reader = new NonBlockingStringReader (aSB.toString ());
-        final CSVReader defaultReader = new CSVReader (reader))
+         final CSVReader defaultReader = new CSVReader (reader))
     {
       final ICommonsList <String> nextLine = defaultReader.readNext ();
       assertEquals (3, nextLine.size ());
@@ -233,7 +233,6 @@ public final class CSVReaderTest
   @Test
   public void testOptionalConstructors () throws IOException
   {
-
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     aSB.append ("a\tb\tc").append ('\n'); // tab separated case
     aSB.append ("a\t'b\tb\tb'\tc").append ('\n'); // single quoted elements
@@ -271,7 +270,6 @@ public final class CSVReaderTest
   @Test
   public void testSkippingLines () throws IOException
   {
-
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     // should skip this
     aSB.append ("Skip this line\t with tab").append ('\n');
@@ -298,7 +296,6 @@ public final class CSVReaderTest
   @Test
   public void testSkippingLinesWithDifferentEscape () throws IOException
   {
-
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     // should skip this
     aSB.append ("Skip this line?t with tab").append ('\n');
@@ -327,7 +324,6 @@ public final class CSVReaderTest
   @Test
   public void testNormalParsedLine () throws IOException
   {
-
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     aSB.append ("a,1234567,aReader").append ('\n');// a,1234,aReader
@@ -344,8 +340,7 @@ public final class CSVReaderTest
   }
 
   /**
-   * Same as testADoubleQuoteAsDataElement but I changed the quotechar to a
-   * single quote.
+   * Same as testADoubleQuoteAsDataElement but I changed the quotechar to a single quote.
    *
    * @throws IOException
    *         never
@@ -373,8 +368,8 @@ public final class CSVReaderTest
   }
 
   /**
-   * Same as testADoubleQuoteAsDataElement but I changed the quotechar to a
-   * single quote. Also the middle field is empty.
+   * Same as testADoubleQuoteAsDataElement but I changed the quotechar to a single quote. Also the
+   * middle field is empty.
    *
    * @throws IOException
    *         never
@@ -423,7 +418,6 @@ public final class CSVReaderTest
   @Test
   public void testEscapedQuote () throws IOException
   {
-
     final StringBuilder aSB = new StringBuilder ();
 
     // a,123"4",aReader
@@ -441,7 +435,6 @@ public final class CSVReaderTest
   @Test
   public void testEscapedEscape () throws IOException
   {
-
     final StringBuilder aSB = new StringBuilder ();
 
     // a,123"4",aReader
@@ -457,9 +450,8 @@ public final class CSVReaderTest
   }
 
   /**
-   * Test a line where one of the elements is two single quotes and the quote
-   * character is the default double quote. The expected result is two single
-   * quotes.
+   * Test a line where one of the elements is two single quotes and the quote character is the
+   * default double quote. The expected result is two single quotes.
    *
    * @throws IOException
    *         never
@@ -600,13 +592,13 @@ public final class CSVReaderTest
   public void testIteratorFunctionality () throws IOException
   {
     final ICommonsList <ICommonsList <String>> expectedResult = new CommonsArrayList <> ();
-    expectedResult.add (CollectionHelper.newList ("a", "b", "aReader"));
-    expectedResult.add (CollectionHelper.newList ("a", "b,b,b", "aReader"));
-    expectedResult.add (CollectionHelper.newList ("", "", ""));
-    expectedResult.add (CollectionHelper.newList ("a", "PO Box 123,\nKippax,ACT. 2615.\nAustralia", "d."));
-    expectedResult.add (CollectionHelper.newList ("Glen \"The Man\" Smith", "Athlete", "Developer"));
-    expectedResult.add (CollectionHelper.newList ("\"\"", "test"));
-    expectedResult.add (CollectionHelper.newList ("a\nb", "b", "\nd", "e"));
+    expectedResult.add (CollectionHelperExt.createList ("a", "b", "aReader"));
+    expectedResult.add (CollectionHelperExt.createList ("a", "b,b,b", "aReader"));
+    expectedResult.add (CollectionHelperExt.createList ("", "", ""));
+    expectedResult.add (CollectionHelperExt.createList ("a", "PO Box 123,\nKippax,ACT. 2615.\nAustralia", "d."));
+    expectedResult.add (CollectionHelperExt.createList ("Glen \"The Man\" Smith", "Athlete", "Developer"));
+    expectedResult.add (CollectionHelperExt.createList ("\"\"", "test"));
+    expectedResult.add (CollectionHelperExt.createList ("a\nb", "b", "\nd", "e"));
     int idx = 0;
     try (final CSVReader aReader = _createCSVReader ())
     {

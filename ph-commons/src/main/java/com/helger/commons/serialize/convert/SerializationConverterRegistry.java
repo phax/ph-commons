@@ -20,24 +20,24 @@ import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsWeakHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.misc.Singleton;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.base.spi.ServiceLoaderHelper;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsWeakHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.typeconvert.util.ClassHierarchyCache;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The registry that keeps the mappings for serialization converters.

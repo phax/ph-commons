@@ -20,31 +20,32 @@ import java.lang.Thread.State;
 import java.util.Comparator;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsEnumMap;
-import com.helger.commons.collection.impl.CommonsTreeSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsNavigableSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.lang.StackTraceHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.timing.StopWatch;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.rt.StackTraceHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringImplode;
+import com.helger.base.timing.StopWatch;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsEnumMap;
+import com.helger.collection.commons.CommonsTreeSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsNavigableSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.CollectionSort;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains a list of {@link ThreadDescriptor} objects.
@@ -110,9 +111,10 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   public String getAsString ()
   {
     final StringBuilder aSB = new StringBuilder ();
+    final String sStr = m_sError;
 
     // Error always shown first!
-    if (StringHelper.hasText (m_sError))
+    if (StringHelper.isNotEmpty (sStr))
       aSB.append ("ERROR retrieving all thread stack traces: ").append (m_sError).append ("\n\n");
 
     // Total thread count
@@ -139,8 +141,9 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   public IMicroElement getAsMicroNode ()
   {
     final IMicroElement eRet = new MicroElement ("threadlist");
-    if (StringHelper.hasText (m_sError))
-      eRet.appendElement ("error").appendText (m_sError);
+    final String sStr = m_sError;
+    if (StringHelper.isNotEmpty (sStr))
+      eRet.addElement ("error").addText (m_sError);
 
     // Overall thread count
     eRet.setAttribute ("threadcount", m_aList.size ());
@@ -152,15 +155,15 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
       final ICommonsSet <Long> aThreadIDs = aStateMap.get (eState);
       final int nSize = aThreadIDs.size ();
 
-      final IMicroElement eThreadState = eRet.appendElement ("threadstate");
+      final IMicroElement eThreadState = eRet.addElement ("threadstate");
       eThreadState.setAttribute ("id", eState.toString ());
       eThreadState.setAttribute ("threadcount", nSize);
       if (nSize > 0)
-        eThreadState.appendText (StringHelper.getImploded (',', aThreadIDs));
+        eThreadState.addText (StringImplode.getImploded (',', aThreadIDs));
     }
     // Append all stack traces at the end
     for (final ThreadDescriptor aDescriptor : m_aList)
-      eRet.appendChild (aDescriptor.getAsMicroNode ());
+      eRet.addChild (aDescriptor.getAsMicroNode ());
     return eRet;
   }
 
@@ -180,9 +183,9 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     try
     {
       // Get all stack traces, sorted by thread ID
-      for (final Map.Entry <Thread, StackTraceElement []> aEntry : CollectionHelper.getSortedByKey (Thread.getAllStackTraces (),
-                                                                                                    Comparator.comparing (Thread::getId))
-                                                                                   .entrySet ())
+      for (final Map.Entry <Thread, StackTraceElement []> aEntry : CollectionSort.getSortedByKey (Thread.getAllStackTraces (),
+                                                                                                  Comparator.comparing (Thread::getId))
+                                                                                 .entrySet ())
       {
         final StackTraceElement [] aStackTrace = aEntry.getValue ();
         final String sStackTrace = ArrayHelper.isEmpty (aStackTrace) ? "No stack trace available!\n" : StackTraceHelper

@@ -23,22 +23,22 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.json.serialize.JsonReader;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IJsonObject}.
@@ -119,7 +119,7 @@ public class JsonObject implements IJsonObject
   }
 
   @Nonnull
-  public JsonObject addJson (@Nonnull final String sName, @Nonnull final IJson aValue)
+  public JsonObject add (@Nonnull final String sName, @Nonnull final IJson aValue)
   {
     ValueEnforcer.notNull (sName, "Name");
     ValueEnforcer.notNull (aValue, "Value");

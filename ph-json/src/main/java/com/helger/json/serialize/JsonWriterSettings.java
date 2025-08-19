@@ -18,14 +18,14 @@ package com.helger.json.serialize;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHex;
+import com.helger.base.system.ENewLineMode;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.system.ENewLineMode;
+import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of {@link IJsonWriterSettings}.
@@ -144,8 +144,10 @@ public class JsonWriterSettings implements IJsonWriterSettings
   public String toString ()
   {
     return new ToStringGenerator (this).append ("IndentEnabled", m_bIndentEnabled)
-                                       .append ("IndentString", StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
-                                       .append ("NewlineString", StringHelper.getHexEncoded (m_sNewlineString, StandardCharsets.ISO_8859_1))
+                                       .append ("IndentString",
+                                                StringHex.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
+                                       .append ("NewlineString",
+                                                StringHex.getHexEncoded (m_sNewlineString, StandardCharsets.ISO_8859_1))
                                        .append ("WriteNewlineAtEnd", m_bWriteNewlineAtEnd)
                                        .append ("QuoteNames", m_bQuoteNames)
                                        .getToString ();

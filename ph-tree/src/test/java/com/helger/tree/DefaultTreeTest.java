@@ -27,7 +27,7 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultTree}.
@@ -68,9 +68,9 @@ public final class DefaultTreeTest
   public void testEqualsHashCode ()
   {
     final DefaultTree <String> t = new DefaultTree <> ();
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <> ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <> ());
     t.getRootItem ().createChildItem ("data");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <> ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <> ());
   }
 
   @Test

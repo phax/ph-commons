@@ -16,23 +16,23 @@
  */
 package com.helger.config.source.sysprop;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.system.SystemProperties;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.system.SystemProperties;
+import com.helger.collection.commons.CommonsTreeMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.IIterableConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IConfigurationSource} for system properties.

@@ -18,16 +18,16 @@ package com.helger.xml;
 
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterableIterator;
+import com.helger.collection.commons.ICommonsList;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Iterate all children of the start node, but NOT the start node itself.
@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  * @since 10.1.7
  */
-public class RecursiveNodeIterator implements IIterableIterator <Node>
+public class RecursiveNodeIterator implements ICommonsIterableIterator <Node>
 {
   private final ICommonsList <Node> m_aOpen = new CommonsArrayList <> ();
 

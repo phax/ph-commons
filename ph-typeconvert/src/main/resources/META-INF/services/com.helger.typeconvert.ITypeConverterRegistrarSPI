@@ -1,0 +1,4 @@
+com.helger.typeconvert.spi.BaseTypeConverterRegistrar
+com.helger.typeconvert.spi.CharsetTypeConverterRegistrar
+com.helger.typeconvert.spi.CollectionTypeConverterRegistrar
+com.helger.typeconvert.spi.MutableTypeConverterRegistrar

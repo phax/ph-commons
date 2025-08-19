@@ -20,12 +20,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link ICSVLineReader}.
@@ -40,7 +40,6 @@ public final class ICSVLineReaderTest
   private static final String EMPTY_STRING = "";
   private static final String NULL_STRING = null;
 
-  @SuppressWarnings ("resource")
   @Nonnull
   private static ICSVLineReader _createLineReaderforString (@Nonnull final String s, final boolean bKeepCR)
   {

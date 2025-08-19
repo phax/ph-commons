@@ -16,16 +16,16 @@
  */
 package com.helger.tree;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.state.ESuccess;
+import com.helger.base.traits.IGenericImplTrait;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.hierarchy.IHasChildrenRecursive;
+import com.helger.collection.hierarchy.IHasChildrenSorted;
+import com.helger.collection.hierarchy.IHasParent;
 
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hierarchy.IHasChildrenRecursive;
-import com.helger.commons.hierarchy.IHasChildrenSorted;
-import com.helger.commons.hierarchy.IHasParent;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.traits.IGenericImplTrait;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface both for normal tree items and tree items with ID.

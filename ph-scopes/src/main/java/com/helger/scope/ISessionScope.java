@@ -16,9 +16,9 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnull;
+import com.helger.base.state.EContinue;
 
-import com.helger.commons.state.EContinue;
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a single session scope object.

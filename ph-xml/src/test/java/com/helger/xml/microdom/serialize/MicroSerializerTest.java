@@ -19,19 +19,19 @@ package com.helger.xml.microdom.serialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.timing.StopWatch;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.base.timing.StopWatch;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link MicroSerializer}
@@ -47,10 +47,10 @@ public final class MicroSerializerTest
                                           final boolean bWithText,
                                           final boolean bWithAttrs)
   {
-    final IMicroElement aDocElement = doc.appendElement ("root");
+    final IMicroElement aDocElement = doc.addElement ("root");
     for (int i = 1; i <= 10; ++i)
     {
-      final IMicroElement e1 = aDocElement.appendElement ("level1");
+      final IMicroElement e1 = aDocElement.addElement ("level1");
       if (bWithAttrs)
       {
         e1.setAttribute ("a1", "Supsi1");
@@ -58,22 +58,22 @@ public final class MicroSerializerTest
       }
       for (int j = 1; j <= 20; ++j)
       {
-        final IMicroElement e2 = e1.appendElement ("level2");
+        final IMicroElement e2 = e1.addElement ("level2");
         if (bWithAttrs)
           e2.setAttribute ("a2", "Supsi");
         for (int k = 1; k <= 100; ++k)
         {
-          final IMicroElement e3 = e2.appendElement ("level3");
+          final IMicroElement e3 = e2.addElement ("level3");
           if (bWithAttrs)
             e3.setAttribute ("a3", "Supsi");
           if (bWithText)
-            e3.appendText ("Level 3 text <> " + Double.toString (Math.random ()));
+            e3.addText ("Level 3 text <> " + Double.toString (Math.random ()));
         }
         if (bWithText)
-          e2.appendText ("Level 2 text " + Double.toString (Math.random ()));
+          e2.addText ("Level 2 text " + Double.toString (Math.random ()));
       }
       if (bWithText)
-        e1.appendText ("Level 1 text " + Double.toString (Math.random ()));
+        e1.addText ("Level 1 text " + Double.toString (Math.random ()));
     }
     return doc;
   }
@@ -124,17 +124,17 @@ public final class MicroSerializerTest
   public void testIndent ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eHTML = aDoc.appendElement ("html");
-    final IMicroElement eBody = eHTML.appendElement ("body");
-    eBody.appendElement ("div");
-    eBody.appendElement ("span").appendText ("bla");
-    eBody.appendElement ("span").appendElement ("span").appendElement ("span").setAttribute ("a", 3).appendText ("");
-    final IMicroElement eSpan3 = eBody.appendElement ("span");
-    eSpan3.appendText ("f");
-    eSpan3.appendText ("oo");
-    eSpan3.appendElement ("strong").appendText ("bar");
-    eSpan3.appendText ("baz");
-    eBody.appendElement ("div");
+    final IMicroElement eHTML = aDoc.addElement ("html");
+    final IMicroElement eBody = eHTML.addElement ("body");
+    eBody.addElement ("div");
+    eBody.addElement ("span").addText ("bla");
+    eBody.addElement ("span").addElement ("span").addElement ("span").setAttribute ("a", 3).addText ("");
+    final IMicroElement eSpan3 = eBody.addElement ("span");
+    eSpan3.addText ("f");
+    eSpan3.addText ("oo");
+    eSpan3.addElement ("strong").addText ("bar");
+    eSpan3.addText ("baz");
+    eBody.addElement ("div");
 
     final String sCRLF = XMLWriterSettings.DEFAULT_XML_SETTINGS.getNewLineString ();
     final String s = MicroWriter.getNodeAsString (aDoc,

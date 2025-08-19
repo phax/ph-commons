@@ -20,24 +20,21 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IHasOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.iface.IHasOutputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -45,9 +42,12 @@ import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Simple class that reads a generic String-to-String mapping from a classpath
- * resource into a {@link Map}.<br>
+ * Simple class that reads a generic String-to-String mapping from a classpath resource into a
+ * {@link Map}.<br>
  * The XML file needs to look as follows:
  *
  * <pre>
@@ -121,9 +121,8 @@ public final class XMLMapHandler
    *        The input stream to read from. May not be <code>null</code>.
    * @param aTargetMap
    *        The target map to be filled.
-   * @return {@link ESuccess#SUCCESS} if the stream could be opened, if it could
-   *         be read as XML and if the root element was correct.
-   *         {@link ESuccess#FAILURE} otherwise.
+   * @return {@link ESuccess#SUCCESS} if the stream could be opened, if it could be read as XML and
+   *         if the root element was correct. {@link ESuccess#FAILURE} otherwise.
    */
   @Nonnull
   public static ESuccess readMap (@Nonnull @WillClose final InputStream aIS,
@@ -190,10 +189,10 @@ public final class XMLMapHandler
     ValueEnforcer.notNull (aMap, "Map");
 
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_MAPPING);
+    final IMicroElement eRoot = aDoc.addElement (ELEMENT_MAPPING);
     for (final Map.Entry <String, String> aEntry : aMap.entrySet ())
     {
-      final IMicroElement eMap = eRoot.appendElement (ELEMENT_MAP);
+      final IMicroElement eMap = eRoot.addElement (ELEMENT_MAP);
       eMap.setAttribute (ATTR_KEY, aEntry.getKey ());
       eMap.setAttribute (ATTR_VALUE, aEntry.getValue ());
     }
@@ -209,16 +208,14 @@ public final class XMLMapHandler
   }
 
   /**
-   * Write the passed map to the passed output stream using the predefined XML
-   * layout.
+   * Write the passed map to the passed output stream using the predefined XML layout.
    *
    * @param aMap
    *        The map to be written. May not be <code>null</code>.
    * @param aOS
-   *        The output stream to write to. The stream is closed independent of
-   *        success or failure. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} when everything went well,
-   *         {@link ESuccess#FAILURE} otherwise.
+   *        The output stream to write to. The stream is closed independent of success or failure.
+   *        May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} when everything went well, {@link ESuccess#FAILURE} otherwise.
    */
   @Nonnull
   public static ESuccess writeMap (@Nonnull final Map <String, String> aMap, @Nonnull @WillClose final OutputStream aOS)

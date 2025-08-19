@@ -32,10 +32,10 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.stream.StringInputStream;
+import com.helger.base.CGlobal;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.io.stream.StringInputStream;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
@@ -57,10 +57,10 @@ public final class MicroHelperTest
   public void testAppend ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement ("root");
+    final IMicroElement eRoot = aDoc.addElement ("root");
     MicroHelper.append (eRoot, "Any text");
     MicroHelper.append (eRoot, new MicroElement ("child"));
-    MicroHelper.append (eRoot, CollectionHelper.newList ("t1", "t2"));
+    MicroHelper.append (eRoot, CollectionHelperExt.createList ("t1", "t2"));
     MicroHelper.append (eRoot, ArrayHelper.newArray ("t1", "t2"));
     try
     {
@@ -83,9 +83,9 @@ public final class MicroHelperTest
   {
     final IMicroDocument aDoc = new MicroDocument ();
     assertEquals ("#document", MicroHelper.getPath (aDoc, "/"));
-    final IMicroElement eRoot = aDoc.appendElement ("root");
+    final IMicroElement eRoot = aDoc.addElement ("root");
     assertEquals ("#document/root", MicroHelper.getPath (eRoot, "/"));
-    final IMicroElement eChild = eRoot.appendElement ("child");
+    final IMicroElement eChild = eRoot.addElement ("child");
     assertEquals ("#document/root/child", MicroHelper.getPath (eChild, "/"));
     assertEquals ("", MicroHelper.getPath (null, "/"));
     try
@@ -103,7 +103,7 @@ public final class MicroHelperTest
     assertNull (MicroHelper.getDocumentRootElementTagName (null));
     final IMicroDocument aDoc = new MicroDocument ();
     assertNull (MicroHelper.getDocumentRootElementTagName (aDoc));
-    aDoc.appendElement ("root");
+    aDoc.addElement ("root");
     assertEquals ("root", MicroHelper.getDocumentRootElementTagName (aDoc));
   }
 
@@ -143,13 +143,13 @@ public final class MicroHelperTest
   {
     final IMicroElement e = new MicroElement ("x");
     assertNull (MicroHelper.getChildTextContent (e, "y"));
-    final IMicroElement y = e.appendElement ("y");
+    final IMicroElement y = e.addElement ("y");
     assertNull (MicroHelper.getChildTextContent (e, "y"));
-    y.appendText ("Text");
+    y.addText ("Text");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, "y"));
-    y.appendElement ("z1");
+    y.addElement ("z1");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, "y"));
-    y.appendCDATA ("data");
+    y.addCDATA ("data");
     assertEquals ("Textdata", MicroHelper.getChildTextContent (e, "y"));
   }
 
@@ -158,13 +158,13 @@ public final class MicroHelperTest
   {
     final IMicroElement e = new MicroElement ("x");
     assertNull (MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
-    final IMicroElement y = e.appendElement ("y");
+    final IMicroElement y = e.addElement ("y");
     assertNull (MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
-    y.appendText ("100");
+    y.addText ("100");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
-    y.appendElement ("a");
+    y.addElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
-    y.appendCDATA ("234");
+    y.addCDATA ("234");
     assertEquals (BigInteger.valueOf (100234),
                   MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
   }
@@ -175,13 +175,13 @@ public final class MicroHelperTest
     final String sNSURI = "my-namespace-uri";
     final IMicroElement e = new MicroElement (sNSURI, "x");
     assertNull (MicroHelper.getChildTextContent (e, sNSURI, "y"));
-    final IMicroElement y = e.appendElement (sNSURI, "y");
+    final IMicroElement y = e.addElementNS (sNSURI, "y");
     assertNull (MicroHelper.getChildTextContent (e, sNSURI, "y"));
-    y.appendText ("Text");
+    y.addText ("Text");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, sNSURI, "y"));
-    y.appendElement ("z1");
+    y.addElement ("z1");
     assertEquals ("Text", MicroHelper.getChildTextContent (e, sNSURI, "y"));
-    y.appendCDATA ("data");
+    y.addCDATA ("data");
     assertEquals ("Textdata", MicroHelper.getChildTextContent (e, sNSURI, "y"));
   }
 
@@ -191,13 +191,13 @@ public final class MicroHelperTest
     final String sNSURI = "my-namespace-uri";
     final IMicroElement e = new MicroElement (sNSURI, "x");
     assertNull (MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
-    final IMicroElement y = e.appendElement (sNSURI, "y");
+    final IMicroElement y = e.addElementNS (sNSURI, "y");
     assertNull (MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
-    y.appendText ("100");
+    y.addText ("100");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
-    y.appendElement ("a");
+    y.addElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
-    y.appendCDATA ("234");
+    y.addCDATA ("234");
     assertEquals (BigInteger.valueOf (100234),
                   MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
   }

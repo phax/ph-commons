@@ -19,26 +19,27 @@ package com.helger.xml.serialize.write;
 import java.io.Flushable;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSortedMap;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.ETriState;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsTreeMap;
+import com.helger.collection.commons.ICommonsSortedMap;
 import com.helger.xml.CXML;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.microdom.IMicroDocumentType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Converts XML constructs into a string representation.
@@ -73,8 +74,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * Define whether nested XML comments throw an exception or not.
    *
    * @param bThrowExceptionOnNestedComments
-   *        <code>true</code> to throw an exception, <code>false</code> to
-   *        ignore nested comments.
+   *        <code>true</code> to throw an exception, <code>false</code> to ignore nested comments.
    */
   public static void setThrowExceptionOnNestedComments (final boolean bThrowExceptionOnNestedComments)
   {
@@ -82,8 +82,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
   }
 
   /**
-   * @return <code>true</code> if nested XML comments will throw an error.
-   *         Default is {@value #DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS}.
+   * @return <code>true</code> if nested XML comments will throw an error. Default is
+   *         {@value #DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS}.
    */
   public static boolean isThrowExceptionOnNestedComments ()
   {
@@ -102,8 +102,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   }
 
   /**
-   * @return The XML writer settings as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The XML writer settings as provided in the constructor. Never <code>null</code>.
    */
   @Nonnull
   public IXMLWriterSettings getXMLWriterSettings ()
@@ -158,7 +157,11 @@ public class XMLEmitter implements AutoCloseable, Flushable
   {
     try
     {
-      XMLMaskHelper.maskXMLTextTo (m_eXMLVersion, eXMLCharMode, m_aXMLWriterSettings.getIncorrectCharacterHandling (), sValue, m_aWriter);
+      XMLMaskHelper.maskXMLTextTo (m_eXMLVersion,
+                                   eXMLCharMode,
+                                   m_aXMLWriterSettings.getIncorrectCharacterHandling (),
+                                   sValue,
+                                   m_aWriter);
       return this;
     }
     catch (final IOException ex)
@@ -208,15 +211,14 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * At the very beginning of the document (XML declaration).
    *
    * @param eXMLVersion
-   *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#XML_10} will be used.
+   *        The XML version to use. If <code>null</code> is passed, {@link EXMLVersion#XML_10} will
+   *        be used.
    * @param sEncoding
-   *        The encoding to be used for this document. It may be
-   *        <code>null</code> but it is strongly recommended to write a correct
-   *        charset.
+   *        The encoding to be used for this document. It may be <code>null</code> but it is
+   *        strongly recommended to write a correct charset.
    * @param eStandalone
-   *        if <code>true</code> this is a standalone XML document without a
-   *        connection to an existing DTD or XML schema
+   *        if <code>true</code> this is a standalone XML document without a connection to an
+   *        existing DTD or XML schema
    * @param bWithNewLine
    *        <code>true</code> to add a newline, <code>false</code> if not
    * @since 9.2.1
@@ -237,10 +239,10 @@ public class XMLEmitter implements AutoCloseable, Flushable
 
     // May be null for HTML
     final String sVersionString = m_eXMLVersion.getXMLVersionString ();
-    if (StringHelper.hasText (sVersionString))
+    if (StringHelper.isNotEmpty (sVersionString))
       _append (" version=")._appendAttrValue (sVersionString);
 
-    if (StringHelper.hasText (sEncoding))
+    if (StringHelper.isNotEmpty (sEncoding))
       _append (" encoding=")._appendAttrValue (sEncoding);
 
     if (eStandalone.isDefined ())
@@ -252,8 +254,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
   }
 
   /**
-   * Write a DTD section. This string represents the entire doctypedecl
-   * production from the XML 1.0 specification.
+   * Write a DTD section. This string represents the entire doctypedecl production from the XML 1.0
+   * specification.
    *
    * @param sDTD
    *        the DTD to be written. May not be <code>null</code>.
@@ -297,8 +299,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param sQualifiedName
    *        The qualified element name. May not be <code>null</code>.
    * @param sPublicID
-   *        The optional public ID. May be <code>null</code>. If the public ID
-   *        is not <code>null</code> the system ID must also be set!
+   *        The optional public ID. May be <code>null</code>. If the public ID is not
+   *        <code>null</code> the system ID must also be set!
    * @param sSystemID
    *        The optional system ID. May be <code>null</code>.
    * @return The string DOCTYPE representation.
@@ -378,7 +380,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   public void onProcessingInstruction (@Nonnull final String sTarget, @Nullable final String sData)
   {
     _append (PI_START)._append (sTarget);
-    if (StringHelper.hasText (sData))
+    if (StringHelper.isNotEmpty (sData))
       _append (' ')._append (sData);
     _append (PI_END);
     newLine ();
@@ -403,7 +405,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onContentElementWhitespace (@Nullable final CharSequence aWhitespaces)
   {
-    if (StringHelper.hasText (aWhitespaces))
+    if (StringHelper.isNotEmpty (aWhitespaces))
       _append (aWhitespaces.toString ());
   }
 
@@ -415,7 +417,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onComment (@Nullable final String sComment)
   {
-    if (StringHelper.hasText (sComment))
+    if (StringHelper.isNotEmpty (sComment))
     {
       if (isThrowExceptionOnNestedComments ())
         if (sComment.contains (COMMENT_START) || sComment.contains (COMMENT_END))
@@ -457,9 +459,9 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param sText
    *        The contained text
    * @param bEscape
-   *        If <code>true</code> the text should be XML masked (the default),
-   *        <code>false</code> if not. The <code>false</code> case is especially
-   *        interesting for HTML inline JS and CSS code.
+   *        If <code>true</code> the text should be XML masked (the default), <code>false</code> if
+   *        not. The <code>false</code> case is especially interesting for HTML inline JS and CSS
+   *        code.
    */
   public void onText (@Nullable final String sText, final boolean bEscape)
   {
@@ -479,11 +481,14 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param nLen
    *        Number of chars to use, starting from the provided offset.
    * @param bEscape
-   *        If <code>true</code> the text should be XML masked (the default),
-   *        <code>false</code> if not. The <code>false</code> case is especially
-   *        interesting for HTML inline JS and CSS code.
+   *        If <code>true</code> the text should be XML masked (the default), <code>false</code> if
+   *        not. The <code>false</code> case is especially interesting for HTML inline JS and CSS
+   *        code.
    */
-  public void onText (@Nonnull final char [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen, final boolean bEscape)
+  public void onText (@Nonnull final char [] aText,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      final boolean bEscape)
   {
     if (bEscape)
       _appendMasked (EXMLCharMode.TEXT, aText, nOfs, nLen);
@@ -499,12 +504,12 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onCDATA (@Nullable final String sText)
   {
-    if (StringHelper.hasText (sText))
+    if (StringHelper.isNotEmpty (sText))
     {
       if (sText.indexOf (CDATA_END) >= 0)
       {
         // Split CDATA sections if they contain the illegal "]]>" marker
-        final ICommonsList <String> aParts = StringHelper.getExploded (CDATA_END, sText);
+        final List <String> aParts = StringHelper.getExploded (CDATA_END, sText);
         final int nParts = aParts.size ();
         for (int i = 0; i < nParts; ++i)
         {
@@ -528,7 +533,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   public void elementStartOpen (@Nullable final String sNamespacePrefix, @Nonnull final String sTagName)
   {
     _append ('<');
-    if (StringHelper.hasText (sNamespacePrefix))
+    if (StringHelper.isNotEmpty (sNamespacePrefix))
     {
       // We have an element namespace prefix
       _appendMasked (EXMLCharMode.ELEMENT_NAME, sNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
@@ -536,10 +541,12 @@ public class XMLEmitter implements AutoCloseable, Flushable
     _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName);
   }
 
-  public void elementAttr (@Nullable final String sAttrNamespacePrefix, @Nonnull final String sAttrName, @Nonnull final String sAttrValue)
+  public void elementAttr (@Nullable final String sAttrNamespacePrefix,
+                           @Nonnull final String sAttrName,
+                           @Nonnull final String sAttrValue)
   {
     _append (' ');
-    if (StringHelper.hasText (sAttrNamespacePrefix))
+    if (StringHelper.isNotEmpty (sAttrNamespacePrefix))
     {
       // We have an attribute namespace prefix
       _append (sAttrNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
@@ -642,7 +649,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     if (eBracketMode.isOpenClose ())
     {
       _append ("</");
-      if (StringHelper.hasText (sNamespacePrefix))
+      if (StringHelper.isNotEmpty (sNamespacePrefix))
         _appendMasked (EXMLCharMode.ELEMENT_NAME, sNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
       _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName)._append ('>');
     }

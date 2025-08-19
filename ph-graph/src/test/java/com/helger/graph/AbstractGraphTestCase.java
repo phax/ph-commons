@@ -16,10 +16,10 @@
  */
 package com.helger.graph;
 
-import javax.annotation.Nonnull;
-
 import com.helger.graph.simple.SimpleDirectedGraph;
 import com.helger.graph.simple.SimpleGraph;
+
+import jakarta.annotation.Nonnull;
 
 public abstract class AbstractGraphTestCase
 {

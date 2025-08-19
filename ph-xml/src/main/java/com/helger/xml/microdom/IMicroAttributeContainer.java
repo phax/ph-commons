@@ -19,22 +19,22 @@ package com.helger.xml.microdom;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.functional.ITriConsumer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringParser;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.typeconvert.impl.TypeConverter;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ReturnsImmutableObject;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.functional.ITriConsumer;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
-import com.helger.commons.typeconvert.TypeConverter;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for objects having attributes. Currently this is only an element.
@@ -46,14 +46,14 @@ import com.helger.commons.typeconvert.TypeConverter;
 public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeContainer <IMPLTYPE>> extends IMicroNode
 {
   /**
-   * @return <code>true</code> if this element has at least one attribute,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if this element has at least one attribute, <code>false</code>
+   *         otherwise
    */
   boolean hasAttributes ();
 
   /**
-   * @return <code>true</code> if this element has no attribute,
-   *         <code>false</code> if at least one attribute is present.
+   * @return <code>true</code> if this element has no attribute, <code>false</code> if at least one
+   *         attribute is present.
    */
   boolean hasNoAttributes ();
 
@@ -68,8 +68,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *
    * @param sAttrName
    *        The attribute name to check.
-   * @return <code>true</code> if such an attribute is present,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if such an attribute is present, <code>false</code> otherwise
    */
   default boolean hasAttribute (@Nullable final String sAttrName)
   {
@@ -83,12 +82,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        Namespace URI to use. May be <code>null</code>.
    * @param sAttrName
    *        The attribute name to check.
-   * @return <code>true</code> if such an attribute is present,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if such an attribute is present, <code>false</code> otherwise
    */
   default boolean hasAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
-    if (StringHelper.hasNoText (sAttrName))
+    if (StringHelper.isEmpty (sAttrName))
       return false;
     return hasAttribute (new MicroQName (sNamespaceURI, sAttrName));
   }
@@ -98,8 +96,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *
    * @param aAttrName
    *        The qualified attribute name to check. May be <code>null</code>.
-   * @return <code>true</code> if such an attribute is present,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if such an attribute is present, <code>false</code> otherwise
    */
   boolean hasAttribute (@Nullable IMicroQName aAttrName);
 
@@ -128,7 +125,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   @Nullable
   default IMicroAttribute getAttributeObj (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
-    if (StringHelper.hasNoText (sAttrName))
+    if (StringHelper.isEmpty (sAttrName))
       return null;
     return getAttributeObj (new MicroQName (sNamespaceURI, sAttrName));
   }
@@ -144,8 +141,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   IMicroAttribute getAttributeObj (@Nullable IMicroQName aAttrName);
 
   /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned.
+   * Get the attribute value of the given attribute name. If this element has no such attribute,
+   * <code>null</code> is returned.
    *
    * @param sAttrName
    *        The attribute name to retrieve the value of.
@@ -158,8 +155,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   }
 
   /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned.
+   * Get the attribute value of the given attribute name. If this element has no such attribute,
+   * <code>null</code> is returned.
    *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
@@ -176,12 +173,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   }
 
   /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned.
+   * Get the attribute value of the given attribute name. If this element has no such attribute,
+   * <code>null</code> is returned.
    *
    * @param aAttrName
-   *        The qualified attribute name to retrieve the value of. May be
-   *        <code>null</code>.
+   *        The qualified attribute name to retrieve the value of. May be <code>null</code>.
    * @return The assigned attribute value or <code>null</code>.
    */
   @Nullable
@@ -192,11 +188,10 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   }
 
   /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned. The attribute value is
-   * converted via the {@link com.helger.commons.typeconvert.TypeConverter} to
-   * the desired destination class. If no such attribute is present,
-   * <code>null</code> is returned.
+   * Get the attribute value of the given attribute name. If this element has no such attribute,
+   * <code>null</code> is returned. The attribute value is converted via the
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no such
+   * attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
    *        Destination type
@@ -216,11 +211,10 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   }
 
   /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned. The attribute value is
-   * converted via the {@link com.helger.commons.typeconvert.TypeConverter} to
-   * the desired destination class. If no such attribute is present,
-   * <code>null</code> is returned.
+   * Get the attribute value of the given attribute name. If this element has no such attribute,
+   * <code>null</code> is returned. The attribute value is converted via the
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no such
+   * attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
    *        Destination type
@@ -245,11 +239,10 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   }
 
   /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned. The attribute value is
-   * converted via the {@link com.helger.commons.typeconvert.TypeConverter} to
-   * the desired destination class. If no such attribute is present,
-   * <code>null</code> is returned.
+   * Get the attribute value of the given attribute name. If this element has no such attribute,
+   * <code>null</code> is returned. The attribute value is converted via the
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination class. If no such
+   * attribute is present, <code>null</code> is returned.
    *
    * @param <DSTTYPE>
    *        Destination type
@@ -351,8 +344,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   }
 
   /**
-   * Get a iterable objects of all attributes. Is ensured to be not
-   * <code>null</code> if {@link #hasAttributes()} returns <code>true</code>.
+   * Get a iterable objects of all attributes. Is ensured to be not <code>null</code> if
+   * {@link #hasAttributes()} returns <code>true</code>.
    *
    * @return May be <code>null</code>.
    */
@@ -371,9 +364,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   ICommonsList <? extends IMicroAttribute> getAllAttributeObjs ();
 
   /**
-   * Get a map of all fully qualified attribute names and values. Is ensured to
-   * be not <code>null</code> if {@link #hasAttributes()} returns
-   * <code>true</code>.
+   * Get a map of all fully qualified attribute names and values. Is ensured to be not
+   * <code>null</code> if {@link #hasAttributes()} returns <code>true</code>.
    *
    * @return May be <code>null</code>.
    */
@@ -395,8 +387,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * Iterate all attribute objects.
    *
    * @param aConsumer
-   *        The consumer. May not be <code>null</code>. May only perform reading
-   *        operations!
+   *        The consumer. May not be <code>null</code>. May only perform reading operations!
    */
   void forAllAttributes (@Nonnull Consumer <? super IMicroAttribute> aConsumer);
 
@@ -404,8 +395,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * Iterate all attribute objects.
    *
    * @param aConsumer
-   *        The consumer that takes the QName and the value. May not be
-   *        <code>null</code>. May only perform reading operations!
+   *        The consumer that takes the QName and the value. May not be <code>null</code>. May only
+   *        perform reading operations!
    */
   void forAllAttributes (@Nonnull BiConsumer <? super IMicroQName, ? super String> aConsumer);
 
@@ -413,9 +404,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * Iterate all attribute objects.
    *
    * @param aConsumer
-   *        The consumer that takes the namespace URI, the attribute local name
-   *        and the attribute value. May not be <code>null</code>. May only
-   *        perform reading operations!
+   *        The consumer that takes the namespace URI, the attribute local name and the attribute
+   *        value. May not be <code>null</code>. May only perform reading operations!
    */
   void forAllAttributes (@Nonnull ITriConsumer <? super String, ? super String, ? super String> aConsumer);
 
@@ -425,8 +415,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
    * @param sAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
@@ -443,14 +432,13 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
    * @param sAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 @Nullable final String sAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   @Nullable final String sAttrValue)
   {
     return setAttribute (new MicroQName (sNamespaceURI, sAttrName), sAttrValue);
   }
@@ -459,11 +447,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * Set an attribute value of this element.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param sAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
@@ -475,9 +461,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
    * @param aAttrValueProvider
-   *        The attribute value provider. May not be <code>null</code>. If the
-   *        contained attribute value is <code>null</code> the attribute is
-   *        removed (if present)
+   *        The attribute value provider. May not be <code>null</code>. If the contained attribute
+   *        value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
@@ -494,15 +479,14 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
    * @param aAttrValueProvider
-   *        The attribute value provider. May not be <code>null</code>. If the
-   *        contained attribute value is <code>null</code> the attribute is
-   *        removed (if present)
+   *        The attribute value provider. May not be <code>null</code>. If the contained attribute
+   *        value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 @Nonnull final IHasAttributeValue aAttrValueProvider)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   @Nonnull final IHasAttributeValue aAttrValueProvider)
   {
     return setAttribute (new MicroQName (sNamespaceURI, sAttrName), aAttrValueProvider);
   }
@@ -511,12 +495,10 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * Set an attribute value of this element.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param aAttrValueProvider
-   *        The attribute value provider. May not be <code>null</code>. If the
-   *        contained attribute value is <code>null</code> the attribute is
-   *        removed (if present)
+   *        The attribute value provider. May not be <code>null</code>. If the contained attribute
+   *        value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
@@ -529,10 +511,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(sAttrName, Boolean.toString (nValue))</code>. That
-   * means, that the serialized value of the attribute is either
-   * <code>true</code> or <code>false</code>. If you need something else (like
-   * "yes" or "no") don't use this method.
+   * <code>setAttribute(sAttrName, Boolean.toString (nValue))</code>. That means, that the
+   * serialized value of the attribute is either <code>true</code> or <code>false</code>. If you
+   * need something else (like "yes" or "no") don't use this method.
    *
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
@@ -548,10 +529,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(sNamespaceURI, sAttrName, Boolean.toString (nValue))</code>
-   * . That means, that the serialized value of the attribute is either
-   * <code>true</code> or <code>false</code>. If you need something else (like
-   * "yes" or "no") don't use this method.
+   * <code>setAttribute(sNamespaceURI, sAttrName, Boolean.toString (nValue))</code> . That means,
+   * that the serialized value of the attribute is either <code>true</code> or <code>false</code>.
+   * If you need something else (like "yes" or "no") don't use this method.
    *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
@@ -562,23 +542,21 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final boolean bAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final boolean bAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
   }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(aAttrName, Boolean.toString (nValue))</code>. That
-   * means, that the serialized value of the attribute is either
-   * <code>true</code> or <code>false</code>. If you need something else (like
-   * "yes" or "no") don't use this method.
+   * <code>setAttribute(aAttrName, Boolean.toString (nValue))</code>. That means, that the
+   * serialized value of the attribute is either <code>true</code> or <code>false</code>. If you
+   * need something else (like "yes" or "no") don't use this method.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param bAttrValue
    *        The new value to be set.
    * @return this
@@ -607,8 +585,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(sNamespaceURI, sAttrName, Double.toString (nValue))</code>
-   * .
+   * <code>setAttribute(sNamespaceURI, sAttrName, Double.toString (nValue))</code> .
    *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
@@ -619,11 +596,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final double dAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final double dAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Double.toString (dAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Double.toString (dAttrValue));
   }
 
   /**
@@ -631,8 +608,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * <code>setAttribute(aAttrName, Double.toString (nValue))</code>.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param dAttrValue
    *        The new value to be set.
    * @return this
@@ -661,8 +637,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(sNamespaceURI, sAttrName, Float.toString (nValue))</code>
-   * .
+   * <code>setAttribute(sNamespaceURI, sAttrName, Float.toString (nValue))</code> .
    *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
@@ -673,11 +648,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final float fAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final float fAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Float.toString (fAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Float.toString (fAttrValue));
   }
 
   /**
@@ -685,8 +660,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * <code>setAttribute(aAttrName, Float.toString (nValue))</code>.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param fAttrValue
    *        The new value to be set.
    * @return this
@@ -715,8 +689,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(sNamespaceURI, sAttrName, Integer.toString (nValue))</code>
-   * .
+   * <code>setAttribute(sNamespaceURI, sAttrName, Integer.toString (nValue))</code> .
    *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
@@ -727,11 +700,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final int nAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final int nAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
   }
 
   /**
@@ -739,8 +712,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * <code>setAttribute(aAttrName, Integer.toString (nValue))</code>.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param nAttrValue
    *        The new value to be set.
    * @return this
@@ -780,11 +752,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final long nAttrValue)
+  default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
+                                   @Nonnull final String sAttrName,
+                                   final long nAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
+    return setAttributeNS (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
   }
 
   /**
@@ -792,8 +764,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * <code>setAttribute(name, Long.toString (nValue))</code>.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param nAttrValue
    *        The new value to be set.
    * @return this
@@ -805,15 +776,14 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   }
 
   /**
-   * Set an attribute value of this element. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
-   * invoked to convert it to a {@link String} object.
+   * Set an attribute value of this element. If the type of the value is not {@link String}, the
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a {@link String}
+   * object.
    *
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
    * @param aAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
@@ -828,11 +798,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
    * @param sAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
-   * @deprecated Don't call this; Call {@link #setAttribute(String, String)}
-   *             directly
+   * @deprecated Don't call this; Call {@link #setAttribute(String, String)} directly
    */
   @Deprecated (forRemoval = false)
   @Nonnull
@@ -843,23 +811,22 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   }
 
   /**
-   * Set an attribute value of this element. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
-   * invoked to convert it to a {@link String} object.
+   * Set an attribute value of this element. If the type of the value is not {@link String}, the
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a {@link String}
+   * object.
    *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
    * @param aAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttributeWithConversion (@Nullable final String sNamespaceURI,
-                                               @Nonnull final String sAttrName,
-                                               @Nullable final Object aAttrValue)
+  default IMPLTYPE setAttributeNSWithConversion (@Nullable final String sNamespaceURI,
+                                                 @Nonnull final String sAttrName,
+                                                 @Nullable final Object aAttrValue)
   {
     return setAttributeWithConversion (new MicroQName (sNamespaceURI, sAttrName), aAttrValue);
   }
@@ -872,33 +839,29 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
    * @param sAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
-   * @deprecated Don't call this; Call
-   *             {@link #setAttribute(String, String, String)} directly.
+   * @deprecated Don't call this; Call {@link #setAttributeNS(String, String, String)} directly.
    */
   @Deprecated (forRemoval = false)
   @Nonnull
-  @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
-  default IMPLTYPE setAttributeWithConversion (@Nullable final String sNamespaceURI,
-                                               @Nonnull final String sAttrName,
-                                               @Nullable final String sAttrValue)
+  @DevelopersNote ("No need for setAttributeWithConversion - setAttributeNS is enough")
+  default IMPLTYPE setAttributeNSWithConversion (@Nullable final String sNamespaceURI,
+                                                 @Nonnull final String sAttrName,
+                                                 @Nullable final String sAttrValue)
   {
-    return setAttribute (sNamespaceURI, sAttrName, sAttrValue);
+    return setAttributeNS (sNamespaceURI, sAttrName, sAttrValue);
   }
 
   /**
-   * Set an attribute value of this element. If the type of the value is not
-   * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
-   * invoked to convert it to a {@link String} object.
+   * Set an attribute value of this element. If the type of the value is not {@link String}, the
+   * {@link com.helger.typeconvert.impl.TypeConverter} is invoked to convert it to a {@link String}
+   * object.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param aAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
   @Nonnull
@@ -912,14 +875,11 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * Set an attribute value of this element.
    *
    * @param aAttrName
-   *        Qualified name of the attribute. May neither be <code>null</code>
-   *        nor empty.
+   *        Qualified name of the attribute. May neither be <code>null</code> nor empty.
    * @param sAttrValue
-   *        If the value is <code>null</code> the attribute is removed (if
-   *        present)
+   *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
-   * @deprecated Don't call this; Call
-   *             {@link #setAttribute(IMicroQName, String)} directly.
+   * @deprecated Don't call this; Call {@link #setAttribute(IMicroQName, String)} directly.
    */
   @Deprecated (forRemoval = false)
   @Nonnull
@@ -934,14 +894,13 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *
    * @param sAttrName
    *        The name of the attribute to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the attribute was removed,
-   *         {@link EChange#UNCHANGED} if no such attribute exists at this
-   *         element.
+   * @return {@link EChange#CHANGED} if the attribute was removed, {@link EChange#UNCHANGED} if no
+   *         such attribute exists at this element.
    */
   @Nonnull
   default EChange removeAttribute (@Nullable final String sAttrName)
   {
-    return removeAttribute (null, sAttrName);
+    return removeAttributeNS (null, sAttrName);
   }
 
   /**
@@ -951,14 +910,13 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        Namespace URI to use. May be <code>null</code>.
    * @param sAttrName
    *        The name of the attribute to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the attribute was removed,
-   *         {@link EChange#UNCHANGED} if no such attribute exists at this
-   *         element.
+   * @return {@link EChange#CHANGED} if the attribute was removed, {@link EChange#UNCHANGED} if no
+   *         such attribute exists at this element.
    */
   @Nonnull
-  default EChange removeAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  default EChange removeAttributeNS (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
-    if (StringHelper.hasNoText (sAttrName))
+    if (StringHelper.isEmpty (sAttrName))
       return EChange.UNCHANGED;
     return removeAttribute (new MicroQName (sNamespaceURI, sAttrName));
   }
@@ -967,11 +925,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * Remove the attribute with the given name.
    *
    * @param aAttrName
-   *        The qualified name of the attribute to be removed. May be
-   *        <code>null</code>.
-   * @return {@link EChange#CHANGED} if the attribute was removed,
-   *         {@link EChange#UNCHANGED} if no such attribute exists at this
-   *         element.
+   *        The qualified name of the attribute to be removed. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the attribute was removed, {@link EChange#UNCHANGED} if no
+   *         such attribute exists at this element.
    */
   @Nonnull
   EChange removeAttribute (@Nullable IMicroQName aAttrName);

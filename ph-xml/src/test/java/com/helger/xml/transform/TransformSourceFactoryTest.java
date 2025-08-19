@@ -28,9 +28,9 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link TransformSourceFactory}.
@@ -52,6 +52,6 @@ public final class TransformSourceFactoryTest
     assertEquals (aRes.getResourceID (), src.getSystemId ());
     assertNull (src.getPublicId ());
 
-    CommonsTestHelper.testToStringImplementation (src);
+    TestHelper.testToStringImplementation (src);
   }
 }

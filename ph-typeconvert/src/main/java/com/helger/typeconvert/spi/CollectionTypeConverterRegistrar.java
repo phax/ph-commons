@@ -1,0 +1,541 @@
+/*
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.typeconvert.spi;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.codec.base64.Base64;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsCopyOnWriteArrayList;
+import com.helger.collection.commons.CommonsCopyOnWriteArraySet;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.CommonsLinkedList;
+import com.helger.collection.commons.CommonsTreeSet;
+import com.helger.collection.commons.CommonsVector;
+import com.helger.collection.helper.PrimitiveCollectionHelper;
+import com.helger.typeconvert.ITypeConverterRegistrarSPI;
+import com.helger.typeconvert.ITypeConverterRegistry;
+import com.helger.typeconvert.impl.TypeConverter;
+
+import jakarta.annotation.Nonnull;
+
+/**
+ * Register the base type converter
+ *
+ * @author Philip Helger
+ */
+@Immutable
+@IsSPIImplementation
+public final class CollectionTypeConverterRegistrar implements ITypeConverterRegistrarSPI
+{
+  /**
+   * Register type converters for the collection types:<br>
+   * <ul>
+   * <li>CommonsList</li>
+   * <li>CommonsVector</li>
+   * <li>LinkedList</li>
+   * <li>CopyOnWriteArrayList</li>
+   * <li>List</li>
+   * <li>CommonsHashSet</li>
+   * <li>CommonsTreeSet</li>
+   * <li>CommonsLinkedHashSet</li>
+   * <li>CopyOnWriteArraySet</li>
+   * <li>Set</li>
+   * </ul>
+   */
+  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
+  {
+    // to CommonsList<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (ArrayList.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsArrayList <> (aColl);
+      return new CommonsArrayList <> (aSource);
+    });
+
+    // to CommonsVector<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Vector.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsVector <> (aColl);
+      return new CommonsVector <> (aSource);
+    });
+
+    // to LinkedList<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedList.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsLinkedList <> (aColl);
+      return new CommonsLinkedList <> (aSource);
+    });
+
+    // to CopyOnWriteArrayList<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArrayList.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsCopyOnWriteArrayList <> (aColl);
+      return new CommonsCopyOnWriteArrayList <> (aSource);
+    });
+
+    // to List<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (List.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsArrayList <> (aColl);
+      return new CommonsArrayList <> (aSource);
+    });
+
+    // to CommonsTreeSet<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (TreeSet.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsTreeSet <> (aColl);
+      return new CommonsTreeSet <> (aSource);
+    });
+
+    // to CommonsLinkedHashSet<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedHashSet.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsLinkedHashSet <> (aColl);
+      return new CommonsLinkedHashSet <> (aSource);
+    });
+
+    // to CopyOnWriteArraySet<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArraySet.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsCopyOnWriteArraySet <> (aColl);
+      return new CommonsCopyOnWriteArraySet <> (aSource);
+    });
+
+    // to Set<?>
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Set.class, aSource -> {
+      if (aSource instanceof final Collection <?> aColl)
+        return new CommonsHashSet <> (aColl);
+      return new CommonsHashSet <> (aSource);
+    });
+
+    // boolean[]
+    aRegistry.registerTypeConverter (boolean [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (boolean [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
+    aRegistry.registerTypeConverter (boolean [].class,
+                                     CommonsLinkedHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (boolean [].class,
+                                     CommonsTreeSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
+
+    // byte[]
+    aRegistry.registerTypeConverter (byte [].class, String.class, Base64::encodeBytes);
+    aRegistry.registerTypeConverter (String.class, byte [].class, Base64::safeDecode);
+    aRegistry.registerTypeConverter (byte [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (byte [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
+    aRegistry.registerTypeConverter (byte [].class,
+                                     CommonsLinkedHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (byte [].class,
+                                     CommonsTreeSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
+
+    // char[]
+    aRegistry.registerTypeConverter (char [].class, String.class, String::new);
+    aRegistry.registerTypeConverter (String.class, char [].class, String::toCharArray);
+    aRegistry.registerTypeConverter (char [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (char [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
+    aRegistry.registerTypeConverter (char [].class,
+                                     CommonsLinkedHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (char [].class,
+                                     CommonsTreeSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
+
+    // double[]
+    aRegistry.registerTypeConverter (double [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (double [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
+    aRegistry.registerTypeConverter (double [].class,
+                                     CommonsLinkedHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (double [].class,
+                                     CommonsTreeSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
+
+    // float[]
+    aRegistry.registerTypeConverter (float [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (float [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
+    aRegistry.registerTypeConverter (float [].class,
+                                     CommonsLinkedHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (float [].class,
+                                     CommonsTreeSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
+
+    // int[]
+    aRegistry.registerTypeConverter (int [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (int [].class, CommonsHashSet.class, PrimitiveCollectionHelper::createPrimitiveSet);
+    aRegistry.registerTypeConverter (int [].class,
+                                     CommonsLinkedHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (int [].class,
+                                     CommonsTreeSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
+
+    // long[]
+    aRegistry.registerTypeConverter (long [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (long [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
+    aRegistry.registerTypeConverter (long [].class,
+                                     CommonsLinkedHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (long [].class,
+                                     CommonsTreeSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
+
+    // short[]
+    aRegistry.registerTypeConverter (short [].class,
+                                     CommonsArrayList.class,
+                                     PrimitiveCollectionHelper::createPrimitiveList);
+    aRegistry.registerTypeConverter (short [].class,
+                                     CommonsHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSet);
+    aRegistry.registerTypeConverter (short [].class,
+                                     CommonsLinkedHashSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (short [].class,
+                                     CommonsTreeSet.class,
+                                     PrimitiveCollectionHelper::createPrimitiveSortedSet);
+
+    // To array
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (boolean [].class, aSource -> {
+      boolean [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to boolean[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new boolean [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToBoolean (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to boolean[] */
+          ret = new boolean [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToBoolean (aSourceElement);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new boolean [1];
+          ret[0] = TypeConverter.convertToBoolean (aSource);
+        }
+      return ret;
+    });
+
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (byte [].class, aSource -> {
+      byte [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to byte[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new byte [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToByte (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to byte[] */
+          ret = new byte [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToByte (aSourceElement);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new byte [1];
+          ret[0] = TypeConverter.convertToByte (aSource);
+        }
+      return ret;
+    });
+
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (char [].class, aSource -> {
+      char [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to char[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new char [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToChar (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to char[] */
+          ret = new char [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToChar (aSourceElement);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new char [1];
+          ret[0] = TypeConverter.convertToChar (aSource);
+        }
+      return ret;
+    });
+
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (double [].class, aSource -> {
+      double [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to double[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new double [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToDouble (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to double[] */
+          ret = new double [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToDouble (aSourceElement);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new double [1];
+          ret[0] = TypeConverter.convertToDouble (aSource);
+        }
+      return ret;
+    });
+
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (float [].class, aSource -> {
+      float [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to float[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new float [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToFloat (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to float[] */
+          ret = new float [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToFloat (aSourceElement);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new float [1];
+          ret[0] = TypeConverter.convertToFloat (aSource);
+        }
+      return ret;
+    });
+
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (int [].class, aSource -> {
+      int [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to int[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new int [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToInt (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to int[] */
+          ret = new int [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToInt (aSourceElement);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new int [1];
+          ret[0] = TypeConverter.convertToInt (aSource);
+        }
+      return ret;
+    });
+
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (long [].class, aSource -> {
+      long [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to long[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new long [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToLong (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to long[] */
+          ret = new long [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToLong (aSourceElement);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new long [1];
+          ret[0] = TypeConverter.convertToLong (aSource);
+        }
+      return ret;
+    });
+
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (short [].class, aSource -> {
+      short [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to short[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new short [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToShort (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to short[] */
+          ret = new short [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToShort (aSourceElement);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new short [1];
+          ret[0] = TypeConverter.convertToShort (aSource);
+        }
+      return ret;
+    });
+
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (String [].class, aSource -> {
+      String [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to String[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new String [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convert (aSourceElement, String.class);
+        }
+      }
+      else
+        if (aSource instanceof final Collection <?> aSourceCollection)
+        {
+          /* Collection to String[] */
+          ret = new String [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convert (aSourceElement, String.class);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new String [1];
+          ret[0] = TypeConverter.convert (aSource, String.class);
+        }
+      return ret;
+    });
+  }
+}

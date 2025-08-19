@@ -16,10 +16,10 @@
  */
 package com.helger.xml.ls;
 
-import javax.annotation.Nullable;
-
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
+
+import jakarta.annotation.Nullable;
 
 /**
  * A {@link LSResourceResolver} implementation that does nothing.

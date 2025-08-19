@@ -18,30 +18,30 @@ package com.helger.graph.algo;
 
 import java.util.function.ToIntFunction;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.lang.GenericReflection;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.debug.GlobalDebug;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.graph.IMutableBaseGraph;
 import com.helger.graph.IMutableBaseGraphNode;
 import com.helger.graph.IMutableBaseGraphRelation;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Find the shortest path between 2 graph nodes, using Dijsktra's algorithm

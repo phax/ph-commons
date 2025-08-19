@@ -24,9 +24,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.graph.IMutableGraphRelation;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link GraphNode}.
@@ -40,11 +40,11 @@ public final class GraphNodeTest
   {
     final GraphNode n = new GraphNode ();
     assertNotNull (n.getID ());
-    assertTrue (StringHelper.hasText (n.getID ()));
+    assertTrue (StringHelper.isNotEmpty (n.getID ()));
 
     final GraphNode n1 = new GraphNode ("");
     assertNotNull (n1.getID ());
-    assertTrue (StringHelper.hasText (n1.getID ()));
+    assertTrue (StringHelper.isNotEmpty (n1.getID ()));
     assertFalse (n1.hasRelations ());
 
     final GraphNode n3 = new GraphNode ("id1");
@@ -82,13 +82,14 @@ public final class GraphNodeTest
   @Test
   public void testStdMethods ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new GraphNode ("id0"), new GraphNode ("id0"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new GraphNode ("id0"), new GraphNode ("id1"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new GraphNode ("id0"), new GraphNode ("id0"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new GraphNode ("id0"),
+                                                                           new GraphNode ("id1"));
     final GraphNode n1 = new GraphNode ("id0");
     n1.attrs ().putIn ("a", "b");
     final GraphNode n2 = new GraphNode ("id0");
     n2.attrs ().putIn ("a", "c");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (n1, n2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (n1, n2);
   }
 
   @Test

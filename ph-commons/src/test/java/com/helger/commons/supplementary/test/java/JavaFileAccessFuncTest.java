@@ -27,23 +27,23 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FileOperationManager;
-import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.file.LoggingFileOperationCallback;
-import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.system.EOperatingSystem;
-import com.helger.commons.system.SystemProperties;
+import com.helger.annotation.Nonempty;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.system.EOperatingSystem;
+import com.helger.base.system.SystemProperties;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FileOperationManager;
+import com.helger.io.file.FileOperations;
+import com.helger.io.file.LoggingFileOperationCallback;
+import com.helger.io.file.SimpleFileIO;
+
+import jakarta.annotation.Nonnull;
 
 public final class JavaFileAccessFuncTest
 {

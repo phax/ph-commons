@@ -16,13 +16,13 @@
  */
 package com.helger.security.authentication.subject;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
 /**
  * Default dummy implementation of the {@link IAuthSubject} interface that has

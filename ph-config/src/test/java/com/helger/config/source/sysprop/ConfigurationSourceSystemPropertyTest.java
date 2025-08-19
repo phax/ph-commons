@@ -24,9 +24,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.system.SystemProperties;
+import com.helger.base.system.CSystemProperty;
 import com.helger.config.source.EConfigSourceType;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link ConfigurationSourceSystemProperty}.
@@ -42,11 +42,11 @@ public final class ConfigurationSourceSystemPropertyTest
     assertSame (EConfigSourceType.SYSTEM_PROPERTY, c.getSourceType ());
     assertEquals (EConfigSourceType.SYSTEM_PROPERTY.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertNotNull (c.getConfigurationValue (SystemProperties.SYSTEM_PROPERTY_JAVA_HOME));
+    assertNotNull (c.getConfigurationValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_HOME));
     assertNull (c.getConfigurationValue ("I really don't know that system property!"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceSystemProperty ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceSystemProperty (1234));
+    TestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceSystemProperty ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceSystemProperty (1234));
   }
 
   @Test
@@ -56,7 +56,7 @@ public final class ConfigurationSourceSystemPropertyTest
     assertSame (EConfigSourceType.SYSTEM_PROPERTY, c.getSourceType ());
     assertEquals (7654, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertNotNull (c.getConfigurationValue (SystemProperties.SYSTEM_PROPERTY_JAVA_HOME));
+    assertNotNull (c.getConfigurationValue (CSystemProperty.SYSTEM_PROPERTY_JAVA_HOME));
     assertNull (c.getConfigurationValue ("I really don't know that system property!"));
   }
 }

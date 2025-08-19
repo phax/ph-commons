@@ -16,13 +16,13 @@
  */
 package com.helger.config.source;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Defines the type of configuration sources and the respective default

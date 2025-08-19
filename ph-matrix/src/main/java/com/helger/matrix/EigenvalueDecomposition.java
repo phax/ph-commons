@@ -18,29 +18,25 @@ package com.helger.matrix;
 
 import java.util.Arrays;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.numeric.MathHelper;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.math.MathHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
 
 /**
  * Eigenvalues and eigenvectors of a real matrix.
  * <P>
- * If A is symmetric, then A = V*D*V' where the eigenvalue matrix D is diagonal
- * and the eigenvector matrix V is orthogonal. I.e. A =
- * V.times(D.times(V.transpose())) and V.times(V.transpose()) equals the
- * identity matrix.
+ * If A is symmetric, then A = V*D*V' where the eigenvalue matrix D is diagonal and the eigenvector
+ * matrix V is orthogonal. I.e. A = V.times(D.times(V.transpose())) and V.times(V.transpose())
+ * equals the identity matrix.
  * <P>
- * If A is not symmetric, then the eigenvalue matrix D is block diagonal with
- * the real eigenvalues in 1-by-1 blocks and any complex eigenvalues, lambda +
- * i*mu, in 2-by-2 blocks, [lambda, mu; -mu, lambda]. The columns of V represent
- * the eigenvectors in the sense that A*V = V*D, i.e. A.times(V) equals
- * V.times(D). The matrix V may be badly conditioned, or even singular, so the
- * validity of the equation A = V*D*inverse(V) depends upon V.cond().
+ * If A is not symmetric, then the eigenvalue matrix D is block diagonal with the real eigenvalues
+ * in 1-by-1 blocks and any complex eigenvalues, lambda + i*mu, in 2-by-2 blocks, [lambda, mu; -mu,
+ * lambda]. The columns of V represent the eigenvectors in the sense that A*V = V*D, i.e. A.times(V)
+ * equals V.times(D). The matrix V may be badly conditioned, or even singular, so the validity of
+ * the equation A = V*D*inverse(V) depends upon V.cond().
  **/
 public class EigenvalueDecomposition
 {
@@ -697,12 +693,16 @@ public class EigenvalueDecomposition
             r /= s;
             if (m == l)
               break;
-            if (MathHelper.abs (m_aHessenBerg[m][m - 1]) *
-                (MathHelper.abs (q) + MathHelper.abs (r)) < EPSILON *
-                                                            (MathHelper.abs (p) *
-                                                             (MathHelper.abs (m_aHessenBerg[m - 1][m - 1]) +
-                                                              MathHelper.abs (z) +
-                                                              MathHelper.abs (m_aHessenBerg[m + 1][m + 1]))))
+            if (MathHelper.abs (m_aHessenBerg[m][m - 1]) * (MathHelper.abs (q) + MathHelper.abs (r)) <
+                EPSILON *
+                                                                                                       (MathHelper.abs (p) *
+                                                                                                        (MathHelper.abs (m_aHessenBerg[m -
+                                                                                                                                       1][m -
+                                                                                                                                          1]) +
+                                                                                                         MathHelper.abs (z) +
+                                                                                                         MathHelper.abs (m_aHessenBerg[m +
+                                                                                                                                       1][m +
+                                                                                                                                          1]))))
             {
               break;
             }
@@ -949,7 +949,11 @@ public class EigenvalueDecomposition
                 {
                   vr = EPSILON *
                        norm *
-                       (MathHelper.abs (w) + MathHelper.abs (q) + MathHelper.abs (x) + MathHelper.abs (y) + MathHelper.abs (z));
+                       (MathHelper.abs (w) +
+                        MathHelper.abs (q) +
+                        MathHelper.abs (x) +
+                        MathHelper.abs (y) +
+                        MathHelper.abs (z));
                 }
                 _cdiv (x * r - z * ra + q * sa, x * s - z * sa - q * ra, vr, vi);
                 m_aHessenBerg[i][n - 1] = m_dCdivr;
@@ -1013,8 +1017,7 @@ public class EigenvalueDecomposition
   }
 
   /**
-   * Check for symmetry, then construct the eigenvalue decomposition Structure
-   * to access D and V.
+   * Check for symmetry, then construct the eigenvalue decomposition Structure to access D and V.
    *
    * @param aMatrix
    *        Square matrix
@@ -1076,8 +1079,7 @@ public class EigenvalueDecomposition
   }
 
   /**
-   * @return <code>true</code> if the input was symmetric, <code>false</code> if
-   *         not
+   * @return <code>true</code> if the input was symmetric, <code>false</code> if not
    */
   public boolean isSymmetric ()
   {
@@ -1101,7 +1103,6 @@ public class EigenvalueDecomposition
    *
    * @return real(diag(D))
    */
-  @SuppressFBWarnings ("EI_EXPOSE_REP")
   @Nonnull
   @ReturnsMutableObject ("took code as is")
   public double [] directGetRealEigenvalues ()
@@ -1114,7 +1115,6 @@ public class EigenvalueDecomposition
    *
    * @return imag(diag(D))
    */
-  @SuppressFBWarnings ("EI_EXPOSE_REP")
   @Nonnull
   @ReturnsMutableObject ("took code as is")
   public double [] directGetImagEigenvalues ()

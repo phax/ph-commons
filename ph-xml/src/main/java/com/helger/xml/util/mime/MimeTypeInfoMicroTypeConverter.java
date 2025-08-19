@@ -33,21 +33,21 @@
  */
 package com.helger.xml.util.mime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.mime.MimeType;
-import com.helger.commons.mime.MimeTypeParser;
-import com.helger.commons.mime.MimeTypeParserException;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsOrderedSet;
+import com.helger.mime.MimeType;
+import com.helger.mime.parse.MimeTypeParser;
+import com.helger.mime.parse.MimeTypeParserException;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.util.MicroHelper;
 import com.helger.xml.util.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter <MimeTypeInfo>
 {
@@ -66,21 +66,21 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
     final IMicroElement eRet = new MicroElement (sNamespaceURI, sTagName);
     for (final MimeTypeWithSource aMimeType : aObject.getAllMimeTypesWithSource ())
     {
-      eRet.appendElement (sNamespaceURI, ELEMENT_MIMETYPE)
+      eRet.addElementNS (sNamespaceURI, ELEMENT_MIMETYPE)
           .setAttribute (ATTR_SOURCE, aMimeType.getSource ())
-          .appendText (aMimeType.getMimeTypeAsString ());
+          .addText (aMimeType.getMimeTypeAsString ());
     }
     if (aObject.hasComment ())
-      eRet.appendElement (sNamespaceURI, ELEMENT_COMMENT).appendText (aObject.getComment ());
+      eRet.addElementNS (sNamespaceURI, ELEMENT_COMMENT).addText (aObject.getComment ());
     for (final String sParentType : aObject.getAllParentTypes ())
-      eRet.appendElement (sNamespaceURI, ELEMENT_PARENT_TYPE).appendText (sParentType);
+      eRet.addElementNS (sNamespaceURI, ELEMENT_PARENT_TYPE).addText (sParentType);
     for (final String sGlob : aObject.getAllGlobs ())
-      eRet.appendElement (sNamespaceURI, ELEMENT_GLOB).appendText (sGlob);
+      eRet.addElementNS (sNamespaceURI, ELEMENT_GLOB).addText (sGlob);
     for (final ExtensionWithSource aExtension : aObject.getAllExtensionsWithSource ())
     {
-      eRet.appendElement (sNamespaceURI, ELEMENT_EXTENSION)
+      eRet.addElementNS (sNamespaceURI, ELEMENT_EXTENSION)
           .setAttribute (ATTR_SOURCE, aExtension.getSource ())
-          .appendText (aExtension.getExtension ());
+          .addText (aExtension.getExtension ());
     }
     eRet.setAttribute (ATTR_SOURCE, aObject.getSource ());
     return eRet;

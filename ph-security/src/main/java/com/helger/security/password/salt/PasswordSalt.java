@@ -17,25 +17,24 @@
 package com.helger.security.password.salt;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringHex;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.security.random.VerySecureRandom;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.random.VerySecureRandom;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Default implementation of {@link IPasswordSalt} using
- * {@link VerySecureRandom}.
+ * Default implementation of {@link IPasswordSalt} using {@link VerySecureRandom}.
  *
  * @author Philip Helger
  */
@@ -59,7 +58,7 @@ public final class PasswordSalt implements IPasswordSalt
   {
     ValueEnforcer.notEmpty (aBytes, "Bytes");
     m_aSaltBytes = aBytes;
-    m_sSaltString = StringHelper.getHexEncoded (aBytes);
+    m_sSaltString = StringHex.getHexEncoded (aBytes);
   }
 
   @Nonnegative
@@ -103,12 +102,12 @@ public final class PasswordSalt implements IPasswordSalt
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("bytes#", m_aSaltBytes.length).getToString ();
+    return new ToStringGenerator (this).append ("Bytes#", m_aSaltBytes.length).getToString ();
   }
 
   /**
-   * @return A new password salt with the default length of
-   *         {@value #DEFAULT_SALT_BYTES} and random bytes.
+   * @return A new password salt with the default length of {@value #DEFAULT_SALT_BYTES} and random
+   *         bytes.
    * @since 10.1.4
    */
   @Nonnull
@@ -130,30 +129,29 @@ public final class PasswordSalt implements IPasswordSalt
   {
     ValueEnforcer.isGT0 (nSaltBytes, "SaltBytes");
     final byte [] aBytes = new byte [nSaltBytes];
-    ThreadLocalRandom.current ().nextBytes (aBytes);
+    VerySecureRandom.getInstance ().nextBytes (aBytes);
     return new PasswordSalt (aBytes);
   }
 
   /**
-   * Try to create a {@link PasswordSalt} object from the passed string. First
-   * the string is hex decoded into a byte array and this is the password salt.
+   * Try to create a {@link PasswordSalt} object from the passed string. First the string is hex
+   * decoded into a byte array and this is the password salt.
    *
    * @param sSalt
    *        The string to be used. May be <code>null</code>.
-   * @return <code>null</code> if the passed salt string is <code>null</code> or
-   *         empty.
+   * @return <code>null</code> if the passed salt string is <code>null</code> or empty.
    * @throws IllegalArgumentException
    *         if the passed salt string cannot be hex decoded.
    */
   @Nullable
   public static PasswordSalt createFromStringMaybe (@Nullable final String sSalt)
   {
-    if (StringHelper.hasNoText (sSalt))
+    if (StringHelper.isEmpty (sSalt))
       return null;
 
     // Decode String to bytes
     // Throws an IllegalArgumentException if an invalid character is encountered
-    final byte [] aBytes = StringHelper.getHexDecoded (sSalt);
+    final byte [] aBytes = StringHex.getHexDecoded (sSalt);
     return new PasswordSalt (aBytes);
   }
 }

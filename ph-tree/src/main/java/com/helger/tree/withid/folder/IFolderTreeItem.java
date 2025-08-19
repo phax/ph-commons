@@ -18,9 +18,9 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import com.helger.tree.withid.ITreeItemWithID;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This interface represents a single folder within a directory tree. Each

@@ -23,11 +23,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.io.resource.FileSystemResource;
 import com.helger.jaxb.JAXBContextCache;
 import com.helger.jaxb.JAXBContextCacheKey;
 import com.helger.jaxb.mock.external.MockJAXBArchive;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.transform.TransformSourceFactory;
 
 import jakarta.xml.bind.JAXBContext;
@@ -80,7 +80,7 @@ public final class CollectingValidationEventHandlerTest
       assertEquals (1, cveh.getErrorList ().size ());
 
       // For code coverage completion
-      CommonsTestHelper.testToStringImplementation (cveh);
+      TestHelper.testToStringImplementation (cveh);
     }
   }
 }

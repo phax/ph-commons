@@ -16,9 +16,9 @@
  */
 package com.helger.tree.util;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.mutable.MutableInt;
+import com.helger.base.numeric.mutable.MutableInt;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 
 public final class MockTreeVisitorCallback extends DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, Object>>

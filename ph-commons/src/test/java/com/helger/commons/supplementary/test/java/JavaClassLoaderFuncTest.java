@@ -21,20 +21,19 @@ import static org.junit.Assert.assertNull;
 
 import java.io.InputStream;
 
-import javax.annotation.WillClose;
-
 import org.junit.Test;
 
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.lang.ClassLoaderHelper;
-import com.helger.commons.system.EJavaVersion;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.system.EJavaVersion;
 import com.helger.commons.system.JavaVersionHelper;
+import com.helger.io.clazz.ClassHelperExt;
 
 /**
- * Test the difference between loading from a ClassLoader and a Class. The
- * results are:
+ * Test the difference between loading from a ClassLoader and a Class. The results are:
  * <ul>
  * <li>When using a ClassLoader NO leading slash may be present</li>
  * <li>When using a Class the leading slash MUST be present</li>
@@ -99,19 +98,23 @@ public final class JavaClassLoaderFuncTest
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithoutSlash));
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithSlash));
 
-    _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-    _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+    _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+    _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
 
     // Current class class loader
     assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithoutSlash));
     assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithSlash));
 
-    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithoutSlash));
-    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithSlash));
+    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                     .getResourceAsStream (sWithoutSlash));
+    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                  .getResourceAsStream (sWithSlash));
 
     // This is the work around to be used
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithoutSlash));
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithoutSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithSlash));
 
     _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
                                                            sWithoutSlash));
@@ -164,19 +167,23 @@ public final class JavaClassLoaderFuncTest
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithoutSlash));
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithSlash));
 
-    _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-    _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+    _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+    _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
 
     // Current class class loader
     assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithoutSlash));
     assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithSlash));
 
-    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithoutSlash));
-    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithSlash));
+    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                     .getResourceAsStream (sWithoutSlash));
+    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                  .getResourceAsStream (sWithSlash));
 
     // This is the work around to be used
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithoutSlash));
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithoutSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithSlash));
 
     _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
                                                            sWithoutSlash));
@@ -229,19 +236,23 @@ public final class JavaClassLoaderFuncTest
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithoutSlash));
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithSlash));
 
-    _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-    _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+    _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+    _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
 
     // Current class class loader
     assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithoutSlash));
     assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithSlash));
 
-    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithoutSlash));
-    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithSlash));
+    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                     .getResourceAsStream (sWithoutSlash));
+    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                  .getResourceAsStream (sWithSlash));
 
     // This is the work around to be used
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithoutSlash));
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithoutSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithSlash));
 
     _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
                                                            sWithoutSlash));
@@ -294,19 +305,23 @@ public final class JavaClassLoaderFuncTest
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithoutSlash));
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithSlash));
 
-    _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-    _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+    _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+    _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
 
     // Current class class loader
     assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithoutSlash));
     assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithSlash));
 
-    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithoutSlash));
-    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithSlash));
+    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                     .getResourceAsStream (sWithoutSlash));
+    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                  .getResourceAsStream (sWithSlash));
 
     // This is the work around to be used
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithoutSlash));
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithoutSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithSlash));
 
     _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
                                                            sWithoutSlash));
@@ -351,7 +366,8 @@ public final class JavaClassLoaderFuncTest
     final boolean isAtLeast1_8_0_144 = JavaVersionHelper.isAtLeast (8, 144);
     if (isAtLeast1_8_0_144)
     {
-      _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithoutSlash));
+      _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (),
+                                                             sWithoutSlash));
       _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithSlash));
     }
     else
@@ -374,25 +390,29 @@ public final class JavaClassLoaderFuncTest
     // -- different here --
     if (isAtLeast1_8_0_144)
     {
-      _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-      _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+      _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+      _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
     }
     else
     {
-      _assertNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-      _assertNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+      _assertNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+      _assertNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
     }
 
     // Current class class loader
     assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithoutSlash));
     assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithSlash));
 
-    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithoutSlash));
-    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithSlash));
+    _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                     .getResourceAsStream (sWithoutSlash));
+    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                  .getResourceAsStream (sWithSlash));
 
     // This is the work around to be used
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithoutSlash));
-    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithoutSlash));
+    assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                  sWithSlash));
 
     // -- different here --
     if (isAtLeast1_8_0_144)
@@ -455,7 +475,8 @@ public final class JavaClassLoaderFuncTest
       assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getContextClassLoader (), sWithoutSlash));
       assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getContextClassLoader (), sWithSlash));
 
-      _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithoutSlash));
+      _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (),
+                                                             sWithoutSlash));
       _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithSlash));
 
       // Current class
@@ -469,19 +490,23 @@ public final class JavaClassLoaderFuncTest
       assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithoutSlash));
       assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithSlash));
 
-      _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-      _assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+      _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+      _assertNotNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
 
       // Current class class loader
       assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithoutSlash));
       assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithSlash));
 
-      _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithoutSlash));
-      _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithSlash));
+      _assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                       .getResourceAsStream (sWithoutSlash));
+      _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                    .getResourceAsStream (sWithSlash));
 
       // This is the work around to be used
-      assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithoutSlash));
-      assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithSlash));
+      assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                    sWithoutSlash));
+      assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                    sWithSlash));
 
       _assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
                                                              sWithoutSlash));
@@ -536,23 +561,28 @@ public final class JavaClassLoaderFuncTest
     assertNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithoutSlash));
     assertNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithSlash));
 
-    _assertNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-    _assertNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+    _assertNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+    _assertNull (ClassHelperExt.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
 
     // Current class class loader
     assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithoutSlash));
     assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithSlash));
 
-    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithoutSlash));
-    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResourceAsStream (sWithSlash));
+    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                  .getResourceAsStream (sWithoutSlash));
+    _assertNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class)
+                                  .getResourceAsStream (sWithSlash));
 
     // This is the work around to be used
-    assertNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithoutSlash));
-    assertNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithSlash));
+    assertNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                               sWithoutSlash));
+    assertNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                               sWithSlash));
 
     _assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
                                                         sWithoutSlash));
-    _assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class), sWithSlash));
+    _assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                        sWithSlash));
 
     // System class loader
     assertNull (ClassLoaderHelper.getSystemClassLoader ().getResource (sWithoutSlash));

@@ -16,9 +16,6 @@
  */
 package com.helger.xml.microdom.util;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
 import javax.xml.XMLConstants;
 
 import org.w3c.dom.DocumentType;
@@ -26,10 +23,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.xml.XMLHelper;
 import com.helger.xml.microdom.IMicroContainer;
 import com.helger.xml.microdom.IMicroDocument;
@@ -45,7 +43,8 @@ import com.helger.xml.microdom.MicroEntityReference;
 import com.helger.xml.microdom.MicroProcessingInstruction;
 import com.helger.xml.microdom.MicroText;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Some utility methods on micro nodes.
@@ -67,22 +66,22 @@ public final class MicroHelper
     ValueEnforcer.notNull (aSrcNode, "SrcNode");
 
     if (aChild != null)
-      if (aChild instanceof IMicroNode)
+      if (aChild instanceof final IMicroNode aChildNode)
       {
         // directly append Node
-        aSrcNode.appendChild ((IMicroNode) aChild);
+        aSrcNode.addChild (aChildNode);
       }
       else
-        if (aChild instanceof String)
+        if (aChild instanceof final String sChild)
         {
           // append a string node
-          aSrcNode.appendText ((String) aChild);
+          aSrcNode.addText (sChild);
         }
         else
-          if (aChild instanceof Iterable <?>)
+          if (aChild instanceof final Iterable <?> aChildList)
           {
             // it's a nested collection
-            for (final Object aSubChild : (Iterable <?>) aChild)
+            for (final Object aSubChild : aChildList)
               append (aSrcNode, aSubChild);
           }
           else
@@ -109,11 +108,10 @@ public final class MicroHelper
    *        The node to get the path from. May be <code>null</code>.
    * @param sSep
    *        The separator to be put between each level. For XPath e.g. use "/"
-   * @return A non-<code>null</code> string. If the passed node is
-   *         <code>null</code>, the return value is an empty string.
+   * @return A non-<code>null</code> string. If the passed node is <code>null</code>, the return
+   *         value is an empty string.
    */
   @Nonnull
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public static String getPath (@Nullable final IMicroNode aNode, @Nonnull final String sSep)
   {
     ValueEnforcer.notNull (sSep, "Separator");
@@ -135,8 +133,8 @@ public final class MicroHelper
    *
    * @param aDoc
    *        The document to be evaluated. May be <code>null</code>.
-   * @return <code>null</code> if the passed document was <code>null</code> or
-   *         if no document element is present. The tag name otherwise.
+   * @return <code>null</code> if the passed document was <code>null</code> or if no document
+   *         element is present. The tag name otherwise.
    */
   @Nullable
   public static String getDocumentRootElementTagName (@Nullable final IMicroDocument aDoc)
@@ -176,7 +174,8 @@ public final class MicroHelper
       {
         final Element aElement = (Element) aNode;
         final String sNamespaceURI = aElement.getNamespaceURI ();
-        final IMicroElement eElement = sNamespaceURI != null ? new MicroElement (sNamespaceURI, aElement.getLocalName ())
+        final IMicroElement eElement = sNamespaceURI != null ? new MicroElement (sNamespaceURI,
+                                                                                 aElement.getLocalName ())
                                                              : new MicroElement (aElement.getTagName ());
         XMLHelper.forAllAttributes (aElement, aAttr -> {
           final String sAttrNamespaceURI = aAttr.getNamespaceURI ();
@@ -184,7 +183,7 @@ public final class MicroHelper
           {
             // Ignore all "xmlns" attributes (special namespace URI!)
             if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
-              eElement.setAttribute (sAttrNamespaceURI, aAttr.getLocalName (), aAttr.getValue ());
+              eElement.setAttributeNS (sAttrNamespaceURI, aAttr.getLocalName (), aAttr.getValue ());
           }
           else
             eElement.setAttribute (aAttr.getName (), aAttr.getValue ());
@@ -221,54 +220,54 @@ public final class MicroHelper
     }
 
     // handle children recursively (works for different node types)
-    XMLHelper.iterateChildren (aNode, x -> ret.appendChild (convertToMicroNode (x)));
+    XMLHelper.iterateChildren (aNode, x -> ret.addChild (convertToMicroNode (x)));
 
     return ret;
   }
 
   /**
-   * Helper method to extract the text content of the child element denoted by
-   * the parameter sChildElementName of the passed parent element.
+   * Helper method to extract the text content of the child element denoted by the parameter
+   * sChildElementName of the passed parent element.
    *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sChildElementName
    *        The name of the child element who's text content is to be extracted.
-   * @return <code>null</code> if the child element does not exist or the child
-   *         element does not contain any text.
+   * @return <code>null</code> if the child element does not exist or the child element does not
+   *         contain any text.
    */
   @Nullable
-  public static String getChildTextContent (@Nonnull final IMicroElement eParentElement, @Nonnull final String sChildElementName)
+  public static String getChildTextContent (@Nonnull final IMicroElement eParentElement,
+                                            @Nonnull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContent () : null;
   }
 
   /**
-   * Helper method to extract the text content of the child element denoted by
-   * the parameter sChildElementName of the passed parent element. After
-   * concatenation, all leading and trailing spaces are removed.
+   * Helper method to extract the text content of the child element denoted by the parameter
+   * sChildElementName of the passed parent element. After concatenation, all leading and trailing
+   * spaces are removed.
    *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sChildElementName
    *        The name of the child element who's text content is to be extracted.
-   * @return <code>null</code> if the child element does not exist or the child
-   *         element does not contain any text.
+   * @return <code>null</code> if the child element does not exist or the child element does not
+   *         contain any text.
    */
   @Nullable
-  public static String getChildTextContentTrimmed (@Nonnull final IMicroElement eParentElement, @Nonnull final String sChildElementName)
+  public static String getChildTextContentTrimmed (@Nonnull final IMicroElement eParentElement,
+                                                   @Nonnull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentTrimmed () : null;
   }
 
   /**
-   * Helper method to extract the text content of the child element denoted by
-   * the parameter sChildElementName of the passed parent element. The read text
-   * content is converted via the
-   * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
-   * destination type.
+   * Helper method to extract the text content of the child element denoted by the parameter
+   * sChildElementName of the passed parent element. The read text content is converted via the
+   * {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination type.
    *
    * @param <DSTTYPE>
    *        Destination type
@@ -278,8 +277,8 @@ public final class MicroHelper
    *        The name of the child element who's text content is to be extracted.
    * @param aDstClass
    *        The destination class. May not be <code>null</code>.
-   * @return <code>null</code> if the child element does not exist or the child
-   *         element does not contain any text.
+   * @return <code>null</code> if the child element does not exist or the child element does not
+   *         contain any text.
    */
   @Nullable
   public static <DSTTYPE> DSTTYPE getChildTextContentWithConversion (@Nonnull final IMicroElement eParentElement,
@@ -291,9 +290,8 @@ public final class MicroHelper
   }
 
   /**
-   * Helper method to extract the text content of the child element denoted by
-   * the parameters sNamespaceURI and sChildElementName of the passed parent
-   * element.
+   * Helper method to extract the text content of the child element denoted by the parameters
+   * sNamespaceURI and sChildElementName of the passed parent element.
    *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
@@ -301,8 +299,8 @@ public final class MicroHelper
    *        The expected namespace URI of the element.
    * @param sChildElementName
    *        The name of the child element who's text content is to be extracted.
-   * @return <code>null</code> if the child element does not exist or the child
-   *         element does not contain any text.
+   * @return <code>null</code> if the child element does not exist or the child element does not
+   *         contain any text.
    */
   @Nullable
   public static String getChildTextContent (@Nonnull final IMicroElement eParentElement,
@@ -314,9 +312,9 @@ public final class MicroHelper
   }
 
   /**
-   * Helper method to extract the text content of the child element denoted by
-   * the parameters sNamespaceURI and sChildElementName of the passed parent
-   * element. After concatenation, all leading and trailing spaces are removed.
+   * Helper method to extract the text content of the child element denoted by the parameters
+   * sNamespaceURI and sChildElementName of the passed parent element. After concatenation, all
+   * leading and trailing spaces are removed.
    *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
@@ -324,8 +322,8 @@ public final class MicroHelper
    *        The expected namespace URI of the element.
    * @param sChildElementName
    *        The name of the child element who's text content is to be extracted.
-   * @return <code>null</code> if the child element does not exist or the child
-   *         element does not contain any text.
+   * @return <code>null</code> if the child element does not exist or the child element does not
+   *         contain any text.
    */
   @Nullable
   public static String getChildTextContentTrimmed (@Nonnull final IMicroElement eParentElement,
@@ -337,10 +335,9 @@ public final class MicroHelper
   }
 
   /**
-   * Helper method to extract the text content of the child element denoted by
-   * the parameters sNamespaceURI and sChildElementName of the passed parent
-   * element. The read text content is converted via the
-   * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
+   * Helper method to extract the text content of the child element denoted by the parameters
+   * sNamespaceURI and sChildElementName of the passed parent element. The read text content is
+   * converted via the {@link com.helger.typeconvert.impl.TypeConverter} to the desired
    * destination type.
    *
    * @param <DSTTYPE>
@@ -353,8 +350,8 @@ public final class MicroHelper
    *        The name of the child element who's text content is to be extracted.
    * @param aDstClass
    *        The destination class. May not be <code>null</code>.
-   * @return <code>null</code> if the child element does not exist or the child
-   *         element does not contain any text.
+   * @return <code>null</code> if the child element does not exist or the child element does not
+   *         contain any text.
    */
   @Nullable
   public static <DSTTYPE> DSTTYPE getChildTextContentWithConversion (@Nonnull final IMicroElement eParentElement,
@@ -367,14 +364,12 @@ public final class MicroHelper
   }
 
   /**
-   * Create a micro container with all children of the passed node. If the
-   * passed node has no children, an empty object is returned. The resulting
-   * container contains a clone of each child node so that the original objects
-   * is not modified.
+   * Create a micro container with all children of the passed node. If the passed node has no
+   * children, an empty object is returned. The resulting container contains a clone of each child
+   * node so that the original objects is not modified.
    *
    * @param aParent
-   *        The parent node to get the children from. May not be
-   *        <code>null</code>.
+   *        The parent node to get the children from. May not be <code>null</code>.
    * @return The micro container and never <code>null</code> but maybe empty.
    */
   @Nonnull
@@ -382,19 +377,18 @@ public final class MicroHelper
   public static IMicroContainer getAllChildrenAsContainer (@Nonnull final IMicroNode aParent)
   {
     final IMicroContainer ret = new MicroContainer ();
-    aParent.forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
+    aParent.forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
     return ret;
   }
 
   /**
-   * Create a micro container with all children of the passed node. If the
-   * passed node has no children, an empty object is returned. The resulting
-   * container contains the original child nodes so that they no longer belong
-   * to the original object. THis implies that the original object is modified!
+   * Create a micro container with all children of the passed node. If the passed node has no
+   * children, an empty object is returned. The resulting container contains the original child
+   * nodes so that they no longer belong to the original object. THis implies that the original
+   * object is modified!
    *
    * @param aParent
-   *        The parent node to get the children from. May not be
-   *        <code>null</code>.
+   *        The parent node to get the children from. May not be <code>null</code>.
    * @return The micro container and never <code>null</code> but maybe empty.
    */
   @Nonnull
@@ -402,7 +396,7 @@ public final class MicroHelper
   public static IMicroContainer getAllOriginalChildrenAsContainer (@Nonnull final IMicroNode aParent)
   {
     final IMicroContainer ret = new MicroContainer ();
-    aParent.forAllChildren (aChildNode -> ret.appendChild (aChildNode.detachFromParent ()));
+    aParent.forAllChildren (aChildNode -> ret.addChild (aChildNode.detachFromParent ()));
     return ret;
   }
 }

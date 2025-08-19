@@ -16,14 +16,15 @@
  */
 package com.helger.tree.singleton;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.style.UsedViaReflection;
+import com.helger.base.hashcode.HashCodeGenerator;
 
-import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.hashcode.HashCodeGenerator;
+import jakarta.annotation.Nonnull;
 
-public final class MockSessionSingletonTreeWithUniqueID extends AbstractSessionSingletonTreeWithUniqueID <String, String>
+public final class MockSessionSingletonTreeWithUniqueID extends
+                                                        AbstractSessionSingletonTreeWithUniqueID <String, String>
 {
-  @Deprecated
+  @Deprecated (forRemoval = false)
   @UsedViaReflection
   public MockSessionSingletonTreeWithUniqueID ()
   {}

@@ -18,14 +18,14 @@ package com.helger.xml.microdom.util;
 
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterableIterator;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.xml.microdom.IMicroNode;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Class for recursively visiting all children of an {@link IMicroNode}. It
@@ -33,7 +33,7 @@ import com.helger.xml.microdom.IMicroNode;
  *
  * @author Philip Helger
  */
-public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
+public class MicroRecursiveIterator implements ICommonsIterableIterator <IMicroNode>
 {
   private final ICommonsList <IMicroNode> m_aOpen = new CommonsArrayList <> ();
 

@@ -26,11 +26,8 @@ import java.util.Locale.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * Based on
- * http://www.onjava.com/pub/a/onjava/2000/12/15/formatting_doubles.html
+ * Based on http://www.onjava.com/pub/a/onjava/2000/12/15/formatting_doubles.html
  *
  * @author Philip Helger
  */
@@ -1248,7 +1245,6 @@ public final class MainDoubleToString
     _main_adj (repeat * 5, "doubles", ds);
   }
 
-  @SuppressFBWarnings ("UC_USELESS_OBJECT")
   private static void _main_adj (final int repeat, final String name, final double [] arr)
   {
     long time1;

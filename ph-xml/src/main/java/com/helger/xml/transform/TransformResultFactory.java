@@ -21,17 +21,18 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.file.Path;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Node;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.resource.IWritableResource;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.io.resource.IWritableResource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Factory class to create the correct {@link javax.xml.transform.Result}

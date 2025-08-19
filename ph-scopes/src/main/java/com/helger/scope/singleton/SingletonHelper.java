@@ -16,12 +16,12 @@
  */
 package com.helger.scope.singleton;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.debug.GlobalDebug;
 
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.debug.GlobalDebug;
+import jakarta.annotation.Nullable;
 
 /**
  * Global singleton utility methods that don't nicely fit somewhere else.
@@ -47,8 +47,8 @@ public final class SingletonHelper
    * Enable or disable singleton consistency debugging.
    *
    * @param bDebugConsistency
-   *        <code>true</code> if the singleton consistency should be debugged,
-   *        <code>false</code> to disable it.
+   *        <code>true</code> if the singleton consistency should be debugged, <code>false</code> to
+   *        disable it.
    */
   public static void setDebugConsistency (final boolean bDebugConsistency)
   {
@@ -56,9 +56,8 @@ public final class SingletonHelper
   }
 
   /**
-   * @return <code>true</code> if singleton consistency debugging is enabled,
-   *         <code>false</code> if it is disabled. The default value is
-   *         {@link GlobalDebug#isDebugMode()}.
+   * @return <code>true</code> if singleton consistency debugging is enabled, <code>false</code> if
+   *         it is disabled. The default value is {@link GlobalDebug#isDebugMode()}.
    */
   public static boolean isDebugConsistency ()
   {
@@ -69,8 +68,8 @@ public final class SingletonHelper
    * Enable or disable stack traces when debugging singletons.
    *
    * @param bDebugWithStackTrace
-   *        <code>true</code> to enable stack traces, <code>false</code> to
-   *        disable them. By default is is disabled.
+   *        <code>true</code> to enable stack traces, <code>false</code> to disable them. By default
+   *        is is disabled.
    */
   public static void setDebugWithStackTrace (final boolean bDebugWithStackTrace)
   {
@@ -78,8 +77,8 @@ public final class SingletonHelper
   }
 
   /**
-   * @return <code>true</code> if stack traces should be logged,
-   *         <code>false</code> if not. The default value is disabled.
+   * @return <code>true</code> if stack traces should be logged, <code>false</code> if not. The
+   *         default value is disabled.
    */
   public static boolean isDebugWithStackTrace ()
   {

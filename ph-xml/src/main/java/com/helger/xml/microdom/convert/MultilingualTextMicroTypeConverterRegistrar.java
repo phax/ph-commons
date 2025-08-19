@@ -20,20 +20,20 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.text.MultilingualText;
-import com.helger.commons.text.ReadOnlyMultilingualText;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.text.IMultilingualText;
+import com.helger.text.MultilingualText;
+import com.helger.text.ReadOnlyMultilingualText;
+import com.helger.text.locale.LocaleCache;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * {@link IMicroTypeConverterRegistrarSPI} implementation for
@@ -58,9 +58,9 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
       for (final Map.Entry <Locale, String> aEntry : aSource.texts ().getSortedByKey (Comparator.comparing (Locale::toString)).entrySet ())
       {
-        final IMicroElement eText = eMText.appendElement (sNamespaceURI, ELEMENT_TEXT);
+        final IMicroElement eText = eMText.addElementNS (sNamespaceURI, ELEMENT_TEXT);
         eText.setAttribute (ATTR_LOCALE, aEntry.getKey ().toString ());
-        eText.appendText (aEntry.getValue ());
+        eText.addText (aEntry.getValue ());
       }
       return eMText;
     }

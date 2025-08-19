@@ -16,10 +16,10 @@
  */
 package com.helger.matrix;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.numeric.MathHelper;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.math.MathHelper;
+import jakarta.annotation.Nonnull;
 
 /**
  * QR Decomposition.

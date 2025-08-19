@@ -22,9 +22,6 @@ import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
@@ -34,18 +31,22 @@ import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.ByteBufferInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.charset.CharsetHelper.InputStreamAndCharset;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.stream.ByteBufferInputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.io.resource.IReadableResource;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
 import com.helger.xml.serialize.read.SAXReaderSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for reading JAXB documents from various sources.
@@ -57,16 +58,15 @@ import com.helger.xml.serialize.read.SAXReaderSettings;
 public interface IJAXBReader <JAXBTYPE>
 {
   /**
-   * @return <code>true</code> if an eventually configured XML Schema should be
-   *         used, <code>false</code> to explicitly disable the usage of XML
-   *         Schema.
+   * @return <code>true</code> if an eventually configured XML Schema should be used,
+   *         <code>false</code> to explicitly disable the usage of XML Schema.
    * @since 11.0.3
    */
   boolean isUseSchema ();
 
   /**
-   * Read a document from the specified input source. The secure reading feature
-   * has affect when using this method.
+   * Read a document from the specified input source. The secure reading feature has affect when
+   * using this method.
    *
    * @param aInputSource
    *        The source to read. May not be <code>null</code>.
@@ -80,8 +80,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified input source using the specified SAX
-   * reader settings. The secure reading must be enabled in the SAX settings.
+   * Read a document from the specified input source using the specified SAX reader settings. The
+   * secure reading must be enabled in the SAX settings.
    *
    * @param aSettings
    *        The SAX Settings to use.
@@ -104,8 +104,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified input stream. The secure reading feature
-   * has affect when using this method.
+   * Read a document from the specified input stream. The secure reading feature has affect when
+   * using this method.
    *
    * @param aIS
    *        The input stream to read. May not be <code>null</code>.
@@ -129,8 +129,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified reader. The secure reading feature has
-   * affect when using this method.
+   * Read a document from the specified reader. The secure reading feature has affect when using
+   * this method.
    *
    * @param aReader
    *        The reader to read. May not be <code>null</code>.
@@ -144,8 +144,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified file. The secure reading feature has
-   * affect when using this method.
+   * Read a document from the specified file. The secure reading feature has affect when using this
+   * method.
    *
    * @param aFile
    *        The file to read. May not be <code>null</code>.
@@ -161,8 +161,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified Path. The secure reading feature has
-   * affect when using this method.
+   * Read a document from the specified Path. The secure reading feature has affect when using this
+   * method.
    *
    * @param aPath
    *        The path to read. May not be <code>null</code>.
@@ -178,8 +178,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified resource. The secure reading feature has
-   * affect when using this method.
+   * Read a document from the specified resource. The secure reading feature has affect when using
+   * this method.
    *
    * @param aResource
    *        The resource to read. May not be <code>null</code>.
@@ -195,8 +195,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified input stream provider. The secure
-   * reading feature has affect when using this method.
+   * Read a document from the specified input stream provider. The secure reading feature has affect
+   * when using this method.
    *
    * @param aISP
    *        The input stream provider to read. May not be <code>null</code>.
@@ -212,8 +212,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified byte array. The secure reading feature
-   * has affect when using this method.
+   * Read a document from the specified byte array. The secure reading feature has affect when using
+   * this method.
    *
    * @param aXML
    *        The XML bytes to read. May not be <code>null</code>.
@@ -229,8 +229,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified byte array. The secure reading feature
-   * has affect when using this method.
+   * Read a document from the specified byte array. The secure reading feature has affect when using
+   * this method.
    *
    * @param aXML
    *        The XML bytes to read. May not be <code>null</code>.
@@ -251,8 +251,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified byte buffer. The secure reading feature
-   * has affect when using this method.
+   * Read a document from the specified byte buffer. The secure reading feature has affect when
+   * using this method.
    *
    * @param aXML
    *        The XML bytes to read. May not be <code>null</code>.
@@ -268,8 +268,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified String. The secure reading feature has
-   * affect when using this method.
+   * Read a document from the specified String. The secure reading feature has affect when using
+   * this method.
    *
    * @param sXML
    *        The XML string to read. May not be <code>null</code>.
@@ -283,8 +283,8 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified char array. The secure reading feature
-   * has affect when using this method.
+   * Read a document from the specified char array. The secure reading feature has affect when using
+   * this method.
    *
    * @param aXML
    *        The XML string to read. May not be <code>null</code>.
@@ -308,9 +308,8 @@ public interface IJAXBReader <JAXBTYPE>
   JAXBTYPE read (@Nonnull IJAXBUnmarshaller <JAXBTYPE> aHandler);
 
   /**
-   * Read a document from the specified source. The secure reading feature has
-   * <b>NO</b> affect when using this method because the parameter type is too
-   * generic.
+   * Read a document from the specified source. The secure reading feature has <b>NO</b> affect when
+   * using this method because the parameter type is too generic.
    *
    * @param aSource
    *        The source to read. May not be <code>null</code>.
@@ -325,10 +324,9 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified DOM node. The secure reading feature has
-   * <b>NO</b> affect when using this method because no parsing happens! To
-   * ensure secure reading the Node must first be serialized to a String and be
-   * parsed again!
+   * Read a document from the specified DOM node. The secure reading feature has <b>NO</b> affect
+   * when using this method because no parsing happens! To ensure secure reading the Node must first
+   * be serialized to a String and be parsed again!
    *
    * @param aNode
    *        The DOM node to read. May not be <code>null</code>.

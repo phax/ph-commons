@@ -20,15 +20,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.TypeConverterException.EReason;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.typeconvert.TypeConverterException;
-import com.helger.commons.typeconvert.TypeConverterException.EReason;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A utility class for converting objects from and to serializable format.<br>

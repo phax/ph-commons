@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DirectedGraphRelation}.
@@ -69,12 +69,12 @@ public final class DirectedGraphRelationTest
     assertSame (gr.getFrom (), nf);
     assertSame (gr.getTo (), nt);
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphRelation ("id1", nf, nt),
+    TestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphRelation ("id1", nf, nt),
                                                                        new DirectedGraphRelation ("id1", nf, nt));
     // different IDs
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphRelation (nf, nt),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphRelation (nf, nt),
                                                                            new DirectedGraphRelation (nf, nt));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphRelation ("id1", nf, nt),
+    TestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphRelation ("id1", nf, nt),
                                                                            new DirectedGraphRelation ("id1",
                                                                                                       nf,
                                                                                                       new DirectedGraphNode ()));

@@ -18,10 +18,10 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.tree.withid.unique.BasicTreeWithGlobalUniqueID;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Abstract implementation class for a folder tree. The elements of the tree are

@@ -18,14 +18,14 @@ package com.helger.jaxb.validation;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.error.IError;
-import com.helger.commons.error.level.EErrorLevel;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.level.EErrorLevel;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}

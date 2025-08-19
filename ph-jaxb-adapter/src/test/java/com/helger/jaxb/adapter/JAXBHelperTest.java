@@ -25,8 +25,6 @@ import javax.xml.namespace.QName;
 
 import org.junit.Test;
 
-import com.helger.commons.equals.EqualsHelper;
-
 import jakarta.xml.bind.JAXBElement;
 
 /**
@@ -39,22 +37,28 @@ public final class JAXBHelperTest
   @Test
   public void testClone ()
   {
-    final JAXBElement <String> aJE = new JAXBElement <> (new QName ("urn:example.org", "test"), String.class, null, "any");
+    final JAXBElement <String> aJE = new JAXBElement <> (new QName ("urn:example.org", "test"),
+                                                         String.class,
+                                                         null,
+                                                         "any");
     final JAXBElement <String> aClone = JAXBHelper.getClonedJAXBElement (aJE);
     assertNotNull (aClone);
     assertNotSame (aJE, aClone);
     assertNotEquals (aJE, aClone);
-    assertTrue (EqualsHelper.equals (aJE, aClone));
+    assertTrue (JAXBHelper.equalsJAXBElements (aJE, aClone));
   }
 
   @Test
   public void testCloneWithScope ()
   {
-    final JAXBElement <String> aJE = new JAXBElement <> (new QName ("urn:example.org", "test2"), String.class, JAXBHelperTest.class, "any");
+    final JAXBElement <String> aJE = new JAXBElement <> (new QName ("urn:example.org", "test2"),
+                                                         String.class,
+                                                         JAXBHelperTest.class,
+                                                         "any");
     final JAXBElement <String> aClone = JAXBHelper.getClonedJAXBElement (aJE);
     assertNotNull (aClone);
     assertNotSame (aJE, aClone);
     assertNotEquals (aJE, aClone);
-    assertTrue (EqualsHelper.equals (aJE, aClone));
+    assertTrue (JAXBHelper.equalsJAXBElements (aJE, aClone));
   }
 }

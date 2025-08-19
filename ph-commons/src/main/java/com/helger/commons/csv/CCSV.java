@@ -32,7 +32,7 @@ package com.helger.commons.csv;
  limitations under the License.
  */
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Constants for the CSV handling.

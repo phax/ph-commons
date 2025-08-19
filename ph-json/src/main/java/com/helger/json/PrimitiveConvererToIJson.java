@@ -16,11 +16,11 @@
  */
 package com.helger.json;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.traits.IPrimitiveConverterTo;
+import com.helger.base.traits.IPrimitiveConverterTo;
 import com.helger.json.convert.JsonConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * An instance of {@link IPrimitiveConverterTo} for the usage with JSON.

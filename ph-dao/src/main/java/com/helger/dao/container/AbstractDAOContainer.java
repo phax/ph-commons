@@ -16,11 +16,10 @@
  */
 package com.helger.dao.container;
 
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.dao.IDAO;
 
 /**

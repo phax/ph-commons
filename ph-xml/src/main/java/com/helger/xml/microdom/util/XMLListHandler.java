@@ -20,30 +20,30 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IHasOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.EAppend;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.iface.IHasOutputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Simple class that reads a list from an XML input stream.<br>
@@ -98,8 +98,8 @@ public final class XMLListHandler
    * Read a predefined XML file that contains list items.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>.
-   *        Automatically closed no matter whether reading succeeded or not.
+   *        The input stream to read from. May not be <code>null</code>. Automatically closed no
+   *        matter whether reading succeeded or not.
    * @return <code>null</code> if reading fails - all list items otherwise.
    */
   @Nullable
@@ -116,13 +116,12 @@ public final class XMLListHandler
    * Read a predefined XML file that contains list items.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>.
-   *        Automatically closed no matter whether reading succeeded or not.
+   *        The input stream to read from. May not be <code>null</code>. Automatically closed no
+   *        matter whether reading succeeded or not.
    * @param aTargetList
    *        The target collection to be filled. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if reading succeeded,
-   *         {@link ESuccess#FAILURE} if the input stream is no valid XML or any
-   *         other error occurred.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} if the input
+   *         stream is no valid XML or any other error occurred.
    */
   @Nonnull
   public static ESuccess readList (@Nonnull @WillClose final InputStream aIS,
@@ -184,10 +183,10 @@ public final class XMLListHandler
     ValueEnforcer.notNull (aCollection, "Collection");
 
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_LIST);
+    final IMicroElement eRoot = aDoc.addElement (ELEMENT_LIST);
     for (final String sItem : aCollection)
     {
-      final IMicroElement eItem = eRoot.appendElement (ELEMENT_ITEM);
+      final IMicroElement eItem = eRoot.addElement (ELEMENT_ITEM);
       eItem.setAttribute (ATTR_VALUE, sItem);
     }
     return aDoc;
@@ -203,16 +202,14 @@ public final class XMLListHandler
   }
 
   /**
-   * Write the passed collection to the passed output stream using the
-   * predefined XML layout.
+   * Write the passed collection to the passed output stream using the predefined XML layout.
    *
    * @param aCollection
    *        The map to be written. May not be <code>null</code>.
    * @param aOS
-   *        The output stream to write to. The stream is closed independent of
-   *        success or failure. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} when everything went well,
-   *         {@link ESuccess#FAILURE} otherwise.
+   *        The output stream to write to. The stream is closed independent of success or failure.
+   *        May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} when everything went well, {@link ESuccess#FAILURE} otherwise.
    */
   @Nonnull
   public static ESuccess writeList (@Nonnull final Collection <String> aCollection,

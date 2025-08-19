@@ -20,20 +20,20 @@ import java.security.cert.CRL;
 import java.time.Duration;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.cache.Cache;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.cache.impl.Cache;
 import com.helger.datetime.expiration.ExpiringObject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A cache for CRLs read from remote locations.
@@ -44,12 +44,12 @@ import com.helger.datetime.expiration.ExpiringObject;
 public class CRLCache
 {
   @ThreadSafe
-  private static class MyCache extends Cache <String, ExpiringObject <CRL>>
+  private static class CRLInternalCache extends Cache <String, ExpiringObject <CRL>>
   {
-    public MyCache (@Nonnull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
-                    final int nMaxSize,
-                    @Nonnull @Nonempty final String sCacheName,
-                    final boolean bAllowNullValues)
+    public CRLInternalCache (@Nonnull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
+                             final int nMaxSize,
+                             @Nonnull @Nonempty final String sCacheName,
+                             final boolean bAllowNullValues)
     {
       super (aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
     }
@@ -63,7 +63,7 @@ public class CRLCache
   public static final Duration DEFAULT_CACHING_DURATION = Duration.ofHours (24);
   private static final Logger LOGGER = LoggerFactory.getLogger (CRLCache.class);
 
-  private final MyCache m_aCache;
+  private final CRLInternalCache m_aCache;
   private final CRLDownloader m_aDownloader;
   private final Duration m_aCachingDuration;
 
@@ -81,10 +81,10 @@ public class CRLCache
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
 
-    m_aCache = new MyCache (url -> {
+    m_aCache = new CRLInternalCache (url -> {
       final CRL aCRL = aDownloader.downloadCRL (url);
       return aCRL == null ? null : ExpiringObject.ofDuration (aCRL, aCachingDuration);
-    }, 100, "CRLCache", true);
+    }, 200, "CRLCache", true);
     m_aDownloader = aDownloader;
     m_aCachingDuration = aCachingDuration;
   }
@@ -111,7 +111,7 @@ public class CRLCache
   @Nullable
   public CRL getCRLFromURL (@Nullable final String sCRLURL)
   {
-    if (StringHelper.hasText (sCRLURL))
+    if (StringHelper.isNotEmpty (sCRLURL))
     {
       ExpiringObject <CRL> aObject = m_aCache.getFromCache (sCRLURL);
       if (aObject != null)
@@ -133,12 +133,11 @@ public class CRLCache
   }
 
   /**
-   * Allow to manually add a downloaded CRL into the cache, for the provided
-   * URL.
+   * Allow to manually add a downloaded CRL into the cache, for the provided URL.
    *
    * @param sCRLURL
-   *        The URL for which the cached URL should be used. May neither be
-   *        <code>null</code> nor empty.
+   *        The URL for which the cached URL should be used. May neither be <code>null</code> nor
+   *        empty.
    * @param aCRL
    *        The CRL to be used. May not be <code>null</code>.
    */

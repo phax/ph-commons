@@ -23,29 +23,28 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.WillNotClose;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.IteratorHelper;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
+import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroReader;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
  * Helper class to handle XML based properties. It is read-only.<br>
- * See <a href=
- * "http://docs.oracle.com/javase/6/docs/api/java/util/ResourceBundle.Control.html"
+ * See <a href= "http://docs.oracle.com/javase/6/docs/api/java/util/ResourceBundle.Control.html"
  * >Resource.Control</a> Javadocs
  *
  * @author Philip Helger
@@ -68,12 +67,12 @@ public final class XMLResourceBundle extends ResourceBundle
   }
 
   @Nonnull
-  public static IMicroDocument getAsPropertiesXML (@Nonnull final ICommonsMap <String, String> aMap)
+  public static IMicroDocument getAsPropertiesXML (@Nonnull final Map <String, String> aMap)
   {
     final IMicroDocument ret = new MicroDocument ();
-    final IMicroElement eRoot = ret.appendElement ("properties");
+    final IMicroElement eRoot = ret.addElement ("properties");
     for (final Map.Entry <String, String> aEntry : aMap.entrySet ())
-      eRoot.appendElement ("entry").setAttribute ("key", aEntry.getKey ()).appendText (aEntry.getValue ());
+      eRoot.addElement ("entry").setAttribute ("key", aEntry.getKey ()).addText (aEntry.getValue ());
     return ret;
   }
 
@@ -119,7 +118,7 @@ public final class XMLResourceBundle extends ResourceBundle
   @Override
   public Enumeration <String> getKeys ()
   {
-    return IteratorHelper.getEnumeration (m_aValues.keySet ());
+    return EnumerationHelper.getEnumeration (m_aValues.keySet ());
   }
 
   @Nonnull
@@ -139,6 +138,9 @@ public final class XMLResourceBundle extends ResourceBundle
                                                 @Nonnull final Locale aLocale,
                                                 @Nonnull final ClassLoader aClassLoader)
   {
-    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName, aLocale, aClassLoader, new XMLResourceBundleControl ());
+    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName,
+                                                         aLocale,
+                                                         aClassLoader,
+                                                         new XMLResourceBundleControl ());
   }
 }

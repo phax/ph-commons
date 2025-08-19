@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.base.name.IHasName;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.name.IHasName;
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents the reference to an entity. An example entity is e.g.

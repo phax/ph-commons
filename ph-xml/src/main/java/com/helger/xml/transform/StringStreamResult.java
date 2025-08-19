@@ -16,14 +16,15 @@
  */
 package com.helger.xml.transform;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.stream.StreamResult;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.base.tostring.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special {@link StreamResult} implementation that writes to {@link String}

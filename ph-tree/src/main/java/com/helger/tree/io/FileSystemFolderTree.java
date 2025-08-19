@@ -19,22 +19,21 @@ package com.helger.tree.io;
 import java.io.File;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringImplode;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FilenameHelper;
 import com.helger.tree.withid.folder.DefaultFolderTree;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Represents a folder tree with the file system contents. This structure is
- * eagerly filled!
+ * Represents a folder tree with the file system contents. This structure is eagerly filled!
  *
  * @author Philip Helger
  */
@@ -92,7 +91,7 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
                                @Nullable final Predicate <? super File> aDirFilter,
                                @Nullable final Predicate <? super File> aFileFilter)
   {
-    super (x -> StringHelper.getImplodedNonEmpty ('/', x));
+    super (x -> StringImplode.getImplodedNonEmpty ('/', x));
     ValueEnforcer.notNull (aStartDir, "StartDirectory");
     ValueEnforcer.isTrue (aStartDir.isDirectory (), "Start directory is not a directory!");
 

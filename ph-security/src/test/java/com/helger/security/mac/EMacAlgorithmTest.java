@@ -31,7 +31,7 @@ import javax.crypto.SecretKey;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EMacAlgorithm}.
@@ -45,7 +45,7 @@ public final class EMacAlgorithmTest
   {
     for (final EMacAlgorithm eAlgo : EMacAlgorithm.values ())
     {
-      assertTrue (StringHelper.hasText (eAlgo.getAlgorithm ()));
+      assertTrue (StringHelper.isNotEmpty (eAlgo.getAlgorithm ()));
       assertNotNull (eAlgo.createMac ());
       assertSame (eAlgo, EMacAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ()));
       assertSame (eAlgo, EMacAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toLowerCase (Locale.US)));

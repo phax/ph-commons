@@ -21,32 +21,29 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.base.state.EChange;
+import com.helger.base.state.ESuccess;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.ToStringGenerator;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Basic tree item with ID implementation, independent of the implementation
- * type.
+ * Basic tree item with ID implementation, independent of the implementation type.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -107,8 +104,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * Constructor for normal elements
    *
    * @param aParent
-   *        Parent item. May never be <code>null</code> since only the root has
-   *        no parent.
+   *        Parent item. May never be <code>null</code> since only the root has no parent.
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
@@ -132,9 +128,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * This method is called to validate a data ID object. This method may be
-   * overloaded in derived classes. The default implementation accepts all
-   * values.
+   * This method is called to validate a data ID object. This method may be overloaded in derived
+   * classes. The default implementation accepts all values.
    *
    * @param aDataID
    *        The value to validate.
@@ -147,9 +142,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * This method is called to validate a data object. This method may be
-   * overloaded in derived classes. The default implementation accepts all
-   * values.
+   * This method is called to validate a data object. This method may be overloaded in derived
+   * classes. The default implementation accepts all values.
    *
    * @param aData
    *        The value to validate.
@@ -379,7 +373,6 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildMap == null ? null : m_aChildMap.get (aDataID);
   }
 
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public final boolean isSameOrChildOf (@Nonnull final ITEMTYPE aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
@@ -507,9 +500,11 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BasicTreeItemWithID <?, ?, ?> rhs = (BasicTreeItemWithID <?, ?, ?>) o;
+    final Object aObj1 = m_aData;
+    final Object aObj11 = m_aChildMap;
     return EqualsHelper.equals (m_aDataID, rhs.m_aDataID) &&
-           EqualsHelper.equals (m_aData, rhs.m_aData) &&
-           EqualsHelper.equals (m_aChildMap, rhs.m_aChildMap);
+           EqualsHelper.equals (aObj1, rhs.m_aData) &&
+           EqualsHelper.equals (aObj11, rhs.m_aChildMap);
   }
 
   @Override

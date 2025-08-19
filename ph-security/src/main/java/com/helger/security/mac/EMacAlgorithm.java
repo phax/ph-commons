@@ -19,14 +19,15 @@ package com.helger.security.mac;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A selection of common hash algorithms.
@@ -50,8 +51,7 @@ public enum EMacAlgorithm
   }
 
   /**
-   * @return The internal name of the message digest algorithm. Neither
-   *         <code>null</code> nor empty.
+   * @return The internal name of the message digest algorithm. Neither <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
@@ -73,10 +73,9 @@ public enum EMacAlgorithm
 
   /**
    * @param aSecurityProvider
-   *        The security provider to use. May be <code>null</code> to use the
-   *        default security provider.
-   * @return A new Mac with this algorithm using the provided or the default
-   *         security provider.
+   *        The security provider to use. May be <code>null</code> to use the default security
+   *        provider.
+   * @return A new Mac with this algorithm using the provided or the default security provider.
    * @throws IllegalStateException
    *         If this algorithm is not supported by this Java runtime.
    */
@@ -96,8 +95,7 @@ public enum EMacAlgorithm
   }
 
   /**
-   * Create a new {@link SecretKeySpec} with this algorithm and the provided key
-   * bytes.
+   * Create a new {@link SecretKeySpec} with this algorithm and the provided key bytes.
    *
    * @param aKey
    *        The key bytes to use. May not be <code>null</code>.
@@ -112,7 +110,7 @@ public enum EMacAlgorithm
   @Nullable
   public static EMacAlgorithm getFromStringIgnoreCase (@Nullable final String sAlgorithm)
   {
-    if (StringHelper.hasNoText (sAlgorithm))
+    if (StringHelper.isEmpty (sAlgorithm))
       return null;
     return EnumHelper.findFirst (EMacAlgorithm.class, x -> x.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
   }

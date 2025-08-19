@@ -19,7 +19,7 @@ package com.helger.xml.microdom;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 final class MockMicroEventListener implements IMicroEventTarget
 {

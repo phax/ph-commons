@@ -28,7 +28,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.collection.CollectionHelper;
 
 /**
  * Test class for class {@link NodeListIterator}.

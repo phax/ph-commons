@@ -18,13 +18,13 @@ package com.helger.settings.factory;
 
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 import com.helger.settings.SettingsWithDefault;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is just a type definition for the settings factory. The factory

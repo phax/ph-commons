@@ -27,14 +27,11 @@ import java.math.RoundingMode;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.equals.EqualsHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.base.CGlobal;
+import com.helger.base.numeric.BigHelper;
 
 public final class JavaBigDecimalFuncTest
 {
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   @Test
   public void testDivide ()
   {
@@ -62,7 +59,7 @@ public final class JavaBigDecimalFuncTest
 
     // equals with different scale
     assertFalse (new BigDecimal ("20").equals (new BigDecimal ("20.0")));
-    assertTrue (EqualsHelper.equals (new BigDecimal ("20"), new BigDecimal ("20.0")));
+    assertTrue (BigHelper.equalValues (new BigDecimal ("20"), new BigDecimal ("20.0")));
     assertTrue (new BigDecimal ("20").setScale (1).equals (new BigDecimal ("20.0")));
   }
 }

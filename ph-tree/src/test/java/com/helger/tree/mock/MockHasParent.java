@@ -16,12 +16,12 @@
  */
 package com.helger.tree.mock;
 
-import javax.annotation.Nullable;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.id.IHasID;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.hierarchy.IHasParent;
 
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.hierarchy.IHasParent;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nullable;
 
 public final class MockHasParent implements IHasParent <MockHasParent>, IHasID <String>
 {

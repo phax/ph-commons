@@ -20,18 +20,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mutable.MutableInt;
+import com.helger.base.numeric.mutable.MutableInt;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.collection.hierarchy.visit.IHierarchyVisitorCallback;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.microdom.serialize.MicroReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link MicroVisitor}.

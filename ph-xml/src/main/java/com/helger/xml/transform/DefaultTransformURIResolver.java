@@ -16,17 +16,18 @@
  */
 package com.helger.xml.transform;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link javax.xml.transform.URIResolver} interface using
@@ -40,7 +41,6 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
 
   public DefaultTransformURIResolver ()
   {
-    super ();
   }
 
   public DefaultTransformURIResolver (@Nullable final URIResolver aWrappedURIResolver)
@@ -49,9 +49,8 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
   }
 
   /**
-   * @return The default base to be used, if none is present (if
-   *         <code>null</code> or "") in the resolve request. Is
-   *         <code>null</code> by default.
+   * @return The default base to be used, if none is present (if <code>null</code> or "") in the
+   *         resolve request. Is <code>null</code> by default.
    * @since 9.1.5
    */
   @Nullable
@@ -64,8 +63,8 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
    * Set the default base to be used, if none is present.
    *
    * @param sDefaultBase
-   *        The default base to be used. May be <code>null</code> or empty to
-   *        indicate that no special default base is needed.
+   *        The default base to be used. May be <code>null</code> or empty to indicate that no
+   *        special default base is needed.
    * @return this for chaining
    * @since 9.1.5
    */
@@ -81,13 +80,15 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
   protected Source internalResolve (final String sHref, final String sBase) throws TransformerException
   {
     final String sRealBase;
-    if (StringHelper.hasText (sBase))
+    if (StringHelper.isNotEmpty (sBase))
     {
       // A base was provided - use it
       sRealBase = sBase;
     }
     else
-      if (StringHelper.hasText (m_sDefaultBase))
+    {
+      final String sStr = m_sDefaultBase;
+      if (StringHelper.isNotEmpty (sStr))
       {
         // No base provided but a default base present - use default base
         sRealBase = m_sDefaultBase;
@@ -97,6 +98,7 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
         // Neither nor - leave as is
         sRealBase = sBase;
       }
+    }
 
     try
     {

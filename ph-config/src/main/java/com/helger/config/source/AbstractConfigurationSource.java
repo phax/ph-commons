@@ -20,15 +20,15 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for any configuration source.
@@ -44,7 +44,7 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
 
   protected static final boolean hasTrailingWhitespace (@Nullable final String s)
   {
-    return StringHelper.hasText (s) && Character.isWhitespace (s.charAt (s.length () - 1));
+    return StringHelper.isNotEmpty (s) && Character.isWhitespace (s.charAt (s.length () - 1));
   }
 
   /**
@@ -73,17 +73,16 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
     return m_nPriority;
   }
 
-  // TODO for 11.2: make public
-  protected static boolean isSecretKey (@Nonnull final String sKey)
+  public static boolean isSecretKey (@Nonnull final String sKey)
   {
     // Bad heuristics but better then nothing
     final String sRealKey = sKey.toLowerCase (Locale.ROOT);
     return sRealKey.contains ("password") || sRealKey.contains ("passwd");
   }
 
-  // TODO for 11.2: rename to mapToStringIgnoreSecrets
+  // Old name before v12: "mapToStringNoSecrets"
   @Nonnull
-  protected static <V> String mapToStringNoSecrets (@Nullable final Map <String, V> aMap)
+  protected static <V> String mapToStringIgnoreSecrets (@Nullable final Map <String, V> aMap)
   {
     if (aMap == null)
       return "null";

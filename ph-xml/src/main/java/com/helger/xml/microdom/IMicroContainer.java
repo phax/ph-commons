@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * This interface is just a hull for a node that has no properties itself but

@@ -20,14 +20,14 @@ package com.helger.bc;
 import java.security.Provider;
 import java.security.Security;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * One and only BouncyCastle (BC) Provider Provider

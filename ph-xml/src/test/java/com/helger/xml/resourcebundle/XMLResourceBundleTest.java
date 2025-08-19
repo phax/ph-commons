@@ -25,8 +25,8 @@ import java.util.MissingResourceException;
 
 import org.junit.Test;
 
-import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.lang.NonBlockingProperties;
+import com.helger.base.rt.NonBlockingProperties;
+import com.helger.io.file.FileOperations;
 import com.helger.xml.microdom.serialize.MicroWriter;
 
 /**

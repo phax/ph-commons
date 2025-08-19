@@ -18,22 +18,21 @@ package com.helger.xml.sax;
 
 import java.io.InputStream;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.xml.sax.InputSource;
 
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.io.resource.IReadableResource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * {@link org.xml.sax.InputSource} that ensures that the passed
- * {@link InputStream} is closed. This is achieved by copying the content in a
- * {@link NonBlockingByteArrayInputStream}.
+ * {@link org.xml.sax.InputSource} that ensures that the passed {@link InputStream} is closed. This
+ * is achieved by copying the content in a {@link NonBlockingByteArrayInputStream}.
  *
  * @author Philip Helger
  */

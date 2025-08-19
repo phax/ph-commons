@@ -16,10 +16,10 @@
  */
 package com.helger.jaxb;
 
-import javax.annotation.Nonnull;
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.diagnostics.error.list.IErrorList;
 
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.error.list.IErrorList;
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for validating JAXB documents.

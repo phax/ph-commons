@@ -16,12 +16,12 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroComment} interface.

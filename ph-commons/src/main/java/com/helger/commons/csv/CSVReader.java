@@ -23,18 +23,18 @@ import java.io.UncheckedIOException;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillCloseWhenClosed;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillCloseWhenClosed;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
-import com.helger.commons.io.stream.StreamHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A very simple CSV reader released under a commercial-friendly license.
@@ -71,8 +71,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    * @param aReader
    *        the reader to an underlying CSV source.
    * @param bKeepCR
-   *        <code>true</code> to keep carriage returns in data read,
-   *        <code>false</code> otherwise
+   *        <code>true</code> to keep carriage returns in data read, <code>false</code> otherwise
    */
   public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader, final boolean bKeepCR)
   {
@@ -87,10 +86,11 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    * @param aParser
    *        the parser to use to parse input
    * @param bKeepCR
-   *        <code>true</code> to keep carriage returns in data read,
-   *        <code>false</code> otherwise
+   *        <code>true</code> to keep carriage returns in data read, <code>false</code> otherwise
    */
-  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader, @Nonnull final CSVParser aParser, final boolean bKeepCR)
+  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader,
+                    @Nonnull final CSVParser aParser,
+                    final boolean bKeepCR)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aParser, "Parser");
@@ -196,8 +196,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   }
 
   /**
-   * Sets the strict quotes setting - if true, characters outside the quotes are
-   * ignored.
+   * Sets the strict quotes setting - if true, characters outside the quotes are ignored.
    *
    * @param bStrictQuotes
    *        if <code>true</code>, characters outside the quotes are ignored
@@ -219,12 +218,11 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   }
 
   /**
-   * Sets the ignore leading whitespace setting - if true, white space in front
-   * of a quote in a field is ignored.
+   * Sets the ignore leading whitespace setting - if true, white space in front of a quote in a
+   * field is ignored.
    *
    * @param bIgnoreLeadingWhiteSpace
-   *        if <code>true</code>, white space in front of a quote in a field is
-   *        ignored
+   *        if <code>true</code>, white space in front of a quote in a field is ignored
    * @return this
    */
   @Nonnull
@@ -243,8 +241,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   }
 
   /**
-   * Sets the ignore quotations mode - if <code>true</code>, quotations are
-   * ignored.
+   * Sets the ignore quotations mode - if <code>true</code>, quotations are ignored.
    *
    * @param bIgnoreQuotations
    *        if <code>true</code>, quotations are ignored
@@ -258,8 +255,8 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   }
 
   /**
-   * Returns the number of lines in the csv file to skip before processing. This
-   * is useful when there is miscellaneous data at the beginning of a file.
+   * Returns the number of lines in the csv file to skip before processing. This is useful when
+   * there is miscellaneous data at the beginning of a file.
    *
    * @return the number of lines in the csv file to skip before processing.
    */
@@ -285,8 +282,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   }
 
   /**
-   * Returns if the reader will keep carriage returns found in data or remove
-   * them.
+   * Returns if the reader will keep carriage returns found in data or remove them.
    *
    * @return true if reader will keep carriage returns, false otherwise.
    */
@@ -296,19 +292,17 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   }
 
   /**
-   * Returns if the {@link CSVReader} will verify the reader before each read.
-   * <br>
-   * By default the value is true which is the functionality for version 3.0. If
-   * set to false the reader is always assumed ready to read - this is the
-   * functionality for version 2.4 and before.<br>
-   * The reason this method was needed was that certain types of Readers would
-   * return false for its ready() method until a read was done (namely readers
-   * created using Channels). This caused opencsv not to read from those
-   * readers.<br>
+   * Returns if the {@link CSVReader} will verify the reader before each read. <br>
+   * By default the value is true which is the functionality for version 3.0. If set to false the
+   * reader is always assumed ready to read - this is the functionality for version 2.4 and
+   * before.<br>
+   * The reason this method was needed was that certain types of Readers would return false for its
+   * ready() method until a read was done (namely readers created using Channels). This caused
+   * opencsv not to read from those readers.<br>
    * Source: https://sourceforge.net/p/opencsv/bugs/108/
    *
-   * @return <code>true</code> if CSVReader will verify the reader before reads.
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if CSVReader will verify the reader before reads. <code>false</code>
+   *         otherwise.
    */
   public boolean isVerifyReader ()
   {
@@ -316,14 +310,13 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   }
 
   /**
-   * Checks to see if the CSVReader should verify the reader state before reads
-   * or not. This should be set to false if you are using some form of
-   * asynchronous reader (like readers created by the java.nio.* classes). The
-   * default value is true.
+   * Checks to see if the CSVReader should verify the reader state before reads or not. This should
+   * be set to false if you are using some form of asynchronous reader (like readers created by the
+   * java.nio.* classes). The default value is true.
    *
    * @param bVerifyReader
-   *        <code>true</code> if CSVReader should verify reader before each
-   *        read, <code>false</code> otherwise.
+   *        <code>true</code> if CSVReader should verify reader before each read, <code>false</code>
+   *        otherwise.
    * @return this
    */
   @Nonnull
@@ -334,11 +327,10 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   }
 
   /**
-   * Reads the entire file into a list with each element being a list of
-   * {@link String} of tokens.
+   * Reads the entire file into a list with each element being a list of {@link String} of tokens.
    *
-   * @return a list of list of String, with each inner list of {@link String}
-   *         representing a line of the file.
+   * @return a list of list of String, with each inner list of {@link String} representing a line of
+   *         the file.
    * @throws IOException
    *         if bad things happen during the read
    */
@@ -360,8 +352,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    * Reads the entire file line by line and invoke a callback for each line.
    *
    * @param aLineConsumer
-   *        The consumer that is invoked for every line. May not be
-   *        <code>null</code>.
+   *        The consumer that is invoked for every line. May not be <code>null</code>.
    * @throws IOException
    *         if bad things happen during the read
    */
@@ -378,8 +369,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   /**
    * Reads the next line from the buffer and converts to a string array.
    *
-   * @return a string array with each comma-separated element as a separate
-   *         entry.
+   * @return a string array with each comma-separated element as a separate entry.
    * @throws IOException
    *         if bad things happen during the read
    */

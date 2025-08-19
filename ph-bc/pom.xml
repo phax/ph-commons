@@ -23,7 +23,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-bc</artifactId>
   <packaging>bundle</packaging>
@@ -57,7 +57,7 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-base</artifactId>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
@@ -85,6 +85,11 @@
       <artifactId>bcpg-jdk18on</artifactId>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   
   <build>
@@ -97,9 +102,9 @@
           <instructions>
             <Automatic-Module-Name>com.helger.bc</Automatic-Module-Name>
             <Export-Package>com.helger.bc.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.commons.thirdparty.IThirdPartyModuleProviderSPI</Provide-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.base.thirdparty.IThirdPartyModuleProviderSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

@@ -20,12 +20,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.string.StringHelper;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.string.StringHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A selection of common message digest (hash) algorithms.
@@ -49,8 +49,7 @@ public enum EMessageDigestAlgorithm
   }
 
   /**
-   * @return The internal name of the message digest algorithm. Neither
-   *         <code>null</code> nor empty.
+   * @return The internal name of the message digest algorithm. Neither <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
@@ -60,8 +59,8 @@ public enum EMessageDigestAlgorithm
   }
 
   /**
-   * @return A new message digest with this message digest algorithm using the
-   *         default security provider.
+   * @return A new message digest with this message digest algorithm using the default security
+   *         provider.
    * @throws IllegalStateException
    *         If this algorithm is not supported by this Java runtime.
    */
@@ -73,10 +72,10 @@ public enum EMessageDigestAlgorithm
 
   /**
    * @param aSecurityProvider
-   *        The security provider to use. May be <code>null</code> to use the
-   *        default security provider.
-   * @return A new message digest with this message digest algorithm using the
-   *         provided or the default security provider.
+   *        The security provider to use. May be <code>null</code> to use the default security
+   *        provider.
+   * @return A new message digest with this message digest algorithm using the provided or the
+   *         default security provider.
    * @throws IllegalStateException
    *         If this algorithm is not supported by this Java runtime.
    */
@@ -98,7 +97,7 @@ public enum EMessageDigestAlgorithm
   @Nullable
   public static EMessageDigestAlgorithm getFromStringIgnoreCase (@Nullable final String sAlgorithm)
   {
-    if (StringHelper.hasNoText (sAlgorithm))
+    if (StringHelper.isEmpty (sAlgorithm))
       return null;
     return EnumHelper.findFirst (EMessageDigestAlgorithm.class, x -> x.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
   }

@@ -18,19 +18,18 @@ package com.helger.xml.sax;
 
 import java.io.Reader;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.xml.sax.InputSource;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.base.tostring.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Special {@link InputSource} implementation that reads from a predefined
- * String.
+ * Special {@link InputSource} implementation that reads from a predefined String.
  *
  * @author Philip Helger
  */
@@ -50,7 +49,7 @@ public class StringSAXInputSource extends InputSource
 
   public StringSAXInputSource (@Nonnull final CharSequence aInput)
   {
-    this (aInput instanceof String ? (String) aInput : aInput.toString ());
+    this (aInput instanceof final String sInput ? sInput : aInput.toString ());
   }
 
   public StringSAXInputSource (@Nonnull final String sText)

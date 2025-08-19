@@ -18,18 +18,18 @@ package com.helger.tree.sort;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.hierarchy.visit.ChildrenProviderHierarchyVisitor;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.tree.IBasicTree;
 import com.helger.tree.IBasicTreeItem;
 import com.helger.tree.ITreeItem;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Sort {@link com.helger.tree.ITree} instances recursively.

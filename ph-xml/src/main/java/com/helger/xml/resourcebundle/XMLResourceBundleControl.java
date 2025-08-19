@@ -23,16 +23,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.io.resource.URLResource;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassLoaderHelper;
+import jakarta.annotation.Nonnull;
 
 /**
  * Special {@link java.util.ResourceBundle.Control} to handle XML files

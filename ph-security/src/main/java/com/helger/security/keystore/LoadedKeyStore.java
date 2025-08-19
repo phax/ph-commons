@@ -19,13 +19,13 @@ package com.helger.security.keystore;
 import java.security.KeyStore;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.state.ISuccessIndicator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.text.util.TextHelper;
 
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.state.ISuccessIndicator;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.util.TextHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains the result of loading a key store from e.g. a configuration file.

@@ -37,21 +37,21 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.io.stream.StringInputStream;
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.EJavaVersion;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.charset.EUnicodeBOM;
+import com.helger.base.iface.IThrowingRunnable;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.io.stream.StringInputStream;
+import com.helger.base.string.StringHelper;
+import com.helger.base.system.EJavaVersion;
+import com.helger.io.file.FileHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resource.URLResource;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.XMLSystemProperties;
 import com.helger.xml.sax.CachingSAXInputSource;
@@ -336,8 +336,8 @@ public final class DOMReaderTest
   @Test
   public void testMultithreadedDOM ()
   {
-    CommonsTestHelper.testInParallel (100,
-                                      (IThrowingRunnable <SAXException>) () -> assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"))));
+    TestHelper.testInParallel (100,
+                               (IThrowingRunnable <SAXException>) () -> assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"))));
   }
 
   @Test

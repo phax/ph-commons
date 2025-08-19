@@ -20,18 +20,18 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.numeric.mutable.MutableInt;
+import com.helger.base.state.EChange;
+import com.helger.base.state.EContinue;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
-import com.helger.commons.string.StringHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a single element (=tag) of a document.
@@ -52,8 +52,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    * Set a new namespace URI for this element.
    *
    * @param sNamespaceURI
-   *        The namespace URI to be set. May be <code>null</code> or empty to
-   *        indicate that the namespace should be removed.
+   *        The namespace URI to be set. May be <code>null</code> or empty to indicate that the
+   *        namespace should be removed.
    * @return {@link EChange}
    */
   @Nonnull
@@ -62,8 +62,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   /**
    * Check if this element has a specified namespace URI.
    *
-   * @return <code>true</code> if this element has a specified namespace URI,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if this element has a specified namespace URI, <code>false</code>
+   *         otherwise
    */
   default boolean hasNamespaceURI ()
   {
@@ -73,8 +73,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   /**
    * Check if this element has no namespace URI.
    *
-   * @return <code>true</code> if this element has no namespace URI,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if this element has no namespace URI, <code>false</code> otherwise
    */
   default boolean hasNoNamespaceURI ()
   {
@@ -86,8 +85,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *
    * @param sNamespaceURI
    *        The namespace URI to check. May not be <code>null</code>.
-   * @return <code>true</code> if this element has the specified namespace URI,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if this element has the specified namespace URI, <code>false</code>
+   *         otherwise
    */
   default boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
   {
@@ -95,9 +94,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Get the local name of the element. Is the same name as returned by
-   * {@link #getTagName()} but it is only present, if a namespace URI is
-   * present.
+   * Get the local name of the element. Is the same name as returned by {@link #getTagName()} but it
+   * is only present, if a namespace URI is present.
    *
    * @return May be <code>null</code> if no namespace is present.
    */
@@ -105,9 +103,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   String getLocalName ();
 
   /**
-   * Check if this element has the provided local name. The local name is the
-   * same name as returned by {@link #getTagName()} but is only present if a
-   * namespace URI is present.
+   * Check if this element has the provided local name. The local name is the same name as returned
+   * by {@link #getTagName()} but is only present if a namespace URI is present.
    *
    * @param sLocalName
    *        The local name to compare against. May be <code>null</code>.
@@ -119,8 +116,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Get the name of the tag. It never contains XML schema prefixes or the like.
-   * Is the same as {@link #getLocalName()} if a namespace URI is present.
+   * Get the name of the tag. It never contains XML schema prefixes or the like. Is the same as
+   * {@link #getLocalName()} if a namespace URI is present.
    *
    * @return May not be <code>null</code>.
    */
@@ -144,8 +141,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *
    * @param sTagName
    *        The tag name to compare against. May be <code>null</code>.
-   * @return <code>true</code> if tag name and the passed name match case
-   *         insensitive.
+   * @return <code>true</code> if tag name and the passed name match case insensitive.
    */
   default boolean hasTagNameIgnoreCase (@Nullable final String sTagName)
   {
@@ -168,8 +164,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return The number of all direct child elements that match the provided
-   *         filter. Always &ge; 0.
+   * @return The number of all direct child elements that match the provided filter. Always &ge; 0.
    */
   @Nonnegative
   default int getChildElementCount (@Nullable final Predicate <? super IMicroElement> aFilter)
@@ -180,9 +175,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Get a list of all direct child elements. Text nodes and other other child
-   * nodes are not returned with this call. Micro container children are
-   * inlined.
+   * Get a list of all direct child elements. Text nodes and other other child nodes are not
+   * returned with this call. Micro container children are inlined.
    *
    * @return Never be <code>null</code>.
    */
@@ -194,8 +188,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Get a list of all direct child elements having the specified tag name.
-   * Micro container children are inlined.
+   * Get a list of all direct child elements having the specified tag name. Micro container children
+   * are inlined.
    *
    * @param sTagName
    *        The tag name to check. May be <code>null</code>.
@@ -209,8 +203,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Get a list of all direct child elements having the specified namespace and
-   * the specified tag name. Micro container children are inlined.
+   * Get a list of all direct child elements having the specified namespace and the specified tag
+   * name. Micro container children are inlined.
    *
    * @param sNamespaceURI
    *        The namespace URI to check. May be <code>null</code>.
@@ -220,18 +214,19 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    */
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
+  default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI,
+                                                            @Nullable final String sLocalName)
   {
     return getAllChildElements (filterNamespaceURIAndName (sNamespaceURI, sLocalName));
   }
 
   /**
-   * Get a list of all direct child elements matching the provided filter. Micro
-   * container children are inlined.
+   * Get a list of all direct child elements matching the provided filter. Micro container children
+   * are inlined.
    *
    * @param aFilter
-   *        The filter to be applied. May be <code>null</code> in which all
-   *        direct child elements are returned.
+   *        The filter to be applied. May be <code>null</code> in which all direct child elements
+   *        are returned.
    * @return A new list and never <code>null</code>.
    */
   @Nonnull
@@ -246,16 +241,16 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   /**
    * Recursively get all child elements. Micro container children are inlined.
    *
-   * @return A list containing all recursively contained elements. May not be
-   *         <code>null</code> but empty.
+   * @return A list containing all recursively contained elements. May not be <code>null</code> but
+   *         empty.
    */
   @Nonnull
   @ReturnsMutableCopy
   ICommonsList <IMicroElement> getAllChildElementsRecursive ();
 
   /**
-   * Check if this element has at least one direct child element. Micro
-   * container children are also checked.
+   * Check if this element has at least one direct child element. Micro container children are also
+   * checked.
    *
    * @return <code>true</code> if this element has at least one child element
    */
@@ -265,13 +260,13 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Check if this element has at least one direct child element with the
-   * specified tag name. Micro container children are also checked.
+   * Check if this element has at least one direct child element with the specified tag name. Micro
+   * container children are also checked.
    *
    * @param sTagName
    *        The tag name to check. May be <code>null</code>.
-   * @return <code>true</code> if this element has at least one child element
-   *         with the specified tag name
+   * @return <code>true</code> if this element has at least one child element with the specified tag
+   *         name
    */
   default boolean hasChildElements (@Nullable final String sTagName)
   {
@@ -279,16 +274,15 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Check if this element has at least one direct child element with the
-   * specified namespace URI and tag name. Micro container children are also
-   * checked.
+   * Check if this element has at least one direct child element with the specified namespace URI
+   * and tag name. Micro container children are also checked.
    *
    * @param sNamespaceURI
    *        The namespace URI to check. May be <code>null</code>.
    * @param sLocalName
    *        The tag name to check. May be <code>null</code>.
-   * @return <code>true</code> if this element has at least one child element
-   *         with the specified namespace URI and tag name
+   * @return <code>true</code> if this element has at least one child element with the specified
+   *         namespace URI and tag name
    */
   default boolean hasChildElements (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
   {
@@ -296,23 +290,20 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Check if this element has at least one direct child element that matches
-   * the provided filter. Micro container children are also checked.
+   * Check if this element has at least one direct child element that matches the provided filter.
+   * Micro container children are also checked.
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return <code>true</code> if this element has at least one direct child
-   *         element that matches the passed filter, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this element has at least one direct child element that matches
+   *         the passed filter, <code>false</code> otherwise.
    */
   boolean containsAnyChildElement (@Nullable Predicate <? super IMicroElement> aFilter);
 
   /**
-   * Get the first child element of this element. Micro container children are
-   * also checked.
+   * Get the first child element of this element. Micro container children are also checked.
    *
-   * @return The first child element or <code>null</code> if this element has no
-   *         child element.
+   * @return The first child element or <code>null</code> if this element has no child element.
    */
   @Nullable
   default IMicroElement getFirstChildElement ()
@@ -321,8 +312,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Get the first child element with the given tag name. Micro container
-   * children are also checked.
+   * Get the first child element with the given tag name. Micro container children are also checked.
    *
    * @param sTagName
    *        The tag name of the element to search. May be <code>null</code>.
@@ -335,8 +325,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   }
 
   /**
-   * Get the first child element with the given tag name and the given
-   * namespace. Micro container children are also checked.
+   * Get the first child element with the given tag name and the given namespace. Micro container
+   * children are also checked.
    *
    * @param sNamespaceURI
    *        The namespace URL to search.
@@ -358,7 +348,8 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
     forAllChildElements (null, aConsumer);
   }
 
-  void forAllChildElements (@Nullable Predicate <? super IMicroElement> aFilter, @Nonnull Consumer <? super IMicroElement> aConsumer);
+  void forAllChildElements (@Nullable Predicate <? super IMicroElement> aFilter,
+                            @Nonnull Consumer <? super IMicroElement> aConsumer);
 
   @Nonnull
   default EContinue forAllChildElementsBreakable (@Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
@@ -392,7 +383,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   static Predicate <? super IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
                                                                       @Nullable final String sTagOrLocalName)
   {
-    if (StringHelper.hasNoText (sNamespaceURI))
+    if (StringHelper.isEmpty (sNamespaceURI))
       return filterName (sTagOrLocalName);
 
     return x -> x.hasNamespaceURI (sNamespaceURI) && x.hasLocalName (sTagOrLocalName);

@@ -18,15 +18,16 @@ package com.helger.xml.serialize.read;
 
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.helger.commons.exception.InitializationException;
+import com.helger.base.exception.InitializationException;
 import com.helger.xml.XMLFactory;
+
+import jakarta.annotation.Nonnull;
 
 public final class SAXReaderFactory implements Supplier <XMLReader>
 {

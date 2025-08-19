@@ -37,7 +37,6 @@ import org.junit.Test;
  */
 public final class CertificateHelperTest
 {
-  @SuppressWarnings ("removal")
   @Test
   public void testConvertStringToCertficate () throws CertificateException
   {
@@ -100,15 +99,6 @@ public final class CertificateHelperTest
                                                          CertificateHelper.END_CERTIFICATE +
                                                          "\r\n" +
                                                          "\r\n" +
-                                                         "\r\n");
-    assertNotNull (aCert);
-
-    aCert = CertificateHelper.convertStringToCertficate ("\r\n" +
-                                                         CertificateHelper.BEGIN_CERTIFICATE_INVALID +
-                                                         "\r\n" +
-                                                         sValidCert +
-                                                         "\r\n" +
-                                                         CertificateHelper.END_CERTIFICATE_INVALID +
                                                          "\r\n");
     assertNotNull (aCert);
 

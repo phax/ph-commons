@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>11.2.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-scopes</artifactId>
   <packaging>bundle</packaging>
@@ -30,7 +30,6 @@
   <description>All scope related functionality</description>
   <url>https://github.com/phax/ph-commons/ph-scopes</url>
   <inceptionYear>2016</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
-  
   <developers>
     <developer>
       <id>philip</id>
@@ -52,19 +49,14 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-typeconvert</artifactId>
     </dependency>
-    
     <dependency>
-      <groupId>com.github.spotbugs</groupId>
-      <artifactId>spotbugs-annotations</artifactId>
-      <version>${spotbugs-annotations.version}</version>
-      <scope>compile</scope>
-      <optional>true</optional>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-statistics</artifactId>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -72,8 +64,12 @@
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-unittest-support-ext</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
-  
   <build>
     <plugins>
       <plugin>
@@ -82,13 +78,15 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Automatic-Module-Name>com.helger.scopes</Automatic-Module-Name>
+            <Automatic-Module-Name>com.helger.scope</Automatic-Module-Name>
             <Export-Package>com.helger.scope.*</Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
+osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IGlobalScopeSPI)"; cardinality:=multiple; resolution:=optional,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IRequestScopeSPI)"; cardinality:=multiple; resolution:=optional,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.ISessionScopeSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.base.cleanup.ICleanUpRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

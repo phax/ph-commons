@@ -19,17 +19,15 @@ package com.helger.commons.supplementary.test.java;
 import java.io.File;
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.system.EOperatingSystem;
+import com.helger.base.system.EOperatingSystem;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FilenameHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
 
 public final class JavaFileFuncTest
 {
@@ -67,7 +65,6 @@ public final class JavaFileFuncTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "DMI_HARDCODED_ABSOLUTE_FILENAME")
   public void testGetPath ()
   {
     _log (new File ("pom.xml"));

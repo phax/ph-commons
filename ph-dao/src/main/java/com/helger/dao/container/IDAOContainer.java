@@ -18,13 +18,13 @@ package com.helger.dao.container;
 
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.dao.IAutoSaveAware;
 import com.helger.dao.IDAO;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A marker interface for objects containing other DAOs.

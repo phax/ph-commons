@@ -22,18 +22,19 @@ import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.system.CryptoPolicy;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.CGlobal;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.system.CryptoPolicy;
+
+import jakarta.annotation.Nonnull;
 
 public final class AESCryptFuncTest
 {

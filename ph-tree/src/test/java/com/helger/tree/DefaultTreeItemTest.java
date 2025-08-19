@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultTreeItem}.
@@ -36,9 +36,9 @@ public final class DefaultTreeItemTest
   {
     final DefaultTreeItemFactory <String> tif = new DefaultTreeItemFactory <> ();
     final DefaultTreeItem <String> t = tif.createRoot ();
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, tif.createRoot ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (t, tif.createRoot ());
     final DefaultTreeItem <String> c = t.createChildItem ("any");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, tif.createRoot ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (t, tif.createRoot ());
 
     assertTrue (t.isRootItem ());
     assertFalse (c.isRootItem ());

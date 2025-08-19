@@ -20,10 +20,6 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
@@ -31,25 +27,29 @@ import javax.xml.namespace.QName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.io.stream.NonBlockingBufferedWriter;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingBufferedWriter;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.xml.XMLHelper;
 import com.helger.xml.namespace.IIterableNamespaceContext;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Abstract XML serializer implementation that works with IMicroNode and
- * org.w3c.dom.Node objects.
+ * Abstract XML serializer implementation that works with IMicroNode and org.w3c.dom.Node objects.
  *
  * @author Philip Helger
  * @param <NODETYPE>
@@ -58,8 +58,7 @@ import com.helger.xml.namespace.IIterableNamespaceContext;
 public abstract class AbstractXMLSerializer <NODETYPE>
 {
   /**
-   * The prefix to be used for created namespace prefixes :) (e.g. for "ns0" or
-   * "ns1")
+   * The prefix to be used for created namespace prefixes :) (e.g. for "ns0" or "ns1")
    */
   public static final String DEFAULT_NAMESPACE_PREFIX_PREFIX = "ns";
 
@@ -87,15 +86,14 @@ public abstract class AbstractXMLSerializer <NODETYPE>
      * Get the URL matching a given namespace prefix in this level.
      *
      * @param sPrefix
-     *        The prefix to be searched. If it is <code>null</code> the default
-     *        namespace URL is returned.
-     * @return <code>null</code> if the namespace mapping is not used or the URL
-     *         otherwise.
+     *        The prefix to be searched. If it is <code>null</code> the default namespace URL is
+     *        returned.
+     * @return <code>null</code> if the namespace mapping is not used or the URL otherwise.
      */
     @Nullable
     public String getNamespaceURIOfPrefix (@Nullable final String sPrefix)
     {
-      if (StringHelper.hasNoText (sPrefix))
+      if (StringHelper.isEmpty (sPrefix))
         return m_sDefaultNamespaceURI;
 
       if (m_aURL2PrefixMap != null)
@@ -120,7 +118,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
                      "' instead of '" +
                      sExistingNamespaceURI +
                      "'");
-      if (StringHelper.hasNoText (sPrefix))
+      if (StringHelper.isEmpty (sPrefix))
       {
         if (m_sDefaultNamespaceURI != null)
           LOGGER.warn ("Overwriting default namespace '" +
@@ -176,8 +174,8 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   }
 
   /**
-   * Contains the hierarchy of XML namespaces within a document structure.
-   * Important: null namespace URIs are different from empty namespace URIs!
+   * Contains the hierarchy of XML namespaces within a document structure. Important: null namespace
+   * URIs are different from empty namespace URIs!
    *
    * @author Philip Helger
    */
@@ -231,8 +229,8 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
 
     /**
-     * @return The namespace URI that is currently active in the stack. May be
-     *         <code>null</code> for no specific namespace.
+     * @return The namespace URI that is currently active in the stack. May be <code>null</code> for
+     *         no specific namespace.
      */
     @Nullable
     private String _getDefaultNamespaceURI ()
@@ -241,7 +239,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       for (final NamespaceLevel aNSLevel : m_aStack)
       {
         final String sDefaultNamespaceURI = aNSLevel.getDefaultNamespaceURI ();
-        if (StringHelper.hasText (sDefaultNamespaceURI))
+        if (StringHelper.isNotEmpty (sDefaultNamespaceURI))
           return sDefaultNamespaceURI;
       }
       // no default namespace
@@ -249,12 +247,11 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
 
     /**
-     * Resolve the given namespace URI to a prefix using the known namespaces of
-     * this stack.
+     * Resolve the given namespace URI to a prefix using the known namespaces of this stack.
      *
      * @param sNamespaceURI
-     *        The namespace URI to resolve. May not be <code>null</code>. Pass
-     *        in an empty string for an empty namespace URI!
+     *        The namespace URI to resolve. May not be <code>null</code>. Pass in an empty string
+     *        for an empty namespace URI!
      * @return <code>null</code> if no namespace prefix is required.
      */
     @Nullable
@@ -283,8 +280,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
      *
      * @param sPrefix
      *        The prefix to be checked
-     * @return <code>true</code> if somewhere in the stack, the specified prefix
-     *         is already used
+     * @return <code>true</code> if somewhere in the stack, the specified prefix is already used
      */
     private boolean _containsNoPrefix (@Nonnull final String sPrefix)
     {
@@ -319,8 +315,8 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     /**
      * Create a new unique namespace prefix.
      *
-     * @return <code>null</code> or empty if the default namespace is available,
-     *         the prefix otherwise.
+     * @return <code>null</code> or empty if the default namespace is available, the prefix
+     *         otherwise.
      */
     @Nullable
     private String _createUniquePrefix ()
@@ -457,11 +453,10 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     m_aNSStack = new NamespaceStack (aNC);
     if (aSettings.isPutNamespaceContextPrefixesInRoot ())
     {
-      if (aNC instanceof IIterableNamespaceContext)
+      if (aNC instanceof final IIterableNamespaceContext aIterableNC)
       {
         // Put all on top-level
-        for (final Map.Entry <String, String> aEntry : ((IIterableNamespaceContext) aNC).getPrefixToNamespaceURIMap ()
-                                                                                        .entrySet ())
+        for (final Map.Entry <String, String> aEntry : aIterableNC.getPrefixToNamespaceURIMap ().entrySet ())
         {
           final String sNSPrefix = aEntry.getKey ();
           final String sNamespaceURI = aEntry.getValue ();
@@ -480,8 +475,8 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   }
 
   /**
-   * This method handles the case, if all namespace context entries should be
-   * emitted on the root element.
+   * This method handles the case, if all namespace context entries should be emitted on the root
+   * element.
    *
    * @param aAttrMap
    *        the attribute map to be filled. May not be <code>null</code>.

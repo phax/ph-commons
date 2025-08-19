@@ -19,18 +19,18 @@ package com.helger.xml.serialize.write;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Implementation of {@link IXMLIndentDeterminator} for real HTML. It uses the
- * default indent and align mode except for &lt;pre&gt; and &lt;code&gt;
- * elements.
+ * Implementation of {@link IXMLIndentDeterminator} for real HTML. It uses the default indent and
+ * align mode except for &lt;pre&gt; and &lt;code&gt; elements.
  *
  * @author Philip Helger
  */
@@ -51,7 +51,7 @@ public class XMLIndentDeterminatorHTML implements IXMLIndentDeterminator
                                              final boolean bHasChildren,
                                              @Nonnull final EXMLSerializeIndent eDefaultIndent)
   {
-    if (StringHelper.hasText (sParentTagName) && _isPreOrCode (sParentTagName))
+    if (StringHelper.isNotEmpty (sParentTagName) && _isPreOrCode (sParentTagName))
     {
       // Don't indent or align
       return EXMLSerializeIndent.NONE;
@@ -66,7 +66,7 @@ public class XMLIndentDeterminatorHTML implements IXMLIndentDeterminator
                                              @Nullable final String sParentTagName,
                                              @Nullable final String sNamespaceURI,
                                              @Nonnull final String sTagName,
-                                             @Nullable final Map <QName, String> aAttrs,
+                                             @Nullable final Map <QName, String> aAttr,
                                              final boolean bHasChildren,
                                              @Nonnull final EXMLSerializeIndent eDefaultIndent)
   {

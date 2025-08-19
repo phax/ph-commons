@@ -16,10 +16,10 @@
  */
 package com.helger.scope.mgr;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.scope.IScope;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This enumeration defines all the possible non-web scopes including some

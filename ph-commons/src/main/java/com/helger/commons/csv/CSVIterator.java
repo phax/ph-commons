@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.ICommonsList;
+import jakarta.annotation.Nonnull;
 
 /**
  * Provides an Iterator over the data found in opencsv.

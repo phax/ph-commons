@@ -22,15 +22,15 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.reflection.GenericReflection;
+import com.helger.base.string.StringHex;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class LoggingInvocationHandler implements InvocationHandler
 {
@@ -45,13 +45,12 @@ public class LoggingInvocationHandler implements InvocationHandler
   {
     m_aActualTarget = aActualTarget;
     // Calculate only once
-    m_sLogPrefix = "[@" + StringHelper.getHexStringLeadingZero (System.identityHashCode (aActualTarget), 8) + "] ";
+    m_sLogPrefix = "[@" + StringHex.getHexStringLeadingZero (System.identityHashCode (aActualTarget), 8) + "] ";
   }
 
   /**
-   * @return <code>true</code> if return values are returned as proxied object
-   *         (the default) or <code>false</code> if the proxied return values
-   *         are returned "as-is".
+   * @return <code>true</code> if return values are returned as proxied object (the default) or
+   *         <code>false</code> if the proxied return values are returned "as-is".
    */
   public boolean isProxyReturnValues ()
   {
@@ -60,9 +59,9 @@ public class LoggingInvocationHandler implements InvocationHandler
 
   /**
    * @param bProxyReturnValues
-   *        <code>true</code> to enable automatic proxying of return values (if
-   *        the declared return type is an interface; activated by default) or
-   *        <code>false</code> to disable this feature.
+   *        <code>true</code> to enable automatic proxying of return values (if the declared return
+   *        type is an interface; activated by default) or <code>false</code> to disable this
+   *        feature.
    * @return this for chaining
    */
   @Nonnull
@@ -96,9 +95,8 @@ public class LoggingInvocationHandler implements InvocationHandler
   }
 
   @Nullable
-  public Object invoke (@Nonnull final Object aProxy,
-                        @Nonnull final Method aMethod,
-                        @Nonnull final Object [] aArgs) throws Throwable
+  public Object invoke (@Nonnull final Object aProxy, @Nonnull final Method aMethod, @Nonnull final Object [] aArgs)
+                                                                                                                     throws Throwable
   {
     final Class <?> aReturnType = aMethod.getReturnType ();
     final String sMethod = m_sLogPrefix +

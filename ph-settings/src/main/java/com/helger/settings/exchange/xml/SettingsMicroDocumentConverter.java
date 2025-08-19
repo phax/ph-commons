@@ -19,19 +19,19 @@ package com.helger.settings.exchange.xml;
 import java.util.Comparator;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 import com.helger.settings.ISettings;
 import com.helger.settings.factory.ISettingsFactory;
+import com.helger.typeconvert.impl.TypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class SettingsMicroDocumentConverter <T extends ISettings> implements IMicroTypeConverter <T>
 {
@@ -72,14 +72,14 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
       final String sFieldName = aEntry.getKey ();
       final Object aValue = aEntry.getValue ();
 
-      final IMicroElement eSetting = eRoot.appendElement (sNamespaceURI, ELEMENT_SETTING);
+      final IMicroElement eSetting = eRoot.addElementNS (sNamespaceURI, ELEMENT_SETTING);
       eSetting.setAttribute (ATTR_NAME, sFieldName);
       if (aValue == null)
         eSetting.setAttribute (ATTR_IS_NULL, true);
       else
       {
         final String sValue = TypeConverter.convert (aValue, String.class);
-        eSetting.appendText (sValue);
+        eSetting.addText (sValue);
       }
     }
     return eRoot;
@@ -90,7 +90,7 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
   {
     // Create new settings object
     final String sSettingsName = aElement.getAttributeValue (ATTR_NAME);
-    if (StringHelper.hasNoText (sSettingsName))
+    if (StringHelper.isEmpty (sSettingsName))
       throw new IllegalStateException ("Settings 'name' is missing or empty");
     final T aSettings = m_aSettingFactory.apply (sSettingsName);
 

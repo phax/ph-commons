@@ -16,9 +16,10 @@
  */
 package com.helger.xml.transform;
 
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
+
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * {@link javax.xml.transform.URIResolver} that does nothing.

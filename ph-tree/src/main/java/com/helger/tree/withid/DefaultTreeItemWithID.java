@@ -16,8 +16,9 @@
  */
 package com.helger.tree.withid;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.NotThreadSafe;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special implementation of {@link BasicTreeItemWithID} using the item type

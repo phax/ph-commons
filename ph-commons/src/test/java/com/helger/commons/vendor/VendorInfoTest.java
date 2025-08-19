@@ -65,19 +65,14 @@ public final class VendorInfoTest
   @Test
   public void testURL ()
   {
-    assertEquals (VendorInfo.DEFAULT_VENDOR_URL_WITHOUT_PROTOCOL, VendorInfo.getVendorURLWithoutProtocol ());
     assertEquals (VendorInfo.DEFAULT_VENDOR_URL, VendorInfo.getVendorURL ());
-    VendorInfo.setVendorURL ("www.example.org");
-    assertEquals ("www.example.org", VendorInfo.getVendorURLWithoutProtocol ());
+    VendorInfo.setVendorURL ("http://www.example.org");
     assertEquals ("http://www.example.org", VendorInfo.getVendorURL ());
     VendorInfo.setVendorURL ("http://example.com");
-    assertEquals ("example.com", VendorInfo.getVendorURLWithoutProtocol ());
     assertEquals ("http://example.com", VendorInfo.getVendorURL ());
     VendorInfo.setVendorURL ("https://examples.com");
-    assertEquals ("examples.com", VendorInfo.getVendorURLWithoutProtocol ());
     assertEquals ("https://examples.com", VendorInfo.getVendorURL ());
     VendorInfo.setVendorURL (VendorInfo.DEFAULT_VENDOR_URL);
-    assertEquals (VendorInfo.DEFAULT_VENDOR_URL_WITHOUT_PROTOCOL, VendorInfo.getVendorURLWithoutProtocol ());
     assertEquals (VendorInfo.DEFAULT_VENDOR_URL, VendorInfo.getVendorURL ());
   }
 }

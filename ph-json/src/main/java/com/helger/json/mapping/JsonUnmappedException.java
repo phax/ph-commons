@@ -16,21 +16,23 @@
  */
 package com.helger.json.mapping;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.List;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.lang.StackTraceHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.rt.StackTraceHelper;
+import com.helger.base.string.StringImplode;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * This is a work around to read "exceptions" from JSON without actually having
- * the need to create "Exception" objects. It has the fields class name,
- * exception message and stack trace.
+ * This is a work around to read "exceptions" from JSON without actually having the need to create
+ * "Exception" objects. It has the fields class name, exception message and stack trace.
  *
  * @author Philip Helger
  * @since 11.0.5
@@ -43,13 +45,13 @@ public class JsonUnmappedException extends Exception
 
   public JsonUnmappedException (@Nonnull final String sClassName,
                                 @Nullable final String sMessage,
-                                @Nonnull final ICommonsList <String> aStackTraceLines)
+                                @Nonnull final List <String> aStackTraceLines)
   {
     ValueEnforcer.notNull (sClassName, "ClassName");
     ValueEnforcer.notNull (aStackTraceLines, "StackTraceLines");
     m_sClassName = sClassName;
     m_sMessage = sMessage;
-    m_aStackTraceLines = aStackTraceLines.getClone ();
+    m_aStackTraceLines = new CommonsArrayList <> (aStackTraceLines);
   }
 
   /**
@@ -63,9 +65,8 @@ public class JsonUnmappedException extends Exception
   }
 
   /**
-   * @return The message that was passed to the Exception. May be
-   *         <code>null</code> if the exception only contained another
-   *         exception.
+   * @return The message that was passed to the Exception. May be <code>null</code> if the exception
+   *         only contained another exception.
    */
   @Override
   @Nullable
@@ -75,8 +76,8 @@ public class JsonUnmappedException extends Exception
   }
 
   /**
-   * @return A non-null list of all stack trace lines in an arbitrary format.
-   *         Never <code>null</code>.
+   * @return A non-null list of all stack trace lines in an arbitrary format. Never
+   *         <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -91,9 +92,9 @@ public class JsonUnmappedException extends Exception
     return new JsonObject ().add (JsonMapper.JSON_CLASS, m_sClassName)
                             .addIfNotNull (JsonMapper.JSON_MESSAGE, m_sMessage)
                             .add (JsonMapper.JSON_STACK_TRACE,
-                                  StringHelper.imploder ()
-                                              .separator (StackTraceHelper.DEFAULT_LINE_SEPARATOR)
-                                              .source (m_aStackTraceLines)
-                                              .build ());
+                                  StringImplode.imploder ()
+                                               .separator (StackTraceHelper.DEFAULT_LINE_SEPARATOR)
+                                               .source (m_aStackTraceLines)
+                                               .build ());
   }
 }

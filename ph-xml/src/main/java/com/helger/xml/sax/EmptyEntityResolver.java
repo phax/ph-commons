@@ -16,10 +16,10 @@
  */
 package com.helger.xml.sax;
 
-import javax.annotation.Nonnull;
-
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special {@link EntityResolver} implementation that always delivers an empty

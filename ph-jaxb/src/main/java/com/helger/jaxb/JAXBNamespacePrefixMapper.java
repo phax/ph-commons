@@ -16,14 +16,15 @@
  */
 package com.helger.jaxb;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.namespace.NamespaceContext;
 
 import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special namespace prefix mapper for the Jakarta XML Binding

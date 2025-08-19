@@ -16,7 +16,7 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import javax.annotation.Nonnegative;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Base interface for a concurrent queue worker.

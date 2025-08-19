@@ -18,22 +18,23 @@ package com.helger.xml.schema;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.error.list.IErrorList;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.diagnostics.error.list.IErrorList;
+import com.helger.io.resource.IReadableResource;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
 import com.helger.xml.transform.TransformSourceFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A helper class for simple XSD validation.

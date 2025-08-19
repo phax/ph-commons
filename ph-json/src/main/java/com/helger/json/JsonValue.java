@@ -23,25 +23,23 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.math.MathHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.lang.clazz.ClassHelper;
+import com.helger.base.numeric.BigHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.json.serialize.JsonReader;
 import com.helger.json.valueserializer.IJsonValueSerializer;
 import com.helger.json.valueserializer.JsonValueSerializerConstant;
 import com.helger.json.valueserializer.JsonValueSerializerEscaped;
 import com.helger.json.valueserializer.JsonValueSerializerRegistry;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IJsonValue}.
@@ -49,7 +47,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @Immutable
-@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public class JsonValue implements IJsonValue
 {
   /** Special value for "null" */
@@ -134,8 +131,8 @@ public class JsonValue implements IJsonValue
   }
 
   /**
-   * @return The default {@link IJsonValueSerializer} to be used if none is
-   *         registered. This is the "as string" serializer.
+   * @return The default {@link IJsonValueSerializer} to be used if none is registered. This is the
+   *         "as string" serializer.
    */
   @Nonnull
   public static IJsonValueSerializer getDefaultJsonValueSerializer ()
@@ -181,7 +178,8 @@ public class JsonValue implements IJsonValue
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final JsonValue rhs = (JsonValue) o;
-    return EqualsHelper.equals (m_aValue, rhs.m_aValue);
+    final Object aObj1 = m_aValue;
+    return EqualsHelper.equals (aObj1, rhs.m_aValue);
   }
 
   @Override
@@ -235,13 +233,23 @@ public class JsonValue implements IJsonValue
     return create (Long.valueOf (nValue));
   }
 
+  /**
+   * Create a plain JSON value from the passed object. This will never be an array or an object.
+   *
+   * @param aValue
+   *        The source value
+   * @return the {@link JsonValue}
+   */
   @Nonnull
-  @SuppressFBWarnings ("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
   public static JsonValue create (@Nullable final Object aValue)
   {
     // Special null constant
     if (aValue == null)
       return NULL;
+
+    if (aValue instanceof final JsonValue aJson)
+      return aJson;
+
     // Special true/false
     if (aValue == Boolean.TRUE)
       return TRUE;
@@ -249,12 +257,12 @@ public class JsonValue implements IJsonValue
       return FALSE;
 
     // Change to Integer/Double
-    if (aValue instanceof Byte)
-      return create (((Byte) aValue).byteValue ());
-    if (aValue instanceof Short)
-      return create (((Short) aValue).shortValue ());
-    if (aValue instanceof Float)
-      return create (MathHelper.toBigDecimal ((Float) aValue).doubleValue ());
+    if (aValue instanceof final Byte aByte)
+      return create (aByte.byteValue ());
+    if (aValue instanceof final Short aShort)
+      return create (aShort.shortValue ());
+    if (aValue instanceof final Float aFloat)
+      return create (BigHelper.toBigDecimal (aFloat).doubleValue ());
 
     // New object
     return new JsonValue (aValue);

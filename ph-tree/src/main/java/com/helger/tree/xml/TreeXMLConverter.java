@@ -19,16 +19,13 @@ package com.helger.tree.xml;
 import java.util.Comparator;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.NonBlockingStack;
-import com.helger.commons.hierarchy.ChildrenProviderHasChildrenSorting;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.id.IHasID;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.id.IHasID;
+import com.helger.collection.hierarchy.ChildrenProviderHasChildrenSorting;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.collection.stack.NonBlockingStack;
 import com.helger.tree.IBasicTree;
 import com.helger.tree.ITreeItem;
 import com.helger.tree.util.TreeVisitor;
@@ -40,6 +37,9 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.util.ChildrenProviderElementWithName;
 import com.helger.xml.microdom.util.MicroVisitor;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Convert a tree to XML
@@ -102,11 +102,11 @@ public final class TreeXMLConverter
                                {
                                  // create item element
                                  final IMicroElement eItem = aParents.peek ()
-                                                                     .appendElement (sNamespaceURI, ELEMENT_ITEM);
+                                                                     .addElementNS (sNamespaceURI, ELEMENT_ITEM);
                                  eItem.setAttribute (ATTR_ID, aIDConverter.apply (aItem.getID ()));
 
                                  // append data
-                                 final IMicroElement eData = eItem.appendElement (sNamespaceURI, ELEMENT_DATA);
+                                 final IMicroElement eData = eItem.addElementNS (sNamespaceURI, ELEMENT_DATA);
                                  aDataConverter.appendDataValue (eData, aItem.getData ());
 
                                  aParents.push (eItem);
@@ -157,10 +157,10 @@ public final class TreeXMLConverter
                                {
                                  // create item element
                                  final IMicroElement eItem = aParents.peek ()
-                                                                     .appendElement (sNamespaceURI, ELEMENT_ITEM);
+                                                                     .addElementNS (sNamespaceURI, ELEMENT_ITEM);
 
                                  // append data
-                                 final IMicroElement eData = eItem.appendElement (sNamespaceURI, ELEMENT_DATA);
+                                 final IMicroElement eData = eItem.addElementNS (sNamespaceURI, ELEMENT_DATA);
                                  aDataConverter.appendDataValue (eData, aItem.getData ());
 
                                  aParents.push (eItem);

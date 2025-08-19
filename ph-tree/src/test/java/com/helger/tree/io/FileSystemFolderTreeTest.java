@@ -21,18 +21,18 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.IFileFilter;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.IFileFilter;
 import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link FileSystemFolderTree}.

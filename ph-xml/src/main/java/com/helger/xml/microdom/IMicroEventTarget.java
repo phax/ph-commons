@@ -16,9 +16,9 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
+import com.helger.base.callback.ICallback;
 
-import com.helger.commons.callback.ICallback;
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for MicroDOM event handlers.

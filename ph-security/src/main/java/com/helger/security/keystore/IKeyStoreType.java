@@ -21,10 +21,10 @@ import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
 import java.security.Provider;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.base.id.IHasID;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for the different types of key stores (like JKS or PKCS12).

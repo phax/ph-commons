@@ -16,10 +16,10 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
-import com.helger.commons.annotation.Nonempty;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for a single request scope object.

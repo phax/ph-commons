@@ -21,11 +21,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
@@ -38,20 +33,26 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsIterableIterator;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsOrderedMap;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains multiple XML utility methods.
@@ -68,8 +69,8 @@ public final class XMLHelper
   {}
 
   /**
-   * Get the owner document of the passed node. If the node itself is a
-   * document, only a cast is performed.
+   * Get the owner document of the passed node. If the node itself is a document, only a cast is
+   * performed.
    *
    * @param aNode
    *        The node to get the document from. May be <code>null</code>.
@@ -80,8 +81,8 @@ public final class XMLHelper
   {
     if (aNode == null)
       return null;
-    if (aNode instanceof Document)
-      return (Document) aNode;
+    if (aNode instanceof final Document aDoc)
+      return aDoc;
     return aNode.getOwnerDocument ();
   }
 
@@ -95,10 +96,10 @@ public final class XMLHelper
   @Nullable
   public static String getNamespaceURI (@Nullable final Node aNode)
   {
-    if (aNode instanceof Document)
+    if (aNode instanceof final Document aDoc)
     {
       // Recurse into document element
-      return getNamespaceURI (((Document) aNode).getDocumentElement ());
+      return getNamespaceURI (aDoc.getDocumentElement ());
     }
     if (aNode != null)
       return aNode.getNamespaceURI ();
@@ -126,21 +127,21 @@ public final class XMLHelper
   @Nullable
   public static String getElementName (@Nullable final Node aNode)
   {
-    if (aNode instanceof Document)
+    if (aNode instanceof final Document aDoc)
     {
       // Recurse into document element
-      return getElementName (((Document) aNode).getDocumentElement ());
+      return getElementName (aDoc.getDocumentElement ());
     }
-    if (aNode instanceof Element)
+    if (aNode instanceof final Element aElement)
     {
-      return getLocalNameOrTagName ((Element) aNode);
+      return getLocalNameOrTagName (aElement);
     }
     return null;
   }
 
   public static boolean hasNoNamespaceURI (@Nonnull final Node aNode)
   {
-    return StringHelper.hasNoText (aNode.getNamespaceURI ());
+    return StringHelper.isEmpty (aNode.getNamespaceURI ());
   }
 
   public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)
@@ -150,13 +151,12 @@ public final class XMLHelper
   }
 
   /**
-   * Check if the passed node is a text node. This includes all nodes derived
-   * from {@link Text} (Text and CData) or {@link EntityReference} nodes.
+   * Check if the passed node is a text node. This includes all nodes derived from {@link Text}
+   * (Text and CData) or {@link EntityReference} nodes.
    *
    * @param aNode
    *        The node to be checked.
-   * @return <code>true</code> if the passed node is a text node,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the passed node is a text node, <code>false</code> otherwise.
    */
   public static boolean isInlineNode (@Nullable final Node aNode)
   {
@@ -183,7 +183,7 @@ public final class XMLHelper
   @Nonnull
   public static Predicate <? super Element> filterElementWithNamespace ()
   {
-    return x -> x != null && StringHelper.hasText (x.getNamespaceURI ());
+    return x -> x != null && StringHelper.isNotEmpty (x.getNamespaceURI ());
   }
 
   @Nonnull
@@ -225,8 +225,7 @@ public final class XMLHelper
    *
    * @param aStartNode
    *        The element to start searching. May be <code>null</code>.
-   * @return <code>null</code> if the passed element does not have any direct
-   *         child element.
+   * @return <code>null</code> if the passed element does not have any direct child element.
    */
   @Nullable
   public static Element getFirstChildElement (@Nullable final Node aStartNode)
@@ -242,8 +241,8 @@ public final class XMLHelper
    *
    * @param aStartNode
    *        The parent element to be searched. May be <code>null</code>.
-   * @return <code>true</code> if the passed node has at least one child
-   *         element, <code>false</code> otherwise.
+   * @return <code>true</code> if the passed node has at least one child element, <code>false</code>
+   *         otherwise.
    */
   public static boolean hasChildElementNodes (@Nullable final Node aStartNode)
   {
@@ -253,8 +252,7 @@ public final class XMLHelper
   }
 
   /**
-   * Search all child nodes of the given for the first element that has the
-   * specified tag name.
+   * Search all child nodes of the given for the first element that has the specified tag name.
    *
    * @param aStartNode
    *        The parent element to be searched. May be <code>null</code>.
@@ -272,8 +270,7 @@ public final class XMLHelper
   }
 
   /**
-   * Search all child nodes of the given for the first element that has the
-   * specified tag name.
+   * Search all child nodes of the given for the first element that has the specified tag name.
    *
    * @param aStartNode
    *        The parent element to be searched. May be <code>null</code>.
@@ -295,17 +292,15 @@ public final class XMLHelper
   }
 
   /**
-   * Find a direct child using multiple levels, starting from a given start
-   * element.
+   * Find a direct child using multiple levels, starting from a given start element.
    *
    * @param aStartElement
    *        The element to start from. May be <code>null</code>.
    * @param aTagNames
-   *        The child elements to be found in order. May neither be
-   *        <code>null</code> nor empty and may not contain <code>null</code>
-   *        elements.
-   * @return <code>null</code> if no such child element was found, of if the
-   *         start element was <code>null</code>.
+   *        The child elements to be found in order. May neither be <code>null</code> nor empty and
+   *        may not contain <code>null</code> elements.
+   * @return <code>null</code> if no such child element was found, of if the start element was
+   *         <code>null</code>.
    * @see #getFirstChildElementOfName(Node, String)
    * @since 10.1.2
    */
@@ -332,19 +327,18 @@ public final class XMLHelper
     ValueEnforcer.notNull (aParentNode, "ParentNode");
 
     if (aChild != null)
-      if (aChild instanceof Document)
+      if (aChild instanceof final Document aDoc)
       {
         // Special handling for Document comes first, as this is a special case
         // of "Node"
 
         // Cannot add complete documents!
-        append (aParentNode, ((Document) aChild).getDocumentElement ());
+        append (aParentNode, aDoc.getDocumentElement ());
       }
       else
-        if (aChild instanceof Node)
+        if (aChild instanceof final Node aChildNode)
         {
           // directly append Node
-          final Node aChildNode = (Node) aChild;
           final Document aParentDoc = getOwnerDocument (aParentNode);
           if (getOwnerDocument (aChildNode).equals (aParentDoc))
           {
@@ -358,16 +352,16 @@ public final class XMLHelper
           }
         }
         else
-          if (aChild instanceof String)
+          if (aChild instanceof final String sChild)
           {
             // append a string node
-            aParentNode.appendChild (getOwnerDocument (aParentNode).createTextNode ((String) aChild));
+            aParentNode.appendChild (getOwnerDocument (aParentNode).createTextNode (sChild));
           }
           else
-            if (aChild instanceof Iterable <?>)
+            if (aChild instanceof final Iterable <?> aIterableChild)
             {
               // it's a nested collection -> recursion
-              for (final Object aSubChild : (Iterable <?>) aChild)
+              for (final Object aSubChild : aIterableChild)
                 append (aParentNode, aSubChild);
             }
             else
@@ -431,8 +425,9 @@ public final class XMLHelper
                                                   @Nullable final String sNamespaceURI,
                                                   @Nonnull @Nonempty final String sLocalName)
   {
-    return aParent == null ? 0
-                           : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
+    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent,
+                                                                                      sNamespaceURI,
+                                                                                      sLocalName));
   }
 
   /**
@@ -443,7 +438,7 @@ public final class XMLHelper
    * @return a non-null Iterator
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode)
+  public static ICommonsIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode)
   {
     return new ChildElementIterator (aStartNode);
   }
@@ -456,14 +451,13 @@ public final class XMLHelper
    * @return a non-null Iterator
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode)
+  public static ICommonsIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithoutNamespace ());
   }
 
   /**
-   * Get an iterator over all child elements that have no namespace and the
-   * desired tag name.
+   * Get an iterator over all child elements that have no namespace and the desired tag name.
    *
    * @param aStartNode
    *        the parent element
@@ -474,15 +468,15 @@ public final class XMLHelper
    *         if the passed tag name is null or empty
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode,
+  public static ICommonsIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode,
                                                                          @Nonnull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagNameNoNS (sTagName));
   }
 
   /**
-   * Get an iterator over all child elements that have the desired tag name (but
-   * potentially a namespace URI).
+   * Get an iterator over all child elements that have the desired tag name (but potentially a
+   * namespace URI).
    *
    * @param aStartNode
    *        the parent element
@@ -493,21 +487,21 @@ public final class XMLHelper
    *         if the passed tag name is null or empty
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode,
+  public static ICommonsIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode,
                                                                      @Nonnull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagName (sTagName));
   }
 
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
+  public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespace (sNamespaceURI));
   }
 
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
+  public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI,
                                                                        @Nonnull @Nonempty final String sLocalName)
   {
@@ -519,13 +513,13 @@ public final class XMLHelper
   {
     final String sFirstNS = aFirst.getNamespaceURI ();
     final String sSecondNS = aSecond.getNamespaceURI ();
-    if (StringHelper.hasText (sFirstNS))
+    if (StringHelper.isNotEmpty (sFirstNS))
     {
       // NS + local name
       return sFirstNS.equals (sSecondNS) && aFirst.getLocalName ().equals (aSecond.getLocalName ());
     }
     // No NS + tag name
-    return StringHelper.hasNoText (sSecondNS) && aFirst.getTagName ().equals (aSecond.getTagName ());
+    return StringHelper.isEmpty (sSecondNS) && aFirst.getTagName ().equals (aSecond.getTagName ());
   }
 
   @Nonnull
@@ -542,10 +536,11 @@ public final class XMLHelper
     ValueEnforcer.notNull (sSep, "Separator");
 
     final Function <String, String> funGetNSPrefix = aNamespaceCtx == null ? ns -> "" : ns -> {
-      if (StringHelper.hasText (ns))
+      final String sStr = ns;
+      if (StringHelper.isNotEmpty (sStr))
       {
         final String sPrefix = aNamespaceCtx.getPrefix (ns);
-        if (StringHelper.hasText (sPrefix))
+        if (StringHelper.isNotEmpty (sPrefix))
           return sPrefix + ":";
       }
       return "";
@@ -571,7 +566,7 @@ public final class XMLHelper
       final StringBuilder aName = new StringBuilder ();
       if (nNodeType == Node.ATTRIBUTE_NODE)
         aName.append ('@');
-      if (StringHelper.hasText (sNamespaceURI))
+      if (StringHelper.isNotEmpty (sNamespaceURI))
       {
         aName.append (funGetNSPrefix.apply (sNamespaceURI));
         aName.append (aCurNode.getLocalName ());
@@ -762,10 +757,9 @@ public final class XMLHelper
     }
 
     /**
-     * Determine whether a 0-based index or a 1-based index should be used. For
-     * XPath usage etc. a 1-based index should be used. For a 0-based index the
-     * first element uses <code>[0]</code> and for a 1-based index this is
-     * <code>[1]</code>.
+     * Determine whether a 0-based index or a 1-based index should be used. For XPath usage etc. a
+     * 1-based index should be used. For a 0-based index the first element uses <code>[0]</code> and
+     * for a 1-based index this is <code>[1]</code>.
      *
      * @param b
      *        <code>true</code> to use a 0-based index, <code>false</code>
@@ -803,15 +797,13 @@ public final class XMLHelper
     }
 
     /**
-     * Enable or disable the force of an index. If the index is forced, the
-     * <code>[0]</code> or <code>[1]</code>, depending on
-     * {@link #zeroBasedIndex(boolean)} is always emitted, even if only one
-     * element exists. If this is disabled and only element exists, the index is
-     * not emitted.
+     * Enable or disable the force of an index. If the index is forced, the <code>[0]</code> or
+     * <code>[1]</code>, depending on {@link #zeroBasedIndex(boolean)} is always emitted, even if
+     * only one element exists. If this is disabled and only element exists, the index is not
+     * emitted.
      *
      * @param b
-     *        <code>true</code> to force the index, <code>false</code> to omit
-     *        it if possible.
+     *        <code>true</code> to force the index, <code>false</code> to omit it if possible.
      * @return this for chaining
      */
     @Nonnull
@@ -822,13 +814,12 @@ public final class XMLHelper
     }
 
     /**
-     * Enable or disable the usage of a trailing separator. If enabled, the
-     * output is e.g. <code>element/</code> compared to the output
-     * <code>element</code> if the trailing separator is disabled.
+     * Enable or disable the usage of a trailing separator. If enabled, the output is e.g.
+     * <code>element/</code> compared to the output <code>element</code> if the trailing separator
+     * is disabled.
      *
      * @param b
-     *        <code>true</code> to use a trailing separator, <code>false</code>
-     *        to omit it.
+     *        <code>true</code> to use a trailing separator, <code>false</code> to omit it.
      * @return this for chaining
      */
     @Nonnull
@@ -842,8 +833,8 @@ public final class XMLHelper
      * Compare with namespace URI and local name, or just with the tag name.
      *
      * @param b
-     *        <code>true</code> to compare with namespace URI,
-     *        <code>false</code> to compare without namespace URI
+     *        <code>true</code> to compare with namespace URI, <code>false</code> to compare without
+     *        namespace URI
      * @return this for chaining
      */
     @Nonnull
@@ -854,8 +845,7 @@ public final class XMLHelper
     }
 
     /**
-     * Set the optional namespace context to be used for emitting prefixes. This
-     * is optional.
+     * Set the optional namespace context to be used for emitting prefixes. This is optional.
      *
      * @param a
      *        The namespace context to be used. May be <code>null</code>.
@@ -896,8 +886,7 @@ public final class XMLHelper
   }
 
   /**
-   * Shortcut for {@link #getPathToNode(Node, String)} using "/" as the
-   * separator.
+   * Shortcut for {@link #getPathToNode(Node, String)} using "/" as the separator.
    *
    * @param aNode
    *        The node to check.
@@ -910,8 +899,8 @@ public final class XMLHelper
   }
 
   /**
-   * Get the path from root node to the passed node. This includes all nodes up
-   * to the document node!
+   * Get the path from root node to the passed node. This includes all nodes up to the document
+   * node!
    *
    * @param aNode
    *        The node to start. May not be <code>null</code>.
@@ -933,8 +922,7 @@ public final class XMLHelper
   }
 
   /**
-   * Shortcut for {@link #getPathToNode2(Node,String)} using "/" as the
-   * separator.
+   * Shortcut for {@link #getPathToNode2(Node,String)} using "/" as the separator.
    *
    * @param aNode
    *        The node to check.
@@ -947,8 +935,8 @@ public final class XMLHelper
   }
 
   /**
-   * Get the path from root node to the passed node. This includes all nodes but
-   * excluding the document node!
+   * Get the path from root node to the passed node. This includes all nodes but excluding the
+   * document node!
    *
    * @param aNode
    *        The node to start. May not be <code>null</code>.
@@ -999,16 +987,15 @@ public final class XMLHelper
   }
 
   /**
-   * The latest version of XercesJ 2.9 returns an empty string for non existing
-   * attributes. To differentiate between empty attributes and non-existing
-   * attributes, this method returns null for non existing attributes.
+   * The latest version of XercesJ 2.9 returns an empty string for non existing attributes. To
+   * differentiate between empty attributes and non-existing attributes, this method returns null
+   * for non existing attributes.
    *
    * @param aElement
    *        the source element to get the attribute from
    * @param sAttrName
    *        the name of the attribute to query
-   * @return <code>null</code> if the attribute does not exists, the string
-   *         value otherwise
+   * @return <code>null</code> if the attribute does not exists, the string value otherwise
    */
   @Nullable
   public static String getAttributeValue (@Nonnull final Element aElement, @Nonnull final String sAttrName)
@@ -1017,20 +1004,17 @@ public final class XMLHelper
   }
 
   /**
-   * The latest version of XercesJ 2.9 returns an empty string for non existing
-   * attributes. To differentiate between empty attributes and non-existing
-   * attributes, this method returns a default value for non existing
-   * attributes.
+   * The latest version of XercesJ 2.9 returns an empty string for non existing attributes. To
+   * differentiate between empty attributes and non-existing attributes, this method returns a
+   * default value for non existing attributes.
    *
    * @param aElement
-   *        the source element to get the attribute from. May not be
-   *        <code>null</code>.
+   *        the source element to get the attribute from. May not be <code>null</code>.
    * @param sAttrName
    *        the name of the attribute to query. May not be <code>null</code>.
    * @param sDefault
    *        the value to be returned if the attribute is not present.
-   * @return the default value if the attribute does not exists, the string
-   *         value otherwise
+   * @return the default value if the attribute does not exists, the string value otherwise
    */
   @Nullable
   public static String getAttributeValue (@Nonnull final Element aElement,
@@ -1042,19 +1026,17 @@ public final class XMLHelper
   }
 
   /**
-   * The latest version of XercesJ 2.9 returns an empty string for non existing
-   * attributes. To differentiate between empty attributes and non-existing
-   * attributes, this method returns null for non existing attributes.
+   * The latest version of XercesJ 2.9 returns an empty string for non existing attributes. To
+   * differentiate between empty attributes and non-existing attributes, this method returns null
+   * for non existing attributes.
    *
    * @param aElement
    *        the source element to get the attribute from
    * @param sNamespaceURI
-   *        The namespace URI of the attribute to retrieve. May be
-   *        <code>null</code>.
+   *        The namespace URI of the attribute to retrieve. May be <code>null</code>.
    * @param sAttrName
    *        the name of the attribute to query
-   * @return <code>null</code> if the attribute does not exists, the string
-   *         value otherwise
+   * @return <code>null</code> if the attribute does not exists, the string value otherwise
    */
   @Nullable
   public static String getAttributeValueNS (@Nonnull final Element aElement,
@@ -1065,23 +1047,19 @@ public final class XMLHelper
   }
 
   /**
-   * The latest version of XercesJ 2.9 returns an empty string for non existing
-   * attributes. To differentiate between empty attributes and non-existing
-   * attributes, this method returns a default value for non existing
-   * attributes.
+   * The latest version of XercesJ 2.9 returns an empty string for non existing attributes. To
+   * differentiate between empty attributes and non-existing attributes, this method returns a
+   * default value for non existing attributes.
    *
    * @param aElement
-   *        the source element to get the attribute from. May not be
-   *        <code>null</code>.
+   *        the source element to get the attribute from. May not be <code>null</code>.
    * @param sNamespaceURI
-   *        The namespace URI of the attribute to retrieve. May be
-   *        <code>null</code>.
+   *        The namespace URI of the attribute to retrieve. May be <code>null</code>.
    * @param sAttrName
    *        the name of the attribute to query. May not be <code>null</code>.
    * @param sDefault
    *        the value to be returned if the attribute is not present.
-   * @return the default value if the attribute does not exists, the string
-   *         value otherwise
+   * @return the default value if the attribute does not exists, the string value otherwise
    */
   @Nullable
   public static String getAttributeValueNS (@Nonnull final Element aElement,
@@ -1125,16 +1103,14 @@ public final class XMLHelper
   }
 
   /**
-   * Get the full qualified attribute name to use for the given namespace
-   * prefix. The result will e.g. be <code>xmlns</code> or
-   * <code>{http://www.w3.org/2000/xmlns/}xmlns:foo</code>.
+   * Get the full qualified attribute name to use for the given namespace prefix. The result will
+   * e.g. be <code>xmlns</code> or <code>{http://www.w3.org/2000/xmlns/}xmlns:foo</code>.
    *
    * @param sNSPrefix
-   *        The namespace prefix to build the attribute name from. May be
-   *        <code>null</code> or empty.
-   * @return If the namespace prefix is empty (if it equals
-   *         {@link XMLConstants#DEFAULT_NS_PREFIX} or <code>null</code>) than
-   *         "xmlns" is returned, else "xmlns:<i>prefix</i>" is returned.
+   *        The namespace prefix to build the attribute name from. May be <code>null</code> or
+   *        empty.
+   * @return If the namespace prefix is empty (if it equals {@link XMLConstants#DEFAULT_NS_PREFIX}
+   *         or <code>null</code>) than "xmlns" is returned, else "xmlns:<i>prefix</i>" is returned.
    */
   @Nonnull
   public static QName getXMLNSAttrQName (@Nullable final String sNSPrefix)
@@ -1157,8 +1133,7 @@ public final class XMLHelper
    *
    * @param aElement
    *        The element to be queried. May be <code>null</code>.
-   * @return {@link XMLConstants#DEFAULT_NS_PREFIX} or the provided prefix.
-   *         Never <code>null</code>.
+   * @return {@link XMLConstants#DEFAULT_NS_PREFIX} or the provided prefix. Never <code>null</code>.
    * @since 8.4.1
    */
   @Nonnull
@@ -1169,9 +1144,8 @@ public final class XMLHelper
   }
 
   /**
-   * Get the QName of the passed element. If the passed element has no namespace
-   * URI, only the tag name is used. Otherwise namespace URI, local name and
-   * prefix are used.
+   * Get the QName of the passed element. If the passed element has no namespace URI, only the tag
+   * name is used. Otherwise namespace URI, local name and prefix are used.
    *
    * @param aElement
    *        The element to be used. May not be <code>null</code>.
@@ -1188,15 +1162,13 @@ public final class XMLHelper
   }
 
   /**
-   * Iterate all child nodes of the provided element NOT recursive. The provided
-   * consumer is invoked for every child node. Please note: the Consumer is not
-   * invoked for the parent element itself.
+   * Iterate all child nodes of the provided element NOT recursive. The provided consumer is invoked
+   * for every child node. Please note: the Consumer is not invoked for the parent element itself.
    *
    * @param aParent
    *        The parent node to start from. May not be <code>null</code>.
    * @param aConsumer
-   *        The Consumer to be invoked for every node. May not be
-   *        <code>null</code>.
+   *        The Consumer to be invoked for every node. May not be <code>null</code>.
    * @since 10.1.7
    */
   public static void iterateChildren (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
@@ -1234,15 +1206,13 @@ public final class XMLHelper
   }
 
   /**
-   * Recursively iterate all children of the provided element. The provided
-   * consumer is invoked for every child node. Please note: the Consumer is not
-   * invoked for the parent element itself.
+   * Recursively iterate all children of the provided element. The provided consumer is invoked for
+   * every child node. Please note: the Consumer is not invoked for the parent element itself.
    *
    * @param aParent
    *        The parent node to start from. May not be <code>null</code>.
    * @param aConsumer
-   *        The Consumer to be invoked for every node. May not be
-   *        <code>null</code>.
+   *        The Consumer to be invoked for every node. May not be <code>null</code>.
    * @since 10.1.7
    */
   public static void recursiveIterateChildren (@Nonnull final Node aParent,

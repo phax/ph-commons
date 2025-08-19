@@ -16,13 +16,13 @@
  */
 package com.helger.xml.dom;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nullable;
-
 import org.w3c.dom.Node;
 
-import com.helger.commons.id.IHasIntID;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.id.IHasIntID;
+import com.helger.base.lang.EnumHelper;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Represents the different DOM node types. This is a type-safe version of the

@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for an attribute value provider.

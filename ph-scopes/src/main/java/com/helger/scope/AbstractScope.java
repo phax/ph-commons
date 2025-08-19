@@ -19,23 +19,23 @@ package com.helger.scope;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.attr.AttributeContainerAnyConcurrent;
-import com.helger.commons.collection.attr.IAttributeContainerAny;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.typeconvert.collection.AttributeContainerAnyConcurrent;
+import com.helger.typeconvert.collection.IAttributeContainerAny;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract scope implementation based on a Map containing the attribute values.

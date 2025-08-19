@@ -16,10 +16,10 @@
  */
 package com.helger.scope.mgr;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
 import com.helger.scope.IRequestScope;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Auto closable wrapper around

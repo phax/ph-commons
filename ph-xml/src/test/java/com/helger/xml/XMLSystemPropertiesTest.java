@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.system.EJavaVersion;
+import com.helger.base.system.EJavaVersion;
 
 /**
  * Test class for class {@link XMLSystemProperties}

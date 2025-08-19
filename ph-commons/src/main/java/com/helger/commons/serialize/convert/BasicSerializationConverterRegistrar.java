@@ -22,17 +22,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
 import javax.imageio.ImageIO;
 
-import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.io.stream.StreamHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
- * Implementation of {@link ISerializationConverterRegistrarSPI} for basic types
- * like Charset etc.
+ * Implementation of {@link ISerializationConverterRegistrarSPI} for basic types like Charset etc.
  *
  * @author Philip Helger
  */
@@ -43,7 +43,8 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   private static final class SerializationConverterBufferedImage implements ISerializationConverter <BufferedImage>
   {
-    public void writeConvertedObject (@Nonnull final BufferedImage aSourceObject, @Nonnull final ObjectOutputStream aOOS) throws IOException
+    public void writeConvertedObject (@Nonnull final BufferedImage aSourceObject,
+                                      @Nonnull final ObjectOutputStream aOOS) throws IOException
     {
       ImageIO.write (aSourceObject, "png", aOOS);
     }
@@ -56,7 +57,8 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   private static final class SerializationConverterCharset implements ISerializationConverter <Charset>
   {
-    public void writeConvertedObject (@Nonnull final Charset aSourceObject, @Nonnull final ObjectOutputStream aOOS) throws IOException
+    public void writeConvertedObject (@Nonnull final Charset aSourceObject, @Nonnull final ObjectOutputStream aOOS)
+                                                                                                                    throws IOException
     {
       StreamHelper.writeSafeUTF (aOOS, aSourceObject.name ());
     }

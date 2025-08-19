@@ -24,10 +24,6 @@ import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillCloseWhenClosed;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
@@ -36,23 +32,27 @@ import javax.xml.stream.XMLStreamWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.collection.NonBlockingStack;
-import com.helger.commons.collection.iterate.CombinedIterator;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.log.ConditionalLogger;
-import com.helger.commons.log.IHasConditionalLogger;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillCloseWhenClosed;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.IHasConditionalLogger;
+import com.helger.base.state.ETriState;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.iterator.CombinedIterator;
+import com.helger.collection.stack.NonBlockingStack;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * A special stream writer, that ensures that special XML characters are handled
- * correctly.<br>
+ * A special stream writer, that ensures that special XML characters are handled correctly.<br>
  * See https://github.com/javaee/jaxb-v2/issues/614<br>
  * See https://github.com/javaee/jaxb-v2/issues/960
  *
@@ -153,7 +153,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SafeXMLStreamWriter.class);
-  private static final AtomicBoolean DEFAULT_DEBUG_MODE = new AtomicBoolean (false);
+  private static final AtomicBoolean DEFAULT_DEBUG_MODE = new AtomicBoolean (ConditionalLogger.DEFAULT_ENABLED);
 
   public static boolean isDefaultDebugMode ()
   {
@@ -201,8 +201,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   }
 
   /**
-   * @return <code>true</code> if debug mode is enabled, <code>false</code> if
-   *         it is disabled. By default it is disabled.
+   * @return <code>true</code> if debug mode is enabled, <code>false</code> if it is disabled. By
+   *         default it is disabled.
    * @see #setDebugMode(boolean)
    */
   public final boolean isDebugMode ()
@@ -214,8 +214,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
    * Enable or disable debug mode
    *
    * @param bDebugMode
-   *        <code>true</code> to enable debug mode, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enable debug mode, <code>false</code> to disable it.
    * @return this for chaining
    * @see #isDebugMode()
    */

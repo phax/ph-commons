@@ -16,10 +16,10 @@
  */
 package com.helger.graph;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.state.EChange;
 
-import com.helger.commons.state.EChange;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for a modifiable graph.

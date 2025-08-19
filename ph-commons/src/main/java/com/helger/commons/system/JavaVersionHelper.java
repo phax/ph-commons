@@ -20,33 +20,30 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.PDTFromString;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.string.StringParser;
+import com.helger.base.string.StringRemove;
+import com.helger.base.system.SystemProperties;
+import com.helger.datetime.format.PDTFromString;
+import com.helger.datetime.helper.PDTFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Helper class that holds the current class version. Must be a separate class
- * to maintain the correct initialization order.
+ * Helper class that holds the current class version. Must be a separate class to maintain the
+ * correct initialization order.
  *
  * @author Philip Helger
  */
 @Immutable
 public final class JavaVersionHelper
 {
-  /** The global Java class version as a double value. */
-  public static final double JAVA_CLASS_VERSION = StringParser.parseDouble (SystemProperties.getJavaClassVersion (),
-                                                                            CGlobal.ILLEGAL_DOUBLE);
   // 1.8.0_144 => 8
   // 9.0.4 => 9
   public static final int JAVA_MAJOR_VERSION;
@@ -147,8 +144,8 @@ public final class JavaVersionHelper
             {
               // Use data as "minor"
               String sData = sJavaRuntimeVersion.substring (sOriginalJavaVersion.length ());
-              sData = StringHelper.removeAll (sData, '_');
-              sData = StringHelper.removeAll (sData, '-');
+              sData = StringRemove.removeAll (sData, '_');
+              sData = StringRemove.removeAll (sData, '-');
               final int nB = sData.indexOf ('b');
               if (nB >= 0)
                 sData = sData.substring (0, nB);

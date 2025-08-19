@@ -16,13 +16,13 @@
  */
 package com.helger.scope.singleton;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.mgr.ScopeManager;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is the base class for singleton objects that reside in the global scope.

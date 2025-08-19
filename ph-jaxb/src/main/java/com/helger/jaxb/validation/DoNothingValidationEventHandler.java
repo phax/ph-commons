@@ -16,10 +16,10 @@
  */
 package com.helger.jaxb.validation;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.diagnostics.error.IError;
 
-import com.helger.commons.error.IError;
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}

@@ -16,13 +16,13 @@
  */
 package com.helger.graph.impl;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.hashcode.IHashCodeGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.graph.IMutableGraphNode;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link com.helger.graph.IMutableGraphRelation} interface

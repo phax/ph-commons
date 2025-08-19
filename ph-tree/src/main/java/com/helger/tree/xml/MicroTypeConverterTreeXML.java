@@ -16,15 +16,15 @@
  */
 package com.helger.tree.xml;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special implementation of {@link IConverterTreeXML} that uses the
@@ -99,7 +99,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
   {
     // Append created element - or null if the passed object is null
     final IMicroElement eElement = MicroTypeConverter.convertToMicroElement (aObject, m_sNamespaceURI, m_sElementName);
-    eDataElement.appendChild (eElement);
+    eDataElement.addChild (eElement);
   }
 
   @Nullable
@@ -108,7 +108,8 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
     final IMicroElement eChildElement = eDataElement.getFirstChildElement ();
     if (eChildElement != null)
     {
-      if (!EqualsHelper.equals (m_sNamespaceURI, eChildElement.getNamespaceURI ()))
+      final Object aObj1 = m_sNamespaceURI;
+      if (!EqualsHelper.equals (aObj1, eChildElement.getNamespaceURI ()))
         throw new IllegalStateException ("Namespace mismatch! Expected: " + m_sNamespaceURI);
       if (!m_sElementName.equals (eChildElement.getTagName ()))
         throw new IllegalStateException ("Tag name mismatch! Expected: " + m_sElementName);

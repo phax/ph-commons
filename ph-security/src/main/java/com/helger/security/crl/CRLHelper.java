@@ -24,9 +24,6 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
 import org.bouncycastle.asn1.ASN1IA5String;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Primitive;
@@ -40,11 +37,14 @@ import org.bouncycastle.asn1.x509.GeneralNames;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to deal with CRLs. This class requires BouncyCastle to be in the

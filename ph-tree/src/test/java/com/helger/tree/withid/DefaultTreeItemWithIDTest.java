@@ -28,12 +28,10 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.base.id.IHasID;
+import com.helger.collection.CollectionHelper;
 import com.helger.tree.IBasicTreeItem;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link DefaultTreeItemWithID}.
@@ -245,13 +243,12 @@ public final class DefaultTreeItemWithIDTest
     final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <> ();
     t2.getRootItem ().createChildItem ("dataid", "Data");
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t.getRootItem (),
+    TestHelper.testDefaultImplementationWithEqualContentObject (t.getRootItem (),
                                                                        new DefaultTreeWithID <String, String> ().getRootItem ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t.getRootItem (), t2.getRootItem ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (t.getRootItem (), t2.getRootItem ());
   }
 
   @Test
-  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testInvalid ()
   {
     final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();

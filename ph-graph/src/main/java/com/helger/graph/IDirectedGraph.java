@@ -16,10 +16,10 @@
  */
 package com.helger.graph;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.ICommonsSet;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsSet;
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a directed graph.
