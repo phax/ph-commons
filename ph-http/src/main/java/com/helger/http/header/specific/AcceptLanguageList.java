@@ -20,7 +20,6 @@ import java.util.Locale;
 import java.util.function.Function;
 
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.header.AbstractQValueList;
 import com.helger.http.header.QValue;
@@ -43,12 +42,12 @@ public class AcceptLanguageList extends AbstractQValueList <String>
     return sLanguage.toLowerCase (Locale.US);
   }
 
-  // TODO 10.x make chainable
-  @ChangeNextMajorRelease ("Make chainable")
-  public void addLanguage (@Nonnull final String sLanguage, @Nonnegative final double dQuality)
+  @Nonnull
+  public AcceptLanguageList addLanguage (@Nonnull final String sLanguage, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notEmpty (sLanguage, "Language");
     qvalueMap ().put (_unify (sLanguage), new QValue (dQuality));
+    return this;
   }
 
   /**

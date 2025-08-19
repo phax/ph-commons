@@ -17,7 +17,6 @@
 package com.helger.http;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.exception.InitializationException;
@@ -31,7 +30,6 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @Immutable
-@ChangeNextMajorRelease ("Rename to RFC1945Helper")
 public final class RFC1945Helper
 {
   /** Minimum index (inclusive) */

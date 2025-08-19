@@ -19,7 +19,6 @@ package com.helger.http.header.specific;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.header.AbstractQValueList;
 import com.helger.http.header.QValue;
@@ -47,18 +46,17 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
                                                                                                                         throws MimeTypeParserException
   {
     ValueEnforcer.notEmpty (sMimeType, "MimeType");
-    addMimeType (MimeTypeParser.parseMimeType (sMimeType), dQuality);
-    return this;
+    return addMimeType (MimeTypeParser.parseMimeType (sMimeType), dQuality);
   }
 
-  // TODO 10.x make chainable
-  @ChangeNextMajorRelease ("Make chainable")
-  public void addMimeType (@Nonnull final IMimeType aMimeType, @Nonnegative final double dQuality)
+  @Nonnull
+  public AcceptMimeTypeList addMimeType (@Nonnull final IMimeType aMimeType, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notNull (aMimeType, "MimeType");
     ValueEnforcer.isFalse (aMimeType.hasAnyParameters (), "MimeTypes used here may not contain any parameter!");
 
     qvalueMap ().put (aMimeType, new QValue (dQuality));
+    return this;
   }
 
   /**

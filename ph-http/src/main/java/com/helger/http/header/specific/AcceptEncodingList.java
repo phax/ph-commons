@@ -21,7 +21,6 @@ import java.util.function.Function;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.header.AbstractQValueList;
 import com.helger.http.header.QValue;
@@ -46,12 +45,12 @@ public class AcceptEncodingList extends AbstractQValueList <String>
     return sEncoding.toLowerCase (Locale.US);
   }
 
-  // TODO 10.x make chainable
-  @ChangeNextMajorRelease ("Make chainable")
-  public void addEncoding (@Nonnull final String sEncoding, @Nonnegative final double dQuality)
+  @Nonnull
+  public AcceptEncodingList addEncoding (@Nonnull final String sEncoding, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notEmpty (sEncoding, "Encoding");
     qvalueMap ().put (_unify (sEncoding), new QValue (dQuality));
+    return this;
   }
 
   /**
@@ -95,13 +94,11 @@ public class AcceptEncodingList extends AbstractQValueList <String>
   }
 
   /**
-   * Check if the passed encoding is supported. Supported means the quality is
-   * &gt; 0.
+   * Check if the passed encoding is supported. Supported means the quality is &gt; 0.
    *
    * @param sEncoding
    *        The encoding to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the encoding is supported, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if the encoding is supported, <code>false</code> if not.
    */
   public boolean supportsEncoding (@Nonnull final String sEncoding)
   {
@@ -118,13 +115,13 @@ public class AcceptEncodingList extends AbstractQValueList <String>
 
   public boolean supportsGZIP ()
   {
-    return supportsEncoding (AcceptEncodingHandler.GZIP_ENCODING) || supportsEncoding (AcceptEncodingHandler.X_GZIP_ENCODING);
+    return supportsEncoding (AcceptEncodingHandler.GZIP_ENCODING) ||
+           supportsEncoding (AcceptEncodingHandler.X_GZIP_ENCODING);
   }
 
   /**
-   * @return the accepted GZip encoding. May either be
-   *         {@link AcceptEncodingHandler#GZIP_ENCODING} or
-   *         {@link AcceptEncodingHandler#X_GZIP_ENCODING} or <code>null</code>
+   * @return the accepted GZip encoding. May either be {@link AcceptEncodingHandler#GZIP_ENCODING}
+   *         or {@link AcceptEncodingHandler#X_GZIP_ENCODING} or <code>null</code>
    */
   @Nullable
   public String getUsedGZIPEncoding ()
@@ -155,14 +152,14 @@ public class AcceptEncodingList extends AbstractQValueList <String>
 
   public boolean supportsCompress ()
   {
-    return supportsEncoding (AcceptEncodingHandler.COMPRESS_ENCODING) || supportsEncoding (AcceptEncodingHandler.X_COMPRESS_ENCODING);
+    return supportsEncoding (AcceptEncodingHandler.COMPRESS_ENCODING) ||
+           supportsEncoding (AcceptEncodingHandler.X_COMPRESS_ENCODING);
   }
 
   /**
    * @return the accepted GZip encoding. May either be
    *         {@link AcceptEncodingHandler#COMPRESS_ENCODING} or
-   *         {@link AcceptEncodingHandler#X_COMPRESS_ENCODING} or
-   *         <code>null</code>
+   *         {@link AcceptEncodingHandler#X_COMPRESS_ENCODING} or <code>null</code>
    */
   @Nullable
   public String getUsedCompressEncoding ()

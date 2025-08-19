@@ -22,7 +22,6 @@ import java.util.function.Function;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.header.AbstractQValueList;
 import com.helger.http.header.QValue;
@@ -49,16 +48,15 @@ public class AcceptCharsetList extends AbstractQValueList <String>
   public AcceptCharsetList addCharset (@Nonnull final Charset aCharset, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
-    addCharset (aCharset.name (), dQuality);
-    return this;
+    return addCharset (aCharset.name (), dQuality);
   }
 
-  // TODO 10.x make chainable
-  @ChangeNextMajorRelease ("Make chainable")
-  public void addCharset (@Nonnull @Nonempty final String sCharset, @Nonnegative final double dQuality)
+  @Nonnull
+  public AcceptCharsetList addCharset (@Nonnull @Nonempty final String sCharset, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notEmpty (sCharset, "Charset");
     qvalueMap ().put (_unify (sCharset), new QValue (dQuality));
+    return this;
   }
 
   /**
