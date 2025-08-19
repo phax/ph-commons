@@ -14,15 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.location;
+package com.helger.base.location;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.base.location.ILocation;
-import com.helger.base.location.SimpleLocation;
-import com.helger.unittest.support.TestHelper;
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link SimpleLocation}.
@@ -52,11 +50,13 @@ public final class SimpleLocationTest
     assertEquals (7, re.getColumnNumber ());
     assertEquals ("xx(5:7)", re.getAsString ());
 
-    TestHelper.testDefaultImplementationWithEqualContentObject (new SimpleLocation ("xx"), new SimpleLocation ("xx"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx"), new SimpleLocation ("xx2"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
-                                                                           new SimpleLocation ("xx", 1, 1));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
-                                                                           new SimpleLocation ("xx", 0, 0));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (new SimpleLocation ("xx"),
+                                                                    new SimpleLocation ("xx"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx"),
+                                                                        new SimpleLocation ("xx2"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
+                                                                        new SimpleLocation ("xx", 1, 1));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
+                                                                        new SimpleLocation ("xx", 0, 0));
   }
 }

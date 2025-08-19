@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.state.ext;
+package com.helger.base.state;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,9 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.base.state.EChange;
-import com.helger.commons.state.ChangeWithValue;
-import com.helger.unittest.support.TestHelper;
+import com.helger.base.BaseTestHelper;
 
 /**
  * Test class for class {@link ChangeWithValue}.
@@ -47,9 +45,9 @@ public final class ChangeWithValueTest
     assertEquals ("other", x.getIfUnchanged ("other"));
     assertNull (x.getIfUnchangedOrNull ());
 
-    TestHelper.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
+    BaseTestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
 
     x = new ChangeWithValue <> (EChange.CHANGED, null);
     assertNull (x.get ());
