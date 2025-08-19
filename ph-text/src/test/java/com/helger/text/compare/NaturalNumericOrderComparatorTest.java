@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD:ph-text/src/test/java/com/helger/text/compare/NaturalNumericOrderComparatorTest.java
  * Copyright (C) 2015-2025 Philip Helger (www.helger.com)
+=======
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
+>>>>>>> master:ph-commons/src/test/java/com/helger/commons/compare/NaturalNumericOrderComparatorTest.java
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");

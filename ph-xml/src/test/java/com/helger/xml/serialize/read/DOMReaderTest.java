@@ -337,7 +337,7 @@ public final class DOMReaderTest
   public void testMultithreadedDOM ()
   {
     TestHelper.testInParallel (100,
-                                      (IThrowingRunnable <SAXException>) () -> assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"))));
+                               (IThrowingRunnable <SAXException>) () -> assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"))));
   }
 
   @Test
@@ -414,7 +414,8 @@ public final class DOMReaderTest
     // Read successful - entity expansion!
     Document aDoc = DOMReader.readXMLDOM (sXMLEntities + "<root>&e4;</root>", aDRS);
     assertNotNull (aDoc);
-    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 3)), aDoc.getDocumentElement ().getTextContent ());
+    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 3)),
+                  aDoc.getDocumentElement ().getTextContent ());
 
     if (!bIsJava24Plus)
     {
