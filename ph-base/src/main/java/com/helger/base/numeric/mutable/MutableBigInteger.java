@@ -281,7 +281,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
       return false;
     final MutableBigInteger rhs = (MutableBigInteger) o;
     final Object aObj1 = m_aValue;
-    return EqualsHelper.equals (aObj1, rhs.m_aValue);
+    return EqualsHelper.equals (m_aValue, rhs.m_aValue);
   }
 
   @Override
