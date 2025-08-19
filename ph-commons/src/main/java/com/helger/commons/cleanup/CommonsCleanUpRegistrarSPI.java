@@ -19,9 +19,7 @@ package com.helger.commons.cleanup;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.cleanup.ICleanUpRegistrarSPI;
 import com.helger.base.cleanup.ICleanUpRegistry;
-import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
-import com.helger.commons.hashcode.HashCodeImplementationRegistry;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
 
 import jakarta.annotation.Nonnull;
@@ -34,16 +32,11 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class CommonsCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
-  @SuppressWarnings ("removal")
   public void registerCleanUpAction (@Nonnull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 500, () -> {
       // Reinitialize singletons to the default values
       SerializationConverterRegistry.getInstance ().reinitialize ();
-      if (EqualsImplementationRegistry.isInstantiated ())
-        EqualsImplementationRegistry.getInstance ().reinitialize ();
-      if (HashCodeImplementationRegistry.isInstantiated ())
-        HashCodeImplementationRegistry.getInstance ().reinitialize ();
 
       // Clear caches
       if (ImageDataManager.isInstantiated ())
