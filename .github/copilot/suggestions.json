@@ -30,7 +30,8 @@
         "Document mathematical algorithms comprehensively",
         "Methods must document parameter constraints with @Nonnull or @Nullable",
         "Generic type parameters must be documented with @param tags",
-        "Return value semantics must be documented (e.g., @ReturnsMutableCopy)"
+        "Return value semantics must be documented (e.g., @ReturnsMutableCopy)",
+        "Inline comments must occur above the code line it refers to"
       ]
     },
     {

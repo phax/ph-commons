@@ -99,7 +99,7 @@ public final class TestHelper
     _testHashcodeImplementation (aObject);
     _testHashcodeImplementation (aObject2);
     assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
-    assertFalse ("This test may not be used with the same object!", aObject == aObject2);
+    assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
     assertTrue ("hashCode() invocations must be consistent", aObject.hashCode () == aObject2.hashCode ());
     assertTrue ("hashCode() invocations must be consistent", aObject2.hashCode () == aObject.hashCode ());
   }

@@ -225,12 +225,12 @@ public final class JAXBHelper
     if (aObj == null)
       return HashCodeCalculator.HASHCODE_NULL;
 
-    HashCodeGenerator aHC = new HashCodeGenerator (aObj).append (aObj.getNodeType ())
-                                                        .append (aObj.getNodeName ())
-                                                        .append (aObj.getLocalName ())
-                                                        .append (aObj.getNamespaceURI ())
-                                                        .append (aObj.getPrefix ())
-                                                        .append (aObj.getNodeValue ());
+    HashCodeGenerator aHC = new HashCodeGenerator (aObj.getClass ()).append (aObj.getNodeType ())
+                                                                    .append (aObj.getNodeName ())
+                                                                    .append (aObj.getLocalName ())
+                                                                    .append (aObj.getNamespaceURI ())
+                                                                    .append (aObj.getPrefix ())
+                                                                    .append (aObj.getNodeValue ());
 
     // For all children
     final NodeList aNL = aObj.getChildNodes ();
@@ -256,7 +256,7 @@ public final class JAXBHelper
   public static boolean equalAnyLists (@Nullable final List <Object> aObj1, @Nullable final List <Object> aObj2)
   {
     return _listEquals (aObj1, aObj2, (x, y) -> {
-      if (x.getClass () != y.getClass ())
+      if (!x.getClass ().equals (y.getClass ()))
         return false;
       if (x instanceof Node)
         return equalDOMNodes ((Node) x, (Node) y);
