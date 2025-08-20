@@ -18,6 +18,7 @@ package com.helger.base.hashcode;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 
@@ -620,6 +621,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return Never <code>null</code>
    */
   @Nonnull
+  @UsedInGeneratedCode
   public static HashCodeGenerator getDerived (final int nSuperHashCode)
   {
     if (nSuperHashCode == ILLEGAL_HASHCODE)

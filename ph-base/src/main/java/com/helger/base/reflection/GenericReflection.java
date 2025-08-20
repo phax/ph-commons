@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
@@ -50,6 +51,7 @@ public final class GenericReflection
   {}
 
   @SuppressWarnings ("unchecked")
+  @UsedInGeneratedCode
   public static <SRCTYPE, DSTTYPE> DSTTYPE uncheckedCast (@Nullable final SRCTYPE aObject)
   {
     return (DSTTYPE) aObject;
