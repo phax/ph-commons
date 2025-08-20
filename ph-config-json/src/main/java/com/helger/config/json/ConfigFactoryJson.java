@@ -27,6 +27,12 @@ import com.helger.io.resource.URLResource;
 
 import jakarta.annotation.Nonnull;
 
+/**
+ * A special config factory that adds the JSON files into the mix.
+ *
+ * @author Philip Helger
+ * @since v12.0.0
+ */
 public final class ConfigFactoryJson
 {
   public static final String PRIVATE_APPLICATION_JSON_NAME = "private-application.json";
@@ -68,5 +74,4 @@ public final class ConfigFactoryJson
     addDefaultJsonConfiguration (ret);
     return ret;
   }
-
 }
