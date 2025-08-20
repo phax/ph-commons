@@ -112,6 +112,18 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
 
   /**
    * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable boolean [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+
+  /**
+   * @param x
    *        value to be appended
    * @return this
    */
@@ -140,11 +152,35 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
 
   /**
    * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable char [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+
+  /**
+   * @param x
    *        value to be appended
    * @return this
    */
   @Nonnull
   IMPLTYPE append (@Nullable double [] x);
+
+  /**
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable double [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -156,11 +192,35 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
 
   /**
    * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable float [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+
+  /**
+   * @param x
    *        value to be appended
    * @return this
    */
   @Nonnull
   IMPLTYPE append (@Nullable int [] x);
+
+  /**
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable int [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -172,6 +232,18 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
 
   /**
    * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable long [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+
+  /**
+   * @param x
    *        value to be appended
    * @return this
    */
@@ -180,9 +252,33 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
 
   /**
    * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable short [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+
+  /**
+   * @param x
    *        value to be appended
    * @return this
    */
   @Nonnull
   IMPLTYPE append (@Nullable Object [] x);
+
+  /**
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable Object [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 }

@@ -60,9 +60,6 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public final class HashCodeGenerator implements IHashCodeGenerator
 {
-  /** Use a prime number as the start. */
-  public static final int INITIAL_HASHCODE = 17;
-
   /**
    * Once the hash code generation has been queried, no further changes may be done. This flag
    * indicates, whether new items can be added or not.
@@ -70,7 +67,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   private boolean m_bClosed = false;
 
   /** The current hash code value. */
-  private int m_nHC = INITIAL_HASHCODE;
+  private int m_nHC = HashCodeCalculator.INITIAL_HASHCODE;
 
   /**
    * This is a sanity constructor that allows for any object to be passed in the constructor (e.g.
@@ -276,6 +273,27 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final boolean [] x,
+                                   @Nonnegative final int nOfs,
+                                   @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
    * @return this
    */
   @Nonnull
@@ -325,6 +343,25 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final char [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
    * @return this
    */
   @Nonnull
@@ -332,6 +369,27 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final double [] x,
+                                   @Nonnegative final int nOfs,
+                                   @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
     return this;
   }
 
@@ -355,6 +413,25 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final float [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
    * @return this
    */
   @Nonnull
@@ -362,6 +439,25 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final int [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
     return this;
   }
 
@@ -385,6 +481,25 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final long [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
    * @return this
    */
   @Nonnull
@@ -400,6 +515,25 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final short [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
    * @return this
    */
   @Nonnull
@@ -407,6 +541,27 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final Object [] x,
+                                   @Nonnegative final int nOfs,
+                                   @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
     return this;
   }
 

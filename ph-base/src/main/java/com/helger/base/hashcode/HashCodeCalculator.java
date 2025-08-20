@@ -17,12 +17,12 @@
 package com.helger.base.hashcode;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
+import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -35,6 +35,9 @@ import jakarta.annotation.Nullable;
 @Immutable
 public final class HashCodeCalculator
 {
+  /** Use a prime number as the start. */
+  public static final int INITIAL_HASHCODE = 17;
+
   /**
    * Each value is multiplied with this value. 31 because it can easily be optimized to
    * <code>(1 &lt;&lt; 5) - 1</code>.
@@ -53,6 +56,41 @@ public final class HashCodeCalculator
   private HashCodeCalculator ()
   {}
 
+  public static int hashCode (final boolean x)
+  {
+    return x ? 1231 : 1237;
+  }
+
+  public static int hashCode (final byte x)
+  {
+    return x;
+  }
+
+  public static int hashCode (final char x)
+  {
+    return x;
+  }
+
+  public static long hashCode (final double x)
+  {
+    return x == 0.0 ? 0L : Double.doubleToLongBits (x);
+  }
+
+  public static int hashCode (final float x)
+  {
+    return x == 0.0F ? 0 : Float.floatToIntBits (x);
+  }
+
+  public static int hashCode (final short x)
+  {
+    return x;
+  }
+
+  public static int hashCode (@Nullable final Object x)
+  {
+    return x == null ? HASHCODE_NULL : x.hashCode ();
+  }
+
   /**
    * Atomic type hash code generation.
    *
@@ -64,7 +102,7 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, final boolean x)
   {
-    return append (nPrevHashCode, x ? 1231 : 1237);
+    return append (nPrevHashCode, hashCode (x));
   }
 
   /**
@@ -78,7 +116,7 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, final byte x)
   {
-    return append (nPrevHashCode, (int) x);
+    return append (nPrevHashCode, hashCode (x));
   }
 
   /**
@@ -92,7 +130,7 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, final char x)
   {
-    return append (nPrevHashCode, (int) x);
+    return append (nPrevHashCode, hashCode (x));
   }
 
   /**
@@ -106,7 +144,7 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, final double x)
   {
-    return append (nPrevHashCode, x == 0.0 ? 0L : Double.doubleToLongBits (x));
+    return append (nPrevHashCode, hashCode (x));
   }
 
   /**
@@ -120,7 +158,7 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, final float x)
   {
-    return append (nPrevHashCode, x == 0.0F ? 0 : Float.floatToIntBits (x));
+    return append (nPrevHashCode, hashCode (x));
   }
 
   /**
@@ -163,7 +201,7 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, final short x)
   {
-    return append (nPrevHashCode, (int) x);
+    return append (nPrevHashCode, hashCode (x));
   }
 
   /**
@@ -177,7 +215,97 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, @Nullable final Object x)
   {
-    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Objects.hashCode (x));
+    return append (nPrevHashCode, hashCode (x));
+  }
+
+  public static int hashCode (@Nonnull final boolean [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
+  }
+
+  public static int hashCode (@Nonnull final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
+  }
+
+  public static int hashCode (@Nonnull final char [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
+  }
+
+  public static int hashCode (@Nonnull final double [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
+  }
+
+  public static int hashCode (@Nonnull final float [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
+  }
+
+  public static int hashCode (@Nonnull final int [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
+  }
+
+  public static int hashCode (@Nonnull final long [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
+  }
+
+  public static int hashCode (@Nonnull final short [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
+  }
+
+  public static int hashCode (@Nonnull final Object [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
+    int ret = INITIAL_HASHCODE;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = append (ret, x[i]);
+    return ret;
   }
 
   /**
@@ -201,20 +329,18 @@ public final class HashCodeCalculator
    *        The previous hash code used as the basis for calculation
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final byte [] x)
+  public static int append (final int nPrevHashCode,
+                            @Nullable final boolean [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
   {
-    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
-  }
-
-  private static int _hash (@Nonnull final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
-  {
-    int ret = 1;
-    final int nMax = nOfs + nLen;
-    for (int i = nOfs; i < nMax; ++i)
-      ret = MULTIPLIER * ret + x[i];
-    return ret;
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
   }
 
   /**
@@ -226,12 +352,30 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
+  public static int append (final int nPrevHashCode, @Nullable final byte [] x)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return The updated hash code
+   */
   public static int append (final int nPrevHashCode,
                             @Nullable final byte [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {
-    return append (nPrevHashCode, x == null ? HASHCODE_NULL : _hash (x, nOfs, nLen));
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
   }
 
   /**
@@ -255,11 +399,53 @@ public final class HashCodeCalculator
    *        The previous hash code used as the basis for calculation
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode,
+                            @Nullable final char [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode, @Nullable final double [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode,
+                            @Nullable final double [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
   }
 
   /**
@@ -283,11 +469,53 @@ public final class HashCodeCalculator
    *        The previous hash code used as the basis for calculation
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode,
+                            @Nullable final float [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode, @Nullable final int [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode,
+                            @Nullable final int [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
   }
 
   /**
@@ -311,11 +539,53 @@ public final class HashCodeCalculator
    *        The previous hash code used as the basis for calculation
    * @param x
    *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode,
+                            @Nullable final long [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode, @Nullable final short [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode,
+                            @Nullable final short [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
   }
 
   /**
@@ -330,5 +600,26 @@ public final class HashCodeCalculator
   public static int append (final int nPrevHashCode, @Nullable final Object [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode,
+                            @Nullable final Object [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : hashCode (x, nOfs, nLen));
   }
 }
