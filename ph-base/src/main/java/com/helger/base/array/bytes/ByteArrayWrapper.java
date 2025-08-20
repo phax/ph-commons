@@ -128,13 +128,18 @@ public final class ByteArrayWrapper implements IHasByteArray
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ByteArrayWrapper rhs = (ByteArrayWrapper) o;
-    return Arrays.equals (m_aBytes, rhs.m_aBytes) && m_nOffset == rhs.m_nOffset && m_nLength == rhs.m_nLength;
+    return Arrays.equals (m_aBytes,
+                          m_nOffset,
+                          m_nOffset + m_nLength,
+                          rhs.m_aBytes,
+                          rhs.m_nOffset,
+                          rhs.m_nOffset + rhs.m_nLength);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aBytes).append (m_nOffset).append (m_nLength).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aBytes, m_nOffset, m_nLength).getHashCode ();
   }
 
   @Override

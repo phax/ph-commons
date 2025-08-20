@@ -16,6 +16,8 @@
  */
 package com.helger.base.lang;
 
+import com.helger.annotation.Nonnegative;
+
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -115,6 +117,18 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    */
   @Nonnull
   IMPLTYPE append (@Nullable byte [] x);
+
+  /**
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  IMPLTYPE append (@Nullable byte [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x

@@ -16,6 +16,7 @@
  */
 package com.helger.base.hashcode;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -282,6 +283,25 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
+    return this;
+  }
+
+  /**
+   * Array hash code generation.
+   *
+   * @param x
+   *        Array to add
+   * @param nOfs
+   *        Offset to start from. Must be &ge; 0.
+   * @param nLen
+   *        Number of array items to use. Must be &ge; 0.
+   * @return this
+   */
+  @Nonnull
+  public HashCodeGenerator append (@Nullable final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    _checkClosed ();
+    m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
     return this;
   }
 

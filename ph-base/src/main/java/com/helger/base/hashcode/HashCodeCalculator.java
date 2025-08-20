@@ -19,10 +19,12 @@ package com.helger.base.hashcode;
 import java.util.Arrays;
 import java.util.Objects;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
@@ -204,6 +206,32 @@ public final class HashCodeCalculator
   public static int append (final int nPrevHashCode, @Nullable final byte [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+  }
+
+  private static int _hash (@Nonnull final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    int ret = 1;
+    final int nMax = nOfs + nLen;
+    for (int i = nOfs; i < nMax; ++i)
+      ret = MULTIPLIER * ret + x[i];
+    return ret;
+  }
+
+  /**
+   * Atomic type hash code generation.
+   *
+   * @param nPrevHashCode
+   *        The previous hash code used as the basis for calculation
+   * @param x
+   *        Array to add
+   * @return The updated hash code
+   */
+  public static int append (final int nPrevHashCode,
+                            @Nullable final byte [] x,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLen)
+  {
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : _hash (x, nOfs, nLen));
   }
 
   /**
