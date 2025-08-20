@@ -49,6 +49,7 @@ import com.helger.base.io.nonblocking.NonBlockingBufferedOutputStream;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.io.nonblocking.NonBlockingBufferedWriter;
 import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.log.ConditionalLogger;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EValidity;
 import com.helger.base.system.SystemProperties;
@@ -70,12 +71,23 @@ import jakarta.annotation.Nullable;
 public final class FileHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (FileHelper.class);
+  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, true);
 
   @PresentForCodeCoverage
   private static final FileHelper INSTANCE = new FileHelper ();
 
   private FileHelper ()
   {}
+
+  public static boolean isWarnOnIssues ()
+  {
+    return CONDLOG.isEnabled ();
+  }
+
+  public static void setWarnOnIssues (final boolean bWarnOnIssues)
+  {
+    CONDLOG.setEnabled (bWarnOnIssues);
+  }
 
   public static boolean equalFiles (@Nonnull final File aObj1, @Nonnull final File aObj2)
   {
@@ -152,7 +164,7 @@ public final class FileHelper
     if (aParent == null || aParent.exists ())
     {
       if (aParent != null && !aParent.isDirectory ())
-        LOGGER.warn ("Parent object specified is not a directory: '" + aParent + "'");
+        CONDLOG.warn ("Parent object specified is not a directory: '" + aParent + "'");
       return EChange.UNCHANGED;
     }
     // Now try to create the directory
@@ -371,14 +383,14 @@ public final class FileHelper
     }
     catch (final FileNotFoundException ex)
     {
-      LOGGER.warn ("Failed to create output stream for '" +
-                   aFile +
-                   "'; append: " +
-                   eAppend +
-                   ": " +
-                   ex.getClass ().getName () +
-                   " - " +
-                   ex.getMessage ());
+      CONDLOG.warn ("Failed to create output stream for '" +
+                    aFile +
+                    "'; append: " +
+                    eAppend +
+                    ": " +
+                    ex.getClass ().getName () +
+                    " - " +
+                    ex.getMessage ());
       return null;
     }
   }
@@ -464,7 +476,7 @@ public final class FileHelper
     catch (final IllegalStateException ex)
     {
       // Happens e.g. when the parent directory is " "
-      LOGGER.warn ("Failed to create parent directory of '" + aFile + "'", ex);
+      CONDLOG.warn ("Failed to create parent directory of '" + aFile + "'", ex);
       return EValidity.INVALID;
     }
     // Check if parent directory is writable, to avoid catching the
@@ -472,13 +484,13 @@ public final class FileHelper
     final File aParentDir = aFile.getParentFile ();
     if (aParentDir != null && !aParentDir.canWrite ())
     {
-      LOGGER.warn ("Parent directory '" +
-                   aParentDir +
-                   "' of '" +
-                   aFile +
-                   "' is not writable for current user '" +
-                   SystemProperties.getUserName () +
-                   "'");
+      CONDLOG.warn ("Parent directory '" +
+                    aParentDir +
+                    "' of '" +
+                    aFile +
+                    "' is not writable for current user '" +
+                    SystemProperties.getUserName () +
+                    "'");
       return EValidity.INVALID;
     }
     return EValidity.VALID;
@@ -639,19 +651,19 @@ public final class FileHelper
     {
       // No content returned
       if (!aDirectory.isDirectory ())
-        LOGGER.warn ("Cannot list non-directory: " + aDirectory.getAbsolutePath ());
+        CONDLOG.warn ("Cannot list non-directory: " + aDirectory.getAbsolutePath ());
       else
         if (!aDirectory.canExecute ())
         {
           // If this happens, the resulting File objects are neither files nor
           // directories (isFile() and isDirectory() both return false!!)
-          LOGGER.warn ("Existing directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
+          CONDLOG.warn ("Existing directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
         }
         else
           if (!aDirectory.canRead ())
-            LOGGER.warn ("Cannot list directory because of no read-rights: " + aDirectory.getAbsolutePath ());
+            CONDLOG.warn ("Cannot list directory because of no read-rights: " + aDirectory.getAbsolutePath ());
           else
-            LOGGER.warn ("Directory listing failed because of IO error: " + aDirectory.getAbsolutePath ());
+            CONDLOG.warn ("Directory listing failed because of IO error: " + aDirectory.getAbsolutePath ());
     }
     else
     {
@@ -659,7 +671,7 @@ public final class FileHelper
       {
         // If this happens, the resulting File objects are neither files nor
         // directories (isFile() and isDirectory() both return false!!)
-        LOGGER.warn ("Directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
+        CONDLOG.warn ("Directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
       }
     }
     return new CommonsArrayList <> (aSelectedContent);
@@ -737,7 +749,7 @@ public final class FileHelper
     }
     catch (final MalformedURLException ex)
     {
-      LOGGER.warn ("Failed to convert file to URL: " + aFile, ex);
+      CONDLOG.warn ("Failed to convert file to URL: " + aFile, ex);
       return null;
     }
   }
@@ -752,7 +764,7 @@ public final class FileHelper
     }
     catch (final MalformedURLException ex)
     {
-      LOGGER.warn ("Failed to convert file to URL: " + aFile, ex);
+      CONDLOG.warn ("Failed to convert file to URL: " + aFile, ex);
       return null;
     }
   }
