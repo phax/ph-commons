@@ -16,6 +16,7 @@
  */
 package com.helger.base.io.nonblocking;
 
+import java.io.IOException;
 import java.io.Writer;
 
 import com.helger.annotation.Nonnegative;
@@ -24,6 +25,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IHasSize;
+import com.helger.base.io.iface.IWriteToWriter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -37,7 +39,7 @@ import jakarta.annotation.Nullable;
  * @see java.io.StringWriter
  */
 @NotThreadSafe
-public class NonBlockingStringWriter extends Writer implements IHasSize
+public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteToWriter
 {
   private final StringBuilder m_aSB;
 
@@ -116,6 +118,19 @@ public class NonBlockingStringWriter extends Writer implements IHasSize
   public void write (@Nonnull final String sStr, final int nOfs, final int nLen)
   {
     m_aSB.append (sStr.substring (nOfs, nOfs + nLen));
+  }
+
+  /**
+   * Writes the contents of the buffer to another character stream.
+   *
+   * @param aWriter
+   *        the writer to write to
+   * @throws IOException
+   *         If an I/O error occurs.
+   */
+  public void writeTo (@Nonnull final Writer aWriter) throws IOException
+  {
+    aWriter.write (m_aSB.toString ());
   }
 
   /**

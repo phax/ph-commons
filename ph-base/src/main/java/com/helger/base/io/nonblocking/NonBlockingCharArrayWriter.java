@@ -165,14 +165,14 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
   /**
    * Writes the contents of the buffer to another character stream.
    *
-   * @param out
-   *        the output stream to write to
+   * @param aWriter
+   *        the writer to write to
    * @throws IOException
    *         If an I/O error occurs.
    */
-  public void writeTo (@Nonnull final Writer out) throws IOException
+  public void writeTo (@Nonnull final Writer aWriter) throws IOException
   {
-    out.write (m_aBuf, 0, m_nCount);
+    aWriter.write (m_aBuf, 0, m_nCount);
   }
 
   /**
