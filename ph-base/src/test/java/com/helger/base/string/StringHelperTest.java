@@ -1315,4 +1315,107 @@ public final class StringHelperTest
     assertEquals ("'abc'", quote.apply ("abc"));
     assertEquals ("'aBc'", quote.apply ("aBc"));
   }
+
+  @Test
+  public void testGetWithLeadingChar ()
+  {
+    // Test basic functionality
+    assertEquals ("00abc", StringHelper.getWithLeading ("abc", 5, '0'));
+    assertEquals ("0001", StringHelper.getWithLeading ("1", 4, '0'));
+    assertEquals ("hello", StringHelper.getWithLeading ("hello", 3, '0'));
+    
+    // Test edge cases
+    assertEquals ("", StringHelper.getWithLeading ("", 0, '0'));
+    assertEquals ("000", StringHelper.getWithLeading ("", 3, '0'));
+    assertEquals ("abc", StringHelper.getWithLeading ("abc", 0, '0'));
+    assertEquals ("abc", StringHelper.getWithLeading ("abc", -1, '0'));
+    
+    // Test null input
+    assertEquals ("000", StringHelper.getWithLeading (null, 3, '0'));
+    assertEquals ("", StringHelper.getWithLeading (null, 0, '0'));
+    
+    // Test different leading characters
+    assertEquals ("   abc", StringHelper.getWithLeading ("abc", 6, ' '));
+    assertEquals ("***123", StringHelper.getWithLeading ("123", 6, '*'));
+    assertEquals ("---X", StringHelper.getWithLeading ("X", 4, '-'));
+  }
+
+  @Test
+  public void testGetWithLeadingInt ()
+  {
+    // Test basic functionality
+    assertEquals ("00042", StringHelper.getWithLeading (42, 5, '0'));
+    assertEquals ("0001", StringHelper.getWithLeading (1, 4, '0'));
+    assertEquals ("123", StringHelper.getWithLeading (123, 2, '0'));
+    
+    // Test edge cases
+    assertEquals ("0", StringHelper.getWithLeading (0, 1, '0'));
+    assertEquals ("000", StringHelper.getWithLeading (0, 3, '0'));
+    assertEquals ("123", StringHelper.getWithLeading (123, 0, '0'));
+    assertEquals ("123", StringHelper.getWithLeading (123, -1, '0'));
+    
+    // Test negative numbers
+    assertEquals ("00-42", StringHelper.getWithLeading (-42, 5, '0'));
+    assertEquals ("-123", StringHelper.getWithLeading (-123, 3, '0'));
+    assertEquals ("-123", StringHelper.getWithLeading (-123, 2, '0'));
+  }
+
+  @Test
+  public void testGetWithLeadingLong ()
+  {
+    // Test basic functionality
+    assertEquals ("00042", StringHelper.getWithLeading (42L, 5, '0'));
+    assertEquals ("0001", StringHelper.getWithLeading (1L, 4, '0'));
+    assertEquals ("123", StringHelper.getWithLeading (123L, 2, '0'));
+    
+    // Test edge cases
+    assertEquals ("0", StringHelper.getWithLeading (0L, 1, '0'));
+    assertEquals ("000", StringHelper.getWithLeading (0L, 3, '0'));
+    assertEquals ("123", StringHelper.getWithLeading (123L, 0, '0'));
+    assertEquals ("123", StringHelper.getWithLeading (123L, -1, '0'));
+    
+    // Test negative numbers
+    assertEquals ("00-42", StringHelper.getWithLeading (-42L, 5, '0'));
+    assertEquals ("-123", StringHelper.getWithLeading (-123L, 3, '0'));
+    assertEquals ("-123", StringHelper.getWithLeading (-123L, 2, '0'));
+    
+    // Test large numbers
+    assertEquals ("000012345678901234", StringHelper.getWithLeading (12345678901234L, 18, '0'));
+    assertEquals ("12345678901234", StringHelper.getWithLeading (12345678901234L, 10, '0'));
+  }
+
+  @Test
+  public void testGetWithTrailing ()
+  {
+    // Test basic functionality
+    assertEquals ("abc00", StringHelper.getWithTrailing ("abc", 5, '0'));
+    assertEquals ("1000", StringHelper.getWithTrailing ("1", 4, '0'));
+    assertEquals ("hello", StringHelper.getWithTrailing ("hello", 3, '0'));
+    
+    // Test edge cases
+    assertEquals ("", StringHelper.getWithTrailing ("", 0, '0'));
+    assertEquals ("000", StringHelper.getWithTrailing ("", 3, '0'));
+    assertEquals ("abc", StringHelper.getWithTrailing ("abc", 0, '0'));
+    assertEquals ("abc", StringHelper.getWithTrailing ("abc", -1, '0'));
+    
+    // Test null input
+    assertEquals ("000", StringHelper.getWithTrailing (null, 3, '0'));
+    assertEquals ("", StringHelper.getWithTrailing (null, 0, '0'));
+    
+    // Test different trailing characters
+    assertEquals ("abc   ", StringHelper.getWithTrailing ("abc", 6, ' '));
+    assertEquals ("123***", StringHelper.getWithTrailing ("123", 6, '*'));
+    assertEquals ("X---", StringHelper.getWithTrailing ("X", 4, '-'));
+    
+    // Test exact length match
+    assertEquals ("test", StringHelper.getWithTrailing ("test", 4, 'x'));
+    
+    // Test longer string than required length
+    assertEquals ("verylongstring", StringHelper.getWithTrailing ("verylongstring", 5, 'x'));
+    
+    // Test special characters
+    assertEquals ("ab..", StringHelper.getWithTrailing ("ab", 4, '.'));
+    assertEquals ("x____", StringHelper.getWithTrailing ("x", 5, '_'));
+    assertEquals ("end||", StringHelper.getWithTrailing ("end", 5, '|'));
+  }
 }
