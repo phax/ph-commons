@@ -79,6 +79,6 @@ public class TrustManagerTrustAll implements X509TrustManager
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("debug", m_bDebug).getToString ();
+    return new ToStringGenerator (this).append ("Debug", m_bDebug).getToString ();
   }
 }
