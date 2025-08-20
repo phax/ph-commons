@@ -114,8 +114,10 @@ public final class ValueEnforcerTest
       assertFalse (ValueEnforcer.isEnabled ());
 
       // When disabled, validations should not throw exceptions
-      ValueEnforcer.notNull (null, "test"); // Should not throw
-      ValueEnforcer.isTrue (false, "test"); // Should not throw
+      // Should not throw
+      ValueEnforcer.notNull (null, "test");
+      // Should not throw
+      ValueEnforcer.isTrue (false, "test");
     }
     finally
     {
@@ -1033,8 +1035,10 @@ public final class ValueEnforcerTest
   {
     // Test int
     assertEquals (5, ValueEnforcer.isBetweenInclusive (5, "name", 1, 10));
-    assertEquals (1, ValueEnforcer.isBetweenInclusive (1, "name", 1, 10)); // boundary
-    assertEquals (10, ValueEnforcer.isBetweenInclusive (10, "name", 1, 10)); // boundary
+    // boundary
+    assertEquals (1, ValueEnforcer.isBetweenInclusive (1, "name", 1, 10));
+    // boundary
+    assertEquals (10, ValueEnforcer.isBetweenInclusive (10, "name", 1, 10));
     assertEquals (5, ValueEnforcer.isBetweenInclusive (5, () -> "name", 1, 10));
 
     // Test long
@@ -1230,13 +1234,15 @@ public final class ValueEnforcerTest
   @Test (expected = IllegalArgumentException.class)
   public void testIsBetweenExclusiveIntLowerBoundary ()
   {
-    ValueEnforcer.isBetweenExclusive (1, "name", 1, 10); // boundary values excluded
+    // boundary values excluded
+    ValueEnforcer.isBetweenExclusive (1, "name", 1, 10);
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testIsBetweenExclusiveIntUpperBoundary ()
   {
-    ValueEnforcer.isBetweenExclusive (10, "name", 1, 10); // boundary values excluded
+    // boundary values excluded
+    ValueEnforcer.isBetweenExclusive (10, "name", 1, 10);
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -1387,5 +1393,343 @@ public final class ValueEnforcerTest
   public void testIsBetweenExclusiveBigIntegerTooBig ()
   {
     ValueEnforcer.isBetweenExclusive (new BigInteger ("11"), "name", new BigInteger ("1"), new BigInteger ("10"));
+  }
+
+  // Test isArrayOfsLen methods
+  @Test
+  public void testIsArrayOfsLen ()
+  {
+    // Test Object array - valid cases
+    final String[] aStringArray = {"a", "b", "c", "d", "e"};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aStringArray, 0, 5);
+    // beginning subset
+    ValueEnforcer.isArrayOfsLen (aStringArray, 0, 3);
+    // middle subset
+    ValueEnforcer.isArrayOfsLen (aStringArray, 2, 3);
+    // single element
+    ValueEnforcer.isArrayOfsLen (aStringArray, 4, 1);
+    // zero length at end
+    ValueEnforcer.isArrayOfsLen (aStringArray, 5, 0);
+    // zero length at start
+    ValueEnforcer.isArrayOfsLen (aStringArray, 0, 0);
+
+    // Test boolean array - valid cases
+    final boolean[] aBoolArray = {true, false, true, false};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aBoolArray, 0, 4);
+    // middle subset
+    ValueEnforcer.isArrayOfsLen (aBoolArray, 1, 2);
+    // zero length at end
+    ValueEnforcer.isArrayOfsLen (aBoolArray, 4, 0);
+
+    // Test byte array - valid cases
+    final byte[] aByteArray = {1, 2, 3, 4, 5, 6};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aByteArray, 0, 6);
+    // middle subset
+    ValueEnforcer.isArrayOfsLen (aByteArray, 2, 3);
+    // single element
+    ValueEnforcer.isArrayOfsLen (aByteArray, 5, 1);
+
+    // Test char array - valid cases
+    final char[] aCharArray = {'a', 'b', 'c'};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aCharArray, 0, 3);
+    // single element
+    ValueEnforcer.isArrayOfsLen (aCharArray, 1, 1);
+    // zero length at end
+    ValueEnforcer.isArrayOfsLen (aCharArray, 3, 0);
+
+    // Test double array - valid cases
+    final double[] aDoubleArray = {1.0, 2.0, 3.0, 4.0};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aDoubleArray, 0, 4);
+    // middle subset
+    ValueEnforcer.isArrayOfsLen (aDoubleArray, 1, 2);
+
+    // Test float array - valid cases
+    final float[] aFloatArray = {1.0f, 2.0f, 3.0f};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aFloatArray, 0, 3);
+    // beginning subset
+    ValueEnforcer.isArrayOfsLen (aFloatArray, 0, 2);
+
+    // Test int array - valid cases
+    final int[] aIntArray = {10, 20, 30, 40, 50};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aIntArray, 0, 5);
+    // middle subset
+    ValueEnforcer.isArrayOfsLen (aIntArray, 2, 2);
+
+    // Test long array - valid cases
+    final long[] aLongArray = {100L, 200L, 300L};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aLongArray, 0, 3);
+    // single element
+    ValueEnforcer.isArrayOfsLen (aLongArray, 1, 1);
+
+    // Test short array - valid cases
+    final short[] aShortArray = {(short) 1, (short) 2, (short) 3, (short) 4};
+    // full array
+    ValueEnforcer.isArrayOfsLen (aShortArray, 0, 4);
+    // single element at end
+    ValueEnforcer.isArrayOfsLen (aShortArray, 3, 1);
+  }
+
+  // Test null array cases
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenObjectArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((Object []) null, 0, 1);
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenBooleanArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((boolean []) null, 0, 1);
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenByteArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((byte []) null, 0, 1);
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenCharArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((char []) null, 0, 1);
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenDoubleArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((double []) null, 0, 1);
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenFloatArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((float []) null, 0, 1);
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenIntArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((int []) null, 0, 1);
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenLongArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((long []) null, 0, 1);
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testIsArrayOfsLenShortArrayNull ()
+  {
+    ValueEnforcer.isArrayOfsLen ((short []) null, 0, 1);
+  }
+
+  // Test negative offset cases
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenObjectArrayNegativeOffset ()
+  {
+    final String[] aArray = {"a", "b", "c"};
+    ValueEnforcer.isArrayOfsLen (aArray, -1, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenBooleanArrayNegativeOffset ()
+  {
+    final boolean[] aArray = {true, false};
+    ValueEnforcer.isArrayOfsLen (aArray, -1, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenByteArrayNegativeOffset ()
+  {
+    final byte[] aArray = {1, 2, 3};
+    ValueEnforcer.isArrayOfsLen (aArray, -2, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenCharArrayNegativeOffset ()
+  {
+    final char[] aArray = {'a', 'b'};
+    ValueEnforcer.isArrayOfsLen (aArray, -1, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenDoubleArrayNegativeOffset ()
+  {
+    final double[] aArray = {1.0, 2.0};
+    ValueEnforcer.isArrayOfsLen (aArray, -1, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenFloatArrayNegativeOffset ()
+  {
+    final float[] aArray = {1.0f, 2.0f};
+    ValueEnforcer.isArrayOfsLen (aArray, -1, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenIntArrayNegativeOffset ()
+  {
+    final int[] aArray = {10, 20};
+    ValueEnforcer.isArrayOfsLen (aArray, -1, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenLongArrayNegativeOffset ()
+  {
+    final long[] aArray = {100L, 200L};
+    ValueEnforcer.isArrayOfsLen (aArray, -1, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenShortArrayNegativeOffset ()
+  {
+    final short[] aArray = {(short) 1, (short) 2};
+    ValueEnforcer.isArrayOfsLen (aArray, -1, 1);
+  }
+
+  // Test negative length cases
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenObjectArrayNegativeLength ()
+  {
+    final String[] aArray = {"a", "b", "c"};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenBooleanArrayNegativeLength ()
+  {
+    final boolean[] aArray = {true, false};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenByteArrayNegativeLength ()
+  {
+    final byte[] aArray = {1, 2, 3};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -2);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenCharArrayNegativeLength ()
+  {
+    final char[] aArray = {'a', 'b'};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenDoubleArrayNegativeLength ()
+  {
+    final double[] aArray = {1.0, 2.0};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenFloatArrayNegativeLength ()
+  {
+    final float[] aArray = {1.0f, 2.0f};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenIntArrayNegativeLength ()
+  {
+    final int[] aArray = {10, 20};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenLongArrayNegativeLength ()
+  {
+    final long[] aArray = {100L, 200L};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenShortArrayNegativeLength ()
+  {
+    final short[] aArray = {(short) 1, (short) 2};
+    ValueEnforcer.isArrayOfsLen (aArray, 0, -1);
+  }
+
+  // Test offset + length exceeds array bounds cases
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenObjectArrayExceedsBounds ()
+  {
+    final String[] aArray = {"a", "b", "c"};
+    // 2 + 2 = 4 > 3
+    ValueEnforcer.isArrayOfsLen (aArray, 2, 2);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenBooleanArrayExceedsBounds ()
+  {
+    final boolean[] aArray = {true, false};
+    // 1 + 2 = 3 > 2
+    ValueEnforcer.isArrayOfsLen (aArray, 1, 2);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenByteArrayExceedsBounds ()
+  {
+    final byte[] aArray = {1, 2, 3};
+    // 3 + 1 = 4 > 3
+    ValueEnforcer.isArrayOfsLen (aArray, 3, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenCharArrayExceedsBounds ()
+  {
+    final char[] aArray = {'a', 'b'};
+    // 1 + 2 = 3 > 2
+    ValueEnforcer.isArrayOfsLen (aArray, 1, 2);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenDoubleArrayExceedsBounds ()
+  {
+    final double[] aArray = {1.0, 2.0};
+    // 0 + 3 = 3 > 2
+    ValueEnforcer.isArrayOfsLen (aArray, 0, 3);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenFloatArrayExceedsBounds ()
+  {
+    final float[] aArray = {1.0f, 2.0f};
+    // 2 + 1 = 3 > 2
+    ValueEnforcer.isArrayOfsLen (aArray, 2, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenIntArrayExceedsBounds ()
+  {
+    final int[] aArray = {10, 20};
+    // 1 + 2 = 3 > 2
+    ValueEnforcer.isArrayOfsLen (aArray, 1, 2);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenLongArrayExceedsBounds ()
+  {
+    final long[] aArray = {100L, 200L};
+    // 2 + 1 = 3 > 2
+    ValueEnforcer.isArrayOfsLen (aArray, 2, 1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenShortArrayExceedsBounds ()
+  {
+    final short[] aArray = {(short) 1, (short) 2};
+    // 0 + 3 = 3 > 2
+    ValueEnforcer.isArrayOfsLen (aArray, 0, 3);
   }
 }
