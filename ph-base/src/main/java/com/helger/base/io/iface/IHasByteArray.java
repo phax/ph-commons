@@ -38,7 +38,7 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  * @since 9.1.3
  */
-public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
+public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWriteToStream
 {
   default boolean isEmpty ()
   {

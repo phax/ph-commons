@@ -25,6 +25,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.iface.IWriteToWriter;
 import com.helger.base.string.StringEncoding;
 
 import jakarta.annotation.Nonnull;
@@ -38,7 +39,7 @@ import jakarta.annotation.Nullable;
  * @see java.io.CharArrayWriter
  * @since 8.6.4
  */
-public class NonBlockingCharArrayWriter extends Writer
+public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
 {
   /**
    * The buffer where data is stored.

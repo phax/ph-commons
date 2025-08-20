@@ -21,6 +21,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 /**
@@ -31,7 +33,7 @@ import org.junit.Test;
 public class NonBlockingCharArrayWriterTest
 {
   @Test
-  public void testAll ()
+  public void testAll () throws IOException
   {
     try (final NonBlockingCharArrayWriter aCAW = new NonBlockingCharArrayWriter ())
     {
@@ -51,6 +53,12 @@ public class NonBlockingCharArrayWriterTest
       aCAW.append (null).append (null, 1, 2);
       assertEquals ("abcdefg0123nullu", aCAW.getAsString ());
       aCAW.flush ();
+
+      try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+      {
+        aCAW.writeTo (aSW);
+        assertEquals ("abcdefg0123nullu", aSW.getAsString ());
+      }
     }
   }
 
