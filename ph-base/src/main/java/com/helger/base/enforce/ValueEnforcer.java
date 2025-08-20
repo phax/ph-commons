@@ -245,7 +245,7 @@ public final class ValueEnforcer
   {
     notNull (aClass, "Class");
     if (isEnabled ())
-      if (!aClass.isInstance (aValue))
+      if (aValue != null && !aClass.isInstance (aValue))
         throw new IllegalArgumentException (aMsg.get () +
                                             " must be of class " +
                                             aClass.getName () +
