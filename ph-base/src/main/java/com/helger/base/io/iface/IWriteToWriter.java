@@ -29,6 +29,7 @@ import jakarta.annotation.Nonnull;
  * A simple interface for objects that can write to a {@link Writer}.
  *
  * @author Philip Helger
+ * @since v12.0.0
  */
 @FunctionalInterface
 public interface IWriteToWriter
