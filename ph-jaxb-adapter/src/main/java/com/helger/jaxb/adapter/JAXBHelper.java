@@ -204,7 +204,7 @@ public final class JAXBHelper
    * @since v12.0.0
    */
   @UsedInGeneratedCode
-  public int getHashCode (@Nullable final Node aObj)
+  public static int getHashCode (@Nullable final Node aObj)
   {
     if (aObj == null)
       return HashCodeCalculator.HASHCODE_NULL;
