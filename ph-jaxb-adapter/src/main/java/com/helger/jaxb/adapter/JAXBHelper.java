@@ -103,7 +103,7 @@ public final class JAXBHelper
    * @since v12.0.0 RC2
    */
   @UsedInGeneratedCode
-  public static boolean equalJAXBElementLists (@Nullable final List <JAXBElement <?>> aObj1,
+  public static boolean equalListJAXBElements (@Nullable final List <JAXBElement <?>> aObj1,
                                                @Nullable final List <JAXBElement <?>> aObj2)
   {
     return _listEquals (aObj1, aObj2, JAXBHelper::equalJAXBElements);
@@ -253,7 +253,7 @@ public final class JAXBHelper
    * @since v12.0.0 RC2
    */
   @UsedInGeneratedCode
-  public static boolean equalAnyLists (@Nullable final List <Object> aObj1, @Nullable final List <Object> aObj2)
+  public static boolean equalListAnys (@Nullable final List <Object> aObj1, @Nullable final List <Object> aObj2)
   {
     return _listEquals (aObj1, aObj2, (x, y) -> {
       if (!x.getClass ().equals (y.getClass ()))
@@ -263,7 +263,7 @@ public final class JAXBHelper
       if (x instanceof JAXBElement)
         return equalJAXBElements ((JAXBElement <?>) x, (JAXBElement <?>) y);
       if (x instanceof List <?>)
-        return equalAnyLists (GenericReflection.uncheckedCast (x), GenericReflection.uncheckedCast (y));
+        return equalListAnys (GenericReflection.uncheckedCast (x), GenericReflection.uncheckedCast (y));
 
       // Fallback
       return EqualsHelper.equals (x, y);
