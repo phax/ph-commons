@@ -22,6 +22,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
@@ -33,7 +34,7 @@ import org.junit.Test;
  */
 public final class NonBlockingBufferedInputStreamTest
 {
-  private static final byte [] TEST_DATA = "Hello World! This is test data for buffered input stream testing.".getBytes ();
+  private static final byte [] TEST_DATA = "Hello World! This is test data for buffered input stream testing.".getBytes (StandardCharsets.ISO_8859_1);
 
   @Test
   public void testConstructorWithInputStream ()

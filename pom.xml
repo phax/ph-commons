@@ -400,6 +400,7 @@
             <exclude>**/PBCProvider.class</exclude>
             <exclude>**/KeyStoreHelper.class</exclude>
             <exclude>**/SystemProperties.class</exclude>
+            <exclude>**/NonBlockingPropertiesTest.class</exclude>
             <!-- java.security.provider extends java.util.properties -->
             <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
             <exclude>**/EMacAlgorithm.class</exclude>
