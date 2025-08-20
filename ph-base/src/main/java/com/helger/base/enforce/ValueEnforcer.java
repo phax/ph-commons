@@ -44,7 +44,8 @@ import jakarta.annotation.Nullable;
 @Immutable
 public final class ValueEnforcer
 {
-  private static final AtomicBoolean ENABLED = new AtomicBoolean (true);
+  public static final boolean DEFAULT_ENABLED = true;
+  private static final AtomicBoolean ENABLED = new AtomicBoolean (DEFAULT_ENABLED);
   private static final Logger LOGGER = LoggerFactory.getLogger (ValueEnforcer.class);
 
   private ValueEnforcer ()
