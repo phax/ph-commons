@@ -45,7 +45,7 @@ public final class JAXBHelperTest
     assertNotNull (aClone);
     assertNotSame (aJE, aClone);
     assertNotEquals (aJE, aClone);
-    assertTrue (JAXBHelper.equalsJAXBElements (aJE, aClone));
+    assertTrue (JAXBHelper.equalJAXBElements (aJE, aClone));
   }
 
   @Test
@@ -59,6 +59,6 @@ public final class JAXBHelperTest
     assertNotNull (aClone);
     assertNotSame (aJE, aClone);
     assertNotEquals (aJE, aClone);
-    assertTrue (JAXBHelper.equalsJAXBElements (aJE, aClone));
+    assertTrue (JAXBHelper.equalJAXBElements (aJE, aClone));
   }
 }
