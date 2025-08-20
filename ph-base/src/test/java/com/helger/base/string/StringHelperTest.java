@@ -80,6 +80,9 @@ public final class StringHelperTest
     assertEquals ("", StringHelper.getNotNull (""));
     assertEquals ("", StringHelper.getNotNull (null));
     assertEquals ("bla", StringHelper.getNotNull (null, "bla"));
+
+    assertEquals ("abc", StringHelper.getNotNull ("abc", () -> "bla"));
+    assertEquals ("", StringHelper.getNotNull ("", () -> "bla"));
     assertEquals ("bla", StringHelper.getNotNull (null, () -> "bla"));
   }
 
@@ -89,7 +92,9 @@ public final class StringHelperTest
     assertEquals ("abc", StringHelper.getNotEmpty ("abc", "bla"));
     assertEquals ("bla", StringHelper.getNotEmpty ("", "bla"));
     assertEquals ("bla", StringHelper.getNotEmpty (null, "bla"));
-    assertEquals ("bla", StringHelper.getNotEmpty (null, "bla"));
+
+    assertEquals ("abc", StringHelper.getNotEmpty ("abc", () -> "bla"));
+    assertEquals ("bla", StringHelper.getNotEmpty ("", () -> "bla"));
     assertEquals ("bla", StringHelper.getNotEmpty (null, () -> "bla"));
   }
 
@@ -99,6 +104,9 @@ public final class StringHelperTest
     assertEquals ("abc", StringHelper.getNotNull (new StringBuilder ("abc")).toString ());
     assertEquals ("", StringHelper.getNotNull (new StringBuilder ()).toString ());
     assertEquals ("", StringHelper.getNotNull ((StringBuilder) null));
+
+    assertEquals ("abc", StringHelper.getNotNull (new StringBuilder ("abc"), () -> "bla").toString ());
+    assertEquals ("", StringHelper.getNotNull (new StringBuilder (), () -> "bla").toString ());
     assertEquals ("bla", StringHelper.getNotNull ((StringBuilder) null, () -> "bla"));
   }
 
@@ -108,6 +116,9 @@ public final class StringHelperTest
     assertEquals ("abc", StringHelper.getNotEmpty (new StringBuilder ("abc"), "bla").toString ());
     assertEquals ("bla", StringHelper.getNotEmpty (new StringBuilder (), "bla").toString ());
     assertEquals ("bla", StringHelper.getNotEmpty ((StringBuilder) null, "bla"));
+
+    assertEquals ("abc", StringHelper.getNotEmpty (new StringBuilder ("abc"), () -> "bla").toString ());
+    assertEquals ("bla", StringHelper.getNotEmpty (new StringBuilder (), () -> "bla").toString ());
     assertEquals ("bla", StringHelper.getNotEmpty ((StringBuilder) null, () -> "bla"));
   }
 
@@ -163,7 +174,8 @@ public final class StringHelperTest
     catch (final IllegalArgumentException ex)
     {}
 
-    assertEquals ("", StringHelper.getRepeated ("a", 0));
+    assertEquals ("", StringHelper.getRepeated ("voi super", 0));
+    assertEquals ("", StringHelper.getRepeated ("", 999));
     assertEquals ("a", StringHelper.getRepeated ("a", 1));
     assertEquals ("aaa", StringHelper.getRepeated ("a", 3));
     assertEquals ("ababab", StringHelper.getRepeated ("ab", 3));

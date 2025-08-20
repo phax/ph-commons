@@ -83,6 +83,38 @@ public final class ArrayHelperTest
     assertEquals ("d", getFirst ("d", "c", "b", "a"));
     assertNull (getFirst ((String []) null));
     assertNull (getFirst (new String [0]));
+
+    assertTrue (getFirst (new boolean [] { true, false, true }, false));
+    assertFalse (getFirst (CGlobal.EMPTY_BOOLEAN_ARRAY, false));
+    assertFalse (getFirst ((boolean []) null, false));
+
+    assertEquals (1, getFirst (new byte [] { 1, 2, 3 }, (byte) 99));
+    assertEquals (99, getFirst (CGlobal.EMPTY_BYTE_ARRAY, (byte) 99));
+    assertEquals (99, getFirst ((byte []) null, (byte) 99));
+
+    assertEquals ('a', getFirst (new char [] { 'a', 'b', 'c' }, 'z'));
+    assertEquals ('z', getFirst (CGlobal.EMPTY_CHAR_ARRAY, 'z'));
+    assertEquals ('z', getFirst ((char []) null, 'z'));
+
+    CommonsAssert.assertEquals (1, getFirst (new double [] { 1, 2, 3 }, 99));
+    CommonsAssert.assertEquals (99, getFirst (CGlobal.EMPTY_DOUBLE_ARRAY, 99));
+    CommonsAssert.assertEquals (99, getFirst ((double []) null, 99));
+
+    CommonsAssert.assertEquals (1, getFirst (new float [] { 1, 2, 3 }, 99));
+    CommonsAssert.assertEquals (99, getFirst (CGlobal.EMPTY_FLOAT_ARRAY, 99));
+    CommonsAssert.assertEquals (99, getFirst ((float []) null, 99));
+
+    assertEquals (1, getFirst (new int [] { 1, 2, 3 }, 99));
+    assertEquals (99, getFirst (CGlobal.EMPTY_INT_ARRAY, 99));
+    assertEquals (99, getFirst ((int []) null, 99));
+
+    assertEquals (1, getFirst (new long [] { 1, 2, 3 }, 99));
+    assertEquals (99, getFirst (CGlobal.EMPTY_LONG_ARRAY, 99));
+    assertEquals (99, getFirst ((long []) null, 99));
+
+    assertEquals (1, getFirst (new short [] { 1, 2, 3 }, (short) 99));
+    assertEquals (99, getFirst (CGlobal.EMPTY_SHORT_ARRAY, (short) 99));
+    assertEquals (99, getFirst ((short []) null, (short) 99));
   }
 
   @Test
@@ -91,6 +123,38 @@ public final class ArrayHelperTest
     assertEquals ("a", getLast ("d", "c", "b", "a"));
     assertNull (getLast ((String []) null));
     assertNull (getLast (new String [0]));
+
+    assertTrue (getLast (new boolean [] { true, false, true }, false));
+    assertFalse (getLast (CGlobal.EMPTY_BOOLEAN_ARRAY, false));
+    assertFalse (getLast ((boolean []) null, false));
+
+    assertEquals (3, getLast (new byte [] { 1, 2, 3 }, (byte) 99));
+    assertEquals (99, getLast (CGlobal.EMPTY_BYTE_ARRAY, (byte) 99));
+    assertEquals (99, getLast ((byte []) null, (byte) 99));
+
+    assertEquals ('c', getLast (new char [] { 'a', 'b', 'c' }, 'z'));
+    assertEquals ('z', getLast (CGlobal.EMPTY_CHAR_ARRAY, 'z'));
+    assertEquals ('z', getLast ((char []) null, 'z'));
+
+    CommonsAssert.assertEquals (3, getLast (new double [] { 1, 2, 3 }, 99));
+    CommonsAssert.assertEquals (99, getLast (CGlobal.EMPTY_DOUBLE_ARRAY, 99));
+    CommonsAssert.assertEquals (99, getLast ((double []) null, 99));
+
+    CommonsAssert.assertEquals (3, getLast (new float [] { 1, 2, 3 }, 99));
+    CommonsAssert.assertEquals (99, getLast (CGlobal.EMPTY_FLOAT_ARRAY, 99));
+    CommonsAssert.assertEquals (99, getLast ((float []) null, 99));
+
+    assertEquals (3, getLast (new int [] { 1, 2, 3 }, 99));
+    assertEquals (99, getLast (CGlobal.EMPTY_INT_ARRAY, 99));
+    assertEquals (99, getLast ((int []) null, 99));
+
+    assertEquals (3, getLast (new long [] { 1, 2, 3 }, 99));
+    assertEquals (99, getLast (CGlobal.EMPTY_LONG_ARRAY, 99));
+    assertEquals (99, getLast ((long []) null, 99));
+
+    assertEquals (3, getLast (new short [] { 1, 2, 3 }, (short) 99));
+    assertEquals (99, getLast (CGlobal.EMPTY_SHORT_ARRAY, (short) 99));
+    assertEquals (99, getLast ((short []) null, (short) 99));
   }
 
   @Test
