@@ -365,7 +365,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static boolean [] newBooleanArray (@Nullable final boolean... aArray)
+  public static boolean [] createBooleanArray (@Nullable final boolean... aArray)
   {
     return aArray;
   }
@@ -379,7 +379,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static byte [] newByteArray (@Nullable final byte... aArray)
+  public static byte [] createByteArray (@Nullable final byte... aArray)
   {
     return aArray;
   }
@@ -393,7 +393,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static char [] newCharArray (@Nullable final char... aArray)
+  public static char [] createCharArray (@Nullable final char... aArray)
   {
     return aArray;
   }
@@ -407,7 +407,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static double [] newDoubleArray (@Nullable final double... aArray)
+  public static double [] createDoubleArray (@Nullable final double... aArray)
   {
     return aArray;
   }
@@ -421,7 +421,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static float [] newFloatArray (@Nullable final float... aArray)
+  public static float [] createFloatArray (@Nullable final float... aArray)
   {
     return aArray;
   }
@@ -435,7 +435,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static int [] newIntArray (@Nullable final int... aArray)
+  public static int [] createIntArray (@Nullable final int... aArray)
   {
     return aArray;
   }
@@ -449,7 +449,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static long [] newLongArray (@Nullable final long... aArray)
+  public static long [] createLongArray (@Nullable final long... aArray)
   {
     return aArray;
   }
@@ -463,15 +463,15 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static short [] newShortArray (@Nullable final short... aArray)
+  public static short [] createShortArray (@Nullable final short... aArray)
   {
     return aArray;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nonnull final Class <? extends ELEMENTTYPE> aClass,
-                                                       @Nonnegative final int nSize)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nonnull final Class <? extends ELEMENTTYPE> aClass,
+                                                          @Nonnegative final int nSize)
   {
     ValueEnforcer.notNull (aClass, "class");
     if (aClass.isPrimitive ())
@@ -495,10 +495,10 @@ public final class ArrayHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] newArraySameType (@Nonnull final ELEMENTTYPE [] aArray,
-                                                               @Nonnegative final int nSize)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArraySameType (@Nonnull final ELEMENTTYPE [] aArray,
+                                                                  @Nonnegative final int nSize)
   {
-    return newArray (getComponentType (aArray), nSize);
+    return createArray (getComponentType (aArray), nSize);
   }
 
   /**
@@ -515,15 +515,15 @@ public final class ArrayHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                       @Nonnull final Class <ELEMENTTYPE> aClass)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                          @Nonnull final Class <ELEMENTTYPE> aClass)
   {
     ValueEnforcer.notNull (aClass, "class");
 
     if (aCollection == null || aCollection.isEmpty ())
-      return newArray (aClass, 0);
+      return createArray (aClass, 0);
 
-    final ELEMENTTYPE [] ret = newArray (aClass, aCollection.size ());
+    final ELEMENTTYPE [] ret = createArray (aClass, aCollection.size ());
     return aCollection.toArray (ret);
   }
 
@@ -542,12 +542,12 @@ public final class ArrayHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] newArraySingleElement (@Nullable final ELEMENTTYPE aElement,
-                                                                    @Nonnull final Class <ELEMENTTYPE> aClass)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArraySingleElement (@Nullable final ELEMENTTYPE aElement,
+                                                                       @Nonnull final Class <ELEMENTTYPE> aClass)
   {
     ValueEnforcer.notNull (aClass, "class");
 
-    final ELEMENTTYPE [] ret = newArray (aClass, 1);
+    final ELEMENTTYPE [] ret = createArray (aClass, 1);
     ret[0] = aElement;
     return ret;
   }
@@ -566,7 +566,7 @@ public final class ArrayHelper
   @Nonnull
   @ReturnsMutableObject ("use getCopy otherwise")
   @SafeVarargs
-  public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nonnull final ELEMENTTYPE... aArray)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nonnull final ELEMENTTYPE... aArray)
   {
     ValueEnforcer.notNull (aArray, "Array");
     return aArray;
@@ -588,29 +588,29 @@ public final class ArrayHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nonnegative final int nArraySize,
-                                                       @Nonnull final ELEMENTTYPE aValue,
-                                                       @Nonnull final Class <ELEMENTTYPE> aClass)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nonnegative final int nArraySize,
+                                                          @Nonnull final ELEMENTTYPE aValue,
+                                                          @Nonnull final Class <ELEMENTTYPE> aClass)
   {
     ValueEnforcer.isGE0 (nArraySize, "ArraySize");
     ValueEnforcer.notNull (aClass, "class");
 
-    final ELEMENTTYPE [] ret = newArray (aClass, nArraySize);
+    final ELEMENTTYPE [] ret = createArray (aClass, nArraySize);
     Arrays.fill (ret, aValue);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArrayMapped (@Nonnull final Collection <? extends SRCTYPE> aCollection,
-                                                              @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                              @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <SRCTYPE, DSTTYPE> DSTTYPE [] createArrayMapped (@Nonnull final Collection <? extends SRCTYPE> aCollection,
+                                                                 @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                                 @Nonnull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aCollection, "Collection");
     ValueEnforcer.notNull (aMapper, "Converter");
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
-    final DSTTYPE [] ret = newArray (aDstClass, aCollection.size ());
+    final DSTTYPE [] ret = createArray (aDstClass, aCollection.size ());
     int i = 0;
     for (final SRCTYPE aObj : aCollection)
       ret[i++] = aMapper.apply (aObj);
@@ -619,14 +619,14 @@ public final class ArrayHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArrayMapped (@Nullable final SRCTYPE [] aArray,
-                                                              @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                              @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <SRCTYPE, DSTTYPE> DSTTYPE [] createArrayMapped (@Nullable final SRCTYPE [] aArray,
+                                                                 @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                                 @Nonnull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aMapper, "Converter");
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
-    final DSTTYPE [] ret = newArray (aDstClass, getSize (aArray));
+    final DSTTYPE [] ret = createArray (aDstClass, getSize (aArray));
     if (aArray != null)
     {
       int i = 0;
@@ -1221,7 +1221,7 @@ public final class ArrayHelper
   {
     if (aArray == null)
       return null;
-    final ELEMENTTYPE [] ret = newArraySameType (aArray, nLength);
+    final ELEMENTTYPE [] ret = createArraySameType (aArray, nLength);
     System.arraycopy (aArray, nStartIndex, ret, 0, nLength);
     return ret;
   }
@@ -2155,7 +2155,7 @@ public final class ArrayHelper
       return getCopy (aHeadArray);
 
     // Start concatenating
-    final ELEMENTTYPE [] ret = newArraySameType (aHeadArray, aHeadArray.length + aTailArray.length);
+    final ELEMENTTYPE [] ret = createArraySameType (aHeadArray, aHeadArray.length + aTailArray.length);
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
     System.arraycopy (aTailArray, 0, ret, aHeadArray.length, aTailArray.length);
     return ret;
@@ -2185,10 +2185,10 @@ public final class ArrayHelper
                                                               @Nonnull final Class <ELEMENTTYPE> aClass)
   {
     if (isEmpty (aTailArray))
-      return newArraySingleElement (aHead, aClass);
+      return createArraySingleElement (aHead, aClass);
 
     // Start concatenating
-    final ELEMENTTYPE [] ret = newArray (aClass, 1 + aTailArray.length);
+    final ELEMENTTYPE [] ret = createArray (aClass, 1 + aTailArray.length);
     ret[0] = aHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
@@ -2218,10 +2218,10 @@ public final class ArrayHelper
                                                               @Nonnull final Class <ELEMENTTYPE> aClass)
   {
     if (isEmpty (aHeadArray))
-      return newArraySingleElement (aTail, aClass);
+      return createArraySingleElement (aTail, aClass);
 
     // Start concatenating
-    final ELEMENTTYPE [] ret = newArray (aClass, aHeadArray.length + 1);
+    final ELEMENTTYPE [] ret = createArray (aClass, aHeadArray.length + 1);
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
     ret[aHeadArray.length] = aTail;
     return ret;

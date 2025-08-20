@@ -212,12 +212,12 @@ public final class CollectionHelperExtTest
     final Map <String, Integer> aMapA = createMap ("Hallo", I5);
     final Map <String, Integer> aMapB = createMap ("Welt", I3);
 
-    Map <String, Integer> aMap2 = createMap (ArrayHelper.newArray (aMapA, aMapB));
+    Map <String, Integer> aMap2 = createMap (ArrayHelper.createArray (aMapA, aMapB));
     assertEquals (2, aMap2.size ());
     assertEquals (I5, aMap2.get ("Hallo"));
     assertEquals (I3, aMap2.get ("Welt"));
 
-    aMap2 = createMap (ArrayHelper.newArray (aMapA, aMapA));
+    aMap2 = createMap (ArrayHelper.createArray (aMapA, aMapA));
     assertEquals (1, aMap2.size ());
     assertEquals (I5, aMap2.get ("Hallo"));
   }
@@ -1299,7 +1299,7 @@ public final class CollectionHelperExtTest
   public void testGetConcatenatedList_CollectionArray ()
   {
     final ICommonsList <String> a = createList ("a", "b");
-    final String [] b = ArrayHelper.newArray ("c", "d");
+    final String [] b = ArrayHelper.createArray ("c", "d");
     assertTrue (getConcatenatedList ((Collection <String>) null, (String []) null).isEmpty ());
     assertEquals (a, getConcatenatedList (a, (String []) null));
     assertEquals (createList (b), getConcatenatedList ((Collection <String>) null, b));
@@ -1309,7 +1309,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testGetConcatenatedList_ArrayCollection ()
   {
-    final String [] a = ArrayHelper.newArray ("a", "b");
+    final String [] a = ArrayHelper.createArray ("a", "b");
     final ICommonsList <String> b = createList ("c", "d");
     assertTrue (getConcatenatedList ((String []) null, (Collection <String>) null).isEmpty ());
     assertEquals (createList (a), getConcatenatedList (a, (Collection <String>) null));
@@ -1332,7 +1332,7 @@ public final class CollectionHelperExtTest
   public void testGetConcatenatedSet_CollectionArray ()
   {
     final Set <String> a = createSet ("a", "b");
-    final String [] b = ArrayHelper.newArray ("c", "d");
+    final String [] b = ArrayHelper.createArray ("c", "d");
     assertTrue (getConcatenatedSet ((Collection <String>) null, (String []) null).isEmpty ());
     assertEquals (a, getConcatenatedSet (a, (String []) null));
     assertEquals (createSet (b), getConcatenatedSet ((Collection <String>) null, b));
@@ -1342,7 +1342,7 @@ public final class CollectionHelperExtTest
   @Test
   public void testGetConcatenatedSet_ArrayCollection ()
   {
-    final String [] a = ArrayHelper.newArray ("a", "b");
+    final String [] a = ArrayHelper.createArray ("a", "b");
     final Set <String> b = createSet ("c", "d");
     assertTrue (getConcatenatedSet ((String []) null, (Collection <String>) null).isEmpty ());
     assertEquals (createSet (a), getConcatenatedSet (a, (Collection <String>) null));

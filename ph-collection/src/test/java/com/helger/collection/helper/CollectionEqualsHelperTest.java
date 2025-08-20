@@ -110,7 +110,7 @@ public final class CollectionEqualsHelperTest
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new CommonsArrayList <> ("a", "b", "C")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new CommonsArrayList <> ("a", "b", "c", "d")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new CommonsHashSet <> ("a", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aCont, ArrayHelper.newArray ("a", "b", "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aCont, ArrayHelper.createArray ("a", "b", "c")));
   }
 
   @Test
@@ -135,7 +135,7 @@ public final class CollectionEqualsHelperTest
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new CommonsHashSet <> ("a", "b", "C")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new CommonsHashSet <> ("a", "b", "c", "d")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new CommonsArrayList <> ("a", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aCont, ArrayHelper.newArray ("a", "b", "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aCont, ArrayHelper.createArray ("a", "b", "c")));
   }
 
   private static final class StringMap extends CommonsHashMap <String, String>
@@ -174,24 +174,24 @@ public final class CollectionEqualsHelperTest
                                                           new StringMap ("a", "b").add ("c", "d").add ("e", "f")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aMap, new CommonsArrayList <> ("a", "b", "c")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aMap, new CommonsHashSet <> ("a", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aMap, ArrayHelper.newArray ("a", "b", "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aMap, ArrayHelper.createArray ("a", "b", "c")));
   }
 
   @Test
   public void testArray ()
   {
-    final String [] aArray = ArrayHelper.newArray ("a", "b", "c");
+    final String [] aArray = ArrayHelper.createArray ("a", "b", "c");
     assertTrue (CollectionEqualsHelper.equalsCollection (aArray, aArray));
-    assertTrue (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b", "c")));
+    assertTrue (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.createArray ("a", "b", "c")));
     assertTrue (CollectionEqualsHelper.equalsCollection (new String [0], new String [] {}));
 
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray, new String [0]));
     assertFalse (CollectionEqualsHelper.equalsCollection (new String [0], aArray));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("A", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "B", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b", "C")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b", "c", "d")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.createArray ("a", "b")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.createArray ("A", "b", "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.createArray ("a", "B", "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.createArray ("a", "b", "C")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.createArray ("a", "b", "c", "d")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray, new CommonsArrayList <> ("a", "b", "c")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray, new CommonsHashSet <> ("a", "b", "c")));
   }
@@ -199,35 +199,35 @@ public final class CollectionEqualsHelperTest
   @Test
   public void testArrayComplex ()
   {
-    final ICommonsList <String> [] aArray = ArrayHelper.newArray (new CommonsArrayList <> ("a", "b"),
+    final ICommonsList <String> [] aArray = ArrayHelper.createArray (new CommonsArrayList <> ("a", "b"),
                                                                   new CommonsArrayList <> ("c", "d"));
     assertTrue (CollectionEqualsHelper.equalsCollection (aArray, aArray));
     assertTrue (CollectionEqualsHelper.equalsCollection (aArray,
-                                                         ArrayHelper.newArray (new CommonsArrayList <> ("a", "b"),
+                                                         ArrayHelper.createArray (new CommonsArrayList <> ("a", "b"),
                                                                                new CommonsArrayList <> ("c", "d"))));
     assertTrue (CollectionEqualsHelper.equalsCollection (new ICommonsList <?> [0], new ICommonsList <?> [] {}));
 
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray, new ICommonsList <?> [0]));
     assertFalse (CollectionEqualsHelper.equalsCollection (new ICommonsList <?> [0], aArray));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray,
-                                                          ArrayHelper.newArray (new CommonsArrayList <> ("a", "b"))));
+                                                          ArrayHelper.createArray (new CommonsArrayList <> ("a", "b"))));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray,
-                                                          ArrayHelper.newArray (new CommonsArrayList <> ("A", "b"),
+                                                          ArrayHelper.createArray (new CommonsArrayList <> ("A", "b"),
                                                                                 new CommonsArrayList <> ("c", "d"))));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray,
-                                                          ArrayHelper.newArray (new CommonsArrayList <> ("a", "b"),
+                                                          ArrayHelper.createArray (new CommonsArrayList <> ("a", "b"),
                                                                                 new CommonsArrayList <> ("c", "D"))));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray,
-                                                          ArrayHelper.newArray (new CommonsArrayList <> ("a", "b"),
+                                                          ArrayHelper.createArray (new CommonsArrayList <> ("a", "b"),
                                                                                 new CommonsArrayList <> ("c", "d"),
                                                                                 new CommonsArrayList <> ("e", "f"))));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray,
-                                                          ArrayHelper.newArray (new CommonsArrayList <> ("a", "b"),
+                                                          ArrayHelper.createArray (new CommonsArrayList <> ("a", "b"),
                                                                                 (ICommonsList <String>) null)));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray, new CommonsArrayList <> ("a", "b", "c")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aArray, new CommonsHashSet <> ("a", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", null, "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.createArray ("a", "b", "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aArray, ArrayHelper.createArray ("a", null, "c")));
   }
 
   @Test
@@ -238,7 +238,7 @@ public final class CollectionEqualsHelperTest
     aMap.put (new CommonsArrayList <> ("a", "b", "d"), new CommonsHashSet <> ("a", "b", "d"));
     assertTrue (CollectionEqualsHelper.equalsCollection (aMap, CollectionHelperExt.createMap (aMap)));
 
-    assertFalse (CollectionEqualsHelper.equalsCollection (aMap, ArrayHelper.newArray ("a", "b", "c", "d")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aMap, ArrayHelper.createArray ("a", "b", "c", "d")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aMap, new CommonsArrayList <> ("a", "b", "c")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aMap, new CommonsHashSet <> ("a", "b", "c")));
     final ICommonsMap <String, String> aMap1a = new CommonsHashMap <> ();
@@ -300,7 +300,7 @@ public final class CollectionEqualsHelperTest
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont.iterator (),
                                                           new CommonsArrayList <> ("a", "b", "c", "d").iterator ()));
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont.iterator (), new CommonsHashSet <> ("a", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aCont.iterator (), ArrayHelper.newArray ("a", "b", "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aCont.iterator (), ArrayHelper.createArray ("a", "b", "c")));
   }
 
   private static final class MockIterable implements ICommonsIterable <String>
@@ -335,7 +335,7 @@ public final class CollectionEqualsHelperTest
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new MockIterable ("a", "b", "C")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new MockIterable ("a", "b", "c", "d")));
     assertFalse (CollectionEqualsHelper.equalsCollection (aCont, new CommonsHashSet <> ("a", "b", "c")));
-    assertFalse (CollectionEqualsHelper.equalsCollection (aCont, ArrayHelper.newArray ("a", "b", "c")));
+    assertFalse (CollectionEqualsHelper.equalsCollection (aCont, ArrayHelper.createArray ("a", "b", "c")));
   }
 
   @Test
@@ -396,7 +396,7 @@ public final class CollectionEqualsHelperTest
     assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
                                                           new CommonsHashSet <> ("a", "b", "c")));
     assertFalse (CollectionEqualsHelper.equalsCollection (EnumerationHelper.getEnumeration (aCont),
-                                                          ArrayHelper.newArray ("a", "b", "c")));
+                                                          ArrayHelper.createArray ("a", "b", "c")));
   }
 
   @Test
@@ -404,7 +404,7 @@ public final class CollectionEqualsHelperTest
   {
     assertTrue (CollectionEqualsHelper.equalsAsList (null, null));
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
-                                                     ArrayHelper.newArray ("a", "b")));
+                                                     ArrayHelper.createArray ("a", "b")));
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
                                                      new CommonsArrayList <> ("a", "b").iterator ()));
     assertTrue (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
@@ -416,8 +416,8 @@ public final class CollectionEqualsHelperTest
     assertFalse (CollectionEqualsHelper.equalsAsList (null, "abc"));
     assertFalse (CollectionEqualsHelper.equalsAsList ("abc", null));
     assertFalse (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> ("a", "b"),
-                                                      ArrayHelper.newArray ("a", "B")));
+                                                      ArrayHelper.createArray ("a", "B")));
     assertFalse (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> (null, "b"),
-                                                      ArrayHelper.newArray ("a", (String) null)));
+                                                      ArrayHelper.createArray ("a", (String) null)));
   }
 }

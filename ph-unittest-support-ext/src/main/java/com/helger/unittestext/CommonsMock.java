@@ -516,23 +516,23 @@ public final class CommonsMock
       final Class <?> aArrayType = aClass.getComponentType ();
 
       if (aArrayType == boolean.class)
-        return ArrayHelper.newBooleanArray ();
+        return ArrayHelper.createBooleanArray ();
       if (aArrayType == byte.class)
-        return ArrayHelper.newByteArray ();
+        return ArrayHelper.createByteArray ();
       if (aArrayType == char.class)
-        return ArrayHelper.newCharArray ();
+        return ArrayHelper.createCharArray ();
       if (aArrayType == double.class)
-        return ArrayHelper.newDoubleArray ();
+        return ArrayHelper.createDoubleArray ();
       if (aArrayType == float.class)
-        return ArrayHelper.newFloatArray ();
+        return ArrayHelper.createFloatArray ();
       if (aArrayType == int.class)
-        return ArrayHelper.newIntArray ();
+        return ArrayHelper.createIntArray ();
       if (aArrayType == long.class)
-        return ArrayHelper.newLongArray ();
+        return ArrayHelper.createLongArray ();
       if (aArrayType == short.class)
-        return ArrayHelper.newShortArray ();
+        return ArrayHelper.createShortArray ();
 
-      final Object [] ret = ArrayHelper.newArray (aArrayType, 1);
+      final Object [] ret = ArrayHelper.createArray (aArrayType, 1);
       ret[0] = _mock (aArrayType, null, nLevel + 1);
       return ret;
     }

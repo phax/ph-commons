@@ -61,7 +61,7 @@ public final class MicroHelperTest
     MicroHelper.append (eRoot, "Any text");
     MicroHelper.append (eRoot, new MicroElement ("child"));
     MicroHelper.append (eRoot, CollectionHelperExt.createList ("t1", "t2"));
-    MicroHelper.append (eRoot, ArrayHelper.newArray ("t1", "t2"));
+    MicroHelper.append (eRoot, ArrayHelper.createArray ("t1", "t2"));
     try
     {
       MicroHelper.append (null, "any");

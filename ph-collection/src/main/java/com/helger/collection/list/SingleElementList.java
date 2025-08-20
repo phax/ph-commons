@@ -279,7 +279,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
                                      aDest.getClass () +
                                      " cannot store the item of class " +
                                      m_aElement.getClass ());
-    final ARRAYELEMENTTYPE [] ret = aDest.length < 1 ? ArrayHelper.newArraySameType (aDest, 1) : aDest;
+    final ARRAYELEMENTTYPE [] ret = aDest.length < 1 ? ArrayHelper.createArraySameType (aDest, 1) : aDest;
     ret[0] = GenericReflection.uncheckedCast (m_aElement);
     if (ret.length > 1)
       ret[1] = null;

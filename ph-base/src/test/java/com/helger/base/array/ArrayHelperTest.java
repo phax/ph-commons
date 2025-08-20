@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.array;
+package com.helger.base.array;
 
 import static com.helger.base.array.ArrayHelper.*;
 import static org.junit.Assert.assertArrayEquals;
@@ -28,16 +28,14 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Function;
 
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
-import com.helger.base.array.ArrayHelper;
 import com.helger.base.mock.CommonsAssert;
-import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.helper.CollectionHelperExt;
 
 /**
  * Test class for {@link ArrayHelper}
@@ -634,7 +632,7 @@ public final class ArrayHelperTest
   @Test
   public void testNewArrayEmpty ()
   {
-    final String [] a = newArray (String.class, 3);
+    final String [] a = createArray (String.class, 3);
     assertNotNull (a);
     assertTrue (ArrayHelper.isArray (a));
     assertEquals (3, a.length);
@@ -643,21 +641,21 @@ public final class ArrayHelperTest
 
     try
     {
-      newArray ((Class <?>) null, 5);
+      createArray ((Class <?>) null, 5);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      newArray (byte.class, 5);
+      createArray (byte.class, 5);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      newArray (String.class, -1);
+      createArray (String.class, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -667,21 +665,21 @@ public final class ArrayHelperTest
   @Test
   public void testNewArrayFromCollection ()
   {
-    String [] x = newArray (CollectionHelperExt.createList ("s1", "s2", "s3"), String.class);
+    String [] x = createArray (Arrays.asList ("s1", "s2", "s3"), String.class);
     assertNotNull (x);
     assertEquals (3, x.length);
 
-    x = newArray (new CommonsArrayList <> (), String.class);
+    x = createArray (new ArrayList <> (), String.class);
     assertNotNull (x);
 
-    x = newArray ((List <String>) null, String.class);
+    x = createArray ((List <String>) null, String.class);
     assertNotNull (x);
 
-    CharSequence [] y = newArray (CollectionHelperExt.createList ("s1", "s2", "s3"), CharSequence.class);
+    CharSequence [] y = createArray (Arrays.asList ("s1", "s2", "s3"), CharSequence.class);
     assertNotNull (y);
     assertEquals (3, y.length);
 
-    y = newArray (CollectionHelperExt.createSet ("s1", "s2", "s3"), CharSequence.class);
+    y = createArray (new HashSet <> (Arrays.asList ("s1", "s2", "s3")), CharSequence.class);
     assertNotNull (y);
     assertEquals (3, y.length);
   }
@@ -689,11 +687,11 @@ public final class ArrayHelperTest
   @Test
   public void testNewArrayFromArray ()
   {
-    String [] x = newArray ("s1", "s2", "s3");
+    String [] x = createArray ("s1", "s2", "s3");
     assertNotNull (x);
     assertEquals (3, x.length);
 
-    x = newArray (new String [0]);
+    x = createArray (new String [0]);
     assertNotNull (x);
     assertEquals (0, x.length);
   }
@@ -701,16 +699,16 @@ public final class ArrayHelperTest
   @Test
   public void testNewArraySizeValue ()
   {
-    String [] ret = newArray (1, "6", String.class);
+    String [] ret = createArray (1, "6", String.class);
     assertNotNull (ret);
     assertEquals (1, ret.length);
     assertEquals ("6", ret[0]);
 
-    ret = newArray (0, "Hello world", String.class);
+    ret = createArray (0, "Hello world", String.class);
     assertNotNull (ret);
     assertEquals (0, ret.length);
 
-    ret = newArray (10, "Hello world", String.class);
+    ret = createArray (10, "Hello world", String.class);
     assertNotNull (ret);
     assertEquals (10, ret.length);
     for (final String element : ret)
@@ -719,7 +717,7 @@ public final class ArrayHelperTest
     try
     {
       // negative size
-      newArray (-1, "6", String.class);
+      createArray (-1, "6", String.class);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -727,7 +725,7 @@ public final class ArrayHelperTest
     try
     {
       // no class
-      newArray (1, "6", null);
+      createArray (1, "6", null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1168,24 +1166,24 @@ public final class ArrayHelperTest
     assertFalse (containsAnyNullElement ((String []) null));
     assertFalse (containsAnyNullElement (new Object [0]));
 
-    assertFalse (containsAnyNullElement (newArray ("a")));
-    assertFalse (containsAnyNullElement (newArray ("a", "b", "c")));
-    assertTrue (containsAnyNullElement (newArray ((String) null, "a")));
-    assertTrue (containsAnyNullElement (newArray ("a", (String) null)));
-    assertTrue (containsAnyNullElement (newArray ((String) null)));
+    assertFalse (containsAnyNullElement (createArray ("a")));
+    assertFalse (containsAnyNullElement (createArray ("a", "b", "c")));
+    assertTrue (containsAnyNullElement (createArray ((String) null, "a")));
+    assertTrue (containsAnyNullElement (createArray ("a", (String) null)));
+    assertTrue (containsAnyNullElement (createArray ((String) null)));
   }
 
   @Test
   public void testNewPrimitiveArray ()
   {
-    assertEquals (2, newBooleanArray (true, false).length);
-    assertEquals (2, newByteArray ((byte) 5, (byte) 6).length);
-    assertEquals (2, newCharArray ((char) 5, (char) 6).length);
-    assertEquals (2, newDoubleArray (5.2, 6.1).length);
-    assertEquals (2, newFloatArray (5.2f, 6.1f).length);
-    assertEquals (2, newIntArray (5, 6).length);
-    assertEquals (2, newLongArray (5L, 6L).length);
-    assertEquals (2, newShortArray ((short) 5, (short) 6).length);
+    assertEquals (2, createBooleanArray (true, false).length);
+    assertEquals (2, createByteArray ((byte) 5, (byte) 6).length);
+    assertEquals (2, createCharArray ((char) 5, (char) 6).length);
+    assertEquals (2, createDoubleArray (5.2, 6.1).length);
+    assertEquals (2, createFloatArray (5.2f, 6.1f).length);
+    assertEquals (2, createIntArray (5, 6).length);
+    assertEquals (2, createLongArray (5L, 6L).length);
+    assertEquals (2, createShortArray ((short) 5, (short) 6).length);
   }
 
   @Test
@@ -1193,21 +1191,21 @@ public final class ArrayHelperTest
   {
     final Function <String, Integer> aMapper = Integer::valueOf;
 
-    Integer [] x = newArrayMapped (CollectionHelperExt.createList ("1", "2", "3"), aMapper, Integer.class);
+    Integer [] x = createArrayMapped (Arrays.asList ("1", "2", "3"), aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (3, x.length);
     assertEquals (1, x[0].intValue ());
     assertEquals (2, x[1].intValue ());
     assertEquals (3, x[2].intValue ());
 
-    x = newArrayMapped (new CommonsArrayList <> (), aMapper, Integer.class);
+    x = createArrayMapped (new ArrayList <> (), aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (0, x.length);
 
     try
     {
       // List may not be null
-      newArrayMapped ((Collection <String>) null, aMapper, Integer.class);
+      createArrayMapped ((Collection <String>) null, aMapper, Integer.class);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1216,7 +1214,7 @@ public final class ArrayHelperTest
     try
     {
       // Converter may not be null
-      newArrayMapped (CollectionHelperExt.createList ("1", "2", "3"), null, Integer.class);
+      createArrayMapped (Arrays.asList ("1", "2", "3"), null, Integer.class);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1225,7 +1223,7 @@ public final class ArrayHelperTest
     try
     {
       // Destination class may not be null
-      newArrayMapped (CollectionHelperExt.createList ("1", "2", "3"), aMapper, (Class <Integer>) null);
+      createArrayMapped (Arrays.asList ("1", "2", "3"), aMapper, (Class <Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1237,25 +1235,25 @@ public final class ArrayHelperTest
   {
     final Function <String, Integer> aMapper = Integer::valueOf;
 
-    Integer [] x = newArrayMapped (new String [] { "1", "2", "3" }, aMapper, Integer.class);
+    Integer [] x = createArrayMapped (new String [] { "1", "2", "3" }, aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (3, x.length);
     assertEquals (1, x[0].intValue ());
     assertEquals (2, x[1].intValue ());
     assertEquals (3, x[2].intValue ());
 
-    x = newArrayMapped (new String [0], aMapper, Integer.class);
+    x = createArrayMapped (new String [0], aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (0, x.length);
 
-    x = newArrayMapped ((String []) null, aMapper, Integer.class);
+    x = createArrayMapped ((String []) null, aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (0, x.length);
 
     try
     {
       // Converter may not be null
-      newArrayMapped (new String [] { "1", "2", "3" }, null, Integer.class);
+      createArrayMapped (new String [] { "1", "2", "3" }, null, Integer.class);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1264,7 +1262,7 @@ public final class ArrayHelperTest
     try
     {
       // Destination class may not be null
-      newArrayMapped (new String [] { "1", "2", "3" }, aMapper, (Class <Integer>) null);
+      createArrayMapped (new String [] { "1", "2", "3" }, aMapper, (Class <Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)

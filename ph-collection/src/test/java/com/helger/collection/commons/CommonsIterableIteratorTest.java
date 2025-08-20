@@ -41,7 +41,7 @@ public final class CommonsIterableIteratorTest
   public void testBasic ()
   {
     assertSame (CommonsIterableIterator.createEmpty (), CommonsIterableIterator.createEmpty ());
-    ICommonsIterableIterator <String> iit = new CommonsIterableIterator <> (ArrayHelper.newArray ("Hallo",
+    ICommonsIterableIterator <String> iit = new CommonsIterableIterator <> (ArrayHelper.createArray ("Hallo",
                                                                                                   "Welt",
                                                                                                   "from",
                                                                                                   "Copenhagen"));

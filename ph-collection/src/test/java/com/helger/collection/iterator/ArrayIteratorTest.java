@@ -38,7 +38,7 @@ public final class ArrayIteratorTest
   @Test
   public void testAll ()
   {
-    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
+    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.createArray ("Hallo",
                                                                                   "Welt",
                                                                                   "from",
                                                                                   "Copenhagen"));
@@ -108,15 +108,15 @@ public final class ArrayIteratorTest
   @Test
   public void testStdMethods ()
   {
-    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
+    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.createArray ("Hallo",
                                                                                   "Welt",
                                                                                   "from",
                                                                                   "Copenhagen"));
-    assertEquals (ae, new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen")));
-    assertNotEquals (ae, new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from")));
+    assertEquals (ae, new ArrayIterator <> (ArrayHelper.createArray ("Hallo", "Welt", "from", "Copenhagen")));
+    assertNotEquals (ae, new ArrayIterator <> (ArrayHelper.createArray ("Hallo", "Welt", "from")));
 
     // Change index
     ae.next ();
-    assertNotEquals (ae, new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen")));
+    assertNotEquals (ae, new ArrayIterator <> (ArrayHelper.createArray ("Hallo", "Welt", "from", "Copenhagen")));
   }
 }
