@@ -30,6 +30,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.builder.IBuilder;
@@ -58,6 +59,9 @@ public class StreamHelper
   public static final int DEFAULT_BUFSIZE = 16 * CGlobal.BYTES_PER_KILOBYTE;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (StreamHelper.class);
+
+  @PresentForCodeCoverage
+  private static final StreamHelper INSTANCE = new StreamHelper ();
 
   protected StreamHelper ()
   {}
