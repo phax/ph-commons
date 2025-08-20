@@ -16,7 +16,9 @@
  */
 package com.helger.unittest.support;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -89,8 +91,8 @@ public final class TestHelper
   private static <DATATYPE> void _testHashcodeImplementation (@Nonnull final DATATYPE aObject)
   {
     assertNotNull ("Passed object may not be null!", aObject);
-    assertTrue ("hashCode() invocations must be consistent", aObject.hashCode () == aObject.hashCode ());
-    assertFalse ("hashCode() may not be 0", aObject.hashCode () == 0);
+    assertEquals ("hashCode() invocations must be consistent", aObject.hashCode (), aObject.hashCode ());
+    assertNotEquals ("hashCode() may not be 0", aObject.hashCode (), 0);
   }
 
   public static <DATATYPE> void testHashcodeImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
@@ -100,8 +102,8 @@ public final class TestHelper
     _testHashcodeImplementation (aObject2);
     assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
-    assertTrue ("hashCode() invocations must be consistent", aObject.hashCode () == aObject2.hashCode ());
-    assertTrue ("hashCode() invocations must be consistent", aObject2.hashCode () == aObject.hashCode ());
+    assertEquals ("hashCode() invocations must be consistent", aObject.hashCode (), aObject2.hashCode ());
+    assertEquals ("hashCode() invocations must be consistent", aObject2.hashCode (), aObject.hashCode ());
   }
 
   public static <DATATYPE> void testHashcodeImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
@@ -113,7 +115,7 @@ public final class TestHelper
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject1, aObject2));
     final int nHash1 = aObject1.hashCode ();
     final int nHash2 = aObject2.hashCode ();
-    assertFalse ("hashCode() may not be the same for both objects", nHash1 == nHash2);
+    assertNotEquals ("hashCode() may not be the same for both objects", nHash1, nHash2);
   }
 
   /**
