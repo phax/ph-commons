@@ -19,6 +19,8 @@ package com.helger.base.equals;
 import java.util.Objects;
 import java.util.function.BiPredicate;
 
+import com.helger.annotation.style.UsedInGeneratedCode;
+
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -71,6 +73,7 @@ public class EqualsHelper
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (final boolean aObj1, final boolean aObj2)
   {
     return aObj1 == aObj2;
@@ -86,6 +89,7 @@ public class EqualsHelper
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (final byte aObj1, final byte aObj2)
   {
     return aObj1 == aObj2;
@@ -101,6 +105,7 @@ public class EqualsHelper
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (final char aObj1, final char aObj2)
   {
     return aObj1 == aObj2;
@@ -116,6 +121,7 @@ public class EqualsHelper
    *        Second double
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (final double aObj1, final double aObj2)
   {
     // Special overload for "double" required!
@@ -132,6 +138,7 @@ public class EqualsHelper
    *        Second float
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (final float aObj1, final float aObj2)
   {
     // Special overload for "float" required!
@@ -148,6 +155,7 @@ public class EqualsHelper
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (final int aObj1, final int aObj2)
   {
     return aObj1 == aObj2;
@@ -163,6 +171,7 @@ public class EqualsHelper
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (final long aObj1, final long aObj2)
   {
     return aObj1 == aObj2;
@@ -178,6 +187,7 @@ public class EqualsHelper
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (final short aObj1, final short aObj2)
   {
     return aObj1 == aObj2;
@@ -193,6 +203,7 @@ public class EqualsHelper
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean equals (@Nullable final Object aObj1, @Nullable final Object aObj2)
   {
     return Objects.deepEquals (aObj1, aObj2);

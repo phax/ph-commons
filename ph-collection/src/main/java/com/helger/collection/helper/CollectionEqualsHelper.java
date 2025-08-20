@@ -25,6 +25,7 @@ import java.util.Set;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.ECollectionBaseType;
@@ -167,6 +168,7 @@ public final class CollectionEqualsHelper
    * @throws IllegalArgumentException
    *         if one of the arguments is not a container!
    */
+  @UsedInGeneratedCode
   public static boolean equalsCollection (@Nullable final Object aObj1, @Nullable final Object aObj2)
   {
     // Same object - check first
