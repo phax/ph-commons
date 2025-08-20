@@ -115,9 +115,9 @@ Reference `ExtractedCodingStyleguide.md` for comprehensive guidelines. Key point
 1. Static fields first
 2. Instance fields second  
 3. Constructors third
-4. Public methods fourth
-5. Protected/package methods fifth
-6. Private methods last
+4. Private/protected/package methods fourth
+5. Public instance methods fifth
+6. Public static methods last
 
 #### Error Handling
 - Use `ValueEnforcer` for parameter validation
