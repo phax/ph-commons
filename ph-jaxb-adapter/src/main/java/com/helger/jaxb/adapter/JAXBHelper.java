@@ -58,12 +58,12 @@ public final class JAXBHelper
     if (!aObj1.getClass ().equals (aObj2.getClass ()))
       return false;
 
-    if (aObj1 instanceof byte [])
-      return Arrays.equals ((byte []) aObj1, (byte []) aObj2);
-    if (aObj1 instanceof Node)
-      return equalDOMNodes ((Node) aObj1, (Node) aObj2);
-    if (aObj1 instanceof JAXBElement)
-      return equalJAXBElements ((JAXBElement <?>) aObj1, (JAXBElement <?>) aObj2);
+    if (aObj1 instanceof byte [] aBytes1)
+      return Arrays.equals (aBytes1, (byte []) aObj2);
+    if (aObj1 instanceof Node aNode1)
+      return equalDOMNodes (aNode1, (Node) aObj2);
+    if (aObj1 instanceof JAXBElement <?> aJaxb1)
+      return equalJAXBElements (aJaxb1, (JAXBElement <?>) aObj2);
     if (aObj1 instanceof List <?>)
       return equalListAnys (GenericReflection.uncheckedCast (aObj1), GenericReflection.uncheckedCast (aObj2));
 
@@ -202,12 +202,12 @@ public final class JAXBHelper
     if (x == null)
       return HashCodeCalculator.HASHCODE_NULL;
 
-    if (x instanceof byte [])
-      return Arrays.hashCode ((byte []) x);
-    if (x instanceof Node)
-      return getHashCode ((Node) x);
-    if (x instanceof JAXBElement)
-      return getHashCode ((JAXBElement <?>) x);
+    if (x instanceof byte [] aBytes)
+      return Arrays.hashCode (aBytes);
+    if (x instanceof Node aNode)
+      return getHashCode (aNode);
+    if (x instanceof JAXBElement <?> aJaxbEl)
+      return getHashCode (aJaxbEl);
     if (x instanceof List <?>)
       return getListAnyHashCode (GenericReflection.uncheckedCast (x));
 
