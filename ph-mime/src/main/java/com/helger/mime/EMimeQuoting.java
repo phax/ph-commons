@@ -21,7 +21,7 @@ import java.util.BitSet;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.codec.impl.QuotedPrintableCodec;
-import com.helger.base.codec.impl.URLCodec;
+import com.helger.base.codec.impl.RFC3986Codec;
 import com.helger.mime.parse.MimeTypeParser;
 
 import jakarta.annotation.Nonnull;
@@ -108,7 +108,7 @@ public enum EMimeQuoting
     public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
-      return new URLCodec (PRINTABLE_URL).getEncodedAsString (sUnquotedString, StandardCharsets.UTF_8);
+      return new RFC3986Codec (PRINTABLE_URL).getEncodedAsString (sUnquotedString, StandardCharsets.UTF_8);
     }
 
     @Override
@@ -116,7 +116,7 @@ public enum EMimeQuoting
     @Nonempty
     public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
     {
-      return new URLCodec (PRINTABLE_URL).getDecodedAsString (sQuotedString, StandardCharsets.UTF_8);
+      return new RFC3986Codec (PRINTABLE_URL).getDecodedAsString (sQuotedString, StandardCharsets.UTF_8);
     }
   };
 
@@ -124,7 +124,7 @@ public enum EMimeQuoting
   public static final char QUOTED_STRING_MASK_CHAR = '\\';
 
   private static final BitSet PRINTABLE_QUOTED_PRINTABLE = QuotedPrintableCodec.getDefaultPrintableChars ();
-  private static final BitSet PRINTABLE_URL = URLCodec.getDefaultPrintableChars ();
+  private static final BitSet PRINTABLE_URL = RFC3986Codec.getDefaultPrintableChars ();
 
   static
   {

@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import com.helger.base.codec.DecodeException;
-import com.helger.base.codec.impl.URLCodec;
+import com.helger.base.codec.impl.RFC3986Codec;
 import com.helger.base.enforce.ValueEnforcer;
 
 import jakarta.annotation.Nonnull;
@@ -32,7 +32,7 @@ public final class URLCoder
   /** Default URL charset is UTF-8 */
   public static final Charset CHARSET_URL_OBJ = StandardCharsets.UTF_8;
 
-  private static final URLCodec URL_CODEC = new URLCodec ();
+  private static final RFC3986Codec URL_CODEC = new RFC3986Codec ();
 
   private URLCoder ()
   {}
@@ -56,7 +56,7 @@ public final class URLCoder
 
   /**
    * URL-decode the passed value automatically handling charset issues. The implementation uses
-   * {@link URLCodec} to do the hard work.
+   * {@link RFC3986Codec} to do the hard work.
    *
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
@@ -99,7 +99,7 @@ public final class URLCoder
 
   /**
    * URL-decode the passed value automatically handling charset issues. The implementation uses
-   * {@link URLCodec} to do the hard work.
+   * {@link RFC3986Codec} to do the hard work.
    *
    * @param sValue
    *        The value to be decoded. May be <code>null</code>.
@@ -135,7 +135,7 @@ public final class URLCoder
 
   /**
    * URL-decode the passed value automatically handling charset issues. The implementation uses
-   * {@link URLCodec} to do the hard work.
+   * {@link RFC3986Codec} to do the hard work.
    *
    * @param sValue
    *        The value to be decoded. May be <code>null</code>.
