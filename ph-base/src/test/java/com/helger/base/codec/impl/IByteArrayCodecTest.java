@@ -111,6 +111,6 @@ public final class IByteArrayCodecTest
     _testCodec (new IdentityByteArrayCodec ());
     _testCodec (new LZWCodec ());
     _testCodec (new QuotedPrintableCodec ());
-    _testCodec (new URLCodec ());
+    _testCodec (new RFC3986Codec ());
   }
 }

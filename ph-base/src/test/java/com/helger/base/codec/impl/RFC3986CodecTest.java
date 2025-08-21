@@ -23,17 +23,17 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 /**
- * Test class for class {@link URLCodec}.
+ * Test class for class {@link RFC3986Codec}.
  *
  * @author Philip Helger
  */
-public final class URLCodecTest
+public final class RFC3986CodecTest
 {
   @Test
   public void testDecode ()
   {
     final String sEncoded = "https://staging-smp.nymus.eu/iso6523-actorid-upis%3A%3A9925%3Abe0758688864/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1";
-    final String sDecoded = new URLCodec ().getDecodedAsString (sEncoded, StandardCharsets.ISO_8859_1);
+    final String sDecoded = new RFC3986Codec ().getDecodedAsString (sEncoded, StandardCharsets.ISO_8859_1);
     assertEquals ("https://staging-smp.nymus.eu/iso6523-actorid-upis::9925:be0758688864/services/busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
                   sDecoded);
   }

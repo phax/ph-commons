@@ -38,7 +38,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @ThreadSafe
-public class URLCodec implements IByteArrayCodec
+public class RFC3986Codec implements IByteArrayCodec
 {
   private static final byte ESCAPE_CHAR = '%';
   private static final byte SPACE = ' ';
@@ -84,7 +84,7 @@ public class URLCodec implements IByteArrayCodec
   /**
    * Default constructor with the RFC 3986 printable characters.
    */
-  public URLCodec ()
+  public RFC3986Codec ()
   {
     this (PRINTABLE_CHARS_RFC3986);
   }
@@ -95,7 +95,7 @@ public class URLCodec implements IByteArrayCodec
    * @param aPrintableChars
    *        The printable character BitSet to use. May not be <code>null</code>.
    */
-  public URLCodec (@Nonnull final BitSet aPrintableChars)
+  public RFC3986Codec (@Nonnull final BitSet aPrintableChars)
   {
     m_aPrintableChars = (BitSet) aPrintableChars.clone ();
   }
