@@ -21,6 +21,7 @@ import java.util.Arrays;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 
@@ -86,6 +87,7 @@ public final class HashCodeCalculator
     return x;
   }
 
+  @UsedInGeneratedCode
   public static int hashCode (@Nullable final Object x)
   {
     return x == null ? HASHCODE_NULL : x.hashCode ();
