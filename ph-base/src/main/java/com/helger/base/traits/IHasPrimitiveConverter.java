@@ -27,6 +27,10 @@ import jakarta.annotation.Nonnull;
  */
 public interface IHasPrimitiveConverter <DSTTYPE>
 {
+  /**
+   * @return The primitive converter to use to convert to the destination type. Might not be
+   *         <code>null</code>.
+   */
   @Nonnull
   IPrimitiveConverterTo <DSTTYPE> getPrimitiveConverterTo ();
 }
