@@ -644,12 +644,12 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   }
 
   /**
-   * Add all provided values.
+   * Add all provided values if the map is not null.
    *
    * @param aValues
    *        The values to be added. May be <code>null</code>.
    */
-  default void addAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  default void putAllIfNotNull (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
     if (aValues != null)
       putAll (aValues);

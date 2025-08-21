@@ -117,6 +117,15 @@ public interface ITypedMapAdderTrait <KEYTYPE, VALUETYPE, IMPLTYPE extends IType
   }
 
   @Nonnull
+  default IMPLTYPE addAll (@Nullable final Iterable <Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aIterable)
+  {
+    if (aIterable != null)
+      for (final var aEntry : aIterable)
+        add (aEntry.getKey (), aEntry.getValue ());
+    return thisAsT ();
+  }
+
+  @Nonnull
   default <SRCVALUETYPE> IMPLTYPE addAllMapped (@Nullable final Map <? extends KEYTYPE, ? extends SRCVALUETYPE> aMap,
                                                 @Nonnull final Function <? super SRCVALUETYPE, VALUETYPE> aValueMapper)
   {

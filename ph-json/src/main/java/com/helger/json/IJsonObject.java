@@ -52,22 +52,6 @@ public interface IJsonObject extends
     return PrimitiveConvererToIJson.INSTANCE;
   }
 
-  /**
-   * Add all entries of the passed object to this object. So this is a "flattening add all".
-   *
-   * @param aObject
-   *        The object to add from. May be <code>null</code>.
-   * @return this for chaining
-   */
-  @Nonnull
-  default IJsonObject addAll (@Nullable final IJsonObject aObject)
-  {
-    if (aObject != null)
-      for (final var aEntry : aObject)
-        add (aEntry);
-    return this;
-  }
-
   @Nullable
   IJson removeKeyAndReturnValue (@Nullable String sName);
 
