@@ -27,21 +27,20 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Add arbitrary objects to this, where this being some kind of a collection like ArrayList.
+ * Add arbitrary objects to this. Compared to {@link IGenericAdderTrait} it can only deal with
+ * ELEMENTTYPE and not with Object and the type in parallel.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
- *        The element type to be added. Must implement IAddableByTrait as a hack, so that the APIs
- *        <code>add(Object)</code> and <code>add(ELEMENTTYPE)</code> can co-exist. Otherwise there
- *        would be a problem with type erasure.
+ *        The element type to be added.
  * @param <IMPLTYPE>
  *        The implementation type for chaining API
- * @see ITypedAdderTrait for a version of this interface that only deals with a specific type
+ * @see IGenericAdderTrait
+ * @since v12.0.0 RC2
  */
-public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTYPE extends IGenericAdderTrait <ELEMENTTYPE, IMPLTYPE>>
-                                    extends
-                                    IHasTypeConverterTo <ELEMENTTYPE>,
-                                    IGenericImplTrait <IMPLTYPE>
+public interface ITypedAdderTrait <ELEMENTTYPE, IMPLTYPE extends ITypedAdderTrait <ELEMENTTYPE, IMPLTYPE>> extends
+                                  IHasTypeConverterTo <ELEMENTTYPE>,
+                                  IGenericImplTrait <IMPLTYPE>
 {
   @Nonnull
   default IMPLTYPE add (final ELEMENTTYPE aValue)
@@ -64,27 +63,6 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
   default IMPLTYPE addIfNotNull (@Nullable final ELEMENTTYPE aValue)
   {
     if (aValue != null)
-      add (aValue);
-    return thisAsT ();
-  }
-
-  /**
-   * Add using the converter
-   *
-   * @param aValue
-   *        The value to be added. May be <code>null</code>.
-   * @return this for chaining
-   */
-  @Nonnull
-  default IMPLTYPE add (@Nullable final Object aValue)
-  {
-    return add (getTypeConverterTo ().convert (aValue));
-  }
-
-  @Nonnull
-  default <T> IMPLTYPE addIf (@Nullable final T aValue, @Nonnull final Predicate <? super T> aFilter)
-  {
-    if (aFilter.test (aValue))
       add (aValue);
     return thisAsT ();
   }
@@ -135,21 +113,6 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
   default IMPLTYPE add (final short nValue)
   {
     return add (getTypeConverterTo ().convert (nValue));
-  }
-
-  /**
-   * Add at the specified index using the converter
-   *
-   * @param nIndex
-   *        The index where the item should be added. Must be &ge; 0.
-   * @param aValue
-   *        The value to be added. May be <code>null</code>.
-   * @return thisAsT ()
-   */
-  @Nonnull
-  default IMPLTYPE addAt (@Nonnegative final int nIndex, @Nullable final Object aValue)
-  {
-    return addAt (nIndex, getTypeConverterTo ().convert (aValue));
   }
 
   @Nonnull
@@ -272,11 +235,12 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
+  @SuppressWarnings ("unchecked")
   @Nonnull
-  default IMPLTYPE addAll (@Nullable final Object... aValues)
+  default IMPLTYPE addAll (@Nullable final ELEMENTTYPE... aValues)
   {
     if (aValues != null)
-      for (final Object aValue : aValues)
+      for (final ELEMENTTYPE aValue : aValues)
         add (aValue);
     return thisAsT ();
   }
@@ -292,10 +256,10 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
   }
 
   @Nonnull
-  default IMPLTYPE addAll (@Nullable final Iterable <?> aValues)
+  default IMPLTYPE addAll (@Nullable final Iterable <ELEMENTTYPE> aValues)
   {
     if (aValues != null)
-      for (final Object aValue : aValues)
+      for (final ELEMENTTYPE aValue : aValues)
         add (aValue);
     return thisAsT ();
   }
@@ -438,13 +402,14 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
+  @SuppressWarnings ("unchecked")
   @Nonnull
-  default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final Object... aValues)
+  default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE... aValues)
   {
     if (aValues != null)
     {
       int nRealIndex = nIndex;
-      for (final Object aValue : aValues)
+      for (final ELEMENTTYPE aValue : aValues)
       {
         addAt (nRealIndex, aValue);
         nRealIndex++;
@@ -455,12 +420,12 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
   }
 
   @Nonnull
-  default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final Iterable <?> aValues)
+  default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final Iterable <ELEMENTTYPE> aValues)
   {
     if (aValues != null)
     {
       int nRealIndex = nIndex;
-      for (final Object aValue : aValues)
+      for (final ELEMENTTYPE aValue : aValues)
       {
         addAt (nRealIndex, aValue);
         nRealIndex++;

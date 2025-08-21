@@ -25,12 +25,12 @@ import jakarta.annotation.Nonnull;
  * @param <DSTTYPE>
  *        The element type to be converted to.
  */
-public interface IHasPrimitiveConverter <DSTTYPE>
+public interface IHasTypeConverterTo <DSTTYPE>
 {
   /**
    * @return The primitive converter to use to convert to the destination type. Might not be
    *         <code>null</code>.
    */
   @Nonnull
-  IPrimitiveConverterTo <DSTTYPE> getPrimitiveConverterTo ();
+  ITypeConverterTo <DSTTYPE> getTypeConverterTo ();
 }

@@ -17,14 +17,14 @@
 package com.helger.base.traits;
 
 /**
- * A generic dummy interface to convert any primitive type to a certain object
- * type.
+ * A generic dummy interface to convert any data type and especially primitive types to a certain
+ * destination type.
  *
  * @author Philip Helger
  * @param <DSTTYPE>
  *        The destination type to convert to
  */
-public interface IPrimitiveConverterTo <DSTTYPE>
+public interface ITypeConverterTo <DSTTYPE>
 {
   /**
    * Convert from boolean to DSTTYPE
