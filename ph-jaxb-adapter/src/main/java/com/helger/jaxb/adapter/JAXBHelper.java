@@ -16,6 +16,7 @@
  */
 package com.helger.jaxb.adapter;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.ToIntFunction;
@@ -56,6 +57,8 @@ public final class JAXBHelper
     if (!aObj1.getClass ().equals (aObj2.getClass ()))
       return false;
 
+    if (aObj1 instanceof byte [])
+      return Arrays.equals ((byte []) aObj1, (byte []) aObj2);
     if (aObj1 instanceof Node)
       return equalDOMNodes ((Node) aObj1, (Node) aObj2);
     if (aObj1 instanceof JAXBElement)
@@ -201,6 +204,9 @@ public final class JAXBHelper
   {
     if (x == null)
       return HashCodeCalculator.HASHCODE_NULL;
+
+    if (x instanceof byte [])
+      return Arrays.hashCode ((byte []) x);
     if (x instanceof Node)
       return getHashCode ((Node) x);
     if (x instanceof JAXBElement)
