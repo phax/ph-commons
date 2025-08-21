@@ -23,7 +23,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.base.traits.IGenericAdderTrait;
-import com.helger.base.traits.IPrimitiveConverterTo;
+import com.helger.base.traits.ITypeConverterTo;
 import com.helger.collection.base.FilterIterator;
 import com.helger.collection.base.IIterableIterator;
 import com.helger.collection.base.MapperIterator;
@@ -47,7 +47,7 @@ public interface IJsonArray extends
 {
   /* Implementation for IGenericAdderTrait */
   @Nonnull
-  default IPrimitiveConverterTo <IJson> getPrimitiveConverterTo ()
+  default ITypeConverterTo <IJson> getTypeConverterTo ()
   {
     return PrimitiveConvererToIJson.INSTANCE;
   }

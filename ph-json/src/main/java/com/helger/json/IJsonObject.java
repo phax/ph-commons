@@ -18,19 +18,17 @@ package com.helger.json;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.BooleanSupplier;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
-import com.helger.base.string.StringHelper;
+import com.helger.base.traits.IGenericMapAdderTrait;
+import com.helger.base.traits.ITypeConverterTo;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.json.convert.JsonConverter;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
 import jakarta.annotation.Nonnull;
@@ -44,142 +42,14 @@ import jakarta.annotation.Nullable;
 public interface IJsonObject extends
                              IJsonCollection,
                              ICommonsIterable <Map.Entry <String, IJson>>,
-                             IGetterByKeyTrait <String>
+                             IGetterByKeyTrait <String>,
+                             IGenericMapAdderTrait <String, IJson, IJsonObject>
 {
-  /**
-   * Add a new child JSON with the given name to this object.
-   *
-   * @param sName
-   *        The name of the field. May not be <code>null</code>.
-   * @param aValue
-   *        The JSON object to be added. May not be <code>null</code>.
-   * @return this for chaining
-   */
+  /* Implementation for IGenericMapAdderTrait */
   @Nonnull
-  IJsonObject add (@Nonnull String sName, @Nonnull IJson aValue);
-
-  @Nonnull
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nonnull final IJson aValue,
-                             @Nonnull final Predicate <? super IJson> aFilter)
+  default ITypeConverterTo <IJson> getTypeConverterTo ()
   {
-    if (aFilter.test (aValue))
-      add (sName, aValue);
-    return this;
-  }
-
-  @Nonnull
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nonnull final IJson aValue,
-                             @Nonnull final BooleanSupplier aFilter)
-  {
-    if (aFilter.getAsBoolean ())
-      add (sName, aValue);
-    return this;
-  }
-
-  @Nonnull
-  default IJsonObject addIfNotNull (@Nonnull final String sName, @Nullable final IJson aValue)
-  {
-    if (aValue != null)
-      add (sName, aValue);
-    return this;
-  }
-
-  /**
-   * Add at the specified value using the JSON converter
-   *
-   * @param sName
-   *        The name of the item. May not be <code>null</code>.
-   * @param aValue
-   *        The value to be added. May be <code>null</code>.
-   * @return this
-   */
-  @Nonnull
-  default IJsonObject add (@Nonnull final String sName, @Nullable final Object aValue)
-  {
-    return add (sName, JsonConverter.convertToJson (aValue));
-  }
-
-  @Nonnull
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nullable final Object aValue,
-                             @Nonnull final BooleanSupplier aSupplier)
-  {
-    if (aSupplier.getAsBoolean ())
-      add (sName, aValue);
-    return this;
-  }
-
-  @Nonnull
-  default <T> IJsonObject addIf (@Nonnull final String sName,
-                                 @Nullable final T aValue,
-                                 @Nonnull final Predicate <? super T> aFilter)
-  {
-    if (aFilter.test (aValue))
-      add (sName, aValue);
-    return this;
-  }
-
-  @Nonnull
-  default IJsonObject addIfNotNull (@Nonnull final String sName, @Nullable final Object aValue)
-  {
-    if (aValue != null)
-      add (sName, aValue);
-    return this;
-  }
-
-  @Nonnull
-  default IJsonObject addIfNotEmpty (@Nonnull final String sName, @Nullable final String sValue)
-  {
-    if (StringHelper.isNotEmpty (sValue))
-      add (sName, sValue);
-    return this;
-  }
-
-  @Nonnull
-  default IJsonObject add (@Nonnull final Map.Entry <String, ?> aEntry)
-  {
-    return add (aEntry.getKey (), aEntry.getValue ());
-  }
-
-  @Nonnull
-  default IJsonObject add (@Nonnull final String sName, final boolean bValue)
-  {
-    return add (sName, JsonValue.create (bValue));
-  }
-
-  @Nonnull
-  default IJsonObject add (@Nonnull final String sName, final char cValue)
-  {
-    return add (sName, JsonValue.create (cValue));
-  }
-
-  @Nonnull
-  default IJsonObject add (@Nonnull final String sName, final double dValue)
-  {
-    return add (sName, JsonValue.create (dValue));
-  }
-
-  @Nonnull
-  default IJsonObject add (@Nonnull final String sName, final int nValue)
-  {
-    return add (sName, JsonValue.create (nValue));
-  }
-
-  @Nonnull
-  default IJsonObject add (@Nonnull final String sName, final long nValue)
-  {
-    return add (sName, JsonValue.create (nValue));
-  }
-
-  @Nonnull
-  default IJsonObject addAll (@Nullable final Map <String, ?> aMap)
-  {
-    if (aMap != null)
-      for (final var aEntry : aMap.entrySet ())
-        add (aEntry);
-    return this;
+    return PrimitiveConvererToIJson.INSTANCE;
   }
 
   /**
@@ -195,27 +65,6 @@ public interface IJsonObject extends
     if (aObject != null)
       for (final var aEntry : aObject)
         add (aEntry);
-    return this;
-  }
-
-  @Nonnull
-  default <VALUETYPE> IJsonObject addAllMapped (@Nullable final Map <String, ? extends VALUETYPE> aMap,
-                                                @Nonnull final Function <? super VALUETYPE, IJson> aValueMapper)
-  {
-    if (aMap != null)
-      for (final var aEntry : aMap.entrySet ())
-        add (aEntry.getKey (), aValueMapper.apply (aEntry.getValue ()));
-    return this;
-  }
-
-  @Nonnull
-  default <KEYTYPE, VALUETYPE> IJsonObject addAllMapped (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap,
-                                                         @Nonnull final Function <? super KEYTYPE, String> aKeyMapper,
-                                                         @Nonnull final Function <? super VALUETYPE, IJson> aValueMapper)
-  {
-    if (aMap != null)
-      for (final var aEntry : aMap.entrySet ())
-        add (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
     return this;
   }
 

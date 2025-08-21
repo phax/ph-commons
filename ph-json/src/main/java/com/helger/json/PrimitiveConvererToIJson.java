@@ -16,18 +16,18 @@
  */
 package com.helger.json;
 
-import com.helger.base.traits.IPrimitiveConverterTo;
+import com.helger.base.traits.ITypeConverterTo;
 import com.helger.json.convert.JsonConverter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * An instance of {@link IPrimitiveConverterTo} for the usage with JSON.
+ * An instance of {@link ITypeConverterTo} for the usage with JSON.
  *
  * @author Philip Helger
  */
-public class PrimitiveConvererToIJson implements IPrimitiveConverterTo <IJson>
+public class PrimitiveConvererToIJson implements ITypeConverterTo <IJson>
 {
   public static final PrimitiveConvererToIJson INSTANCE = new PrimitiveConvererToIJson ();
 
