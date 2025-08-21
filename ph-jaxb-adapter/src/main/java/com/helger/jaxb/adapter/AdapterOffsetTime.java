@@ -24,6 +24,7 @@ import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.datetime.web.PDTWebDateHelper;
 
@@ -32,13 +33,13 @@ import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * XML Adapter between OffsetTime and String. Use it in your binding file like
- * this:<br>
+ * XML Adapter between OffsetTime and String. Use it in your binding file like this:<br>
  * <code>&lt;xjc:javaType name="java.time.OffsetTime" xmlType="xsd:time" adapter="com.helger.jaxb.adapter.AdapterOffsetTime" /&gt;</code>
  *
  * @author Philip Helger
  * @since 10.0.0
  */
+@UsedInGeneratedCode
 public class AdapterOffsetTime extends XmlAdapter <String, OffsetTime>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AdapterOffsetTime.class);

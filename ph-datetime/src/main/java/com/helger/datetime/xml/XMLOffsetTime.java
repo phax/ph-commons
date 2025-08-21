@@ -51,6 +51,7 @@ import java.util.Objects;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.CGlobal;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
@@ -65,6 +66,7 @@ import jakarta.annotation.Nullable;
  * @since 10.1
  */
 @Immutable
+@UsedInGeneratedCode
 public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XMLOffsetTime>, Serializable
 {
   /**

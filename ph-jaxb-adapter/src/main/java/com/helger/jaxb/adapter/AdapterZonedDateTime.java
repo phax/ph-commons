@@ -23,19 +23,20 @@ import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.datetime.web.PDTWebDateHelper;
 
 import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * XML Adapter between ZonedDateTime and String. Use it in your binding file
- * like this:<br>
+ * XML Adapter between ZonedDateTime and String. Use it in your binding file like this:<br>
  * <code>&lt;xjc:javaType name="java.time.ZonedDateTime" xmlType="xsd:dateTime" adapter="com.helger.jaxb.adapter.AdapterZonedDateTime" /&gt;</code>
  *
  * @author Philip Helger
  * @since 9.4.8
  */
+@UsedInGeneratedCode
 public class AdapterZonedDateTime extends XmlAdapter <String, ZonedDateTime>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AdapterZonedDateTime.class);

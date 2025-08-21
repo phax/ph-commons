@@ -19,6 +19,7 @@ package com.helger.jaxb.adapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.datetime.web.PDTWebDateHelper;
 import com.helger.datetime.xml.XMLOffsetDate;
 
@@ -26,13 +27,13 @@ import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * XML Adapter between XMLOffsetDate and String. Use it in your binding file
- * like this:<br>
+ * XML Adapter between XMLOffsetDate and String. Use it in your binding file like this:<br>
  * <code>&lt;xjc:javaType name="com.helger.commons.datetime.XMLOffsetDate" xmlType="xsd:date" adapter="com.helger.jaxb.adapter.AdapterXMLOffsetDate" /&gt;</code>
  *
  * @author Philip Helger
  * @since 10.1.0
  */
+@UsedInGeneratedCode
 public class AdapterXMLOffsetDate extends XmlAdapter <String, XMLOffsetDate>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AdapterXMLOffsetDate.class);

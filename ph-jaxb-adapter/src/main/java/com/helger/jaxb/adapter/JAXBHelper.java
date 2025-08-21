@@ -43,6 +43,7 @@ import jakarta.xml.bind.JAXBElement;
  * @since 9.2.0
  */
 @Immutable
+@UsedInGeneratedCode
 public final class JAXBHelper
 {
   private JAXBHelper ()
@@ -81,7 +82,6 @@ public final class JAXBHelper
    * @return <code>true</code> if they are equal.
    * @since v12.0.0
    */
-  @UsedInGeneratedCode
   public static boolean equalJAXBElements (@Nullable final JAXBElement <?> aObj1, @Nullable final JAXBElement <?> aObj2)
   {
     if (EqualsHelper.identityEqual (aObj1, aObj2))
@@ -106,7 +106,6 @@ public final class JAXBHelper
    * @return <code>true</code> if they are equal.
    * @since v12.0.0
    */
-  @UsedInGeneratedCode
   public static boolean equalDOMNodes (@Nullable final Node aObj1, @Nullable final Node aObj2)
   {
     if (EqualsHelper.identityEqual (aObj1, aObj2))
@@ -176,7 +175,6 @@ public final class JAXBHelper
    * @return <code>true</code> if they are equal.
    * @since v12.0.0 RC2
    */
-  @UsedInGeneratedCode
   public static boolean equalListJAXBElements (@Nullable final List <JAXBElement <?>> aObj1,
                                                @Nullable final List <JAXBElement <?>> aObj2)
   {
@@ -194,7 +192,6 @@ public final class JAXBHelper
    * @return <code>true</code> if they are equal.
    * @since v12.0.0 RC2
    */
-  @UsedInGeneratedCode
   public static boolean equalListAnys (@Nullable final List <Object> aObj1, @Nullable final List <Object> aObj2)
   {
     return _listEquals (aObj1, aObj2, JAXBHelper::_anyEquals);
@@ -227,7 +224,6 @@ public final class JAXBHelper
    * @return the hashcode
    * @since v12.0.0
    */
-  @UsedInGeneratedCode
   public static int getHashCode (@Nullable final JAXBElement <?> aObj)
   {
     if (aObj == null)
@@ -250,7 +246,6 @@ public final class JAXBHelper
    * @return the hashcode
    * @since v12.0.0
    */
-  @UsedInGeneratedCode
   public static int getHashCode (@Nullable final Node aObj)
   {
     if (aObj == null)
@@ -292,13 +287,11 @@ public final class JAXBHelper
    * @return the hashcode
    * @since v12.0.0 RC2
    */
-  @UsedInGeneratedCode
   public static int getListJAXBElementHashCode (@Nullable final List <JAXBElement <?>> aList)
   {
     return _listHashCode (aList, JAXBHelper::getHashCode);
   }
 
-  @UsedInGeneratedCode
   public static int getListAnyHashCode (@Nullable final List <Object> aObj1)
   {
     return _listHashCode (aObj1, JAXBHelper::_getAnyHashCode);

@@ -59,6 +59,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
+@UsedInGeneratedCode
 public final class HashCodeGenerator implements IHashCodeGenerator
 {
   /**

@@ -21,19 +21,20 @@ import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.datetime.web.PDTWebDateHelper;
 
 import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * XML Adapter between LocalDate and String. Use it in your binding file like
- * this:<br>
+ * XML Adapter between LocalDate and String. Use it in your binding file like this:<br>
  * <code>&lt;xjc:javaType name="java.time.LocalDate" xmlType="xsd:date" adapter="com.helger.jaxb.adapter.AdapterLocalDate" /&gt;</code>
  *
  * @author Philip Helger
  * @since 9.4.7
  */
+@UsedInGeneratedCode
 public class AdapterLocalDate extends XmlAdapter <String, LocalDate>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AdapterLocalDate.class);

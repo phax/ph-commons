@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
  * @since 12.0.0 RC2
  */
 @Retention (RetentionPolicy.SOURCE)
-@Target ({ ElementType.CONSTRUCTOR, ElementType.METHOD })
+@Target ({ ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE })
 @Documented
 public @interface UsedInGeneratedCode
 {

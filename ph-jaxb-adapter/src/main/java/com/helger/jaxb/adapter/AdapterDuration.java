@@ -21,17 +21,19 @@ import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.UsedInGeneratedCode;
+
 import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * XML Adapter between Duration and String. Use it in your binding file like
- * this:<br>
+ * XML Adapter between Duration and String. Use it in your binding file like this:<br>
  * <code>&lt;xjc:javaType name="java.time.Duration" xmlType="xsd:duration" adapter="com.helger.jaxb.adapter.AdapterDuration" /&gt;</code>
  *
  * @author Philip Helger
  * @since 9.4.7
  */
+@UsedInGeneratedCode
 public class AdapterDuration extends XmlAdapter <String, Duration>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AdapterDuration.class);

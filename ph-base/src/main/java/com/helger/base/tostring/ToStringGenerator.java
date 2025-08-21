@@ -24,6 +24,7 @@ import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.functional.IBooleanPredicate;
 import com.helger.base.functional.ICharPredicate;
@@ -67,14 +68,16 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
+@UsedInGeneratedCode
 public final class ToStringGenerator
 {
   /** String to be emitted for <code>null</code> values */
   public static final String CONSTANT_NULL = "null";
   /** String to be emitted for <code>this</code> values */
   public static final String CONSTANT_THIS = "this";
-  /** String to be emited for password values */
+  /** String to be emitted for password values */
   public static final String CONSTANT_PASSWORD = "****";
+
   private static final int FIRST_FIELD = 1;
   private static final int APPENDED_CLOSING_BRACKET = 2;
 
