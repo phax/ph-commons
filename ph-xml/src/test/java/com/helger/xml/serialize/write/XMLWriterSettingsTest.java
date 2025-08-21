@@ -181,7 +181,7 @@ public final class XMLWriterSettingsTest
                                                                                       .setEmitNamespaces (bEmitNamespaces)
                                                                                       .setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
                               TestHelper.testEqualsImplementationWithEqualContentObject (aXWS, aXWS2);
-                              TestHelper.testHashcodeImplementationWithEqualContentObject (aXWS, aXWS2);
+                              TestHelper.testHashCodeImplementationWithEqualContentObject (aXWS, aXWS2);
                               // Main time is spent in the "toString" calls - so
                               // don't test it in the loop
                             }

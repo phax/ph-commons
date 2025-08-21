@@ -62,10 +62,10 @@ public final class TestHelper
   private static <DATATYPE> void _testEqualsImplementation (@Nonnull final DATATYPE aObject)
   {
     assertNotNull ("Passed object may not be null!", aObject);
-    assertTrue ("Passed objects are not equal", aObject.equals (aObject));
-    assertFalse ("Object may no be equal to String", aObject.equals ("any string"));
-    assertFalse ("Object may no be equal to String", "any string".equals (aObject));
-    assertFalse ("Object may no be equal to null", aObject.equals (null));
+    assertEquals ("Passed objects are not equal", aObject, aObject);
+    assertNotEquals ("Object may no be equal to String", aObject, "any string");
+    assertNotEquals ("Object may no be equal to String", "any string", aObject);
+    assertNotNull ("Object may no be equal to null", aObject);
   }
 
   public static <DATATYPE> void testEqualsImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
@@ -74,8 +74,8 @@ public final class TestHelper
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
-    assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
-    assertTrue ("Passed objects are not identical!", aObject2.equals (aObject));
+    assertEquals ("Passed objects are not identical!", aObject, aObject2);
+    assertEquals ("Passed objects are not identical!", aObject2, aObject);
   }
 
   public static <DATATYPE> void testEqualsImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
@@ -84,34 +84,34 @@ public final class TestHelper
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
-    assertFalse ("Passed objects are identical!", aObject.equals (aObject2));
-    assertFalse ("Passed objects are identical!", aObject2.equals (aObject));
+    assertNotEquals ("Passed objects are identical!", aObject, aObject2);
+    assertNotEquals ("Passed objects are identical!", aObject2, aObject);
   }
 
-  private static <DATATYPE> void _testHashcodeImplementation (@Nonnull final DATATYPE aObject)
+  private static <DATATYPE> void _testHashCodeImplementation (@Nonnull final DATATYPE aObject)
   {
     assertNotNull ("Passed object may not be null!", aObject);
     assertEquals ("hashCode() invocations must be consistent", aObject.hashCode (), aObject.hashCode ());
     assertNotEquals ("hashCode() may not be 0", aObject.hashCode (), 0);
   }
 
-  public static <DATATYPE> void testHashcodeImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
+  public static <DATATYPE> void testHashCodeImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
                                                                                   @Nonnull final DATATYPE aObject2)
   {
-    _testHashcodeImplementation (aObject);
-    _testHashcodeImplementation (aObject2);
-    assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
+    _testHashCodeImplementation (aObject);
+    _testHashCodeImplementation (aObject2);
+    assertEquals ("Passed objects are not identical!", aObject, aObject2);
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
     assertEquals ("hashCode() invocations must be consistent", aObject.hashCode (), aObject2.hashCode ());
     assertEquals ("hashCode() invocations must be consistent", aObject2.hashCode (), aObject.hashCode ());
   }
 
-  public static <DATATYPE> void testHashcodeImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
+  public static <DATATYPE> void testHashCodeImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
                                                                                       @Nonnull final DATATYPE aObject2)
   {
-    _testHashcodeImplementation (aObject1);
-    _testHashcodeImplementation (aObject2);
-    assertFalse ("Passed objects are identical!", aObject1.equals (aObject2));
+    _testHashCodeImplementation (aObject1);
+    _testHashCodeImplementation (aObject2);
+    assertNotEquals ("Passed objects are identical!", aObject1, aObject2);
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject1, aObject2));
     final int nHash1 = aObject1.hashCode ();
     final int nHash2 = aObject2.hashCode ();
@@ -129,7 +129,7 @@ public final class TestHelper
     assertNotNull ("Passed object may not be null!", aObject);
     assertNotNull ("toString() may not return null!", aObject.toString ());
     assertTrue ("toString() may not return an empty string!", aObject.toString ().length () > 0);
-    assertTrue ("toString() invocations must be consistent", aObject.toString ().equals (aObject.toString ()));
+    assertEquals ("toString() invocations must be consistent", aObject.toString (), aObject.toString ());
   }
 
   public static <DATATYPE> void testToStringImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
@@ -137,7 +137,7 @@ public final class TestHelper
   {
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
-    assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
+    assertEquals ("Passed objects are not identical!", aObject, aObject2);
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
   }
 
@@ -146,7 +146,7 @@ public final class TestHelper
   {
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
-    assertFalse ("Passed objects are identical!", aObject.equals (aObject2));
+    assertNotEquals ("Passed objects are identical!", aObject, aObject2);
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
   }
 
@@ -165,7 +165,7 @@ public final class TestHelper
                                                                                  @Nonnull final DATATYPE aObject2)
   {
     testEqualsImplementationWithEqualContentObject (aObject1, aObject2);
-    testHashcodeImplementationWithEqualContentObject (aObject1, aObject2);
+    testHashCodeImplementationWithEqualContentObject (aObject1, aObject2);
     testToStringImplementationWithEqualContentObject (aObject1, aObject2);
   }
 
@@ -184,7 +184,7 @@ public final class TestHelper
                                                                                      @Nonnull final DATATYPE aObject2)
   {
     testEqualsImplementationWithDifferentContentObject (aObject1, aObject2);
-    testHashcodeImplementationWithDifferentContentObject (aObject1, aObject2);
+    testHashCodeImplementationWithDifferentContentObject (aObject1, aObject2);
     testToStringImplementationWithDifferentContentObject (aObject1, aObject2);
   }
 
@@ -199,8 +199,7 @@ public final class TestHelper
   {
     final Object aClone = aCloneable.getClone ();
     assertNotNull ("Clone returned a null object", aClone);
-    assertTrue ("Clone returned a different class than the original one",
-                aClone.getClass ().equals (aCloneable.getClass ()));
+    assertEquals ("Clone returned a different class than the original one", aClone.getClass (), aCloneable.getClass ());
     testDefaultImplementationWithEqualContentObject (aCloneable, aClone);
   }
 
@@ -218,8 +217,9 @@ public final class TestHelper
     {
       final Object aClone = aCloneable.clone ();
       assertNotNull ("Clone returned a null object", aClone);
-      assertTrue ("Clone returned a different class than the original one",
-                  aClone.getClass ().equals (aCloneable.getClass ()));
+      assertEquals ("Clone returned a different class than the original one",
+                    aClone.getClass (),
+                    aCloneable.getClass ());
       testDefaultImplementationWithEqualContentObject (aCloneable, aClone);
     }
     catch (final CloneNotSupportedException ex)
