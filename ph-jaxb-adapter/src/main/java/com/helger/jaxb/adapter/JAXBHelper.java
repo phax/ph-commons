@@ -227,13 +227,12 @@ public final class JAXBHelper
     if (aObj == null)
       return HashCodeCalculator.HASHCODE_NULL;
 
-    int ret = HashCodeCalculator.INITIAL_HASHCODE;
-    ret = HashCodeCalculator.append (ret, aObj.getDeclaredType ());
-    ret = HashCodeCalculator.append (ret, aObj.getName ());
-    ret = HashCodeCalculator.append (ret, aObj.getScope ());
-    ret = HashCodeCalculator.append (ret, aObj.isNil ());
-    ret = HashCodeCalculator.append (ret, _getAnyHashCode (aObj.getValue ()));
-    return ret;
+    return new HashCodeGenerator (aObj.getClass ()).append (aObj.getDeclaredType ())
+                                                   .append (aObj.getName ())
+                                                   .append (aObj.getScope ())
+                                                   .append (aObj.isNil ())
+                                                   .append (_getAnyHashCode (aObj.getValue ()))
+                                                   .getHashCode ();
   }
 
   /**
