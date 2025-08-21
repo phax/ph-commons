@@ -22,10 +22,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
 import com.helger.base.callback.CallbackList;
-import com.helger.base.callback.ICallback;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
-import com.helger.base.state.EContinue;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
@@ -47,39 +45,6 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
                                      ICommonsMap <KEYTYPE, VALUETYPE>,
                                      IGetterByKeyTrait <KEYTYPE>
 {
-  @FunctionalInterface
-  interface IBeforeSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
-  {
-    /**
-     * Invoked before a new value is set
-     *
-     * @param aName
-     *        The attribute key. May not be <code>null</code>.
-     * @param aNewValue
-     *        The new value to be set. May be <code>null</code>.
-     * @return {@link EContinue#CONTINUE} if the value can be set, <code>false</code> if the value
-     *         cannot be set.
-     */
-    @Nonnull
-    EContinue beforeSetValue (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aNewValue);
-  }
-
-  @FunctionalInterface
-  interface IAfterSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
-  {
-    /**
-     * Method that is invoked after a value changed.
-     *
-     * @param aName
-     *        The changed key. Neither <code>null</code> nor empty.
-     * @param aOldValue
-     *        The old value. May be <code>null</code>.
-     * @param aNewValue
-     *        The new value. May be <code>null</code> in which case the value was removed.
-     */
-    void afterSetValue (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aOldValue, @Nullable VALUETYPE aNewValue);
-  }
-
   /**
    * Get the attribute value associated to the given attribute name.
    *
