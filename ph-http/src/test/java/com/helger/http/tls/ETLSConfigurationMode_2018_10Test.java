@@ -40,7 +40,7 @@ public final class ETLSConfigurationMode_2018_10Test
     for (final ETLSConfigurationMode_2018_10 e : ETLSConfigurationMode_2018_10.values ())
     {
       assertNotNull (e.getID ());
-      assertTrue (StringHelper.hasText (e.getID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getID ()));
       assertSame (e, ETLSConfigurationMode_2018_10.getFromIDOrNull (e.getID ()));
       assertTrue (e.getAllCipherSuites ().isNotEmpty ());
       assertTrue (e.getAllCipherSuitesAsArray ().length > 0);
