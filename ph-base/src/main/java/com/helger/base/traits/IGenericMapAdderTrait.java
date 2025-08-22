@@ -155,7 +155,16 @@ public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTra
   }
 
   @Nonnull
-  default IMPLTYPE addAll (@Nullable final Map <? extends KEYTYPE, ?> aMap)
+  default IMPLTYPE addAll (@Nullable final Iterable <Map.Entry <KEYTYPE, VALUETYPE>> aIterable)
+  {
+    if (aIterable != null)
+      for (final var aEntry : aIterable)
+        add (aEntry.getKey (), aEntry.getValue ());
+    return thisAsT ();
+  }
+
+  @Nonnull
+  default IMPLTYPE addAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (aMap != null)
       for (final var aEntry : aMap.entrySet ())
@@ -164,7 +173,16 @@ public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTra
   }
 
   @Nonnull
-  default IMPLTYPE addAll (@Nullable final Iterable <Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aIterable)
+  default IMPLTYPE addAllAny (@Nullable final Map <? extends KEYTYPE, ?> aMap)
+  {
+    if (aMap != null)
+      for (final var aEntry : aMap.entrySet ())
+        add (aEntry);
+    return thisAsT ();
+  }
+
+  @Nonnull
+  default IMPLTYPE addAllAny (@Nullable final Iterable <Map.Entry <KEYTYPE, ?>> aIterable)
   {
     if (aIterable != null)
       for (final var aEntry : aIterable)

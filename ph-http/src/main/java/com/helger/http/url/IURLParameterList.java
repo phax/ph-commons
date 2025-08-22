@@ -18,13 +18,14 @@ package com.helger.http.url;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.numeric.MathHelper;
-import com.helger.base.traits.IGenericImplTrait;
+import com.helger.base.traits.ITypeConverterTo;
+import com.helger.base.traits.ITypedMapAdderTrait;
+import com.helger.typeconvert.impl.TypeConverterToAny;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -36,46 +37,30 @@ import jakarta.annotation.Nullable;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE>> extends IGenericImplTrait <IMPLTYPE>
+public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE>> extends
+                                   ITypedMapAdderTrait <String, String, IMPLTYPE>
 {
+  TypeConverterToAny <String> TC = TypeConverterToAny.of (String.class);
+
+  @Nonnull
+  default ITypeConverterTo <String> getTypeConverterTo ()
+  {
+    return TC;
+  }
+
   boolean add (@Nonnull URLParameter aURLParam);
 
   /**
    * Add a parameter without a value
    *
    * @param sName
-   *        The name of the parameter. May neither be <code>null</code> nor
-   *        empty.
+   *        The name of the parameter. May neither be <code>null</code> nor empty.
    * @return this
    */
   @Nonnull
   default IMPLTYPE add (@Nonnull @Nonempty final String sName)
   {
     return add (sName, (String) null);
-  }
-
-  @Nonnull
-  default IMPLTYPE add (@Nonnull final Map.Entry <String, String> aEntry)
-  {
-    return add (aEntry.getKey (), aEntry.getValue ());
-  }
-
-  @Nonnull
-  default IMPLTYPE add (@Nonnull @Nonempty final String sName, final boolean bValue)
-  {
-    return add (sName, Boolean.toString (bValue));
-  }
-
-  @Nonnull
-  default IMPLTYPE add (@Nonnull @Nonempty final String sName, final int nValue)
-  {
-    return add (sName, Integer.toString (nValue));
-  }
-
-  @Nonnull
-  default IMPLTYPE add (@Nonnull @Nonempty final String sName, final long nValue)
-  {
-    return add (sName, Long.toString (nValue));
   }
 
   @Nonnull
@@ -96,8 +81,7 @@ public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE
    * Add a parameter with a random long value
    *
    * @param sName
-   *        The name of the parameter. May neither be <code>null</code> nor
-   *        empty.
+   *        The name of the parameter. May neither be <code>null</code> nor empty.
    * @return this
    * @since 9.0.0
    */
@@ -113,11 +97,10 @@ public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE
    * @param sName
    *        Parameter name. May neither be <code>null</code> nor empty.
    * @param sValue
-   *        Parameter value. May not be <code>null</code> if the predicate
-   *        evaluates to <code>true</code>.
+   *        Parameter value. May not be <code>null</code> if the predicate evaluates to
+   *        <code>true</code>.
    * @param aFilter
-   *        The predicate to be evaluated on the value. May not be
-   *        <code>null</code>.
+   *        The predicate to be evaluated on the value. May not be <code>null</code>.
    * @return this for chaining
    */
   @Nonnull
@@ -144,15 +127,6 @@ public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE
   {
     if (sValue != null)
       add (sName, sValue);
-    return thisAsT ();
-  }
-
-  @Nonnull
-  default IMPLTYPE addAll (@Nullable final Map <String, String> aParams)
-  {
-    if (aParams != null)
-      for (final Map.Entry <String, String> aEntry : aParams.entrySet ())
-        add (aEntry);
     return thisAsT ();
   }
 

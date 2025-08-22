@@ -21,6 +21,7 @@ import java.util.Locale;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.CGlobal;
 import com.helger.base.numeric.MathHelper;
 
@@ -69,6 +70,7 @@ public final class StringCount
   {}
 
   @Nonnegative
+  @UsedInGeneratedCode
   public static int getCharCount (@Nullable final String s, final char cSearch)
   {
     return s == null ? 0 : getCharCount (s.toCharArray (), cSearch);

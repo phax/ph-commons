@@ -49,7 +49,7 @@ public interface IJsonArray extends
   @Nonnull
   default ITypeConverterTo <IJson> getTypeConverterTo ()
   {
-    return PrimitiveConvererToIJson.INSTANCE;
+    return TypeConverterToIJson.INSTANCE;
   }
 
   @Nonnull

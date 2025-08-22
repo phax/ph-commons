@@ -29,6 +29,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -1775,6 +1776,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
+  @UsedInGeneratedCode
   public static boolean contains (@Nullable final int [] aValues, final int aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;

@@ -27,11 +27,11 @@ import jakarta.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public class PrimitiveConvererToIJson implements ITypeConverterTo <IJson>
+public class TypeConverterToIJson implements ITypeConverterTo <IJson>
 {
-  public static final PrimitiveConvererToIJson INSTANCE = new PrimitiveConvererToIJson ();
+  public static final TypeConverterToIJson INSTANCE = new TypeConverterToIJson ();
 
-  protected PrimitiveConvererToIJson ()
+  protected TypeConverterToIJson ()
   {}
 
   @Nonnull
