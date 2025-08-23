@@ -5,10 +5,11 @@ import java.util.Map;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.builder.IBuilder;
-import com.helger.base.string.StringHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
-import com.helger.url.param.IURLParameterList;
+import com.helger.url.param.URLParameter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -44,12 +45,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
   {
     m_aData.params ().removeAll ();
     if (a != null)
-      m_aData.params ().addAll (a);
+      for (final var e : a.entrySet ())
+        addParam (e.getKey (), e.getValue ());
     return this;
   }
 
   @Nonnull
-  public URLBuilder params (@Nullable final IURLParameterList a)
+  public URLBuilder params (@Nullable final ICommonsList <URLParameter> a)
   {
     m_aData.setParams (a);
     return this;
@@ -76,8 +78,14 @@ public class URLBuilder implements IBuilder <ISimpleURL>
   @Nonnull
   public URLBuilder addParam (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
-    if (StringHelper.isNotEmpty (sName))
-      m_aData.params ().add (sName, sValue);
+    return addParam (new URLParameter (sName, sValue));
+  }
+
+  @Nonnull
+  public URLBuilder addParam (@Nonnull final URLParameter aParam)
+  {
+    ValueEnforcer.notNull (aParam, "Param");
+    m_aData.params ().add (aParam);
     return this;
   }
 

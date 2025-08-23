@@ -20,7 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,13 +35,13 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.url.CURL;
 import com.helger.base.url.URLHelper;
 import com.helger.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.url.codec.URLParameterDecoder;
 import com.helger.url.codec.URLParameterEncoder;
 import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
-import com.helger.url.param.IURLParameterList;
 import com.helger.url.param.URLParameter;
-import com.helger.url.param.URLParameterList;
 import com.helger.url.protocol.IURLProtocol;
 import com.helger.url.protocol.URLProtocolRegistry;
 
@@ -58,7 +58,7 @@ public final class SimpleURLHelper
 
   public static void parseQueryParameters (@Nullable final String sQueryString,
                                            @Nullable final IDecoder <String, String> aParameterDecoder,
-                                           @Nonnull final BiConsumer <String, String> aParameterHandler)
+                                           @Nonnull final Consumer <URLParameter> aParameterHandler)
   {
     if (StringHelper.isNotEmpty (sQueryString))
       for (final String sKeyValuePair : StringHelper.getExploded (CURL.AMPERSAND, sQueryString))
@@ -76,20 +76,21 @@ public final class SimpleURLHelper
             if (aParameterDecoder != null)
             {
               // Now decode the name and the value
-              aParameterHandler.accept (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
+              aParameterHandler.accept (new URLParameter (aParameterDecoder.getDecoded (sKey),
+                                                          aParameterDecoder.getDecoded (sValue)));
             }
             else
-              aParameterHandler.accept (sKey, sValue);
+              aParameterHandler.accept (new URLParameter (sKey, sValue));
           }
         }
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static URLParameterList getParsedQueryParameters (@Nullable final String sQueryString,
-                                                           @Nullable final IDecoder <String, String> aParameterDecoder)
+  public static ICommonsList <URLParameter> getParsedQueryParameters (@Nullable final String sQueryString,
+                                                                      @Nullable final IDecoder <String, String> aParameterDecoder)
   {
-    final URLParameterList ret = new URLParameterList ();
+    final ICommonsList <URLParameter> ret = new CommonsArrayList <> ();
     parseQueryParameters (sQueryString, aParameterDecoder, ret::add);
     return ret;
   }
@@ -178,7 +179,7 @@ public final class SimpleURLHelper
    * @return <code>null</code> if no parameter is present.
    */
   @Nullable
-  public static String getQueryParametersAsString (@Nullable final IURLParameterList aQueryParams,
+  public static String getQueryParametersAsString (@Nullable final List <URLParameter> aQueryParams,
                                                    @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
     if (CollectionHelper.isEmpty (aQueryParams))
@@ -217,7 +218,7 @@ public final class SimpleURLHelper
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final IURLParameterList aQueryParams,
+                                     @Nullable final ICommonsList <URLParameter> aQueryParams,
                                      @Nullable final String sAnchor,
                                      @Nullable final Charset aParameterCharset)
   {

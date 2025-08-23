@@ -22,7 +22,8 @@ import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
-import com.helger.url.param.IURLParameterList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.url.param.URLParameter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -46,14 +47,14 @@ public interface IURLData
    */
   @Nonnull
   @ReturnsImmutableObject
-  IURLParameterList params ();
+  ICommonsList <URLParameter> params ();
 
   /**
    * @return A copy of the list of all query string parameters. May not be <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
-  IURLParameterList getAllParams ();
+  ICommonsList <URLParameter> getAllParams ();
 
   /**
    * @return The name of the anchor (everything after the "#") or <code>null</code> if none is

@@ -25,9 +25,10 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
-import com.helger.url.param.IURLParameterList;
+import com.helger.url.param.URLParameter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -56,14 +57,14 @@ public class ReadOnlyURL implements ISimpleURL
 
   @Nonnull
   @ReturnsMutableCopy
-  public final IURLParameterList params ()
+  public final ICommonsList <URLParameter> params ()
   {
     return m_aData.params ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public final IURLParameterList getAllParams ()
+  public final ICommonsList <URLParameter> getAllParams ()
   {
     return m_aData.params ().getClone ();
   }
@@ -89,7 +90,7 @@ public class ReadOnlyURL implements ISimpleURL
   }
 
   @Nonnull
-  public final ReadOnlyURL getWithParams (@Nullable final IURLParameterList aParams)
+  public final ReadOnlyURL getWithParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
     if (EqualsHelper.equals (m_aData.params (), aParams))
       return this;

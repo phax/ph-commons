@@ -26,10 +26,11 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.url.ISimpleURL;
 import com.helger.url.codec.URLCoder;
-import com.helger.url.param.IURLParameterList;
-import com.helger.url.param.URLParameterList;
+import com.helger.url.param.URLParameter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -50,14 +51,14 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
   public static final URLData EMPTY_URL_DATA = new URLData ("", null, null, DEFAULT_CHARSET);
 
   private String m_sPath;
-  private URLParameterList m_aParams;
+  private ICommonsList <URLParameter> m_aParams;
   private String m_sAnchor;
   private Charset m_aCharset;
 
   public URLData (@Nonnull final IURLData aOther)
   {
     // Create a copy of the parameters
-    this (aOther.getPath (), new URLParameterList (aOther.getAllParams ()), aOther.getAnchor (), aOther.getCharset ());
+    this (aOther.getPath (), aOther.getAllParams (), aOther.getAnchor (), aOther.getCharset ());
   }
 
   public URLData (@Nonnull final URLData aOther)
@@ -67,14 +68,14 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
   }
 
   public URLData (@Nonnull final String sPath,
-                  @Nullable final URLParameterList aParams,
+                  @Nullable final ICommonsList <URLParameter> aParams,
                   @Nullable final String sAnchor,
                   @Nullable final Charset aCharset)
   {
     ValueEnforcer.notNull (sPath, "Path");
 
     m_sPath = sPath;
-    m_aParams = aParams != null ? aParams : new URLParameterList ();
+    m_aParams = aParams != null ? aParams : new CommonsArrayList <> ();
     m_sAnchor = sAnchor;
     m_aCharset = aCharset;
   }
@@ -95,22 +96,22 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
 
   @Nonnull
   @ReturnsMutableObject
-  public URLParameterList params ()
+  public ICommonsList <URLParameter> params ()
   {
     return m_aParams;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public URLParameterList getAllParams ()
+  public ICommonsList <URLParameter> getAllParams ()
   {
     return m_aParams.getClone ();
   }
 
   @Nonnull
-  public URLData setParams (@Nullable final IURLParameterList aParams)
+  public URLData setParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
-    m_aParams = aParams != null ? new URLParameterList (aParams) : new URLParameterList ();
+    m_aParams.setAll (aParams);
     return this;
   }
 
@@ -174,7 +175,7 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
   public String toString ()
   {
     return new ToStringGenerator (this).append ("Path", m_sPath)
-                                       .appendIf ("Params", m_aParams, IURLParameterList::isNotEmpty)
+                                       .appendIf ("Params", m_aParams, ICommonsList::isNotEmpty)
                                        .appendIfNotNull ("Anchor", m_sAnchor)
                                        .appendIfNotNull ("Charset", m_aCharset)
                                        .getToString ();

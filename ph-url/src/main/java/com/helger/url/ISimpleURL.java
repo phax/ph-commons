@@ -21,8 +21,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 import com.helger.base.url.URLHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.url.data.IURLData;
-import com.helger.url.param.IURLParameterList;
+import com.helger.url.param.URLParameter;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -39,7 +40,7 @@ public interface ISimpleURL extends IURLData
   ISimpleURL getWithPath (@Nonnull String sPath);
 
   @Nonnull
-  ISimpleURL getWithParams (@Nullable IURLParameterList aParams);
+  ISimpleURL getWithParams (@Nullable ICommonsList <URLParameter> aParams);
 
   @Nonnull
   ISimpleURL getWithAnchor (@Nullable String sAnchor);

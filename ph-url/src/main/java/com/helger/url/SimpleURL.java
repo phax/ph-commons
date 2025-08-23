@@ -32,13 +32,12 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.url.codec.URLParameterDecoder;
 import com.helger.url.data.IMutableURLData;
 import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
-import com.helger.url.param.IURLParameterList;
 import com.helger.url.param.URLParameter;
-import com.helger.url.param.URLParameterList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -104,7 +103,9 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
                     @Nullable final String sAnchor)
   {
     this (sHref);
-    m_aData.params ().addAll (aParams);
+    if (aParams != null)
+      for (final var e : aParams.entrySet ())
+        add (e.getKey (), e.getValue ());
     if (StringHelper.isNotEmpty (sAnchor))
       m_aData.setAnchor (sAnchor);
   }
@@ -139,20 +140,20 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
 
   @Nonnull
   @ReturnsMutableObject
-  public final URLParameterList params ()
+  public final ICommonsList <URLParameter> params ()
   {
     return m_aData.params ();
   }
 
   @Nonnull
-  public SimpleURL setParams (@Nullable final IURLParameterList aParams)
+  public SimpleURL setParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
     m_aData.setParams (aParams);
     return this;
   }
 
   @Nonnull
-  public SimpleURL withParams (@Nonnull final Consumer <? super URLParameterList> aParamConsumer)
+  public SimpleURL withParams (@Nonnull final Consumer <? super ICommonsList <URLParameter>> aParamConsumer)
   {
     ValueEnforcer.notNull (aParamConsumer, "ParamConsumer");
     aParamConsumer.accept (m_aData.params ());
@@ -162,28 +163,29 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
   @Nonnull
   public SimpleURL add (@Nonnull @Nonempty final String sParamName)
   {
-    m_aData.params ().add (sParamName);
+    m_aData.params ().add (new URLParameter (sParamName));
     return this;
   }
 
   @Nonnull
   public SimpleURL add (@Nonnull @Nonempty final String sParamName, final boolean bParamValue)
   {
-    m_aData.params ().add (sParamName, bParamValue);
+    add (sParamName, Boolean.toString (bParamValue));
     return this;
   }
 
   @Nonnull
   public SimpleURL add (@Nonnull @Nonempty final String sParamName, @Nullable final String sParamValue)
   {
-    m_aData.params ().add (sParamName, sParamValue);
+    m_aData.params ().add (new URLParameter (sParamName, StringHelper.getNotNull (sParamValue)));
     return this;
   }
 
   @Nonnull
   public SimpleURL addIfNotNull (@Nonnull @Nonempty final String sParamName, @Nullable final String sParamValue)
   {
-    m_aData.params ().addIfNotNull (sParamName, sParamValue);
+    if (sParamValue != null)
+      add (sParamName, sParamValue);
     return this;
   }
 
@@ -192,14 +194,17 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
                           @Nullable final String sParamValue,
                           @Nonnull final Predicate <String> aPredicate)
   {
-    m_aData.params ().addIf (sParamName, sParamValue, aPredicate);
+    if (aPredicate.test (sParamValue))
+      add (sParamName, sParamValue);
     return this;
   }
 
   @Nonnull
   public SimpleURL addAll (@Nullable final Map <String, String> aParams)
   {
-    m_aData.params ().addAll (aParams);
+    if (aParams != null)
+      for (final var e : aParams.entrySet ())
+        add (e.getKey (), e.getValue ());
     return this;
   }
 
@@ -238,7 +243,7 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
   }
 
   @Nonnull
-  public final SimpleURL getWithParams (@Nullable final IURLParameterList aParams)
+  public final SimpleURL getWithParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
     if (EqualsHelper.equals (m_aData.params (), aParams))
       return this;

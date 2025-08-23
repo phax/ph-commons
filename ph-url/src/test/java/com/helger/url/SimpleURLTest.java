@@ -190,12 +190,10 @@ public final class SimpleURLTest
     aURL = new SimpleURL ("#", new StringMap ().add ("a", ""));
     assertEquals ("?a", aURL.getAsString ());
     // 4e. only params
-    aURL = new SimpleURL ("#");
-    aURL.params ().add ("a");
+    aURL = new SimpleURL ("#").add ("a");
     assertEquals ("?a", aURL.getAsString ());
     // 4f. only params
-    aURL = new SimpleURL ("#");
-    aURL.params ().add ("a", (String) null);
+    aURL = new SimpleURL ("#").add ("a", (String) null);
     assertEquals ("?a", aURL.getAsString ());
 
     // anchor
