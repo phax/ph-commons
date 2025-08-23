@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,11 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.url.CURL;
 import com.helger.base.url.URLHelper;
 import com.helger.collection.CollectionHelper;
+import com.helger.url.codec.URLParameterDecoder;
+import com.helger.url.codec.URLParameterEncoder;
+import com.helger.url.param.IURLParameterList;
+import com.helger.url.param.URLParameter;
+import com.helger.url.param.URLParameterList;
 import com.helger.url.protocol.IURLProtocol;
 import com.helger.url.protocol.URLProtocolRegistry;
 
@@ -48,21 +54,11 @@ public final class SimpleURLHelper
   private SimpleURLHelper ()
   {}
 
-  @Nonnull
-  @ReturnsMutableCopy
-  public static URLParameterList getParsedQueryParameters (@Nullable final String sQueryString)
+  public static void parseQueryParameters (@Nullable final String sQueryString,
+                                           @Nullable final IDecoder <String, String> aParameterDecoder,
+                                           @Nonnull final BiConsumer <String, String> aParameterHandler)
   {
-    return getParsedQueryParameters (sQueryString, null);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static URLParameterList getParsedQueryParameters (@Nullable final String sQueryString,
-                                                           @Nullable final IDecoder <String, String> aParameterDecoder)
-  {
-    final URLParameterList aMap = new URLParameterList ();
     if (StringHelper.isNotEmpty (sQueryString))
-    {
       for (final String sKeyValuePair : StringHelper.getExploded (CURL.AMPERSAND, sQueryString))
         if (sKeyValuePair.length () > 0)
         {
@@ -74,23 +70,32 @@ public final class SimpleURLHelper
             final String sValue = aParts.size () == 2 ? aParts.get (1) : "";
             if (sValue == null)
               throw new IllegalArgumentException ("parameter value may not be null");
+
             if (aParameterDecoder != null)
             {
               // Now decode the name and the value
-              aMap.add (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
+              aParameterHandler.accept (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
             }
             else
-              aMap.add (sKey, sValue);
+              aParameterHandler.accept (sKey, sValue);
           }
         }
-    }
-    return aMap;
   }
 
   @Nonnull
-  public static ISimpleURL getAsURLData (@Nonnull final String sHref)
+  @ReturnsMutableCopy
+  public static URLParameterList getParsedQueryParameters (@Nullable final String sQueryString,
+                                                           @Nullable final IDecoder <String, String> aParameterDecoder)
   {
-    return getAsURLData (sHref, null);
+    final URLParameterList ret = new URLParameterList ();
+    parseQueryParameters (sQueryString, aParameterDecoder, ret::add);
+    return ret;
+  }
+
+  @Nonnull
+  public static URLData getAsURLData (@Nonnull final String sHref, @Nullable final Charset aCharset)
+  {
+    return getAsURLData (sHref, aCharset, aCharset == null ? null : new URLParameterDecoder (aCharset));
   }
 
   /**
@@ -98,13 +103,16 @@ public final class SimpleURLHelper
    *
    * @param sHref
    *        The URL to be parsed
+   * @param aCharset
+   *        The URL charset used.
    * @param aParameterDecoder
    *        The parameter decoder to use. May be <code>null</code>.
-   * @return the corresponding {@link ISimpleURL} representation of the passed URL
+   * @return the corresponding {@link URLData} representation of the passed URL
    */
   @Nonnull
-  public static ISimpleURL getAsURLData (@Nonnull final String sHref,
-                                         @Nullable final IDecoder <String, String> aParameterDecoder)
+  public static URLData getAsURLData (@Nonnull final String sHref,
+                                      @Nullable final Charset aCharset,
+                                      @Nullable final IDecoder <String, String> aParameterDecoder)
   {
     ValueEnforcer.notNull (sHref, "Href");
 
@@ -113,7 +121,7 @@ public final class SimpleURLHelper
     // Is it a protocol that does not allow for query parameters?
     final IURLProtocol eProtocol = URLProtocolRegistry.getInstance ().getProtocol (sRealHref);
     if (eProtocol != null && !eProtocol.allowsForQueryParameters ())
-      return new URLData (sRealHref, null, null);
+      return new URLData (sRealHref, null, null, URLData.DEFAULT_CHARSET);
 
     if (GlobalDebug.isDebugMode ())
       if (eProtocol != null)
@@ -126,9 +134,8 @@ public final class SimpleURLHelper
           LOGGER.warn ("java.net.URL claims URL '" + sRealHref + "' to be invalid: " + ex.getMessage ());
         }
 
-    String sPath;
-    URLParameterList aParams = null;
-    String sAnchor;
+    final URLData ret = URLData.createEmpty ();
+    ret.setCharset (aCharset);
 
     // First get the anchor out
     String sRemainingHref = sRealHref;
@@ -136,11 +143,10 @@ public final class SimpleURLHelper
     if (nIndexAnchor >= 0)
     {
       // Extract anchor
-      sAnchor = sRemainingHref.substring (nIndexAnchor + 1).trim ();
+      ret.setAnchor (sRemainingHref.substring (nIndexAnchor + 1).trim ());
       sRemainingHref = sRemainingHref.substring (0, nIndexAnchor).trim ();
     }
-    else
-      sAnchor = null;
+
     // Find parameters
     final int nQuestionIndex = sRemainingHref.indexOf (CURL.QUESTIONMARK);
     if (nQuestionIndex >= 0)
@@ -149,14 +155,14 @@ public final class SimpleURLHelper
       final String sQueryString = sRemainingHref.substring (nQuestionIndex + 1).trim ();
 
       // Maybe empty, if the URL ends with a '?'
-      if (StringHelper.isNotEmpty (sQueryString))
-        aParams = getParsedQueryParameters (sQueryString, aParameterDecoder);
+      parseQueryParameters (sQueryString, aParameterDecoder, ret.params ()::add);
 
-      sPath = sRemainingHref.substring (0, nQuestionIndex).trim ();
+      ret.setPath (sRemainingHref.substring (0, nQuestionIndex).trim ());
     }
     else
-      sPath = sRemainingHref;
-    return new URLData (sPath, aParams, sAnchor);
+      ret.setPath (sRemainingHref);
+
+    return ret;
   }
 
   /**
@@ -170,7 +176,7 @@ public final class SimpleURLHelper
    * @return <code>null</code> if no parameter is present.
    */
   @Nullable
-  public static String getQueryParametersAsString (@Nullable final IURLParameterList <?> aQueryParams,
+  public static String getQueryParametersAsString (@Nullable final IURLParameterList aQueryParams,
                                                    @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
     if (CollectionHelper.isEmpty (aQueryParams))
@@ -189,31 +195,9 @@ public final class SimpleURLHelper
   }
 
   @Nonnull
-  public static String getURLString (@Nonnull final ISimpleURL aURL, @Nullable final Charset aParameterCharset)
+  public static String getURLString (@Nonnull final IURLData aURL)
   {
-    return getURLString (aURL.getPath (), aURL.params (), aURL.getAnchor (), aParameterCharset);
-  }
-
-  /**
-   * Get the final representation of the URL using the specified elements.
-   *
-   * @param sPath
-   *        The main path. May be <code>null</code>.
-   * @param aQueryParams
-   *        The list of query parameters to be appended. May be <code>null</code> .
-   * @param sAnchor
-   *        An optional anchor to be added. May be <code>null</code>.
-   * @param aQueryParameterEncoder
-   *        The parameters encoding to be used. May be <code>null</code>.
-   * @return May be <code>null</code> if path, anchor and parameters are <code>null</code>.
-   */
-  @Nullable
-  public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final IURLParameterList <?> aQueryParams,
-                                     @Nullable final String sAnchor,
-                                     @Nullable final IEncoder <String, String> aQueryParameterEncoder)
-  {
-    return URLHelper.getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
+    return getURLString (aURL.getPath (), aURL.params (), aURL.getAnchor (), aURL.getCharset ());
   }
 
   /**
@@ -226,17 +210,19 @@ public final class SimpleURLHelper
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
    * @param aParameterCharset
-   *        If not <code>null</code> the parameters are encoded using this charset.
+   *        The parameters are encoded using this charset. May be <code>null</code>.
    * @return May be <code>null</code> if all parameters are <code>null</code>.
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final IURLParameterList <?> aQueryParams,
+                                     @Nullable final IURLParameterList aQueryParams,
                                      @Nullable final String sAnchor,
                                      @Nullable final Charset aParameterCharset)
   {
-    final IEncoder <String, String> aQueryParameterEncoder = aParameterCharset == null ? null
-                                                                                       : new URLParameterEncoder (aParameterCharset);
-    return URLHelper.getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
+    return URLHelper.getURLString (sPath,
+                                   getQueryParametersAsString (aQueryParams,
+                                                               aParameterCharset == null ? null
+                                                                                         : new URLParameterEncoder (aParameterCharset)),
+                                   sAnchor);
   }
 }

@@ -31,7 +31,7 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.url.ISimpleURL;
+import com.helger.url.IURLData;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -153,7 +153,7 @@ public final class URLProtocolRegistry
    * @return The corresponding URL protocol or <code>null</code> if unresolved
    */
   @Nullable
-  public IURLProtocol getProtocol (@Nullable final ISimpleURL aURL)
+  public IURLProtocol getProtocol (@Nullable final IURLData aURL)
   {
     return aURL == null ? null : getProtocol (aURL.getPath ());
   }
@@ -177,7 +177,7 @@ public final class URLProtocolRegistry
    *        The URL to analyze
    * @return <code>true</code> if the protocol is known, <code>false</code> otherwise
    */
-  public boolean hasKnownProtocol (@Nullable final ISimpleURL aURL)
+  public boolean hasKnownProtocol (@Nullable final IURLData aURL)
   {
     return getProtocol (aURL) != null;
   }

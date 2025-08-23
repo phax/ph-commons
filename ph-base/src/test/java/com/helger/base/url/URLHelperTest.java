@@ -91,4 +91,19 @@ public final class URLHelperTest
     assertNotNull (f);
     assertEquals (new File ("/../dir/include.xml").getAbsolutePath (), f.getAbsolutePath ());
   }
+
+  @Test
+  public void testGetUrlString ()
+  {
+    assertNull (URLHelper.getURLString (null, null, null));
+    assertEquals ("", URLHelper.getURLString ("", null, null));
+    assertEquals ("a", URLHelper.getURLString ("a", null, null));
+    assertEquals ("http://something", URLHelper.getURLString ("http://something", null, null));
+    assertEquals ("/a?x=y&z=0#anchor", URLHelper.getURLString ("/a", "x=y&z=0", "anchor"));
+    assertEquals ("/a?x=y&z=0", URLHelper.getURLString ("/a", "x=y&z=0", null));
+    assertEquals ("/a#anchor", URLHelper.getURLString ("/a", null, "anchor"));
+    assertEquals ("?x=y&z=0#anchor", URLHelper.getURLString (null, "x=y&z=0", "anchor"));
+    assertEquals ("?x=y&z=0", URLHelper.getURLString (null, "x=y&z=0", null));
+    assertEquals ("#anchor", URLHelper.getURLString (null, null, "anchor"));
+  }
 }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.param;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -26,6 +26,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.numeric.MathHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
+import com.helger.base.trait.IGenericImplTrait;
 import com.helger.typeconvert.impl.TypeConverter;
 
 import jakarta.annotation.Nonnull;
@@ -39,7 +40,8 @@ import jakarta.annotation.Nullable;
  *        Implementation type
  */
 public interface IMutableURLParameterList <IMPLTYPE extends IMutableURLParameterList <IMPLTYPE>> extends
-                                          IURLParameterList <IMPLTYPE>
+                                          IGenericImplTrait <IMPLTYPE>,
+                                          IURLParameterList
 {
   @Nonnull
   IMPLTYPE add (@Nonnull URLParameter aURLParam);

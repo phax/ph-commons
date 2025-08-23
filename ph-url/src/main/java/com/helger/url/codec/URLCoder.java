@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.codec;
 
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
@@ -73,6 +73,8 @@ public final class URLCoder
   public static String urlDecode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (sValue, "Value");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
     try
     {
       return URL_CODEC.getDecodedAsString (sValue, aCharset);
@@ -154,6 +156,8 @@ public final class URLCoder
                                            @Nonnull final Charset aCharset,
                                            @Nullable final String sDefault)
   {
+    ValueEnforcer.notNull (aCharset, "Charset");
+
     if (sValue != null)
       try
       {
@@ -194,6 +198,7 @@ public final class URLCoder
   public static String urlEncode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (sValue, "Value");
+    ValueEnforcer.notNull (aCharset, "Charset");
     return URL_CODEC.getEncodedAsString (sValue, aCharset);
   }
 }

@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.param;
 
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.trait.IGenericImplTrait;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
@@ -30,12 +30,9 @@ import jakarta.annotation.Nullable;
  * Read-only interface for objects handling URL parameters
  *
  * @author Philip Helger
- * @param <IMPLTYPE>
- *        Implementation type
  */
-public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE>> extends
-                                   IGenericImplTrait <IMPLTYPE>,
-                                   ICommonsIterable <URLParameter>
+@MustImplementEqualsAndHashcode
+public interface IURLParameterList extends ICommonsIterable <URLParameter>
 {
   /**
    * @param sName

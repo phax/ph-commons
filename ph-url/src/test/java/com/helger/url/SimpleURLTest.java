@@ -26,6 +26,7 @@ import org.junit.Test;
 
 import com.helger.typeconvert.collection.StringMap;
 import com.helger.unittest.support.TestHelper;
+import com.helger.url.param.URLParameter;
 
 /**
  * Test class for class {@link SimpleURL}.
@@ -36,7 +37,7 @@ public final class SimpleURLTest
 {
   private static void _checkAsStringNoEncode (final String sHref)
   {
-    assertEquals (sHref, new SimpleURL (sHref).getAsStringWithoutEncodedParameters ());
+    assertEquals (sHref, new SimpleURL (sHref).setCharset (null).getAsString ());
   }
 
   @Test
@@ -56,15 +57,13 @@ public final class SimpleURLTest
     _checkAsStringNoEncode ("?upper=LOWER&äöü=aou");
 
     // asString results in slightly different but semantically equivalent URLs
-    assertEquals ("http://www.helger.com/",
-                  new SimpleURL ("http://www.helger.com/?").getAsStringWithoutEncodedParameters ());
-    assertEquals ("http://www.helger.com/#anchor",
-                  new SimpleURL ("http://www.helger.com/?#anchor").getAsStringWithoutEncodedParameters ());
+    assertEquals ("http://www.helger.com/", new SimpleURL ("http://www.helger.com/?").getAsString ());
+    assertEquals ("http://www.helger.com/#anchor", new SimpleURL ("http://www.helger.com/?#anchor").getAsString ());
   }
 
   private static void _checkAsStringEncodeDefault (final String sHref)
   {
-    assertEquals (sHref, new SimpleURL (sHref).getAsStringWithEncodedParameters ());
+    assertEquals (sHref, new SimpleURL (sHref).getAsString ());
   }
 
   @Test
@@ -86,9 +85,7 @@ public final class SimpleURLTest
 
   private static void _checkAsStringEncodeISO88591 (final String sHref)
   {
-    assertEquals (sHref,
-                  new SimpleURL (sHref, StandardCharsets.ISO_8859_1).getAsStringWithEncodedParameters (
-                                                                                                       StandardCharsets.ISO_8859_1));
+    assertEquals (sHref, new SimpleURL (sHref, StandardCharsets.ISO_8859_1).getAsString ());
   }
 
   @Test
@@ -115,7 +112,7 @@ public final class SimpleURLTest
 
   private static void _checkAsEncodedString (final String sHref, final String sEncodedHref)
   {
-    assertEquals (sEncodedHref, new SimpleURL (sHref).getAsStringWithEncodedParameters ());
+    assertEquals (sEncodedHref, new SimpleURL (sHref).getAsString ());
   }
 
   @Test
@@ -138,8 +135,7 @@ public final class SimpleURLTest
     _checkAsEncodedString ("?upper=LOWER&äöü=aou", "?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou");
 
     // asString results in slightly different but semantically equivalent URLs
-    assertEquals ("http://www.helger.com/",
-                  new SimpleURL ("http://www.helger.com/?").getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com/", new SimpleURL ("http://www.helger.com/?").getAsString ());
   }
 
   @Test
@@ -147,83 +143,83 @@ public final class SimpleURLTest
   {
     // only href
     SimpleURL aURL = new SimpleURL ();
-    assertEquals ("", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("", aURL.getAsString ());
 
     aURL = new SimpleURL ("");
-    assertEquals ("", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("", aURL.getAsString ());
 
     aURL = new SimpleURL ("#");
-    assertEquals ("", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("", aURL.getAsString ());
 
     aURL = new SimpleURL ("?");
-    assertEquals ("", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("", aURL.getAsString ());
 
     aURL = new SimpleURL ("?#");
-    assertEquals ("", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("", aURL.getAsString ());
 
     aURL = new SimpleURL ("  ?  #  ");
-    assertEquals ("", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("", aURL.getAsString ());
 
     aURL = new SimpleURL ("http://www.helger.com");
-    assertEquals ("http://www.helger.com", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com", aURL.getAsString ());
 
     // params
     // 1. default
     aURL = new SimpleURL ("http://www.helger.com", new StringMap ("a", "b"));
-    assertEquals ("http://www.helger.com?a=b", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com?a=b", aURL.getAsString ());
     // 2. plus params in href
     aURL = new SimpleURL ("http://www.helger.com?x=y", new StringMap ("a", "b"));
-    assertEquals ("http://www.helger.com?x=y&a=b", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com?x=y&a=b", aURL.getAsString ());
     // 3. add parameter with same name in href
     aURL = new SimpleURL ("http://www.helger.com?a=a", new StringMap ("a", "b"));
-    assertEquals ("http://www.helger.com?a=a&a=b", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com?a=a&a=b", aURL.getAsString ());
     // 4. only params
     aURL = new SimpleURL ("", new StringMap ("a", "b"));
-    assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a=b", aURL.getAsString ());
     // 4a. only params
     aURL = new SimpleURL ("?", new StringMap ("a", "b"));
-    assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a=b", aURL.getAsString ());
     // 4b. only params
     aURL = new SimpleURL ("#", new StringMap ("a", "b"));
-    assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
-    assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a=b", aURL.getAsString ());
+    assertEquals ("?a=b", aURL.getAsString ());
     // 4c. only params
     aURL = new SimpleURL ("#", new StringMap ().add ("a", null));
-    assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a", aURL.getAsString ());
     // 4d. only params
     aURL = new SimpleURL ("#", new StringMap ().add ("a", ""));
-    assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a", aURL.getAsString ());
     // 4e. only params
     aURL = new SimpleURL ("#");
     aURL.params ().add ("a");
-    assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a", aURL.getAsString ());
     // 4f. only params
     aURL = new SimpleURL ("#");
     aURL.params ().add ("a", (String) null);
-    assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a", aURL.getAsString ());
 
     // anchor
     // 1. default
     aURL = new SimpleURL ("http://www.helger.com", new StringMap ("a", "b"), "root");
-    assertEquals ("http://www.helger.com?a=b#root", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com?a=b#root", aURL.getAsString ());
     // 2. overwrite anchor
     aURL = new SimpleURL ("http://www.helger.com#main", new StringMap ("a", "b"), "root");
-    assertEquals ("http://www.helger.com?a=b#root", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com?a=b#root", aURL.getAsString ());
     // 3. only anchor in href
     aURL = new SimpleURL ("http://www.helger.com#main", new StringMap ("a", "b"));
-    assertEquals ("http://www.helger.com?a=b#main", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com?a=b#main", aURL.getAsString ());
     // 4. only params and anchor
     aURL = new SimpleURL ("#main", new StringMap ("a", "b"));
-    assertEquals ("?a=b#main", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a=b#main", aURL.getAsString ());
     // 5. only anchor
     aURL = new SimpleURL ("#main");
-    assertEquals ("#main", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("#main", aURL.getAsString ());
     // 5a. only anchor
     aURL = new SimpleURL ("", (Map <String, String>) null, "main");
-    assertEquals ("#main", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("#main", aURL.getAsString ());
     // 5b. only anchor
     aURL = new SimpleURL ("", (List <URLParameter>) null, "main");
-    assertEquals ("#main", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("#main", aURL.getAsString ());
 
     // Copy ctor
     final ISimpleURL aURL2 = new SimpleURL (aURL);
@@ -237,7 +233,7 @@ public final class SimpleURLTest
   {
     final String sURL = "data:image/gif;base64,R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf/rhf/3kdbW1mxsbP//mf///yH5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7";
     final SimpleURL aURL = new SimpleURL (sURL);
-    assertEquals (sURL, aURL.getAsStringWithEncodedParameters ());
+    assertEquals (sURL, aURL.getAsString ());
     assertEquals (0, aURL.params ().size ());
   }
 }

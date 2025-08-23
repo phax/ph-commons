@@ -14,12 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.codec;
 
 import java.nio.charset.Charset;
 
 import com.helger.base.codec.IDecoder;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -52,5 +53,11 @@ public class URLParameterDecoder implements IDecoder <String, String>
   public String getDecoded (@Nullable final String sInput)
   {
     return URLCoder.urlDecodeOrNull (sInput, m_aCharset);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("Charset", m_aCharset).getToString ();
   }
 }

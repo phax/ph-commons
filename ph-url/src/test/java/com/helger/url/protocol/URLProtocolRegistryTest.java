@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.url.SimpleURLHelper;
 import com.helger.url.URLData;
 
 /**
@@ -38,7 +39,7 @@ public final class URLProtocolRegistryTest
     for (final EURLProtocol e : EURLProtocol.values ())
     {
       final String sURL = e.getProtocol () + "xyz";
-      final URLData aURL = new URLData (sURL);
+      final URLData aURL = SimpleURLHelper.getAsURLData (sURL, null);
       assertTrue (URLProtocolRegistry.getInstance ().hasKnownProtocol (sURL));
       assertTrue (URLProtocolRegistry.getInstance ().hasKnownProtocol (aURL));
       assertSame (e, URLProtocolRegistry.getInstance ().getProtocol (sURL));

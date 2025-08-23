@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.validate;
 
 import java.util.Locale;
 import java.util.regex.Pattern;

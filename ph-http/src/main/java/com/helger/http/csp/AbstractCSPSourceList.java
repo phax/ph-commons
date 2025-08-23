@@ -95,7 +95,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
   public IMPLTYPE addHost (@Nonnull final ISimpleURL aHost)
   {
     ValueEnforcer.notNull (aHost, "Host");
-    return addHost (aHost.getAsStringWithEncodedParameters ());
+    return addHost (aHost.getAsString ());
   }
 
   /**

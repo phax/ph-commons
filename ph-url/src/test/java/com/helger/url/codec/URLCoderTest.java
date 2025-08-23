@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.codec;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -85,9 +85,5 @@ public final class URLCoderTest
     final URL aURL = URLHelper.getAsURL ("http://www.helger.com/iso6523%3A%3A0088%3A01234");
     assertNotNull (aURL);
     assertEquals ("http://www.helger.com/iso6523%3A%3A0088%3A01234", aURL.toExternalForm ());
-
-    final SimpleURL aSimpleURL = new SimpleURL ("http://www.helger.com/iso6523%3A%3A0088%3A01234");
-    assertEquals ("http://www.helger.com/iso6523%3A%3A0088%3A01234", aSimpleURL.getAsStringWithEncodedParameters ());
   }
-
 }

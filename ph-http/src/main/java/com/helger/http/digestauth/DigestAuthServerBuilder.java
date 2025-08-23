@@ -88,7 +88,7 @@ public class DigestAuthServerBuilder
   {
     ValueEnforcer.notNull (aURL, "Url");
 
-    final String sURL = aURL.getAsStringWithEncodedParameters ();
+    final String sURL = aURL.getAsString ();
     // Check for spaces, as all URLs are concatenated with spaces!
     if (sURL.indexOf (' ') >= 0)
       throw new IllegalArgumentException ("URL may not contain spaces: '" + sURL + "'");

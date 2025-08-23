@@ -24,6 +24,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.url.codec.URLParameterEncoder;
+import com.helger.url.param.URLParameterList;
 import com.helger.url.protocol.EURLProtocol;
 
 /**
@@ -36,7 +38,7 @@ public final class SimpleURLHelperTest
   @Test
   public void testGetURLData ()
   {
-    ISimpleURL aData = SimpleURLHelper.getAsURLData ("http://www.helger.com/folder?x=y&a=b#c");
+    URLData aData = SimpleURLHelper.getAsURLData ("http://www.helger.com/folder?x=y&a=b#c", null);
     assertNotNull (aData);
     assertEquals (EURLProtocol.HTTP, aData.getProtocol ());
     assertEquals ("http://www.helger.com/folder", aData.getPath ());
@@ -45,7 +47,7 @@ public final class SimpleURLHelperTest
     assertEquals ("b", aData.params ().getFirstParamValue ("a"));
     assertEquals ("c", aData.getAnchor ());
 
-    aData = SimpleURLHelper.getAsURLData ("?x=y&a=b#c");
+    aData = SimpleURLHelper.getAsURLData ("?x=y&a=b#c", null);
     assertNotNull (aData);
     assertNull (aData.getProtocol ());
     assertEquals ("", aData.getPath ());
@@ -54,7 +56,7 @@ public final class SimpleURLHelperTest
     assertEquals ("b", aData.params ().getFirstParamValue ("a"));
     assertEquals ("c", aData.getAnchor ());
 
-    aData = SimpleURLHelper.getAsURLData ("?x=y&=b#c");
+    aData = SimpleURLHelper.getAsURLData ("?x=y&=b#c", null);
     assertNotNull (aData);
     assertNull (aData.getProtocol ());
     assertEquals ("", aData.getPath ());

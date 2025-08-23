@@ -14,10 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.param;
 
 import java.util.Iterator;
-import java.util.List;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -26,6 +25,7 @@ import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.CommonsLinkedHashSet;
@@ -52,7 +52,7 @@ public class URLParameterList implements IMutableURLParameterList <URLParameterL
     m_aList = new CommonsArrayList <> ();
   }
 
-  public URLParameterList (@Nullable final List <? extends URLParameter> aOther)
+  public URLParameterList (@Nullable final Iterable <? extends URLParameter> aOther)
   {
     m_aList = new CommonsArrayList <> (aOther);
   }
@@ -176,5 +176,11 @@ public class URLParameterList implements IMutableURLParameterList <URLParameterL
   public int hashCode ()
   {
     return new HashCodeGenerator (this).append (m_aList).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("List", m_aList).getToString ();
   }
 }

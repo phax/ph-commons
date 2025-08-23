@@ -91,9 +91,11 @@ public final class URLHelper
    *        The main path. May be <code>null</code>.
    * @param sQueryParams
    *        The set of all query parameters already concatenated with the correct characters (&amp;
-   *        and =). May be <code>null</code>.
+   *        and =). Any percent encoding necessary must also have been done. May be
+   *        <code>null</code>.
    * @param sAnchor
-   *        An optional anchor to be added. May be <code>null</code>.
+   *        An optional anchor to be added. Any percent encoding necessary must also have been done.
+   *        May be <code>null</code>.
    * @return May be <code>null</code> if path, anchor and parameters are <code>null</code>.
    */
   @Nullable
@@ -165,9 +167,6 @@ public final class URLHelper
         aSB.append (CURL.HASH);
       aSB.append (sAnchor);
     }
-    // Avoid empty URLs
-    if (aSB.length () == 0)
-      return CURL.QUESTIONMARK_STR;
 
     return aSB.toString ();
   }

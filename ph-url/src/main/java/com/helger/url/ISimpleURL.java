@@ -20,12 +20,8 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.base.equals.EqualsHelper;
-import com.helger.base.string.StringHelper;
 import com.helger.base.url.URLHelper;
-import com.helger.url.protocol.IURLProtocol;
-import com.helger.url.protocol.URLProtocolRegistry;
+import com.helger.url.param.IURLParameterList;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -36,105 +32,66 @@ import jakarta.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public interface ISimpleURL
+public interface ISimpleURL extends IURLData
 {
-  /**
-   * @return The protocol used. May be <code>null</code> for an unknown protocol.
-   */
-  @Nullable
-  default IURLProtocol getProtocol ()
-  {
-    return URLProtocolRegistry.getInstance ().getProtocol (getPath ());
-  }
-
-  /**
-   * @return <code>true</code> if the URL has a known protocol
-   */
-  default boolean hasKnownProtocol ()
-  {
-    return URLProtocolRegistry.getInstance ().hasKnownProtocol (getPath ());
-  }
-
-  /**
-   * @return The path part of the URL (everything before the "?" and the "#", incl. the protocol).
-   *         Never <code>null</code> but maybe empty (e.g. for "?x=y").
-   */
   @Nonnull
-  String getPath ();
+  ISimpleURL getWithPath (@Nonnull String sPath);
 
-  /**
-   * @return A map of all query string parameters. May be <code>null</code>.
-   */
-  @Nullable
-  @ReturnsMutableObject
-  URLParameterList params ();
+  @Nonnull
+  ISimpleURL getWithParams (@Nullable IURLParameterList aParams);
 
-  /**
-   * @return The name of the anchor (everything after the "#") or <code>null</code> if none is
-   *         defined.
-   */
-  @Nullable
-  String getAnchor ();
+  @Nonnull
+  ISimpleURL getWithAnchor (@Nullable String sAnchor);
 
-  /**
-   * @return <code>true</code> if an anchor is present, <code>false</code> otherwise.
-   */
-  default boolean hasAnchor ()
-  {
-    return StringHelper.isNotEmpty (getAnchor ());
-  }
-
-  /**
-   * Check if this URL has an anchor with the passed name.
-   *
-   * @param sAnchor
-   *        The anchor name to check.
-   * @return <code>true</code> if the passed anchor is present.
-   */
-  default boolean hasAnchor (@Nullable final String sAnchor)
-  {
-    return EqualsHelper.equals (sAnchor, getAnchor ());
-  }
+  @Nonnull
+  ISimpleURL getWithCharset (@Nullable Charset aCharset);
 
   /**
    * @return The final string representation of this URL not encoding the request parameters.
    */
   @Nonnull
-  default String getAsStringWithoutEncodedParameters ()
+  default String getAsString ()
   {
-    return SimpleURLHelper.getURLString (this, (Charset) null);
+    return SimpleURLHelper.getURLString (this);
   }
 
-  /**
-   * @return The final string representation of this URL with encoded URL parameter keys and values.
-   *         Using the default URL charset as determined by {@link URLCoder#CHARSET_URL_OBJ}.
-   */
+  @Deprecated (forRemoval = true, since = "12.0.0-rc2")
   @Nonnull
   default String getAsStringWithEncodedParameters ()
   {
-    return SimpleURLHelper.getURLString (this, URLCoder.CHARSET_URL_OBJ);
+    return getAsString ();
   }
 
   /**
+   * Encode parameter with a specific charset
+   *
    * @param aCharset
-   *        The charset used for encoding the parameters. May not be <code>null</code>.
-   * @return The final string representation of this URL with encoded URL parameter keys and values.
+   *        Charset to use
+   * @return encoded string
    */
+  @Deprecated (forRemoval = true, since = "12.0.0-rc2")
   @Nonnull
-  default String getAsStringWithEncodedParameters (@Nonnull final Charset aCharset)
+  default String getAsStringWithEncodedParameters (@Nullable final Charset aCharset)
   {
-    return SimpleURLHelper.getURLString (this, aCharset);
+    return getWithCharset (aCharset).getAsString ();
+  }
+
+  @Deprecated (forRemoval = true, since = "12.0.0-rc2")
+  @Nonnull
+  default String getAsStringWithoutEncodedParameters ()
+  {
+    return getAsString ();
   }
 
   @Nullable
   default URL getAsURL ()
   {
-    return URLHelper.getAsURL (getAsStringWithEncodedParameters ());
+    return URLHelper.getAsURL (getAsString ());
   }
 
   @Nullable
   default URI getAsURI ()
   {
-    return URLHelper.getAsURI (getAsStringWithEncodedParameters ());
+    return URLHelper.getAsURI (getAsString ());
   }
 }
