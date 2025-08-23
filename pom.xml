@@ -204,6 +204,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-url</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-json</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -346,6 +351,7 @@
     <module>ph-jaxb-adapter</module>
     <module>ph-io</module>
     <module>ph-unittest-support-ext</module>
+    <module>ph-url</module>
     <module>ph-json</module>
     <module>ph-bc</module>
     <module>ph-matrix</module>

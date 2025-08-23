@@ -32,8 +32,8 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.url.URLHelper;
 import com.helger.io.file.FileHelper;
-import com.helger.io.url.URLHelper;
 import com.helger.unittest.support.TestHelper;
 
 /**

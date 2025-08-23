@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.base.state.ETriState;
-import com.helger.http.url.SimpleURL;
+import com.helger.url.SimpleURL;
 
 /**
  * Test class for class {@link DigestAuthServerBuilder}.

@@ -51,7 +51,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IThrowingRunnable;
 import com.helger.base.state.ETriState;
 import com.helger.base.timing.StopWatch;
-import com.helger.base.traits.IGenericImplTrait;
+import com.helger.base.trait.IGenericImplTrait;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;

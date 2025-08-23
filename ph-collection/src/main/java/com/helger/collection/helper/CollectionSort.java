@@ -16,7 +16,6 @@
  */
 package com.helger.collection.helper;
 
-import static com.helger.collection.CollectionHelper.isEmpty;
 import static com.helger.collection.CollectionHelper.isNotEmpty;
 import static com.helger.collection.helper.CollectionHelperExt.createList;
 
@@ -331,29 +330,5 @@ public class CollectionSort
                                                                         @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (createList (aCont), aComparator);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getReverseList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
-  {
-    if (isEmpty (aCollection))
-      return new CommonsArrayList <> (0);
-
-    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (aCollection);
-    ret.reverse ();
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableObject ("semantics of this method")
-  @CodingStyleguideUnaware
-  public static <ELEMENTTYPE, LISTTYPE extends List <ELEMENTTYPE>> LISTTYPE getReverseInlineList (@Nullable final LISTTYPE aList)
-  {
-    if (aList == null)
-      return null;
-
-    Collections.reverse (aList);
-    return aList;
   }
 }

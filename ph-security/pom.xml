@@ -70,6 +70,10 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-text</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-url</artifactId>
+    </dependency>
     
     <dependency>
       <groupId>com.helger.commons</groupId>

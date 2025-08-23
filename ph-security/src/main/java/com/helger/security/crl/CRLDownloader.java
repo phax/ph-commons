@@ -24,8 +24,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.timing.StopWatch;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.base.url.EURLProtocol;
 import com.helger.base.url.IURLDownloader;
+import com.helger.url.protocol.EURLProtocol;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

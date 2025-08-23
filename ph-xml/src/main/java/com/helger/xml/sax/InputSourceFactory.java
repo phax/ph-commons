@@ -32,11 +32,11 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.ByteBufferInputStream;
+import com.helger.base.url.URLHelper;
 import com.helger.io.file.FileHelper;
 import com.helger.io.resource.FileSystemResource;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resource.URLResource;
-import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

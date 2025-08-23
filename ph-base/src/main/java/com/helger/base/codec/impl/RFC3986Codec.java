@@ -22,7 +22,7 @@ import java.util.BitSet;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
-import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.EncodeException;
@@ -37,7 +37,7 @@ import jakarta.annotation.Nullable;
  *
  * @author Philip Helger
  */
-@ThreadSafe
+@Immutable
 public class RFC3986Codec implements IByteArrayCodec
 {
   private static final byte ESCAPE_CHAR = '%';

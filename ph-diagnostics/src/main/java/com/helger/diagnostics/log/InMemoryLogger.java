@@ -25,7 +25,6 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.iface.IHasSize;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IClearable;
 import com.helger.base.tostring.ToStringGenerator;
@@ -44,7 +43,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, IClearable
+public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
 {
   private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList <> ();
 

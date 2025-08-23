@@ -24,6 +24,7 @@ import java.util.function.Predicate;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.functional.IThrowingConsumer;
+import com.helger.base.iface.IHasSize;
 import com.helger.base.state.EContinue;
 import com.helger.collection.CollectionFind;
 import com.helger.collection.CollectionHelper;
@@ -38,8 +39,13 @@ import jakarta.annotation.Nullable;
  * @param <ELEMENTTYPE>
  *        The data type to iterate
  */
-public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
+public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, IHasSize
 {
+  default boolean isEmpty ()
+  {
+    return !iterator ().hasNext ();
+  }
+
   /**
    * Special forEach that takes an {@link ObjIntConsumer} which is provided the value AND the index.
    *
@@ -328,7 +334,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
    * @return The number objects contained. Always &ge; 0.
    */
   @Nonnegative
-  default int getCount ()
+  default int size ()
   {
     // Keep package dependencies clean
     return CollectionHelper.getSizeIterator (iterator ());
@@ -340,13 +346,13 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
    * @return The number of matching elements. Always &ge; 0. If no filter is provided this is the
-   *         same as {@link #getCount()}.
+   *         same as {@link #size()}.
    */
   @Nonnegative
-  default int getCount (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default int size (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
-      return getCount ();
+      return size ();
 
     int ret = 0;
     for (final ELEMENTTYPE aElement : this)

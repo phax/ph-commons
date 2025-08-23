@@ -16,7 +16,7 @@
  */
 package com.helger.diagnostics.error.level;
 
-import com.helger.base.traits.IGenericImplTrait;
+import com.helger.base.trait.IGenericImplTrait;
 import com.helger.diagnostics.severity.ISeverityComparable;
 
 import jakarta.annotation.Nonnull;

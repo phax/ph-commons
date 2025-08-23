@@ -16,7 +16,7 @@
  */
 package com.helger.typeconvert.impl;
 
-import com.helger.base.traits.ITypeConverterTo;
+import com.helger.base.trait.ITypeConverterTo;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -29,12 +29,12 @@ import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.string.StringHelper;
 import com.helger.base.url.CURL;
+import com.helger.base.url.URLHelper;
 import com.helger.io.file.FilenameHelper;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.FileSystemResource;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resource.URLResource;
-import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

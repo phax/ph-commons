@@ -36,8 +36,8 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.url.CURL;
+import com.helger.base.url.URLHelper;
 import com.helger.base.wrapper.IMutableWrapper;
-import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

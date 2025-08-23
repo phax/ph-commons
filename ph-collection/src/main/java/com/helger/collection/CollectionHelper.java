@@ -34,6 +34,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.clone.CloneHelper;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.lang.clazz.ClassHelper;
@@ -651,5 +652,29 @@ public class CollectionHelper
       for (final DATATYPE aItem : aList)
         ret.add (CloneHelper.getCloneIfNotNull (aItem));
     return ret;
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getReverseList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
+  {
+    if (isEmpty (aCollection))
+      return new CommonsArrayList <> (0);
+
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (aCollection);
+    ret.reverse ();
+    return ret;
+  }
+
+  @Nullable
+  @ReturnsMutableObject ("semantics of this method")
+  @CodingStyleguideUnaware
+  public static <ELEMENTTYPE, LISTTYPE extends List <ELEMENTTYPE>> LISTTYPE getReverseInlineList (@Nullable final LISTTYPE aList)
+  {
+    if (aList == null)
+      return null;
+
+    Collections.reverse (aList);
+    return aList;
   }
 }

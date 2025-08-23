@@ -18,7 +18,7 @@ package com.helger.base.numeric.mutable;
 
 import com.helger.base.clone.ICloneable;
 import com.helger.base.compare.IComparable;
-import com.helger.base.traits.IGenericImplTrait;
+import com.helger.base.trait.IGenericImplTrait;
 
 /**
  * Base interface for all mutable objects

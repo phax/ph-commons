@@ -28,7 +28,6 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.base.iface.IHasSize;
 import com.helger.base.state.EChange;
 import com.helger.collection.CollectionHelper;
 
@@ -42,11 +41,13 @@ import jakarta.annotation.Nullable;
  * @param <ELEMENTTYPE>
  *        The data type stored in the collection
  */
-public interface ICommonsCollection <ELEMENTTYPE> extends
-                                    Collection <ELEMENTTYPE>,
-                                    ICommonsIterable <ELEMENTTYPE>,
-                                    IHasSize
+public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>, ICommonsIterable <ELEMENTTYPE>
 {
+  @Nonnegative
+  int size ();
+
+  boolean isEmpty ();
+
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
@@ -64,7 +65,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends
    */
   @Override
   @Nonnegative
-  default int getCount (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default int size (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     return CollectionHelper.getCount (this, aFilter);
   }

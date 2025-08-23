@@ -24,12 +24,12 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.base.traits.IGenericImplTrait;
+import com.helger.base.trait.IGenericImplTrait;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsOrderedSet;
-import com.helger.http.url.ISimpleURL;
 import com.helger.mime.IMimeType;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
+import com.helger.url.ISimpleURL;
 
 import jakarta.annotation.Nonnull;
 

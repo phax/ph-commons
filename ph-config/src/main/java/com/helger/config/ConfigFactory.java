@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.string.StringHelper;
+import com.helger.base.url.URLHelper;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
@@ -38,7 +39,6 @@ import com.helger.io.resource.URLResource;
 import com.helger.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.io.resourceprovider.ReadableResourceProviderChain;
-import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 

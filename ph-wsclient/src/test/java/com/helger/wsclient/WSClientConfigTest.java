@@ -22,9 +22,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.helger.base.url.URLHelper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.io.url.URLHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.Binding;

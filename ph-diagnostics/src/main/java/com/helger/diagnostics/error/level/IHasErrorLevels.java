@@ -31,13 +31,12 @@ import jakarta.annotation.Nonnull;
 public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends ICommonsIterable <IMPLTYPE>
 {
   /**
-   * Check if this group contains only success messages. If no item is present,
-   * <code>false</code> is returned, since no success message is contained. If
-   * you want to check, if the list is empty or contains only success messages,
-   * use {@link #containsNoFailure()} instead.
+   * Check if this group contains only success messages. If no item is present, <code>false</code>
+   * is returned, since no success message is contained. If you want to check, if the list is empty
+   * or contains only success messages, use {@link #containsNoFailure()} instead.
    *
-   * @return <code>true</code> if at least one item is present, and if all items
-   *         have the error level success, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one item is present, and if all items have the error
+   *         level success, <code>false</code> otherwise.
    * @see #containsNoFailure()
    */
   default boolean containsOnlySuccess ()
@@ -48,8 +47,8 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   /**
    * Check if this group contains at least one success message.
    *
-   * @return <code>true</code> if at least one success item is present,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one success item is present, <code>false</code>
+   *         otherwise.
    */
   default boolean containsAtLeastOneSuccess ()
   {
@@ -57,11 +56,9 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   }
 
   /**
-   * Check if this group contains no success message. This is also true, if the
-   * list is empty!
+   * Check if this group contains no success message. This is also true, if the list is empty!
    *
-   * @return <code>true</code> if no success item is present, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if no success item is present, <code>false</code> otherwise.
    */
   default boolean containsNoSuccess ()
   {
@@ -74,17 +71,16 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   @Nonnegative
   default int getSuccessCount ()
   {
-    return getCount (IHasErrorLevel::isSuccess);
+    return size (IHasErrorLevel::isSuccess);
   }
 
   /**
-   * Check if this group contains only failure messages. If no item is present,
-   * <code>false</code> is returned. All error levels except
-   * {@link EErrorLevel#SUCCESS} are considered to be a failure!
+   * Check if this group contains only failure messages. If no item is present, <code>false</code>
+   * is returned. All error levels except {@link EErrorLevel#SUCCESS} are considered to be a
+   * failure!
    *
-   * @return <code>true</code> if at least one item is present, and if all items
-   *         have an error level indicating failure, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if at least one item is present, and if all items have an error level
+   *         indicating failure, <code>false</code> otherwise.
    */
   default boolean containsOnlyFailure ()
   {
@@ -92,11 +88,11 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   }
 
   /**
-   * Check if this group contains at least one failure message. All error levels
-   * except {@link EErrorLevel#SUCCESS} are considered to be a failure!
+   * Check if this group contains at least one failure message. All error levels except
+   * {@link EErrorLevel#SUCCESS} are considered to be a failure!
    *
-   * @return <code>true</code> if at least one failure item is present,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one failure item is present, <code>false</code>
+   *         otherwise.
    */
   default boolean containsAtLeastOneFailure ()
   {
@@ -107,8 +103,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    * Check if this group contains no failure message. All error levels except
    * {@link EErrorLevel#SUCCESS} are considered to be a failure!
    *
-   * @return <code>true</code> if no failure item is present, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if no failure item is present, <code>false</code> otherwise.
    */
   default boolean containsNoFailure ()
   {
@@ -121,17 +116,16 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   @Nonnegative
   default int getFailureCount ()
   {
-    return getCount (IHasErrorLevel::isFailure);
+    return size (IHasErrorLevel::isFailure);
   }
 
   /**
-   * Check if this group contains only error or fatal error messages. If no item
-   * is present, <code>false</code> is returned. All error levels &ge;
-   * {@link EErrorLevel#ERROR} are considered to be an error!
+   * Check if this group contains only error or fatal error messages. If no item is present,
+   * <code>false</code> is returned. All error levels &ge; {@link EErrorLevel#ERROR} are considered
+   * to be an error!
    *
-   * @return <code>true</code> if at least one item is present, and if all items
-   *         have an error level indicating error or fatal error,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one item is present, and if all items have an error level
+   *         indicating error or fatal error, <code>false</code> otherwise.
    */
   default boolean containsOnlyError ()
   {
@@ -139,11 +133,11 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   }
 
   /**
-   * Check if this group contains at least one error or fatal error message. All
-   * error levels &ge; {@link EErrorLevel#ERROR} are considered to be an error!
+   * Check if this group contains at least one error or fatal error message. All error levels &ge;
+   * {@link EErrorLevel#ERROR} are considered to be an error!
    *
-   * @return <code>true</code> if at least one error or fatal error item is
-   *         present, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one error or fatal error item is present,
+   *         <code>false</code> otherwise.
    */
   default boolean containsAtLeastOneError ()
   {
@@ -151,11 +145,11 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   }
 
   /**
-   * Check if this group contains no error or fatal error message. All error
-   * levels &ge; {@link EErrorLevel#ERROR} are considered to be an error!
+   * Check if this group contains no error or fatal error message. All error levels &ge;
+   * {@link EErrorLevel#ERROR} are considered to be an error!
    *
-   * @return <code>true</code> if no error or fatal error item is present,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if no error or fatal error item is present, <code>false</code>
+   *         otherwise.
    */
   default boolean containsNoError ()
   {
@@ -163,19 +157,18 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   }
 
   /**
-   * @return The number of contained error messages. Always &ge; 0. All error
-   *         levels &ge; {@link EErrorLevel#ERROR} are considered to be an
-   *         error!
+   * @return The number of contained error messages. Always &ge; 0. All error levels &ge;
+   *         {@link EErrorLevel#ERROR} are considered to be an error!
    */
   @Nonnegative
   default int getErrorCount ()
   {
-    return getCount (IHasErrorLevel::isError);
+    return size (IHasErrorLevel::isError);
   }
 
   /**
-   * @return <code>true</code> if at least 1 item of level warning or at least 1
-   *         item of level error is contained.
+   * @return <code>true</code> if at least 1 item of level warning or at least 1 item of level error
+   *         is contained.
    */
   default boolean containsAtLeastOneWarningOrError ()
   {
@@ -183,11 +176,11 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   }
 
   /**
-   * Get the most severe error level within this object. The severity is defined
-   * by {@link EErrorLevel}'s severity model.
+   * Get the most severe error level within this object. The severity is defined by
+   * {@link EErrorLevel}'s severity model.
    *
-   * @return {@link EErrorLevel#SUCCESS} if no error is contained, the most
-   *         severe contained error level otherwise.
+   * @return {@link EErrorLevel#SUCCESS} if no error is contained, the most severe contained error
+   *         level otherwise.
    */
   @Nonnull
   default IErrorLevel getMostSevereErrorLevel ()

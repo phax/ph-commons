@@ -42,7 +42,6 @@ import com.helger.base.codec.impl.RFC2616Codec;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.iface.IHasSize;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IClearable;
 import com.helger.base.string.StringHelper;
@@ -73,7 +72,6 @@ import jakarta.annotation.Nullable;
  */
 @NotThreadSafe
 public class HttpHeaderMap implements
-                           IHasSize,
                            ICommonsIterable <Map.Entry <String, ICommonsList <String>>>,
                            ICloneable <HttpHeaderMap>,
                            IClearable

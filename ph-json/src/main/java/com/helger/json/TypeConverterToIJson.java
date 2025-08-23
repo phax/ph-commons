@@ -16,7 +16,7 @@
  */
 package com.helger.json;
 
-import com.helger.base.traits.ITypeConverterTo;
+import com.helger.base.trait.ITypeConverterTo;
 import com.helger.json.convert.JsonConverter;
 
 import jakarta.annotation.Nonnull;

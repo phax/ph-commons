@@ -22,8 +22,8 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
-import com.helger.base.traits.IGenericAdderTrait;
-import com.helger.base.traits.ITypeConverterTo;
+import com.helger.base.trait.IGenericAdderTrait;
+import com.helger.base.trait.ITypeConverterTo;
 import com.helger.collection.base.FilterIterator;
 import com.helger.collection.base.IIterableIterator;
 import com.helger.collection.base.MapperIterator;
@@ -51,6 +51,9 @@ public interface IJsonArray extends
   {
     return TypeConverterToIJson.INSTANCE;
   }
+
+  @Nonnegative
+  int size ();
 
   @Nonnull
   default IJsonArray addIfNotEmpty (@Nullable final String sValue)

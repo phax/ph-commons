@@ -20,10 +20,11 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
-import com.helger.base.traits.IGenericMapAdderTrait;
-import com.helger.base.traits.ITypeConverterTo;
+import com.helger.base.trait.IGenericMapAdderTrait;
+import com.helger.base.trait.ITypeConverterTo;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
@@ -51,6 +52,9 @@ public interface IJsonObject extends
   {
     return TypeConverterToIJson.INSTANCE;
   }
+
+  @Nonnegative
+  int size ();
 
   @Nullable
   IJson removeKeyAndReturnValue (@Nullable String sName);
