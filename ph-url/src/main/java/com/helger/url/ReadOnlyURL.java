@@ -25,6 +25,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
 import com.helger.url.param.IURLParameterList;
 
@@ -35,6 +36,7 @@ import jakarta.annotation.Nullable;
  * Read-only implementation of {@link ISimpleURL} which is immutable
  *
  * @author Philip Helger
+ * @since 12.0.0 RC2
  */
 @Immutable
 public class ReadOnlyURL implements ISimpleURL
@@ -134,6 +136,12 @@ public class ReadOnlyURL implements ISimpleURL
   }
 
   @Nonnull
+  public static ReadOnlyURL of (@Nonnull final IURLData aURLData)
+  {
+    return new ReadOnlyURL (new URLData (aURLData));
+  }
+
+  @Nonnull
   public static ReadOnlyURL of (@Nonnull final URL aURL)
   {
     return of (aURL, URLData.DEFAULT_CHARSET);
@@ -142,7 +150,7 @@ public class ReadOnlyURL implements ISimpleURL
   @Nonnull
   public static ReadOnlyURL of (@Nonnull final URL aURL, @Nullable final Charset aCharset)
   {
-    return parse (aURL.toExternalForm (), aCharset);
+    return of (aURL.toExternalForm (), aCharset);
   }
 
   @Nonnull
@@ -154,17 +162,17 @@ public class ReadOnlyURL implements ISimpleURL
   @Nonnull
   public static ReadOnlyURL of (@Nonnull final URI aURI, @Nullable final Charset aCharset)
   {
-    return parse (aURI.toString (), aCharset);
+    return of (aURI.toString (), aCharset);
   }
 
   @Nonnull
-  public static ReadOnlyURL parse (@Nonnull final String sHref)
+  public static ReadOnlyURL of (@Nonnull final String sHref)
   {
-    return parse (sHref, URLData.DEFAULT_CHARSET);
+    return of (sHref, URLData.DEFAULT_CHARSET);
   }
 
   @Nonnull
-  public static ReadOnlyURL parse (@Nonnull final String sHref, @Nullable final Charset aCharset)
+  public static ReadOnlyURL of (@Nonnull final String sHref, @Nullable final Charset aCharset)
   {
     return new ReadOnlyURL (SimpleURLHelper.getAsURLData (sHref, aCharset));
   }

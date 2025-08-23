@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.base.state.ETriState;
-import com.helger.url.SimpleURL;
+import com.helger.url.ReadOnlyURL;
 
 /**
  * Test class for class {@link DigestAuthServerBuilder}.
@@ -54,12 +54,13 @@ public final class DigestAuthServerBuilderTest
     {}
     b.setNonce ("blanonce");
     assertEquals ("Digest realm=\"xyz\", nonce=\"blanonce\"", b.build ());
-    b.addDomain (new SimpleURL ("/config"));
+    b.addDomain (ReadOnlyURL.of ("/config"));
     assertEquals ("Digest realm=\"xyz\", domain=\"/config\", nonce=\"blanonce\"", b.build ());
     b.setOpaque ("opaque");
     assertEquals ("Digest realm=\"xyz\", domain=\"/config\", nonce=\"blanonce\", opaque=\"opaque\"", b.build ());
     b.setStale (ETriState.FALSE);
-    assertEquals ("Digest realm=\"xyz\", domain=\"/config\", nonce=\"blanonce\", opaque=\"opaque\", stale=false", b.build ());
+    assertEquals ("Digest realm=\"xyz\", domain=\"/config\", nonce=\"blanonce\", opaque=\"opaque\", stale=false",
+                  b.build ());
     b.setAlgorithm (HttpDigestAuth.ALGORITHM_MD5_SESS);
     assertEquals ("Digest realm=\"xyz\", domain=\"/config\", nonce=\"blanonce\", opaque=\"opaque\", stale=false, algorithm=MD5-sess",
                   b.build ());
