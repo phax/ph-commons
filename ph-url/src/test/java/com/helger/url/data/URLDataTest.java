@@ -14,25 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.data;
 
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
-import jakarta.annotation.Nonnull;
+import org.junit.Test;
+
+import com.helger.url.protocol.URLProtocolRegistry;
 
 /**
- * Interface for a simple URL provider.<br>
- * Note: cannot be a functional interface because it requires equals and
- * hashCode to be implemented!
+ * Test class for class {@link URLData}.
  *
  * @author Philip Helger
  */
-@MustImplementEqualsAndHashcode
-public interface IHasSimpleURL
+public final class URLDataTest
 {
-  /**
-   * @return The simple URL to be used. May not be <code>null</code>.
-   */
-  @Nonnull
-  ISimpleURL getSimpleURL ();
+  @Test
+  public void testGetAsString ()
+  {
+    assertFalse (URLProtocolRegistry.getInstance ().hasKnownProtocol (URLData.EMPTY_URL_DATA));
+    assertEquals ("", URLData.EMPTY_URL_DATA.getPath ());
+    assertEquals (0, URLData.EMPTY_URL_DATA.params ().size ());
+    assertFalse (URLData.EMPTY_URL_DATA.hasAnchor ());
+    assertNull (URLData.EMPTY_URL_DATA.getAnchor ());
+  }
 }

@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.provider;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.url.ISimpleURL;
 
 import jakarta.annotation.Nonnull;
 
@@ -40,7 +41,7 @@ public class ConstantHasSimpleURL implements IHasSimpleURL
   }
 
   @Nonnull
-  public ISimpleURL getSimpleURL ()
+  public final ISimpleURL getSimpleURL ()
   {
     return m_aURL;
   }

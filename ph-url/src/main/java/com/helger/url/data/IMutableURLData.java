@@ -1,4 +1,4 @@
-package com.helger.url;
+package com.helger.url.data;
 
 import java.nio.charset.Charset;
 
@@ -9,6 +9,14 @@ import com.helger.url.param.URLParameterList;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
+/**
+ * Mutable version of the {@link IURLData} interface.
+ *
+ * @author Philip Helger
+ * @param <IMPLTYPE>
+ *        The real implementation type
+ * @since 12.0.0 RC2
+ */
 public interface IMutableURLData <IMPLTYPE extends IMutableURLData <IMPLTYPE>> extends IURLData
 {
   @Nonnull

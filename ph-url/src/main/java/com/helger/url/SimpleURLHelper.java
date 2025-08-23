@@ -37,6 +37,8 @@ import com.helger.base.url.URLHelper;
 import com.helger.collection.CollectionHelper;
 import com.helger.url.codec.URLParameterDecoder;
 import com.helger.url.codec.URLParameterEncoder;
+import com.helger.url.data.IURLData;
+import com.helger.url.data.URLData;
 import com.helger.url.param.IURLParameterList;
 import com.helger.url.param.URLParameter;
 import com.helger.url.param.URLParameterList;

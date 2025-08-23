@@ -31,7 +31,7 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.url.IURLData;
+import com.helger.url.data.IURLData;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.data;
 
 import java.nio.charset.Charset;
 
@@ -26,6 +26,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.url.ISimpleURL;
 import com.helger.url.codec.URLCoder;
 import com.helger.url.param.IURLParameterList;
 import com.helger.url.param.URLParameterList;
@@ -53,13 +54,13 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
   private String m_sAnchor;
   private Charset m_aCharset;
 
-  protected URLData (@Nonnull final IURLData aOther)
+  public URLData (@Nonnull final IURLData aOther)
   {
     // Create a copy of the parameters
     this (aOther.getPath (), new URLParameterList (aOther.getAllParams ()), aOther.getAnchor (), aOther.getCharset ());
   }
 
-  protected URLData (@Nonnull final URLData aOther)
+  public URLData (@Nonnull final URLData aOther)
   {
     // Create a copy of the parameters
     this (aOther.m_sPath, aOther.m_aParams.getClone (), aOther.m_sAnchor, aOther.m_aCharset);

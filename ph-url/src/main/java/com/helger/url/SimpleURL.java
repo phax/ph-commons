@@ -32,8 +32,10 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.url.codec.URLCoder;
 import com.helger.url.codec.URLParameterDecoder;
+import com.helger.url.data.IMutableURLData;
+import com.helger.url.data.IURLData;
+import com.helger.url.data.URLData;
 import com.helger.url.param.IURLParameterList;
 import com.helger.url.param.URLParameter;
 import com.helger.url.param.URLParameterList;
@@ -59,7 +61,7 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
 
   public SimpleURL (@Nonnull final URL aURL)
   {
-    this (aURL, URLCoder.CHARSET_URL_OBJ);
+    this (aURL, URLData.DEFAULT_CHARSET);
   }
 
   public SimpleURL (@Nonnull final URL aURL, @Nonnull final Charset aCharset)
@@ -69,7 +71,7 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
 
   public SimpleURL (@Nonnull final URI aURI)
   {
-    this (aURI, URLCoder.CHARSET_URL_OBJ);
+    this (aURI, URLData.DEFAULT_CHARSET);
   }
 
   public SimpleURL (@Nonnull final URI aURI, @Nonnull final Charset aCharset)

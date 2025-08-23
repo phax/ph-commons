@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.url;
+package com.helger.url.data;
 
 import java.nio.charset.Charset;
 
@@ -23,37 +23,17 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.url.param.IURLParameterList;
-import com.helger.url.protocol.IURLProtocol;
-import com.helger.url.protocol.URLProtocolRegistry;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Read-only interface for a simple URL that works around the usability issues with the Java default
- * java.net.URL.
+ * Read-only interface for accessing URL parts.
  *
  * @author Philip Helger
  */
 public interface IURLData
 {
-  /**
-   * @return The protocol used. May be <code>null</code> for an unknown protocol.
-   */
-  @Nullable
-  default IURLProtocol getProtocol ()
-  {
-    return URLProtocolRegistry.getInstance ().getProtocol (getPath ());
-  }
-
-  /**
-   * @return <code>true</code> if the URL has a known protocol
-   */
-  default boolean hasKnownProtocol ()
-  {
-    return URLProtocolRegistry.getInstance ().hasKnownProtocol (getPath ());
-  }
-
   /**
    * @return The path part of the URL (everything before the "?" and the "#", incl. the protocol).
    *         Never <code>null</code> but maybe empty (e.g. for "?x=y").

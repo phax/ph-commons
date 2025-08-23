@@ -25,7 +25,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.url.codec.URLCoder;
+import com.helger.url.data.URLData;
 import com.helger.url.param.IURLParameterList;
 
 import jakarta.annotation.Nonnull;
@@ -136,7 +136,7 @@ public class ReadOnlyURL implements ISimpleURL
   @Nonnull
   public static ReadOnlyURL of (@Nonnull final URL aURL)
   {
-    return of (aURL, URLCoder.CHARSET_URL_OBJ);
+    return of (aURL, URLData.DEFAULT_CHARSET);
   }
 
   @Nonnull
@@ -148,7 +148,7 @@ public class ReadOnlyURL implements ISimpleURL
   @Nonnull
   public static ReadOnlyURL of (@Nonnull final URI aURI)
   {
-    return of (aURI, URLCoder.CHARSET_URL_OBJ);
+    return of (aURI, URLData.DEFAULT_CHARSET);
   }
 
   @Nonnull

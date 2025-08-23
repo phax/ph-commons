@@ -25,8 +25,10 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.url.codec.URLParameterEncoder;
+import com.helger.url.data.URLData;
 import com.helger.url.param.URLParameterList;
 import com.helger.url.protocol.EURLProtocol;
+import com.helger.url.protocol.URLProtocolRegistry;
 
 /**
  * Test class for class {@link SimpleURLHelper}.
@@ -40,7 +42,7 @@ public final class SimpleURLHelperTest
   {
     URLData aData = SimpleURLHelper.getAsURLData ("http://www.helger.com/folder?x=y&a=b#c", null);
     assertNotNull (aData);
-    assertEquals (EURLProtocol.HTTP, aData.getProtocol ());
+    assertEquals (EURLProtocol.HTTP, URLProtocolRegistry.getInstance ().getProtocol (aData));
     assertEquals ("http://www.helger.com/folder", aData.getPath ());
     assertEquals (2, aData.params ().size ());
     assertEquals ("y", aData.params ().getFirstParamValue ("x"));
@@ -49,7 +51,7 @@ public final class SimpleURLHelperTest
 
     aData = SimpleURLHelper.getAsURLData ("?x=y&a=b#c", null);
     assertNotNull (aData);
-    assertNull (aData.getProtocol ());
+    assertNull (URLProtocolRegistry.getInstance ().getProtocol (aData));
     assertEquals ("", aData.getPath ());
     assertEquals (2, aData.params ().size ());
     assertEquals ("y", aData.params ().getFirstParamValue ("x"));
@@ -58,7 +60,7 @@ public final class SimpleURLHelperTest
 
     aData = SimpleURLHelper.getAsURLData ("?x=y&=b#c", null);
     assertNotNull (aData);
-    assertNull (aData.getProtocol ());
+    assertNull (URLProtocolRegistry.getInstance ().getProtocol (aData));
     assertEquals ("", aData.getPath ());
     assertEquals (1, aData.params ().size ());
     assertEquals ("y", aData.params ().getFirstParamValue ("x"));

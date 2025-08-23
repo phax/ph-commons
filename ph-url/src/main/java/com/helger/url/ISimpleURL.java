@@ -21,6 +21,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 import com.helger.base.url.URLHelper;
+import com.helger.url.data.IURLData;
 import com.helger.url.param.IURLParameterList;
 
 import jakarta.annotation.Nonnull;
@@ -47,7 +48,8 @@ public interface ISimpleURL extends IURLData
   ISimpleURL getWithCharset (@Nullable Charset aCharset);
 
   /**
-   * @return The final string representation of this URL not encoding the request parameters.
+   * @return The final string representation of this URL, encoding the request parameters with the
+   *         charset of this URL.
    */
   @Nonnull
   default String getAsString ()
