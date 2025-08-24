@@ -90,6 +90,28 @@ public class URLBuilder implements IBuilder <ISimpleURL>
   }
 
   @Nonnull
+  public URLBuilder removeParam (@Nonnull @Nonempty final String sName)
+  {
+    m_aData.params ().removeIf (x -> x.hasName (sName));
+    return this;
+  }
+
+  @Nonnull
+  public URLBuilder param (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
+  {
+    removeParam (sName);
+    return addParam (sName, sValue);
+  }
+
+  @Nonnull
+  public URLBuilder param (@Nonnull final URLParameter aParam)
+  {
+    ValueEnforcer.notNull (aParam, "Param");
+    removeParam (aParam.getName ());
+    return addParam (aParam);
+  }
+
+  @Nonnull
   public URLBuilder anchor (@Nullable final String s)
   {
     m_aData.setAnchor (s);

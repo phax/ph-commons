@@ -57,6 +57,19 @@ public interface IURLData
   ICommonsList <URLParameter> getAllParams ();
 
   /**
+   * Get the first parameter value of the parameter with the given name
+   *
+   * @param sParamName
+   *        Parameter name to search. May be <code>null</code>.
+   * @return <code>null</code> if no such parameter value exists
+   */
+  @Nullable
+  default String getFirstParamValue (@Nullable final String sParamName)
+  {
+    return params ().findFirstMapped (x -> x.hasName (sParamName), URLParameter::getValue);
+  }
+
+  /**
    * @return The name of the anchor (everything after the "#") or <code>null</code> if none is
    *         defined.
    */
