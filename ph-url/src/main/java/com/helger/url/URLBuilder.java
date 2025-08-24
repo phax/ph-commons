@@ -16,12 +16,15 @@
  */
 package com.helger.url;
 
+import java.net.URI;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Map;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
@@ -34,6 +37,7 @@ import jakarta.annotation.Nullable;
  * Builder class for {@link ISimpleURL} objects
  *
  * @author Philip Helger
+ * @since 12.0.0 RC2
  */
 public class URLBuilder implements IBuilder <ISimpleURL>
 {
@@ -47,6 +51,12 @@ public class URLBuilder implements IBuilder <ISimpleURL>
   protected URLBuilder (@Nonnull final URLData aData)
   {
     m_aData = aData;
+  }
+
+  @Nonnull
+  public IURLData urlData ()
+  {
+    return m_aData;
   }
 
   @Nonnull
@@ -157,6 +167,20 @@ public class URLBuilder implements IBuilder <ISimpleURL>
   @Nonnull
   public static URLBuilder of (@Nullable final String sURL)
   {
+    if (StringHelper.isEmpty (sURL))
+      return new URLBuilder ();
     return new URLBuilder (SimpleURLHelper.getAsURLData (sURL, URLData.DEFAULT_CHARSET));
+  }
+
+  @Nonnull
+  public static URLBuilder of (@Nullable final URL aURL)
+  {
+    return of (aURL == null ? null : aURL.toExternalForm ());
+  }
+
+  @Nonnull
+  public static URLBuilder of (@Nullable final URI aURI)
+  {
+    return of (aURI == null ? null : aURI.toString ());
   }
 }
