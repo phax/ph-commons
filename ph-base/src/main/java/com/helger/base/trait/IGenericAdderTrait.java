@@ -36,7 +36,6 @@ import jakarta.annotation.Nullable;
  *        would be a problem with type erasure.
  * @param <IMPLTYPE>
  *        The implementation type for chaining API
- * @see ITypedAdderTrait for a version of this interface that only deals with a specific type
  */
 public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTYPE extends IGenericAdderTrait <ELEMENTTYPE, IMPLTYPE>>
                                     extends
