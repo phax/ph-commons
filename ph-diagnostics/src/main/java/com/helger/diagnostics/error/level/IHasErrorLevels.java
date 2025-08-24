@@ -71,7 +71,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   @Nonnegative
   default int getSuccessCount ()
   {
-    return size (IHasErrorLevel::isSuccess);
+    return getCount (IHasErrorLevel::isSuccess);
   }
 
   /**
@@ -116,7 +116,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   @Nonnegative
   default int getFailureCount ()
   {
-    return size (IHasErrorLevel::isFailure);
+    return getCount (IHasErrorLevel::isFailure);
   }
 
   /**
@@ -163,7 +163,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   @Nonnegative
   default int getErrorCount ()
   {
-    return size (IHasErrorLevel::isError);
+    return getCount (IHasErrorLevel::isError);
   }
 
   /**

@@ -349,7 +349,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    *         same as {@link #size()}.
    */
   @Nonnegative
-  default int size (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default int getCount (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return size ();

@@ -65,7 +65,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    */
   @Override
   @Nonnegative
-  default int size (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default int getCount (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     return CollectionHelper.getCount (this, aFilter);
   }
