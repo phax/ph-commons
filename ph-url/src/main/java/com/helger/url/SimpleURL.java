@@ -145,6 +145,12 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return m_aData.params ();
   }
 
+  @Nullable
+  public String getFirstParamValue (@Nullable final String sParamName)
+  {
+    return m_aData.getFirstParamValue (sParamName);
+  }
+
   @Nonnull
   public SimpleURL setParams (@Nullable final ICommonsList <URLParameter> aParams)
   {

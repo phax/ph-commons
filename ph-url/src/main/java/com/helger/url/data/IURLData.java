@@ -18,7 +18,6 @@ package com.helger.url.data;
 
 import java.nio.charset.Charset;
 
-import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
@@ -43,13 +42,6 @@ public interface IURLData
   String getPath ();
 
   /**
-   * @return The read-only list of all query string parameters. May not be <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsImmutableObject
-  ICommonsList <URLParameter> params ();
-
-  /**
    * @return A copy of the list of all query string parameters. May not be <code>null</code>.
    */
   @Nonnull
@@ -64,10 +56,7 @@ public interface IURLData
    * @return <code>null</code> if no such parameter value exists
    */
   @Nullable
-  default String getFirstParamValue (@Nullable final String sParamName)
-  {
-    return params ().findFirstMapped (x -> x.hasName (sParamName), URLParameter::getValue);
-  }
+  String getFirstParamValue (@Nullable final String sParamName);
 
   /**
    * @return The name of the anchor (everything after the "#") or <code>null</code> if none is

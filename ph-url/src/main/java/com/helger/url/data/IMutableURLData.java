@@ -2,6 +2,7 @@ package com.helger.url.data;
 
 import java.nio.charset.Charset;
 
+import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.url.param.URLParameter;
@@ -21,6 +22,13 @@ public interface IMutableURLData <IMPLTYPE extends IMutableURLData <IMPLTYPE>> e
 {
   @Nonnull
   IMPLTYPE setPath (@Nonnull String sPath);
+
+  /**
+   * @return The mutable list of all query string parameters. May not be <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsImmutableObject
+  ICommonsList <URLParameter> params ();
 
   @Nonnull
   @ReturnsMutableObject

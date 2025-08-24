@@ -51,7 +51,7 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
   public static final URLData EMPTY_URL_DATA = new URLData ("", null, null, DEFAULT_CHARSET);
 
   private String m_sPath;
-  private ICommonsList <URLParameter> m_aParams;
+  private final ICommonsList <URLParameter> m_aParams;
   private String m_sAnchor;
   private Charset m_aCharset;
 
@@ -106,6 +106,12 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
   public ICommonsList <URLParameter> getAllParams ()
   {
     return m_aParams.getClone ();
+  }
+
+  @Nullable
+  public String getFirstParamValue (@Nullable final String sParamName)
+  {
+    return m_aParams.findFirstMapped (x -> x.hasName (sParamName), URLParameter::getValue);
   }
 
   @Nonnull

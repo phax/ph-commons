@@ -200,7 +200,7 @@ public final class SimpleURLHelper
   @Nonnull
   public static String getURLString (@Nonnull final IURLData aURL)
   {
-    return getURLString (aURL.getPath (), aURL.params (), aURL.getAnchor (), aURL.getCharset ());
+    return getURLString (aURL.getPath (), aURL.getAllParams (), aURL.getAnchor (), aURL.getCharset ());
   }
 
   /**

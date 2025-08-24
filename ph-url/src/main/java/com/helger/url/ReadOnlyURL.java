@@ -57,16 +57,15 @@ public class ReadOnlyURL implements ISimpleURL
 
   @Nonnull
   @ReturnsMutableCopy
-  public final ICommonsList <URLParameter> params ()
-  {
-    return m_aData.params ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
   public final ICommonsList <URLParameter> getAllParams ()
   {
     return m_aData.params ().getClone ();
+  }
+
+  @Nullable
+  public String getFirstParamValue (@Nullable final String sParamName)
+  {
+    return m_aData.getFirstParamValue (sParamName);
   }
 
   @Nullable
