@@ -1,7 +1,7 @@
 # ph-commons
 
-[![javadoc](https://javadoc.io/badge2/com.helger.commons/ph-commons/javadoc.svg)](https://javadoc.io/doc/com.helger.commons/ph-commons)
 [![Maven Central](https://img.shields.io/maven-central/v/com.helger.commons/ph-commons-parent-pom)](https://img.shields.io/maven-central/v/com.helger.commons/ph-commons-parent-pom)
+[![javadoc](https://javadoc.io/badge2/com.helger.commons/ph-commons/javadoc.svg)](https://javadoc.io/doc/com.helger.commons/ph-commons)
 
 
 This is a set of shared Java 17 libraries used in many other projects.
