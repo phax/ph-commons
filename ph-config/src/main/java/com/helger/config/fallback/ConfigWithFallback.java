@@ -115,8 +115,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
       for (final String sOld : aOldOnes)
       {
         ret = getAsString (sOld);
-        final String sStr = ret;
-        if (StringHelper.isNotEmpty (sStr))
+        if (StringHelper.isNotEmpty (ret))
         {
           // Notify on old name usage
           m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
