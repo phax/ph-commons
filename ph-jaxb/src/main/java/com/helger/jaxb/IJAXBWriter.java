@@ -41,18 +41,14 @@ import com.helger.base.io.stream.ByteBufferOutputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
 import com.helger.base.string.StringHelper;
-import com.helger.base.system.ENewLineMode;
 import com.helger.io.file.FileHelper;
 import com.helger.io.resource.IWritableResource;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroSAXHandler;
-import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
-import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.SafeXMLStreamWriter;
-import com.helger.xml.serialize.write.XMLWriterSettings;
 import com.helger.xml.transform.TransformResultFactory;
 
 import jakarta.annotation.Nonnull;
@@ -150,18 +146,7 @@ public interface IJAXBWriter <JAXBTYPE>
    *         <code>null</code>.
    */
   @Nonnull
-  default IXMLWriterSettings getXMLWriterSettings ()
-  {
-    final XMLWriterSettings ret = new XMLWriterSettings ().setNamespaceContext (getNamespaceContext ())
-                                                          .setIndent (isFormattedOutput () ? EXMLSerializeIndent.INDENT_AND_ALIGN
-                                                                                           : EXMLSerializeIndent.NONE);
-    if (hasIndentString ())
-      ret.setIndentationString (getIndentString ());
-    if (hasCharset ())
-      ret.setCharset (getCharset ());
-    return ret.setNewLineMode (ENewLineMode.DEFAULT)
-              .setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING);
-  }
+  IXMLWriterSettings getXMLWriterSettings ();
 
   /**
    * Write the passed object to a {@link File}.

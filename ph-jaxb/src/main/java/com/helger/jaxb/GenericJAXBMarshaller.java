@@ -33,6 +33,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.callback.CallbackList;
@@ -41,6 +42,7 @@ import com.helger.base.classloader.IHasClassLoader;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
 import com.helger.base.string.StringHex;
+import com.helger.base.system.ENewLineMode;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
@@ -49,6 +51,10 @@ import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
 import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.xml.schema.XMLSchemaCache;
+import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
+import com.helger.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.xml.serialize.write.IXMLWriterSettings;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -87,6 +93,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   private String m_sSchemaLocation = JAXBBuilderDefaultSettings.getDefaultSchemaLocation ();
   private String m_sNoNamespaceSchemaLocation = JAXBBuilderDefaultSettings.getDefaultNoNamespaceSchemaLocation ();
   private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
+  private final XMLWriterSettings m_aXWS = new XMLWriterSettings ().setNewLineMode (ENewLineMode.DEFAULT)
+                                                                   .setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING);
   private WeakReference <ClassLoader> m_aClassLoader;
   private final CallbackList <IExceptionCallback <JAXBException>> m_aReadExceptionCallbacks = new CallbackList <> ();
   private final CallbackList <IExceptionCallback <JAXBException>> m_aWriteExceptionCallbacks = new CallbackList <> ();
@@ -342,6 +350,35 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   public final String getNoNamespaceSchemaLocation ()
   {
     return m_sNoNamespaceSchemaLocation;
+  }
+
+  /**
+   * @return The mutable XML writer settings to modify settings that cannot be otherwise set via
+   *         properties. Never <code>null</code>.
+   * @since 12.0.1
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  public XMLWriterSettings xmlWriterSettings ()
+  {
+    final XMLWriterSettings ret = m_aXWS;
+
+    // Make sure that the default properties are always applied
+    ret.setNamespaceContext (getNamespaceContext ())
+       .setIndent (isFormattedOutput () ? EXMLSerializeIndent.INDENT_AND_ALIGN : EXMLSerializeIndent.NONE);
+    if (hasIndentString ())
+      ret.setIndentationString (getIndentString ());
+    if (hasCharset ())
+      ret.setCharset (getCharset ());
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsImmutableObject
+  public IXMLWriterSettings getXMLWriterSettings ()
+  {
+    // Just return the read-only interface only
+    return xmlWriterSettings ();
   }
 
   /**
