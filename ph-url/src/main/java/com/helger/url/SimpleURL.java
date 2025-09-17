@@ -181,6 +181,20 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
   }
 
   @Nonnull
+  public SimpleURL add (@Nonnull @Nonempty final String sParamName, final int nParamValue)
+  {
+    add (sParamName, Integer.toString (nParamValue));
+    return this;
+  }
+
+  @Nonnull
+  public SimpleURL add (@Nonnull @Nonempty final String sParamName, final long nParamValue)
+  {
+    add (sParamName, Long.toString (nParamValue));
+    return this;
+  }
+
+  @Nonnull
   public SimpleURL add (@Nonnull @Nonempty final String sParamName, @Nullable final String sParamValue)
   {
     m_aData.params ().add (new URLParameter (sParamName, StringHelper.getNotNull (sParamValue)));
