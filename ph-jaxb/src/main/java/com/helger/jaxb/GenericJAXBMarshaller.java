@@ -20,6 +20,7 @@ import java.lang.ref.WeakReference;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.xml.namespace.NamespaceContext;
@@ -371,6 +372,14 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     if (hasCharset ())
       ret.setCharset (getCharset ());
     return ret;
+  }
+
+  @Nonnull
+  public final GenericJAXBMarshaller <JAXBTYPE> withXMLWriterSettings (@Nonnull final Consumer <? super XMLWriterSettings> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    aConsumer.accept (m_aXWS);
+    return this;
   }
 
   @Nonnull
