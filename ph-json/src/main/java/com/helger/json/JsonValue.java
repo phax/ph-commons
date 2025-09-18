@@ -178,8 +178,9 @@ public class JsonValue implements IJsonValue
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final JsonValue rhs = (JsonValue) o;
-    final Object aObj1 = m_aValue;
-    return EqualsHelper.equals (aObj1, rhs.m_aValue);
+    if (m_aValue instanceof final BigDecimal b1 && rhs.m_aValue instanceof final BigDecimal b2)
+      return BigHelper.equalValues (b1, b2);
+    return EqualsHelper.equals (m_aValue, rhs.m_aValue);
   }
 
   @Override
