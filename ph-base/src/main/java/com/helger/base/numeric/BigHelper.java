@@ -26,6 +26,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -162,9 +163,9 @@ public final class BigHelper
    * <code>false</code> if they have a different scale so that "5.5" is not equal "5.50".
    *
    * @param aObj1
-   *        first value
+   *        first value. May not be <code>null</code>.
    * @param aObj2
-   *        second value
+   *        second value. May not be <code>null</code>.
    * @return <code>true</code> if they contain the same value
    */
   public static boolean equalValues (@Nonnull final BigDecimal aObj1, @Nonnull final BigDecimal aObj2)
@@ -176,6 +177,26 @@ public final class BigHelper
     final int nMaxScale = Math.max (aObj1.scale (), aObj2.scale ());
     // Use the same rounding mode for both
     return aObj1.setScale (nMaxScale, RoundingMode.HALF_UP).equals (aObj2.setScale (nMaxScale, RoundingMode.HALF_UP));
+  }
+
+  /**
+   * Special equals implementation for BigDecimal because <code>BigDecimal.equals</code> returns
+   * <code>false</code> if they have a different scale so that "5.5" is not equal "5.50".
+   *
+   * @param aObj1
+   *        first value. May be <code>null</code>.
+   * @param aObj2
+   *        second value. May be <code>null</code>.
+   * @return <code>true</code> if they contain the same value
+   * @since 12.0.2
+   */
+  public static boolean equalValuesNullSafe (@Nullable final BigDecimal aObj1, @Nullable final BigDecimal aObj2)
+  {
+    if (EqualsHelper.identityEqual (aObj1, aObj2))
+      return true;
+    if (aObj1 == null || aObj2 == null)
+      return false;
+    return equalValues (aObj1, aObj2);
   }
 
   /**
