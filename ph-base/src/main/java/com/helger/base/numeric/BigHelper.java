@@ -163,40 +163,22 @@ public final class BigHelper
    * <code>false</code> if they have a different scale so that "5.5" is not equal "5.50".
    *
    * @param aObj1
-   *        first value. May not be <code>null</code>.
-   * @param aObj2
-   *        second value. May not be <code>null</code>.
-   * @return <code>true</code> if they contain the same value
-   */
-  public static boolean equalValues (@Nonnull final BigDecimal aObj1, @Nonnull final BigDecimal aObj2)
-  {
-    // Compare is ~15% quicker than the setScale version
-    if (true)
-      return aObj1.compareTo (aObj2) == 0;
-
-    final int nMaxScale = Math.max (aObj1.scale (), aObj2.scale ());
-    // Use the same rounding mode for both
-    return aObj1.setScale (nMaxScale, RoundingMode.HALF_UP).equals (aObj2.setScale (nMaxScale, RoundingMode.HALF_UP));
-  }
-
-  /**
-   * Special equals implementation for BigDecimal because <code>BigDecimal.equals</code> returns
-   * <code>false</code> if they have a different scale so that "5.5" is not equal "5.50".
-   *
-   * @param aObj1
    *        first value. May be <code>null</code>.
    * @param aObj2
    *        second value. May be <code>null</code>.
    * @return <code>true</code> if they contain the same value
-   * @since 12.0.2
    */
-  public static boolean equalValuesNullSafe (@Nullable final BigDecimal aObj1, @Nullable final BigDecimal aObj2)
+  public static boolean equalValues (@Nullable final BigDecimal aObj1, @Nullable final BigDecimal aObj2)
   {
-    if (EqualsHelper.identityEqual (aObj1, aObj2))
-      return true;
-    if (aObj1 == null || aObj2 == null)
-      return false;
-    return equalValues (aObj1, aObj2);
+    return EqualsHelper.equalsCustom (aObj1, aObj2, (x, y) -> {
+      // Compare is ~15% quicker than the setScale version
+      if (true)
+        return x.compareTo (y) == 0;
+
+      final int nMaxScale = Math.max (x.scale (), y.scale ());
+      // Use the same rounding mode for both
+      return x.setScale (nMaxScale, RoundingMode.HALF_UP).equals (y.setScale (nMaxScale, RoundingMode.HALF_UP));
+    });
   }
 
   /**

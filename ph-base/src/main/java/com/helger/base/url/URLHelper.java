@@ -79,7 +79,7 @@ public final class URLHelper
    *        secondURL
    * @return <code>true</code> if they contain the same string
    */
-  public static boolean equalURLs (@Nonnull final URL aObj1, @Nonnull final URL aObj2)
+  public static boolean equalURLs (@Nullable final URL aObj1, @Nullable final URL aObj2)
   {
     return EqualsHelper.equalsCustom (aObj1, aObj2, (x, y) -> x.toExternalForm ().equals (y.toExternalForm ()));
   }
