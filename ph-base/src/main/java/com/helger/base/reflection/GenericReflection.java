@@ -19,6 +19,7 @@ package com.helger.base.reflection;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -310,6 +311,16 @@ public final class GenericReflection
   public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
                                                  @Nullable final Class <? extends DATATYPE> aDesiredType)
   {
+    return newInstance (sClassName,
+                        aDesiredType,
+                        ex -> LOGGER.error ("Failed to instantiate '" + sClassName + "'", ex));
+  }
+
+  @Nullable
+  public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
+                                                 @Nullable final Class <? extends DATATYPE> aDesiredType,
+                                                 @Nullable final Consumer <Exception> aExHdl)
+  {
     if (sClassName != null && aDesiredType != null)
       try
       {
@@ -321,7 +332,8 @@ public final class GenericReflection
          * Catch all exceptions because any exception thrown from the constructor (indirectly
          * invoked by newInstance) may also end up in this catch block
          */
-        LOGGER.error ("Failed to instantiate '" + sClassName + "'", ex);
+        if (aExHdl != null)
+          aExHdl.accept (ex);
       }
     return null;
   }
@@ -330,6 +342,19 @@ public final class GenericReflection
   public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
                                                  @Nullable final Class <? extends DATATYPE> aDesiredType,
                                                  @Nullable final ClassLoader aClassLoaderToUse)
+  {
+    return newInstance (sClassName,
+                        aDesiredType,
+                        aClassLoaderToUse,
+                        ex -> LOGGER.error ("Failed to instantiate '" + sClassName + "' with CL " + aClassLoaderToUse,
+                                            ex));
+  }
+
+  @Nullable
+  public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
+                                                 @Nullable final Class <? extends DATATYPE> aDesiredType,
+                                                 @Nullable final ClassLoader aClassLoaderToUse,
+                                                 @Nullable final Consumer <Exception> aExHdl)
   {
     if (sClassName != null && aDesiredType != null && aClassLoaderToUse != null)
       try
@@ -344,7 +369,8 @@ public final class GenericReflection
          * Catch all exceptions because any exception thrown from the constructor (indirectly
          * invoked by newInstance) may also end up in this catch block
          */
-        LOGGER.error ("Failed to instantiate '" + sClassName + "' with CL " + aClassLoaderToUse, ex);
+        if (aExHdl != null)
+          aExHdl.accept (ex);
       }
     return null;
   }
