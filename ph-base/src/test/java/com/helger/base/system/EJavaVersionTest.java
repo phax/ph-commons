@@ -72,10 +72,12 @@ public final class EJavaVersionTest
     assertEquals (EJavaVersion.JDK_22, EJavaVersion.getFromVersionNumber (66.0));
     assertEquals (EJavaVersion.JDK_23, EJavaVersion.getFromVersionNumber (67.0));
     assertEquals (EJavaVersion.JDK_24, EJavaVersion.getFromVersionNumber (68.0));
-    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (69.0));
+    assertEquals (EJavaVersion.JDK_25, EJavaVersion.getFromVersionNumber (69.0));
+    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (70.0));
 
+    // ph-commons requires Java 17, so all older versions must be supported
     for (final EJavaVersion e : EJavaVersion.values ())
-      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_11))
+      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_17))
         assertTrue (e.isSupportedVersion ());
 
     boolean bShouldBeSupported = true;
@@ -121,6 +123,7 @@ public final class EJavaVersionTest
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_22));
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_23));
     assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_24));
+    assertTrue (EJavaVersion.JDK_1_7.isOlderOrEqualsThan (EJavaVersion.JDK_25));
   }
 
   @Test
@@ -150,6 +153,7 @@ public final class EJavaVersionTest
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_22));
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_23));
     assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_24));
+    assertFalse (EJavaVersion.JDK_1_7.isNewerOrEqualsThan (EJavaVersion.JDK_25));
   }
 
   @Test
@@ -178,6 +182,7 @@ public final class EJavaVersionTest
     assertTrue (EJavaVersion.JDK_21.isLTS ());
     assertFalse (EJavaVersion.JDK_22.isLTS ());
     assertFalse (EJavaVersion.JDK_23.isLTS ());
-    assertTrue (EJavaVersion.JDK_24.isLTS ());
+    assertFalse (EJavaVersion.JDK_24.isLTS ());
+    assertTrue (EJavaVersion.JDK_25.isLTS ());
   }
 }
