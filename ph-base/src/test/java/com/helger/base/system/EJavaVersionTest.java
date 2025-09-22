@@ -39,7 +39,7 @@ public final class EJavaVersionTest
 
     boolean bAny = false;
     for (final EJavaVersion e : EJavaVersion.values ())
-      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_10))
+      if (e.isOlderOrEqualsThan (EJavaVersion.JDK_16))
         assertFalse (e.isCurrentVersion ());
       else
         bAny = bAny || e.isCurrentVersion ();
