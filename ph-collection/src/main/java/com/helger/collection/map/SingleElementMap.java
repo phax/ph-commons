@@ -32,7 +32,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-import com.helger.collection.commons.MapEntry;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -170,7 +169,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   {
     final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new CommonsHashSet <> (size ());
     if (m_bHasElement)
-      aSet.add (new MapEntry <> (m_aKey, m_aValue));
+      aSet.add (Map.entry (m_aKey, m_aValue));
     return aSet;
   }
 

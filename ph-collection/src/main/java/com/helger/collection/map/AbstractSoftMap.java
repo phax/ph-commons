@@ -36,10 +36,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Soft {@link Map} implementation based on
- * http://www.javaspecialists.eu/archive/Issue015.html<br>
- * The <code>entrySet</code> implementation is from
- * <code>org.hypergraphdb.util</code><br>
+ * Soft {@link Map} implementation based on http://www.javaspecialists.eu/archive/Issue015.html<br>
+ * The <code>entrySet</code> implementation is from <code>org.hypergraphdb.util</code><br>
  * Note: {@link AbstractSoftMap} is <b>NOT</b> serializable!
  *
  * @author Philip Helger
@@ -51,9 +49,8 @@ import jakarta.annotation.Nullable;
 public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implements ICommonsMap <K, V>
 {
   /**
-   * We define our own subclass of SoftReference which contains not only the
-   * value but also the key to make it easier to find the entry in the HashMap
-   * after it's been garbage collected.
+   * We define our own subclass of SoftReference which contains not only the value but also the key
+   * to make it easier to find the entry in the HashMap after it's been garbage collected.
    *
    * @param <K>
    *        Key type
@@ -118,10 +115,11 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
         return m_aSrcIter.hasNext ();
       }
 
+      @Nonnull
       public Map.Entry <K, V> next ()
       {
         final Map.Entry <K, SoftValue <K, V>> e = m_aSrcIter.next ();
-        return new MapEntry <> (e.getKey (), e.getValue ().get ());
+        return Map.entry (e.getKey (), e.getValue ().get ());
       }
 
       @Override
@@ -286,9 +284,8 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   }
 
   /**
-   * Here we go through the ReferenceQueue and remove garbage collected
-   * SoftValue objects from the HashMap by looking them up using the
-   * SoftValue.m_aKey data member.
+   * Here we go through the ReferenceQueue and remove garbage collected SoftValue objects from the
+   * HashMap by looking them up using the SoftValue.m_aKey data member.
    */
   private void _processQueue ()
   {

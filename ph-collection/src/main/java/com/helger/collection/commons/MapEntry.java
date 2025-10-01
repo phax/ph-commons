@@ -28,10 +28,9 @@ import jakarta.annotation.Nullable;
 
 /**
  * Simple implementation of Map.Entry.<br>
- * Important: The equals and hashCode implementation of this class is different
- * from the Map.Entry default implementation class! The default Map.Entry claims
- * to be equal with instances of this class, but this class is not equal to the
- * Map.Entry implementation!
+ * Important: The equals and hashCode implementation of this class is different from the Map.Entry
+ * default implementation class! The default Map.Entry claims to be equal with instances of this
+ * class, but this class is not equal to the Map.Entry implementation!
  *
  * @author Philip Helger
  * @param <KEYTYPE>

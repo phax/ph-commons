@@ -25,15 +25,13 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
-import com.helger.collection.commons.MapEntry;
 
 import jakarta.annotation.Nonnull;
 
 /**
  * Soft {@link HashMap} implementation based on
  * http://www.javaspecialists.eu/archive/Issue015.html<br>
- * The <code>entrySet</code> implementation is from
- * <code>org.hypergraphdb.util</code><br>
+ * The <code>entrySet</code> implementation is from <code>org.hypergraphdb.util</code><br>
  * Note: {@link SoftLinkedHashMap} is <b>NOT</b> serializable!
  *
  * @author Philip Helger
@@ -61,7 +59,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     @Override
     protected final boolean removeEldestEntry (@Nonnull final Map.Entry <K, SoftValue <K, V>> aEldest)
     {
-      final MapEntry <K, V> aEntry = new MapEntry <> (aEldest.getKey (), aEldest.getValue ().get ());
+      final Map.Entry <K, V> aEntry = Map.entry (aEldest.getKey (), aEldest.getValue ().get ());
       return m_aFilter.test (aEntry);
     }
 
@@ -102,8 +100,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   }
 
   /**
-   * @return The maximum number of elements that can reside inside this object.
-   *         Never &lt; 0.
+   * @return The maximum number of elements that can reside inside this object. Never &lt; 0.
    */
   @Nonnegative
   public final int getMaxSize ()
