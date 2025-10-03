@@ -223,22 +223,25 @@ public final class PDTDisplayHelper
                                       @Nonnull final LocalDateTime aNotAfter,
                                       @Nonnull final IPeriodTextProvider aTextProvider)
   {
-    final Period aPeriod = Period.between (aNowLDT.toLocalDate (), aNotAfter.toLocalDate ());
+    final Period aPeriod;
     final Duration aDuration = Duration.between (aNowLDT.toLocalTime (), aNotAfter.toLocalTime ());
-
-    final int nYears = aPeriod.getYears ();
-    final int nMonth = aPeriod.getMonths ();
-    int nDays = aPeriod.getDays ();
 
     long nTotalSecs = aDuration.getSeconds ();
     if (nTotalSecs < 0)
     {
-      if (nDays > 0 || nMonth > 0 || nYears > 0)
-      {
-        nTotalSecs += CGlobal.SECONDS_PER_DAY;
-        nDays--;
-      }
+      // Use the previous day
+      aPeriod = Period.between (aNowLDT.toLocalDate (), aNotAfter.toLocalDate ().minusDays (1));
+      nTotalSecs += CGlobal.SECONDS_PER_DAY;
     }
+    else
+    {
+      // Use the provided day
+      aPeriod = Period.between (aNowLDT.toLocalDate (), aNotAfter.toLocalDate ());
+    }
+
+    final int nYears = aPeriod.getYears ();
+    final int nMonth = aPeriod.getMonths ();
+    final int nDays = aPeriod.getDays ();
 
     final long nHours = nTotalSecs / CGlobal.SECONDS_PER_HOUR;
     nTotalSecs -= nHours * CGlobal.SECONDS_PER_HOUR;
