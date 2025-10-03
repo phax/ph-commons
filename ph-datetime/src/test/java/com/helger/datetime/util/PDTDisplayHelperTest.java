@@ -126,5 +126,8 @@ public final class PDTDisplayHelperTest
     final LocalDateTime aTo = PDTFactory.createLocalDateTime (2028, Month.JANUARY, 3, 12, 59, 59);
     assertEquals ("2 years, 2 months, 30 days, 20 hours, 13 minutes and 4 seconds",
                   PDTDisplayHelper.getPeriodTextEN (aFrom, aTo));
+
+    final LocalDateTime aTo2 = PDTFactory.createLocalDateTime (2025, Month.OCTOBER, 3, 12, 59, 59);
+    assertEquals ("-3 hours, -46 minutes and -56 seconds", PDTDisplayHelper.getPeriodTextEN (aFrom, aTo2));
   }
 }

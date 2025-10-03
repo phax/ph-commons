@@ -17,6 +17,7 @@
 package com.helger.datetime.util;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 
@@ -219,25 +220,26 @@ public final class PDTDisplayHelper
 
   @Nonnull
   @Nonempty
-  public static String getPeriodText (@Nonnull final LocalDateTime aNowLDT,
-                                      @Nonnull final LocalDateTime aNotAfter,
+  public static String getPeriodText (@Nonnull final LocalDateTime aStartLDT,
+                                      @Nonnull final LocalDateTime aEndLDT,
                                       @Nonnull final IPeriodTextProvider aTextProvider)
   {
-    final Period aPeriod;
-    final Duration aDuration = Duration.between (aNowLDT.toLocalTime (), aNotAfter.toLocalTime ());
+    final LocalDate aStartDate = aStartLDT.toLocalDate ();
+    LocalDate aEndDate = aEndLDT.toLocalDate ();
+
+    final Duration aDuration = Duration.between (aStartLDT.toLocalTime (), aEndLDT.toLocalTime ());
 
     long nTotalSecs = aDuration.getSeconds ();
-    if (nTotalSecs < 0)
+    if (nTotalSecs < 0 && aEndDate.isAfter (aStartDate))
     {
-      // Use the previous day
-      aPeriod = Period.between (aNowLDT.toLocalDate (), aNotAfter.toLocalDate ().minusDays (1));
+      // To time is before from time and end date is after start date
+      // => Use the previous day
+
+      aEndDate = aEndDate.minusDays (1);
       nTotalSecs += CGlobal.SECONDS_PER_DAY;
     }
-    else
-    {
-      // Use the provided day
-      aPeriod = Period.between (aNowLDT.toLocalDate (), aNotAfter.toLocalDate ());
-    }
+
+    final Period aPeriod = Period.between (aStartDate, aEndDate);
 
     final int nYears = aPeriod.getYears ();
     final int nMonth = aPeriod.getMonths ();
