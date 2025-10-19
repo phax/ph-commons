@@ -25,6 +25,7 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.MapEntry;
 
 import jakarta.annotation.Nonnull;
 
@@ -59,7 +60,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     @Override
     protected final boolean removeEldestEntry (@Nonnull final Map.Entry <K, SoftValue <K, V>> aEldest)
     {
-      final Map.Entry <K, V> aEntry = Map.entry (aEldest.getKey (), aEldest.getValue ().get ());
+      final Map.Entry <K, V> aEntry = new MapEntry <> (aEldest.getKey (), aEldest.getValue ().get ());
       return m_aFilter.test (aEntry);
     }
 

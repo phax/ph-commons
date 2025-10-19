@@ -119,7 +119,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
       public Map.Entry <K, V> next ()
       {
         final Map.Entry <K, SoftValue <K, V>> e = m_aSrcIter.next ();
-        return Map.entry (e.getKey (), e.getValue ().get ());
+        return new MapEntry <> (e.getKey (), e.getValue ().get ());
       }
 
       @Override
