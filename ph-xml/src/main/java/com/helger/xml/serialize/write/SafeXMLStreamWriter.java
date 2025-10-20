@@ -197,7 +197,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     ValueEnforcer.notNull (aEmitter, "Emitter");
     m_aEmitter = aEmitter;
     m_bIndent = aEmitter.getXMLWriterSettings ().getIndent ().isIndent ();
-    m_sIndent = m_aEmitter.getXMLWriterSettings ().getIndentationString ();
+    m_sIndent = aEmitter.getXMLWriterSettings ().getIndentationString ();
   }
 
   /**
@@ -329,7 +329,11 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   public void writeStartDocument (@Nonnull final Charset aEncoding, @Nonnull final EXMLVersion eVersion)
   {
     debug ( () -> "writeStartDocument (" + aEncoding + ", " + eVersion + ")");
-    m_aEmitter.onXMLDeclaration (eVersion, aEncoding.name (), ETriState.UNDEFINED, true);
+
+    if (m_aEmitter.getXMLWriterSettings ().getSerializeXMLDeclaration ().isEmit ())
+    {
+      m_aEmitter.onXMLDeclaration (eVersion, aEncoding.name (), ETriState.UNDEFINED, true);
+    }
   }
 
   public void writeDTD (@Nonnull final String sDTD) throws XMLStreamException

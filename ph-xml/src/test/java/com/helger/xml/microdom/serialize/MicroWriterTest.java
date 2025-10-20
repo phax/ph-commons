@@ -50,6 +50,7 @@ import com.helger.xml.serialize.write.EXMLSerializeComments;
 import com.helger.xml.serialize.write.EXMLSerializeDocType;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.EXMLSerializeVersion;
+import com.helger.xml.serialize.write.EXMLSerializeXMLDeclaration;
 import com.helger.xml.serialize.write.XMLCharHelper;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
@@ -203,8 +204,7 @@ public final class MicroWriterTest
                                      0xd842,
                                      0xdfb7,
                                      '商',
-                                     '事' },
-                       SURROGATE_PAIR_TEST_STRING.toCharArray ());
+                                     '事' }, SURROGATE_PAIR_TEST_STRING.toCharArray ());
     final XMLWriterSettings aSettings = new XMLWriterSettings ();
     aSettings.setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.THROW_EXCEPTION);
     aSettings.setCharset (StandardCharsets.UTF_16);
@@ -453,6 +453,16 @@ public final class MicroWriterTest
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
                   "<root>" +
+                  "<child1 />" +
+                  "<child2 attr1=\"a\" />" +
+                  "<child3 attr1=\"a\" />" +
+                  "<child4 attr1=\"a\" />" +
+                  "</root>",
+                  s);
+
+    aSettings.setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
+    s = MicroWriter.getNodeAsString (aDoc, aSettings);
+    assertEquals ("<root>" +
                   "<child1 />" +
                   "<child2 attr1=\"a\" />" +
                   "<child3 attr1=\"a\" />" +
