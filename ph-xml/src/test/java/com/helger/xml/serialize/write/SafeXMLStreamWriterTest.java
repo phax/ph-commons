@@ -36,7 +36,8 @@ public final class SafeXMLStreamWriterTest
   public void testBasic1 () throws XMLStreamException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
     {
       aXSW.writeStartDocument ();
       aXSW.writeStartElement ("Root");
@@ -59,7 +60,8 @@ public final class SafeXMLStreamWriterTest
   public void testBasic1a () throws XMLStreamException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
     {
       aXSW.writeStartDocument ();
       aXSW.writeStartElement ("Root");
@@ -86,7 +88,8 @@ public final class SafeXMLStreamWriterTest
   public void testBasic2 () throws XMLStreamException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
     {
       aXSW.writeStartDocument ();
       aXSW.writeStartElement ("Root");
@@ -113,7 +116,8 @@ public final class SafeXMLStreamWriterTest
   public void testBasic3 () throws XMLStreamException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
     {
       aXSW.writeStartDocument ();
       aXSW.writeStartElement ("Root");
@@ -136,11 +140,37 @@ public final class SafeXMLStreamWriterTest
   }
 
   @Test
+  public void testBasic3NoXmlDecl () throws XMLStreamException
+  {
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)
+                                                                                              .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)))
+    {
+      aXSW.writeStartDocument ();
+      aXSW.writeStartElement ("Root");
+      aXSW.writeAttribute ("Version", "2.0");
+      aXSW.writeStartElement ("Child");
+      aXSW.writeCharacters ("Hello World");
+      aXSW.writeStartElement ("Child2");
+      aXSW.writeCharacters ("xyz");
+      aXSW.writeEndElement ();
+      aXSW.writeEndElement ();
+      aXSW.writeEndElement ();
+      aXSW.writeEndDocument ();
+      aXSW.flush ();
+    }
+    assertEquals ("<Root Version=\"2.0\">\n" + "  <Child>Hello World<Child2>xyz</Child2></Child>\n" + "</Root>",
+                  aSW.getAsString ());
+  }
+
+  @Test
   public void testWithNS () throws XMLStreamException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final String sNSURI = "urn:example.org/test";
-    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
     {
       aXSW.writeStartDocument ();
       aXSW.writeStartElement (sNSURI, "Root");
@@ -164,7 +194,8 @@ public final class SafeXMLStreamWriterTest
   public void testInvalidChars () throws XMLStreamException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
     {
       aXSW.writeStartDocument ();
       aXSW.writeStartElement ("Root");
@@ -177,7 +208,10 @@ public final class SafeXMLStreamWriterTest
       aXSW.writeEndDocument ();
       aXSW.flush ();
     }
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<Root Version=\"2.0\">\n" + "  <Child>Hello __</Child>\n" + "</Root>",
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                  "<Root Version=\"2.0\">\n" +
+                  "  <Child>Hello __</Child>\n" +
+                  "</Root>",
                   aSW.getAsString ());
   }
 }
