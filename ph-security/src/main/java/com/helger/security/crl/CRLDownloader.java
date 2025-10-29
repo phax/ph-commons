@@ -89,7 +89,10 @@ public class CRLDownloader
           if (LOGGER.isDebugEnabled ())
             LOGGER.debug ("Finished downloading CRL and received " + nByteCount + " bytes");
 
-          return CRLHelper.convertToCRL (aCRLBytes);
+          final CRL ret = CRLHelper.convertToCRL (aCRLBytes);
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("Downloaded CRL is of type '" + ret.getType () + "'");
+          return ret;
         }
 
         LOGGER.error ("Failed to download CRL from URL '" + sCRLURL + "' - null array returned");
